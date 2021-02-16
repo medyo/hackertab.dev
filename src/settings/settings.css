@@ -1,0 +1,125 @@
+/**
+Modal
+**/
+
+.Modal {
+  position: absolute;
+  width: 650px;
+  background-color: var(--card-background-color);
+  padding:24px;
+  border-radius: 10px;
+  left: 50%;
+  top: 50%; 
+  margin-left: -325px;
+  margin-top: -325px;
+  box-shadow:0 0 20px #00000052;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--overlay-background-color);
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+}
+.settingTitle {
+  width: 300px;
+  margin:0;
+  margin-right: 8px;
+  align-self: flex-start;
+  color: var(--primary-text-color)
+}
+.settingRow {
+  padding: 10px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.settingRow:not(:last-child) {
+  border-bottom: 1px solid var(--card-content-divider);
+}
+.settingContent {
+  flex: 1
+}
+.settingHint {
+  font-size: 12px;
+  margin-top: 12px;
+}
+.settingHint a {
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--primary-text-color)
+}
+.modalHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.modalTitle {
+  margin:0;
+  padding:0;
+  color: var(--primary-text-color)
+}
+.modalCloseBtn {
+  cursor: pointer;
+  text-align: center;
+  align-content: center;
+  background: none;
+  border: none;
+  width: 24px;
+  height:24px;
+  padding:0;
+  margin:0;
+  border-radius: 24px;
+  color: var(--primary-text-color)
+}
+.modalCloseBtn:hover {
+  opacity: 0.7;
+}
+
+/**
+Select styles
+**/
+.hackertab__control {
+  background-color: var(--card-background-color) !important;
+  border-color: var(--tag-border-color) !important;
+}
+.hackertab__indicator-separator {
+  background-color: var(--tag-secondary-color) !important;
+}
+.hackertab__indicator {
+  color: var(--tag-secondary-color) !important;
+}
+.hackertab__multi-value {
+  background-color: var(--tag-background-color) !important;
+  border-color: var(--tag-background-color) !important;
+  border-radius: 20px !important;
+}
+.hackertab__multi-value__label {
+  color: var(--tag-text-color) !important;
+}
+.hackertab__menu {
+  background-color: var(--card-background-color) !important;
+}
+.hackertab__option {
+  color: var(--tag-input-background) !important;
+}
+.hackertab__option--is-focused {
+  background: var(--tag-background-color) !important;
+  color: var(--tag-text-color) !important;
+}
+.hackertab__multi-value__remove {
+  
+  border-radius: 20px !important;
+  color: var(--tag-secondary-color) !important
+}

@@ -1,0 +1,486 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:regular,600');
+
+body.dark {
+  --app-name-text-color: #FFF;
+  --background-color: #0D1116;
+  --primary-text-color: #FFF;
+  --primary-hover-text-color: #b1b1b1;
+  --secondary-text-color: #a2a7ad;
+  --overlay-background-color: #7985958a;
+  --language-dot-background-color: #424d5a;
+
+  --dark-mode-background-color: #1c2026;
+  --dark-mode-text-color: #F0C73D;
+
+  --scrollbar-background-color: #1d2126;
+  --scrollbar-accent-color: #6c6e71;
+
+  /** Buttons **/
+  --button-background-color: #1C2026 ;
+  --button-text-color: #FFF ;
+
+  /**Card **/
+  --card-background-color: #0D1116;
+  --card-header-text-color: #798595;
+  --card-header-background-color: #1C2026;
+  --card-border-color: #1F2429;
+  --card-content-divider:#1F2429;
+  --card-background-focus-color: #181c21;
+
+  /*Tag*/
+  --tag-background-color: #1C2026;
+  --tag-border-color: #1F2429;
+  --tag-text-color: #FFFFFF;
+  --tag-secondary-color: #4d535a;
+  --tag-input-background: #FFF;
+}
+
+body.light {
+  --app-name-text-color: #253B53;
+  --background-color: #EFF6FE;
+  --primary-text-color: #2d3b4a;
+  --secondary-text-color: #656D76;
+  --overlay-background-color: #0000005c;
+  --primary-hover-text-color: #495a6b;
+  --language-dot-background-color: #cfddec;
+
+  --scrollbar-background-color: #eff6ff;
+  --scrollbar-accent-color: #b9cadc;
+
+  --dark-mode-background-color: #243b53;
+  --dark-mode-text-color: #F0C73D;
+
+  --button-background-color: #d2deeb ;
+  --button-text-color: #3C5065;
+
+  /**Card **/
+  --card-background-color: #FFFFFF;
+  --card-header-text-color: #3C5065;
+  --card-header-background-color: #F9FAFE;
+  --card-border-color: #007eff1f;
+  --card-content-divider:#e9ebec;
+  --card-background-focus-color: #f5f8fb;
+
+  /*Tag*/
+  --tag-background-color: #243B53;
+  --tag-border-color: #e9ebec;
+  --tag-text-color: #FFFFFF;
+  --tag-secondary-color: #e9ebec;
+  --tag-input-background: #243B53;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track-piece  {
+  background-color: var(--scrollbar-background-color);
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  border-radius: 6px;
+  background-color: var(--scrollbar-accent-color);
+}
+  
+html, body {
+  background: var(--background-color); 
+  color: var(--primary-text-color);
+  transition: background-color 0.3s ease-in-out;   
+  font-family: "nunito";
+
+}
+
+a {
+
+  color: var(--primary-text-color);
+}
+.App {
+  flex-direction: row;
+  color: var(--primary-text-color);
+  padding: 1%;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s ease-in-out;
+}
+.errorMsg {
+  text-align: center;
+  margin: auto;
+  font-size: 16px;
+  padding: 16px;
+}
+
+.ghostCard{
+  opacity: 0.3;
+}
+.cardLoading{
+  display: flex;
+  justify-content: center;
+  min-height: 240px;
+  align-items: center;
+}
+.loadingIcon {
+  color: var(--app-name-text-color)
+}
+.AppHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+  height:86px;
+  margin-bottom: 12px;
+}
+
+.AppFooter {
+  flex: 0 0 auto;
+  flex-direction: row;
+  text-align: right;
+  margin-top: 12px;
+}
+.AppFooter .linkItem {
+  font-size: 12px;
+  color: var(--primary-text-color);
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-right: 12px;
+  cursor: pointer;
+}
+.linkItem :hover {
+  color: var(--primary-hover-text-color);
+}
+
+.AppContent {
+  flex: 1 1 auto;
+}
+.extras {
+
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: 16px;
+  align-content: center;
+}
+.darkModeBtn {
+  background-color: var(--dark-mode-background-color) !important;
+  color: var(--dark-mode-text-color) !important;
+}
+.extraBtn {
+  background-color: var(--button-background-color);
+  color: var(--button-text-color);
+  margin-left: 8px;
+  height:40px;
+  width: 40px;
+  line-height: 44px;
+  font-size: 18px;
+  text-align: center;
+  border: 0;
+  border-radius: 20px;
+  outline: none;
+  cursor: pointer;
+}
+.AppName{
+  color: var(--app-name-text-color);
+  text-align: left;
+}
+
+.logo {
+  position: relative;
+  top: 4px;
+  margin-right: 4px;
+  font-size: 24px;
+}
+.logoText {
+  height: 16px;
+  width: auto;
+  fill: var(--app-name-text-color)
+}
+.cards {
+  display:flex;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+
+.block {
+  background-color: var(--card-background-color);
+  border-radius: 10px;
+  overflow: hidden;
+  flex-direction: column;
+  height: 80vh;
+}
+.blockContent {
+  flex-grow: 1;
+  overflow-y: auto;
+  height: calc(80vh - 1% - 16px - 30px);
+  display: flex;
+  flex-direction: column;
+}
+
+.dark .block{
+  border: 1px solid var(--card-border-color);
+}
+.light .block {
+  box-shadow: 0 0 20px var(--card-border-color);
+}
+
+.blockHeader {
+  text-align: center;
+  vertical-align: baseline;
+  background: var(--card-header-background-color);
+  color: var(--card-header-text-color);
+  font-weight: 400;
+  height: 30px;
+  font-size: 18px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  cursor: pointer;
+}
+
+.blockHeaderIcon {
+  position: relative;
+  top: 4px;
+  margin-right: 6px;;
+}
+
+.blockRow {
+  padding: 8px 16px;
+}
+
+.blockRow:hover {
+  background-color: var(--card-background-focus-color);
+}
+
+.blockRow:not(:last-child) {
+  border-bottom: 1px solid var(--card-content-divider);
+}
+
+.rowTitle {
+  color: var(--primary-text-color);
+  margin:0;
+  padding:0;
+  font-size: 16px;
+  text-decoration: none;
+}
+.rowTitle:hover {
+  color: var(--primary-hover-text-color);
+}
+
+.dark .blockHeaderWhite {
+  color: white
+}
+.light .blockHeaderWhite {
+  color: black
+}
+.githubTitle {
+  color: #0366d6;
+}
+
+.rowDescription {
+  padding:0;
+  margin:0;
+  color: var(--secondary-text-color);
+  margin-top: 8px;
+  display: block;
+  font-size: 14px;
+}
+.rowDetails {
+  display: block;
+  margin:0;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.rowItem {
+  color: #616970;
+  margin-right: 16px;
+  margin-bottom: 4px;
+}
+.rowDetails .rowItem {
+  white-space: nowrap;
+  font-size: 12px;
+}
+.rowDescription .rowItem {
+  font-size: 12px;
+}
+.rowDetails  .hnRowItem {
+  color: #F6682F
+}
+
+.rowItemIcon {
+  position: relative;
+  top: 1px;
+}
+.rowTitleIcon {
+  position: relative;
+  top: 3px;
+  margin-right: 6px;
+  color: #99A2AC
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
+.tags {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: row;
+  margin-top: 6px;
+}
+
+.tag {
+  color:var(--tag-text-color);
+  font-weight: 500;
+  background-color: var(--tag-background-color);
+  border-radius: 20px;
+  padding: 2px 8px;
+  margin-right: 8px;
+}
+.tagHoverable:hover {
+  cursor: pointer;
+  background-color: var(--primary-hover-text-color);
+}
+.tagIcon {
+  position: relative;
+  top: 2px;
+}
+.dark .tag {
+  border: 1px solid var(--tag-border-color);
+}
+
+.slogan {
+  font-size: 16px;
+  font-weight: normal;
+  margin-left: 16px;
+  color: #788494;
+  margin-top: 8px;
+}
+
+@media (max-width: 800px) {
+  .AppHeader{
+    padding: 20px 0;
+  }
+  .slogan  {
+    display: none;
+  }
+  .tags {
+    display: none;
+  }
+}
+
+@media(min-width: 1800px) {
+  .App {
+    width: 1800px;
+    margin: 0 auto;
+    padding: 0;
+  }
+}
+
+.rowLanguage {
+  font-size: 12px;
+  color: #616970;
+  text-transform: capitalize;
+}
+.rowLanguage::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;margin-right: 4px;
+  background-color: var(--language-dot-background-color);
+  display: relative;
+}
+
+/**
+Github languages colors
+**/
+.gh-language-python::before {
+  background-color: #3572A5;
+}
+
+.gh-language-javascript::before {
+  background-color: #f1e05a;
+}
+.gh-language-cplusplus::before {
+  background-color: #f34b7d;
+}
+.gh-language-java::before {
+  background-color: #b07219;
+}
+.gh-language-swift::before {
+  background-color: #ffac45;
+}
+.gh-language-go::before {
+  background-color: #00ADD8;
+}
+.gh-language-kotlin::before {
+  background-color: #F18E33;
+}
+.gh-language-ruby::before {
+  background-color: #701516;
+}
+.gh-language-php::before {
+  background-color: #4F5E95;
+}
+.gh-language-typescript::before {
+  background-color: #2B7489;
+}
+.gh-language-objective-c::before {
+  background-color: #438EFF;
+}
+.gh-language-django::before {
+  background-color: #0C4B33;
+}
+*[class*="gh-language-node"]::before {
+  background-color: #5B9853;
+}
+*[class*="gh-language-angular"]::before {
+  background-color: #DE0032;
+}
+*[class*="gh-language-react"]::before {
+  background-color: #61DBFB;
+}
+*[class*="gh-language-postgres"]::before {
+  background-color: #346792;
+}
+*[class*="gh-language-mongodb"]::before {
+  background-color: #14AA52;
+}
+*[class*="gh-language-vue"]::before {
+  background-color: #41B884;
+}
+.gh-language-ruby-on-rails::before {
+  background-color: #CC0000;
+}
+.gh-language-android::before {
+  background-color: #30D880;
+}
+
+.headerSelect {
+  align-self: center;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 2px solid var(--app-name-text-color);
+  text-transform: capitalize;
+  cursor: pointer;
+}
+.headerSelectIcon {
+  position: relative;
+  top: 2px;
+}
+
+/**
+Contextify
+**/
+.react-contexify {
+  background-color: var(--card-background-color) !important;
+}
+.react-contexify__item__content {
+  color: var(--primary-text-color) !important;
+}
+.react-contexify__item__content:hover, .react-contexify__item__content:active {
+  background-color: var(--app-name-text-color) !important;
+  color: var(--background-color) !important
+}

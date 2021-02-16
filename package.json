@@ -1,0 +1,59 @@
+{
+  "name": "hackertab.dev",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@panelbear/panelbear-js": "^1.2.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.21.1",
+    "country-emoji": "^1.5.4",
+    "normalize.css": "^8.0.1",
+    "prop-types": "^15.0.0-0",
+    "react": "^17.0.1",
+    "react-contexify": "^5.0.0",
+    "react-dom": "^17.0.1",
+    "react-icons": "^4.1.0",
+    "react-modal": "^3.12.1",
+    "react-scripts": "4.0.1",
+    "react-select": "^4.0.2",
+    "react-sortablejs": "^6.0.0",
+    "react-spinners": "^0.10.4",
+    "react-styled-flexboxgrid": "^3.2.1",
+    "react-toastify": "^7.0.3",
+    "react-toggle": "^4.1.1",
+    "sortablejs": "^1.13.0",
+    "styled-components": "2",
+    "timeago.js": "^4.0.2",
+    "web-vitals": "^0.2.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "web-build": "CI= react-scripts build",
+    "build": "./script/build.sh",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/sortablejs": "^1.10.6"
+  }
+}
