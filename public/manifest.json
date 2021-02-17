@@ -12,8 +12,5 @@
     "48": "/logos/logo48.png",
     "128": "/logos/logo128.png"
   },
-  "permissions": [
-    "tabs"
-  ],
   "content_security_policy": "script-src 'self' https://cdn.panelbear.com/ 'sha256-1ZuoyGD9G/dV5dQ+NFG4jok3Ka9UApuwTTfDF81fzZA='; object-src 'self'"
 }
