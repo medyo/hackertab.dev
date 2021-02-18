@@ -5,15 +5,15 @@
 
 # Hackertab.dev — The Frontpage of Developers
 
-Hackertab is the only home page you need to stay updated as a developer.
+Hackertab turns your New Tab page into a geeky one that keeps you as a developer updated with the latest tech news, libs, jobs and events.
 
 <img src="/demo/demo_hackertab.dev.jpeg" width="100%" alt="Hackertab.dev"/>
 
 **Whether you are a back-end, front-end coder or a data scientist 👨‍💻, there’s something new on the bend every day.
-Hackertab saves you time and present to you the freshest information needed to stay updated as a developer.**
+Hackertab saves you time and gives you a daily dose of tech news you need to know to stay updated!**
 
 #### How?
-Hackertab crawls latest news, libraries, tech events, jobs... related to your profile (back-end, mobile, full stack, data scientist...)
+Hackertab brings the latest news, libraries, tech events, jobs... related to your profile (back-end, mobile, full stack, data scientist...)
 and visualize them in a proper way so you don't have to waste time jumping between different data sources.
 
 
