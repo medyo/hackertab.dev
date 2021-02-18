@@ -3,8 +3,7 @@
 [![Mozilla Add-on](https://img.shields.io/amo/v/hackertab-dev?style=plastic)](https://bit.ly/hackertab-ff)
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/ocoipcahhaedjhnpoanfflhbdcpmalmp?style=plastic)](https://bit.ly/hackertab-ch)
 
-# Hackertab.dev — The Frontpage of Developers
-
+# Hackertab.dev — The Developer’s Homepage
 Hackertab turns your New Tab page into a geeky one that keeps you as a developer updated with the latest tech news, libs, jobs and events.
 
 <img src="/demo/demo_hackertab.dev.jpeg" width="100%" alt="Hackertab.dev"/>
