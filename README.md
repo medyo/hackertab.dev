@@ -1,9 +1,7 @@
 [![Website hackertab.dev](https://img.shields.io/website-up-down-green-red/http/hackertab.dev.svg)](https://hackertab.dev/)
 [![Apache 2 license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://github.com/medyo/hackertab.dev/blob/master/LICENSE)
-![GitHub manifest version](https://img.shields.io/github/manifest-json/v/medyo/hackertab.dev)
-![Mozilla Add-on](https://img.shields.io/amo/v/hackertab-dev?style=plastic)
-![Chrome Web Store](https://img.shields.io/chrome-web-store/v/ocoipcahhaedjhnpoanfflhbdcpmalmp?style=plastic)
-
+[![Mozilla Add-on](https://img.shields.io/amo/v/hackertab-dev?style=plastic)](https://bit.ly/hackertab-ff)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/ocoipcahhaedjhnpoanfflhbdcpmalmp?style=plastic)](https://bit.ly/hackertab-ch)
 
 # Hackertab.dev — The Frontpage of Developers
 
