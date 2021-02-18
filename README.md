@@ -17,7 +17,7 @@ and visualize them in a proper way so you don't have to waste time jumping betwe
 
 
 ## 👩‍💻 How to use it
-- Install the extension from the [Chrome store](http://google.com)
+- Install the extension from the [Chrome store](https://bit.ly/hackertab-ch), or [Mozilla add-ons](https://bit.ly/hackertab-ff)
 - Open a new tab
 - You should see Hackertab running
 - Choose your favorite languages, technologies and data sources.
