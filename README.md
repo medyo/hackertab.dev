@@ -11,6 +11,9 @@ Hackertab turns your New Tab page into a geeky one that keeps you as a developer
 **Whether you are a back-end, front-end coder or a data scientist 👨‍💻, there’s something new on the bend every day.
 Hackertab saves you time and gives you a daily dose of tech news you need to know to stay updated!**
 
+#### Demo
+👉 [now.hackertab.dev](https://now.hackertab.dev)
+
 #### How?
 Hackertab brings the latest news, libraries, tech events, jobs... related to your profile (back-end, mobile, full stack, data scientist...)
 and visualize them in a proper way so you don't have to waste time jumping between different data sources.
