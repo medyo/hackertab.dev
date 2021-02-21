@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:regular,600');
-:root{
-  scrollbar-face-color: rgb(255,0,255);
-  scrollbar-track-color: rgb(220,0,220);
-  scrollbar-width: auto;
-}
+
 body.dark {
   --app-name-text-color: #FFF;
   --background-color: #0D1116;
