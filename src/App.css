@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:regular,600');
-
+:root{
+  scrollbar-face-color: rgb(255,0,255);
+  scrollbar-track-color: rgb(220,0,220);
+  scrollbar-width: auto;
+}
 body.dark {
   --app-name-text-color: #FFF;
   --background-color: #0D1116;
@@ -69,19 +73,6 @@ body.light {
   --tag-input-background: #243B53;
 }
 
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track-piece  {
-  background-color: var(--scrollbar-background-color);
-}
-
-::-webkit-scrollbar-thumb:vertical {
-  border-radius: 6px;
-  background-color: var(--scrollbar-accent-color);
-}
-  
 html, body {
   background: var(--background-color); 
   color: var(--primary-text-color);
@@ -211,9 +202,25 @@ a {
 .blockContent {
   flex-grow: 1;
   overflow-y: auto;
+  scrollbar-color: var(--scrollbar-accent-color) var(--scrollbar-background-color);
+  scrollbar-width: thin;
   height: calc(80vh - 1% - 16px - 30px);
   display: flex;
   flex-direction: column;
+}
+
+
+.blockContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+.blockContent::-webkit-scrollbar-track-piece  {
+  background-color: var(--scrollbar-background-color);
+}
+
+.blockContent::-webkit-scrollbar-thumb:vertical {
+  border-radius: 6px;
+  background-color: var(--scrollbar-accent-color);
 }
 
 .dark .block{
