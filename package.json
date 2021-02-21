@@ -16,6 +16,7 @@
     "react-dom": "^17.0.1",
     "react-icons": "^4.1.0",
     "react-modal": "^3.12.1",
+    "react-pro-sidebar": "^0.6.0",
     "react-scripts": "4.0.1",
     "react-select": "^4.0.2",
     "react-sortablejs": "^6.0.0",

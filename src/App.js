@@ -7,6 +7,7 @@ import { BsFillGearFill } from "react-icons/bs"
 import SettingsModal from "./settings/SettingsModal";
 import { PreferencesProvider } from './contexts/PreferencesContext'
 import { RiCodeSSlashFill } from "react-icons/ri"
+import { BsFillBookmarksFill } from "react-icons/bs"
 import { APP, LS_PREFERENCES_KEY, SUPPORTED_CARDS, SUPPORTED_TAGS } from './Constants';
 import AppStorage from './services/localStorage';
 import TermsPage from './pages/TermsPage';
@@ -19,15 +20,18 @@ import { ThemeProvider } from 'styled-components'
 import AppReducer from "./reducers/AppReducer";
 import { ReactComponent as HackertabLogo } from './logo.svg';
 import { trackPageView, trackThemeChange } from "./utils/Analytics"
+import BookmarksSidebar from './cards/BookmarksSidebar'
 
 function App() {
 
 
   const [themeIcon, setThemeIcon] = useState(<BsMoon />)
   const [showSettings, setShowSettings] = useState(false)
+  const [showSideBar, setShowSideBar] = useState(false)
   const [currentPage, setCurrentPage] = useState('home')
   const [state, dispatcher] = useReducer(AppReducer, {
     userSelectedTags: SUPPORTED_TAGS.filter((t) => t.value === "javascript"),
+    userBookmarks: [],
     theme: "dark",
     openLinksNewTab: true,
     cards: [
@@ -87,7 +91,7 @@ function App() {
     flexboxgrid: {
       gridSize: APP.maxCardsPerRow, // columns
       gutterWidth: 1, // rem
-      outerMargin: 0, 
+      outerMargin: 0,
     }
   }
 
@@ -105,32 +109,34 @@ function App() {
             <div className="slogan">
               {APP.slogan}
             </div>
-            <div className="extras">
-            <button className="extraBtn" onClick={onSourceCodeClick}><RiCodeSSlashFill /></button>
-            <button className="extraBtn" onClick={onSettingsClick}><BsFillGearFill /></button>
-            <button className="extraBtn darkModeBtn" onClick={onThemeChange}>{themeIcon}</button>
-          </div>
-          <div className="break"></div>
+            <div className="extras" style={showSideBar ? {marginRight: "33%"} : {}}>
+              <button className="extraBtn" onClick={onSourceCodeClick}><RiCodeSSlashFill /></button>
+              <button className="extraBtn" onClick={onSettingsClick}><BsFillGearFill /></button>
+              <button className="extraBtn darkModeBtn" onClick={onThemeChange}>{themeIcon}</button>
+              <button className="extraBtn" onClick={() => setShowSideBar(!showSideBar)}><BsFillBookmarksFill /></button>
+            </div>
+            <div className="break"></div>
             <UserTags userSelectedTags={state.userSelectedTags} onAddClicked={onSettingsClick} />
-        </header>
-        <main className="AppContent">
+          </header>
+          <main className="AppContent">
             <ThemeProvider theme={gridTheme}>
-            <Grid fluid={true}>
+              <Grid fluid={true}>
                 <Row>
                   {state.cards.map((card, index) => (
                     <Col key={index} lg={state.cards.length / APP.maxCardsPerRow} sm={state.cards.length / 2} xs={state.cards.length}>
-                    {React.createElement(SUPPORTED_CARDS.find((c) => c.value === card.name).component, { key: card.name })}
-                  </Col>
-                ))}
-              </Row>
-            </Grid>
-          </ThemeProvider>
+                      {React.createElement(SUPPORTED_CARDS.find((c) => c.value === card.name).component, { key: card.name })}
+                    </Col>
+                  ))}
+                </Row>
+              </Grid>
+            </ThemeProvider>
           </main>
-        
-          <Footer setCurrentPage={setCurrentPage} />              
-      </div>
+          <BookmarksSidebar showSidebar={showSideBar} onClose={() => setShowSideBar(false)} />
 
-    </PreferencesProvider>
+          <Footer setCurrentPage={setCurrentPage} />
+        </div>
+
+      </PreferencesProvider>
     )
   }
 

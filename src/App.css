@@ -158,6 +158,8 @@ a {
   margin-left: auto;
   margin-right: 16px;
   align-content: center;
+
+  transition: width, left, right, 0.3s;
 }
 .darkModeBtn {
   background-color: var(--dark-mode-background-color) !important;
@@ -246,8 +248,39 @@ a {
   padding: 8px 16px;
 }
 
+.blockRowWithBookmark {
+  padding: 8px 4px 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.blockRowWithBookmark:hover {
+  background-color: var(--card-background-focus-color);
+}
+
 .blockRow:hover {
   background-color: var(--card-background-focus-color);
+}
+
+.bookmarkBtnWrapper {
+  display: flex;
+  align-items: center;
+  padding-left: 4;
+  padding-right: 4;
+}
+
+.bookmarkBtn {
+  /* visibility: hidden; */
+  cursor: pointer;
+}
+
+.bookmarkBtn.active {
+  color: #3572a5
+}
+
+
+.blockRow:hover .bookmarkBtn {
+  visibility: visible;
 }
 
 .blockRow:not(:last-child) {
@@ -483,4 +516,40 @@ Contextify
 .react-contexify__item__content:hover, .react-contexify__item__content:active {
   background-color: var(--app-name-text-color) !important;
   color: var(--background-color) !important
+}
+
+
+.sidebar {
+  top: 0;
+  right: 0;
+  position: absolute!important;
+  color: var(--primary-text-color)!important;
+  
+  -webkit-backface-visibility: hidden;
+  -webkit-transform:translate3d(0,0,0);
+}
+
+.pro-sidebar-inner {
+  background: var(--card-background-color)!important;
+}
+
+.pro-sidebar .pro-menu > ul > .pro-sub-menu > .pro-inner-list-item {
+  background: var(--card-background-color)!important;
+  
+}
+
+.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item:hover {
+  color: var(--primary-text-color)!important;
+}
+
+.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item:focus {
+  color: var(--primary-text-color)!important;
+}
+
+.pro-sidebar .pro-menu a {
+  color: var(--primary-text-color)!important;
+}
+
+.pro-sidebar .pro-menu.shaped .pro-menu-item > .pro-inner-item > .pro-icon-wrapper {
+  background: var(--button-background-color)!important;
 }
