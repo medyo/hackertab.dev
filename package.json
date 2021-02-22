@@ -1,6 +1,6 @@
 {
   "name": "hackertab.dev",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@panelbear/panelbear-js": "^1.2.0",
@@ -30,7 +30,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "web-build": "CI= react-scripts build",
+    "web-build": "REACT_APP_WEB_BUILD=1 CI= react-scripts build",
     "build": "./script/build.sh",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
