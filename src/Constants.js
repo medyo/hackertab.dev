@@ -99,6 +99,16 @@ export const SUPPORTED_TAGS = [
     githubValues: ['r'], stackoverflowValues: ['r'],
     devtoValues: ['r']
   },
+  {
+    value: 'rust', label: 'Rust',
+    githubValues: ['rust'], stackoverflowValues: ['rust'],
+    devtoValues: ['rust']
+  },
+  {
+    value: 'c', label: 'C',
+    githubValues: ['C'], stackoverflowValues: ['C'],
+    devtoValues: ['C']
+  },
 ]
 
 
