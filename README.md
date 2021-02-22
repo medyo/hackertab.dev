@@ -29,7 +29,7 @@ and visualize them in a proper way so you don't have to waste time jumping betwe
 
 ## 🔥 Features
 - [x] Support of the main programming languages & technologies: **Python, Javascript, Ruby, Java, Kotlin, data science...**
-- [x] Updated content every day at 12AM GMT
+- [x] Updated content every 4 hours
 - [x] Full dark mode support
 - [x] Keep or hide the wanted cards
 - [ ] Add your favorite newsletters
