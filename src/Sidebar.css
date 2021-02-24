@@ -1,0 +1,54 @@
+.sidebar {
+  top: 0;
+  right: 0;
+  position: absolute!important;
+  color: var(--primary-text-color)!important;
+  
+  -webkit-backface-visibility: hidden;
+  -webkit-transform:translate3d(0,0,0);
+}
+
+.sidebarHeader {
+  padding: '24px';
+  display: "flex";
+  justify-content: "space-between"
+}
+
+.sidebarHeader .title {
+  text-transform: 'uppercase';
+  font-weight: 'bold';
+  font-size: 14;
+  letter-spacing: '1px';
+  overflow: 'hidden';
+  text-overflow: 'ellipsis'; 
+  white-space: 'nowrap';
+}
+.sidebarHeader .closeBtn {
+  cursor: 'pointer';
+  display: "flex"
+}
+
+.pro-sidebar-inner {
+  background: var(--card-background-color)!important;
+}
+
+.pro-sidebar .pro-menu > ul > .pro-sub-menu > .pro-inner-list-item {
+  background: var(--card-background-color)!important;
+  
+}
+
+.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item:hover {
+  color: var(--primary-text-color)!important;
+}
+
+.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item:focus {
+  color: var(--primary-text-color)!important;
+}
+
+.pro-sidebar .pro-menu a {
+  color: var(--primary-text-color)!important;
+}
+
+.pro-sidebar .pro-menu.shaped .pro-menu-item > .pro-inner-item > .pro-icon-wrapper {
+  background: var(--button-background-color)!important;
+}

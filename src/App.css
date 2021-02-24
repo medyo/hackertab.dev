@@ -517,39 +517,3 @@ Contextify
   background-color: var(--app-name-text-color) !important;
   color: var(--background-color) !important
 }
-
-
-.sidebar {
-  top: 0;
-  right: 0;
-  position: absolute!important;
-  color: var(--primary-text-color)!important;
-  
-  -webkit-backface-visibility: hidden;
-  -webkit-transform:translate3d(0,0,0);
-}
-
-.pro-sidebar-inner {
-  background: var(--card-background-color)!important;
-}
-
-.pro-sidebar .pro-menu > ul > .pro-sub-menu > .pro-inner-list-item {
-  background: var(--card-background-color)!important;
-  
-}
-
-.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item:hover {
-  color: var(--primary-text-color)!important;
-}
-
-.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item:focus {
-  color: var(--primary-text-color)!important;
-}
-
-.pro-sidebar .pro-menu a {
-  color: var(--primary-text-color)!important;
-}
-
-.pro-sidebar .pro-menu.shaped .pro-menu-item > .pro-inner-item > .pro-icon-wrapper {
-  background: var(--button-background-color)!important;
-}
