@@ -109,7 +109,7 @@ function App() {
             <div className="slogan">
               {APP.slogan}
             </div>
-            <div className="extras" style={showSideBar ? {marginRight: "33%"} : {}}>
+            <div className="extras">
               <button className="extraBtn" onClick={onSourceCodeClick}><RiCodeSSlashFill /></button>
               <button className="extraBtn" onClick={onSettingsClick}><BsFillGearFill /></button>
               <button className="extraBtn darkModeBtn" onClick={onThemeChange}>{themeIcon}</button>
