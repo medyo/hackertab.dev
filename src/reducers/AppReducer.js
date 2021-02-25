@@ -4,7 +4,7 @@ import AppStorage from '../services/localStorage';
 
 
 const AppReducer = (state, action) => {
-  let newState = state
+  let newState = { ...state }
   const { value } = action
 
 
