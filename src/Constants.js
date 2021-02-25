@@ -37,7 +37,7 @@ export const SUPPORTED_TAGS = [
   },
   {
     value: 'go', label: 'Go',
-    githubValues: ['golang'], confsValues: ['go'],
+    githubValues: ['go'], confsValues: ['go'],
     stackoverflowValues: ['go'], devtoValues: ['go']
   },
   {
