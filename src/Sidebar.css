@@ -52,3 +52,11 @@
 .pro-sidebar .pro-menu.shaped .pro-menu-item > .pro-inner-item > .pro-icon-wrapper {
   background: var(--button-background-color)!important;
 }
+
+.pro-sidebar .pro-menu a:before {
+  position: static!important;
+}
+
+.unbookmarkBtn {
+  font-size: 20px;
+}

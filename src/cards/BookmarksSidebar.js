@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import '../Sidebar.css';
 import { VscChromeClose } from 'react-icons/vsc';
 import { SiYcombinator } from 'react-icons/si';
+import { TiDelete } from 'react-icons/ti';
 import { HiTicket } from 'react-icons/hi';
 import { SiStackoverflow } from 'react-icons/si';
 import { SiGithub } from 'react-icons/si';
@@ -11,11 +12,19 @@ import PreferencesContext from '../contexts/PreferencesContext';
 import CardLink from "./CardLink";
 
 
-const BookmarkItem = ({ item }) => (
-    <MenuItem>
-        <CardLink link={item.url} >{`${item.title}`}</CardLink>
-    </MenuItem>
-)
+const BookmarkItem = ({ item }) => {
+    const { dispatcher } = useContext(PreferencesContext)
+    const unBookmark = () => {
+        dispatcher({type: 'unBookmarkItem', value: item})
+    }
+    return (
+        <MenuItem 
+            suffix={<span className="unbookmarkBtn" onClick={unBookmark}><TiDelete /></span>}
+        >
+            <CardLink link={item.url} >{`${item.title}`}</CardLink> 
+        </MenuItem>
+    )
+}
 
 function BookmarksSidebar({ showSidebar, onClose }) {
 
