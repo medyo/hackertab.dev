@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import PreferencesContext from './contexts/PreferencesContext'
 import { BsFillBookmarksFill } from "react-icons/bs";
 
@@ -17,6 +17,11 @@ export default function CardItemWithBookmark ({ cardItem, item, index, source })
     })
     setIsBookmarked(!isBookmarked)
   }
+  useEffect(() => {
+    setIsBookmarked(
+      userBookmarks.some(bm => bm.source == source && bm.url == item.url)
+    )
+  } ,[userBookmarks])
   return (
     <div key={`${source}-${index}`} className="blockRowWithBookmark" d={index}>
       <div>
