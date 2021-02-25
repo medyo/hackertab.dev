@@ -109,6 +109,11 @@ export const SUPPORTED_TAGS = [
     githubValues: ['C'], stackoverflowValues: ['C'],
     devtoValues: ['C']
   },
+  {
+    value: 'csharp', label: 'C#',
+    githubValues: ['csharp'], stackoverflowValues: ['csharp'],
+    devtoValues: ['csharp']
+  },
 ]
 
 
