@@ -6,6 +6,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as Panelbear from "@panelbear/panelbear-js";
 
+import ConfigurationWrapper from './ConfigurationWrapper'
+
 window.$analyticsEnabled = false
 
 if (process.env.REACT_APP_PANELBEAR_SITEID) {
@@ -17,7 +19,9 @@ if (process.env.REACT_APP_PANELBEAR_SITEID) {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ConfigurationWrapper>
+      <App />
+    </ConfigurationWrapper>
   </React.StrictMode>,
   document.getElementById('root')
 );
