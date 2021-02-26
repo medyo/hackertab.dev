@@ -35,7 +35,10 @@ function BookmarksSidebar({ showSidebar, onClose }) {
     const conferencesBookmarks = userBookmarks.filter(bm => bm.source == "conferences")
 
     return (
-        <ProSidebar className="sidebar block" collapsed={!showSidebar} collapsedWidth={"5px"} width={"33%"}>
+        <ProSidebar className="sidebar"
+            collapsed={!showSidebar}
+            collapsedWidth={"0px"}
+            width={"14%"}>
             <SidebarHeader>
                 <div className="sidebarHeader">
                     <span className="title">Bookmarks</span>
@@ -43,7 +46,7 @@ function BookmarksSidebar({ showSidebar, onClose }) {
                 </div>
             </SidebarHeader>
             <SidebarContent>
-                <Menu iconShape="square">
+                <Menu iconShape="circle">
 
                     <SubMenu
                         title="Github Repos" icon={<SiGithub />}

@@ -3,9 +3,20 @@
   right: 0;
   position: absolute!important;
   color: var(--primary-text-color)!important;
-  
+  background-color: var(--card-background-color);
+  overflow: hidden;
+  flex-direction: column;
+
+  /* Fix flickering issue on Chrome (Mac)*/
   -webkit-backface-visibility: hidden;
   -webkit-transform:translate3d(0,0,0);
+}
+
+.dark .sidebar{
+  border-left: 1px solid var(--card-border-color);
+}
+.light .sidebar {
+  box-shadow: -4px 0 20px var(--card-border-color);
 }
 
 .sidebarHeader {
@@ -60,3 +71,36 @@
 .unbookmarkBtn {
   font-size: 20px;
 }
+@media (max-width: 20000px) { 
+  .sidebar:not(.collapsed) {
+    width: 16% !important;
+  }
+}
+@media (max-width: 1800px) { 
+  .sidebar:not(.collapsed) {
+    width: 22% !important;
+  }
+}
+
+@media (max-width: 1200px) { 
+  .sidebar:not(.collapsed) {
+    width: 30% !important;
+  }
+}
+@media (max-width: 991.98px) { 
+  .sidebar:not(.collapsed) {
+    width: 40% !important;
+  }
+}
+@media (max-width: 768px) {
+  .sidebar:not(.collapsed) {
+    width: 50% !important;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .sidebar:not(.collapsed){
+    width: 100% !important;
+  }
+}
+
