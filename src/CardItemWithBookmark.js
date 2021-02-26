@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import PreferencesContext from './contexts/PreferencesContext'
-import { BsFillBookmarksFill } from "react-icons/bs";
+import { BiBookmarkPlus } from "react-icons/bi";
+import { BiBookmarkMinus } from "react-icons/bi";
 
 
 export default function CardItemWithBookmark ({ cardItem, item, index, source }) {
@@ -22,15 +23,15 @@ export default function CardItemWithBookmark ({ cardItem, item, index, source })
       userBookmarks.some(bm => bm.source == source && bm.url == item.url)
     )
   } ,[userBookmarks])
+
+
   return (
-    <div key={`${source}-${index}`} className="blockRowWithBookmark" d={index}>
-      <div>
-        {cardItem}
-      </div>
-      <div className="bookmarkBtnWrapper">
-        <span className={`bookmarkBtn ${isBookmarked ? "active" : ''}`} onClick={onBookmarkClick}>
-          <BsFillBookmarksFill />
-        </span>
+    <div key={`${source}-${index}`} className="blockRow">
+      {cardItem}
+      <div className={`blockActions ${isBookmarked ? "active" : ''} `}>
+        <button className={`blockActionButton ${isBookmarked ? "active" : ''}`} onClick={onBookmarkClick}>
+          {!isBookmarked ? <BiBookmarkPlus /> : <BiBookmarkMinus />}
+        </button>
       </div>
     </div>
   )
