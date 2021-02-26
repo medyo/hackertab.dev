@@ -29,6 +29,7 @@ function App() {
   const [showSettings, setShowSettings] = useState(false)
   const [showSideBar, setShowSideBar] = useState(false)
   const [currentPage, setCurrentPage] = useState('home')
+
   const [state, dispatcher] = useReducer(AppReducer, {
     userSelectedTags: SUPPORTED_TAGS.filter((t) => t.value === "javascript"),
     userBookmarks: [],
@@ -95,6 +96,16 @@ function App() {
     }
   }
 
+  const BookmarksBadgeCount = () => {
+    return (
+      state.userBookmarks.length > 0 ?
+        state.userBookmarks.length < 10 ?
+          <span className="badgeCount">{state.userBookmarks.length}</span> :
+          <span className="badgeCount">+9</span> :
+        null
+    )
+  }
+
   const renderHomePage = () => {
     return (
       <PreferencesProvider value={{ ...state, dispatcher: dispatcher }}>
@@ -113,7 +124,10 @@ function App() {
               <button className="extraBtn" onClick={onSourceCodeClick}><RiCodeSSlashFill /></button>
               <button className="extraBtn" onClick={onSettingsClick}><BsFillGearFill /></button>
               <button className="extraBtn darkModeBtn" onClick={onThemeChange}>{themeIcon}</button>
-              <button className="extraBtn" onClick={() => setShowSideBar(!showSideBar)}><BsFillBookmarksFill /></button>
+              <button className="extraBtn" onClick={() => setShowSideBar(!showSideBar)}>
+                <BsFillBookmarksFill />
+                <BookmarksBadgeCount />
+              </button>
             </div>
             <div className="break"></div>
             <UserTags userSelectedTags={state.userSelectedTags} onAddClicked={onSettingsClick} />
