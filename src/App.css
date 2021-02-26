@@ -33,6 +33,13 @@ body.dark {
   --tag-text-color: #FFFFFF;
   --tag-secondary-color: #4d535a;
   --tag-input-background: #FFF;
+
+  /*Card Action button*/
+  --card-actions-background-shadow: #1C2026;
+  --card-action-button-background: #798595;
+  --card-action-button-color: #FFF;
+  --card-active-action-button-background: #FFF;
+  --card-active-action-button-color: #798595;
 }
 
 body.light {
@@ -60,6 +67,13 @@ body.light {
   --card-border-color: #007eff1f;
   --card-content-divider:#e9ebec;
   --card-background-focus-color: #f5f8fb;
+
+  /*Card Action button*/
+  --card-actions-background-shadow: #edf5ff;
+  --card-action-button-background: #d2deeb;
+  --card-action-button-color: #3C5065;
+  --card-active-action-button-background: #253B53;
+  --card-active-action-button-color: #FFF;
 
   /*Tag*/
   --tag-background-color: #243B53;
@@ -145,6 +159,8 @@ a {
   margin-left: auto;
   margin-right: 16px;
   align-content: center;
+
+  transition: width, left, right, 0.3s;
 }
 .darkModeBtn {
   background-color: var(--dark-mode-background-color) !important;
@@ -163,7 +179,23 @@ a {
   border-radius: 20px;
   outline: none;
   cursor: pointer;
+  position: relative;
 }
+.badgeCount {
+  width: 20px;
+  height: 20px;
+  background: #ef0808;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  display: block;
+  line-height: 20px;
+  color: white;
+  position: absolute;
+  right: -4px;
+  bottom: -6px;
+}
+
 .AppName{
   color: var(--app-name-text-color);
   text-align: left;
@@ -247,10 +279,71 @@ a {
 
 .blockRow {
   padding: 8px 16px;
+  position: relative;
 }
+
+/* Actions */
+.blockActions {
+  position: absolute;
+  transition: right .2s ease;
+  top:0;
+  right :-100%;
+  background: linear-gradient(to right, transparent, var(--card-actions-background-shadow));
+  height: 100%;
+  width: 36%;
+  justify-content: flex-end;
+  align-items: flex-end;
+  display: flex;
+}
+.blockActions.active {
+  right:0;
+}
+
+.blockRow:hover .blockActions {
+  right:0;
+}
+.blockActionButton.active {
+  background-color: var(--card-active-action-button-background);
+  color: var(--card-active-action-button-color);
+}
+.blockActionButton {
+  margin: 16px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 40px;
+  display: block;
+  text-align: center;
+  background-color: var(--card-action-button-background);
+  color: var(--card-action-button-color);
+  line-height: 12px;
+  cursor: pointer;
+}
+
 
 .blockRow:hover {
   background-color: var(--card-background-focus-color);
+}
+
+.bookmarkBtnWrapper {
+  display: flex;
+  align-items: center;
+  padding-left: 4;
+  padding-right: 4;
+}
+
+.bookmarkBtn {
+  /* visibility: hidden; */
+  cursor: pointer;
+}
+
+.bookmarkBtn.active {
+  color: #3572a5
+}
+
+
+.blockRow:hover .bookmarkBtn {
+  visibility: visible;
 }
 
 .blockRow:not(:last-child) {

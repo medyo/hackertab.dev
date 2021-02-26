@@ -9,6 +9,7 @@ import { PreferencesProvider } from './contexts/PreferencesContext';
 import ConfigurationContext from './contexts/ConfigurationContext';
 import { RiCodeSSlashFill } from "react-icons/ri"
 import { APP, LS_PREFERENCES_KEY, SUPPORTED_CARDS } from './Constants';
+import { BsFillBookmarksFill } from "react-icons/bs"
 import AppStorage from './services/localStorage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
@@ -20,6 +21,7 @@ import { ThemeProvider } from 'styled-components'
 import AppReducer from "./reducers/AppReducer";
 import { ReactComponent as HackertabLogo } from './logo.svg';
 import { trackPageView, trackThemeChange } from "./utils/Analytics"
+import BookmarksSidebar from './cards/BookmarksSidebar'
 
 function App() {
 
@@ -28,9 +30,12 @@ function App() {
 
   const [themeIcon, setThemeIcon] = useState(<BsMoon />)
   const [showSettings, setShowSettings] = useState(false)
+  const [showSideBar, setShowSideBar] = useState(false)
   const [currentPage, setCurrentPage] = useState('home')
+
   const [state, dispatcher] = useReducer(AppReducer, {
     userSelectedTags: supportedTags.filter((t) => t.value === "javascript"),
+    userBookmarks: [],
     theme: "dark",
     openLinksNewTab: true,
     cards: [
@@ -90,8 +95,18 @@ function App() {
     flexboxgrid: {
       gridSize: APP.maxCardsPerRow, // columns
       gutterWidth: 1, // rem
-      outerMargin: 0, 
+      outerMargin: 0,
     }
+  }
+
+  const BookmarksBadgeCount = () => {
+    return (
+      state.userBookmarks.length > 0 ?
+        state.userBookmarks.length < 10 ?
+          <span className="badgeCount">{state.userBookmarks.length}</span> :
+          <span className="badgeCount">+9</span> :
+        null
+    )
   }
 
   const renderHomePage = () => {
@@ -109,31 +124,36 @@ function App() {
               {APP.slogan}
             </div>
             <div className="extras">
-            <button className="extraBtn" onClick={onSourceCodeClick}><RiCodeSSlashFill /></button>
-            <button className="extraBtn" onClick={onSettingsClick}><BsFillGearFill /></button>
-            <button className="extraBtn darkModeBtn" onClick={onThemeChange}>{themeIcon}</button>
-          </div>
-          <div className="break"></div>
+              <button className="extraBtn" onClick={onSourceCodeClick}><RiCodeSSlashFill /></button>
+              <button className="extraBtn" onClick={onSettingsClick}><BsFillGearFill /></button>
+              <button className="extraBtn darkModeBtn" onClick={onThemeChange}>{themeIcon}</button>
+              <button className="extraBtn" onClick={() => setShowSideBar(!showSideBar)}>
+                <BsFillBookmarksFill />
+                <BookmarksBadgeCount />
+              </button>
+            </div>
+            <div className="break"></div>
             <UserTags userSelectedTags={state.userSelectedTags} onAddClicked={onSettingsClick} />
-        </header>
-        <main className="AppContent">
+          </header>
+          <main className="AppContent">
             <ThemeProvider theme={gridTheme}>
-            <Grid fluid={true}>
+              <Grid fluid={true}>
                 <Row>
                   {state.cards.map((card, index) => (
                     <Col key={index} lg={state.cards.length / APP.maxCardsPerRow} sm={state.cards.length / 2} xs={state.cards.length}>
-                    {React.createElement(SUPPORTED_CARDS.find((c) => c.value === card.name).component, { key: card.name })}
-                  </Col>
-                ))}
-              </Row>
-            </Grid>
-          </ThemeProvider>
+                      {React.createElement(SUPPORTED_CARDS.find((c) => c.value === card.name).component, { key: card.name })}
+                    </Col>
+                  ))}
+                </Row>
+              </Grid>
+            </ThemeProvider>
           </main>
-        
-          <Footer setCurrentPage={setCurrentPage} />              
-      </div>
+          <BookmarksSidebar showSidebar={showSideBar} onClose={() => setShowSideBar(false)} />
 
-    </PreferencesProvider>
+          <Footer setCurrentPage={setCurrentPage} />
+        </div>
+
+      </PreferencesProvider>
     )
   }
 
