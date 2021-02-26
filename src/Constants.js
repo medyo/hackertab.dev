@@ -13,8 +13,7 @@ const APP = {
   maxCardsPerRow: 4
 }
 
-
-export const SUPPORTED_TAGS = [
+const SUPPORTED_TAGS = [
   {
     value: 'javascript', label: 'Javascript',
     githubValues: ['javascript'], confsValues: ['javascript'],
@@ -115,6 +114,10 @@ export const SUPPORTED_TAGS = [
     devtoValues: ['csharp']
   },
 ]
+
+export const LOCAL_CONFIGURATION = {
+  supportedTags: SUPPORTED_TAGS
+}
 
 
 export const SUPPORTED_CARDS = [

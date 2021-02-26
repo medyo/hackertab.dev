@@ -7,13 +7,15 @@ import Toggle from 'react-toggle'
 import '../App.css';
 import './settings.css';
 import PreferencesContext from '../contexts/PreferencesContext';
-import { SUPPORTED_TAGS, SUPPORTED_CARDS, APP } from '../Constants'
+import ConfigurationContext from '../contexts/ConfigurationContext';
+import { SUPPORTED_CARDS, APP } from '../Constants'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { trackAddLanguage, trackRemoveLanguage, trackAddCard, trackRemoveCard, trackOpenLinksNewTab } from "../utils/Analytics"
 
 function SettingsModal({ showSettings, setShowSettings }) {
 
+  const { supportedTags } = useContext(ConfigurationContext)
   const preferences = useContext(PreferencesContext)
   const { dispatcher, cards, userSelectedTags, openLinksNewTab } = preferences
   const [selectedCards, setSelectedCards] = useState(cards)
@@ -92,7 +94,7 @@ function SettingsModal({ showSettings, setShowSettings }) {
         <div className="settingRow">
           <p className="settingTitle">Programming languages you're interested in</p>
           <div className="settingContent">
-            <Select options={SUPPORTED_TAGS}
+            <Select options={supportedTags}
               defaultValue={userSelectedTags}
               isMulti={true}
               isClearable={false}

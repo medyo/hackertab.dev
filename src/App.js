@@ -1,13 +1,14 @@
-import React, { useState, useReducer, useLayoutEffect, useEffect } from "react";
+import React, { useState, useReducer, useLayoutEffect, useEffect, useContext } from "react";
 import './App.css';
 import { CgTab } from 'react-icons/cg';
 import { BsMoon } from "react-icons/bs"
 import { IoMdSunny } from "react-icons/io"
 import { BsFillGearFill } from "react-icons/bs"
 import SettingsModal from "./settings/SettingsModal";
-import { PreferencesProvider } from './contexts/PreferencesContext'
+import { PreferencesProvider } from './contexts/PreferencesContext';
+import ConfigurationContext from './contexts/ConfigurationContext';
 import { RiCodeSSlashFill } from "react-icons/ri"
-import { APP, LS_PREFERENCES_KEY, SUPPORTED_CARDS, SUPPORTED_TAGS } from './Constants';
+import { APP, LS_PREFERENCES_KEY, SUPPORTED_CARDS } from './Constants';
 import AppStorage from './services/localStorage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
@@ -22,12 +23,14 @@ import { trackPageView, trackThemeChange } from "./utils/Analytics"
 
 function App() {
 
+  const { supportedTags } = useContext(ConfigurationContext)
+
 
   const [themeIcon, setThemeIcon] = useState(<BsMoon />)
   const [showSettings, setShowSettings] = useState(false)
   const [currentPage, setCurrentPage] = useState('home')
   const [state, dispatcher] = useReducer(AppReducer, {
-    userSelectedTags: SUPPORTED_TAGS.filter((t) => t.value === "javascript"),
+    userSelectedTags: supportedTags.filter((t) => t.value === "javascript"),
     theme: "dark",
     openLinksNewTab: true,
     cards: [
