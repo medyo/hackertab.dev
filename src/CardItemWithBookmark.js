@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import PreferencesContext from './contexts/PreferencesContext'
 import { BiBookmarkPlus } from "react-icons/bi";
 import { BiBookmarkMinus } from "react-icons/bi";
-
+import { trackBookmarkFrom, trackUnbookmarkFrom } from "./utils/Analytics"
 
 export default function CardItemWithBookmark ({ cardItem, item, index, source }) {
   const { dispatcher, userBookmarks } = useContext(PreferencesContext)
@@ -17,6 +17,13 @@ export default function CardItemWithBookmark ({ cardItem, item, index, source })
       }
     })
     setIsBookmarked(!isBookmarked)
+
+    if (isBookmarked) {
+      trackUnbookmarkFrom(source)
+    } else {
+      trackBookmarkFrom(source)
+    }
+
   }
   useEffect(() => {
     setIsBookmarked(

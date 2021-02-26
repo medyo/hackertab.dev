@@ -17,6 +17,7 @@ const trackAddLanguage = (language) => {
   trackEvent("AddLanguage", language)
 }
 
+
 const trackRemoveLanguage = (card) => {
   trackEvent("RemoveLanguage", card)
 }
@@ -36,6 +37,14 @@ const trackOpenLinksNewTab = (enabled) => {
     trackEvent("DisableOpenLinksNewTab")
   }
 
+}
+
+const trackBookmarkFrom = (dataSource) => {
+  trackEvent("BookmarkFrom", dataSource)
+}
+
+const trackUnbookmarkFrom = (dataSource) => {
+  trackEvent("UnbookmarkFrom", dataSource)
 }
 
 const trackEvent = (eventName, eventValue) => {
@@ -66,5 +75,7 @@ export {
   trackRemoveLanguage,
   trackAddCard,
   trackRemoveCard,
-  trackOpenLinksNewTab
+  trackOpenLinksNewTab,
+  trackBookmarkFrom,
+  trackUnbookmarkFrom
 }

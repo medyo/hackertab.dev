@@ -10,12 +10,14 @@ import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarContent } fr
 import 'react-pro-sidebar/dist/css/styles.css';
 import PreferencesContext from '../contexts/PreferencesContext';
 import CardLink from "./CardLink";
+import { trackUnbookmarkFrom } from "../utils/Analytics"
 
 
 const BookmarkItem = ({ item }) => {
     const { dispatcher } = useContext(PreferencesContext)
     const unBookmark = () => {
         dispatcher({type: 'unBookmarkItem', value: item})
+        trackUnbookmarkFrom(item.source)
     }
     return (
         <MenuItem 
