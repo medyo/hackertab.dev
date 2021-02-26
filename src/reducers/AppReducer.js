@@ -4,25 +4,36 @@ import AppStorage from '../services/localStorage';
 
 
 const AppReducer = (state, action) => {
-  let newState = state
+  let newState = { ...state }
+  const { value } = action
+
 
   switch (action.type) {
     case 'setUserSelectedTags':
       // check duplication.
-      newState = { ...newState, userSelectedTags: action.value };
+      newState = { ...newState, userSelectedTags: value };
       break;
     case 'setCards':
-      newState = { ...state, cards: action.value }
+      newState = { ...state, cards: value }
       break;
     case 'toggleTheme':
-      let theme = action.value
+      let theme = value
       if (!theme) {
         theme = state.theme === 'dark' ? 'light' : 'dark'
       }
       newState = { ...newState, theme }
       break;
     case 'setOpenLinksNewTab':
-      newState = { ...newState, openLinksNewTab: action.value }
+      newState = { ...newState, openLinksNewTab: value }
+      break;
+    case 'bookmarkItem':
+      const exists = newState.userBookmarks.some(bm => bm.source == value.source && bm.url == value.url)
+      if (!exists) {
+        newState.userBookmarks.unshift(value)
+      }
+      break;
+    case 'unBookmarkItem':
+      newState.userBookmarks = newState.userBookmarks.filter(bm => bm.source != value.source || bm.url != value.url)
       break;
     default:
       throw new Error();
@@ -32,7 +43,8 @@ const AppReducer = (state, action) => {
     userSelectedTags: newState.userSelectedTags,
     theme: newState.theme,
     cards: newState.cards,
-    openLinksNewTab: newState.openLinksNewTab
+    openLinksNewTab: newState.openLinksNewTab,
+    userBookmarks: newState.userBookmarks
   }
   AppStorage.setItem(LS_PREFERENCES_KEY, storageData)
   return newState

@@ -13,7 +13,46 @@ import {
 } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
 import PreferencesContext from '../contexts/PreferencesContext'
-import CardLink from "./CardLink"
+import CardLink from "./CardLink";
+import { BsFillBookmarksFill } from "react-icons/bs"
+import CardItemWithBookmark from '../CardItemWithBookmark'
+
+
+const RepoItem = ({ item, index }) => {
+  const source = 'github'
+  return (
+    <CardItemWithBookmark
+      source={source}
+      index={index}
+      item={{...item, title: `${item.owner ? item.owner + "/" : ""}${item.name}`}}
+      cardItem={(
+        <>
+          <CardLink className="githubTitle" link={item.url} analyticsSource="repos">
+            <VscRepo className={"rowTitleIcon"} />
+            {
+              item.owner && `${item?.owner}/`
+            }
+            <b>{item.name}</b>
+          </CardLink>
+          <p className="rowDescription">{item.description}</p>
+          <div className="rowDetails">
+            {
+              item.programmingLanguage && <span className={"rowItem rowLanguage gh-language-" + item.programmingLanguage.toLowerCase()}>{item.programmingLanguage}</span>
+            }
+            {
+              item.stars &&
+              <span className="rowItem"><VscStarFull className="rowItemIcon" /> {item.stars} stars</span>
+            }
+            {
+              item.forks &&
+              <span className="rowItem"><VscRepoForked className="rowItemIcon" /> {item.forks} forks</span>
+            }
+          </div>
+        </>
+      )}
+    />
+  )
+}
 
 
 const MENU_ID = "menu-id";
@@ -24,7 +63,7 @@ function ReposCard() {
 
   const preferences = useContext(PreferencesContext)
 
-  const { userSelectedTags = [] } = preferences
+  const { userSelectedTags = [], userBookmarks = [] } = preferences
 
   const getTags = () => [...userSelectedTags, globalTag]
 
@@ -65,7 +104,7 @@ function ReposCard() {
   }
 
   function HeaderTitle() {
-    if(!selectedTag) { return null }
+    if (!selectedTag) { return null }
     return (
       <div style={{ display: 'inline-block', margin: 0, padding: 0 }} >
         <span onClick={show} className="headerSelect">{selectedTag.label}<RiArrowDownSFill className="headerSelectIcon" /></span>
@@ -73,31 +112,10 @@ function ReposCard() {
       </div>
     )
   }
+
   const renderRepos = (repos) => {
     return repos.map((item, index) =>
-      <div key={`gh-${index}`} className="blockRow" d={index}>
-        <CardLink className="githubTitle" link={item.url} analyticsSource="repos">
-          <VscRepo className={"rowTitleIcon"} />
-          {
-            item.owner && `${item?.owner}/`
-          }
-          <b>{item.name}</b>
-        </CardLink>
-        <p className="rowDescription">{item.description}</p>
-        <div className="rowDetails">
-          {
-            item.programmingLanguage && <span className={"rowItem rowLanguage gh-language-" + item.programmingLanguage.toLowerCase()}>{item.programmingLanguage}</span>
-          }
-          {
-            item.stars &&
-            <span className="rowItem"><VscStarFull className="rowItemIcon" /> {item.stars} stars</span>
-          }
-          {
-            item.forks &&
-            <span className="rowItem"><VscRepoForked className="rowItemIcon" /> {item.forks} forks</span>
-          }
-        </div>
-      </div>
+      <RepoItem item={item} index={index} />
     )
   }
 

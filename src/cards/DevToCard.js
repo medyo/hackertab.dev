@@ -9,6 +9,40 @@ import CardLink from "./CardLink"
 import { BiCommentDetail } from 'react-icons/bi';
 import { MdAccessTime } from "react-icons/md"
 import { AiOutlineLike } from "react-icons/ai"
+import CardItemWithBookmark from '../CardItemWithBookmark'
+
+
+const ArticleItem = ({item, index}) => {
+  const source = 'devto'
+  return (
+    <CardItemWithBookmark
+      source={source}
+      index={index}
+      item={item}
+      cardItem={(
+        <>
+          <CardLink link={item.url} analyticsSource="devto">
+            {item.title}
+          </CardLink>
+          <p className="rowDescription">
+            <span className="rowItem"><MdAccessTime className={"rowTitleIcon"} />{format(new Date(item.published_at))}</span>
+            <span className="rowItem"><BiCommentDetail className={"rowTitleIcon"} />{item.comments_count} comments</span>
+            <span className="rowItem"><AiOutlineLike className={"rowTitleIcon"} />{item.public_reactions_count} reactions</span>
+          </p>
+
+          <p className="rowDetails">
+            {item.tag_list.map((tag, index) =>
+              <span key={index} className={"rowItem rowLanguage gh-language-" + tag.toLowerCase()}>{tag}</span>
+
+            )
+            }
+          </p>
+        </>
+      )}
+    />
+  )
+}
+
 
 
 function DevToCard() {
@@ -42,25 +76,8 @@ function DevToCard() {
   }
 
   const renderArticles = (articles) => {
-    return articles.map((article, index) => (
-      <div key={index} className="blockRow">
-        <CardLink link={article.url} analyticsSource="devto">
-          {article.title}
-        </CardLink>
-        <p className="rowDescription">
-          <span className="rowItem"><MdAccessTime className={"rowTitleIcon"} />{format(new Date(article.published_at))}</span>
-          <span className="rowItem"><BiCommentDetail className={"rowTitleIcon"} />{article.comments_count} comments</span>
-          <span className="rowItem"><AiOutlineLike className={"rowTitleIcon"} />{article.public_reactions_count} reactions</span>
-        </p>
-
-        <p className="rowDetails">
-          {article.tag_list.map((tag, index) =>
-            <span key={index} className={"rowItem rowLanguage gh-language-" + tag.toLowerCase()}>{tag}</span>
-
-          )
-          }
-        </p>
-      </div>
+    return articles.map((item, index) => (
+      <ArticleItem item={item} index={index} />
     ))
   }
 

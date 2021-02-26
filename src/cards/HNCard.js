@@ -8,7 +8,35 @@ import hackernewsApi from '../services/hackernews'
 import { BiCommentDetail } from "react-icons/bi"
 import { MdAccessTime } from "react-icons/md"
 import { GoPrimitiveDot } from "react-icons/go"
-import CardLink from "./CardLink"
+import CardLink from "./CardLink";
+import CardItemWithBookmark from '../CardItemWithBookmark'
+
+
+const StoryItem = ({ item, index }) => {
+  const source = 'hackernews'
+  return (
+    <CardItemWithBookmark
+      source={source}
+      index={index}
+      item={item}
+      cardItem={(
+        <>
+          <p className="rowTitle">
+          <CardLink link={item.url} analyticsSource="hn">
+            <VscTriangleUp className={"rowTitleIcon"} />
+            {item.title}
+          </CardLink>
+        </p>
+        <div className="rowDetails">
+          <span className="rowItem hnRowItem" ><GoPrimitiveDot className="rowItemIcon" /> {item.score} points</span>
+          <span className="rowItem" title={new Date(item.time * 1000).toUTCString()}><MdAccessTime className="rowItemIcon" /> {format(new Date(item.time * 1000))}</span>
+          <span className="rowItem"><BiCommentDetail className="rowItemIcon" /> {item.descendants} comments</span>
+        </div>
+        </>
+      )}
+    />
+  )
+}
 
 
 function HNCard() {
@@ -18,21 +46,7 @@ function HNCard() {
   }
 
   const renderStories = (stories) => {
-    return stories.map((story, index) =>
-      <div key={index} className="blockRow">
-        <p className="rowTitle">
-          <CardLink link={story.url} analyticsSource="hn">
-            <VscTriangleUp className={"rowTitleIcon"} />
-            {story.title}
-          </CardLink>
-        </p>
-        <div className="rowDetails">
-          <span className="rowItem hnRowItem" ><GoPrimitiveDot className="rowItemIcon" /> {story.score} points</span>
-          <span className="rowItem" title={new Date(story.time * 1000).toUTCString()}><MdAccessTime className="rowItemIcon" /> {format(new Date(story.time * 1000))}</span>
-          <span className="rowItem"><BiCommentDetail className="rowItemIcon" /> {story.descendants} comments</span>
-        </div>
-      </div>
-    )
+    return stories.map((story, index) => <StoryItem item={story} index={index} />)
   }
 
   return (
