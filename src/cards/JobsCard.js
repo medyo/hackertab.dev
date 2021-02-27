@@ -7,7 +7,7 @@ import CardComponent from "./CardComponent";
 import ListComponent from "./ListComponent";
 import stackoverflowApi from '../services/stackoverflow';
 import { format } from 'timeago.js';
-import PreferencesContext from '../contexts/PreferencesContext'
+import PreferencesContext from '../preference/PreferencesContext'
 import CardLink from "./CardLink"
 import CardItemWithActions from '../components/CardItemWithActions'
 

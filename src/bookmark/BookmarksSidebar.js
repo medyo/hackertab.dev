@@ -8,7 +8,7 @@ import { SiStackoverflow } from 'react-icons/si';
 import { SiGithub } from 'react-icons/si';
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarContent } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
-import PreferencesContext from '../contexts/PreferencesContext';
+import PreferencesContext from '../preference/PreferencesContext';
 import CardLink from "../cards/CardLink";
 import { trackUnbookmarkFrom } from "../utils/Analytics"
 

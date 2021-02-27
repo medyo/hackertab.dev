@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { APP } from "../Constants";
-import PreferencesContext from '../contexts/PreferencesContext'
+import PreferencesContext from '../preference/PreferencesContext'
 import { trackOpenLinkFrom } from "../utils/Analytics"
 
 function CardLink({ link, className, children, analyticsSource }) {

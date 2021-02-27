@@ -6,7 +6,7 @@ import Select from 'react-select'
 import Toggle from 'react-toggle'
 import '../App.css';
 import './settings.css';
-import PreferencesContext from '../contexts/PreferencesContext';
+import PreferencesContext from '../preference/PreferencesContext';
 import ConfigurationContext from '../configuration/ConfigurationContext';
 import { SUPPORTED_CARDS, APP } from '../Constants'
 import { ToastContainer, toast } from 'react-toastify';

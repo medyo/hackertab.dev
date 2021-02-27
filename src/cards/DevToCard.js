@@ -4,7 +4,7 @@ import devtoApi from '../services/devto'
 import CardComponent from "./CardComponent"
 import ListComponent from "./ListComponent"
 import { format } from 'timeago.js';
-import PreferencesContext from '../contexts/PreferencesContext'
+import PreferencesContext from '../preference/PreferencesContext'
 import CardLink from "./CardLink"
 import { BiCommentDetail } from 'react-icons/bi';
 import { MdAccessTime } from "react-icons/md"

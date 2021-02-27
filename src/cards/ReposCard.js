@@ -12,7 +12,7 @@ import {
   useContextMenu
 } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
-import PreferencesContext from '../contexts/PreferencesContext'
+import PreferencesContext from '../preference/PreferencesContext'
 import CardLink from "./CardLink";
 import CardItemWithActions from '../components/CardItemWithActions'
 

@@ -7,7 +7,7 @@ import { MdAccessTime } from "react-icons/md"
 import { flag } from 'country-emoji';
 import { IoIosPin } from "react-icons/io"
 import { RiCalendarEventFill } from "react-icons/ri";
-import PreferencesContext from '../contexts/PreferencesContext'
+import PreferencesContext from '../preference/PreferencesContext'
 import CardLink from "./CardLink";
 import CardItemWithActions from '../components/CardItemWithActions'
 
