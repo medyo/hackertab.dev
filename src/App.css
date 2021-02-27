@@ -235,6 +235,7 @@ a {
   height: calc(80vh - 1% - 16px - 30px);
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 
