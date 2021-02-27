@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { FaDev } from 'react-icons/fa';
 import devtoApi from '../services/devto'
-import CardComponent from "./CardComponent"
-import ListComponent from "./ListComponent"
+import CardComponent from "../components/CardComponent"
+import ListComponent from "../components/ListComponent"
 import { format } from 'timeago.js';
-import PreferencesContext from '../preference/PreferencesContext'
-import CardLink from "./CardLink"
+import PreferencesContext from '../preferences/PreferencesContext'
+import CardLink from "../components/CardLink"
 import { BiCommentDetail } from 'react-icons/bi';
 import { MdAccessTime } from "react-icons/md"
 import { AiOutlineLike } from "react-icons/ai"

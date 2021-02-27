@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import PreferencesContext from '../preference/PreferencesContext'
+import PreferencesContext from '../preferences/PreferencesContext'
 import { BiBookmarkPlus } from "react-icons/bi";
 import { BiBookmarkMinus } from "react-icons/bi";
 import { trackBookmarkFrom, trackUnbookmarkFrom } from "../utils/Analytics"

@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { HiTicket } from 'react-icons/hi';
-import CardComponent from "./CardComponent";
-import ListComponent from "./ListComponent";
+import CardComponent from "../components/CardComponent";
+import ListComponent from "../components/ListComponent";
 import confstechApi from '../services/confstech'
 import { MdAccessTime } from "react-icons/md"
 import { flag } from 'country-emoji';
 import { IoIosPin } from "react-icons/io"
 import { RiCalendarEventFill } from "react-icons/ri";
-import PreferencesContext from '../preference/PreferencesContext'
-import CardLink from "./CardLink";
+import PreferencesContext from '../preferences/PreferencesContext'
+import CardLink from "../components/CardLink";
 import CardItemWithActions from '../components/CardItemWithActions'
 
 

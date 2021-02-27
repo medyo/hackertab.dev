@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
-import CardComponent from "./CardComponent";
-import ListComponent from "./ListComponent";
+import CardComponent from "../components/CardComponent";
+import ListComponent from "../components/ListComponent";
 import { SiGithub } from 'react-icons/si';
 import { VscRepo, VscRepoForked, VscStarFull } from 'react-icons/vsc';
 import githubApi from '../services/github'
@@ -12,8 +12,8 @@ import {
   useContextMenu
 } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
-import PreferencesContext from '../preference/PreferencesContext'
-import CardLink from "./CardLink";
+import PreferencesContext from '../preferences/PreferencesContext'
+import CardLink from "../components/CardLink";
 import CardItemWithActions from '../components/CardItemWithActions'
 
 

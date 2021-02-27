@@ -5,7 +5,8 @@ import { BsMoon } from "react-icons/bs"
 import { IoMdSunny } from "react-icons/io"
 import { BsFillGearFill } from "react-icons/bs"
 import SettingsModal from "./settings/SettingsModal";
-import { PreferencesProvider } from './preference/PreferencesContext';
+import { PreferencesProvider } from './preferences/PreferencesContext';
+import AppReducer from "./preferences/AppReducer";
 import ConfigurationContext from './configuration/ConfigurationContext';
 import { RiCodeSSlashFill } from "react-icons/ri"
 import { APP, LS_PREFERENCES_KEY, SUPPORTED_CARDS } from './Constants';
@@ -18,7 +19,6 @@ import Footer from "./components/Footer";
 import UserTags from "./components/UserTags";
 import { Grid, Col, Row } from 'react-styled-flexboxgrid'
 import { ThemeProvider } from 'styled-components'
-import AppReducer from "./preference/AppReducer";
 import { ReactComponent as HackertabLogo } from './logo.svg';
 import { trackPageView, trackThemeChange } from "./utils/Analytics"
 import BookmarksSidebar from './bookmark/BookmarksSidebar'
