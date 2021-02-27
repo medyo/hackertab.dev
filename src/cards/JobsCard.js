@@ -9,13 +9,13 @@ import stackoverflowApi from '../services/stackoverflow';
 import { format } from 'timeago.js';
 import PreferencesContext from '../contexts/PreferencesContext'
 import CardLink from "./CardLink"
-import CardItemWithBookmark from '../CardItemWithBookmark'
+import CardItemWithActions from '../components/CardItemWithActions'
 
 
 const JobItem = ({ item, index }) => {
   const source = 'jobs'
   return (
-    <CardItemWithBookmark
+    <CardItemWithActions
       source={source}
       index={index}
       item={{ ...item, url: item.link }}

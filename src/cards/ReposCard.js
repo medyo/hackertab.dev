@@ -14,14 +14,13 @@ import {
 import "react-contexify/dist/ReactContexify.css";
 import PreferencesContext from '../contexts/PreferencesContext'
 import CardLink from "./CardLink";
-import { BsFillBookmarksFill } from "react-icons/bs"
-import CardItemWithBookmark from '../CardItemWithBookmark'
+import CardItemWithActions from '../components/CardItemWithActions'
 
 
 const RepoItem = ({ item, index }) => {
   const source = 'github'
   return (
-    <CardItemWithBookmark
+    <CardItemWithActions
       source={source}
       index={index}
       item={{...item, title: `${item.owner ? item.owner + "/" : ""}${item.name}`}}

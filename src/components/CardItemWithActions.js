@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react'
-import PreferencesContext from './contexts/PreferencesContext'
+import PreferencesContext from '../contexts/PreferencesContext'
 import { BiBookmarkPlus } from "react-icons/bi";
 import { BiBookmarkMinus } from "react-icons/bi";
-import { trackBookmarkFrom, trackUnbookmarkFrom } from "./utils/Analytics"
+import { trackBookmarkFrom, trackUnbookmarkFrom } from "../utils/Analytics"
 
-export default function CardItemWithBookmark ({ cardItem, item, index, source }) {
+export default function CardItemWithActions({ cardItem, item, index, source }) {
   const { dispatcher, userBookmarks } = useContext(PreferencesContext)
   const [isBookmarked, setIsBookmarked] = useState(userBookmarks.some(bm => bm.source == source && bm.url == item.url))
   const onBookmarkClick = () => {
@@ -29,7 +29,7 @@ export default function CardItemWithBookmark ({ cardItem, item, index, source })
     setIsBookmarked(
       userBookmarks.some(bm => bm.source == source && bm.url == item.url)
     )
-  } ,[userBookmarks])
+  }, [userBookmarks])
 
 
   return (

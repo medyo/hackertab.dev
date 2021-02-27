@@ -6,7 +6,7 @@ import { IoMdSunny } from "react-icons/io"
 import { BsFillGearFill } from "react-icons/bs"
 import SettingsModal from "./settings/SettingsModal";
 import { PreferencesProvider } from './contexts/PreferencesContext';
-import ConfigurationContext from './contexts/ConfigurationContext';
+import ConfigurationContext from './configuration/ConfigurationContext';
 import { RiCodeSSlashFill } from "react-icons/ri"
 import { APP, LS_PREFERENCES_KEY, SUPPORTED_CARDS } from './Constants';
 import { BsFillBookmarksFill } from "react-icons/bs"
@@ -14,14 +14,14 @@ import AppStorage from './services/localStorage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
 import DataSourcePage from './pages/DataSourcePage';
-import Footer from "./Footer";
-import UserTags from "./UserTags";
+import Footer from "./components/Footer";
+import UserTags from "./components/UserTags";
 import { Grid, Col, Row } from 'react-styled-flexboxgrid'
 import { ThemeProvider } from 'styled-components'
 import AppReducer from "./reducers/AppReducer";
 import { ReactComponent as HackertabLogo } from './logo.svg';
 import { trackPageView, trackThemeChange } from "./utils/Analytics"
-import BookmarksSidebar from './cards/BookmarksSidebar'
+import BookmarksSidebar from './bookmark/BookmarksSidebar'
 
 function App() {
 

@@ -9,7 +9,7 @@ import { IoIosPin } from "react-icons/io"
 import { RiCalendarEventFill } from "react-icons/ri";
 import PreferencesContext from '../contexts/PreferencesContext'
 import CardLink from "./CardLink";
-import CardItemWithBookmark from '../CardItemWithBookmark'
+import CardItemWithActions from '../components/CardItemWithActions'
 
 
 const ConferenceItem = ({ conf, index }) => {
@@ -47,7 +47,7 @@ const ConferenceItem = ({ conf, index }) => {
     return value
   }
   return (
-    <CardItemWithBookmark
+    <CardItemWithActions
       source={source}
       index={index}
       item={{ ...conf, title: conf.name }}

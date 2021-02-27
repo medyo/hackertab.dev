@@ -5,8 +5,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as Panelbear from "@panelbear/panelbear-js";
-
-import ConfigurationWrapper from './ConfigurationWrapper'
+import ConfigurationWrapper from './configuration/ConfigurationWrapper'
 
 window.$analyticsEnabled = false
 

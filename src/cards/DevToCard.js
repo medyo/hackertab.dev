@@ -9,13 +9,13 @@ import CardLink from "./CardLink"
 import { BiCommentDetail } from 'react-icons/bi';
 import { MdAccessTime } from "react-icons/md"
 import { AiOutlineLike } from "react-icons/ai"
-import CardItemWithBookmark from '../CardItemWithBookmark'
+import CardItemWithActions from '../components/CardItemWithActions'
 
 
 const ArticleItem = ({item, index}) => {
   const source = 'devto'
   return (
-    <CardItemWithBookmark
+    <CardItemWithActions
       source={source}
       index={index}
       item={item}

@@ -9,13 +9,13 @@ import { BiCommentDetail } from "react-icons/bi"
 import { MdAccessTime } from "react-icons/md"
 import { GoPrimitiveDot } from "react-icons/go"
 import CardLink from "./CardLink";
-import CardItemWithBookmark from '../CardItemWithBookmark'
+import CardItemWithActions from '../components/CardItemWithActions'
 
 
 const StoryItem = ({ item, index }) => {
   const source = 'hackernews'
   return (
-    <CardItemWithBookmark
+    <CardItemWithActions
       source={source}
       index={index}
       item={item}
