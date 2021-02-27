@@ -1,6 +1,5 @@
 import React, { useState, useReducer, useEffect, useContext } from "react";
 import './App.css';
-
 import { PreferencesProvider } from './preferences/PreferencesContext';
 import AppReducer from "./preferences/AppReducer";
 import ConfigurationContext from './configuration/ConfigurationContext';
