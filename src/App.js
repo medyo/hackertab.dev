@@ -1,35 +1,24 @@
-import React, { useState, useReducer, useLayoutEffect, useEffect, useContext } from "react";
+import React, { useState, useReducer, useEffect, useContext } from "react";
 import './App.css';
-import { CgTab } from 'react-icons/cg';
-import { BsMoon } from "react-icons/bs"
-import { IoMdSunny } from "react-icons/io"
-import { BsFillGearFill } from "react-icons/bs"
-import SettingsModal from "./settings/SettingsModal";
+
 import { PreferencesProvider } from './preferences/PreferencesContext';
 import AppReducer from "./preferences/AppReducer";
 import ConfigurationContext from './configuration/ConfigurationContext';
-import { RiCodeSSlashFill } from "react-icons/ri"
 import { APP, LS_PREFERENCES_KEY, SUPPORTED_CARDS } from './Constants';
-import { BsFillBookmarksFill } from "react-icons/bs"
 import AppStorage from './services/localStorage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
 import DataSourcePage from './pages/DataSourcePage';
 import Footer from "./components/Footer";
-import UserTags from "./components/UserTags";
+import Header from "./components/Header";
 import { Grid, Col, Row } from 'react-styled-flexboxgrid'
 import { ThemeProvider } from 'styled-components'
-import { ReactComponent as HackertabLogo } from './logo.svg';
-import { trackPageView, trackThemeChange } from "./utils/Analytics"
+import { trackPageView } from "./utils/Analytics"
 import BookmarksSidebar from './bookmark/BookmarksSidebar'
 
 function App() {
 
   const { supportedTags } = useContext(ConfigurationContext)
-
-
-  const [themeIcon, setThemeIcon] = useState(<BsMoon />)
-  const [showSettings, setShowSettings] = useState(false)
   const [showSideBar, setShowSideBar] = useState(false)
   const [currentPage, setCurrentPage] = useState('home')
 
@@ -56,40 +45,13 @@ function App() {
     return initialState
   })
 
-  useLayoutEffect(() => {
-    document.body.classList.add(state.theme)
-  }, [])
+
 
   useEffect(() => {
     if (currentPage != 'home') {
       trackPageView(currentPage)
     }
   }, [currentPage])
-
-  useLayoutEffect(() => {
-
-    trackThemeChange(state.theme)
-
-    if (state.theme === 'light') {
-      document.body.classList.replace('dark', state.theme)
-      setThemeIcon(<BsMoon />)
-    } else if (state.theme === 'dark') {
-      document.body.classList.replace('light', state.theme)
-      setThemeIcon(<IoMdSunny />)
-    }
-  }, [state.theme])
-
-  const onThemeChange = () => {
-    dispatcher({ type: 'toggleTheme' })
-  }
-
-  const onSourceCodeClick = () => {
-    window.open(APP.repository, "_blank")
-  }
-
-  const onSettingsClick = () => {
-    setShowSettings(true)
-  }
 
   const gridTheme = {
     flexboxgrid: {
@@ -99,42 +61,16 @@ function App() {
     }
   }
 
-  const BookmarksBadgeCount = () => {
-    return (
-      state.userBookmarks.length > 0 ?
-        state.userBookmarks.length < 10 ?
-          <span className="badgeCount">{state.userBookmarks.length}</span> :
-          <span className="badgeCount">+9</span> :
-        null
-    )
-  }
-
   const renderHomePage = () => {
     return (
       <PreferencesProvider value={{ ...state, dispatcher: dispatcher }}>
         <div className="App">
-          <SettingsModal
-            showSettings={showSettings}
-            setShowSettings={setShowSettings} />
-          <header className="AppHeader">
-            <span className="AppName">
-              <i className="logo"><CgTab /></i> <HackertabLogo className="logoText" />
-            </span>
-            <div className="slogan">
-              {APP.slogan}
-            </div>
-            <div className="extras">
-              <button className="extraBtn" onClick={onSourceCodeClick}><RiCodeSSlashFill /></button>
-              <button className="extraBtn" onClick={onSettingsClick}><BsFillGearFill /></button>
-              <button className="extraBtn darkModeBtn" onClick={onThemeChange}>{themeIcon}</button>
-              <button className="extraBtn" onClick={() => setShowSideBar(!showSideBar)}>
-                <BsFillBookmarksFill />
-                <BookmarksBadgeCount />
-              </button>
-            </div>
-            <div className="break"></div>
-            <UserTags userSelectedTags={state.userSelectedTags} onAddClicked={onSettingsClick} />
-          </header>
+
+          <Header setShowSideBar={setShowSideBar}
+            state={state}
+            dispatcher={dispatcher}
+            showSideBar={showSideBar} />
+
           <main className="AppContent">
             <ThemeProvider theme={gridTheme}>
               <Grid fluid={true}>
