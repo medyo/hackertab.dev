@@ -18,6 +18,7 @@ const JobItem = ({ item, index }) => {
     <CardItemWithActions
       source={source}
       index={index}
+      key={index}
       item={{ ...item, url: item.link }}
       cardItem={(
         <>

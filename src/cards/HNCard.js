@@ -19,6 +19,7 @@ const StoryItem = ({ item, index }) => {
       source={source}
       index={index}
       item={item}
+      key={index}
       cardItem={(
         <>
           <p className="rowTitle">

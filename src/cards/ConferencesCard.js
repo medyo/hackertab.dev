@@ -50,6 +50,7 @@ const ConferenceItem = ({ conf, index }) => {
     <CardItemWithActions
       source={source}
       index={index}
+      key={index}
       item={{ ...conf, title: conf.name }}
       cardItem={(
         <>

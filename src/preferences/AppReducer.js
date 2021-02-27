@@ -27,13 +27,13 @@ const AppReducer = (state, action) => {
       newState = { ...newState, openLinksNewTab: value }
       break;
     case 'bookmarkItem':
-      const exists = newState.userBookmarks.some(bm => bm.source == value.source && bm.url == value.url)
+      const exists = newState.userBookmarks.some(bm => bm.source === value.source && bm.url === value.url)
       if (!exists) {
         newState.userBookmarks.unshift(value)
       }
       break;
     case 'unBookmarkItem':
-      newState.userBookmarks = newState.userBookmarks.filter(bm => bm.source != value.source || bm.url != value.url)
+      newState.userBookmarks = newState.userBookmarks.filter(bm => bm.source !== value.source || bm.url !== value.url)
       break;
     default:
       throw new Error();

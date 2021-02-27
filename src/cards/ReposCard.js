@@ -22,6 +22,7 @@ const RepoItem = ({ item, index }) => {
   return (
     <CardItemWithActions
       source={source}
+      key={index}
       index={index}
       item={{...item, title: `${item.owner ? item.owner + "/" : ""}${item.name}`}}
       cardItem={(
