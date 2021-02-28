@@ -13,14 +13,14 @@ export default function useRemoteConfiguration () {
         setError(null)
         try {
             const data = await remoteConfigurationApi.getRemoteConfiguration()
-            throw ("ERRROR")
+          throw ("ERROR")
             setConfiguration(data)
         }
         catch (e) {
             setError(e)
         }
         finally {
-            setLoading(false)
+          setLoading(false)
         }
     }
 

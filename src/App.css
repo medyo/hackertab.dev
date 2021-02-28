@@ -91,6 +91,13 @@ html, body {
   font-size: 100%;
 }
 
+.appLoading {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  display: flex;
+}
+
 a {
 
   color: var(--primary-text-color);
