@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { BsFillGearFill } from "react-icons/bs"
 import { CgTab } from 'react-icons/cg';
 import { RiCodeSSlashFill } from "react-icons/ri"
@@ -16,14 +16,20 @@ function Header({ state, dispatcher, showSideBar, setShowSideBar }) {
 
   const [showSettings, setShowSettings] = useState(false)
   const [themeIcon, setThemeIcon] = useState(<BsMoon />)
+  const isFirstRun = useRef(true)
 
   useEffect(() => {
+
+
     document.body.classList.add(state.theme)
   }, [])
 
   useEffect(() => {
-
-    trackThemeChange(state.theme)
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+    } else {
+      trackThemeChange(state.theme)
+    }
 
     if (state.theme === 'light') {
       document.body.classList.replace('dark', state.theme)
