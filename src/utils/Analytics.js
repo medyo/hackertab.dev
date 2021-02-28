@@ -46,10 +46,15 @@ const trackUnbookmarkFrom = (dataSource) => {
 
 const trackEvent = (category, action, label) => {
 
+  if (!process.env.REACT_APP_ANALYTICS_ID) {
+    conole.log("Missing analytics ID")
+    return
+  }
+
   const payload = new URLSearchParams([
     ["v", "1"],
     ["t", "event"],
-    ["tid", "UA-70829892-11"],
+    ["tid", process.env.REACT_APP_ANALYTICS_ID],
     ["aip", "1"], // Anonymous ip
     ["cid", `${new Date().getTime()}${Math.random()}`], // Random User Id
     ["ec", category],
@@ -61,11 +66,6 @@ const trackEvent = (category, action, label) => {
 
   if (process.env.NODE_ENV !== 'production') {
     console.log("Analytics debug payload", payload)
-  }
-
-  if (!process.env.REACT_APP_ANALYTICS_ID) {
-    conole.log("Missing analytics ID")
-    return
   }
 
   navigator.sendBeacon(
