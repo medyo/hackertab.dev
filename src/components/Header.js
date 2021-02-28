@@ -19,8 +19,6 @@ function Header({ state, dispatcher, showSideBar, setShowSideBar }) {
   const isFirstRun = useRef(true)
 
   useEffect(() => {
-
-
     document.body.classList.add(state.theme)
   }, [])
 
