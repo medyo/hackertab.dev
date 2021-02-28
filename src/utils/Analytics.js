@@ -54,7 +54,9 @@ const trackEvent = (category, action, label) => {
     ["cid", `${new Date().getTime()}${Math.random()}`], // Random User Id
     ["ec", category],
     ["ea", action],
-    ["el", label?.capitalize()]
+    ["el", label?.capitalize()],
+    ["ul", navigator.language],
+    ["ua", navigator.userAgent],
   ]).toString()
 
   if (process.env.NODE_ENV !== 'production') {
