@@ -66,6 +66,7 @@ const trackEvent = (category, action, label) => {
 
   if (process.env.NODE_ENV !== 'production') {
     console.log("Analytics debug payload", payload)
+    return
   }
 
   navigator.sendBeacon(
