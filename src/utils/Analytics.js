@@ -47,7 +47,7 @@ const trackUnbookmarkFrom = (dataSource) => {
 const trackEvent = (category, action, label) => {
 
   if (!process.env.REACT_APP_ANALYTICS_ID) {
-    conole.log("Missing analytics ID")
+    console.log("Missing analytics ID")
     return
   }
 
