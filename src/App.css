@@ -326,6 +326,7 @@ a {
   color: var(--card-action-button-color);
   line-height: 12px;
   cursor: pointer;
+  padding: 0;
 }
 
 
