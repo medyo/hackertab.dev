@@ -37,6 +37,10 @@ function App() {
       let preferences = AppStorage.getItem(LS_PREFERENCES_KEY)
       if (preferences) {
         preferences = JSON.parse(preferences)
+        preferences = {
+          ...preferences,
+          userSelectedTags: supportedTags.filter(tag => preferences.userSelectedTags.indexOf(tag.value) != -1)
+        }
         return { ...initialState, ...preferences }
       }
     }
