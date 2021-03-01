@@ -39,10 +39,11 @@ function App() {
         preferences = JSON.parse(preferences)
         preferences = {
           ...preferences,
-          userSelectedTags: supportedTags.filter(tag => preferences.userSelectedTags.indexOf(tag.value) != -1)
+          userSelectedTags: supportedTags.filter(tag => preferences.userSelectedTags.includes(tag.value))
         }
         return { ...initialState, ...preferences }
       }
+      
     }
     catch (e) { }
     return initialState
