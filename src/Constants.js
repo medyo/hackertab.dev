@@ -113,6 +113,16 @@ const SUPPORTED_TAGS = [
     githubValues: ['csharp'], stackoverflowValues: ['csharp'],
     devtoValues: ['csharp']
   },
+  {
+    value: 'elixir', label: 'Elixir',
+    githubValues: ['elixir'], stackoverflowValues: ['elixir'],
+    devtoValues: ['elixir']
+  },
+  {
+    value: 'erlang', label: 'Erlang',
+    githubValues: ['erlang'], stackoverflowValues: ['erlang'],
+    devtoValues: ['erlang']
+  },
 ]
 
 export const LOCAL_CONFIGURATION = {
