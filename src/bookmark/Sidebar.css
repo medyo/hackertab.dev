@@ -71,7 +71,7 @@
 .unbookmarkBtn {
   font-size: 20px;
 }
-@media (max-width: 20000px) { 
+@media (max-width: 2000px) { 
   .sidebar:not(.collapsed) {
     width: 16% !important;
   }
