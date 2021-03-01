@@ -40,7 +40,7 @@ const AppReducer = (state, action) => {
   }
 
   const storageData = {
-    userSelectedTags: newState.userSelectedTags,
+    userSelectedTags: newState.userSelectedTags.map(tag => tag.value),
     theme: newState.theme,
     cards: newState.cards,
     openLinksNewTab: newState.openLinksNewTab,
