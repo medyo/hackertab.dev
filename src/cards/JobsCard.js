@@ -3,20 +3,52 @@ import React, { useEffect, useState, useContext } from 'react'
 import { SiStackoverflow } from 'react-icons/si';
 import { VscBriefcase } from 'react-icons/vsc';
 import { MdAccessTime } from "react-icons/md"
-import CardComponent from "./CardComponent";
-import ListComponent from "./ListComponent";
+import CardComponent from "../components/CardComponent";
+import ListComponent from "../components/ListComponent";
 import stackoverflowApi from '../services/stackoverflow';
 import { format } from 'timeago.js';
-import PreferencesContext from '../contexts/PreferencesContext'
-import CardLink from "./CardLink"
+import PreferencesContext from '../preferences/PreferencesContext'
+import CardLink from "../components/CardLink"
+import CardItemWithActions from '../components/CardItemWithActions'
 
+
+const JobItem = ({ item, index }) => {
+  const source = 'jobs'
+  return (
+    <CardItemWithActions
+      source={source}
+      index={index}
+      key={index}
+      item={{ ...item, url: item.link }}
+      cardItem={(
+        <>
+          <CardLink link={item.link} analyticsSource="jobs">
+            {item.title}
+          </CardLink>
+          <p className="rowDescription">
+            <span className="rowItem"><MdAccessTime className={"rowTitleIcon"} />{format(item.date)}</span>
+            <span className="rowItem"><VscBriefcase className={"rowTitleIcon"} />{item.location}</span>
+          </p>
+
+          <p className="rowDetails">
+            {item.categories.map((cat, index) =>
+              <span key={index} className={"rowItem rowLanguage gh-language-" + cat.toLowerCase()}>{cat}</span>
+
+            )
+            }
+          </p>
+        </>
+      )}
+    />
+  )
+}
 
 function JobsCard() {
   const preferences = useContext(PreferencesContext)
-  
+
   const { userSelectedTags } = preferences
 
-  const [refresh, setRefresh] = useState(true) 
+  const [refresh, setRefresh] = useState(true)
 
   const fetchJobs = async () => {
     const promises = userSelectedTags.map(tag => {
@@ -44,33 +76,14 @@ function JobsCard() {
   }, [userSelectedTags])
 
   const renderJobs = (jobs) => {
-
-    return jobs.map((item, index) =>
-      <div key={index} className="blockRow">
-        <CardLink link={item.link} analyticsSource="jobs">
-          {item.title}
-        </CardLink>
-        <p className="rowDescription">
-          <span className="rowItem"><MdAccessTime className={"rowTitleIcon"} />{format(item.date)}</span>
-          <span className="rowItem"><VscBriefcase className={"rowTitleIcon"} />{item.location}</span>
-        </p>
-
-        <p className="rowDetails">
-          {item.categories.map((cat, index) =>
-            <span key={index} className={"rowItem rowLanguage gh-language-" + cat.toLowerCase()}>{cat}</span>
-
-          )
-          }
-        </p>
-      </div>
-    )
+    return jobs.map((item, index) => <JobItem item={item} index={index} />)
   }
   return (
     <CardComponent
       icon={<SiStackoverflow className="blockHeaderIcon" color="#F18032" />}
       title={"Featured Jobs"}
     >
-      
+
       <ListComponent
         fetchData={fetchJobs}
         renderData={renderJobs}

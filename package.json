@@ -1,9 +1,8 @@
 {
   "name": "hackertab.dev",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "dependencies": {
-    "@panelbear/panelbear-js": "^1.2.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -16,6 +15,7 @@
     "react-dom": "^17.0.1",
     "react-icons": "^4.1.0",
     "react-modal": "^3.12.1",
+    "react-pro-sidebar": "^0.6.0",
     "react-scripts": "4.0.1",
     "react-select": "^4.0.2",
     "react-sortablejs": "^6.0.0",
@@ -32,14 +32,7 @@
     "start": "react-scripts start",
     "web-build": "REACT_APP_WEB_BUILD=1 CI= react-scripts build",
     "build": "./script/build.sh",
-    "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -52,8 +45,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/sortablejs": "^1.10.6"
   }
 }

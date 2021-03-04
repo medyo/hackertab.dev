@@ -1,33 +1,29 @@
-import React, { useState, useReducer, useLayoutEffect, useEffect } from "react";
+import React, { useState, useReducer, useEffect, useContext } from "react";
 import './App.css';
-import { CgTab } from 'react-icons/cg';
-import { BsMoon } from "react-icons/bs"
-import { IoMdSunny } from "react-icons/io"
-import { BsFillGearFill } from "react-icons/bs"
-import SettingsModal from "./settings/SettingsModal";
-import { PreferencesProvider } from './contexts/PreferencesContext'
-import { RiCodeSSlashFill } from "react-icons/ri"
-import { APP, LS_PREFERENCES_KEY, SUPPORTED_CARDS, SUPPORTED_TAGS } from './Constants';
+import { PreferencesProvider } from './preferences/PreferencesContext';
+import AppReducer from "./preferences/AppReducer";
+import ConfigurationContext from './configuration/ConfigurationContext';
+import { APP, LS_PREFERENCES_KEY, SUPPORTED_CARDS } from './Constants';
 import AppStorage from './services/localStorage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
 import DataSourcePage from './pages/DataSourcePage';
-import Footer from "./Footer";
-import UserTags from "./UserTags";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 import { Grid, Col, Row } from 'react-styled-flexboxgrid'
 import { ThemeProvider } from 'styled-components'
-import AppReducer from "./reducers/AppReducer";
-import { ReactComponent as HackertabLogo } from './logo.svg';
-import { trackPageView, trackThemeChange } from "./utils/Analytics"
+import { trackPageView } from "./utils/Analytics"
+import BookmarksSidebar from './bookmark/BookmarksSidebar'
 
 function App() {
 
-
-  const [themeIcon, setThemeIcon] = useState(<BsMoon />)
-  const [showSettings, setShowSettings] = useState(false)
+  const { supportedTags } = useContext(ConfigurationContext)
+  const [showSideBar, setShowSideBar] = useState(false)
   const [currentPage, setCurrentPage] = useState('home')
+
   const [state, dispatcher] = useReducer(AppReducer, {
-    userSelectedTags: SUPPORTED_TAGS.filter((t) => t.value === "javascript"),
+    userSelectedTags: supportedTags.filter((t) => t.value === "javascript"),
+    userBookmarks: [],
     theme: "dark",
     openLinksNewTab: true,
     cards: [
@@ -41,16 +37,19 @@ function App() {
       let preferences = AppStorage.getItem(LS_PREFERENCES_KEY)
       if (preferences) {
         preferences = JSON.parse(preferences)
+        preferences = {
+          ...preferences,
+          userSelectedTags: supportedTags.filter(tag => preferences.userSelectedTags.includes(tag.value))
+        }
         return { ...initialState, ...preferences }
       }
+      
     }
     catch (e) { }
     return initialState
   })
 
-  useLayoutEffect(() => {
-    document.body.classList.add(state.theme)
-  }, [])
+
 
   useEffect(() => {
     if (currentPage != 'home') {
@@ -58,36 +57,11 @@ function App() {
     }
   }, [currentPage])
 
-  useLayoutEffect(() => {
-
-    trackThemeChange(state.theme)
-
-    if (state.theme === 'light') {
-      document.body.classList.replace('dark', state.theme)
-      setThemeIcon(<BsMoon />)
-    } else if (state.theme === 'dark') {
-      document.body.classList.replace('light', state.theme)
-      setThemeIcon(<IoMdSunny />)
-    }
-  }, [state.theme])
-
-  const onThemeChange = () => {
-    dispatcher({ type: 'toggleTheme' })
-  }
-
-  const onSourceCodeClick = () => {
-    window.open(APP.repository, "_blank")
-  }
-
-  const onSettingsClick = () => {
-    setShowSettings(true)
-  }
-
   const gridTheme = {
     flexboxgrid: {
       gridSize: APP.maxCardsPerRow, // columns
       gutterWidth: 1, // rem
-      outerMargin: 0, 
+      outerMargin: 0,
     }
   }
 
@@ -95,42 +69,31 @@ function App() {
     return (
       <PreferencesProvider value={{ ...state, dispatcher: dispatcher }}>
         <div className="App">
-          <SettingsModal
-            showSettings={showSettings}
-            setShowSettings={setShowSettings} />
-          <header className="AppHeader">
-            <span className="AppName">
-              <i className="logo"><CgTab /></i> <HackertabLogo className="logoText" />
-            </span>
-            <div className="slogan">
-              {APP.slogan}
-            </div>
-            <div className="extras">
-            <button className="extraBtn" onClick={onSourceCodeClick}><RiCodeSSlashFill /></button>
-            <button className="extraBtn" onClick={onSettingsClick}><BsFillGearFill /></button>
-            <button className="extraBtn darkModeBtn" onClick={onThemeChange}>{themeIcon}</button>
-          </div>
-          <div className="break"></div>
-            <UserTags userSelectedTags={state.userSelectedTags} onAddClicked={onSettingsClick} />
-        </header>
-        <main className="AppContent">
+
+          <Header setShowSideBar={setShowSideBar}
+            state={state}
+            dispatcher={dispatcher}
+            showSideBar={showSideBar} />
+
+          <main className="AppContent">
             <ThemeProvider theme={gridTheme}>
-            <Grid fluid={true}>
+              <Grid fluid={true}>
                 <Row>
                   {state.cards.map((card, index) => (
                     <Col key={index} lg={state.cards.length / APP.maxCardsPerRow} sm={state.cards.length / 2} xs={state.cards.length}>
-                    {React.createElement(SUPPORTED_CARDS.find((c) => c.value === card.name).component, { key: card.name })}
-                  </Col>
-                ))}
-              </Row>
-            </Grid>
-          </ThemeProvider>
+                      {React.createElement(SUPPORTED_CARDS.find((c) => c.value === card.name).component, { key: card.name })}
+                    </Col>
+                  ))}
+                </Row>
+              </Grid>
+            </ThemeProvider>
           </main>
-        
-          <Footer setCurrentPage={setCurrentPage} />              
-      </div>
+          <BookmarksSidebar showSidebar={showSideBar} onClose={() => setShowSideBar(false)} />
 
-    </PreferencesProvider>
+          <Footer setCurrentPage={setCurrentPage} />
+        </div>
+
+      </PreferencesProvider>
     )
   }
 

@@ -32,6 +32,7 @@ and visualize them in a proper way so you don't have to waste time jumping betwe
 - [x] Updated content every 4 hours
 - [x] Full dark mode support
 - [x] Keep or hide the wanted cards
+- [x] Bookmarks
 - [ ] Add your favorite newsletters
 - [ ] Sortable tabs (change order)
 

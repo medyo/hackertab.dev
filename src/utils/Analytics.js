@@ -1,55 +1,79 @@
-import * as Panelbear from "@panelbear/panelbear-js";
-
-
 const trackPageView = (pageName) => {
-  trackEvent("OpenPage", pageName)
+  trackEvent("Pages", "Open", pageName)
 }
 
 const trackThemeChange = (theme) => {
-  trackEvent("ChangeTheme", theme)
+  trackEvent("Theme", "Apply", theme)
 }
 
 const trackOpenLinkFrom = (dataSource) => {
-  trackEvent("OpenLinkFrom", dataSource)
+  trackEvent("Link", "Open", dataSource)
 }
 
 const trackAddLanguage = (language) => {
-  trackEvent("AddLanguage", language)
+  trackEvent("Language", "Add", language)
 }
 
+
 const trackRemoveLanguage = (card) => {
-  trackEvent("RemoveLanguage", card)
+  trackEvent("Language", "Remove", card)
 }
 
 const trackAddCard = (card) => {
-  trackEvent("AddCard", card)
+  trackEvent("Card", "Add", card)
 }
 
 const trackRemoveCard = (card) => {
-  trackEvent("RemoveCard", card)
+  trackEvent("Card", "Remove", card)
 }
 
 const trackOpenLinksNewTab = (enabled) => {
   if (enabled) {
-    trackEvent("EnableOpenLinksNewTab")
+    trackEvent("NewTab", "Enable")
   } else {
-    trackEvent("DisableOpenLinksNewTab")
+    trackEvent("NewTab", "Disable")
   }
 
 }
 
-const trackEvent = (eventName, eventValue) => {
+const trackBookmarkFrom = (dataSource) => {
+  trackEvent("Bookmarks", "Add", dataSource)
+}
 
-  if (!window.$analyticsEnabled) {
+const trackUnbookmarkFrom = (dataSource) => {
+  trackEvent("Bookmarks", "Remove", dataSource)
+}
+
+const trackEvent = (category, action, label) => {
+
+  if (!process.env.REACT_APP_ANALYTICS_ID) {
+    console.log("Missing analytics ID")
     return
   }
 
-  if (!eventValue) {
-    Panelbear.track(eventName)
+  const payload = new URLSearchParams([
+    ["v", "1"],
+    ["t", "event"],
+    ["tid", process.env.REACT_APP_ANALYTICS_ID],
+    ["aip", "1"], // Anonymous ip
+    ["cid", `${new Date().getTime()}${Math.random()}`], // Random User Id
+    ["ec", category],
+    ["ea", action],
+    ["el", label?.capitalize()],
+    ["ul", navigator.language],
+    ["ua", navigator.userAgent],
+  ]).toString()
+
+  if (process.env.NODE_ENV !== 'production') {
+    console.log("Analytics debug payload", payload)
     return
   }
 
-  Panelbear.track(`${eventName}${eventValue.capitalize()}`)
+  navigator.sendBeacon(
+    "https://www.google-analytics.com/collect",
+    payload
+  )
+
 }
 
 Object.assign(String.prototype, {
@@ -66,5 +90,7 @@ export {
   trackRemoveLanguage,
   trackAddCard,
   trackRemoveCard,
-  trackOpenLinksNewTab
+  trackOpenLinksNewTab,
+  trackBookmarkFrom,
+  trackUnbookmarkFrom
 }

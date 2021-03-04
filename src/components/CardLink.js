@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { APP } from "../Constants";
-import PreferencesContext from '../contexts/PreferencesContext'
+import PreferencesContext from '../preferences/PreferencesContext'
 import { trackOpenLinkFrom } from "../utils/Analytics"
 
 function CardLink({ link, className, children, analyticsSource }) {
@@ -9,7 +9,7 @@ function CardLink({ link, className, children, analyticsSource }) {
 
   const handleClick = (e) => {
     e.preventDefault();
-    
+
     trackOpenLinkFrom(analyticsSource)
 
     if (!link) {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
-import CardComponent from "./CardComponent";
-import ListComponent from "./ListComponent";
+import CardComponent from "../components/CardComponent";
+import ListComponent from "../components/ListComponent";
 import { SiGithub } from 'react-icons/si';
 import { VscRepo, VscRepoForked, VscStarFull } from 'react-icons/vsc';
 import githubApi from '../services/github'
@@ -12,8 +12,47 @@ import {
   useContextMenu
 } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
-import PreferencesContext from '../contexts/PreferencesContext'
-import CardLink from "./CardLink"
+import PreferencesContext from '../preferences/PreferencesContext'
+import CardLink from "../components/CardLink";
+import CardItemWithActions from '../components/CardItemWithActions'
+
+
+const RepoItem = ({ item, index }) => {
+  const source = 'github'
+  return (
+    <CardItemWithActions
+      source={source}
+      key={index}
+      index={index}
+      item={{...item, title: `${item.owner ? item.owner + "/" : ""}${item.name}`}}
+      cardItem={(
+        <>
+          <CardLink className="githubTitle" link={item.url} analyticsSource="repos">
+            <VscRepo className={"rowTitleIcon"} />
+            {
+              item.owner && `${item?.owner}/`
+            }
+            <b>{item.name}</b>
+          </CardLink>
+          <p className="rowDescription">{item.description}</p>
+          <div className="rowDetails">
+            {
+              item.programmingLanguage && <span className={"rowItem rowLanguage gh-language-" + item.programmingLanguage.toLowerCase()}>{item.programmingLanguage}</span>
+            }
+            {
+              item.stars &&
+              <span className="rowItem"><VscStarFull className="rowItemIcon" /> {item.stars} stars</span>
+            }
+            {
+              item.forks &&
+              <span className="rowItem"><VscRepoForked className="rowItemIcon" /> {item.forks} forks</span>
+            }
+          </div>
+        </>
+      )}
+    />
+  )
+}
 
 
 const MENU_ID = "menu-id";
@@ -24,7 +63,7 @@ function ReposCard() {
 
   const preferences = useContext(PreferencesContext)
 
-  const { userSelectedTags = [] } = preferences
+  const { userSelectedTags = [], userBookmarks = [] } = preferences
 
   const getTags = () => [...userSelectedTags, globalTag]
 
@@ -65,7 +104,7 @@ function ReposCard() {
   }
 
   function HeaderTitle() {
-    if(!selectedTag) { return null }
+    if (!selectedTag) { return null }
     return (
       <div style={{ display: 'inline-block', margin: 0, padding: 0 }} >
         <span onClick={show} className="headerSelect">{selectedTag.label}<RiArrowDownSFill className="headerSelectIcon" /></span>
@@ -73,31 +112,10 @@ function ReposCard() {
       </div>
     )
   }
+
   const renderRepos = (repos) => {
     return repos.map((item, index) =>
-      <div key={`gh-${index}`} className="blockRow" d={index}>
-        <CardLink className="githubTitle" link={item.url} analyticsSource="repos">
-          <VscRepo className={"rowTitleIcon"} />
-          {
-            item.owner && `${item?.owner}/`
-          }
-          <b>{item.name}</b>
-        </CardLink>
-        <p className="rowDescription">{item.description}</p>
-        <div className="rowDetails">
-          {
-            item.programmingLanguage && <span className={"rowItem rowLanguage gh-language-" + item.programmingLanguage.toLowerCase()}>{item.programmingLanguage}</span>
-          }
-          {
-            item.stars &&
-            <span className="rowItem"><VscStarFull className="rowItemIcon" /> {item.stars} stars</span>
-          }
-          {
-            item.forks &&
-            <span className="rowItem"><VscRepoForked className="rowItemIcon" /> {item.forks} forks</span>
-          }
-        </div>
-      </div>
+      <RepoItem item={item} index={index} />
     )
   }
 
