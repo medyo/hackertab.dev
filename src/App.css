@@ -570,6 +570,7 @@ Github languages colors
   border-bottom: 2px solid var(--app-name-text-color);
   text-transform: capitalize;
   cursor: pointer;
+  margin: auto 5px;
 }
 .headerSelectIcon {
   position: relative;

@@ -44,6 +44,14 @@ const trackUnbookmarkFrom = (dataSource) => {
   trackEvent("Bookmarks", "Remove", dataSource)
 }
 
+const trackReposLanguageChange = (language) => {
+  trackEvent("Repos", "ChangeLanguage", language)
+}
+
+const trackReposDateRangeChange = (dateRange) => {
+  trackEvent("Repos", "ChangeDateRange", dateRange)
+}
+
 const trackEvent = (category, action, label) => {
 
   if (!process.env.REACT_APP_ANALYTICS_ID) {
@@ -92,5 +100,7 @@ export {
   trackRemoveCard,
   trackOpenLinksNewTab,
   trackBookmarkFrom,
-  trackUnbookmarkFrom
+  trackUnbookmarkFrom,
+  trackReposLanguageChange,
+  trackReposDateRangeChange
 }
