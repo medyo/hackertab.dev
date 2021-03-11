@@ -75,9 +75,9 @@ function ReposCard() {
   const [since, setSince] = useState('daily')
   const [refresh, setRefresh] = useState(true)
   const dateRangeMapper = {
-    'daily': 'The day',
-    'weekly': 'The week',
-    'monthly': 'The month'
+    'daily': 'the day',
+    'weekly': 'the week',
+    'monthly': 'the month'
   }
 
   useEffect(() => {
