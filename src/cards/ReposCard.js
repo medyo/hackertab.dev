@@ -15,6 +15,7 @@ import "react-contexify/dist/ReactContexify.css";
 import PreferencesContext from '../preferences/PreferencesContext'
 import CardLink from "../components/CardLink";
 import CardItemWithActions from '../components/CardItemWithActions'
+import { trackReposLanguageChange, trackReposDateRangeChange } from "../utils/Analytics"
 
 
 const RepoItem = ({ item, index }) => {
@@ -55,7 +56,8 @@ const RepoItem = ({ item, index }) => {
 }
 
 
-const MENU_ID = "menu-id";
+const TAGS_MENU_ID = "tags-menu";
+const DATE_RANGE_MENU_ID = "date-range-id"
 
 function ReposCard() {
 
@@ -67,9 +69,7 @@ function ReposCard() {
 
   const getTags = () => [...userSelectedTags, globalTag]
 
-  const { show } = useContextMenu({
-    id: MENU_ID
-  });
+  const { show: showMenu } = useContextMenu();
 
   const [selectedTag, setSelectedTag] = useState(getTags()[0])
   const [since, setSince] = useState('daily')
@@ -91,7 +91,21 @@ function ReposCard() {
 
   const onSelectedTagChange = (selTag) => {
     setSelectedTag(selTag)
+    trackReposLanguageChange(selTag.value)
     setRefresh(!refresh)
+  }
+
+  const onDateRangeChange = (dateRange) => {
+    setSince(dateRange)
+    trackReposDateRangeChange(dateRange)
+    setRefresh(!refresh)
+  }
+
+  const displayMenu = (e) => {
+    const { target: { dataset: { targetId } }} = e
+    if (targetId) {
+      showMenu(e, { id: targetId })
+    }
   }
 
 
@@ -107,8 +121,13 @@ function ReposCard() {
     if (!selectedTag) { return null }
     return (
       <div style={{ display: 'inline-block', margin: 0, padding: 0 }} >
-        <span onClick={show} className="headerSelect">{selectedTag.label}<RiArrowDownSFill className="headerSelectIcon" /></span>
-        <span> Repos of {dateRangeMapper[since]}</span>
+        <span onClick={displayMenu} className="headerSelect" data-target-id={TAGS_MENU_ID}>
+          {selectedTag.label}<RiArrowDownSFill className="headerSelectIcon" />
+        </span>
+        <span> Repos of </span>
+        <span onClick={displayMenu} className="headerSelect" data-target-id={DATE_RANGE_MENU_ID}>
+          {dateRangeMapper[since]}<RiArrowDownSFill className="headerSelectIcon" />
+        </span>
       </div>
     )
   }
@@ -132,12 +151,22 @@ function ReposCard() {
           renderData={renderRepos}
           refresh={refresh}
         />
-        <Menu id={MENU_ID}
+        <Menu id={TAGS_MENU_ID}
           animation={animation.fade}>
           {
             getTags().map((tag) => {
-              return (<Item key={tag} onClick={(e) => onSelectedTagChange(tag)}>
+              return (<Item key={tag} onClick={() => onSelectedTagChange(tag)}>
                 {tag.label}
+              </Item>)
+            })
+          }
+        </Menu>
+        <Menu id={DATE_RANGE_MENU_ID}
+          animation={animation.fade}>
+          {
+            Object.keys(dateRangeMapper).map((key) => {
+              return (<Item key={key} onClick={() => onDateRangeChange(key)}>
+                {dateRangeMapper[key]}
               </Item>)
             })
           }
