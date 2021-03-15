@@ -3,6 +3,7 @@ import DevToCard from "./cards/DevToCard";
 import ConferencesCard from "./cards/ConferencesCard";
 import JobsCard from "./cards/JobsCard";
 import ReposCard from "./cards/ReposCard";
+import ProductHuntCard from "./cards/ProductHuntCard";
 
 const APP = {
   name: 'Hackertab.dev',
@@ -136,6 +137,7 @@ export const SUPPORTED_CARDS = [
   { value: 'hackernews', label: 'Hackernews', component: HNCard },
   { value: 'conferences', label: 'Upcoming events', component: ConferencesCard },
   { value: 'devto', label: 'DevTo', component: DevToCard },
+  { value: 'producthunt', label: 'ProductHunt', component: ProductHuntCard },
 ]
 
 

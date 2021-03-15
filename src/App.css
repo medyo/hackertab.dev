@@ -590,3 +590,39 @@ Contextify
   background-color: var(--app-name-text-color) !important;
   color: var(--background-color) !important
 }
+
+/**
+Producthunt item
+**/
+
+.phItem {
+  display: flex;
+  flex-direction: row;
+}
+
+.phImage {
+  width: 52px;
+  height: 52px;
+  margin-right: 12px;
+}
+
+.phContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.phVote {
+  border: 1px solid #e8e8e8;
+  border-radius: 2px;
+  display: block;
+  padding: 12px 8px;
+  height: 0%;
+  text-align: center;
+  
+}
+
+.phVotesCount {
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 4px;
+}
