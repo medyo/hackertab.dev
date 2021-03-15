@@ -52,9 +52,7 @@ function App() {
 
 
   useEffect(() => {
-    if (currentPage != 'home') {
-      trackPageView(currentPage)
-    }
+    trackPageView(currentPage)
   }, [currentPage])
 
   const gridTheme = {
