@@ -1,10 +1,12 @@
 import React from 'react'
 import { APP } from '../Constants';
 import { RiCodeSSlashFill } from "react-icons/ri"
+import { trackPageView } from "../utils/Analytics"
 
 function Footer({ setCurrentPage }) {
 
   const onSourceCodeClick = () => {
+    trackPageView('source code')
     window.open(APP.repository, "_blank")
   }
 
