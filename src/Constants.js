@@ -138,7 +138,7 @@ export const SUPPORTED_CARDS = [
   { value: 'hackernews', analyticsTag: 'hackernews', label: 'Hackernews', component: HNCard },
   { value: 'conferences', analyticsTag: 'events', label: 'Upcoming events', component: ConferencesCard },
   { value: 'devto', analyticsTag: 'devto', label: 'DevTo', component: DevToCard },
-  { value: 'producthunt', analyticsTag: 'producthunt', label: 'ProductHunt', component: ProductHuntCard },
+  { value: 'producthunt', analyticsTag: 'producthunt', label: 'Product Hunt', component: ProductHuntCard },
 ]
 
 export const LS_PREFERENCES_KEY = "hackerTabPrefs"

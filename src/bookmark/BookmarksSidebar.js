@@ -71,7 +71,7 @@ function BookmarksSidebar({ showSidebar, onClose }) {
           </SubMenu>
 
           <SubMenu
-            title="Producthunt" icon={<SiProducthunt />}
+            title="Product Hunt" icon={<SiProducthunt />}
             suffix={<span className="badge yellow">{productsBookmarks.length}</span>}
           >
             {
