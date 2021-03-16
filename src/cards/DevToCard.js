@@ -75,7 +75,7 @@ function DevToCard({ analyticsTag, label }) {
 
   const renderArticles = (articles) => {
     return articles.map((item, index) => (
-      <ArticleItem item={item} index={index} analyticsTag={analyticsTag} />
+      <ArticleItem item={item} key={`at-${index}`} index={index} analyticsTag={analyticsTag} />
     ))
   }
 

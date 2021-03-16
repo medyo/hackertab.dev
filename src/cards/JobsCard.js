@@ -73,7 +73,7 @@ function JobsCard({ analyticsTag, label }) {
   }, [userSelectedTags])
 
   const renderJobs = (jobs) => {
-    return jobs.map((item, index) => <JobItem item={item} index={index} analyticsTag={analyticsTag} />)
+    return jobs.map((item, index) => <JobItem item={item} key={`jb-${index}`} index={index} analyticsTag={analyticsTag} />)
   }
   return (
     <CardComponent
