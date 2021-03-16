@@ -204,7 +204,13 @@ a {
 }
 .extraTextBtnIcon {
   margin-right: 4px;
+  transition: color 400ms,transform .1s;
 }
+.extraTextBtn:hover .extraTextBtnIcon {
+  color: red;
+  transform: scale(1.2);
+}
+
 .badgeCount {
   width: 20px;
   height: 20px;
