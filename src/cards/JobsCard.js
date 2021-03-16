@@ -10,6 +10,7 @@ import { format } from 'timeago.js';
 import PreferencesContext from '../preferences/PreferencesContext'
 import CardLink from "../components/CardLink"
 import CardItemWithActions from '../components/CardItemWithActions'
+import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 
 const JobItem = ({ item, index, analyticsTag }) => {
@@ -31,11 +32,7 @@ const JobItem = ({ item, index, analyticsTag }) => {
           </p>
 
           <p className="rowDetails">
-            {item.categories.map((cat, index) =>
-              <span key={index} className={"rowItem rowLanguage gh-language-" + cat.toLowerCase()}>{cat}</span>
-
-            )
-            }
+            <ColoredLanguagesBadge languages={item.categories} />
           </p>
         </>
       )}

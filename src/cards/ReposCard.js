@@ -16,6 +16,7 @@ import PreferencesContext from '../preferences/PreferencesContext'
 import CardLink from "../components/CardLink";
 import CardItemWithActions from '../components/CardItemWithActions'
 import { trackReposLanguageChange, trackReposDateRangeChange } from "../utils/Analytics"
+import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 
 const RepoItem = ({ item, index }) => {
@@ -37,9 +38,7 @@ const RepoItem = ({ item, index }) => {
           </CardLink>
           <p className="rowDescription">{item.description}</p>
           <div className="rowDetails">
-            {
-              item.programmingLanguage && <span className={"rowItem rowLanguage gh-language-" + item.programmingLanguage.toLowerCase()}>{item.programmingLanguage}</span>
-            }
+            <ColoredLanguagesBadge languages={[item.programmingLanguage]} />
             {
               item.stars &&
               <span className="rowItem"><VscStarFull className="rowItemIcon" /> {item.stars} stars</span>

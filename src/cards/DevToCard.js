@@ -10,6 +10,7 @@ import { BiCommentDetail } from 'react-icons/bi';
 import { MdAccessTime } from "react-icons/md"
 import { AiOutlineLike } from "react-icons/ai"
 import CardItemWithActions from '../components/CardItemWithActions'
+import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 
 const ArticleItem = ({ item, index, analyticsTag }) => {
@@ -32,11 +33,7 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
           </p>
 
           <p className="rowDetails">
-            {item.tag_list.map((tag, index) =>
-              <span key={index} className={"rowItem rowLanguage gh-language-" + tag.toLowerCase()}>{tag}</span>
-
-            )
-            }
+            <ColoredLanguagesBadge languages={item.tag_list} />
           </p>
         </>
       )}

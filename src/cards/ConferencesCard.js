@@ -10,6 +10,7 @@ import { RiCalendarEventFill } from "react-icons/ri";
 import PreferencesContext from '../preferences/PreferencesContext'
 import CardLink from "../components/CardLink";
 import CardItemWithActions from '../components/CardItemWithActions'
+import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 
 const ConferenceItem = ({ conf, index, analyticsTag }) => {
@@ -62,7 +63,7 @@ const ConferenceItem = ({ conf, index, analyticsTag }) => {
             <span className="rowItem"><MdAccessTime className="rowItemIcon" /> {ConferenceDate()}</span>
           </div>
           <div className="rowDetails">
-            <span className={"rowItem rowLanguage gh-language-" + conf.tag.value.toLowerCase()}>{conf.tag.value}</span>
+            <ColoredLanguagesBadge languages={[conf.tag.value]} />
           </div>
         </>
       )}
