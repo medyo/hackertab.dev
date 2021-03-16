@@ -12,17 +12,17 @@ import { AiOutlineLike } from "react-icons/ai"
 import CardItemWithActions from '../components/CardItemWithActions'
 
 
-const ArticleItem = ({item, index}) => {
-  const source = 'devto'
+const ArticleItem = ({ item, index, analyticsTag }) => {
+
   return (
     <CardItemWithActions
-      source={source}
+      source={'devto'}
       index={index}
       key={index}
       item={item}
       cardItem={(
         <>
-          <CardLink link={item.url} analyticsSource="devto">
+          <CardLink link={item.url} analyticsSource={analyticsTag}>
             {item.title}
           </CardLink>
           <p className="rowDescription">
@@ -46,7 +46,7 @@ const ArticleItem = ({item, index}) => {
 
 
 
-function DevToCard() {
+function DevToCard({ analyticsTag, label }) {
   const preferences = useContext(PreferencesContext)
   const { userSelectedTags } = preferences
 
@@ -78,7 +78,7 @@ function DevToCard() {
 
   const renderArticles = (articles) => {
     return articles.map((item, index) => (
-      <ArticleItem item={item} index={index} />
+      <ArticleItem item={item} index={index} analyticsTag={analyticsTag} />
     ))
   }
 
@@ -86,7 +86,7 @@ function DevToCard() {
 
     <CardComponent
       icon={<FaDev className="blockHeaderIcon blockHeaderWhite" />}
-      title={"DevTo"}
+      title={label}
     >
       <ListComponent
         fetchData={fetchArticles}

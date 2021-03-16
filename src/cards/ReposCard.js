@@ -19,10 +19,10 @@ import { trackReposLanguageChange, trackReposDateRangeChange } from "../utils/An
 
 
 const RepoItem = ({ item, index }) => {
-  const source = 'github'
+
   return (
     <CardItemWithActions
-      source={source}
+      source={'github'}
       key={index}
       index={index}
       item={{...item, title: `${item.owner ? item.owner + "/" : ""}${item.name}`}}
@@ -59,7 +59,7 @@ const RepoItem = ({ item, index }) => {
 const TAGS_MENU_ID = "tags-menu";
 const DATE_RANGE_MENU_ID = "date-range-id"
 
-function ReposCard() {
+function ReposCard({ analyticsTag, label }) {
 
   const globalTag = { value: 'global', label: 'All trending', githubValues: ['global'] }
 
@@ -134,7 +134,7 @@ function ReposCard() {
 
   const renderRepos = (repos) => {
     return repos.map((item, index) =>
-      <RepoItem item={item} index={index} />
+      <RepoItem item={item} index={index} analyticsTag={analyticsTag} />
     )
   }
 
