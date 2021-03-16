@@ -47,7 +47,7 @@ function HNCard({ analyticsTag, label }) {
   }
 
   const renderStories = (stories) => {
-    return stories.map((story, index) => <StoryItem item={story} index={index} analyticsTag={analyticsTag} />)
+    return stories.map((story, index) => <StoryItem item={story} key={`st-${index}`} index={index} analyticsTag={analyticsTag} />)
   }
 
   return (
