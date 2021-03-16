@@ -28,9 +28,9 @@ function App() {
     openLinksNewTab: true,
     cards: [
       { id: 0, name: "github" },
-      { id: 1, name: "jobs" },
+      { id: 1, name: "hackernews" },
       { id: 2, name: "devto" },
-      { id: 3, name: "conferences" },
+      { id: 3, name: "producthunt" },
     ]
   }, (initialState) => {
     try {
