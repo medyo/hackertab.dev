@@ -133,7 +133,7 @@ function ReposCard({ analyticsTag, label }) {
 
   const renderRepos = (repos) => {
     return repos.map((item, index) =>
-      <RepoItem item={item} index={index} analyticsTag={analyticsTag} />
+      <RepoItem item={item} key={`rp-${index}`} analyticsTag={analyticsTag} />
     )
   }
 

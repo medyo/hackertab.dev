@@ -103,7 +103,7 @@ function ConferencesCard({ label, analyticsTag }) {
   }
 
   const renderConfs = (confs) => {
-    return confs.map((conf, index) => <ConferenceItem conf={conf} index={index} analyticsTag={analyticsTag} />)
+    return confs.map((conf, index) => <ConferenceItem conf={conf} key={`cf-${index}`} index={index} analyticsTag={analyticsTag} />)
   }
   return (
     <CardComponent
