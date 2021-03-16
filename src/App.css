@@ -636,7 +636,7 @@ Producthunt item
 }
 
 .phVote {
-  border: 1px solid #e8e8e8;
+  border: 1px solid var(--card-border-color);
   border-radius: 2px;
   display: block;
   padding: 12px 8px;
