@@ -6,6 +6,7 @@ import { TiDelete } from 'react-icons/ti';
 import { HiTicket } from 'react-icons/hi';
 import { SiStackoverflow } from 'react-icons/si';
 import { SiGithub } from 'react-icons/si';
+import { SiProducthunt } from 'react-icons/si';
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarContent } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import PreferencesContext from '../preferences/PreferencesContext';
@@ -13,7 +14,7 @@ import CardLink from "../components/CardLink";
 import { trackUnbookmarkFrom } from "../utils/Analytics"
 
 
-const BookmarkItem = ({ item }) => {
+const BookmarkItem = ({ item, appendRef = true }) => {
   const { dispatcher } = useContext(PreferencesContext)
   const unBookmark = () => {
     dispatcher({ type: 'unBookmarkItem', value: item })
@@ -23,7 +24,7 @@ const BookmarkItem = ({ item }) => {
     <MenuItem
       suffix={<span className="unbookmarkBtn" onClick={unBookmark}><TiDelete /></span>}
     >
-      <CardLink link={item.url} >{`${item.title}`}</CardLink>
+      <CardLink link={item.url} appendRef={appendRef}>{`${item.title}`}</CardLink>
     </MenuItem>
   )
 }
@@ -35,6 +36,7 @@ function BookmarksSidebar({ showSidebar, onClose }) {
   const jobsBookmarks = userBookmarks.filter(bm => bm.source == "jobs")
   const newsBookmarks = userBookmarks.filter(bm => ["hackernews", "devto"].indexOf(bm.source) != -1)
   const conferencesBookmarks = userBookmarks.filter(bm => bm.source == "conferences")
+  const productsBookmarks = userBookmarks.filter(bm => bm.source == "producthunt")
 
   return (
     <ProSidebar className="sidebar"
@@ -66,6 +68,16 @@ function BookmarksSidebar({ showSidebar, onClose }) {
             {
               newsBookmarks.map((bm, index) => (<BookmarkItem item={bm} key={`ne-${index}`} />))
             }
+          </SubMenu>
+
+          <SubMenu
+            title="Producthunt" icon={<SiProducthunt />}
+            suffix={<span className="badge yellow">{productsBookmarks.length}</span>}
+          >
+            {
+              productsBookmarks.map((bm, index) => (<BookmarkItem item={bm} key={`gh-${index}`} appendRef={false} />))
+            }
+
           </SubMenu>
 
           <SubMenu title="Featured Jobs" icon={<SiStackoverflow />}
