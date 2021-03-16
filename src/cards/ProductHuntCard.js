@@ -3,7 +3,6 @@ import React, { useEffect, useState, useContext } from 'react'
 import { SiProducthunt } from 'react-icons/si';
 import CardComponent from "../components/CardComponent";
 import ListComponent from "../components/ListComponent";
-import stackoverflowApi from '../services/stackoverflow';
 import { BiCommentDetail } from "react-icons/bi"
 import { VscTriangleUp } from 'react-icons/vsc';
 import PreferencesContext from '../preferences/PreferencesContext'
@@ -11,20 +10,18 @@ import CardLink from "../components/CardLink"
 import CardItemWithActions from '../components/CardItemWithActions'
 import producthuntApi from '../services/producthunt'
 
-const ProductItem = ({ item, index }) => {
-  const source = 'producthunt'
-
+const ProductItem = ({ item, index, analyticsTag }) => {
   return (
     <CardItemWithActions
-      source={source}
+      source={'producthunt'}
       index={index}
       key={index}
-      item={{ ...item, url: item.link }}
+      item={{ ...item, title: item.name }}
       cardItem={(
         <div className="phItem">
           <img className="phImage" src={item.thumbnail.url} />
           <div className="phContent">
-            <CardLink link={item.url} appendRef={false} analyticsSource={source}>
+            <CardLink link={item.url} appendRef={false} analyticsSource={analyticsTag}>
               {item.name}
             </CardLink>
             <p className="rowDescription">{item.tagline}</p>
@@ -50,7 +47,7 @@ const ProductItem = ({ item, index }) => {
   )
 }
 
-function ProductHuntCard() {
+function ProductHuntCard({ label, analyticsTag }) {
   const preferences = useContext(PreferencesContext)
 
   const { userSelectedTags } = preferences
@@ -66,12 +63,12 @@ function ProductHuntCard() {
   }, [userSelectedTags])
 
   const renderProducts = (jobs) => {
-    return jobs.map((item, index) => <ProductItem item={item} index={index} />)
+    return jobs.map((item, index) => <ProductItem item={item} key={`ph-${index}`} analyticsTag={analyticsTag} index={index} />)
   }
   return (
     <CardComponent
       icon={<SiProducthunt className="blockHeaderIcon" color="#D65736" />}
-      title={"ProductHunt"}
+      title={label}
     >
 
       <ListComponent
