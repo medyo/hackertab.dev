@@ -10,19 +10,20 @@ import { format } from 'timeago.js';
 import PreferencesContext from '../preferences/PreferencesContext'
 import CardLink from "../components/CardLink"
 import CardItemWithActions from '../components/CardItemWithActions'
+import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 
-const JobItem = ({ item, index }) => {
-  const source = 'jobs'
+const JobItem = ({ item, index, analyticsTag }) => {
+
   return (
     <CardItemWithActions
-      source={source}
+      source={'jobs'}
       index={index}
       key={index}
       item={{ ...item, url: item.link }}
       cardItem={(
         <>
-          <CardLink link={item.link} analyticsSource="jobs">
+          <CardLink link={item.link} analyticsSource={analyticsTag}>
             {item.title}
           </CardLink>
           <p className="rowDescription">
@@ -31,11 +32,7 @@ const JobItem = ({ item, index }) => {
           </p>
 
           <p className="rowDetails">
-            {item.categories.map((cat, index) =>
-              <span key={index} className={"rowItem rowLanguage gh-language-" + cat.toLowerCase()}>{cat}</span>
-
-            )
-            }
+            <ColoredLanguagesBadge languages={item.categories} />
           </p>
         </>
       )}
@@ -43,7 +40,7 @@ const JobItem = ({ item, index }) => {
   )
 }
 
-function JobsCard() {
+function JobsCard({ analyticsTag, label }) {
   const preferences = useContext(PreferencesContext)
 
   const { userSelectedTags } = preferences
@@ -76,12 +73,12 @@ function JobsCard() {
   }, [userSelectedTags])
 
   const renderJobs = (jobs) => {
-    return jobs.map((item, index) => <JobItem item={item} index={index} />)
+    return jobs.map((item, index) => <JobItem item={item} index={index} analyticsTag={analyticsTag} />)
   }
   return (
     <CardComponent
       icon={<SiStackoverflow className="blockHeaderIcon" color="#F18032" />}
-      title={"Featured Jobs"}
+      title={label}
     >
 
       <ListComponent

@@ -10,11 +10,11 @@ import { RiCalendarEventFill } from "react-icons/ri";
 import PreferencesContext from '../preferences/PreferencesContext'
 import CardLink from "../components/CardLink";
 import CardItemWithActions from '../components/CardItemWithActions'
+import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 
-const ConferenceItem = ({ conf, index }) => {
-  const source = 'conferences';
-
+const ConferenceItem = ({ conf, index, analyticsTag }) => {
+  
   const formatConfsDate = (date) => {
     const monthNames = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
@@ -48,13 +48,13 @@ const ConferenceItem = ({ conf, index }) => {
   }
   return (
     <CardItemWithActions
-      source={source}
+      source={'conferences'}
       index={index}
       key={index}
       item={{ ...conf, title: conf.name }}
       cardItem={(
         <>
-          <CardLink link={conf.url} analyticsSource="events">
+          <CardLink link={conf.url} analyticsSource={analyticsTag}>
             <RiCalendarEventFill className={"rowTitleIcon"} />
             {conf.name}
           </CardLink>
@@ -63,7 +63,7 @@ const ConferenceItem = ({ conf, index }) => {
             <span className="rowItem"><MdAccessTime className="rowItemIcon" /> {ConferenceDate()}</span>
           </div>
           <div className="rowDetails">
-            <span className={"rowItem rowLanguage gh-language-" + conf.tag.value.toLowerCase()}>{conf.tag.value}</span>
+            <ColoredLanguagesBadge languages={[conf.tag.value]} />
           </div>
         </>
       )}
@@ -72,7 +72,7 @@ const ConferenceItem = ({ conf, index }) => {
 }
 
 
-function ConferencesCard() {
+function ConferencesCard({ label, analyticsTag }) {
   const preferences = useContext(PreferencesContext)
   const { userSelectedTags = [] } = preferences
   const [refresh, setRefresh] = useState(true)
@@ -103,12 +103,12 @@ function ConferencesCard() {
   }
 
   const renderConfs = (confs) => {
-    return confs.map((conf, index) => <ConferenceItem conf={conf} index={index} />)
+    return confs.map((conf, index) => <ConferenceItem conf={conf} index={index} analyticsTag={analyticsTag} />)
   }
   return (
     <CardComponent
       icon={<HiTicket className="blockHeaderIcon" color="#4EC8AF" />}
-      title={"Upcoming events"}
+      title={label}
     >
       <ListComponent
         fetchData={fetchConfs}

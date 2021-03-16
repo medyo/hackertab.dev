@@ -12,18 +12,18 @@ import CardLink from "../components/CardLink";
 import CardItemWithActions from '../components/CardItemWithActions'
 
 
-const StoryItem = ({ item, index }) => {
-  const source = 'hackernews'
+const StoryItem = ({ item, index, analyticsTag }) => {
+
   return (
     <CardItemWithActions
-      source={source}
+      source={"hackernews"}
       index={index}
       item={item}
       key={index}
       cardItem={(
         <>
           <p className="rowTitle">
-          <CardLink link={item.url} analyticsSource="hn">
+            <CardLink link={item.url} analyticsSource={analyticsTag}>
             <VscTriangleUp className={"rowTitleIcon"} />
             {item.title}
           </CardLink>
@@ -40,20 +40,20 @@ const StoryItem = ({ item, index }) => {
 }
 
 
-function HNCard() {
+function HNCard({ analyticsTag, label }) {
 
   const fetchStories = async () => {
     return await hackernewsApi.getTopStories()
   }
 
   const renderStories = (stories) => {
-    return stories.map((story, index) => <StoryItem item={story} index={index} />)
+    return stories.map((story, index) => <StoryItem item={story} index={index} analyticsTag={analyticsTag} />)
   }
 
   return (
     <CardComponent
     icon={<SiYcombinator className="blockHeaderIcon" color="#FB6720" />}
-    title={"HackerNews"}
+      title={label}
     > 
       <ListComponent
         fetchData={fetchStories}

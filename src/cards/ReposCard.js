@@ -16,13 +16,14 @@ import PreferencesContext from '../preferences/PreferencesContext'
 import CardLink from "../components/CardLink";
 import CardItemWithActions from '../components/CardItemWithActions'
 import { trackReposLanguageChange, trackReposDateRangeChange } from "../utils/Analytics"
+import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 
 const RepoItem = ({ item, index }) => {
-  const source = 'github'
+
   return (
     <CardItemWithActions
-      source={source}
+      source={'github'}
       key={index}
       index={index}
       item={{...item, title: `${item.owner ? item.owner + "/" : ""}${item.name}`}}
@@ -37,9 +38,7 @@ const RepoItem = ({ item, index }) => {
           </CardLink>
           <p className="rowDescription">{item.description}</p>
           <div className="rowDetails">
-            {
-              item.programmingLanguage && <span className={"rowItem rowLanguage gh-language-" + item.programmingLanguage.toLowerCase()}>{item.programmingLanguage}</span>
-            }
+            <ColoredLanguagesBadge languages={[item.programmingLanguage]} />
             {
               item.stars &&
               <span className="rowItem"><VscStarFull className="rowItemIcon" /> {item.stars} stars</span>
@@ -59,7 +58,7 @@ const RepoItem = ({ item, index }) => {
 const TAGS_MENU_ID = "tags-menu";
 const DATE_RANGE_MENU_ID = "date-range-id"
 
-function ReposCard() {
+function ReposCard({ analyticsTag, label }) {
 
   const globalTag = { value: 'global', label: 'All trending', githubValues: ['global'] }
 
@@ -134,7 +133,7 @@ function ReposCard() {
 
   const renderRepos = (repos) => {
     return repos.map((item, index) =>
-      <RepoItem item={item} index={index} />
+      <RepoItem item={item} index={index} analyticsTag={analyticsTag} />
     )
   }
 

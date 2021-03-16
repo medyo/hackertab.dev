@@ -152,6 +152,11 @@ a {
   text-transform: uppercase;
   margin-right: 12px;
   cursor: pointer;
+  display: inline-flex;
+  vertical-align: middle
+}
+.linkItemIcon {
+  margin-right: 4px;
 }
 .linkItem :hover {
   color: var(--primary-hover-text-color);
@@ -187,7 +192,25 @@ a {
   outline: none;
   cursor: pointer;
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
+.extraTextBtn {
+  padding: 0 16px;
+  width: auto;
+  min-width: 40px;
+  font-weight: bold;
+}
+.extraTextBtnIcon {
+  margin-right: 4px;
+  transition: color 400ms,transform .1s;
+}
+.extraTextBtn:hover .extraTextBtnIcon {
+  color: red;
+  transform: scale(1.2);
+}
+
 .badgeCount {
   width: 20px;
   height: 20px;
