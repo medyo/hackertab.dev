@@ -10,7 +10,8 @@ const APP = {
   repository: 'https://github.com/medyo/hackertab.dev',
   ref: 'ref=hackertab',
   contactEmail: 'hello@hackertab.dev',
-  maxCardsPerRow: 4
+  maxCardsPerRow: 4,
+  donationLink: 'https://www.buymeacoffee.com/medyo'
 }
 
 const SUPPORTED_TAGS = [
