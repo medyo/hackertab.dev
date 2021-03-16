@@ -632,6 +632,7 @@ Producthunt item
 .phContent {
   display: flex;
   flex-direction: column;
+  flex-basis: 100%
 }
 
 .phVote {
@@ -640,7 +641,9 @@ Producthunt item
   display: block;
   padding: 12px 8px;
   height: 0%;
+  width: 45px;
   text-align: center;
+  margin-left: 4px;
   
 }
 
