@@ -1,7 +1,7 @@
 {
   "name": "Hackertab.dev",
   "description": "The Developer’s Homepage",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "manifest_version": 2,
   "chrome_url_overrides": {
     "newtab": "index.html"
@@ -12,5 +12,5 @@
     "48": "/logos/logo48.png",
     "128": "/logos/logo128.png"
   },
-  "content_security_policy": "script-src 'self' sha256-1ZuoyGD9G/dV5dQ+NFG4jok3Ka9UApuwTTfDF81fzZA='; object-src 'self'"
+  "content_security_policy": "script-src 'self' https://w.appzi.io/ sha256-1ZuoyGD9G/dV5dQ+NFG4jok3Ka9UApuwTTfDF81fzZA='; object-src 'self'"
 }

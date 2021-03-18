@@ -152,6 +152,11 @@ a {
   text-transform: uppercase;
   margin-right: 12px;
   cursor: pointer;
+  display: inline-flex;
+  vertical-align: middle
+}
+.linkItemIcon {
+  margin-right: 4px;
 }
 .linkItem :hover {
   color: var(--primary-hover-text-color);
@@ -187,7 +192,25 @@ a {
   outline: none;
   cursor: pointer;
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
+.extraTextBtn {
+  padding: 0 16px;
+  width: auto;
+  min-width: 40px;
+  font-weight: bold;
+}
+.extraTextBtnIcon {
+  margin-right: 4px;
+  transition: color 400ms,transform .1s;
+}
+.extraTextBtn:hover .extraTextBtnIcon {
+  color: red;
+  transform: scale(1.2);
+}
+
 .badgeCount {
   width: 20px;
   height: 20px;
@@ -589,4 +612,43 @@ Contextify
 .react-contexify__item__content:hover, .react-contexify__item__content:active {
   background-color: var(--app-name-text-color) !important;
   color: var(--background-color) !important
+}
+
+/**
+Producthunt item
+**/
+
+.phItem {
+  display: flex;
+  flex-direction: row;
+}
+
+.phImage {
+  width: 52px;
+  height: 52px;
+  margin-right: 12px;
+}
+
+.phContent {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%
+}
+
+.phVote {
+  border: 1px solid var(--card-border-color);
+  border-radius: 2px;
+  display: block;
+  padding: 12px 8px;
+  height: 0%;
+  width: 45px;
+  text-align: center;
+  margin-left: 4px;
+  
+}
+
+.phVotesCount {
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 4px;
 }

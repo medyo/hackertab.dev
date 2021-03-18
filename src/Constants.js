@@ -3,6 +3,7 @@ import DevToCard from "./cards/DevToCard";
 import ConferencesCard from "./cards/ConferencesCard";
 import JobsCard from "./cards/JobsCard";
 import ReposCard from "./cards/ReposCard";
+import ProductHuntCard from "./cards/ProductHuntCard";
 
 const APP = {
   name: 'Hackertab.dev',
@@ -10,7 +11,8 @@ const APP = {
   repository: 'https://github.com/medyo/hackertab.dev',
   ref: 'ref=hackertab',
   contactEmail: 'hello@hackertab.dev',
-  maxCardsPerRow: 4
+  maxCardsPerRow: 4,
+  donationLink: 'https://www.buymeacoffee.com/medyo'
 }
 
 const SUPPORTED_TAGS = [
@@ -131,13 +133,13 @@ export const LOCAL_CONFIGURATION = {
 
 
 export const SUPPORTED_CARDS = [
-  { value: 'github', label: 'Github repositories', component: ReposCard },
-  { value: 'jobs', label: 'Featured jobs', component: JobsCard },
-  { value: 'hackernews', label: 'Hackernews', component: HNCard },
-  { value: 'conferences', label: 'Upcoming events', component: ConferencesCard },
-  { value: 'devto', label: 'DevTo', component: DevToCard },
+  { value: 'github', analyticsTag: 'repos', label: 'Github repositories', component: ReposCard },
+  { value: 'jobs', analyticsTag: 'jobs', label: 'Featured jobs', component: JobsCard },
+  { value: 'hackernews', analyticsTag: 'hackernews', label: 'Hackernews', component: HNCard },
+  { value: 'conferences', analyticsTag: 'events', label: 'Upcoming events', component: ConferencesCard },
+  { value: 'devto', analyticsTag: 'devto', label: 'DevTo', component: DevToCard },
+  { value: 'producthunt', analyticsTag: 'producthunt', label: 'Product Hunt', component: ProductHuntCard },
 ]
-
 
 export const LS_PREFERENCES_KEY = "hackerTabPrefs"
 

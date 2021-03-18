@@ -3,7 +3,7 @@ import { APP } from "../Constants";
 import PreferencesContext from '../preferences/PreferencesContext'
 import { trackOpenLinkFrom } from "../utils/Analytics"
 
-function CardLink({ link, className, children, analyticsSource }) {
+function CardLink({ link, className, children, analyticsSource, appendRef = true }) {
 
   const { openLinksNewTab } = useContext(PreferencesContext)
 
@@ -16,17 +16,22 @@ function CardLink({ link, className, children, analyticsSource }) {
       return
     }
 
-    const url = new URL(link);
-    let utmUrl = link
-
-    // Url has some query params
-    if (url.search) {
-      utmUrl += `&${APP.ref}`
+    if (appendRef) {
+      const url = new URL(link);
+      let utmUrl = link
+  
+      // Url has some query params
+      if (url.search) {
+        utmUrl += `&${APP.ref}`
+      } else {
+        utmUrl += `?${APP.ref}`
+      }
+  
+      window.open(utmUrl, openLinksNewTab ? "_blank" : "_self")
     } else {
-      utmUrl += `?${APP.ref}`
+      window.open(link, openLinksNewTab ? "_blank" : "_self")
     }
 
-    window.open(utmUrl, openLinksNewTab ? "_blank" : "_self")
 
   };
 

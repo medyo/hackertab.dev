@@ -28,9 +28,9 @@ function App() {
     openLinksNewTab: true,
     cards: [
       { id: 0, name: "github" },
-      { id: 1, name: "jobs" },
+      { id: 1, name: "hackernews" },
       { id: 2, name: "devto" },
-      { id: 3, name: "conferences" },
+      { id: 3, name: "producthunt" },
     ]
   }, (initialState) => {
     try {
@@ -52,9 +52,7 @@ function App() {
 
 
   useEffect(() => {
-    if (currentPage != 'home') {
-      trackPageView(currentPage)
-    }
+    trackPageView(currentPage)
   }, [currentPage])
 
   const gridTheme = {
@@ -79,11 +77,12 @@ function App() {
             <ThemeProvider theme={gridTheme}>
               <Grid fluid={true}>
                 <Row>
-                  {state.cards.map((card, index) => (
-                    <Col key={index} lg={state.cards.length / APP.maxCardsPerRow} sm={state.cards.length / 2} xs={state.cards.length}>
-                      {React.createElement(SUPPORTED_CARDS.find((c) => c.value === card.name).component, { key: card.name })}
-                    </Col>
-                  ))}
+                  {state.cards.map((card, index) => {
+                    const constantCard = SUPPORTED_CARDS.find((c) => c.value === card.name)
+                    return (<Col key={index} lg={state.cards.length / APP.maxCardsPerRow} sm={state.cards.length / 2} xs={state.cards.length}>
+                      {React.createElement(constantCard.component, { key: card.name, label: constantCard.label, analyticsTag: constantCard.analyticsTag })}
+                    </Col>)
+                  })}
                 </Row>
               </Grid>
             </ThemeProvider>
