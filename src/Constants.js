@@ -4,6 +4,7 @@ import ConferencesCard from "./cards/ConferencesCard";
 import JobsCard from "./cards/JobsCard";
 import ReposCard from "./cards/ReposCard";
 import ProductHuntCard from "./cards/ProductHuntCard";
+import RedditCard from "./cards/RedditCard";
 
 const APP = {
   name: 'Hackertab.dev',
@@ -139,6 +140,7 @@ export const SUPPORTED_CARDS = [
   { value: 'conferences', analyticsTag: 'events', label: 'Upcoming events', component: ConferencesCard },
   { value: 'devto', analyticsTag: 'devto', label: 'DevTo', component: DevToCard },
   { value: 'producthunt', analyticsTag: 'producthunt', label: 'Product Hunt', component: ProductHuntCard },
+  { value: 'reddit', analyticsTag: 'reddit', label: 'Reddit', component: RedditCard },
 ]
 
 export const LS_PREFERENCES_KEY = "hackerTabPrefs"
