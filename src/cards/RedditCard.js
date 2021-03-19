@@ -16,12 +16,22 @@ import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 const formatResponsePost = (post) => {
     const { data: {
         title, subreddit, link_flair_text, link_flair_background_color,
-        score, num_comments, permalink, created_utc
+        score, num_comments, permalink, created_utc, link_flair_text_color
     } } = post
     return { 
         title, subreddit, link_flair_text, link_flair_background_color,
-        score, num_comments, permalink, created_utc
+        score, num_comments, permalink, created_utc, link_flair_text_color
     }
+}
+
+const PostFlair = ({ link_flair_text, link_flair_background_color, link_flair_text_color }) => {
+    const color = link_flair_text_color == 'light' ? "#fff" : "#000"
+    const backgroundColor = link_flair_background_color ? link_flair_background_color : "#dadada"
+    return (
+        <div style={{ backgroundColor, color}} className="flair">
+            <span>{ link_flair_text }</span>
+        </div>
+    )
 }
 
 const PostItem = ({ item, index, analyticsTag }) => {
@@ -38,6 +48,7 @@ const PostItem = ({ item, index, analyticsTag }) => {
                     <p className="rowTitle">
                         <CardLink link={fullUrl} analyticsSource={analyticsTag}>
                             <VscTriangleUp className={"rowTitleIcon"} />
+                            {item.link_flair_text && <PostFlair {...item} />}
                             {item.title}
                         </CardLink>
                     </p>
@@ -47,6 +58,7 @@ const PostItem = ({ item, index, analyticsTag }) => {
                             <MdAccessTime className="rowItemIcon" /> {format(new Date(item.created_utc * 1000))}
                         </span>
                         <span className="rowItem"><BiCommentDetail className="rowItemIcon" /> {item.num_comments} comments</span>
+                        <span className="rowItem">{`r/${item.subreddit}`}</span>
                     </div>
                 </>
             )}

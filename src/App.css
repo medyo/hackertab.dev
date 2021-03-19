@@ -652,3 +652,16 @@ Producthunt item
   font-size: 14px;
   margin-top: 4px;
 }
+
+
+/* reddit flairs */
+
+.flair {
+  padding: 2px 4px;
+  border-radius: 2px;
+  display: inline-block;
+  font-size: 12px;
+  margin-right: 5px;
+  text-overflow: ellipsis;
+}
+
