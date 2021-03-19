@@ -105,7 +105,7 @@ function RedditCard({ analyticsTag, label }) {
     return (
 
         <CardComponent
-            icon={<FaReddit className="blockHeaderIcon blockHeaderWhite" />}
+            icon={<FaReddit className="blockHeaderIcon" color="#FF4500" />}
             title={label}
         >
             <ListComponent
