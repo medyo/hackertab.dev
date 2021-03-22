@@ -6,6 +6,11 @@
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
   "icons": {
     "16": "/logos/logo16.png",
     "32": "/logos/logo32.png",
