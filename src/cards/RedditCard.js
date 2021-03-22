@@ -45,13 +45,13 @@ const PostItem = ({ item, index, analyticsTag }) => {
             item={{...item, url: fullUrl}}
             cardItem={(
                 <>
-                    <p className="rowTitle">
-                        <CardLink link={fullUrl} analyticsSource={analyticsTag}>
-                            <VscTriangleUp className={"rowTitleIcon"} />
-                            {item.link_flair_text && <PostFlair {...item} />}
-                            {item.title}
-                        </CardLink>
-                    </p>
+
+                    <CardLink link={fullUrl} analyticsSource={analyticsTag}>
+                        <VscTriangleUp className={"rowTitleIcon"} />
+                        {item.link_flair_text && <PostFlair {...item} />}
+                        {item.title}
+                    </CardLink>
+
                     <div className="rowDetails">
                         <span className="rowItem hnRowItem" ><GoPrimitiveDot className="rowItemIcon" /> {item.score} points</span>
                         <span className="rowItem">
