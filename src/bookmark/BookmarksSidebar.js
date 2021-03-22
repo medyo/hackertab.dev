@@ -1,12 +1,9 @@
 import React, { useContext } from "react";
 import './Sidebar.css';
 import { VscChromeClose } from 'react-icons/vsc';
-import { SiYcombinator } from 'react-icons/si';
 import { TiDelete } from 'react-icons/ti';
 import { HiTicket } from 'react-icons/hi';
-import { SiStackoverflow } from 'react-icons/si';
-import { SiGithub } from 'react-icons/si';
-import { SiProducthunt } from 'react-icons/si';
+import { SiGithub, SiReddit,  SiStackoverflow, SiProducthunt, SiYcombinator } from 'react-icons/si';
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarContent } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import PreferencesContext from '../preferences/PreferencesContext';
@@ -37,6 +34,7 @@ function BookmarksSidebar({ showSidebar, onClose }) {
   const newsBookmarks = userBookmarks.filter(bm => ["hackernews", "devto"].indexOf(bm.source) != -1)
   const conferencesBookmarks = userBookmarks.filter(bm => bm.source == "conferences")
   const productsBookmarks = userBookmarks.filter(bm => bm.source == "producthunt")
+  const redditBookmarks = userBookmarks.filter(bm => bm.source == "reddit")
 
   return (
     <ProSidebar className="sidebar"
@@ -92,6 +90,13 @@ function BookmarksSidebar({ showSidebar, onClose }) {
           >
             {
               conferencesBookmarks.map((bm, index) => (<BookmarkItem item={bm} key={`co-${index}`} />))
+            }
+          </SubMenu>
+          <SubMenu title="Reddit" icon={<SiReddit />}
+            suffix={<span className="badge yellow">{redditBookmarks.length}</span>}
+          >
+            {
+              redditBookmarks.map((bm, index) => (<BookmarkItem item={bm} key={`co-${index}`} />))
             }
           </SubMenu>
         </Menu>
