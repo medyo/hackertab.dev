@@ -11,7 +11,6 @@ import { MdAccessTime } from "react-icons/md"
 import { VscTriangleUp } from 'react-icons/vsc';
 import { GoPrimitiveDot } from "react-icons/go"
 import CardItemWithActions from '../components/CardItemWithActions'
-import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 const formatResponsePost = (post) => {
     const { data: {
