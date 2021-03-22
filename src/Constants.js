@@ -9,7 +9,7 @@ const APP = {
   name: 'Hackertab.dev',
   slogan: '— Stay updated with the new technology and trends',
   repository: 'https://github.com/medyo/hackertab.dev',
-  ref: 'ref=hackertab',
+  ref: 'utm_source=hackertab.dev&utm_medium=post&utm_campaign=home',
   contactEmail: 'hello@hackertab.dev',
   maxCardsPerRow: 4,
   donationLink: 'https://www.buymeacoffee.com/medyo'
@@ -128,7 +128,7 @@ const SUPPORTED_TAGS = [
 ]
 
 export const LOCAL_CONFIGURATION = {
-  supportedTags: SUPPORTED_TAGS
+  supportedTags: [] // Loaded remotly
 }
 
 
