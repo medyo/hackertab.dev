@@ -10,6 +10,7 @@ import { BiCommentDetail } from 'react-icons/bi';
 import { MdAccessTime } from "react-icons/md"
 import { VscTriangleUp } from 'react-icons/vsc';
 import { GoPrimitiveDot } from "react-icons/go"
+import { BsArrowReturnRight } from "react-icons/bs"
 import CardItemWithActions from '../components/CardItemWithActions'
 
 const formatResponsePost = (post) => {
@@ -52,12 +53,12 @@ const PostItem = ({ item, index, analyticsTag }) => {
                     </CardLink>
 
                     <div className="rowDetails">
-                        <span className="rowItem hnRowItem" ><GoPrimitiveDot className="rowItemIcon" /> {item.score} points</span>
+                        <span className="rowItem redditRowItem" ><GoPrimitiveDot className="rowItemIcon" /> {item.score} points</span>
                         <span className="rowItem">
                             <MdAccessTime className="rowItemIcon" /> {format(new Date(item.created_utc * 1000))}
                         </span>
                         <span className="rowItem"><BiCommentDetail className="rowItemIcon" /> {item.num_comments} comments</span>
-                        <span className="rowItem">{`r/${item.subreddit}`}</span>
+                        <span className="rowItem"><BsArrowReturnRight className="rowItemIcon" /> {`r/${item.subreddit}`}</span>
                     </div>
                 </>
             )}
