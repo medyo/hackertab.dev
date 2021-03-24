@@ -671,3 +671,18 @@ Producthunt item
   position: relative;
 }
 
+.marketingBanner {
+  background-color: #D65736;
+  border-radius: 6px;
+  color: white;
+  font-size: 20px;
+  width: 40%;
+  margin: 0 auto;
+  margin-bottom: 16px;
+  text-align: center;
+  padding: 16px 0;
+}
+
+.marketingIcon {
+  vertical-align: middle;
+}

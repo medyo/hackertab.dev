@@ -14,6 +14,8 @@ import { Grid, Col, Row } from 'react-styled-flexboxgrid'
 import { ThemeProvider } from 'styled-components'
 import { trackPageView } from "./utils/Analytics"
 import BookmarksSidebar from './bookmark/BookmarksSidebar'
+import { SiProducthunt } from 'react-icons/si';
+
 
 function App() {
 
@@ -72,7 +74,9 @@ function App() {
             state={state}
             dispatcher={dispatcher}
             showSideBar={showSideBar} />
-
+          <div className="marketingBanner">
+            <SiProducthunt color="white" size="30px" className="marketingIcon" /> Hackertab is on <strong>ProductHunt!</strong> 😻 Show some love! 💖
+          </div>
           <main className="AppContent">
             <ThemeProvider theme={gridTheme}>
               <Grid fluid={true}>
