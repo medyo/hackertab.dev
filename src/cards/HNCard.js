@@ -10,6 +10,7 @@ import { MdAccessTime } from "react-icons/md"
 import { GoPrimitiveDot } from "react-icons/go"
 import CardLink from "../components/CardLink";
 import CardItemWithActions from '../components/CardItemWithActions'
+import ClickableItem from '../components/ClickableItem';
 
 
 const StoryItem = ({ item, index, analyticsTag }) => {
@@ -31,7 +32,9 @@ const StoryItem = ({ item, index, analyticsTag }) => {
         <div className="rowDetails">
           <span className="rowItem hnRowItem" ><GoPrimitiveDot className="rowItemIcon" /> {item.score} points</span>
           <span className="rowItem" title={new Date(item.time * 1000).toUTCString()}><MdAccessTime className="rowItemIcon" /> {format(new Date(item.time * 1000))}</span>
-          <a className="rowItem" href={`https://news.ycombinator.com/item?id=${item.id}`} target="_blank"><BiCommentDetail className="rowItemIcon" /> {item.descendants} comments</a>
+            <ClickableItem link={`https://news.ycombinator.com/item?id=${item.id}`} className="rowItem rowItemClickable" analyticsSource={analyticsTag}>
+              <BiCommentDetail className="rowItemIcon" /> {item.descendants} comments
+          </ClickableItem>
         </div>
         </>
       )}
