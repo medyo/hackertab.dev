@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "country-emoji": "^1.5.4",
+    "dompurify": "^2.2.7",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.0.0-0",
     "react": "^17.0.1",
