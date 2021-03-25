@@ -31,7 +31,7 @@ const StoryItem = ({ item, index, analyticsTag }) => {
         <div className="rowDetails">
           <span className="rowItem hnRowItem" ><GoPrimitiveDot className="rowItemIcon" /> {item.score} points</span>
           <span className="rowItem" title={new Date(item.time * 1000).toUTCString()}><MdAccessTime className="rowItemIcon" /> {format(new Date(item.time * 1000))}</span>
-          <span className="rowItem"><BiCommentDetail className="rowItemIcon" /> {item.descendants} comments</span>
+          <a className="rowItem" href={`https://news.ycombinator.com/item?id=${item.id}`} target="_blank"><BiCommentDetail className="rowItemIcon" /> {item.descendants} comments</a>
         </div>
         </>
       )}
