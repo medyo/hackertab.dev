@@ -321,7 +321,7 @@ a {
   right :-100%;
   background: linear-gradient(to right, transparent, var(--card-actions-background-shadow));
   height: 100%;
-  width: 36%;
+  width: 26%;
   justify-content: flex-end;
   align-items: flex-end;
   display: flex;
@@ -420,6 +420,10 @@ a {
   align-items: center;
   flex-wrap: wrap;
 }
+.rowItemClickable {
+  text-decoration: none;
+}
+
 .rowItem {
   color: #616970;
   margin-right: 16px;
