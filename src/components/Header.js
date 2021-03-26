@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { BsFillGearFill } from "react-icons/bs"
 import { CgTab } from 'react-icons/cg';
-import { AiFillHeart } from "react-icons/ai"
 import { BsFillBookmarksFill } from "react-icons/bs"
 import { ReactComponent as HackertabLogo } from '../logo.svg';
 import UserTags from "./UserTags";
@@ -42,10 +41,6 @@ function Header({ state, dispatcher, showSideBar, setShowSideBar }) {
     dispatcher({ type: 'toggleTheme' })
   }
 
-  const onBuyCoffeeCick = () => {
-    window.open(APP.donationLink)
-  }
-
   const onSettingsClick = () => {
     setShowSettings(true)
   }
@@ -74,7 +69,6 @@ function Header({ state, dispatcher, showSideBar, setShowSideBar }) {
           {APP.slogan}
         </div>
         <div className="extras">
-          <button className="extraBtn extraTextBtn" onClick={onBuyCoffeeCick}><AiFillHeart className="extraTextBtnIcon" /> Donate</button>
           <button className="extraBtn" onClick={onSettingsClick}><BsFillGearFill /></button>
           <button className="extraBtn darkModeBtn" onClick={onThemeChange}>{themeIcon}</button>
           <button className="extraBtn" onClick={() => setShowSideBar(!showSideBar)}>
