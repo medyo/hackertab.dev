@@ -50,8 +50,9 @@ and visualize them in a proper way so you don't have to waste time jumping betwe
 Please th github issues to request help, ask a question, report a bug or add a suggestion. or send an email to hello@hackertab.dev
 
 ## Development
+Please use the develop branch
 ```bash
-$ git clone git@github.com:medyo/hackertab.dev.git
+$ git clone --branch develop git@github.com:medyo/hackertab.dev.git
 $ cd hackertab.dev
 $ yarn
 $ yarn start
