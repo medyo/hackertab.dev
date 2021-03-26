@@ -500,6 +500,9 @@ a {
   .tags {
     display: none;
   }
+  .marketingBanner {
+    width: 80%
+  }
 }
 
 @media(min-width: 1800px) {
@@ -672,7 +675,13 @@ Producthunt item
 }
 
 .marketingBanner {
-  width: 40%;
+  width: 48%;
   margin: 0 auto;
   margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .marketingBanner {
+    width: 100%
+  }
 }
