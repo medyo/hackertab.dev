@@ -32,6 +32,7 @@ export const SUPPORTED_CARDS = [
 ]
 
 export const LS_PREFERENCES_KEY = "hackerTabPrefs"
+export const LS_ANALYTICS_ID_KEY = "hackerTabAnalyticsId"
 
 export {
   APP
