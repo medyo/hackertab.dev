@@ -1,3 +1,6 @@
+import AppStorage from '../services/localStorage';
+import { LS_ANALYTICS_ID_KEY } from '../Constants';
+
 const trackPageView = (pageName) => {
   trackEvent("Pages", "Open", pageName)
 }
@@ -59,12 +62,18 @@ const trackEvent = (category, action, label) => {
     return
   }
 
+  let userId = AppStorage.getItem(LS_ANALYTICS_ID_KEY)
+  if (!userId) {
+    let newUserId = `${new Date().getTime()}${Math.random()}`  // Random User Id
+    AppStorage.setItem(LS_ANALYTICS_ID_KEY, newUserId)
+    userId = newUserId
+  }
+
   const payload = new URLSearchParams([
     ["v", "1"],
     ["t", "event"],
     ["tid", process.env.REACT_APP_ANALYTICS_ID],
-    ["aip", "1"], // Anonymous ip
-    ["cid", `${new Date().getTime()}${Math.random()}`], // Random User Id
+    ["cid", userId],
     ["ec", category],
     ["ea", action],
     ["el", label?.capitalize()],
