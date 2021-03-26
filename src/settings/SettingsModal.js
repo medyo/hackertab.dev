@@ -102,7 +102,7 @@ function SettingsModal({ showSettings, setShowSettings }) {
               classNamePrefix={'hackertab'}
               onChange={onTagsSelectChange}
             />
-            <p className="settingHint">Missing language or technology? create an issue <a href="#" onClick={(e) => window.open(APP.repository, "_blank")}>here</a></p>
+            <p className="settingHint">Missing language or technology? create an issue <a href="#" onClick={(e) => window.open(`${APP.repository}/issues/`, "_blank")}>here</a></p>
           </div>
         </div>
 
@@ -116,7 +116,7 @@ function SettingsModal({ showSettings, setShowSettings }) {
               isClearable={false}
               isSearchable={false}
               classNamePrefix={'hackertab'} />
-            <p className="settingHint">Missing a cool data source? create an issue <a href="#" onClick={(e) => window.open(APP.repository, "_blank")}>here</a></p>
+            <p className="settingHint">Missing a cool data source? create an issue <a href="#" onClick={(e) => window.open(`${APP.repository}/issues/`, "_blank")}>here</a></p>
           </div>
         </div>
 
