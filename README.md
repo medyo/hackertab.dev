@@ -44,6 +44,7 @@ and visualize them in a proper way so you don't have to waste time jumping betwe
 - Stackoverflow Jobs
 - Confs.tech
 - Product Hunt
+- Reddit
 - **or create an issue to ask for a new data source**
 
 ## Support
