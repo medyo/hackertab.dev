@@ -14,10 +14,12 @@ import { Grid, Col, Row } from 'react-styled-flexboxgrid'
 import { ThemeProvider } from 'styled-components'
 import { trackPageView } from "./utils/Analytics"
 import BookmarksSidebar from './bookmark/BookmarksSidebar'
+import MarketingBanner from './components/MarketingBanner'
+
 
 function App() {
 
-  const { supportedTags } = useContext(ConfigurationContext)
+  const { supportedTags, marketingBannerConfig = {} } = useContext(ConfigurationContext)
   const [showSideBar, setShowSideBar] = useState(false)
   const [currentPage, setCurrentPage] = useState('home')
 
@@ -62,7 +64,7 @@ function App() {
       outerMargin: 0,
     }
   }
-
+  
   const renderHomePage = () => {
     return (
       <PreferencesProvider value={{ ...state, dispatcher: dispatcher }}>
@@ -72,6 +74,8 @@ function App() {
             state={state}
             dispatcher={dispatcher}
             showSideBar={showSideBar} />
+
+          <MarketingBanner {...marketingBannerConfig} />
 
           <main className="AppContent">
             <ThemeProvider theme={gridTheme}>

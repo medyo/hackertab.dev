@@ -1,45 +1,15 @@
-import React, { useContext } from 'react';
-import { APP } from "../Constants";
-import PreferencesContext from '../preferences/PreferencesContext'
-import { trackOpenLinkFrom } from "../utils/Analytics"
+import React from 'react';
+import ClickableItem from "./ClickableItem"
+
 
 function CardLink({ link, className, children, analyticsSource, appendRef = true }) {
-
-  const { openLinksNewTab } = useContext(PreferencesContext)
-
-  const handleClick = (e) => {
-    e.preventDefault();
-
-    trackOpenLinkFrom(analyticsSource)
-
-    if (!link) {
-      return
-    }
-
-    if (appendRef) {
-      const url = new URL(link);
-      let utmUrl = link
-  
-      // Url has some query params
-      if (url.search) {
-        utmUrl += `&${APP.ref}`
-      } else {
-        utmUrl += `?${APP.ref}`
-      }
-  
-      window.open(utmUrl, openLinksNewTab ? "_blank" : "_self")
-    } else {
-      window.open(link, openLinksNewTab ? "_blank" : "_self")
-    }
-
-
-  };
-
-
   return (
-    <a href={link} className={["rowTitle", className].join(" ")} onClick={handleClick} >
+    <ClickableItem link={link}
+      className={'rowTitle' + (className ? ` ${className}` : '')}
+      analyticsSource={analyticsSource}
+      appendRef={appendRef}>
       {children}
-    </a>
+    </ClickableItem>
   )
 }
 
