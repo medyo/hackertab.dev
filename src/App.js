@@ -4,6 +4,7 @@ import { PreferencesProvider } from './preferences/PreferencesContext';
 import AppReducer from "./preferences/AppReducer";
 import ConfigurationContext from './configuration/ConfigurationContext';
 import { APP, LS_PREFERENCES_KEY, SUPPORTED_CARDS } from './Constants';
+import { getOSMode } from "./services/os"
 import AppStorage from './services/localStorage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
@@ -26,7 +27,7 @@ function App() {
   const [state, dispatcher] = useReducer(AppReducer, {
     userSelectedTags: supportedTags.filter((t) => t.value === "javascript"),
     userBookmarks: [],
-    theme: "dark",
+    theme: getOSMode(),
     openLinksNewTab: true,
     cards: [
       { id: 0, name: "github" },
