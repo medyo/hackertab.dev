@@ -66,18 +66,22 @@ function ProductHuntCard({ label, analyticsTag }) {
     return jobs.map((item, index) => <ProductItem item={item} key={`ph-${index}`} analyticsTag={analyticsTag} index={index} />)
   }
   return (
-    <CardComponent
-      icon={<SiProducthunt className="blockHeaderIcon" color="#D65736" />}
-      title={label}
-    >
-
-      <ListComponent
-        fetchData={fetchProducts}
-        renderData={renderProducts}
-        refresh={refresh}
-      />
-    </CardComponent>
-  )
+		<CardComponent
+			icon={
+				<SiProducthunt
+					className='blockHeaderIcon'
+					color='#D65736'
+				/>
+			}
+			link='https://www.producthunt.com/'
+			title={label}>
+			<ListComponent
+				fetchData={fetchProducts}
+				renderData={renderProducts}
+				refresh={refresh}
+			/>
+		</CardComponent>
+  );
 }
 
 export default ProductHuntCard

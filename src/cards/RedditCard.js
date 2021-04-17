@@ -103,18 +103,22 @@ function RedditCard({ analyticsTag, label }) {
     }
 
     return (
-
-        <CardComponent
-            icon={<FaReddit className="blockHeaderIcon" color="#FF4500" />}
-            title={label}
-        >
-            <ListComponent
-                fetchData={fetchPosts}
-                renderData={renderPosts}
-                refresh={refresh}
-            />
-        </CardComponent>
-    )
+		<CardComponent
+			icon={
+				<FaReddit
+					className='blockHeaderIcon'
+					color='#FF4500'
+				/>
+			}
+			link='https://www.reddit.com/'
+			title={label}>
+			<ListComponent
+				fetchData={fetchPosts}
+				renderData={renderPosts}
+				refresh={refresh}
+			/>
+		</CardComponent>
+    );
 }
 
 export default RedditCard

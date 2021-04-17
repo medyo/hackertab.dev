@@ -76,18 +76,22 @@ function JobsCard({ analyticsTag, label }) {
     return jobs.map((item, index) => <JobItem item={item} key={`jb-${index}`} index={index} analyticsTag={analyticsTag} />)
   }
   return (
-    <CardComponent
-      icon={<SiStackoverflow className="blockHeaderIcon" color="#F18032" />}
-      title={label}
-    >
-
-      <ListComponent
-        fetchData={fetchJobs}
-        renderData={renderJobs}
-        refresh={refresh}
-      />
-    </CardComponent>
-  )
+		<CardComponent
+			icon={
+				<SiStackoverflow
+					className='blockHeaderIcon'
+					color='#F18032'
+				/>
+			}
+			link='https://stackoverflow.com/jobs'
+			title={label}>
+			<ListComponent
+				fetchData={fetchJobs}
+				renderData={renderJobs}
+				refresh={refresh}
+			/>
+		</CardComponent>
+  );
 }
 
 export default JobsCard

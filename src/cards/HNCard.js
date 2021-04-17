@@ -54,16 +54,21 @@ function HNCard({ analyticsTag, label }) {
   }
 
   return (
-    <CardComponent
-    icon={<SiYcombinator className="blockHeaderIcon" color="#FB6720" />}
-      title={label}
-    > 
-      <ListComponent
-        fetchData={fetchStories}
-        renderData={renderStories}
-      />
-    </CardComponent>
-  )
+		<CardComponent
+			icon={
+				<SiYcombinator
+					className='blockHeaderIcon'
+					color='#FB6720'
+				/>
+			}
+			link='https://news.ycombinator.com/'
+			title={label}>
+			<ListComponent
+				fetchData={fetchStories}
+				renderData={renderStories}
+			/>
+		</CardComponent>
+  );
 }
 
 export default HNCard

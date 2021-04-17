@@ -106,17 +106,22 @@ function ConferencesCard({ label, analyticsTag }) {
     return confs.map((conf, index) => <ConferenceItem conf={conf} key={`cf-${index}`} index={index} analyticsTag={analyticsTag} />)
   }
   return (
-    <CardComponent
-      icon={<HiTicket className="blockHeaderIcon" color="#4EC8AF" />}
-      title={label}
-    >
-      <ListComponent
-        fetchData={fetchConfs}
-        renderData={renderConfs}
-        refresh={refresh}
-      />
-    </CardComponent>
-  )
+		<CardComponent
+			icon={
+				<HiTicket
+					className='blockHeaderIcon'
+					color='#4EC8AF'
+				/>
+			}
+			link='https://confs.tech/'
+			title={label}>
+			<ListComponent
+				fetchData={fetchConfs}
+				renderData={renderConfs}
+				refresh={refresh}
+			/>
+		</CardComponent>
+  );
 }
 
 export default ConferencesCard

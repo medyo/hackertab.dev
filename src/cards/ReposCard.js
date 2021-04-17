@@ -139,42 +139,67 @@ function ReposCard({ analyticsTag, label }) {
 
 
   return (
-    <>
-      <CardComponent
-        fullBlock={true}
-        icon={<SiGithub className="blockHeaderIcon blockHeaderWhite" />}
-        title={<HeaderTitle />}
-      >
-        <ListComponent
-          fetchData={fetchRepos}
-          renderData={renderRepos}
-          refresh={refresh}
-        />
-        <Menu id={TAGS_MENU_ID}
-          animation={animation.fade}>
-          {
-            getTags().map((tag) => {
-              return (<Item key={tag} onClick={() => onSelectedTagChange(tag)}>
-                {tag.label}
-              </Item>)
-            })
-          }
-        </Menu>
-        <Menu id={DATE_RANGE_MENU_ID}
-          animation={animation.fade}>
-          {
-            Object.keys(dateRangeMapper).map((key) => {
-              return (<Item key={key} onClick={() => onDateRangeChange(key)}>
-                {dateRangeMapper[key]}
-              </Item>)
-            })
-          }
-        </Menu>
-      </CardComponent>
-
-    </>
-
-  )
+		<>
+			<CardComponent
+				fullBlock={true}
+				icon={
+					<SiGithub className='blockHeaderIcon blockHeaderWhite' />
+				}
+				title={<HeaderTitle />}>
+				<ListComponent
+					fetchData={fetchRepos}
+					renderData={renderRepos}
+					refresh={refresh}
+				/>
+				<Menu
+					id={TAGS_MENU_ID}
+					animation={animation.fade}>
+					{getTags().map((tag) => {
+						return (
+							<Item
+								key={
+									tag
+								}
+								onClick={() =>
+									onSelectedTagChange(
+										tag
+									)
+								}>
+								{
+									tag.label
+								}
+							</Item>
+						);
+					})}
+				</Menu>
+				<Menu
+					id={DATE_RANGE_MENU_ID}
+					animation={animation.fade}>
+					{Object.keys(
+						dateRangeMapper
+					).map((key) => {
+						return (
+							<Item
+								key={
+									key
+								}
+								onClick={() =>
+									onDateRangeChange(
+										key
+									)
+								}>
+								{
+									dateRangeMapper[
+										key
+									]
+								}
+							</Item>
+						);
+					})}
+				</Menu>
+			</CardComponent>
+		</>
+  );
 }
 
 export default ReposCard;
