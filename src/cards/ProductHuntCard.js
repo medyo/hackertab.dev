@@ -62,9 +62,10 @@ function ProductHuntCard({ label, analyticsTag }) {
     setRefresh(!refresh)
   }, [userSelectedTags])
 
-  const renderProducts = (jobs) => {
-    return jobs.map((item, index) => <ProductItem item={item} key={`ph-${index}`} analyticsTag={analyticsTag} index={index} />)
-  }
+  const renderItem = (item, index) => (
+    <ProductItem item={item} key={`ph-${index}`} analyticsTag={analyticsTag} index={index} />
+  )
+
   return (
     <CardComponent
       icon={<SiProducthunt className="blockHeaderIcon" color="#D65736" />}
@@ -73,7 +74,7 @@ function ProductHuntCard({ label, analyticsTag }) {
 
       <ListComponent
         fetchData={fetchProducts}
-        renderData={renderProducts}
+        renderItem={renderItem}
         refresh={refresh}
       />
     </CardComponent>

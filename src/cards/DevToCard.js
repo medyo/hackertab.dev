@@ -73,11 +73,9 @@ function DevToCard({ analyticsTag, label }) {
 
   }
 
-  const renderArticles = (articles) => {
-    return articles.map((item, index) => (
-      <ArticleItem item={item} key={`at-${index}`} index={index} analyticsTag={analyticsTag} />
-    ))
-  }
+  const renderItem = (item, index) => (
+    <ArticleItem item={item} key={`at-${index}`} index={index} analyticsTag={analyticsTag} />
+  )
 
   return (
 
@@ -87,7 +85,7 @@ function DevToCard({ analyticsTag, label }) {
     >
       <ListComponent
         fetchData={fetchArticles}
-        renderData={renderArticles}
+        renderItem={renderItem}
         refresh={refresh}
       />
     </CardComponent>

@@ -102,9 +102,11 @@ function ConferencesCard({ label, analyticsTag }) {
 
   }
 
-  const renderConfs = (confs) => {
-    return confs.map((conf, index) => <ConferenceItem conf={conf} key={`cf-${index}`} index={index} analyticsTag={analyticsTag} />)
-  }
+
+  const renderItem = (item, index) => (
+    <ConferenceItem conf={item} key={`cf-${index}`} index={index} analyticsTag={analyticsTag} />
+  )
+
   return (
     <CardComponent
       icon={<HiTicket className="blockHeaderIcon" color="#4EC8AF" />}
@@ -112,7 +114,7 @@ function ConferencesCard({ label, analyticsTag }) {
     >
       <ListComponent
         fetchData={fetchConfs}
-        renderData={renderConfs}
+        renderItem={renderItem}
         refresh={refresh}
       />
     </CardComponent>

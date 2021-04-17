@@ -72,9 +72,10 @@ function JobsCard({ analyticsTag, label }) {
     setRefresh(!refresh)
   }, [userSelectedTags])
 
-  const renderJobs = (jobs) => {
-    return jobs.map((item, index) => <JobItem item={item} key={`jb-${index}`} index={index} analyticsTag={analyticsTag} />)
-  }
+  const renderItem = (item, index) => (
+    <JobItem item={item} key={`jb-${index}`} index={index} analyticsTag={analyticsTag} />
+  )
+
   return (
     <CardComponent
       icon={<SiStackoverflow className="blockHeaderIcon" color="#F18032" />}
@@ -83,7 +84,7 @@ function JobsCard({ analyticsTag, label }) {
 
       <ListComponent
         fetchData={fetchJobs}
-        renderData={renderJobs}
+        renderItem={renderItem}
         refresh={refresh}
       />
     </CardComponent>

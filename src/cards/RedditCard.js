@@ -96,11 +96,9 @@ function RedditCard({ analyticsTag, label }) {
         }).flat().sort((a, b) => b.score - a.score).slice(0, 40)
     }
 
-    const renderPosts = (articles) => {
-        return articles.map((item, index) => (
-            <PostItem item={item} key={`at-${index}`} index={index} analyticsTag={analyticsTag} />
-        ))
-    }
+    const renderItem = (item, index) => (
+        <PostItem item={item} key={`at-${index}`} index={index} analyticsTag={analyticsTag} />
+    )
 
     return (
 
@@ -110,7 +108,7 @@ function RedditCard({ analyticsTag, label }) {
         >
             <ListComponent
                 fetchData={fetchPosts}
-                renderData={renderPosts}
+                renderItem={renderItem}
                 refresh={refresh}
             />
         </CardComponent>

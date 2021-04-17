@@ -49,9 +49,9 @@ function HNCard({ analyticsTag, label }) {
     return await hackernewsApi.getTopStories()
   }
 
-  const renderStories = (stories) => {
-    return stories.map((story, index) => <StoryItem item={story} key={`st-${index}`} index={index} analyticsTag={analyticsTag} />)
-  }
+  const renderItem = (item, index) => (
+    <StoryItem item={item} key={`st-${index}`} index={index} analyticsTag={analyticsTag} />
+  )
 
   return (
     <CardComponent
@@ -60,7 +60,7 @@ function HNCard({ analyticsTag, label }) {
     > 
       <ListComponent
         fetchData={fetchStories}
-        renderData={renderStories}
+        renderItem={renderItem}
       />
     </CardComponent>
   )

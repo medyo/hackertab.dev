@@ -131,11 +131,9 @@ function ReposCard({ analyticsTag, label }) {
     )
   }
 
-  const renderRepos = (repos) => {
-    return repos.map((item, index) =>
-      <RepoItem item={item} key={`rp-${index}`} analyticsTag={analyticsTag} />
-    )
-  }
+  const renderItem = (item, index) => (
+    <RepoItem item={item} key={`rp-${index}`} analyticsTag={analyticsTag} />
+  )
 
 
   return (
@@ -147,7 +145,7 @@ function ReposCard({ analyticsTag, label }) {
       >
         <ListComponent
           fetchData={fetchRepos}
-          renderData={renderRepos}
+          renderItem={renderItem}
           refresh={refresh}
         />
         <Menu id={TAGS_MENU_ID}
