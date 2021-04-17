@@ -46,7 +46,7 @@ function App() {
         }
         return { ...initialState, ...preferences }
       }
-      
+
     }
     catch (e) { }
     return initialState
@@ -65,7 +65,7 @@ function App() {
       outerMargin: 0,
     }
   }
-  
+
   const renderHomePage = () => {
     return (
       <PreferencesProvider value={{ ...state, dispatcher: dispatcher }}>
@@ -85,7 +85,12 @@ function App() {
                   {state.cards.map((card, index) => {
                     const constantCard = SUPPORTED_CARDS.find((c) => c.value === card.name)
                     return (<Col key={index} lg={state.cards.length / APP.maxCardsPerRow} sm={state.cards.length / 2} xs={state.cards.length}>
-                      {React.createElement(constantCard.component, { key: card.name, label: constantCard.label, analyticsTag: constantCard.analyticsTag })}
+                      {
+                        React.createElement(
+                          constantCard.component,
+                          { key: card.name, label: constantCard.label, analyticsTag: constantCard.analyticsTag, withAds: index == 0 }
+                        )
+                      }
                     </Col>)
                   })}
                 </Row>

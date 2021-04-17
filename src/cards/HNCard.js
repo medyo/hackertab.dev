@@ -43,7 +43,7 @@ const StoryItem = ({ item, index, analyticsTag }) => {
 }
 
 
-function HNCard({ analyticsTag, label }) {
+function HNCard({ analyticsTag, label, withAds }) {
 
   const fetchStories = async () => {
     return await hackernewsApi.getTopStories()
@@ -61,6 +61,7 @@ function HNCard({ analyticsTag, label }) {
       <ListComponent
         fetchData={fetchStories}
         renderItem={renderItem}
+        withAds={withAds}
       />
     </CardComponent>
   )

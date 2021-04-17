@@ -72,7 +72,7 @@ const ConferenceItem = ({ conf, index, analyticsTag }) => {
 }
 
 
-function ConferencesCard({ label, analyticsTag }) {
+function ConferencesCard({ label, analyticsTag, withAds }) {
   const preferences = useContext(PreferencesContext)
   const { userSelectedTags = [] } = preferences
   const [refresh, setRefresh] = useState(true)
@@ -116,6 +116,7 @@ function ConferencesCard({ label, analyticsTag }) {
         fetchData={fetchConfs}
         renderItem={renderItem}
         refresh={refresh}
+        withAds={withAds}
       />
     </CardComponent>
   )

@@ -47,7 +47,7 @@ const ProductItem = ({ item, index, analyticsTag }) => {
   )
 }
 
-function ProductHuntCard({ label, analyticsTag }) {
+function ProductHuntCard({ label, analyticsTag, withAds }) {
   const preferences = useContext(PreferencesContext)
 
   const { userSelectedTags } = preferences
@@ -76,6 +76,7 @@ function ProductHuntCard({ label, analyticsTag }) {
         fetchData={fetchProducts}
         renderItem={renderItem}
         refresh={refresh}
+        withAds={withAds}
       />
     </CardComponent>
   )

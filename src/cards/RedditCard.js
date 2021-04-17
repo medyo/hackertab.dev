@@ -68,7 +68,7 @@ const PostItem = ({ item, index, analyticsTag }) => {
 
 
 
-function RedditCard({ analyticsTag, label }) {
+function RedditCard({ analyticsTag, label, withAds }) {
     const preferences = useContext(PreferencesContext)
     const { userSelectedTags } = preferences
 
@@ -110,6 +110,7 @@ function RedditCard({ analyticsTag, label }) {
                 fetchData={fetchPosts}
                 renderItem={renderItem}
                 refresh={refresh}
+                withAds={withAds}
             />
         </CardComponent>
     )

@@ -58,7 +58,7 @@ const RepoItem = ({ item, index }) => {
 const TAGS_MENU_ID = "tags-menu";
 const DATE_RANGE_MENU_ID = "date-range-id"
 
-function ReposCard({ analyticsTag, label }) {
+function ReposCard({ analyticsTag, withAds }) {
 
   const globalTag = { value: 'global', label: 'All trending', githubValues: ['global'] }
 
@@ -147,6 +147,7 @@ function ReposCard({ analyticsTag, label }) {
           fetchData={fetchRepos}
           renderItem={renderItem}
           refresh={refresh}
+          withAds={withAds}
         />
         <Menu id={TAGS_MENU_ID}
           animation={animation.fade}>

@@ -40,7 +40,7 @@ const JobItem = ({ item, index, analyticsTag }) => {
   )
 }
 
-function JobsCard({ analyticsTag, label }) {
+function JobsCard({ analyticsTag, label, withAds }) {
   const preferences = useContext(PreferencesContext)
 
   const { userSelectedTags } = preferences
@@ -86,6 +86,7 @@ function JobsCard({ analyticsTag, label }) {
         fetchData={fetchJobs}
         renderItem={renderItem}
         refresh={refresh}
+        withAds={withAds}
       />
     </CardComponent>
   )

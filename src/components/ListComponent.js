@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import BeatLoader from "react-spinners/BeatLoader";
+import CarbonAd from "./CarbonAd";
 
-function ListComponent({ fetchData, renderData, refresh, renderItem }) {
+function ListComponent({ fetchData, refresh, renderItem, withAds }) {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -34,7 +35,13 @@ function ListComponent({ fetchData, renderData, refresh, renderItem }) {
       <p className="errorMsg">Could not find any content using the selected languages!</p>
     }
     return items.map((item, index) => {
-      return renderItem(item, index)
+      let content = [renderItem(item, index)]
+      if(withAds && index == 0) {
+        content.unshift(
+          <CarbonAd />
+        )
+      }
+      return content
     })
   }
 

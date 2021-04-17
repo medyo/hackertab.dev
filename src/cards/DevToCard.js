@@ -43,7 +43,7 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
 
 
 
-function DevToCard({ analyticsTag, label }) {
+function DevToCard({ analyticsTag, label, withAds }) {
   const preferences = useContext(PreferencesContext)
   const { userSelectedTags } = preferences
 
@@ -87,6 +87,7 @@ function DevToCard({ analyticsTag, label }) {
         fetchData={fetchArticles}
         renderItem={renderItem}
         refresh={refresh}
+        withAds={withAds}
       />
     </CardComponent>
   )
