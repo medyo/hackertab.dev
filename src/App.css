@@ -1,94 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:regular,600');
+@import "variables.css";
 
-body.dark {
-  --app-name-text-color: #FFF;
-  --background-color: #0D1116;
-  --primary-text-color: #FFF;
-  --primary-hover-text-color: #b1b1b1;
-  --secondary-text-color: #a2a7ad;
-  --overlay-background-color: #7985958a;
-  --language-dot-background-color: #424d5a;
-
-  --dark-mode-background-color: #1c2026;
-  --dark-mode-text-color: #F0C73D;
-
-  --scrollbar-background-color: #1d2126;
-  --scrollbar-accent-color: #6c6e71;
-
-  /** Buttons **/
-  --button-background-color: #1C2026 ;
-  --button-text-color: #FFF ;
-
-  /**Card **/
-  --card-background-color: #0D1116;
-  --card-header-text-color: #798595;
-  --card-header-background-color: #1C2026;
-  --card-border-color: #1F2429;
-  --card-content-divider:#1F2429;
-  --card-background-focus-color: #181c21;
-
-  /*Tag*/
-  --tag-background-color: #1C2026;
-  --tag-border-color: #1F2429;
-  --tag-text-color: #FFFFFF;
-  --tag-secondary-color: #4d535a;
-  --tag-input-background: #FFF;
-
-  /*Card Action button*/
-  --card-actions-background-shadow: #1C2026;
-  --card-action-button-background: #798595;
-  --card-action-button-color: #FFF;
-  --card-active-action-button-background: #FFF;
-  --card-active-action-button-color: #798595;
-}
-
-body.light {
-  --app-name-text-color: #253B53;
-  --background-color: #EFF6FE;
-  --primary-text-color: #2d3b4a;
-  --secondary-text-color: #656D76;
-  --overlay-background-color: #0000005c;
-  --primary-hover-text-color: #495a6b;
-  --language-dot-background-color: #cfddec;
-
-  --scrollbar-background-color: #eff6ff;
-  --scrollbar-accent-color: #b9cadc;
-
-  --dark-mode-background-color: #243b53;
-  --dark-mode-text-color: #F0C73D;
-
-  --button-background-color: #d2deeb ;
-  --button-text-color: #3C5065;
-
-  /**Card **/
-  --card-background-color: #FFFFFF;
-  --card-header-text-color: #3C5065;
-  --card-header-background-color: #F9FAFE;
-  --card-border-color: #007eff1f;
-  --card-content-divider:#e9ebec;
-  --card-background-focus-color: #f5f8fb;
-
-  /*Card Action button*/
-  --card-actions-background-shadow: #edf5ff;
-  --card-action-button-background: #d2deeb;
-  --card-action-button-color: #3C5065;
-  --card-active-action-button-background: #253B53;
-  --card-active-action-button-color: #FFF;
-
-  /*Tag*/
-  --tag-background-color: #243B53;
-  --tag-border-color: #e9ebec;
-  --tag-text-color: #FFFFFF;
-  --tag-secondary-color: #e9ebec;
-  --tag-input-background: #243B53;
-}
-
-html, body {
+html {
   background: var(--background-color); 
-  color: var(--primary-text-color);
-  transition: background-color 0.3s ease-in-out;   
+}
+body {
+  color: var(--primary-text-color);  
   font-family: "nunito";
   font-size: 100%;
+}
+.transitionBgColor {
+  transition: background-color 0.3s ease-in-out; 
 }
 
 .appLoading {
@@ -108,7 +30,6 @@ a {
   padding: 1%;
   display: flex;
   flex-direction: column;
-  transition: background-color 0.3s ease-in-out;
 }
 .errorMsg {
   text-align: center;
