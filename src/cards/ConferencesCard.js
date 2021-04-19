@@ -72,7 +72,7 @@ const ConferenceItem = ({ conf, index, analyticsTag }) => {
 }
 
 
-function ConferencesCard({ label, analyticsTag }) {
+function ConferencesCard({ label, analyticsTag, withAds }) {
   const preferences = useContext(PreferencesContext)
   const { userSelectedTags = [] } = preferences
   const [refresh, setRefresh] = useState(true)
@@ -102,21 +102,29 @@ function ConferencesCard({ label, analyticsTag }) {
 
   }
 
-  const renderConfs = (confs) => {
-    return confs.map((conf, index) => <ConferenceItem conf={conf} key={`cf-${index}`} index={index} analyticsTag={analyticsTag} />)
-  }
-  return (
-    <CardComponent
-      icon={<HiTicket className="blockHeaderIcon" color="#4EC8AF" />}
-      title={label}
-    >
-      <ListComponent
-        fetchData={fetchConfs}
-        renderData={renderConfs}
-        refresh={refresh}
-      />
-    </CardComponent>
+
+  const renderItem = (item, index) => (
+    <ConferenceItem conf={item} key={`cf-${index}`} index={index} analyticsTag={analyticsTag} />
   )
+
+  return (
+		<CardComponent
+			icon={
+				<HiTicket
+					className='blockHeaderIcon'
+					color='#4EC8AF'
+				/>
+			}
+			link='https://confs.tech/'
+			title={label}>
+			<ListComponent
+				fetchData={fetchConfs}
+        renderItem={renderItem}
+        refresh={refresh}
+        withAds={withAds}
+			/>
+		</CardComponent>
+  );
 }
 
 export default ConferencesCard

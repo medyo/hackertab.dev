@@ -4,6 +4,7 @@ import { PreferencesProvider } from './preferences/PreferencesContext';
 import AppReducer from "./preferences/AppReducer";
 import ConfigurationContext from './configuration/ConfigurationContext';
 import { APP, LS_PREFERENCES_KEY, SUPPORTED_CARDS } from './Constants';
+import { getOSMode } from "./services/os"
 import AppStorage from './services/localStorage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
@@ -26,7 +27,7 @@ function App() {
   const [state, dispatcher] = useReducer(AppReducer, {
     userSelectedTags: supportedTags.filter((t) => t.value === "javascript"),
     userBookmarks: [],
-    theme: "dark",
+    theme: getOSMode(),
     openLinksNewTab: true,
     cards: [
       { id: 0, name: "github" },
@@ -45,7 +46,7 @@ function App() {
         }
         return { ...initialState, ...preferences }
       }
-      
+
     }
     catch (e) { }
     return initialState
@@ -64,7 +65,7 @@ function App() {
       outerMargin: 0,
     }
   }
-  
+
   const renderHomePage = () => {
     return (
       <PreferencesProvider value={{ ...state, dispatcher: dispatcher }}>
@@ -84,7 +85,12 @@ function App() {
                   {state.cards.map((card, index) => {
                     const constantCard = SUPPORTED_CARDS.find((c) => c.value === card.name)
                     return (<Col key={index} lg={state.cards.length / APP.maxCardsPerRow} sm={state.cards.length / 2} xs={state.cards.length}>
-                      {React.createElement(constantCard.component, { key: card.name, label: constantCard.label, analyticsTag: constantCard.analyticsTag })}
+                      {
+                        React.createElement(
+                          constantCard.component,
+                          { key: card.name, label: constantCard.label, analyticsTag: constantCard.analyticsTag, withAds: index == 0 }
+                        )
+                      }
                     </Col>)
                   })}
                 </Row>

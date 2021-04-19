@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import BeatLoader from "react-spinners/BeatLoader";
+import CarbonAd from "./CarbonAd";
 
-function ListComponent({ fetchData, renderData, refresh }) {
+function ListComponent({ fetchData, refresh, renderItem, withAds }) {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -14,8 +15,8 @@ function ListComponent({ fetchData, renderData, refresh }) {
       const data = await fetchData()
       setItems(data)
     }
-    catch(e) {
-        setError(e)
+    catch (e) {
+      setError(e)
     }
     finally {
       setLoading(false)
@@ -29,19 +30,31 @@ function ListComponent({ fetchData, renderData, refresh }) {
     return (<p className="errorMsg">{error.message}</p>)
   }
 
-  return (
-   <>
-   {
-          loading ?
-            <div className="cardLoading">
-              <BeatLoader color={"#A9B2BD"} loading={loading} size={15} className="loading" />
-            </div> :
-          (items && items.length > 0 ?
-            renderData(items) :
-            <p className="errorMsg">Could not find any content using the selected languages!</p>)
+  const renderItems = () => {
+    if (!items || items.length == 0 ) {
+      <p className="errorMsg">Could not find any content using the selected languages!</p>
     }
-   
-   </>
+    return items.map((item, index) => {
+      let content = [renderItem(item, index)]
+      if(withAds && index == 0) {
+        content.unshift(
+          <CarbonAd />
+        )
+      }
+      return content
+    })
+  }
+
+  return (
+    <>
+      {
+        loading ?
+          <div className="cardLoading">
+            <BeatLoader color={"#A9B2BD"} loading={loading} size={15} className="loading" />
+          </div> : renderItems()
+      }
+
+    </>
   )
 }
 

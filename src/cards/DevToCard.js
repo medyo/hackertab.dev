@@ -43,7 +43,7 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
 
 
 
-function DevToCard({ analyticsTag, label }) {
+function DevToCard({ analyticsTag, label, withAds }) {
   const preferences = useContext(PreferencesContext)
   const { userSelectedTags } = preferences
 
@@ -73,25 +73,25 @@ function DevToCard({ analyticsTag, label }) {
 
   }
 
-  const renderArticles = (articles) => {
-    return articles.map((item, index) => (
-      <ArticleItem item={item} key={`at-${index}`} index={index} analyticsTag={analyticsTag} />
-    ))
-  }
+  const renderItem = (item, index) => (
+    <ArticleItem item={item} key={`at-${index}`} index={index} analyticsTag={analyticsTag} />
+  )
 
   return (
-
-    <CardComponent
-      icon={<FaDev className="blockHeaderIcon blockHeaderWhite" />}
-      title={label}
-    >
-      <ListComponent
-        fetchData={fetchArticles}
-        renderData={renderArticles}
+		<CardComponent
+			icon={
+				<FaDev className='blockHeaderIcon blockHeaderWhite' />
+			}
+			title={label}
+			link='https://dev.to/'>
+			<ListComponent
+				fetchData={fetchArticles}
+        renderItem={renderItem}
         refresh={refresh}
-      />
-    </CardComponent>
-  )
+        withAds={withAds}
+			/>
+		</CardComponent>
+  );
 }
 
 export default DevToCard

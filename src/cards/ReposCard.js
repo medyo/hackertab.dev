@@ -58,7 +58,7 @@ const RepoItem = ({ item, index }) => {
 const TAGS_MENU_ID = "tags-menu";
 const DATE_RANGE_MENU_ID = "date-range-id"
 
-function ReposCard({ analyticsTag, label }) {
+function ReposCard({ analyticsTag, withAds }) {
 
   const globalTag = { value: 'global', label: 'All trending', githubValues: ['global'] }
 
@@ -131,50 +131,74 @@ function ReposCard({ analyticsTag, label }) {
     )
   }
 
-  const renderRepos = (repos) => {
-    return repos.map((item, index) =>
-      <RepoItem item={item} key={`rp-${index}`} analyticsTag={analyticsTag} />
-    )
-  }
+  const renderItem = (item, index) => (
+    <RepoItem item={item} key={`rp-${index}`} analyticsTag={analyticsTag} />
+  )
 
 
   return (
-    <>
-      <CardComponent
-        fullBlock={true}
-        icon={<SiGithub className="blockHeaderIcon blockHeaderWhite" />}
-        title={<HeaderTitle />}
-      >
-        <ListComponent
-          fetchData={fetchRepos}
-          renderData={renderRepos}
+		<>
+			<CardComponent
+				fullBlock={true}
+				icon={
+					<SiGithub className='blockHeaderIcon blockHeaderWhite' />
+				}
+				title={<HeaderTitle />}>
+				<ListComponent
+					fetchData={fetchRepos}
+          renderItem={renderItem}
           refresh={refresh}
-        />
-        <Menu id={TAGS_MENU_ID}
-          animation={animation.fade}>
-          {
-            getTags().map((tag) => {
-              return (<Item key={tag} onClick={() => onSelectedTagChange(tag)}>
-                {tag.label}
-              </Item>)
-            })
-          }
-        </Menu>
-        <Menu id={DATE_RANGE_MENU_ID}
-          animation={animation.fade}>
-          {
-            Object.keys(dateRangeMapper).map((key) => {
-              return (<Item key={key} onClick={() => onDateRangeChange(key)}>
-                {dateRangeMapper[key]}
-              </Item>)
-            })
-          }
-        </Menu>
-      </CardComponent>
-
-    </>
-
-  )
+          withAds={withAds}
+				/>
+				<Menu
+					id={TAGS_MENU_ID}
+					animation={animation.fade}>
+					{getTags().map((tag) => {
+						return (
+							<Item
+								key={
+									tag
+								}
+								onClick={() =>
+									onSelectedTagChange(
+										tag
+									)
+								}>
+								{
+									tag.label
+								}
+							</Item>
+						);
+					})}
+				</Menu>
+				<Menu
+					id={DATE_RANGE_MENU_ID}
+					animation={animation.fade}>
+					{Object.keys(
+						dateRangeMapper
+					).map((key) => {
+						return (
+							<Item
+								key={
+									key
+								}
+								onClick={() =>
+									onDateRangeChange(
+										key
+									)
+								}>
+								{
+									dateRangeMapper[
+										key
+									]
+								}
+							</Item>
+						);
+					})}
+				</Menu>
+			</CardComponent>
+		</>
+  );
 }
 
 export default ReposCard;

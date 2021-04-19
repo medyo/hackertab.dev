@@ -68,7 +68,7 @@ const PostItem = ({ item, index, analyticsTag }) => {
 
 
 
-function RedditCard({ analyticsTag, label }) {
+function RedditCard({ analyticsTag, label, withAds }) {
     const preferences = useContext(PreferencesContext)
     const { userSelectedTags } = preferences
 
@@ -96,25 +96,28 @@ function RedditCard({ analyticsTag, label }) {
         }).flat().sort((a, b) => b.score - a.score).slice(0, 40)
     }
 
-    const renderPosts = (articles) => {
-        return articles.map((item, index) => (
-            <PostItem item={item} key={`at-${index}`} index={index} analyticsTag={analyticsTag} />
-        ))
-    }
+    const renderItem = (item, index) => (
+        <PostItem item={item} key={`at-${index}`} index={index} analyticsTag={analyticsTag} />
+    )
 
     return (
-
-        <CardComponent
-            icon={<FaReddit className="blockHeaderIcon" color="#FF4500" />}
-            title={label}
-        >
-            <ListComponent
-                fetchData={fetchPosts}
-                renderData={renderPosts}
+		<CardComponent
+			icon={
+				<FaReddit
+					className='blockHeaderIcon'
+					color='#FF4500'
+				/>
+			}
+			link='https://www.reddit.com/'
+			title={label}>
+			<ListComponent
+				fetchData={fetchPosts}
+                renderItem={renderItem}
                 refresh={refresh}
-            />
-        </CardComponent>
-    )
+                withAds={withAds}
+			/>
+		</CardComponent>
+    );
 }
 
 export default RedditCard
