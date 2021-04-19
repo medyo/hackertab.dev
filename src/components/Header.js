@@ -18,21 +18,24 @@ function Header({ state, dispatcher, showSideBar, setShowSideBar }) {
   const isFirstRun = useRef(true)
 
   useEffect(() => {
-    document.body.classList.add(state.theme)
+    document.documentElement.classList.add(state.theme);
   }, [])
 
   useEffect(() => {
     if (isFirstRun.current) {
       isFirstRun.current = false;
     } else {
+      if (!document.documentElement.classList.contains('transitionBgColor')) {
+		document.documentElement.classList.add('transitionBgColor');
+      }
       trackThemeChange(state.theme)
     }
 
     if (state.theme === 'light') {
-      document.body.classList.replace('dark', state.theme)
+      document.documentElement.classList.replace('dark', state.theme);
       setThemeIcon(<BsMoon />)
     } else if (state.theme === 'dark') {
-      document.body.classList.replace('light', state.theme)
+      document.documentElement.classList.replace('light', state.theme);
       setThemeIcon(<IoMdSunny />)
     }
   }, [state?.theme])

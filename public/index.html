@@ -7,6 +7,14 @@
     <meta name="theme-color" content="#000000" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <script>
+      // Blocking script to avoid the initial background flickering (switching from light to dark)
+      // https://stackoverflow.com/a/63033934/3495717
+      try {
+        var theme = JSON.parse(localStorage.hackerTabPrefs).theme || 'dark'
+        document.documentElement.classList.add(theme)
+      } catch (e) { console.log(e) }
+    </script>
     <% if (!!+process.env.REACT_APP_WEB_BUILD) { %>
       <title>Hackertab</title>
       <% } else { %>
