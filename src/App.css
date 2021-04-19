@@ -222,7 +222,17 @@ a {
   padding-bottom: 16px;
   cursor: pointer;
 }
-
+.blockHeader:hover .blockHeaderLink{
+  opacity: 1;
+}
+.blockHeaderLink {
+  display: inline-block;
+  margin-left: 8px;
+  color: #96a2ae;
+  vertical-align: middle;
+  opacity: 0;
+  transition:opacity 0.2s linear;
+}
 .blockHeaderIcon {
   position: relative;
   top: 4px;

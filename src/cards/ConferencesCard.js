@@ -108,18 +108,23 @@ function ConferencesCard({ label, analyticsTag, withAds }) {
   )
 
   return (
-    <CardComponent
-      icon={<HiTicket className="blockHeaderIcon" color="#4EC8AF" />}
-      title={label}
-    >
-      <ListComponent
-        fetchData={fetchConfs}
+		<CardComponent
+			icon={
+				<HiTicket
+					className='blockHeaderIcon'
+					color='#4EC8AF'
+				/>
+			}
+			link='https://confs.tech/'
+			title={label}>
+			<ListComponent
+				fetchData={fetchConfs}
         renderItem={renderItem}
         refresh={refresh}
         withAds={withAds}
-      />
-    </CardComponent>
-  )
+			/>
+		</CardComponent>
+  );
 }
 
 export default ConferencesCard

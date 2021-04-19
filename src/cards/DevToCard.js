@@ -78,19 +78,20 @@ function DevToCard({ analyticsTag, label, withAds }) {
   )
 
   return (
-
-    <CardComponent
-      icon={<FaDev className="blockHeaderIcon blockHeaderWhite" />}
-      title={label}
-    >
-      <ListComponent
-        fetchData={fetchArticles}
+		<CardComponent
+			icon={
+				<FaDev className='blockHeaderIcon blockHeaderWhite' />
+			}
+			title={label}
+			link='https://dev.to/'>
+			<ListComponent
+				fetchData={fetchArticles}
         renderItem={renderItem}
         refresh={refresh}
         withAds={withAds}
-      />
-    </CardComponent>
-  )
+			/>
+		</CardComponent>
+  );
 }
 
 export default DevToCard

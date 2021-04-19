@@ -77,19 +77,23 @@ function JobsCard({ analyticsTag, label, withAds }) {
   )
 
   return (
-    <CardComponent
-      icon={<SiStackoverflow className="blockHeaderIcon" color="#F18032" />}
-      title={label}
-    >
-
-      <ListComponent
-        fetchData={fetchJobs}
+		<CardComponent
+			icon={
+				<SiStackoverflow
+					className='blockHeaderIcon'
+					color='#F18032'
+				/>
+			}
+			link='https://stackoverflow.com/jobs'
+			title={label}>
+			<ListComponent
+				fetchData={fetchJobs}
         renderItem={renderItem}
         refresh={refresh}
         withAds={withAds}
-      />
-    </CardComponent>
-  )
+			/>
+		</CardComponent>
+  );
 }
 
 export default JobsCard

@@ -67,19 +67,23 @@ function ProductHuntCard({ label, analyticsTag, withAds }) {
   )
 
   return (
-    <CardComponent
-      icon={<SiProducthunt className="blockHeaderIcon" color="#D65736" />}
-      title={label}
-    >
-
-      <ListComponent
-        fetchData={fetchProducts}
+		<CardComponent
+			icon={
+				<SiProducthunt
+					className='blockHeaderIcon'
+					color='#D65736'
+				/>
+			}
+			link='https://www.producthunt.com/'
+			title={label}>
+			<ListComponent
+				fetchData={fetchProducts}
         renderItem={renderItem}
         refresh={refresh}
         withAds={withAds}
-      />
-    </CardComponent>
-  )
+			/>
+		</CardComponent>
+  );
 }
 
 export default ProductHuntCard
