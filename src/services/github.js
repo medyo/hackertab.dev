@@ -1,10 +1,13 @@
-import axios from 'axios'
+import cachedRequest from './cachedRequest';
 
 
 const getTrending = async (language, since) => {
+    const responseId = `github-${language}-${since}`
+    const ttl = 3600*100
     const url = `https://api.hackertab.dev/data/github/${language}/${since}.json`
-    let { data } =  await axios.get(url)
+    const data = await cachedRequest(url, ttl)
     return data
+    
 }
 
 

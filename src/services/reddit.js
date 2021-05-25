@@ -1,9 +1,10 @@
-import axios from 'axios'
+import cachedRequest from './cachedRequest';
 
 
 const getTopPostsBySubReddit = async (subReddit) => {
+    const ttl = 3600*100
     const url = `https://www.reddit.com/r/${subReddit}/top/.json?t=day`
-    let { data: { data : { children } } } =  await axios.get(url)
+    const { data : { children } } = await cachedRequest(url, ttl)
     return children
 }
 
