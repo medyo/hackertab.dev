@@ -36,6 +36,7 @@
     "build": "./script/build.sh",
     "eject": "react-scripts eject"
   },
+  "proxy": "https://api.hackertab.dev",
   "browserslist": {
     "production": [
       ">0.2%",

@@ -2,27 +2,20 @@ import localftorage from 'localforage';
 
 
 const LocalStore = {
-    get: async (key) => {
-        const itemStr = await localftorage.getItem(key)
-        if (!itemStr) {
-            return null
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
-        if (item.expiry && now.getTime() > item.expiry) {
-            localftorage.removeItem(key)
-            return null
-        }
-        return item.value
+    
+    cacheResponse: async (url, response) => {
+        console.log(response)
+        const { headers:{etag}, data } = response
+
+        localftorage.setItem(url+"_etag", JSON.stringify({data, etag}))
     },
 
-    set: async (key, value, ttl) => {
-        const now = new Date()
-        const item = {
-            value: value,
-            expiry: ttl ? now.getTime() + ttl : null,
+    getCachedResponse: async (url) => {
+        const response = await localftorage.getItem(url+"_etag")
+        if (response) {
+            return JSON.parse(response)
         }
-        localftorage.setItem(key, JSON.stringify(item))
+        return null
     }
 }
 

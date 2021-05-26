@@ -1,14 +1,10 @@
 import cachedRequest from './cachedRequest';
 
-
-
 const getJobs = async (tag) => {
-    const ttl = 3600*100
-    const url = `https://api.hackertab.dev/data/stackoverflow/${tag}.json`
-    const data = await cachedRequest(url, ttl)
+    const url = `/data/stackoverflow/${tag}.json`;
+    const data = await cachedRequest(url);
     return data
 }
-
 
 export default {
     getJobs: getJobs,

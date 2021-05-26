@@ -1,22 +1,41 @@
 import axios from 'axios';
 import LocalStore from '../utils/LocalStore'
 
+const cachedRequest = async (url) => {
+    const cachedResponse = await LocalStore.getCachedResponse(url)
+    
+    let config = {}
 
-const isEmptyData = (data) => {
-    if (Array.isArray(data) && data.length > 0 || data) { return false }
-    return true
-}
+    if (cachedResponse) {
+        config = {
+            headers: {
+                "If-None-Match": cachedResponse.etag,
+            }
+        }
+    } 
 
+    let response 
+    try {
+        response = await axios.get(url, config)
+        if (response.headers.etag) {
+            await LocalStore.cacheResponse(url, response)
+        }
 
-const cachedRequest = async (url, ttl) => {
-    const cachedData = await LocalStore.get(url)
-    if (cachedData) {
-        return cachedData
+    } catch(error) {
+        if (error.response && error.response.status === 304) {
+            if (!cachedResponse) {
+                throw error
+            }
+
+            response = error.response;
+            response.status = 200;
+            response.data = cachedResponse.data;
+        } else {
+            throw error
+        }
     }
-    let response = await axios.get(url)
-    if (response.status == 200 && !isEmptyData(response.data)) {
-        LocalStore.set(url, response.data, ttl)
-    }
+    
+
     
     return response.data
 }
