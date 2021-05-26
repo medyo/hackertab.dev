@@ -15,6 +15,8 @@ import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 const JobItem = ({ item, index, analyticsTag }) => {
 
+  const { listingStyle } = useContext(PreferencesContext)
+
   return (
     <CardItemWithActions
       source={'jobs'}
@@ -26,14 +28,21 @@ const JobItem = ({ item, index, analyticsTag }) => {
           <CardLink link={item.link} analyticsSource={analyticsTag}>
             {item.title}
           </CardLink>
-          <p className="rowDescription">
-            <span className="rowItem"><MdAccessTime className={"rowTitleIcon"} />{format(item.date)}</span>
-            <span className="rowItem"><VscBriefcase className={"rowTitleIcon"} />{item.location}</span>
-          </p>
+          { listingStyle === "normal" ?
+            <>
+              <p className="rowDescription">
+                <span className="rowItem"><MdAccessTime className={"rowTitleIcon"} />{format(item.date)}</span>
+                <span className="rowItem"><VscBriefcase className={"rowTitleIcon"} />{item.location}</span>
+              </p>
 
-          <p className="rowDetails">
-            <ColoredLanguagesBadge languages={item.categories} />
-          </p>
+              <p className="rowDetails">
+                <ColoredLanguagesBadge languages={item.categories} />
+              </p>
+            </> :
+            <p className="rowDescription">
+              <span className="rowItem"><VscBriefcase className={"rowTitleIcon"} />{item.location}</span>
+            </p>
+          }
         </>
       )}
     />

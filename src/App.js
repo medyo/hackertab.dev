@@ -24,33 +24,55 @@ function App() {
   const [showSideBar, setShowSideBar] = useState(false)
   const [currentPage, setCurrentPage] = useState('home')
 
-  const [state, dispatcher] = useReducer(AppReducer, {
-    userSelectedTags: supportedTags.filter((t) => t.value === "javascript"),
-    userBookmarks: [],
-    theme: getOSMode(),
-    openLinksNewTab: true,
-    cards: [
-      { id: 0, name: "github" },
-      { id: 1, name: "hackernews" },
-      { id: 2, name: "devto" },
-      { id: 3, name: "producthunt" },
-    ]
-  }, (initialState) => {
-    try {
-      let preferences = AppStorage.getItem(LS_PREFERENCES_KEY)
-      if (preferences) {
-        preferences = JSON.parse(preferences)
-        preferences = {
-          ...preferences,
-          userSelectedTags: supportedTags.filter(tag => preferences.userSelectedTags.includes(tag.value))
-        }
-        return { ...initialState, ...preferences }
-      }
-
-    }
-    catch (e) { }
-    return initialState
-  })
+  const [state, dispatcher] = useReducer(
+		AppReducer,
+		{
+			userSelectedTags: supportedTags.filter(
+				(t) => t.value === 'javascript'
+			),
+			userBookmarks: [],
+			theme: getOSMode(),
+			openLinksNewTab: true,
+			listingStyle: 'normal',
+			cards: [
+				{ id: 0, name: 'github' },
+				{ id: 1, name: 'hackernews' },
+				{ id: 2, name: 'devto' },
+				{ id: 3, name: 'producthunt' },
+			],
+		},
+		(initialState) => {
+			try {
+				let preferences =
+					AppStorage.getItem(
+						LS_PREFERENCES_KEY
+					);
+				if (preferences) {
+					preferences =
+						JSON.parse(
+							preferences
+						);
+					preferences = {
+						...preferences,
+						userSelectedTags:
+							supportedTags.filter(
+								(
+									tag
+								) =>
+									preferences.userSelectedTags.includes(
+										tag.value
+									)
+							),
+					};
+					return {
+						...initialState,
+						...preferences,
+					};
+				}
+			} catch (e) {}
+			return initialState;
+		}
+  );
 
 
 
@@ -88,7 +110,7 @@ function App() {
                       {
                         React.createElement(
                           constantCard.component,
-                          { key: card.name, label: constantCard.label, analyticsTag: constantCard.analyticsTag, withAds: index == 0 }
+                          { key: card.name, label: constantCard.label, analyticsTag: constantCard.analyticsTag, withAds: index == 0}
                         )
                       }
                     </Col>)

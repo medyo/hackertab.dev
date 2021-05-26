@@ -15,6 +15,8 @@ import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 const ArticleItem = ({ item, index, analyticsTag }) => {
 
+  const { listingStyle } = useContext(PreferencesContext)
+
   return (
     <CardItemWithActions
       source={'devto'}
@@ -28,13 +30,21 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
           </CardLink>
           <p className="rowDescription">
             <span className="rowItem"><MdAccessTime className={"rowTitleIcon"} />{format(new Date(item.published_at))}</span>
-            <span className="rowItem"><BiCommentDetail className={"rowTitleIcon"} />{item.comments_count} comments</span>
-            <span className="rowItem"><AiOutlineLike className={"rowTitleIcon"} />{item.public_reactions_count} reactions</span>
+            {
+              listingStyle === "normal" && 
+              <>
+                <span className="rowItem"><BiCommentDetail className={"rowTitleIcon"} />{item.comments_count} comments</span>
+                <span className="rowItem"><AiOutlineLike className={"rowTitleIcon"} />{item.public_reactions_count} reactions</span>
+              </>
+            }
           </p>
-
-          <p className="rowDetails">
-            <ColoredLanguagesBadge languages={item.tag_list} />
-          </p>
+          {
+            listingStyle === "normal" && 
+            <p className="rowDetails">
+              <ColoredLanguagesBadge languages={item.tag_list} />
+            </p>
+          }
+          
         </>
       )}
     />
