@@ -21,6 +21,8 @@ import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 const RepoItem = ({ item, index }) => {
 
+  const { listingStyle } = useContext(PreferencesContext)
+
   return (
     <CardItemWithActions
       source={'github'}
@@ -37,17 +39,19 @@ const RepoItem = ({ item, index }) => {
             <b>{item.name}</b>
           </CardLink>
           <p className="rowDescription">{item.description}</p>
-          <div className="rowDetails">
-            <ColoredLanguagesBadge languages={[item.programmingLanguage]} />
-            {
-              item.stars &&
-              <span className="rowItem"><VscStarFull className="rowItemIcon" /> {item.stars} stars</span>
-            }
-            {
-              item.forks &&
-              <span className="rowItem"><VscRepoForked className="rowItemIcon" /> {item.forks} forks</span>
-            }
-          </div>
+          { listingStyle === "normal" && 
+            <div className="rowDetails">
+              <ColoredLanguagesBadge languages={[item.programmingLanguage]} />
+              {
+                item.stars &&
+                <span className="rowItem"><VscStarFull className="rowItemIcon" /> {item.stars} stars</span>
+              }
+              {
+                item.forks &&
+                <span className="rowItem"><VscRepoForked className="rowItemIcon" /> {item.forks} forks</span>
+              }
+            </div>
+          }
         </>
       )}
     />

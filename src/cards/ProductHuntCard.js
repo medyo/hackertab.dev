@@ -11,6 +11,9 @@ import CardItemWithActions from '../components/CardItemWithActions'
 import producthuntApi from '../services/producthunt'
 
 const ProductItem = ({ item, index, analyticsTag }) => {
+
+  const { listingStyle } = useContext(PreferencesContext)
+
   return (
     <CardItemWithActions
       source={'producthunt'}
@@ -26,15 +29,16 @@ const ProductItem = ({ item, index, analyticsTag }) => {
             </CardLink>
             <p className="rowDescription">{item.tagline}</p>
 
-            <p className="rowDetails">
+            {listingStyle === "normal" && 
+              <p className="rowDetails">
               <span className="rowItem"><BiCommentDetail className="rowItemIcon" /> {item.commentsCount || 0} comments</span>
               {
                 item.topics && item.topics.lenght > 0 ?
                   <span className="rowItem">{item.topics[0]}</span> :
                   null
               }
-
-            </p>
+              </p>
+            }
           </div>
           <div className="phVote">
             <VscTriangleUp className="rowItemIcon" />

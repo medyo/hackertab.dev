@@ -17,7 +17,7 @@ function SettingsModal({ showSettings, setShowSettings }) {
 
   const { supportedTags } = useContext(ConfigurationContext)
   const preferences = useContext(PreferencesContext)
-  const { dispatcher, cards, userSelectedTags, openLinksNewTab } = preferences
+  const { dispatcher, cards, userSelectedTags, openLinksNewTab, listingStyle } = preferences
   const [selectedCards, setSelectedCards] = useState(cards)
 
   const handleCloseModal = () => {
@@ -36,6 +36,13 @@ function SettingsModal({ showSettings, setShowSettings }) {
 
     dispatcher({ type: 'setUserSelectedTags', value: tags })
   }
+
+  const onListingStyleChange = (e) => {
+    const value = e.target.checked ? "compact" : "normal";
+    //TODO: trackOpenLinksNewTab(checked)
+
+    dispatcher({ type: 'changeListingStyle', value });
+  };
 
   const onCardSelectChange = (cards, metas) => {
     if (cards.length > 4) {
@@ -127,6 +134,19 @@ function SettingsModal({ showSettings, setShowSettings }) {
               checked={openLinksNewTab}
               icons={false}
               onChange={onOpenLinksNewTabChange}
+            />
+          </div>
+        </div>
+
+        <div className='settingRow'>
+          <p className='settingTitle'>
+            Compact mode
+					</p>
+          <div className='settingContent'>
+            <Toggle
+              checked={listingStyle == "compact"}
+              icons={false}
+              onChange={onListingStyleChange}
             />
           </div>
         </div>

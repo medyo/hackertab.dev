@@ -36,6 +36,7 @@ const PostFlair = ({ link_flair_text, link_flair_background_color, link_flair_te
 
 const PostItem = ({ item, index, analyticsTag }) => {
     const fullUrl = `https://www.reddit.com${item.permalink}`
+    const { listingStyle } = useContext(PreferencesContext)
 
     return (
         <CardItemWithActions
@@ -52,14 +53,25 @@ const PostItem = ({ item, index, analyticsTag }) => {
                         {item.title}
                     </CardLink>
 
-                    <div className="rowDetails">
-                        <span className="rowItem redditRowItem" ><GoPrimitiveDot className="rowItemIcon" /> {item.score} points</span>
+                      <div className="rowDetails">
+
+                      { listingStyle === "normal" ?
+                        <>
+                          <span className="rowItem redditRowItem" ><GoPrimitiveDot className="rowItemIcon" /> {item.score} points</span>
+                          <span className="rowItem">
+                              <MdAccessTime className="rowItemIcon" /> {format(new Date(item.created_utc * 1000))}
+                          </span>
+                          <span className="rowItem"><BiCommentDetail className="rowItemIcon" /> {item.num_comments} comments</span>
+                          <span className="rowItem"><BsArrowReturnRight className="rowItemIcon" /> {`r/${item.subreddit}`}</span>
+                        </> :
                         <span className="rowItem">
-                            <MdAccessTime className="rowItemIcon" /> {format(new Date(item.created_utc * 1000))}
+                          <MdAccessTime className="rowItemIcon" /> {format(new Date(item.created_utc * 1000))}
                         </span>
-                        <span className="rowItem"><BiCommentDetail className="rowItemIcon" /> {item.num_comments} comments</span>
-                        <span className="rowItem"><BsArrowReturnRight className="rowItemIcon" /> {`r/${item.subreddit}`}</span>
-                    </div>
+                      }
+                        
+                        </div>
+                    
+                    
                 </>
             )}
         />

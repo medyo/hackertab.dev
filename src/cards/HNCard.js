@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { format } from 'timeago.js';
 import { SiYcombinator } from 'react-icons/si';
 import { VscTriangleUp } from 'react-icons/vsc';
@@ -11,9 +11,12 @@ import { GoPrimitiveDot } from "react-icons/go"
 import CardLink from "../components/CardLink";
 import CardItemWithActions from '../components/CardItemWithActions'
 import ClickableItem from '../components/ClickableItem';
+import PreferencesContext from '../preferences/PreferencesContext';
 
 
 const StoryItem = ({ item, index, analyticsTag }) => {
+
+  const { listingStyle } = useContext(PreferencesContext)
 
   return (
     <CardItemWithActions
@@ -29,13 +32,16 @@ const StoryItem = ({ item, index, analyticsTag }) => {
             {item.title}
           </CardLink>
         </p>
-        <div className="rowDetails">
+        {
+          listingStyle === "normal" && 
+          <div className="rowDetails">
           <span className="rowItem hnRowItem" ><GoPrimitiveDot className="rowItemIcon" /> {item.score} points</span>
           <span className="rowItem" title={new Date(item.time * 1000).toUTCString()}><MdAccessTime className="rowItemIcon" /> {format(new Date(item.time * 1000))}</span>
             <ClickableItem link={`https://news.ycombinator.com/item?id=${item.id}`} className="rowItem rowItemClickable" analyticsSource={analyticsTag}>
               <BiCommentDetail className="rowItemIcon" /> {item.descendants} comments
           </ClickableItem>
-        </div>
+          </div>
+        }
         </>
       )}
     />
