@@ -12,7 +12,7 @@ import producthuntApi from '../services/producthunt'
 
 const ProductItem = ({ item, index, analyticsTag }) => {
 
-  const { listingStyle } = useContext(PreferencesContext)
+  const { listingMode } = useContext(PreferencesContext)
 
   return (
     <CardItemWithActions
@@ -29,7 +29,7 @@ const ProductItem = ({ item, index, analyticsTag }) => {
             </CardLink>
             <p className="rowDescription">{item.tagline}</p>
 
-            {listingStyle === "normal" && 
+            {listingMode === "normal" && 
               <p className="rowDetails">
               <span className="rowItem"><BiCommentDetail className="rowItemIcon" /> {item.commentsCount || 0} comments</span>
               {

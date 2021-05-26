@@ -17,7 +17,7 @@ function SettingsModal({ showSettings, setShowSettings }) {
 
   const { supportedTags } = useContext(ConfigurationContext)
   const preferences = useContext(PreferencesContext)
-  const { dispatcher, cards, userSelectedTags, openLinksNewTab, listingStyle } = preferences
+  const { dispatcher, cards, userSelectedTags, openLinksNewTab, listingMode } = preferences
   const [selectedCards, setSelectedCards] = useState(cards)
 
   const handleCloseModal = () => {
@@ -37,11 +37,11 @@ function SettingsModal({ showSettings, setShowSettings }) {
     dispatcher({ type: 'setUserSelectedTags', value: tags })
   }
 
-  const onListingStyleChange = (e) => {
+  const onlistingModeChange = (e) => {
     const value = e.target.checked ? "compact" : "normal";
     //TODO: trackOpenLinksNewTab(checked)
 
-    dispatcher({ type: 'changeListingStyle', value });
+    dispatcher({ type: 'changelistingMode', value });
   };
 
   const onCardSelectChange = (cards, metas) => {
@@ -144,9 +144,9 @@ function SettingsModal({ showSettings, setShowSettings }) {
 					</p>
           <div className='settingContent'>
             <Toggle
-              checked={listingStyle == "compact"}
+              checked={listingMode == "compact"}
               icons={false}
-              onChange={onListingStyleChange}
+              onChange={onlistingModeChange}
             />
           </div>
         </div>

@@ -16,7 +16,7 @@ import PreferencesContext from '../preferences/PreferencesContext';
 
 const StoryItem = ({ item, index, analyticsTag }) => {
 
-  const { listingStyle } = useContext(PreferencesContext)
+  const { listingMode } = useContext(PreferencesContext)
 
   return (
     <CardItemWithActions
@@ -33,7 +33,7 @@ const StoryItem = ({ item, index, analyticsTag }) => {
           </CardLink>
         </p>
         {
-          listingStyle === "normal" && 
+          listingMode === "normal" && 
           <div className="rowDetails">
           <span className="rowItem hnRowItem" ><GoPrimitiveDot className="rowItemIcon" /> {item.score} points</span>
           <span className="rowItem" title={new Date(item.time * 1000).toUTCString()}><MdAccessTime className="rowItemIcon" /> {format(new Date(item.time * 1000))}</span>

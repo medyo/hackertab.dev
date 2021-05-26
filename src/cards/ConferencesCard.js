@@ -15,7 +15,7 @@ import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 const ConferenceItem = ({ conf, index, analyticsTag }) => {
   
-  const { listingStyle } = useContext(PreferencesContext)
+  const { listingMode } = useContext(PreferencesContext)
 
   const formatConfsDate = (date) => {
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -61,7 +61,7 @@ const ConferenceItem = ({ conf, index, analyticsTag }) => {
             {conf.name}
           </CardLink>
           {
-            listingStyle === "normal" ?
+            listingMode === "normal" ?
             <>
               <div className="rowDescription">
                 <span className="rowItem"><IoIosPin className="rowItemIcon" /> {ConferenceLocation()}</span>

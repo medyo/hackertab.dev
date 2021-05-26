@@ -35,8 +35,8 @@ const AppReducer = (state, action) => {
 				openLinksNewTab: value,
 			};
 			break;
-		case 'changeListingStyle':
-			newState = { ...newState, listingStyle: value };
+		case 'changelistingMode':
+			newState = { ...newState, listingMode: value };
 			break;
 		case 'bookmarkItem':
 			const exists = newState.userBookmarks.some(
@@ -68,7 +68,7 @@ const AppReducer = (state, action) => {
 		theme: newState.theme,
 		cards: newState.cards,
 		openLinksNewTab: newState.openLinksNewTab,
-		listingStyle: newState.listingStyle,
+		listingMode: newState.listingMode,
 		userBookmarks: newState.userBookmarks,
   };
   AppStorage.setItem(LS_PREFERENCES_KEY, storageData)

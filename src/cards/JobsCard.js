@@ -15,7 +15,7 @@ import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 const JobItem = ({ item, index, analyticsTag }) => {
 
-  const { listingStyle } = useContext(PreferencesContext)
+  const { listingMode } = useContext(PreferencesContext)
 
   return (
     <CardItemWithActions
@@ -28,7 +28,7 @@ const JobItem = ({ item, index, analyticsTag }) => {
           <CardLink link={item.link} analyticsSource={analyticsTag}>
             {item.title}
           </CardLink>
-          { listingStyle === "normal" ?
+          { listingMode === "normal" ?
             <>
               <p className="rowDescription">
                 <span className="rowItem"><MdAccessTime className={"rowTitleIcon"} />{format(item.date)}</span>

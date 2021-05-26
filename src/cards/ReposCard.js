@@ -21,7 +21,7 @@ import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 const RepoItem = ({ item, index }) => {
 
-  const { listingStyle } = useContext(PreferencesContext)
+  const { listingMode } = useContext(PreferencesContext)
 
   return (
     <CardItemWithActions
@@ -39,7 +39,7 @@ const RepoItem = ({ item, index }) => {
             <b>{item.name}</b>
           </CardLink>
           <p className="rowDescription">{item.description}</p>
-          { listingStyle === "normal" && 
+          { listingMode === "normal" && 
             <div className="rowDetails">
               <ColoredLanguagesBadge languages={[item.programmingLanguage]} />
               {

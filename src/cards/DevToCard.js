@@ -15,7 +15,7 @@ import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 const ArticleItem = ({ item, index, analyticsTag }) => {
 
-  const { listingStyle } = useContext(PreferencesContext)
+  const { listingMode } = useContext(PreferencesContext)
 
   return (
     <CardItemWithActions
@@ -31,7 +31,7 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
           <p className="rowDescription">
             <span className="rowItem"><MdAccessTime className={"rowTitleIcon"} />{format(new Date(item.published_at))}</span>
             {
-              listingStyle === "normal" && 
+              listingMode === "normal" && 
               <>
                 <span className="rowItem"><BiCommentDetail className={"rowTitleIcon"} />{item.comments_count} comments</span>
                 <span className="rowItem"><AiOutlineLike className={"rowTitleIcon"} />{item.public_reactions_count} reactions</span>
@@ -39,7 +39,7 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
             }
           </p>
           {
-            listingStyle === "normal" && 
+            listingMode === "normal" && 
             <p className="rowDetails">
               <ColoredLanguagesBadge languages={item.tag_list} />
             </p>

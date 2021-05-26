@@ -36,7 +36,7 @@ const PostFlair = ({ link_flair_text, link_flair_background_color, link_flair_te
 
 const PostItem = ({ item, index, analyticsTag }) => {
     const fullUrl = `https://www.reddit.com${item.permalink}`
-    const { listingStyle } = useContext(PreferencesContext)
+    const { listingMode } = useContext(PreferencesContext)
 
     return (
         <CardItemWithActions
@@ -55,7 +55,7 @@ const PostItem = ({ item, index, analyticsTag }) => {
 
                       <div className="rowDetails">
 
-                      { listingStyle === "normal" ?
+                      { listingMode === "normal" ?
                         <>
                           <span className="rowItem redditRowItem" ><GoPrimitiveDot className="rowItemIcon" /> {item.score} points</span>
                           <span className="rowItem">

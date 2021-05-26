@@ -33,7 +33,7 @@ function App() {
 			userBookmarks: [],
 			theme: getOSMode(),
 			openLinksNewTab: true,
-			listingStyle: 'normal',
+			listingMode: 'normal',
 			cards: [
 				{ id: 0, name: 'github' },
 				{ id: 1, name: 'hackernews' },
