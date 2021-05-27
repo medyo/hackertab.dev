@@ -24,28 +24,48 @@ const StoryItem = ({ item, index, analyticsTag }) => {
       index={index}
       item={item}
       key={index}
-      cardItem={(
+      cardItem={
         <>
           <p className="rowTitle">
             <CardLink link={item.url} analyticsSource={analyticsTag}>
-            <VscTriangleUp className={"rowTitleIcon"} />
-            {item.title}
-          </CardLink>
-        </p>
-        {
-          listingMode === "normal" && 
-          <div className="rowDetails">
-          <span className="rowItem hnRowItem" ><GoPrimitiveDot className="rowItemIcon" /> {item.score} points</span>
-          <span className="rowItem" title={new Date(item.time * 1000).toUTCString()}><MdAccessTime className="rowItemIcon" /> {format(new Date(item.time * 1000))}</span>
-            <ClickableItem link={`https://news.ycombinator.com/item?id=${item.id}`} className="rowItem rowItemClickable" analyticsSource={analyticsTag}>
-              <BiCommentDetail className="rowItemIcon" /> {item.descendants} comments
-          </ClickableItem>
-          </div>
-        }
+              { listingMode === "compact" && 
+                    <div className="counterWrapper">
+                        <VscTriangleUp/>
+                        <span className="value">{item.score}</span>
+                    </div>
+                }
+                
+                <div className="subTitle">
+                    {item.title}
+                </div>
+            </CardLink>
+          </p>
+          {listingMode === "normal" && (
+            <div className="rowDetails">
+              <span className="rowItem hnRowItem">
+                <GoPrimitiveDot className="rowItemIcon" /> {item.score} points
+              </span>
+              <span
+                className="rowItem"
+                title={new Date(item.time * 1000).toUTCString()}
+              >
+                <MdAccessTime className="rowItemIcon" />{" "}
+                {format(new Date(item.time * 1000))}
+              </span>
+              <ClickableItem
+                link={`https://news.ycombinator.com/item?id=${item.id}`}
+                className="rowItem rowItemClickable"
+                analyticsSource={analyticsTag}
+              >
+                <BiCommentDetail className="rowItemIcon" /> {item.descendants}{" "}
+                comments
+              </ClickableItem>
+            </div>
+          )}
         </>
-      )}
+      }
     />
-  )
+  );
 }
 
 

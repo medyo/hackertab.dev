@@ -39,43 +39,53 @@ const PostItem = ({ item, index, analyticsTag }) => {
     const { listingMode } = useContext(PreferencesContext)
 
     return (
-        <CardItemWithActions
-            source={'reddit'}
-            index={index}
-            key={index}
-            item={{...item, url: fullUrl}}
-            cardItem={(
+      <CardItemWithActions
+        source={"reddit"}
+        index={index}
+        key={index}
+        item={{ ...item, url: fullUrl }}
+        cardItem={
+          <>
+            <CardLink link={fullUrl} analyticsSource={analyticsTag}>
+                { listingMode === "compact" && 
+                    <div className="counterWrapper">
+                        <VscTriangleUp/>
+                        <span className="value">{item.score}</span>
+                    </div>
+                }
+                
+                <div className="subTitle">
+                    {item.link_flair_text && <PostFlair {...item} />}
+                    {item.title}
+                </div>
+            </CardLink>
+
+            <div className="rowDetails">
+              {listingMode === "normal" && (
                 <>
-
-                    <CardLink link={fullUrl} analyticsSource={analyticsTag}>
-                        <VscTriangleUp className={"rowTitleIcon"} />
-                        {item.link_flair_text && <PostFlair {...item} />}
-                        {item.title}
-                    </CardLink>
-
-                      <div className="rowDetails">
-
-                      { listingMode === "normal" ?
-                        <>
-                          <span className="rowItem redditRowItem" ><GoPrimitiveDot className="rowItemIcon" /> {item.score} points</span>
-                          <span className="rowItem">
-                              <MdAccessTime className="rowItemIcon" /> {format(new Date(item.created_utc * 1000))}
-                          </span>
-                          <span className="rowItem"><BiCommentDetail className="rowItemIcon" /> {item.num_comments} comments</span>
-                          <span className="rowItem"><BsArrowReturnRight className="rowItemIcon" /> {`r/${item.subreddit}`}</span>
-                        </> :
-                        <span className="rowItem">
-                          <MdAccessTime className="rowItemIcon" /> {format(new Date(item.created_utc * 1000))}
-                        </span>
-                      }
-                        
-                        </div>
-                    
-                    
+                  <span className="rowItem redditRowItem">
+                    <GoPrimitiveDot className="rowItemIcon" /> {item.score}{" "}
+                    points
+                  </span>
+                  <span className="rowItem">
+                    <MdAccessTime className="rowItemIcon" />{" "}
+                    {format(new Date(item.created_utc * 1000))}
+                  </span>
+                  <span className="rowItem">
+                    <BiCommentDetail className="rowItemIcon" />{" "}
+                    {item.num_comments} comments
+                  </span>
+                  <span className="rowItem">
+                    <BsArrowReturnRight className="rowItemIcon" />{" "}
+                    {`r/${item.subreddit}`}
+                  </span>
                 </>
-            )}
-        />
-    )
+              ) }
+            </div>
+          </>
+        }
+      />
+    );
 }
 
 

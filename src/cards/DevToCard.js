@@ -26,23 +26,29 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
       cardItem={(
         <>
           <CardLink link={item.url} analyticsSource={analyticsTag}>
-            {item.title}
+            { listingMode === "compact" && 
+                <div className="counterWrapper">
+                  <AiOutlineLike/>
+                  <span className="value">{item.public_reactions_count}</span>
+                </div>
+            }
+            <div className="subTitle">
+              {item.title}
+            </div>
           </CardLink>
-          <p className="rowDescription">
-            <span className="rowItem"><MdAccessTime className={"rowTitleIcon"} />{format(new Date(item.published_at))}</span>
-            {
-              listingMode === "normal" && 
-              <>
+
+          {
+            listingMode === "normal" &&
+            <>
+              <p className="rowDescription">
+                <span className="rowItem"><MdAccessTime className={"rowTitleIcon"} />{format(new Date(item.published_at))}</span>
                 <span className="rowItem"><BiCommentDetail className={"rowTitleIcon"} />{item.comments_count} comments</span>
                 <span className="rowItem"><AiOutlineLike className={"rowTitleIcon"} />{item.public_reactions_count} reactions</span>
-              </>
-            }
-          </p>
-          {
-            listingMode === "normal" && 
-            <p className="rowDetails">
-              <ColoredLanguagesBadge languages={item.tag_list} />
-            </p>
+              </p>
+              <p className="rowDetails">
+                <ColoredLanguagesBadge languages={item.tag_list} />
+              </p>
+            </>
           }
           
         </>
