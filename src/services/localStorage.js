@@ -51,14 +51,12 @@ export default class AppStorage {
   static async cacheResponse (url, response) {
     const { headers: { etag }, data } = response
 
-    localftorage.setItem(url + "_etag", JSON.stringify({ data, etag }))
+    localftorage.setItem(url + "_etag", { data, etag })
   }
 
   static async getCachedResponse (url) {
     const response = await localftorage.getItem(url + "_etag")
-    if (response) {
-      return JSON.parse(response)
-    }
-    return null
+    debugger
+    return response
   }
 }
