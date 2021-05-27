@@ -1,4 +1,4 @@
-import localftorage from 'localforage';
+import localforage from 'localforage';
 
 export const canUseLocalStorage = () => {
   try {
@@ -51,11 +51,11 @@ export default class AppStorage {
   static async cacheResponse (url, response) {
     const { headers: { etag }, data } = response
 
-    localftorage.setItem(url + "_etag", { data, etag })
+    localforage.setItem(url + "_etag", { data, etag })
   }
 
   static async getCachedResponse (url) {
-    const response = await localftorage.getItem(url + "_etag")
+    const response = await localforage.getItem(url + "_etag")
     debugger
     return response
   }
