@@ -1,42 +1,37 @@
 import axios from 'axios';
-import LocalStore from '../utils/LocalStore'
+import AppStorage from './localStorage';
+
 
 const cachedRequest = async (url) => {
-    const cachedResponse = await LocalStore.getCachedResponse(url)
-    
-    let config = {}
+    const cachedResponse = await AppStorage.getCachedResponse(url)
+    let headers = {}
+    let response
 
     if (cachedResponse) {
-        config = {
-            headers: {
-                "If-None-Match": cachedResponse.etag,
-            }
-        }
-    } 
-
-    let response 
-    try {
-        response = await axios.get(url, config)
-        if (response.headers.etag) {
-            await LocalStore.cacheResponse(url, response)
-        }
-
-    } catch(error) {
-        if (error.response && error.response.status === 304) {
-            if (!cachedResponse) {
-                throw error
-            }
-
-            response = error.response;
-            response.status = 200;
-            response.data = cachedResponse.data;
-        } else {
-            throw error
+        headers = {
+            "If-None-Match": cachedResponse.etag,
         }
     }
-    
 
     
+    try {
+        response = await axios.get(url, { headers })
+        if (response.headers.etag) {
+            AppStorage.cacheResponse(url, response)
+        }
+
+    } catch (error) {
+        if (!error.response || error.response.status !== 304) {
+            throw error
+        }
+        if (!cachedResponse) {
+            throw "Network Failed"
+        }
+        response = error.response;
+        response.status = 200;
+        response.data = cachedResponse.data;
+    }
+
     return response.data
 }
 

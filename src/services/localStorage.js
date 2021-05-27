@@ -1,3 +1,5 @@
+import localftorage from 'localforage';
+
 export const canUseLocalStorage = () => {
   try {
     window.localStorage.setItem('test', 'test');
@@ -13,7 +15,7 @@ export const canUseLocalStorage = () => {
 export default class AppStorage {
   static getItem(key, defaultValue = null) {
     let value;
-    if(!canUseLocalStorage()){
+    if (!canUseLocalStorage()) {
       return defaultValue
     }
     try {
@@ -26,7 +28,7 @@ export default class AppStorage {
 
   static setItem(key, value) {
     try {
-      if (typeof(value) != "string") {
+      if (typeof (value) != "string") {
         value = JSON.stringify(value)
       }
       window.localStorage.setItem(key, value);
@@ -44,5 +46,19 @@ export default class AppStorage {
     } catch (e) {
       return false;
     }
+  }
+
+  static async cacheResponse (url, response) {
+    const { headers: { etag }, data } = response
+
+    localftorage.setItem(url + "_etag", JSON.stringify({ data, etag }))
+  }
+
+  static async getCachedResponse (url) {
+    const response = await localftorage.getItem(url + "_etag")
+    if (response) {
+      return JSON.parse(response)
+    }
+    return null
   }
 }
