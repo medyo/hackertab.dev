@@ -56,7 +56,6 @@ export default class AppStorage {
 
   static async getCachedResponse (url) {
     const response = await localforage.getItem(url + "_etag")
-    debugger
     return response
   }
 }
