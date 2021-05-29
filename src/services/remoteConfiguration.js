@@ -1,10 +1,9 @@
-import axios from 'axios';
-
+import cachedRequest from './cachedRequest';
 
 const getRemoteConfiguration = async () => {
-    const url = `https://api.hackertab.dev/data/remoteConfiguration.json`
-    let { data } =  await axios.get(url)
-    return data
+  const url = `/data/remoteConfiguration.json`;
+  const data = await cachedRequest(url);
+  return data;
 }
 
 export default {

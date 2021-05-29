@@ -1,13 +1,10 @@
-import axios from 'axios'
-
-
+import cachedRequest from './cachedRequest';
 
 const getJobs = async (tag) => {
-    const url = `https://api.hackertab.dev/data/stackoverflow/${tag}.json`
-    let { data } =  await axios.get(url)
+    const url = `/data/stackoverflow/${tag}.json`;
+    const data = await cachedRequest(url);
     return data
 }
-
 
 export default {
     getJobs: getJobs,

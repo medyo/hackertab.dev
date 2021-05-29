@@ -1,12 +1,11 @@
-import axios from 'axios'
-
+import cachedRequest from './cachedRequest';
 
 
 const getArticles = async (tag) => {
-    const url = `https://dev.to/api/articles?top=1&per_page=30&tag=${tag}`
-    let { data } =  await axios.get(url)
-    return data
-}
+  const url = `https://dev.to/api/articles?state=rising&per_page=30&tag=${tag}`;
+  const data = await cachedRequest(url);
+  return data;
+};
 
 
 export default {
