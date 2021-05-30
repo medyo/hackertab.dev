@@ -11,7 +11,8 @@ import ConfigurationContext from '../configuration/ConfigurationContext';
 import { SUPPORTED_CARDS, APP } from '../Constants'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { trackAddLanguage, trackRemoveLanguage, trackAddCard, trackRemoveCard, trackOpenLinksNewTab } from "../utils/Analytics"
+import { trackAddLanguage, trackRemoveLanguage, trackAddCard, trackRemoveCard, 
+  trackOpenLinksNewTab, trackListingModeChange } from "../utils/Analytics"
 
 function SettingsModal({ showSettings, setShowSettings }) {
 
@@ -39,8 +40,7 @@ function SettingsModal({ showSettings, setShowSettings }) {
 
   const onlistingModeChange = (e) => {
     const value = e.target.checked ? "compact" : "normal";
-    //TODO: trackOpenLinksNewTab(checked)
-
+    trackListingModeChange(value)
     dispatcher({ type: 'changelistingMode', value });
   };
 
