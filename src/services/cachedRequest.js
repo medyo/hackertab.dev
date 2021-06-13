@@ -13,7 +13,8 @@ const forageStore = localforage.createInstance({
 const api = setup({
   cache: {
     maxAge: 15 * 60 * 1000,
-    store: forageStore
+    store: forageStore,
+    exclude: { query: false }
   },
   baseURL: 'https://api.hackertab.dev',
 })
@@ -22,7 +23,7 @@ const api = setup({
 const cachedRequest = async (url, maxAge = 15) => {
   let { data } = await api.get(url, {
     cache: {
-      maxAge: maxAge * 60 * 1000,
+      maxAge: maxAge * 60 * 1000
     }
   })
 
