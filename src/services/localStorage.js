@@ -47,15 +47,4 @@ export default class AppStorage {
       return false;
     }
   }
-
-  static async cacheResponse (url, response) {
-    const { headers: { etag }, data } = response
-
-    localforage.setItem(url + "_etag", { data, etag })
-  }
-
-  static async getCachedResponse (url) {
-    const response = await localforage.getItem(url + "_etag")
-    return response
-  }
 }
