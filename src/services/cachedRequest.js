@@ -22,7 +22,7 @@ const api = setup({
 const cachedRequest = async (url, maxAge = 15) => {
   let { data } = await api.get(url, {
     cache: {
-      maxAge
+      maxAge: maxAge * 60 * 1000,
     }
   })
 
