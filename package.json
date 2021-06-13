@@ -1,12 +1,13 @@
 {
   "name": "hackertab.dev",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
+    "axios-cache-adapter": "^2.7.3",
     "country-emoji": "^1.5.4",
     "dompurify": "^2.2.7",
     "localforage": "^1.9.0",
@@ -36,7 +37,6 @@
     "build": "./script/build.sh",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://api.hackertab.dev",
   "browserslist": {
     "production": [
       ">0.2%",
