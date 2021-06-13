@@ -20,7 +20,7 @@ import MarketingBanner from './components/MarketingBanner'
 
 function App() {
 
-  const { supportedTags, marketingBannerConfig = {} } = useContext(ConfigurationContext)
+  const { supportedTags, marketingBannerConfig = {}, feedbackWidget } = useContext(ConfigurationContext)
   const [showSideBar, setShowSideBar] = useState(false)
   const [currentPage, setCurrentPage] = useState('home')
 
@@ -121,7 +121,7 @@ function App() {
           </main>
           <BookmarksSidebar showSidebar={showSideBar} onClose={() => setShowSideBar(false)} />
 
-          <Footer setCurrentPage={setCurrentPage} />
+          <Footer setCurrentPage={setCurrentPage} feedbackWidget={feedbackWidget} />
         </div>
 
       </PreferencesProvider>
