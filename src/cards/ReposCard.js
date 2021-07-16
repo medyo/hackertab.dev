@@ -83,13 +83,17 @@ function ReposCard({ analyticsTag, withAds }) {
     'monthly': 'the month'
   }
 
+  const getInitialSelectedTag = () => {
+    return getTags().find((t) => t.githubValues != null);
+  };
+
   useEffect(() => {
-    setSelectedTag(getTags()[0])
+    setSelectedTag(getInitialSelectedTag());
   }, [])
 
   useEffect(() => {
-    setSelectedTag(getTags()[0])
-    setRefresh(!refresh)
+    setSelectedTag(getInitialSelectedTag());
+    setRefresh(!refresh);
   }, [userSelectedTags])
 
   const onSelectedTagChange = (selTag) => {
@@ -114,10 +118,14 @@ function ReposCard({ analyticsTag, withAds }) {
 
   const fetchRepos = async () => {
     if (!selectedTag.githubValues) {
-      throw Error(`Github Trending does not support ${selectedTag.label}.`)
+      throw Error(`Github Trending does not support ${selectedTag.label}.`);
     }
-    const data = await githubApi.getTrending(selectedTag.githubValues[0], since)
-    return data
+
+    const data = await githubApi.getTrending(
+      selectedTag.githubValues[0],
+      since
+    );
+    return data;
   }
 
   function HeaderTitle() {
