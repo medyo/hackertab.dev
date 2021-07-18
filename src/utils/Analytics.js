@@ -13,10 +13,13 @@ const trackOpenLinkFrom = (dataSource) => {
   trackEvent("Link", "Open", dataSource)
 }
 
+const trackListingModeChange = (listingMode) => {
+  trackEvent("ListingMode", listingMode)
+}
+
 const trackAddLanguage = (language) => {
   trackEvent("Language", "Add", language)
 }
-
 
 const trackRemoveLanguage = (card) => {
   trackEvent("Language", "Remove", card)
@@ -76,19 +79,28 @@ const trackEvent = (category, action, label) => {
     ["cid", userId],
     ["ec", category],
     ["ea", action],
-    ["el", label?.capitalize()],
     ["ul", navigator.language],
     ["ua", navigator.userAgent],
-  ]).toString()
+  ])
+
+  if (label) {
+    payload.append("el", label.capitalize())
+  }
+
+  try {
+    var manifestData = chrome.runtime.getManifest();
+    payload.append("cd1", manifestData.version)
+  } catch(e){}
+  
 
   if (process.env.NODE_ENV !== 'production') {
-    console.log("Analytics debug payload", payload)
+    console.log("Analytics debug payload", payload.toString())
     return
   }
 
   navigator.sendBeacon(
     "https://www.google-analytics.com/collect",
-    payload
+    payload.toString()
   )
 
 }
@@ -111,5 +123,6 @@ export {
   trackBookmarkFrom,
   trackUnbookmarkFrom,
   trackReposLanguageChange,
-  trackReposDateRangeChange
+  trackReposDateRangeChange,
+  trackListingModeChange
 }

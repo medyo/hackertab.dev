@@ -1,9 +1,9 @@
-import axios from 'axios'
+import cachedRequest from './cachedRequest';
 
 
 const getTodayProducts = async () => {
-  const url = `https://api.hackertab.dev/data/producthunt.json`
-  let { data } = await axios.get(url)
+  const url = `/data/producthunt.json`;
+  const data = await cachedRequest(url);
   return data
 }
 

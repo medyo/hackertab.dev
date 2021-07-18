@@ -15,6 +15,8 @@ import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 const ConferenceItem = ({ conf, index, analyticsTag }) => {
   
+  const { listingMode } = useContext(PreferencesContext)
+
   const formatConfsDate = (date) => {
     const monthNames = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
@@ -58,13 +60,22 @@ const ConferenceItem = ({ conf, index, analyticsTag }) => {
             <RiCalendarEventFill className={"rowTitleIcon"} />
             {conf.name}
           </CardLink>
-          <div className="rowDescription">
-            <span className="rowItem"><IoIosPin className="rowItemIcon" /> {ConferenceLocation()}</span>
-            <span className="rowItem"><MdAccessTime className="rowItemIcon" /> {ConferenceDate()}</span>
-          </div>
-          <div className="rowDetails">
-            <ColoredLanguagesBadge languages={[conf.tag.value]} />
-          </div>
+          {
+            listingMode === "normal" ?
+            <>
+              <div className="rowDescription">
+                <span className="rowItem"><IoIosPin className="rowItemIcon" /> {ConferenceLocation()}</span>
+                <span className="rowItem"><MdAccessTime className="rowItemIcon" /> {ConferenceDate()}</span>
+              </div>
+              <div className="rowDetails">
+                <ColoredLanguagesBadge languages={[conf.tag.value]} />
+              </div>
+            </> :
+            <div className="rowDescription">
+              <span className="rowItem"><MdAccessTime className="rowItemIcon" /> {ConferenceDate()}</span>
+            </div>
+          }
+          
         </>
       )}
     />

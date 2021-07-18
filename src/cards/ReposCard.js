@@ -21,6 +21,8 @@ import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
 
 const RepoItem = ({ item, index }) => {
 
+  const { listingMode } = useContext(PreferencesContext)
+
   return (
     <CardItemWithActions
       source={'github'}
@@ -37,17 +39,19 @@ const RepoItem = ({ item, index }) => {
             <b>{item.name}</b>
           </CardLink>
           <p className="rowDescription">{item.description}</p>
-          <div className="rowDetails">
-            <ColoredLanguagesBadge languages={[item.programmingLanguage]} />
-            {
-              item.stars &&
-              <span className="rowItem"><VscStarFull className="rowItemIcon" /> {item.stars} stars</span>
-            }
-            {
-              item.forks &&
-              <span className="rowItem"><VscRepoForked className="rowItemIcon" /> {item.forks} forks</span>
-            }
-          </div>
+          { listingMode === "normal" && 
+            <div className="rowDetails">
+              <ColoredLanguagesBadge languages={[item.programmingLanguage]} />
+              {
+                item.stars &&
+                <span className="rowItem"><VscStarFull className="rowItemIcon" /> {item.stars} stars</span>
+              }
+              {
+                item.forks &&
+                <span className="rowItem"><VscRepoForked className="rowItemIcon" /> {item.forks} forks</span>
+              }
+            </div>
+          }
         </>
       )}
     />
@@ -79,13 +83,17 @@ function ReposCard({ analyticsTag, withAds }) {
     'monthly': 'the month'
   }
 
+  const getInitialSelectedTag = () => {
+    return getTags().find((t) => t.githubValues != null);
+  };
+
   useEffect(() => {
-    setSelectedTag(getTags()[0])
+    setSelectedTag(getInitialSelectedTag());
   }, [])
 
   useEffect(() => {
-    setSelectedTag(getTags()[0])
-    setRefresh(!refresh)
+    setSelectedTag(getInitialSelectedTag());
+    setRefresh(!refresh);
   }, [userSelectedTags])
 
   const onSelectedTagChange = (selTag) => {
@@ -110,10 +118,14 @@ function ReposCard({ analyticsTag, withAds }) {
 
   const fetchRepos = async () => {
     if (!selectedTag.githubValues) {
-      throw Error(`Github Trending does not support ${selectedTag.label}.`)
+      throw Error(`Github Trending does not support ${selectedTag.label}.`);
     }
-    const data = await githubApi.getTrending(selectedTag.githubValues[0], since)
-    return data
+
+    const data = await githubApi.getTrending(
+      selectedTag.githubValues[0],
+      since
+    );
+    return data;
   }
 
   function HeaderTitle() {

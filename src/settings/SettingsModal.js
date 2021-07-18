@@ -11,13 +11,14 @@ import ConfigurationContext from '../configuration/ConfigurationContext';
 import { SUPPORTED_CARDS, APP } from '../Constants'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { trackAddLanguage, trackRemoveLanguage, trackAddCard, trackRemoveCard, trackOpenLinksNewTab } from "../utils/Analytics"
+import { trackAddLanguage, trackRemoveLanguage, trackAddCard, trackRemoveCard, 
+  trackOpenLinksNewTab, trackListingModeChange } from "../utils/Analytics"
 
 function SettingsModal({ showSettings, setShowSettings }) {
 
   const { supportedTags } = useContext(ConfigurationContext)
   const preferences = useContext(PreferencesContext)
-  const { dispatcher, cards, userSelectedTags, openLinksNewTab } = preferences
+  const { dispatcher, cards, userSelectedTags, openLinksNewTab, listingMode } = preferences
   const [selectedCards, setSelectedCards] = useState(cards)
 
   const handleCloseModal = () => {
@@ -36,6 +37,12 @@ function SettingsModal({ showSettings, setShowSettings }) {
 
     dispatcher({ type: 'setUserSelectedTags', value: tags })
   }
+
+  const onlistingModeChange = (e) => {
+    const value = e.target.checked ? "compact" : "normal";
+    trackListingModeChange(value)
+    dispatcher({ type: 'changelistingMode', value });
+  };
 
   const onCardSelectChange = (cards, metas) => {
     if (cards.length > 4) {
@@ -127,6 +134,19 @@ function SettingsModal({ showSettings, setShowSettings }) {
               checked={openLinksNewTab}
               icons={false}
               onChange={onOpenLinksNewTabChange}
+            />
+          </div>
+        </div>
+
+        <div className='settingRow'>
+          <p className='settingTitle'>
+            Compact mode
+					</p>
+          <div className='settingContent'>
+            <Toggle
+              checked={listingMode == "compact"}
+              icons={false}
+              onChange={onlistingModeChange}
             />
           </div>
         </div>

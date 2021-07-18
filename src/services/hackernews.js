@@ -1,9 +1,9 @@
-import axios from 'axios'
+import cachedRequest from './cachedRequest';
 
 
 const getTopStories = async () => {
-    const url = `https://api.hackertab.dev/data/hackernews.json`
-    let { data } =  await axios.get(url)
+    const url = `/data/hackernews.json`;
+    const data = await cachedRequest(url);
     return data
 }
 

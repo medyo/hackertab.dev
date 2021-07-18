@@ -1,3 +1,5 @@
+import localforage from 'localforage';
+
 export const canUseLocalStorage = () => {
   try {
     window.localStorage.setItem('test', 'test');
@@ -13,7 +15,7 @@ export const canUseLocalStorage = () => {
 export default class AppStorage {
   static getItem(key, defaultValue = null) {
     let value;
-    if(!canUseLocalStorage()){
+    if (!canUseLocalStorage()) {
       return defaultValue
     }
     try {
@@ -26,7 +28,7 @@ export default class AppStorage {
 
   static setItem(key, value) {
     try {
-      if (typeof(value) != "string") {
+      if (typeof (value) != "string") {
         value = JSON.stringify(value)
       }
       window.localStorage.setItem(key, value);

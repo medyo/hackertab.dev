@@ -1,9 +1,10 @@
-import axios from 'axios'
+import cachedRequest from './cachedRequest';
+
 
 const getTagConfs = async (tag) => {
-    const currentYear = new Date().getFullYear()
+    const currentYear = new Date().getFullYear();
     const url = `https://raw.githubusercontent.com/tech-conferences/conference-data/main/conferences/${currentYear}/${tag}.json`
-    let { data } =  await axios.get(url)
+    const data = await cachedRequest(url);
     return data
 }
 
