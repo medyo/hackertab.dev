@@ -1,7 +1,7 @@
 {
   "name": "Hackertab.dev",
   "description": "The Developer’s Homepage",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "manifest_version": 2,
   "chrome_url_overrides": {
     "newtab": "index.html"
