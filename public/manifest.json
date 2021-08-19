@@ -12,7 +12,7 @@
     ]
   },
   "permissions": [
-    "https://*.hackertab.ml/*"
+    "https://*.hackertab.dev/*"
   ],
   "icons": {
     "16": "/logos/logo16.png",
