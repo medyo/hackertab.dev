@@ -8,7 +8,7 @@ import { HiLightBulb } from "react-icons/hi"
 
 function Footer({ setCurrentPage, feedbackWidget }) {
 
-  const { show: showFeedbackWidget} = feedbackWidget
+  const { show: showFeedbackWidget } = feedbackWidget || { show: false };
 
   useEffect(() => {
     if (showFeedbackWidget) {
