@@ -31,6 +31,7 @@
     "timeago.js": "^4.0.2",
     "web-vitals": "^0.2.4"
   },
+  "proxy": "https://api.hackertab.dev/",
   "scripts": {
     "start": "react-scripts start",
     "web-build": "REACT_APP_WEB_BUILD=1 CI= react-scripts build",

@@ -1,33 +1,40 @@
 import axios from 'axios';
-import localforage from 'localforage';
-import { setup } from 'axios-cache-adapter'
+import AppStorage from "./localStorage";
 
-const forageStore = localforage.createInstance({
-  driver: [
-    localforage.INDEXEDDB,
-    localforage.LOCALSTORAGE
-  ],
-  name: 'hackertab-cache'
-})
+var packageFile = require("../../package.json");
 
-const api = setup({
-  cache: {
-    maxAge: 15 * 60 * 1000,
-    store: forageStore,
-    exclude: { query: false }
-  },
-  baseURL: 'https://api.hackertab.dev',
-})
+const axiosInstance = axios.create({
+  baseURL: process.env.NODE_ENV === "production" ? packageFile.proxy : null,
+});
 
+const cachedRequest = async (url) => {
+  const cachedResponse = await AppStorage.getItem(url);
+  let headers = {};
+  let response;
+  if (cachedResponse) {
+    let etag = JSON.parse(cachedResponse).headers.etag;
+    headers = {
+      "If-None-Match": etag,
+    };
+  }
 
-const cachedRequest = async (url, maxAge = 15) => {
-  let { data } = await api.get(url, {
-    cache: {
-      maxAge: maxAge * 60 * 1000
+  try {
+    response = await axiosInstance.get(url, { headers });
+    if (response.headers.etag) {
+      AppStorage.setItem(url, response);
     }
-  })
-
-  return data
-}
+  } catch (error) {
+    if (!error.response || error.response.status !== 304) {
+      throw error;
+    }
+    if (!cachedResponse) {
+      throw "Network Failed";
+    }
+    response = error.response;
+    response.status = 200;
+    response.data = JSON.parse(cachedResponse).data;
+  }
+  return response.data;
+};
 
 export default cachedRequest
