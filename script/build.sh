@@ -12,8 +12,6 @@ build() {
 
     mkdir -p dist
     cp -r build/* dist
-    cd dist 
-    zip -r extension.zip * -x "*.DS_Store"
 }
 
 build
