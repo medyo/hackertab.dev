@@ -36,6 +36,7 @@
     "start": "react-scripts start",
     "web-build": "REACT_APP_WEB_BUILD=1 CI= react-scripts build",
     "build": "./script/build.sh",
+    "stores-build": "./script/stores_build.sh",
     "eject": "react-scripts eject"
   },
   "browserslist": {
