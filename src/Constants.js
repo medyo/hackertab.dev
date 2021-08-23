@@ -7,14 +7,15 @@ import ProductHuntCard from "./cards/ProductHuntCard";
 import RedditCard from "./cards/RedditCard";
 
 const APP = {
-  name: 'Hackertab.dev',
-  slogan: '— Stay updated with the new technology and trends',
-  repository: 'https://github.com/medyo/hackertab.dev',
-  ref: 'utm_source=hackertab.dev&utm_medium=post&utm_campaign=home',
-  contactEmail: 'hello@hackertab.dev',
-  maxCardsPerRow: 4,
-  donationLink: 'https://www.buymeacoffee.com/medyo'
-}
+	name: 'Hackertab.dev',
+	slogan: '— Stay updated with the new technology and trends',
+	repository: 'https://github.com/medyo/hackertab.dev',
+	ref: 'utm_source=hackertab.dev&utm_medium=post&utm_campaign=home',
+	contactEmail: 'hello@hackertab.dev',
+	maxCardsPerRow: 4,
+	donationLink: 'https://www.buymeacoffee.com/medyo',
+	supportLink: 'https://github.com/medyo/hackertab.dev/issues',
+};
 
 export const LOCAL_CONFIGURATION = {
   supportedTags: [] // Loaded remotly

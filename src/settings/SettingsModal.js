@@ -11,7 +11,7 @@ import ConfigurationContext from '../configuration/ConfigurationContext';
 import { SUPPORTED_CARDS, APP } from '../Constants'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { trackAddLanguage, trackRemoveLanguage, trackAddCard, trackRemoveCard, 
+import { trackAddLanguage, trackRemoveLanguage, trackAddCard, trackRemoveCard,
   trackOpenLinksNewTab, trackListingModeChange } from "../utils/Analytics"
 
 function SettingsModal({ showSettings, setShowSettings }) {
@@ -109,7 +109,7 @@ function SettingsModal({ showSettings, setShowSettings }) {
               classNamePrefix={'hackertab'}
               onChange={onTagsSelectChange}
             />
-            <p className="settingHint">Missing language or technology? create an issue <a href="#" onClick={(e) => window.open(`${APP.repository}/issues/`, "_blank")}>here</a></p>
+            <p className="settingHint">Missing language or technology? create an issue <a href="#" onClick={(e) => window.open(APP.supportLink, "_blank")}>here</a></p>
           </div>
         </div>
 
@@ -123,7 +123,7 @@ function SettingsModal({ showSettings, setShowSettings }) {
               isClearable={false}
               isSearchable={false}
               classNamePrefix={'hackertab'} />
-            <p className="settingHint">Missing a cool data source? create an issue <a href="#" onClick={(e) => window.open(`${APP.repository}/issues/`, "_blank")}>here</a></p>
+            <p className="settingHint">Missing a cool data source? create an issue <a href="#" onClick={(e) => window.open(APP.supportLink, "_blank")}>here</a></p>
           </div>
         </div>
 

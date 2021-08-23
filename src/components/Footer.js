@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { APP } from '../Constants';
 import { RiCodeSSlashFill } from "react-icons/ri"
 import { trackPageView } from "../utils/Analytics"
@@ -8,28 +8,8 @@ import { HiLightBulb } from "react-icons/hi"
 
 function Footer({ setCurrentPage, feedbackWidget }) {
 
-  const { show: showFeedbackWidget} = feedbackWidget
+  const { show: showFeedbackWidget } = feedbackWidget || { show: false };
 
-  useEffect(() => {
-    if (showFeedbackWidget) {
-
-      if (!process.env.REACT_APP_SUPPORT_WIDGET_ID) {
-        console.log("Missing Feedback Widget ID")
-        return
-      }
-
-      const script = document.createElement("script");
-      script.src = `https://w.appzi.io/bootstrap/bundle.js?token=${process.env.REACT_APP_SUPPORT_WIDGET_ID}`;
-      script.async = true;
-      script.id = "_appzi"
-      document.body.appendChild(script)
-      return () => {
-        document.body.removeChild(script);
-      }
-    }
-  }, [])
-
-  
   const onSourceCodeClick = () => {
     trackPageView('source code')
     window.open(APP.repository, "_blank")
@@ -40,9 +20,7 @@ function Footer({ setCurrentPage, feedbackWidget }) {
   }
 
   const onNewFeatureRequest = () => {
-    if (window.appzi) {
-      window.appzi.openWidget('4d0bdd40-c134-4d77-9b6c-5e0d6495917a')
-    }
+    window.open(APP.supportLink)
   }
 
   return (
