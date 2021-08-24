@@ -26,6 +26,7 @@ function App() {
     feedbackWidget,
   } = useContext(ConfigurationContext)
   const [showSideBar, setShowSideBar] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
   const [currentPage, setCurrentPage] = useState('home')
 
   const [state, dispatcher] = useReducer(
@@ -85,6 +86,8 @@ function App() {
             state={state}
             dispatcher={dispatcher}
             showSideBar={showSideBar}
+            showSettings={showSettings}
+            setShowSettings={setShowSettings}
           />
 
           <BrowserView>
@@ -121,7 +124,7 @@ function App() {
           </BrowserView>
 
           <MobileView>
-            <MobileLayout />
+            <MobileLayout showSettings={showSettings} setShowSettings={setShowSettings} />
           </MobileView>
         </div>
       </PreferencesProvider>
