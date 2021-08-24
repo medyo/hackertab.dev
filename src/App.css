@@ -640,3 +640,68 @@ Producthunt item
 .test3 {
   flex-direction: column;
 }
+
+.bottomNavigation {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  height: 50px;
+  background-color: var(--card-background-color);
+  box-shadow: 0 0 20px var(--card-border-color);
+  position: fixed;
+  bottom: 0;
+  left:0;
+}
+
+.navigationItem {
+  flex-grow:1;
+  height: 100%;
+  line-height: 56px;
+  font-size: 24px;
+}
+.navigationItem:hover {
+  display: block;
+  height: 100%;
+  background-color: #3c4f651f;
+}
+.navigationItem.active {
+  background-color: #3c4f651f;
+}
+
+
+@media (max-width: 768px) {
+
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; 
+  }
+  .slogan, .extras  {
+    display: none;
+  }
+  .App {
+    padding: 0
+  }
+  .AppHeader {
+    padding: 0;
+    margin: 0 12px;
+    height: 56px;
+  }
+  .blockHeader{
+    display: none;
+  }
+  .blockContent{
+    height: 100%;
+  }
+  .blockContent::-webkit-scrollbar {
+    width: 0;
+  }
+  .block {
+    height: 100vh;
+    padding-bottom: 56px;
+    border-radius: 0;
+    box-shadow: none !important;
+  }
+}
