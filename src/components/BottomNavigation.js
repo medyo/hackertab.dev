@@ -12,6 +12,7 @@ function BottomNavigation({ selectedCard, setSelectedCard, setShowSettings }) {
         const constantCard = SUPPORTED_CARDS.find((c) => c.value === card.name)
         return (
           <a
+            key={card.name}
             className={'navigationItem ' + (selectedCard.name == card.name ? 'active' : '')}
             href="#"
             onClick={(e) => setSelectedCard(card)}>
