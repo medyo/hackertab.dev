@@ -21,7 +21,6 @@ const APP = {
   ref: 'utm_source=hackertab.dev&utm_medium=post&utm_campaign=home',
   contactEmail: 'hello@hackertab.dev',
   maxCardsPerRow: 4,
-  donationLink: 'https://www.buymeacoffee.com/medyo',
   supportLink: 'https://github.com/medyo/hackertab.dev/issues',
 }
 
