@@ -6,7 +6,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "axios-cache-adapter": "^2.7.3",
     "country-emoji": "^1.5.4",
     "dompurify": "^2.2.7",
