@@ -376,6 +376,10 @@ a {
   color: #FA481D;
 }
 
+.rowDetails .lobstersRowItem {
+  color: #A91916
+}
+
 .rowItemIcon {
   position: relative;
   top: 1px;
