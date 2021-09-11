@@ -62,8 +62,7 @@ const RepoItem = ({ item, index }) => {
 const TAGS_MENU_ID = "tags-menu";
 const DATE_RANGE_MENU_ID = "date-range-id"
 
-function ReposCard({ analyticsTag, withAds }) {
-
+function ReposCard({ analyticsTag, icon, withAds }) {
   const globalTag = { value: 'global', label: 'All trending', githubValues: ['global'] }
 
   const preferences = useContext(PreferencesContext)
@@ -72,28 +71,28 @@ function ReposCard({ analyticsTag, withAds }) {
 
   const getTags = () => [...userSelectedTags, globalTag]
 
-  const { show: showMenu } = useContextMenu();
+  const { show: showMenu } = useContextMenu()
 
   const [selectedTag, setSelectedTag] = useState(getTags()[0])
   const [since, setSince] = useState('daily')
   const [refresh, setRefresh] = useState(true)
   const dateRangeMapper = {
-    'daily': 'the day',
-    'weekly': 'the week',
-    'monthly': 'the month'
+    daily: 'the day',
+    weekly: 'the week',
+    monthly: 'the month',
   }
 
   const getInitialSelectedTag = () => {
-    return getTags().find((t) => t.githubValues != null);
-  };
+    return getTags().find((t) => t.githubValues != null)
+  }
 
   useEffect(() => {
-    setSelectedTag(getInitialSelectedTag());
+    setSelectedTag(getInitialSelectedTag())
   }, [])
 
   useEffect(() => {
-    setSelectedTag(getInitialSelectedTag());
-    setRefresh(!refresh);
+    setSelectedTag(getInitialSelectedTag())
+    setRefresh(!refresh)
   }, [userSelectedTags])
 
   const onSelectedTagChange = (selTag) => {
@@ -109,35 +108,39 @@ function ReposCard({ analyticsTag, withAds }) {
   }
 
   const displayMenu = (e) => {
-    const { target: { dataset: { targetId } }} = e
+    const {
+      target: {
+        dataset: { targetId },
+      },
+    } = e
     if (targetId) {
       showMenu(e, { id: targetId })
     }
   }
 
-
   const fetchRepos = async () => {
     if (!selectedTag.githubValues) {
-      throw Error(`Github Trending does not support ${selectedTag.label}.`);
+      throw Error(`Github Trending does not support ${selectedTag.label}.`)
     }
 
-    const data = await githubApi.getTrending(
-      selectedTag.githubValues[0],
-      since
-    );
-    return data;
+    const data = await githubApi.getTrending(selectedTag.githubValues[0], since)
+    return data
   }
 
   function HeaderTitle() {
-    if (!selectedTag) { return null }
+    if (!selectedTag) {
+      return null
+    }
     return (
-      <div style={{ display: 'inline-block', margin: 0, padding: 0 }} >
+      <div style={{ display: 'inline-block', margin: 0, padding: 0 }}>
         <span onClick={displayMenu} className="headerSelect" data-target-id={TAGS_MENU_ID}>
-          {selectedTag.label}<RiArrowDownSFill className="headerSelectIcon" />
+          {selectedTag.label}
+          <RiArrowDownSFill className="headerSelectIcon" />
         </span>
         <span> Repos of </span>
         <span onClick={displayMenu} className="headerSelect" data-target-id={DATE_RANGE_MENU_ID}>
-          {dateRangeMapper[since]}<RiArrowDownSFill className="headerSelectIcon" />
+          {dateRangeMapper[since]}
+          <RiArrowDownSFill className="headerSelectIcon" />
         </span>
       </div>
     )
@@ -147,70 +150,39 @@ function ReposCard({ analyticsTag, withAds }) {
     <RepoItem item={item} key={`rp-${index}`} analyticsTag={analyticsTag} />
   )
 
-
   return (
-		<>
-			<CardComponent
-				fullBlock={true}
-				icon={
-					<SiGithub className='blockHeaderIcon blockHeaderWhite' />
-				}
-				title={<HeaderTitle />}>
-				<ListComponent
-					fetchData={fetchRepos}
+    <>
+      <CardComponent
+        fullBlock={true}
+        icon={<span className="blockHeaderIcon">{icon}</span>}
+        title={<HeaderTitle />}>
+        <ListComponent
+          fetchData={fetchRepos}
           renderItem={renderItem}
           refresh={refresh}
           withAds={withAds}
-				/>
-				<Menu
-					id={TAGS_MENU_ID}
-					animation={animation.fade}>
-					{getTags().map((tag) => {
-						return (
-							<Item
-								key={
-									tag
-								}
-								onClick={() =>
-									onSelectedTagChange(
-										tag
-									)
-								}>
-								{
-									tag.label
-								}
-							</Item>
-						);
-					})}
-				</Menu>
-				<Menu
-					id={DATE_RANGE_MENU_ID}
-					animation={animation.fade}>
-					{Object.keys(
-						dateRangeMapper
-					).map((key) => {
-						return (
-							<Item
-								key={
-									key
-								}
-								onClick={() =>
-									onDateRangeChange(
-										key
-									)
-								}>
-								{
-									dateRangeMapper[
-										key
-									]
-								}
-							</Item>
-						);
-					})}
-				</Menu>
-			</CardComponent>
-		</>
-  );
+        />
+        <Menu id={TAGS_MENU_ID} animation={animation.fade}>
+          {getTags().map((tag) => {
+            return (
+              <Item key={tag} onClick={() => onSelectedTagChange(tag)}>
+                {tag.label}
+              </Item>
+            )
+          })}
+        </Menu>
+        <Menu id={DATE_RANGE_MENU_ID} animation={animation.fade}>
+          {Object.keys(dateRangeMapper).map((key) => {
+            return (
+              <Item key={key} onClick={() => onDateRangeChange(key)}>
+                {dateRangeMapper[key]}
+              </Item>
+            )
+          })}
+        </Menu>
+      </CardComponent>
+    </>
+  )
 }
 
 export default ReposCard;

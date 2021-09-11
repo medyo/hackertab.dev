@@ -49,7 +49,7 @@ const JobItem = ({ item, index, analyticsTag }) => {
   )
 }
 
-function JobsCard({ analyticsTag, label, withAds }) {
+function JobsCard({ analyticsTag, label, icon, withAds }) {
   const preferences = useContext(PreferencesContext)
 
   const { userSelectedTags } = preferences
@@ -57,7 +57,7 @@ function JobsCard({ analyticsTag, label, withAds }) {
   const [refresh, setRefresh] = useState(true)
 
   const fetchJobs = async () => {
-    const promises = userSelectedTags.map(tag => {
+    const promises = userSelectedTags.map((tag) => {
       if (tag['stackoverflowValues']) {
         return stackoverflowApi.getJobs(tag['stackoverflowValues'][0])
       }
@@ -65,17 +65,21 @@ function JobsCard({ analyticsTag, label, withAds }) {
     })
     const results = await Promise.allSettled(promises)
 
-    return results.map((res, index) => {
-      let value = res.value
-      if (res.status === 'rejected') {
-        value = []
-      }
-      return value.map(c => ({
-        ...c, tag: userSelectedTags[index], date: new Date(c.isoDate)
-      }))
-    }).flat().sort((a, b) => b.date - a.date)
+    return results
+      .map((res, index) => {
+        let value = res.value
+        if (res.status === 'rejected') {
+          value = []
+        }
+        return value.map((c) => ({
+          ...c,
+          tag: userSelectedTags[index],
+          date: new Date(c.isoDate),
+        }))
+      })
+      .flat()
+      .sort((a, b) => b.date - a.date)
   }
-
 
   useEffect(() => {
     setRefresh(!refresh)
@@ -86,23 +90,18 @@ function JobsCard({ analyticsTag, label, withAds }) {
   )
 
   return (
-		<CardComponent
-			icon={
-				<SiStackoverflow
-					className='blockHeaderIcon'
-					color='#F18032'
-				/>
-			}
-			link='https://stackoverflow.com/jobs'
-			title={label}>
-			<ListComponent
-				fetchData={fetchJobs}
+    <CardComponent
+      icon={<span className="blockHeaderIcon">{icon}</span>}
+      link="https://stackoverflow.com/jobs"
+      title={label}>
+      <ListComponent
+        fetchData={fetchJobs}
         renderItem={renderItem}
         refresh={refresh}
         withAds={withAds}
-			/>
-		</CardComponent>
-  );
+      />
+    </CardComponent>
+  )
 }
 
 export default JobsCard

@@ -90,56 +90,55 @@ const PostItem = ({ item, index, analyticsTag }) => {
 
 
 
-function RedditCard({ analyticsTag, label, withAds }) {
-    const preferences = useContext(PreferencesContext)
-    const { userSelectedTags } = preferences
+function RedditCard({ analyticsTag, icon, label, withAds }) {
+  const preferences = useContext(PreferencesContext)
+  const { userSelectedTags } = preferences
 
-    const [refresh, setRefresh] = useState(true)
+  const [refresh, setRefresh] = useState(true)
 
-    useEffect(() => {
-        setRefresh(!refresh)
-    }, [userSelectedTags])
+  useEffect(() => {
+    setRefresh(!refresh)
+  }, [userSelectedTags])
 
-    const fetchPosts = async () => {
-        const promises = userSelectedTags.map(tag => {
-            if (tag.redditValues) {
-                return redditApi.getTopPostsBySubReddit(tag.redditValues[0])
-            }
-            return []
-        })
+  const fetchPosts = async () => {
+    const promises = userSelectedTags.map((tag) => {
+      if (tag.redditValues) {
+        return redditApi.getTopPostsBySubReddit(tag.redditValues[0])
+      }
+      return []
+    })
 
-        const results = await Promise.allSettled(promises)
-        return results.map(res => {
-            let value = res.value
-            if (res.status === 'rejected') {
-                value = []
-            }
-            return value.map(item => formatResponsePost(item))
-        }).flat().sort((a, b) => b.score - a.score).slice(0, 40)
-    }
+    const results = await Promise.allSettled(promises)
+    return results
+      .map((res) => {
+        let value = res.value
+        if (res.status === 'rejected') {
+          value = []
+        }
+        return value.map((item) => formatResponsePost(item))
+      })
+      .flat()
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 40)
+  }
 
-    const renderItem = (item, index) => (
-        <PostItem item={item} key={`at-${index}`} index={index} analyticsTag={analyticsTag} />
-    )
+  const renderItem = (item, index) => (
+    <PostItem item={item} key={`at-${index}`} index={index} analyticsTag={analyticsTag} />
+  )
 
-    return (
-		<CardComponent
-			icon={
-				<FaReddit
-					className='blockHeaderIcon'
-					color='#FF4500'
-				/>
-			}
-			link='https://www.reddit.com/'
-			title={label}>
-			<ListComponent
-				fetchData={fetchPosts}
-                renderItem={renderItem}
-                refresh={refresh}
-                withAds={withAds}
-			/>
-		</CardComponent>
-    );
+  return (
+    <CardComponent
+      icon={<span className="blockHeaderIcon">{icon}</span>}
+      link="https://www.reddit.com/"
+      title={label}>
+      <ListComponent
+        fetchData={fetchPosts}
+        renderItem={renderItem}
+        refresh={refresh}
+        withAds={withAds}
+      />
+    </CardComponent>
+  )
 }
 
 export default RedditCard

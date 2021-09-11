@@ -13,6 +13,7 @@ import { SiProducthunt } from 'react-icons/si'
 import { FaReddit } from 'react-icons/fa'
 import { SiStackoverflow } from 'react-icons/si'
 import { SiLetterboxd } from 'react-icons/si'
+import { HiTicket } from 'react-icons/hi'
 
 const APP = {
   name: 'Hackertab.dev',
@@ -31,49 +32,49 @@ export const LOCAL_CONFIGURATION = {
 export const SUPPORTED_CARDS = [
   {
     value: 'github',
-    icon: <SiGithub />,
+    icon: <SiGithub className="blockHeaderWhite" />,
     analyticsTag: 'repos',
     label: 'Github repositories',
     component: ReposCard,
   },
   {
     value: 'jobs',
-    icon: <SiStackoverflow />,
+    icon: <SiStackoverflow color="#F18032" />,
     analyticsTag: 'jobs',
     label: 'Featured jobs',
     component: JobsCard,
   },
   {
     value: 'hackernews',
-    icon: <SiYcombinator />,
+    icon: <SiYcombinator color="#FB6720" />,
     analyticsTag: 'hackernews',
     label: 'Hackernews',
     component: HNCard,
   },
   {
     value: 'conferences',
-    icon: <SiGithub />,
+    icon: <HiTicket color="#4EC8AF" />,
     analyticsTag: 'events',
     label: 'Upcoming events',
     component: ConferencesCard,
   },
   {
     value: 'devto',
-    icon: <FaDev />,
+    icon: <FaDev className="blockHeaderWhite" />,
     analyticsTag: 'devto',
     label: 'DevTo',
     component: DevToCard,
   },
   {
     value: 'producthunt',
-    icon: <SiProducthunt />,
+    icon: <SiProducthunt color="#D65736" />,
     analyticsTag: 'producthunt',
     label: 'Product Hunt',
     component: ProductHuntCard,
   },
   {
     value: 'reddit',
-    icon: <FaReddit />,
+    icon: <FaReddit color="#FF4500" />,
     analyticsTag: 'reddit',
     label: 'Reddit',
     component: RedditCard,
@@ -81,7 +82,7 @@ export const SUPPORTED_CARDS = [
 
   {
     value: 'lobsters',
-    icon: <SiLetterboxd />,
+    icon: <SiLetterboxd color="#A91916" />,
     analyticsTag: 'lobsters',
     label: 'Lobsters',
     component: LobstersCard,

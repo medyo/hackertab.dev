@@ -15,7 +15,6 @@ import PreferencesContext from '../preferences/PreferencesContext'
 
 const StoryItem = ({ item, index, analyticsTag }) => {
   const { listingMode } = useContext(PreferencesContext)
-
   return (
     <CardItemWithActions
       source={'lobsters'}
@@ -58,7 +57,8 @@ const StoryItem = ({ item, index, analyticsTag }) => {
   )
 }
 
-function LobstersCard({ analyticsTag, label, withAds }) {
+function LobstersCard({ analyticsTag, label, icon, withAds }) {
+  console.log(icon)
   const fetchStories = async () => {
     return await lobstersApi.getTopStories()
   }
@@ -69,7 +69,7 @@ function LobstersCard({ analyticsTag, label, withAds }) {
 
   return (
     <CardComponent
-      icon={<SiLetterboxd className="blockHeaderIcon" color="#A91916" />}
+      icon={<span className="blockHeaderIcon">{icon}</span>}
       link="https://lobste.rs/"
       title={label}>
       <ListComponent fetchData={fetchStories} renderItem={renderItem} withAds={withAds} />

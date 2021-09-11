@@ -108,6 +108,7 @@ function App() {
                           {React.createElement(constantCard.component, {
                             key: card.name,
                             label: constantCard.label,
+                            icon: constantCard.icon,
                             analyticsTag: constantCard.analyticsTag,
                             withAds: index == 0,
                           })}

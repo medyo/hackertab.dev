@@ -51,7 +51,7 @@ const ProductItem = ({ item, index, analyticsTag }) => {
   )
 }
 
-function ProductHuntCard({ label, analyticsTag, withAds }) {
+function ProductHuntCard({ label, icon, analyticsTag, withAds }) {
   const preferences = useContext(PreferencesContext)
 
   const { userSelectedTags } = preferences
@@ -71,23 +71,18 @@ function ProductHuntCard({ label, analyticsTag, withAds }) {
   )
 
   return (
-		<CardComponent
-			icon={
-				<SiProducthunt
-					className='blockHeaderIcon'
-					color='#D65736'
-				/>
-			}
-			link='https://www.producthunt.com/'
-			title={label}>
-			<ListComponent
-				fetchData={fetchProducts}
+    <CardComponent
+      icon={<span className="blockHeaderIcon">{icon}</span>}
+      link="https://www.producthunt.com/"
+      title={label}>
+      <ListComponent
+        fetchData={fetchProducts}
         renderItem={renderItem}
         refresh={refresh}
         withAds={withAds}
-			/>
-		</CardComponent>
-  );
+      />
+    </CardComponent>
+  )
 }
 
 export default ProductHuntCard
