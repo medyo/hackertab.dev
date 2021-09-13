@@ -1,3 +1,4 @@
+import React from 'react'
 import HNCard from './cards/HNCard'
 import DevToCard from './cards/DevToCard'
 import ConferencesCard from './cards/ConferencesCard'
@@ -6,6 +7,7 @@ import ReposCard from './cards/ReposCard'
 import ProductHuntCard from './cards/ProductHuntCard'
 import RedditCard from './cards/RedditCard'
 import LobstersCard from './cards/LobstersCard'
+import HashNodeCard from './cards/HashNodeCard'
 import { SiGithub } from 'react-icons/si'
 import { SiYcombinator } from 'react-icons/si'
 import { FaDev } from 'react-icons/fa'
@@ -14,6 +16,7 @@ import { FaReddit } from 'react-icons/fa'
 import { SiStackoverflow } from 'react-icons/si'
 import { SiLetterboxd } from 'react-icons/si'
 import { HiTicket } from 'react-icons/hi'
+import HashNodeIcon from './static/icon_hashnode.png'
 
 const APP = {
   name: 'Hackertab.dev',
@@ -79,13 +82,19 @@ export const SUPPORTED_CARDS = [
     label: 'Reddit',
     component: RedditCard,
   },
-
   {
     value: 'lobsters',
     icon: <SiLetterboxd color="#A91916" />,
     analyticsTag: 'lobsters',
     label: 'Lobsters',
     component: LobstersCard,
+  },
+  {
+    value: 'hashnode',
+    icon: <img src={HashNodeIcon} />,
+    analyticsTag: 'hashnode',
+    label: 'Hashnode',
+    component: HashNodeCard,
   },
 ]
 

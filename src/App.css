@@ -236,7 +236,11 @@ a {
 .blockHeaderIcon {
   position: relative;
   top: 4px;
-  margin-right: 6px;;
+  margin-right: 6px;
+}
+.blockHeaderIcon img {
+  width: 18px;
+  height: 18px;
 }
 
 .blockRow {
