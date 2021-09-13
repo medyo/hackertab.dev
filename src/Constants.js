@@ -14,9 +14,9 @@ import { FaDev } from 'react-icons/fa'
 import { SiProducthunt } from 'react-icons/si'
 import { FaReddit } from 'react-icons/fa'
 import { SiStackoverflow } from 'react-icons/si'
-import { SiLetterboxd } from 'react-icons/si'
 import { HiTicket } from 'react-icons/hi'
 import HashNodeIcon from './static/icon_hashnode.png'
+import LobstersIcon from './static/icon_lobsters.png'
 
 const APP = {
   name: 'Hackertab.dev',
@@ -84,7 +84,7 @@ export const SUPPORTED_CARDS = [
   },
   {
     value: 'lobsters',
-    icon: <SiLetterboxd color="#A91916" />,
+    icon: <img src={LobstersIcon} />,
     analyticsTag: 'lobsters',
     label: 'Lobsters',
     component: LobstersCard,
