@@ -58,7 +58,6 @@ const StoryItem = ({ item, index, analyticsTag }) => {
 }
 
 function LobstersCard({ analyticsTag, label, icon, withAds }) {
-  console.log(icon)
   const fetchStories = async () => {
     return await lobstersApi.getTopStories()
   }
