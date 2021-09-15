@@ -8,6 +8,7 @@ import ProductHuntCard from './cards/ProductHuntCard'
 import RedditCard from './cards/RedditCard'
 import LobstersCard from './cards/LobstersCard'
 import HashNodeCard from './cards/HashNodeCard'
+import FreeCodeCampCard from './cards/FreeCodeCampCard'
 import { SiGithub } from 'react-icons/si'
 import { SiYcombinator } from 'react-icons/si'
 import { FaDev } from 'react-icons/fa'
@@ -17,6 +18,8 @@ import { SiStackoverflow } from 'react-icons/si'
 import { HiTicket } from 'react-icons/hi'
 import HashNodeIcon from './static/icon_hashnode.png'
 import LobstersIcon from './static/icon_lobsters.png'
+import { FaFreeCodeCamp } from 'react-icons/fa'
+
 
 const APP = {
   name: 'Hackertab.dev',
@@ -95,6 +98,13 @@ export const SUPPORTED_CARDS = [
     analyticsTag: 'hashnode',
     label: 'Hashnode',
     component: HashNodeCard,
+  },
+  {
+    value: 'freecodecamp',
+    icon: <FaFreeCodeCamp className="blockHeaderWhite" />,
+    analyticsTag: 'freecodecamp',
+    label: 'FreeCodeCamp',
+    component: FreeCodeCampCard,
   },
 ]
 
