@@ -17,7 +17,7 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
       source={'freecodecamp'}
       index={index}
       key={index}
-      item={item}
+      item={{ ...item, url: item.link }}
       cardItem={
         <>
           <CardLink link={item.link} analyticsSource={analyticsTag}>
