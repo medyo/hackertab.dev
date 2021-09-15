@@ -31,7 +31,7 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
                 </span>
               </p>
               <p className="rowDetails">
-                <ColoredLanguagesBadge languages={item.categories} />
+                <ColoredLanguagesBadge languages={item.categories.slice(0, 4)} />
               </p>
             </>
         </>
