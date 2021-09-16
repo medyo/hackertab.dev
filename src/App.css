@@ -737,7 +737,7 @@ Producthunt item
   padding: 0 16px !important;
   line-height: 26px;
   border-bottom: 1px solid var(--tooltip-divider-color) ;
-  
+  font-size: 110%;
 }
 .__react_component_tooltip {
   pointer-events: auto !important;
