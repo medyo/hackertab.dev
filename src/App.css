@@ -694,7 +694,8 @@ Producthunt item
   cursor: pointer;
   border: 2px solid var(--background-color);
   left: -6px;
-  top: -10px
+  top: -10px;
+  color: white;
 }
 
 @media (max-width: 768px) {

@@ -6,12 +6,10 @@ import { ReactComponent as HackertabLogo } from '../logo.svg';
 import UserTags from "./UserTags";
 import { APP } from '../Constants';
 import SettingsModal from "../settings/SettingsModal";
-import { BsMoon } from "react-icons/bs"
-import { HiBell } from 'react-icons/hi'
+import { BsMoon } from 'react-icons/bs'
 import { IoMdSunny } from 'react-icons/io'
 import { trackThemeChange } from '../utils/Analytics'
-import ReactTooltip from 'react-tooltip'
-import Markdown from 'markdown-to-jsx'
+import Changelog from './Changelog'
 
 function Header({ state, dispatcher, showSideBar, setShowSideBar, showSettings, setShowSettings }) {
   const [themeIcon, setThemeIcon] = useState(<BsMoon />)
@@ -61,7 +59,6 @@ function Header({ state, dispatcher, showSideBar, setShowSideBar, showSettings, 
   return (
     <>
       <SettingsModal showSettings={showSettings} setShowSettings={setShowSettings} />
-      <ReactTooltip />
 
       <header className="AppHeader">
         <span className="AppName">
@@ -69,15 +66,7 @@ function Header({ state, dispatcher, showSideBar, setShowSideBar, showSettings, 
             <CgTab />
           </i>{' '}
           <HackertabLogo className="logoText" />
-          <span
-            data-tip={<Markdown># Hello world!</Markdown>}
-            data-event="click"
-            data-place="bottom"
-            data-html={true}
-            data-type="info"
-            className="changelogButton">
-            <HiBell style={{ width: 14 }} />
-          </span>
+          <Changelog />
         </span>
         <div className="slogan">{APP.slogan}</div>
         <div className="extras">
