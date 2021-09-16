@@ -14,7 +14,7 @@ import Changelog from './Changelog'
 function Header({ state, dispatcher, showSideBar, setShowSideBar, showSettings, setShowSettings }) {
   const [themeIcon, setThemeIcon] = useState(<BsMoon />)
   const isFirstRun = useRef(true)
-  const [changeslogContent, setchangeslogContent] = useState('# Hello, *world*!')
+
   useEffect(() => {
     document.documentElement.classList.add(state.theme)
   }, [])

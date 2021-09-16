@@ -38,6 +38,13 @@ html.dark {
   --card-action-button-color: #FFF;
   --card-active-action-button-background: #FFF;
   --card-active-action-button-color: #798595;
+
+  /*Tooltip */
+  --tooltip-background-color: #262e38;
+  --tooltip-divider-color: #576172;
+  --tooltip-text-color: #FFF;
+  --tooltip-shadow-color: #000000;
+  --tooltip-accent-color: #0366D6;
 }
 
 html.light {
@@ -79,4 +86,11 @@ html.light {
   --tag-text-color: #FFFFFF;
   --tag-secondary-color: #e9ebec;
   --tag-input-background: #243B53;
+
+  /*Tooltip */
+  --tooltip-background-color: #FFFFFF;
+  --tooltip-divider-color: #c6d4e9;
+  --tooltip-text-color: #3C5065;
+  --tooltip-shadow-color: #dee4ec;
+  --tooltip-accent-color: #0366D6;
 }
