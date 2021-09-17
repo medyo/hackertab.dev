@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import ReactTooltip from 'react-tooltip'
 import { HiBell } from 'react-icons/hi'
 import ReactMarkdown from 'react-markdown'
@@ -6,6 +6,7 @@ import axios from 'axios'
 import { format } from 'timeago.js'
 import BeatLoader from 'react-spinners/BeatLoader'
 import { APP } from '../Constants'
+import PreferencesContext from '../preferences/PreferencesContext'
 
 function Changelog({}) {
   const tooltipId = 'tl-1'
@@ -13,12 +14,20 @@ function Changelog({}) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const localAppVersion = chrome?.runtime?.getManifest()?.version || '1.0'
+  const preferences = useContext(PreferencesContext)
+  const { dispatcher, changelogMeta } = preferences
+  const [isChangelogRead, setIsChangelogRead] = useState(false)
 
   const afterShow = () => {
+    dispatcher({ type: 'setChangelogMeta', value: { shown: true, version: localAppVersion } })
     if (changelogMarkdown.length === 0) {
       fetchChangelog()
     }
   }
+
+  useEffect(() => {
+    setIsChangelogRead(changelogMeta?.shown == true && changelogMeta?.version === localAppVersion)
+  }, [changelogMeta])
 
   const fetchChangelog = async () => {
     setLoading(true)
@@ -37,15 +46,15 @@ function Changelog({}) {
         sameLocalVersionIndex = 0
       }
 
-      data.slice(sameLocalVersionIndex, data.length).forEach((item) => {
-        const update = {
+      const mappedVersions = data.slice(sameLocalVersionIndex, data.length).map((item) => {
+        return {
           version: item.name,
           date: item.published_at,
           body: item.body,
           url: item.html_url,
         }
-        setChangelogMarkdown((prev) => [...prev, update])
       })
+      setChangelogMarkdown(mappedVersions)
     } catch (e) {
       setError(e)
     } finally {
@@ -86,7 +95,10 @@ function Changelog({}) {
           })
         )}
       </ReactTooltip>
-      <span data-tip data-for={tooltipId} className="changelogButton">
+      <span
+        data-tip
+        data-for={tooltipId}
+        className={'changelogButton' + (!isChangelogRead ? ' active' : '')}>
         <HiBell style={{ width: 14 }} />
       </span>
     </>

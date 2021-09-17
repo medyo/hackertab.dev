@@ -684,7 +684,7 @@ Producthunt item
 .changelogButton {
   width: 20px;
   height: 20px;
-  background-color: var(--tooltip-accent-color);
+  background-color: gray;
   border-radius: 20px;
   justify-content: center;
   align-items: center;
@@ -697,6 +697,10 @@ Producthunt item
   top: -10px;
   color: white;
 }
+.changelogButton.active {
+  background-color: var(--tooltip-accent-color);
+}
+
 .tooltipLoading {
   display: flex;
   justify-content: center;
