@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactTooltip from 'react-tooltip'
 import { HiBell } from 'react-icons/hi'
 import ReactMarkdown from 'react-markdown'
@@ -12,6 +12,7 @@ function Changelog({}) {
   const [changelogMarkdown, setChangelogMarkdown] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const localAppVersion = chrome?.runtime?.getManifest()?.version || '1.0'
 
   const afterShow = () => {
     if (changelogMarkdown.length === 0) {
@@ -27,7 +28,16 @@ function Changelog({}) {
     try {
       const response = await axios.get(APP.changeLogLink)
       const data = response.data
-      data.forEach((item) => {
+
+      let sameLocalVersionIndex = data.findIndex(
+        (item) => localAppVersion == item.name.replace(/[^\d.-]/g, '')
+      )
+
+      if (sameLocalVersionIndex == -1) {
+        sameLocalVersionIndex = 0
+      }
+
+      data.slice(sameLocalVersionIndex, data.length).forEach((item) => {
         const update = {
           version: item.name,
           date: item.published_at,
