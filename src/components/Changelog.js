@@ -13,7 +13,7 @@ function Changelog({}) {
   const [changelogMarkdown, setChangelogMarkdown] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const localAppVersion = chrome?.runtime?.getManifest()?.version || '1.0'
+  const localAppVersion = chrome?.runtime?.getManifest()?.version || ''
   const preferences = useContext(PreferencesContext)
   const { dispatcher, changelogMeta } = preferences
   const [isChangelogRead, setIsChangelogRead] = useState(false)
@@ -26,7 +26,7 @@ function Changelog({}) {
   }
 
   useEffect(() => {
-    setIsChangelogRead(changelogMeta?.shown == true && changelogMeta?.version === localAppVersion)
+    setIsChangelogRead(changelogMeta?.shown == true && changelogMeta?.version == localAppVersion)
   }, [changelogMeta])
 
   const fetchChangelog = async () => {
@@ -38,9 +38,13 @@ function Changelog({}) {
       const response = await axios.get(APP.changeLogLink)
       const data = response.data
 
-      let sameLocalVersionIndex = data.findIndex(
-        (item) => localAppVersion == item.name.replace(/[^\d.-]/g, '')
-      )
+      let sameLocalVersionIndex = 0
+
+      if (localAppVersion) {
+        sameLocalVersionIndex = data.findIndex(
+          (item) => localAppVersion == item.name.replace(/[^\d.-]/g, '')
+        )
+      }
 
       if (sameLocalVersionIndex == -1) {
         sameLocalVersionIndex = 0
