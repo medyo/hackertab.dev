@@ -6,10 +6,10 @@ import { ReactComponent as HackertabLogo } from '../logo.svg';
 import UserTags from "./UserTags";
 import { APP } from '../Constants';
 import SettingsModal from "../settings/SettingsModal";
-import { BsMoon } from "react-icons/bs"
-import { IoMdSunny } from "react-icons/io"
-import { trackThemeChange } from "../utils/Analytics"
-
+import { BsMoon } from 'react-icons/bs'
+import { IoMdSunny } from 'react-icons/io'
+import { trackThemeChange } from '../utils/Analytics'
+import Changelog from './Changelog'
 
 function Header({ state, dispatcher, showSideBar, setShowSideBar, showSettings, setShowSettings }) {
   const [themeIcon, setThemeIcon] = useState(<BsMoon />)
@@ -66,6 +66,7 @@ function Header({ state, dispatcher, showSideBar, setShowSideBar, showSettings, 
             <CgTab />
           </i>{' '}
           <HackertabLogo className="logoText" />
+          <Changelog />
         </span>
         <div className="slogan">{APP.slogan}</div>
         <div className="extras">

@@ -680,21 +680,86 @@ Producthunt item
 .navigationItem.active {
   background-color: #3c4f651f;
 }
-/*.mobileMenu {
-  background-color: white;
-  position: fixed;
-  width: 100vh;
-  bottom: 50px;
-  padding: 12px;
-  visibility: hidden;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0px -3px 20px 0px #595959;
-}
-.mobileMenu.visible {
-  visibility: visible;
-}*/
 
+.changelogButton {
+  width: 20px;
+  height: 20px;
+  background-color: gray;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: inline-flex;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid var(--background-color);
+  left: -6px;
+  top: -10px;
+  color: white;
+}
+.changelogButton.active {
+  background-color: var(--tooltip-accent-color);
+}
+
+.tooltipLoading {
+  display: flex;
+  justify-content: center;
+  min-height: 240px;
+  align-items: center;
+}
+
+.tooltipErrorMsg {
+  font-size: 14px;
+  text-align: center;
+  color: red;
+}
+
+.tooltipHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;  
+  padding: 16px 16px 4px 16px !important;
+
+}
+.tooltipVersion {
+  background-color: var(--tooltip-accent-color);
+  border-radius: 20px;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  font-weight: bold;
+  padding:2px 8px;
+  font-size: 14px;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+.tooltipDate {
+  font-size: 12px;
+}
+.tooltipContent  {
+  padding: 0 16px !important;
+  line-height: 26px;
+  border-bottom: 1px solid var(--tooltip-divider-color) ;
+  font-size: 110%;
+}
+.__react_component_tooltip {
+  pointer-events: auto !important;
+  color: var(--tooltip-text-color) !important;
+  width: 360px;
+  min-height: 240px;
+  max-height: 400px;
+  background-color: var(--tooltip-background-color) !important;
+  padding: 0 !important;
+  overflow: scroll;
+  box-shadow: 0px 4px 10px var(--tooltip-shadow-color);
+}
+.place-bottom::after {
+  border-bottom-color: var(--tooltip-background-color) !important;
+}
+.__react_component_tooltip.show {
+  opacity: 1 !important;
+}
 @media (max-width: 768px) {
 
   ::-webkit-scrollbar {
@@ -702,6 +767,9 @@ Producthunt item
     background: transparent; 
   }
   .slogan {
+    display: none;
+  }
+  .changelogButton {
     display: none;
   }
   .extras  {

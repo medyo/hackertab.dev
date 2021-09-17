@@ -29,6 +29,7 @@ const APP = {
   contactEmail: 'hello@hackertab.dev',
   maxCardsPerRow: 4,
   supportLink: 'https://github.com/medyo/hackertab.dev/issues',
+  changeLogLink: 'https://api.github.com/repos/medyo/android-about-page/releases',
 }
 
 export const LOCAL_CONFIGURATION = {
