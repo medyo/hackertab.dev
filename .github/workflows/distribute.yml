@@ -1,0 +1,81 @@
+# Deploy the extension to Chrome and firefox web stores
+# when creating a new release
+
+name: Deploy to web stores
+
+on:
+  release:
+    types:
+      - created
+env:
+  REACT_APP_ANALYTICS_ID: ${{ secrets.ANALYTICS_ID }}
+  REACT_APP_WEB_BUILD: 0
+jobs:
+      
+  bump-manifest-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: main
+          
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}  
+          
+      - name: Install json globaly
+        run: yarn global add json
+        
+      # clean release name (as used as version)
+      - name: Clean release name
+        id: clean
+        run: echo ::set-output name=version::$(echo ${{github.event.release.tag_name }} | sed 's/[^0-9.]//g')
+        
+      # Update manifest version
+      - name: Update manifest version
+        run: json -I -f public/manifest.json -e 'this.version="${{ steps.clean.outputs.version }}"'
+      
+      # Commit changes
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v5
+        with:
+          branch: main
+          author_name: Bot Driyaf
+          author_email: elmehdi.sakout@gmail.com
+          message: "Bump manifest version"
+  
+  build-extension:    
+    needs: bump-manifest-version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: main
+          
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}  
+          
+      - name: Install yarn dependencies
+        run: yarn
+        
+      - name: Build and zip the extension
+        run: yarn stores-build
+      
+      - name: Install chrome & FF web stores dependencies
+        run: yarn global add chrome-webstore-upload-cli web-ext web-ext-submit@6
+        
+      - name: Upload the package to Chrome web store
+        env:
+          EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
+          CLIENT_ID: ${{secrets.CHROME_EXTENSION_CLIENT_ID}}
+          REFRESH_TOKEN: ${{secrets.CHROME_EXTENSION_REFRESH_TOKEN}}
+        run: chrome-webstore-upload upload --source dist/extension.zip --extension-id $EXTENSION_ID #--auto-publish
+      - name: Upload the package to Firefox web store
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+          WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
+        run: cd dist && web-ext-submit --channel=unlisted
