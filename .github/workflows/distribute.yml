@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: main
+          ref: master
           
       - uses: actions/cache@v2
         with:
@@ -41,7 +41,7 @@ jobs:
       - name: Commit changes
         uses: EndBug/add-and-commit@v5
         with:
-          branch: main
+          branch: master
           author_name: Bot Driyaf
           author_email: elmehdi.sakout@gmail.com
           message: "Bump manifest version"
@@ -52,7 +52,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: main
+          ref: master
           
       - uses: actions/cache@v2
         with:
