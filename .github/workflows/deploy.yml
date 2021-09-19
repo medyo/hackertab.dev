@@ -17,6 +17,6 @@ jobs:
         pass: ${{ secrets.SSH_PASSWORD }}
         command: |
           cd ~/hackertab.dev
-          git pull origin main
+          git pull origin master
           yarn install --production
           yarn build
