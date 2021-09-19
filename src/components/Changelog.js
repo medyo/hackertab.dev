@@ -13,21 +13,29 @@ function Changelog({}) {
   const [changelogMarkdown, setChangelogMarkdown] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const localAppVersion = chrome?.runtime?.getManifest()?.version || ''
+  const [localAppVersion, setLocalAppVersion] = useState('')
   const preferences = useContext(PreferencesContext)
   const { dispatcher, changelogMeta } = preferences
   const [isChangelogRead, setIsChangelogRead] = useState(false)
 
   const afterShow = () => {
-    dispatcher({ type: 'setChangelogMeta', value: { shown: true, version: localAppVersion } })
     if (changelogMarkdown.length === 0) {
+      dispatcher({ type: 'setChangelogMeta', value: { shown: true, version: localAppVersion } })
       fetchChangelog()
     }
   }
 
   useEffect(() => {
     setIsChangelogRead(changelogMeta?.shown == true && changelogMeta?.version == localAppVersion)
-  }, [changelogMeta])
+  }, [localAppVersion, changelogMeta])
+
+  useEffect(() => {
+    try {
+      setLocalAppVersion(chrome.runtime.getManifest().version)
+    } catch (e) {
+      setLocalAppVersion('')
+    }
+  }, [])
 
   const fetchChangelog = async () => {
     setLoading(true)
@@ -84,8 +92,8 @@ function Changelog({}) {
         ) : (
           changelogMarkdown.map((item) => {
             return (
-              <>
-                <div className="tooltipHeader" key={item.name}>
+              <div key={item.version}>
+                <div className="tooltipHeader">
                   <a className="tooltipVersion" onClick={(e) => window.open(item.url, '_blank')}>
                     {item.version}
                   </a>
@@ -94,7 +102,7 @@ function Changelog({}) {
                 <div className="tooltipContent">
                   <ReactMarkdown children={item.body} />
                 </div>
-              </>
+              </div>
             )
           })
         )}
