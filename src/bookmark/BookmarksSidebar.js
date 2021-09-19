@@ -31,7 +31,9 @@ function BookmarksSidebar({ showSidebar, onClose }) {
   const { userBookmarks = [] } = useContext(PreferencesContext)
   const githubBookmarks = userBookmarks.filter(bm => bm.source == "github")
   const jobsBookmarks = userBookmarks.filter(bm => bm.source == "jobs")
-  const newsBookmarks = userBookmarks.filter(bm => ["hackernews", "devto"].indexOf(bm.source) != -1)
+  const newsBookmarks = userBookmarks.filter(
+    (bm) => ['hackernews', 'devto', 'hashnode', 'lobsters', 'freecodecamp'].indexOf(bm.source) != -1
+  )
   const conferencesBookmarks = userBookmarks.filter(bm => bm.source == "conferences")
   const productsBookmarks = userBookmarks.filter(bm => bm.source == "producthunt")
   const redditBookmarks = userBookmarks.filter(bm => bm.source == "reddit")

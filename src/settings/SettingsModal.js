@@ -18,7 +18,7 @@ function SettingsModal({ showSettings, setShowSettings }) {
 
   const { supportedTags } = useContext(ConfigurationContext)
   const preferences = useContext(PreferencesContext)
-  const { dispatcher, cards, userSelectedTags, openLinksNewTab, listingMode } = preferences
+  const { dispatcher, cards, userSelectedTags, openLinksNewTab, listingMode, theme } = preferences
   const [selectedCards, setSelectedCards] = useState(cards)
 
   const handleCloseModal = () => {
@@ -29,41 +29,41 @@ function SettingsModal({ showSettings, setShowSettings }) {
     switch (metas.action) {
       case 'select-option':
         trackAddLanguage(metas.option.label)
-        break;
+        break
       case 'remove-value':
         trackRemoveLanguage(metas.removedValue.label)
-        break;
+        break
     }
 
     dispatcher({ type: 'setUserSelectedTags', value: tags })
   }
 
   const onlistingModeChange = (e) => {
-    const value = e.target.checked ? "compact" : "normal";
+    const value = e.target.checked ? 'compact' : 'normal'
     trackListingModeChange(value)
-    dispatcher({ type: 'changelistingMode', value });
-  };
+    dispatcher({ type: 'changelistingMode', value })
+  }
 
   const onCardSelectChange = (cards, metas) => {
     if (cards.length > 4) {
       return toast.error('You may only pick 4 cards', {
-        position: "bottom-center",
+        position: 'bottom-center',
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: false,
         progress: undefined,
-      });
+      })
     }
 
     switch (metas.action) {
       case 'select-option':
         trackAddCard(metas.option.label)
-        break;
+        break
       case 'remove-value':
         trackRemoveCard(metas.removedValue.label)
-        break;
+        break
     }
 
     let newCards = cards.map((c, index) => {
@@ -73,11 +73,14 @@ function SettingsModal({ showSettings, setShowSettings }) {
     dispatcher({ type: 'setCards', value: newCards })
   }
 
-
   const onOpenLinksNewTabChange = (e) => {
     const checked = e.target.checked
     trackOpenLinksNewTab(checked)
     dispatcher({ type: 'setOpenLinksNewTab', value: checked })
+  }
+
+  const onDarkModeChange = (e) => {
+    dispatcher({ type: 'toggleTheme' })
   }
 
   return (
@@ -91,17 +94,19 @@ function SettingsModal({ showSettings, setShowSettings }) {
       contentLabel="Minimal Modal Example"
       className="Modal"
       overlayClassName="Overlay">
-
       <div className="modalHeader">
         <h1 className="modalTitle">Settings</h1>
-        <button className="modalCloseBtn" onClick={handleCloseModal}><VscClose size="24" /></button>
+        <button className="modalCloseBtn" onClick={handleCloseModal}>
+          <VscClose size="24" />
+        </button>
       </div>
 
       <div className="settings">
         <div className="settingRow">
           <p className="settingTitle">Programming languages you're interested in</p>
           <div className="settingContent">
-            <Select options={supportedTags}
+            <Select
+              options={supportedTags}
               defaultValue={userSelectedTags}
               isMulti={true}
               isClearable={false}
@@ -109,48 +114,63 @@ function SettingsModal({ showSettings, setShowSettings }) {
               classNamePrefix={'hackertab'}
               onChange={onTagsSelectChange}
             />
-            <p className="settingHint">Missing language or technology? create an issue <a href="#" onClick={(e) => window.open(APP.supportLink, "_blank")}>here</a></p>
+            <p className="settingHint">
+              Missing language or technology? create an issue{' '}
+              <a href="#" onClick={(e) => window.open(APP.supportLink, '_blank')}>
+                here
+              </a>
+            </p>
           </div>
         </div>
 
         <div className="settingRow">
           <p className="settingTitle">Displayed Cards</p>
           <div className="settingContent">
-            <Select options={SUPPORTED_CARDS}
-              value={selectedCards.map((c) => ({ label: SUPPORTED_CARDS.find(c2 => c.name == c2.value).label, value: c.name }))}
+            <Select
+              options={SUPPORTED_CARDS}
+              value={selectedCards.map((c) => ({
+                label: SUPPORTED_CARDS.find((c2) => c.name == c2.value).label,
+                value: c.name,
+              }))}
               onChange={onCardSelectChange}
               isMulti={true}
               isClearable={false}
               isSearchable={false}
-              classNamePrefix={'hackertab'} />
-            <p className="settingHint">Missing a cool data source? create an issue <a href="#" onClick={(e) => window.open(APP.supportLink, "_blank")}>here</a></p>
+              classNamePrefix={'hackertab'}
+            />
+            <p className="settingHint">
+              Missing a cool data source? create an issue{' '}
+              <a href="#" onClick={(e) => window.open(APP.supportLink, '_blank')}>
+                here
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <div className="settingRow">
+          <p className="settingTitle">Dark Mode</p>
+          <div className="settingContent">
+            <Toggle checked={theme === 'dark'} icons={false} onChange={onDarkModeChange} />
           </div>
         </div>
 
         <div className="settingRow">
           <p className="settingTitle">Open links in a new tab</p>
           <div className="settingContent">
-            <Toggle
-              checked={openLinksNewTab}
-              icons={false}
-              onChange={onOpenLinksNewTabChange}
-            />
+            <Toggle checked={openLinksNewTab} icons={false} onChange={onOpenLinksNewTabChange} />
           </div>
         </div>
 
-        <div className='settingRow'>
-          <p className='settingTitle'>
-            Compact mode
-					</p>
-          <div className='settingContent'>
+        <div className="settingRow">
+          <p className="settingTitle">Compact mode</p>
+          <div className="settingContent">
             <Toggle
-              checked={listingMode == "compact"}
+              checked={listingMode == 'compact'}
               icons={false}
               onChange={onlistingModeChange}
             />
           </div>
         </div>
-
       </div>
       <ToastContainer />
     </ReactModal>

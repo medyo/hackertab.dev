@@ -69,8 +69,7 @@ const StoryItem = ({ item, index, analyticsTag }) => {
 }
 
 
-function HNCard({ analyticsTag, label, withAds }) {
-
+function HNCard({ analyticsTag, label, icon, withAds }) {
   const fetchStories = async () => {
     return await hackernewsApi.getTopStories()
   }
@@ -80,22 +79,13 @@ function HNCard({ analyticsTag, label, withAds }) {
   )
 
   return (
-		<CardComponent
-			icon={
-				<SiYcombinator
-					className='blockHeaderIcon'
-					color='#FB6720'
-				/>
-			}
-			link='https://news.ycombinator.com/'
-			title={label}>
-			<ListComponent
-				fetchData={fetchStories}
-        renderItem={renderItem}
-        withAds={withAds}
-			/>
-		</CardComponent>
-  );
+    <CardComponent
+      icon={<span className="blockHeaderIcon">{icon}</span>}
+      link="https://news.ycombinator.com/"
+      title={label}>
+      <ListComponent fetchData={fetchStories} renderItem={renderItem} withAds={withAds} />
+    </CardComponent>
+  )
 }
 
 export default HNCard

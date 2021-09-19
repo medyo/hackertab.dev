@@ -41,6 +41,8 @@ and visualize them in a proper way so you don't have to waste time jumping betwe
 - Github Trendings
 - Hackernews
 - DevTo
+- Hashnode
+- Lobsters
 - Stackoverflow Jobs
 - Confs.tech
 - Product Hunt

@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 import { APP } from '../Constants';
-import PreferencesContext from '../preferences/PreferencesContext';
-import { trackOpenLinkFrom } from '../utils/Analytics';
+import PreferencesContext from '../preferences/PreferencesContext'
 
 function CardComponent({ icon, title, children, fullBlock, link }) {
 	const { openLinksNewTab } = useContext(PreferencesContext);

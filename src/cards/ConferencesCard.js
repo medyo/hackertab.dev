@@ -83,7 +83,7 @@ const ConferenceItem = ({ conf, index, analyticsTag }) => {
 }
 
 
-function ConferencesCard({ label, analyticsTag, withAds }) {
+function ConferencesCard({ label, icon, analyticsTag, withAds }) {
   const preferences = useContext(PreferencesContext)
   const { userSelectedTags = [] } = preferences
   const [refresh, setRefresh] = useState(true)
@@ -93,7 +93,7 @@ function ConferencesCard({ label, analyticsTag, withAds }) {
   }, [userSelectedTags])
 
   const fetchConfs = async () => {
-    const promises = userSelectedTags.map(tag => {
+    const promises = userSelectedTags.map((tag) => {
       if (tag.confsValues) {
         return confstechApi.getTagConfs(tag.confsValues[0])
       }
@@ -101,41 +101,41 @@ function ConferencesCard({ label, analyticsTag, withAds }) {
     })
     const results = await Promise.allSettled(promises)
 
-    return results.map((res, index) => {
-      let value = res.value
-      if (res.status === 'rejected') {
-        value = []
-      }
-      return value.map(c => ({
-        ...c, tag: userSelectedTags[index], startDate: new Date(c.startDate), endDate: new Date(c.endDate)
-      }))
-    }).flat().sort((a, b) => a.startDate - b.startDate).filter(c => c.startDate >= new Date())
-
+    return results
+      .map((res, index) => {
+        let value = res.value
+        if (res.status === 'rejected') {
+          value = []
+        }
+        return value.map((c) => ({
+          ...c,
+          tag: userSelectedTags[index],
+          startDate: new Date(c.startDate),
+          endDate: new Date(c.endDate),
+        }))
+      })
+      .flat()
+      .sort((a, b) => a.startDate - b.startDate)
+      .filter((c) => c.startDate >= new Date())
   }
-
 
   const renderItem = (item, index) => (
     <ConferenceItem conf={item} key={`cf-${index}`} index={index} analyticsTag={analyticsTag} />
   )
 
   return (
-		<CardComponent
-			icon={
-				<HiTicket
-					className='blockHeaderIcon'
-					color='#4EC8AF'
-				/>
-			}
-			link='https://confs.tech/'
-			title={label}>
-			<ListComponent
-				fetchData={fetchConfs}
+    <CardComponent
+      icon={<span className="blockHeaderIcon">{icon}</span>}
+      link="https://confs.tech/"
+      title={label}>
+      <ListComponent
+        fetchData={fetchConfs}
         renderItem={renderItem}
         refresh={refresh}
         withAds={withAds}
-			/>
-		</CardComponent>
-  );
+      />
+    </CardComponent>
+  )
 }
 
 export default ConferencesCard

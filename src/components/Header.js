@@ -6,36 +6,34 @@ import { ReactComponent as HackertabLogo } from '../logo.svg';
 import UserTags from "./UserTags";
 import { APP } from '../Constants';
 import SettingsModal from "../settings/SettingsModal";
-import { BsMoon } from "react-icons/bs"
-import { IoMdSunny } from "react-icons/io"
-import { trackThemeChange } from "../utils/Analytics"
+import { BsMoon } from 'react-icons/bs'
+import { IoMdSunny } from 'react-icons/io'
+import { trackThemeChange } from '../utils/Analytics'
+import Changelog from './Changelog'
 
-
-function Header({ state, dispatcher, showSideBar, setShowSideBar }) {
-
-  const [showSettings, setShowSettings] = useState(false)
+function Header({ state, dispatcher, showSideBar, setShowSideBar, showSettings, setShowSettings }) {
   const [themeIcon, setThemeIcon] = useState(<BsMoon />)
   const isFirstRun = useRef(true)
 
   useEffect(() => {
-    document.documentElement.classList.add(state.theme);
+    document.documentElement.classList.add(state.theme)
   }, [])
 
   useEffect(() => {
     if (isFirstRun.current) {
-      isFirstRun.current = false;
+      isFirstRun.current = false
     } else {
       if (!document.documentElement.classList.contains('transitionBgColor')) {
-		document.documentElement.classList.add('transitionBgColor');
+        document.documentElement.classList.add('transitionBgColor')
       }
       trackThemeChange(state.theme)
     }
 
     if (state.theme === 'light') {
-      document.documentElement.classList.replace('dark', state.theme);
+      document.documentElement.classList.replace('dark', state.theme)
       setThemeIcon(<BsMoon />)
     } else if (state.theme === 'dark') {
-      document.documentElement.classList.replace('light', state.theme);
+      document.documentElement.classList.replace('light', state.theme)
       setThemeIcon(<IoMdSunny />)
     }
   }, [state?.theme])
@@ -49,31 +47,35 @@ function Header({ state, dispatcher, showSideBar, setShowSideBar }) {
   }
 
   const BookmarksBadgeCount = () => {
-    return (
-      state.userBookmarks.length > 0 ?
-        state.userBookmarks.length < 10 ?
-          <span className="badgeCount">{state.userBookmarks.length}</span> :
-          <span className="badgeCount">+9</span> :
-        null
-    )
+    return state.userBookmarks.length > 0 ? (
+      state.userBookmarks.length < 10 ? (
+        <span className="badgeCount">{state.userBookmarks.length}</span>
+      ) : (
+        <span className="badgeCount">+9</span>
+      )
+    ) : null
   }
 
   return (
     <>
-      <SettingsModal
-        showSettings={showSettings}
-        setShowSettings={setShowSettings} />
+      <SettingsModal showSettings={showSettings} setShowSettings={setShowSettings} />
 
       <header className="AppHeader">
         <span className="AppName">
-          <i className="logo"><CgTab /></i> <HackertabLogo className="logoText" />
+          <i className="logo">
+            <CgTab />
+          </i>{' '}
+          <HackertabLogo className="logoText" />
+          <Changelog />
         </span>
-        <div className="slogan">
-          {APP.slogan}
-        </div>
+        <div className="slogan">{APP.slogan}</div>
         <div className="extras">
-          <button className="extraBtn" onClick={onSettingsClick}><BsFillGearFill /></button>
-          <button className="extraBtn darkModeBtn" onClick={onThemeChange}>{themeIcon}</button>
+          <button className="extraBtn" onClick={onSettingsClick}>
+            <BsFillGearFill />
+          </button>
+          <button className="extraBtn darkModeBtn" onClick={onThemeChange}>
+            {themeIcon}
+          </button>
           <button className="extraBtn" onClick={() => setShowSideBar(!showSideBar)}>
             <BsFillBookmarksFill />
             <BookmarksBadgeCount />

@@ -236,7 +236,11 @@ a {
 .blockHeaderIcon {
   position: relative;
   top: 4px;
-  margin-right: 6px;;
+  margin-right: 6px;
+}
+.blockHeaderIcon img {
+  width: 18px;
+  height: 18px;
 }
 
 .blockRow {
@@ -376,6 +380,10 @@ a {
   color: #FA481D;
 }
 
+.rowDetails .lobstersRowItem {
+  color: #A91916
+}
+
 .rowItemIcon {
   position: relative;
   top: 1px;
@@ -396,6 +404,8 @@ a {
   display: flex;
   flex-direction: row;
   margin-top: 6px;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 
 .tag {
@@ -434,7 +444,7 @@ a {
     display: none;
   }
   .tags {
-    display: none;
+    /*display: none;*/
   }
   .marketingBanner {
     width: 80%
@@ -639,4 +649,155 @@ Producthunt item
 
 .test3 {
   flex-direction: column;
+}
+
+.bottomNavigation {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  height: 50px;
+  background-color: var(--card-background-color);
+  box-shadow: 0 0 20px var(--card-border-color);
+  position: fixed;
+  bottom: 0;
+  left:0;
+}
+
+.navigationItem {
+  flex-grow:1;
+  height: 100%;
+  line-height: 56px;
+  font-size: 24px;
+}
+.navigationItem:hover {
+  display: block;
+  height: 100%;
+  background-color: #3c4f651f;
+}
+.navigationItem.active {
+  background-color: #3c4f651f;
+}
+
+.changelogButton {
+  width: 20px;
+  height: 20px;
+  background-color: gray;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: inline-flex;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid var(--background-color);
+  left: -6px;
+  top: -10px;
+  color: white;
+}
+.changelogButton.active {
+  background-color: var(--tooltip-accent-color);
+}
+
+.tooltipLoading {
+  display: flex;
+  justify-content: center;
+  min-height: 240px;
+  align-items: center;
+}
+
+.tooltipErrorMsg {
+  font-size: 14px;
+  text-align: center;
+  color: red;
+}
+
+.tooltipHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;  
+  padding: 16px 16px 4px 16px !important;
+
+}
+.tooltipVersion {
+  background-color: var(--tooltip-accent-color);
+  border-radius: 20px;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  font-weight: bold;
+  padding:2px 8px;
+  font-size: 14px;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+.tooltipDate {
+  font-size: 12px;
+}
+.tooltipContent  {
+  padding: 0 16px !important;
+  line-height: 26px;
+  border-bottom: 1px solid var(--tooltip-divider-color) ;
+  font-size: 110%;
+}
+.__react_component_tooltip {
+  pointer-events: auto !important;
+  color: var(--tooltip-text-color) !important;
+  width: 360px;
+  min-height: 240px;
+  max-height: 400px;
+  background-color: var(--tooltip-background-color) !important;
+  padding: 0 !important;
+  overflow: scroll;
+  box-shadow: 0px 4px 10px var(--tooltip-shadow-color);
+}
+.place-bottom::after {
+  border-bottom-color: var(--tooltip-background-color) !important;
+}
+.__react_component_tooltip.show {
+  opacity: 1 !important;
+}
+@media (max-width: 768px) {
+
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; 
+  }
+  .slogan {
+    display: none;
+  }
+  .changelogButton {
+    display: none;
+  }
+  .extras  {
+    display: block;
+    margin:0;
+    display: none;
+  }
+  .App {
+    padding: 0
+  }
+  .AppHeader {
+    padding: 0;
+    margin: 0 12px;
+  }
+  .blockHeader{
+    display: none;
+  }
+  .blockContent{
+    height: 100%;
+  }
+  .blockContent::-webkit-scrollbar {
+    width: 0;
+  }
+  .block {
+    margin-top: 8px;
+    height: 100vh;
+    padding-bottom: 56px;
+    border-radius: 0;
+    box-shadow: none !important;
+  }
 }

@@ -59,7 +59,7 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
 
 
 
-function DevToCard({ analyticsTag, label, withAds }) {
+function DevToCard({ analyticsTag, label, icon, withAds }) {
   const preferences = useContext(PreferencesContext)
   const { userSelectedTags } = preferences
 
@@ -70,8 +70,7 @@ function DevToCard({ analyticsTag, label, withAds }) {
   }, [userSelectedTags])
 
   const fetchArticles = async () => {
-
-    const promises = userSelectedTags.map(tag => {
+    const promises = userSelectedTags.map((tag) => {
       if (tag.devtoValues) {
         return devtoApi.getArticles(tag.devtoValues[0])
       }
@@ -79,14 +78,16 @@ function DevToCard({ analyticsTag, label, withAds }) {
     })
 
     const results = await Promise.allSettled(promises)
-    return results.map(res => {
-      let value = res.value
-      if (res.status === 'rejected') {
-        value = []
-      }
-      return value
-    }).flat().sort((a, b) => b.public_reactions_count - a.public_reactions_count)
-
+    return results
+      .map((res) => {
+        let value = res.value
+        if (res.status === 'rejected') {
+          value = []
+        }
+        return value
+      })
+      .flat()
+      .sort((a, b) => b.public_reactions_count - a.public_reactions_count)
   }
 
   const renderItem = (item, index) => (
@@ -94,20 +95,18 @@ function DevToCard({ analyticsTag, label, withAds }) {
   )
 
   return (
-		<CardComponent
-			icon={
-				<FaDev className='blockHeaderIcon blockHeaderWhite' />
-			}
-			title={label}
-			link='https://dev.to/'>
-			<ListComponent
-				fetchData={fetchArticles}
+    <CardComponent
+      icon={<span className="blockHeaderIcon">{icon}</span>}
+      title={label}
+      link="https://dev.to/">
+      <ListComponent
+        fetchData={fetchArticles}
         renderItem={renderItem}
         refresh={refresh}
         withAds={withAds}
-			/>
-		</CardComponent>
-  );
+      />
+    </CardComponent>
+  )
 }
 
 export default DevToCard
