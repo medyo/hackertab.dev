@@ -73,9 +73,9 @@ jobs:
           EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
           CLIENT_ID: ${{secrets.CHROME_EXTENSION_CLIENT_ID}}
           REFRESH_TOKEN: ${{secrets.CHROME_EXTENSION_REFRESH_TOKEN}}
-        run: chrome-webstore-upload upload --source dist/extension.zip --extension-id $EXTENSION_ID #--auto-publish
+        run: chrome-webstore-upload upload --source dist/extension.zip --extension-id $EXTENSION_ID --auto-publish
       - name: Upload the package to Firefox web store
         env:
           WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
           WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
-        run: cd dist && web-ext-submit --channel=unlisted
+        run: cd dist && web-ext-submit #--channel=unlisted
