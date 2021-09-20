@@ -672,6 +672,10 @@ Producthunt item
   line-height: 56px;
   font-size: 24px;
 }
+.navigationItem img {
+  width: 18px;
+  height: 18px;
+}
 .navigationItem:hover {
   display: block;
   height: 100%;

@@ -13,7 +13,7 @@ function MobileLayout({ setShowSettings }) {
     <div>
       {currentCard &&
         React.createElement(currentCard.component, {
-          key: 'Hackernews',
+          key: currentCard.value,
           label: currentCard.label,
           analyticsTag: currentCard.analyticsTag,
           withAds: false,
