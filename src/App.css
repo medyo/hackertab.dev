@@ -182,7 +182,7 @@ a {
   overflow: hidden;
   flex-direction: column;
   height: 80vh;
-  width: calc(68vw /4);
+  width: calc(94vw /4);
   flex: 0 0 auto;
 }
 .blockContent {
@@ -471,6 +471,9 @@ a {
     width: 1800px;
     margin: 0 auto;
     padding: 0;
+  }
+  .block {
+    width: calc(68vw /4);
   }
 }
 
