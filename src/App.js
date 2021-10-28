@@ -37,6 +37,7 @@ function App() {
       theme: getOSMode(),
       openLinksNewTab: true,
       listingMode: 'normal',
+      searchEngine: 'Google',
       cards: [
         { id: 0, name: 'github' },
         { id: 1, name: 'hackernews' },

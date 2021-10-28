@@ -109,6 +109,32 @@ export const SUPPORTED_CARDS = [
   },
 ]
 
+export const SUPPORTED_SEARCH_ENGINES = [
+  {
+    label: 'Google',
+    url: 'https://google.com/search?q=',
+  },
+  {
+    label: 'DuckDuckGo',
+    url: 'https://duckduckgo.com?q=',
+  },
+  {
+    label: 'Bing',
+    url: 'https://bing.com/search?q=',
+  },
+  {
+    label: 'Yahoo',
+    url: 'https://search.yahoo.com/search?p=',
+  },
+  {
+    label: 'Baidu',
+    url: 'https://baidu.com/s?wd=',
+  },
+  {
+    label: 'Yandex',
+    url: 'https://yandex.ru/search/?text=',
+  },
+]
 export const LS_PREFERENCES_KEY = 'hackerTabPrefs'
 export const LS_ANALYTICS_ID_KEY = 'hackerTabAnalyticsId'
 

@@ -89,7 +89,6 @@ a {
 .extras {
 
   flex-direction: row;
-  margin-left: auto;
   margin-right: 16px;
   align-content: center;
 
@@ -403,7 +402,6 @@ a {
   align-self: flex-start;
   display: flex;
   flex-direction: row;
-  margin-top: 6px;
   flex-wrap: wrap;
   gap: 4px;
 }
@@ -705,6 +703,26 @@ Producthunt item
   background-color: var(--tooltip-accent-color);
 }
 
+.searchBar {
+  position: relative;
+  margin: 0 auto;
+  margin-top: 6px;
+}
+.searchBarIcon {
+  position: absolute;
+  height: 46px;
+  margin: 0 16px;
+}
+.searchBarInput {
+  border-radius: 50px;
+  border:1px solid var(--card-border-color);
+  box-shadow: 0 0 20px var(--card-border-color);
+  height: 42px;
+  padding:0 32px 0 40px;
+  width:600px;
+  background-color: var(--card-header-background-color);
+}
+
 .tooltipLoading {
   display: flex;
   justify-content: center;
@@ -770,8 +788,14 @@ Producthunt item
     width: 0px;
     background: transparent; 
   }
+  .searchBar {
+    display: none;
+  }
   .slogan {
     display: none;
+  }
+  .tags {
+    margin-top: 6px;
   }
   .changelogButton {
     display: none;

@@ -51,6 +51,9 @@ const AppReducer = (state, action) => {
         (bm) => bm.source !== value.source || bm.url !== value.url
       )
       break
+    case 'setSearchEngine':
+      newState = { ...newState, searchEngine: value.label }
+      break
     default:
       throw new Error()
   }
@@ -63,6 +66,7 @@ const AppReducer = (state, action) => {
     listingMode: newState.listingMode,
     changelogMeta: newState.changelogMeta,
     userBookmarks: newState.userBookmarks,
+    searchEngine: newState.searchEngine,
   }
   AppStorage.setItem(LS_PREFERENCES_KEY, storageData)
   return newState

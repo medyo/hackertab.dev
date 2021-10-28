@@ -8,17 +8,23 @@ import '../App.css';
 import './settings.css';
 import PreferencesContext from '../preferences/PreferencesContext';
 import ConfigurationContext from '../configuration/ConfigurationContext';
-import { SUPPORTED_CARDS, APP } from '../Constants'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { trackAddLanguage, trackRemoveLanguage, trackAddCard, trackRemoveCard,
-  trackOpenLinksNewTab, trackListingModeChange } from "../utils/Analytics"
+import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, APP } from '../Constants'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import {
+  trackAddLanguage,
+  trackRemoveLanguage,
+  trackAddCard,
+  trackRemoveCard,
+  trackOpenLinksNewTab,
+  trackListingModeChange,
+} from '../utils/Analytics'
 
 function SettingsModal({ showSettings, setShowSettings }) {
-
   const { supportedTags } = useContext(ConfigurationContext)
   const preferences = useContext(PreferencesContext)
-  const { dispatcher, cards, userSelectedTags, openLinksNewTab, listingMode, theme } = preferences
+  const { dispatcher, cards, userSelectedTags, openLinksNewTab, listingMode, theme, searchEngine } =
+    preferences
   const [selectedCards, setSelectedCards] = useState(cards)
 
   const handleCloseModal = () => {
@@ -71,6 +77,10 @@ function SettingsModal({ showSettings, setShowSettings }) {
     })
     setSelectedCards(newCards)
     dispatcher({ type: 'setCards', value: newCards })
+  }
+
+  const onSearchEngineSelectChange = (value) => {
+    dispatcher({ type: 'setSearchEngine', value })
   }
 
   const onOpenLinksNewTabChange = (e) => {
@@ -169,6 +179,27 @@ function SettingsModal({ showSettings, setShowSettings }) {
               icons={false}
               onChange={onlistingModeChange}
             />
+          </div>
+        </div>
+
+        <div className="settingRow">
+          <p className="settingTitle">Favorite search engine</p>
+          <div className="settingContent">
+            <Select
+              options={SUPPORTED_SEARCH_ENGINES}
+              value={SUPPORTED_SEARCH_ENGINES.find((e) => e.label == searchEngine)}
+              isMulti={false}
+              isClearable={false}
+              isSearchable={false}
+              classNamePrefix={'hackertab'}
+              onChange={onSearchEngineSelectChange}
+            />
+            <p className="settingHint">
+              Missing a search engine? create an issue{' '}
+              <a href="#" onClick={(e) => window.open(APP.supportLink, '_blank')}>
+                here
+              </a>
+            </p>
           </div>
         </div>
       </div>
