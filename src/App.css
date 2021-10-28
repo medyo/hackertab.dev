@@ -85,6 +85,11 @@ a {
 
 .AppContent {
   flex: 1 1 auto;
+  display: flex;
+  gap: 12px;
+  position: relative;
+  overflow:hidden;
+  padding-bottom: 12px;
 }
 .extras {
 
@@ -177,28 +182,38 @@ a {
   overflow: hidden;
   flex-direction: column;
   height: 80vh;
+  width: calc(68vw /4);
+  flex: 0 0 auto;
 }
 .blockContent {
   flex-grow: 1;
   overflow-y: auto;
-  scrollbar-color: var(--scrollbar-accent-color) var(--scrollbar-background-color);
-  scrollbar-width: thin;
   height: calc(80vh - 1% - 16px - 30px);
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
 }
 
-
-.blockContent::-webkit-scrollbar {
-  width: 6px;
+.scrollable {
+  scrollbar-color: var(--scrollbar-accent-color) var(--scrollbar-background-color);
+  scrollbar-width: thin;
 }
 
-.blockContent::-webkit-scrollbar-track-piece  {
+.scrollable::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollable::-webkit-scrollbar-track-piece  {
   background-color: var(--scrollbar-background-color);
 }
 
-.blockContent::-webkit-scrollbar-thumb:vertical {
+.scrollable::-webkit-scrollbar-thumb:vertical {
+  border-radius: 6px;
+  background-color: var(--scrollbar-accent-color);
+}
+
+.scrollable::-webkit-scrollbar-thumb:horizontal {
   border-radius: 6px;
   background-color: var(--scrollbar-accent-color);
 }
@@ -794,7 +809,7 @@ Producthunt item
   .blockContent{
     height: 100%;
   }
-  .blockContent::-webkit-scrollbar {
+  .scrollable::-webkit-scrollbar {
     width: 0;
   }
   .block {
@@ -804,4 +819,21 @@ Producthunt item
     border-radius: 0;
     box-shadow: none !important;
   }
+}
+
+.scrollButton {
+  border:none;
+  position: fixed;
+  top: 50%;
+  margin: 0 16px;
+  background-color: white;
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+  box-shadow: 0 0 20px var(--card-border-color);
+  z-index: 2;
+  cursor: pointer;
+}
+.scrollButton:hover {
+  background-color: rgb(190, 190, 190);
 }

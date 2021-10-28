@@ -1,23 +1,24 @@
-import React, { useState, useReducer, useEffect, useContext } from "react";
-import './App.css';
-import { PreferencesProvider } from './preferences/PreferencesContext';
-import AppReducer from "./preferences/AppReducer";
-import ConfigurationContext from './configuration/ConfigurationContext';
-import { APP, LS_PREFERENCES_KEY, SUPPORTED_CARDS } from './Constants';
-import { getOSMode } from "./services/os"
-import AppStorage from './services/localStorage';
-import TermsPage from './pages/TermsPage';
-import PrivacyPage from './pages/PrivacyPage';
-import DataSourcePage from './pages/DataSourcePage';
-import Footer from "./components/Footer";
-import Header from "./components/Header";
+import React, { useState, useReducer, useEffect, useContext, useRef } from 'react'
+import './App.css'
+import { PreferencesProvider } from './preferences/PreferencesContext'
+import AppReducer from './preferences/AppReducer'
+import ConfigurationContext from './configuration/ConfigurationContext'
+import { APP, LS_PREFERENCES_KEY, SUPPORTED_CARDS } from './Constants'
+import { getOSMode } from './services/os'
+import AppStorage from './services/localStorage'
+import TermsPage from './pages/TermsPage'
+import PrivacyPage from './pages/PrivacyPage'
+import DataSourcePage from './pages/DataSourcePage'
+import Footer from './components/Footer'
+import Header from './components/Header'
 import { Grid, Col, Row } from 'react-styled-flexboxgrid'
 import { ThemeProvider } from 'styled-components'
-import { trackPageView } from "./utils/Analytics"
+import { trackPageView } from './utils/Analytics'
 import BookmarksSidebar from './bookmark/BookmarksSidebar'
 import MarketingBanner from './components/MarketingBanner'
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect'
 import MobileLayout from './components/MobileLayout'
+import ScrollCardsNavigator from './components/ScrollCardsNavigator'
 
 function App() {
   const {
@@ -28,7 +29,7 @@ function App() {
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [currentPage, setCurrentPage] = useState('home')
-
+  const scrollbarRef = React.useRef(null)
   const [state, dispatcher] = useReducer(
     AppReducer,
     {
@@ -69,14 +70,7 @@ function App() {
     trackPageView(currentPage)
   }, [currentPage])
 
-  const gridTheme = {
-    flexboxgrid: {
-      gridSize: APP.maxCardsPerRow, // columns
-      gutterWidth: 1, // rem
-      outerMargin: 0,
-    },
-  }
-
+  
   const renderHomePage = () => {
     return (
       <PreferencesProvider value={{ ...state, dispatcher: dispatcher }}>
@@ -89,35 +83,21 @@ function App() {
             showSettings={showSettings}
             setShowSettings={setShowSettings}
           />
-
+          <ScrollCardsNavigator />
           <BrowserView>
             <MarketingBanner {...marketingBannerConfig} />
 
-            <main className="AppContent">
-              <ThemeProvider theme={gridTheme}>
-                <Grid fluid={true}>
-                  <Row>
-                    {state.cards.map((card, index) => {
-                      const constantCard = SUPPORTED_CARDS.find((c) => c.value === card.name)
-                      return (
-                        <Col
-                          key={index}
-                          lg={state.cards.length / APP.maxCardsPerRow}
-                          sm={state.cards.length / 2}
-                          xs={state.cards.length}>
-                          {React.createElement(constantCard.component, {
-                            key: card.name,
-                            label: constantCard.label,
-                            icon: constantCard.icon,
-                            analyticsTag: constantCard.analyticsTag,
-                            withAds: index == 0,
-                          })}
-                        </Col>
-                      )
-                    })}
-                  </Row>
-                </Grid>
-              </ThemeProvider>
+            <main className="AppContent scrollable" ref={scrollbarRef}>
+              {state.cards.map((card, index) => {
+                const constantCard = SUPPORTED_CARDS.find((c) => c.value === card.name)
+                return React.createElement(constantCard.component, {
+                  key: card.name,
+                  label: constantCard.label,
+                  icon: constantCard.icon,
+                  analyticsTag: constantCard.analyticsTag,
+                  withAds: index == 0,
+                })
+              })}
             </main>
             <BookmarksSidebar showSidebar={showSideBar} onClose={() => setShowSideBar(false)} />
 
@@ -153,4 +133,4 @@ function App() {
   return autoRouteContent()
 }
 
-export default App;
+export default App

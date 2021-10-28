@@ -13,23 +13,18 @@ function CardComponent({ icon, title, children, fullBlock, link }) {
 	};
 
 	return (
-		<div className={'block' + (fullBlock ? ' fullBlock' : '')}>
-			<div className='blockHeader'>
-				{icon} {title}{' '}
-				{link && (
-					<a
-						className='blockHeaderLink'
-						href={link}
-						onClick={
-							handleHeaderLinkClick
-						}>
-						<BsBoxArrowInUpRight />
-					</a>
-				)}
-			</div>
-			<div className='blockContent'>{children}</div>
-		</div>
-	);
+    <div className={'block' + (fullBlock ? ' fullBlock' : '')}>
+      <div className="blockHeader">
+        {icon} {title}{' '}
+        {link && (
+          <a className="blockHeaderLink" href={link} onClick={handleHeaderLinkClick}>
+            <BsBoxArrowInUpRight />
+          </a>
+        )}
+      </div>
+      <div className="blockContent scrollable">{children}</div>
+    </div>
+  )
 }
 
 export default CardComponent;

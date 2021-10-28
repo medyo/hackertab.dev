@@ -45,18 +45,6 @@ function SettingsModal({ showSettings, setShowSettings }) {
   }
 
   const onCardSelectChange = (cards, metas) => {
-    if (cards.length > 4) {
-      return toast.error('You may only pick 4 cards', {
-        position: 'bottom-center',
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined,
-      })
-    }
-
     switch (metas.action) {
       case 'select-option':
         trackAddCard(metas.option.label)
