@@ -759,8 +759,9 @@ Producthunt item
   position: fixed;
   top: 50%;
   margin: 0 1%;
-  background-color: white;
-  opacity: .5;
+  background-color: var(--card-action-button-background);
+  color: var(--card-action-button-color);
+  opacity: .8;
   border-radius: 50px;
   width: 50px;
   height: 50px;
@@ -770,8 +771,7 @@ Producthunt item
 }
 
 .scrollButton:hover {
-  background-color: white;
-  opacity:100
+  opacity:1
 }
 
 /*****************
