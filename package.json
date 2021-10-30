@@ -23,13 +23,9 @@
     "react-pro-sidebar": "^0.6.0",
     "react-scripts": "4.0.1",
     "react-select": "^4.0.2",
-    "react-sortablejs": "^6.0.0",
     "react-spinners": "^0.10.4",
-    "react-styled-flexboxgrid": "^3.2.1",
-    "react-toastify": "^7.0.3",
     "react-toggle": "^4.1.1",
     "react-tooltip": "^4.2.21",
-    "sortablejs": "^1.13.0",
     "styled-components": "2",
     "timeago.js": "^4.0.2",
     "web-vitals": "^0.2.4"
