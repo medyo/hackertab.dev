@@ -16,13 +16,22 @@ function ScrollCardsNavigator() {
     setRightButtonVisible(scrollRight > 0)
   }
 
+  const handleKeyboardKeys = (e) => {
+    if (e.keyCode == 37) {
+      scrollTo('left')
+    } else if (e.keyCode == 39) {
+      scrollTo('right')
+    }
+  }
+
   useLayoutEffect(() => {
     scrollBarContainer.current = document.querySelector('.AppContent')
   }, [])
   useEffect(() => {
     scrollBarContainer.current.addEventListener('scroll', handleScroll, true)
-
+    window.addEventListener('keydown', handleKeyboardKeys)
     return () => {
+      window.removeEventListener('keydown', handleEsc)
       scrollBarContainer.current.removeEventListener('scroll', handleScroll)
     }
   }, [])
