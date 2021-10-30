@@ -11,14 +11,12 @@ import PrivacyPage from './pages/PrivacyPage'
 import DataSourcePage from './pages/DataSourcePage'
 import Footer from './components/Footer'
 import Header from './components/Header'
-import { Grid, Col, Row } from 'react-styled-flexboxgrid'
-import { ThemeProvider } from 'styled-components'
 import { trackPageView } from './utils/Analytics'
 import BookmarksSidebar from './bookmark/BookmarksSidebar'
 import MarketingBanner from './components/MarketingBanner'
-import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect'
-import MobileLayout from './components/MobileLayout'
 import ScrollCardsNavigator from './components/ScrollCardsNavigator'
+import BottomNavigation from './components/BottomNavigation'
+import AppContentLayout from './components/AppContentLayout'
 
 function App() {
   const {
@@ -29,7 +27,6 @@ function App() {
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [currentPage, setCurrentPage] = useState('home')
-  const scrollbarRef = React.useRef(null)
   const [state, dispatcher] = useReducer(
     AppReducer,
     {
@@ -65,12 +62,10 @@ function App() {
       return initialState
     }
   )
-
   useEffect(() => {
     trackPageView(currentPage)
   }, [currentPage])
 
-  
   const renderHomePage = () => {
     return (
       <PreferencesProvider value={{ ...state, dispatcher: dispatcher }}>
@@ -84,29 +79,11 @@ function App() {
             setShowSettings={setShowSettings}
           />
           <ScrollCardsNavigator />
-          <BrowserView>
-            <MarketingBanner {...marketingBannerConfig} />
+          <MarketingBanner {...marketingBannerConfig} />
+          <AppContentLayout setShowSettings={setShowSettings} />
+          <BookmarksSidebar showSidebar={showSideBar} onClose={() => setShowSideBar(false)} />
 
-            <main className="AppContent scrollable" ref={scrollbarRef}>
-              {state.cards.map((card, index) => {
-                const constantCard = SUPPORTED_CARDS.find((c) => c.value === card.name)
-                return React.createElement(constantCard.component, {
-                  key: card.name,
-                  label: constantCard.label,
-                  icon: constantCard.icon,
-                  analyticsTag: constantCard.analyticsTag,
-                  withAds: index == 0,
-                })
-              })}
-            </main>
-            <BookmarksSidebar showSidebar={showSideBar} onClose={() => setShowSideBar(false)} />
-
-            <Footer setCurrentPage={setCurrentPage} feedbackWidget={feedbackWidget} />
-          </BrowserView>
-
-          <MobileView>
-            <MobileLayout showSettings={showSettings} setShowSettings={setShowSettings} />
-          </MobileView>
+          <Footer setCurrentPage={setCurrentPage} feedbackWidget={feedbackWidget} />
         </div>
       </PreferencesProvider>
     )

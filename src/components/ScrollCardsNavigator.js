@@ -1,23 +1,50 @@
-import React, { useState, useReducer, useEffect, useContext, useRef } from 'react'
-import { TiChevronRight, TiChevronLeft } from 'react-icons/ti'
+import React, { useState, useEffect, useContext, useLayoutEffect, useRef } from 'react'
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+import { APP } from '../Constants'
+import PreferencesContext from '../preferences/PreferencesContext'
 
 function ScrollCardsNavigator() {
+  const { cards } = useContext(PreferencesContext)
   const [leftButtonVisible, setLeftButtonVisible] = useState(true)
   const [rightButtonVisible, setRightButtonVisible] = useState(true)
+  const scrollBarContainer = useRef(null)
 
-  useEffect(() => {}, [])
+  const handleScroll = (e) => {
+    const { scrollLeft, scrollWidth, offsetWidth } = e.target
+    setLeftButtonVisible(scrollLeft > 0)
+    const scrollRight = scrollWidth - offsetWidth - Math.abs(scrollLeft)
+    setRightButtonVisible(scrollRight > 0)
+  }
+
+  useLayoutEffect(() => {
+    scrollBarContainer.current = document.querySelector('.AppContent')
+  }, [])
+  useEffect(() => {
+    scrollBarContainer.current.addEventListener('scroll', handleScroll, true)
+
+    return () => {
+      scrollBarContainer.current.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  useEffect(() => {
+    setLeftButtonVisible(false)
+    setRightButtonVisible(cards.length > APP.maxCardsPerRow)
+  }, [cards])
+
   const scrollTo = (direction) => {
-    const scrollContainer = document.querySelector('.AppContent')
-    if (!scrollContainer) {
+    if (!scrollBarContainer.current) {
       return
     }
-    const cardWidth = scrollContainer.children[0].offsetWidth
+    const { offsetWidth, scrollLeft } = scrollBarContainer.current.children[0]
+    let extraPadding = 32 // Should be calculated dynamically
+
     const position =
       direction === 'left'
-        ? scrollContainer.scrollLeft - cardWidth
-        : scrollContainer.scrollLeft + cardWidth
+        ? scrollLeft - offsetWidth - extraPadding
+        : scrollLeft + offsetWidth + extraPadding
 
-    scrollContainer.scrollTo({
+    scrollBarContainer.current.scrollTo({
       left: position,
       behavior: 'smooth',
     })
@@ -27,12 +54,12 @@ function ScrollCardsNavigator() {
     <>
       {leftButtonVisible && (
         <button onClick={() => scrollTo('left')} className="scrollButton" style={{ left: 0 }}>
-          <TiChevronLeft size={32} />
+          <FiChevronLeft size={32} />
         </button>
       )}
       {rightButtonVisible && (
         <button onClick={() => scrollTo('right')} className="scrollButton" style={{ right: 0 }}>
-          <TiChevronRight size={32} />
+          <FiChevronRight size={32} />
         </button>
       )}
     </>

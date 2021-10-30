@@ -21,9 +21,9 @@ body {
 }
 
 a {
-
   color: var(--primary-text-color);
 }
+
 .App {
   flex-direction: row;
   color: var(--primary-text-color);
@@ -182,7 +182,7 @@ a {
   overflow: hidden;
   flex-direction: column;
   height: 80vh;
-  width: calc(94vw /4);
+  width: 10vw;
   flex: 0 0 auto;
 }
 .blockContent {
@@ -451,31 +451,7 @@ a {
   margin-top: 8px;
 }
 
-@media (max-width: 800px) {
-  .AppHeader{
-    padding: 20px 0;
-  }
-  .slogan  {
-    display: none;
-  }
-  .tags {
-    /*display: none;*/
-  }
-  .marketingBanner {
-    width: 80%
-  }
-}
 
-@media(min-width: 1800px) {
-  .App {
-    width: 1800px;
-    margin: 0 auto;
-    padding: 0;
-  }
-  .block {
-    width: calc(68vw /4);
-  }
-}
 
 .rowLanguage {
   font-size: 12px;
@@ -644,12 +620,6 @@ Producthunt item
   margin-bottom: 16px;
 }
 
-@media (max-width: 768px) {
-  .marketingBanner {
-    width: 100%
-  }
-}
-
 .counterWrapper {
   display: flex;
   flex-direction: column;
@@ -670,18 +640,19 @@ Producthunt item
 }
 
 .bottomNavigation {
-  display: flex;
+  display: none;
   flex-grow: 1;
   width: 100%;
   flex-direction: row;
   align-items: center;
   text-align: center;
-  height: 50px;
+  height: 54px;
   background-color: var(--card-background-color);
   box-shadow: 0 0 20px var(--card-border-color);
   position: fixed;
   bottom: 0;
   left:0;
+  
 }
 
 .navigationItem {
@@ -782,8 +753,46 @@ Producthunt item
 .__react_component_tooltip.show {
   opacity: 1 !important;
 }
-@media (max-width: 768px) {
 
+.scrollButton {
+  border:none;
+  position: fixed;
+  top: 50%;
+  margin: 0 1%;
+  background-color: white;
+  opacity: .5;
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+  box-shadow: 0 0 20px var(--card-border-color);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.scrollButton:hover {
+  background-color: white;
+  opacity:100
+}
+
+/*****************
+*** BREAKPOINTS
+*******************/
+/* Extra small devices (phones, 600px and down) */
+@media (max-width: 600px) { 
+  .bottomNavigation {
+    display: flex;
+  }
+  .block {
+    margin-top: 8px;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 56px;
+    border-radius: 0;
+    box-shadow: none !important;
+  }
+  .AppContent .block:nth-child(n+2) {
+    display:none;
+  }
   ::-webkit-scrollbar {
     width: 0px;
     background: transparent; 
@@ -800,43 +809,72 @@ Producthunt item
     display: none;
   }
   .App {
-    padding: 0
+    padding: 0;
   }
   .AppHeader {
     padding: 0;
     margin: 0 12px;
+  }
+  .AppFooter {
+    display: none;
   }
   .blockHeader{
     display: none;
   }
   .blockContent{
     height: 100%;
+    overflow: hidden;
   }
   .scrollable::-webkit-scrollbar {
     width: 0;
   }
-  .block {
-    margin-top: 8px;
-    height: 100vh;
-    padding-bottom: 56px;
-    border-radius: 0;
-    box-shadow: none !important;
+  .scrollButton {
+    display: none;
   }
 }
 
-.scrollButton {
-  border:none;
-  position: fixed;
-  top: 50%;
-  margin: 0 16px;
-  background-color: white;
-  border-radius: 50px;
-  width: 50px;
-  height: 50px;
-  box-shadow: 0 0 20px var(--card-border-color);
-  z-index: 2;
-  cursor: pointer;
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .block {
+    width: calc(96vw/2);
+  }
 }
-.scrollButton:hover {
-  background-color: rgb(190, 190, 190);
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .block {
+    width: calc(96vw/3);
+  }
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media only screen and (min-width: 992px) { 
+  .block {
+    width: calc(96vw/3);
+  }
+}
+
+/* X-Large devices (large desktops, 1200px and up)*/
+@media only screen and (min-width: 1200px) { 
+  .block {
+    width: calc(96vw/4);
+  }
+}
+
+/* XX-Large devices (larger desktops, 1400px and up)*/
+@media only screen and (min-width: 1400px) { 
+  .block {
+    width: calc(96vw/4);
+  }
+}
+
+@media(min-width: 1800px) {
+  .App {
+    width: 1800px;
+    margin: 0 auto;
+    padding: 0;
+  }
+  .block {
+    width: calc((1800px - 12px * 4)/4);
+  }
 }

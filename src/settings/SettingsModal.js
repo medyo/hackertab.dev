@@ -9,13 +9,16 @@ import './settings.css';
 import PreferencesContext from '../preferences/PreferencesContext';
 import ConfigurationContext from '../configuration/ConfigurationContext';
 import { SUPPORTED_CARDS, APP } from '../Constants'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { trackAddLanguage, trackRemoveLanguage, trackAddCard, trackRemoveCard,
-  trackOpenLinksNewTab, trackListingModeChange } from "../utils/Analytics"
+import {
+  trackAddLanguage,
+  trackRemoveLanguage,
+  trackAddCard,
+  trackRemoveCard,
+  trackOpenLinksNewTab,
+  trackListingModeChange,
+} from '../utils/Analytics'
 
 function SettingsModal({ showSettings, setShowSettings }) {
-
   const { supportedTags } = useContext(ConfigurationContext)
   const preferences = useContext(PreferencesContext)
   const { dispatcher, cards, userSelectedTags, openLinksNewTab, listingMode, theme } = preferences
@@ -160,7 +163,6 @@ function SettingsModal({ showSettings, setShowSettings }) {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </ReactModal>
   )
 }
