@@ -33,7 +33,7 @@ function ScrollCardsNavigator() {
     scrollBarContainer.current.addEventListener('scroll', handleScroll, true)
     window.addEventListener('keydown', handleKeyboardKeys)
     return () => {
-      window.removeEventListener('keydown', handleEsc)
+      window.removeEventListener('keydown', handleKeyboardKeys)
       scrollBarContainer.current.removeEventListener('scroll', handleScroll)
     }
   }, [])
