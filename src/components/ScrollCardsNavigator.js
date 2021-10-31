@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, useLayoutEffect, useRef } from 
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { APP } from '../Constants'
 import PreferencesContext from '../preferences/PreferencesContext'
+import { trackPageScroll } from '../utils/Analytics'
 
 function ScrollCardsNavigator() {
   const { cards } = useContext(PreferencesContext)
@@ -27,6 +28,7 @@ function ScrollCardsNavigator() {
   useLayoutEffect(() => {
     scrollBarContainer.current = document.querySelector('.AppContent')
   }, [])
+
   useEffect(() => {
     scrollBarContainer.current.addEventListener('scroll', handleScroll, true)
     window.addEventListener('keydown', handleKeyboardKeys)
@@ -45,6 +47,7 @@ function ScrollCardsNavigator() {
     if (!scrollBarContainer.current) {
       return
     }
+    trackPageScroll(direction)
     const { offsetWidth, scrollLeft } = scrollBarContainer.current.children[0]
     let extraPadding = 32 // Should be calculated dynamically
 
