@@ -4,31 +4,20 @@ import PreferencesContext from '../preferences/PreferencesContext'
 import BottomNavigation from './BottomNavigation'
 import { isDesktop } from 'react-device-detect'
 
-function MobileCards({ setShowSettings }) {
-  const { cards } = useContext(PreferencesContext)
-  const [selectedCard, setSelectedCard] = useState(cards[0])
+function MobileCards({ selectedCard }) {
   const currentCard = SUPPORTED_CARDS.find((c) => c.value === selectedCard.name)
-
   return (
-    <>
-      {currentCard &&
-        React.createElement(currentCard.component, {
-          key: currentCard.value,
-          label: currentCard.label,
-          analyticsTag: currentCard.analyticsTag,
-          withAds: false,
-        })}
-      <BottomNavigation
-        selectedCard={selectedCard}
-        setSelectedCard={setSelectedCard}
-        setShowSettings={setShowSettings}
-      />
-    </>
+    currentCard &&
+    React.createElement(currentCard.component, {
+      key: currentCard.value,
+      label: currentCard.label,
+      analyticsTag: currentCard.analyticsTag,
+      withAds: true,
+    })
   )
 }
 
-function DesktopCards({}) {
-  const { cards } = useContext(PreferencesContext)
+function DesktopCards({ cards }) {
   return cards.map((card, index) => {
     const constantCard = SUPPORTED_CARDS.find((c) => c.value === card.name)
     return React.createElement(constantCard.component, {
@@ -42,10 +31,21 @@ function DesktopCards({}) {
 }
 
 function AppContentLayout({ setShowSettings }) {
+  const { cards } = useContext(PreferencesContext)
+  const [selectedCard, setSelectedCard] = useState(cards[0])
+
   return (
-    <main className="AppContent scrollable">
-      {isDesktop ? <DesktopCards /> : <MobileCards setShowSettings={setShowSettings} />}
-    </main>
+    <>
+      <main className="AppContent scrollable">
+        {isDesktop ? <DesktopCards cards={cards} /> : <MobileCards selectedCard={selectedCard} />}
+      </main>
+
+      <BottomNavigation
+        selectedCard={selectedCard}
+        setSelectedCard={setSelectedCard}
+        setShowSettings={setShowSettings}
+      />
+    </>
   )
 }
 
