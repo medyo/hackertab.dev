@@ -48,7 +48,8 @@ function ScrollCardsNavigator() {
       return
     }
     trackPageScroll(direction)
-    const { offsetWidth, scrollLeft } = scrollBarContainer.current.children[0]
+    const { scrollLeft } = scrollBarContainer.current
+    const { offsetWidth } = scrollBarContainer.current.children[0]
     let extraPadding = 32 // Should be calculated dynamically
 
     const position =
