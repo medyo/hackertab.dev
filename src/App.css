@@ -90,9 +90,6 @@ a {
   position: relative;
   overflow:hidden;
   padding-bottom: 12px;
-  /*Hack to keep the outer shadow visible that the overflow cuts*/
-  margin:-20px;
-  padding: 20px;
 }
 .extras {
 
