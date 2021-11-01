@@ -21,13 +21,12 @@ body {
 }
 
 a {
-
   color: var(--primary-text-color);
 }
+
 .App {
   flex-direction: row;
   color: var(--primary-text-color);
-  padding: 1%;
   display: flex;
   flex-direction: column;
 }
@@ -57,7 +56,7 @@ a {
   align-content: center;
   flex-wrap: wrap;
   height:86px;
-  margin-bottom: 12px;
+  margin: 0 1% 12px 1%;
 }
 
 .AppFooter {
@@ -85,11 +84,16 @@ a {
 
 .AppContent {
   flex: 1 1 auto;
+  display: flex;
+  gap: 12px;
+  padding: 1%;
+  position: relative;
+  overflow:hidden;
+  padding-bottom: 12px;
 }
 .extras {
 
   flex-direction: row;
-  margin-left: auto;
   margin-right: 16px;
   align-content: center;
 
@@ -177,28 +181,38 @@ a {
   overflow: hidden;
   flex-direction: column;
   height: 80vh;
+  width: 10vw;
+  flex: 0 0 auto;
 }
 .blockContent {
   flex-grow: 1;
   overflow-y: auto;
-  scrollbar-color: var(--scrollbar-accent-color) var(--scrollbar-background-color);
-  scrollbar-width: thin;
   height: calc(80vh - 1% - 16px - 30px);
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
 }
 
-
-.blockContent::-webkit-scrollbar {
-  width: 6px;
+.scrollable {
+  scrollbar-color: var(--scrollbar-accent-color) var(--scrollbar-background-color);
+  scrollbar-width: thin;
 }
 
-.blockContent::-webkit-scrollbar-track-piece  {
+.scrollable::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollable::-webkit-scrollbar-track-piece  {
   background-color: var(--scrollbar-background-color);
 }
 
-.blockContent::-webkit-scrollbar-thumb:vertical {
+.scrollable::-webkit-scrollbar-thumb:vertical {
+  border-radius: 6px;
+  background-color: var(--scrollbar-accent-color);
+}
+
+.scrollable::-webkit-scrollbar-thumb:horizontal {
   border-radius: 6px;
   background-color: var(--scrollbar-accent-color);
 }
@@ -403,7 +417,6 @@ a {
   align-self: flex-start;
   display: flex;
   flex-direction: row;
-  margin-top: 6px;
   flex-wrap: wrap;
   gap: 4px;
 }
@@ -436,28 +449,7 @@ a {
   margin-top: 8px;
 }
 
-@media (max-width: 800px) {
-  .AppHeader{
-    padding: 20px 0;
-  }
-  .slogan  {
-    display: none;
-  }
-  .tags {
-    /*display: none;*/
-  }
-  .marketingBanner {
-    width: 80%
-  }
-}
 
-@media(min-width: 1800px) {
-  .App {
-    width: 1800px;
-    margin: 0 auto;
-    padding: 0;
-  }
-}
 
 .rowLanguage {
   font-size: 12px;
@@ -626,12 +618,6 @@ Producthunt item
   margin-bottom: 16px;
 }
 
-@media (max-width: 768px) {
-  .marketingBanner {
-    width: 100%
-  }
-}
-
 .counterWrapper {
   display: flex;
   flex-direction: column;
@@ -652,18 +638,19 @@ Producthunt item
 }
 
 .bottomNavigation {
-  display: flex;
+  display: none;
   flex-grow: 1;
   width: 100%;
   flex-direction: row;
   align-items: center;
   text-align: center;
-  height: 50px;
+  height: 54px;
   background-color: var(--card-background-color);
   box-shadow: 0 0 20px var(--card-border-color);
   position: fixed;
   bottom: 0;
   left:0;
+  
 }
 
 .navigationItem {
@@ -703,6 +690,27 @@ Producthunt item
 }
 .changelogButton.active {
   background-color: var(--tooltip-accent-color);
+}
+
+.searchBar {
+  position: relative;
+  margin: 0 auto;
+  margin-top: 6px;
+}
+.searchBarIcon {
+  position: absolute;
+  height: 46px;
+  margin: 0 16px;
+}
+.searchBarInput {
+  border-radius: 50px;
+  color: var(--primary-text-color);
+  border:1px solid var(--card-border-color);
+  box-shadow: 0 0 20px var(--card-border-color);
+  height: 42px;
+  padding:0 32px 0 48px;
+  width:580px;
+  background-color: var(--card-header-background-color);
 }
 
 .tooltipLoading {
@@ -764,14 +772,61 @@ Producthunt item
 .__react_component_tooltip.show {
   opacity: 1 !important;
 }
-@media (max-width: 768px) {
 
+.scrollButton {
+  border:none;
+  position: fixed;
+  top: 45%;
+  margin: 0 1%;
+  background-color: var(--card-action-button-background);
+  color: var(--card-action-button-color);
+  opacity: .8;
+  border-radius: 48px;
+  width: 48px;
+  height: 48px;
+  box-shadow: 0 0 20px var(--card-border-color);
+  z-index: 2;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.scrollButton:hover {
+  opacity:1
+}
+
+/*****************
+*** BREAKPOINTS
+*******************/
+/* Extra small devices (phones, 600px and down) */
+@media (max-width: 600px) { 
+  .bottomNavigation {
+    display: flex;
+  }
+  .block {
+    margin-top: 8px;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 56px;
+    border-radius: 0;
+    box-shadow: none !important;
+  }
+  .AppContent .block:nth-child(n+2) {
+    display:none;
+  }
   ::-webkit-scrollbar {
     width: 0px;
     background: transparent; 
   }
+  .searchBar {
+    display: none;
+  }
   .slogan {
     display: none;
+  }
+  .tags {
+    margin-top: 6px;
   }
   .changelogButton {
     display: none;
@@ -782,26 +837,79 @@ Producthunt item
     display: none;
   }
   .App {
-    padding: 0
+    padding: 0;
   }
   .AppHeader {
     padding: 0;
     margin: 0 12px;
+  }
+  .AppFooter {
+    display: none;
   }
   .blockHeader{
     display: none;
   }
   .blockContent{
     height: 100%;
+    overflow: hidden;
   }
-  .blockContent::-webkit-scrollbar {
+  .scrollable::-webkit-scrollbar {
     width: 0;
   }
+  .scrollButton {
+    display: none;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
   .block {
-    margin-top: 8px;
-    height: 100vh;
-    padding-bottom: 56px;
-    border-radius: 0;
-    box-shadow: none !important;
+    width: calc(96vw/2);
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .block {
+    width: calc(96vw/3);
+  }
+  .searchBarInput  {
+    width: 200px;
+  }
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media only screen and (min-width: 992px) { 
+  .block {
+    width: calc(96vw/3);
+  }
+
+  .searchBarInput  {
+    width: 480px;
+  }
+}
+
+/* X-Large devices (large desktops, 1200px and up)*/
+@media only screen and (min-width: 1200px) { 
+  .block {
+    width: calc(96vw/4);
+  }
+}
+
+/* XX-Large devices (larger desktops, 1400px and up)*/
+@media only screen and (min-width: 1400px) { 
+  .block {
+    width: calc(96vw/4);
+  }
+}
+
+@media(min-width: 1800px) {
+  .App {
+    width: 1800px;
+    margin: 0 auto;
+    padding: 0;
+  }
+  .block {
+    width: calc((1800px - 12px * 4)/4);
   }
 }

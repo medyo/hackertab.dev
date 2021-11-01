@@ -8,17 +8,22 @@ import '../App.css';
 import './settings.css';
 import PreferencesContext from '../preferences/PreferencesContext';
 import ConfigurationContext from '../configuration/ConfigurationContext';
-import { SUPPORTED_CARDS, APP } from '../Constants'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { trackAddLanguage, trackRemoveLanguage, trackAddCard, trackRemoveCard,
-  trackOpenLinksNewTab, trackListingModeChange } from "../utils/Analytics"
+import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, APP } from '../Constants'
+import {
+  trackAddLanguage,
+  trackRemoveLanguage,
+  trackAddCard,
+  trackRemoveCard,
+  trackOpenLinksNewTab,
+  trackListingModeChange,
+  trackSearchEngineChange,
+} from '../utils/Analytics'
 
 function SettingsModal({ showSettings, setShowSettings }) {
-
   const { supportedTags } = useContext(ConfigurationContext)
   const preferences = useContext(PreferencesContext)
-  const { dispatcher, cards, userSelectedTags, openLinksNewTab, listingMode, theme } = preferences
+  const { dispatcher, cards, userSelectedTags, openLinksNewTab, listingMode, theme, searchEngine } =
+    preferences
   const [selectedCards, setSelectedCards] = useState(cards)
 
   const handleCloseModal = () => {
@@ -45,18 +50,6 @@ function SettingsModal({ showSettings, setShowSettings }) {
   }
 
   const onCardSelectChange = (cards, metas) => {
-    if (cards.length > 4) {
-      return toast.error('You may only pick 4 cards', {
-        position: 'bottom-center',
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined,
-      })
-    }
-
     switch (metas.action) {
       case 'select-option':
         trackAddCard(metas.option.label)
@@ -71,6 +64,11 @@ function SettingsModal({ showSettings, setShowSettings }) {
     })
     setSelectedCards(newCards)
     dispatcher({ type: 'setCards', value: newCards })
+  }
+
+  const onSearchEngineSelectChange = (value) => {
+    trackSearchEngineChange(value.label)
+    dispatcher({ type: 'setSearchEngine', value })
   }
 
   const onOpenLinksNewTabChange = (e) => {
@@ -171,8 +169,28 @@ function SettingsModal({ showSettings, setShowSettings }) {
             />
           </div>
         </div>
+
+        <div className="settingRow">
+          <p className="settingTitle">Favorite search engine</p>
+          <div className="settingContent">
+            <Select
+              options={SUPPORTED_SEARCH_ENGINES}
+              value={SUPPORTED_SEARCH_ENGINES.find((e) => e.label == searchEngine)}
+              isMulti={false}
+              isClearable={false}
+              isSearchable={false}
+              classNamePrefix={'hackertab'}
+              onChange={onSearchEngineSelectChange}
+            />
+            <p className="settingHint">
+              Missing a search engine? create an issue{' '}
+              <a href="#" onClick={(e) => window.open(APP.supportLink, '_blank')}>
+                here
+              </a>
+            </p>
+          </div>
+        </div>
       </div>
-      <ToastContainer />
     </ReactModal>
   )
 }

@@ -13,7 +13,9 @@ function BottomNavigation({ selectedCard, setSelectedCard, setShowSettings }) {
         return (
           <a
             key={card.name}
-            className={'navigationItem ' + (selectedCard.name == card.name ? 'active' : '')}
+            className={
+              'navigationItem ' + (selectedCard && selectedCard.name == card.name ? 'active' : '')
+            }
             href="#"
             onClick={(e) => setSelectedCard(card)}>
             {constantCard.icon}

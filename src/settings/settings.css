@@ -113,7 +113,12 @@ Select styles
 }
 .hackertab__option {
   color: var(--tag-input-background) !important;
+  background-color: var(--card-background-color) !important;
 }
+.hackertab__single-value {
+  color: var(--primary-text-color) !important;
+}
+
 .hackertab__option--is-focused {
   background: var(--tag-background-color) !important;
   color: var(--tag-text-color) !important;
