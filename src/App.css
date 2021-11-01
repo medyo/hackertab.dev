@@ -27,7 +27,6 @@ a {
 .App {
   flex-direction: row;
   color: var(--primary-text-color);
-  padding: 1%;
   display: flex;
   flex-direction: column;
 }
@@ -57,7 +56,7 @@ a {
   align-content: center;
   flex-wrap: wrap;
   height:86px;
-  margin-bottom: 12px;
+  margin: 0 1% 12px 1%;
 }
 
 .AppFooter {
@@ -87,6 +86,7 @@ a {
   flex: 1 1 auto;
   display: flex;
   gap: 12px;
+  padding: 1%;
   position: relative;
   overflow:hidden;
   padding-bottom: 12px;
@@ -873,12 +873,19 @@ Producthunt item
   .block {
     width: calc(96vw/3);
   }
+  .searchBarInput  {
+    width: 200px;
+  }
 }
 
 /* Large devices (desktops, 992px and up)*/
 @media only screen and (min-width: 992px) { 
   .block {
     width: calc(96vw/3);
+  }
+
+  .searchBarInput  {
+    width: 480px;
   }
 }
 
