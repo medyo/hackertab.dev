@@ -4,13 +4,43 @@ import { CgTab } from 'react-icons/cg';
 import { BsFillBookmarksFill } from "react-icons/bs"
 import { ReactComponent as HackertabLogo } from '../logo.svg';
 import UserTags from "./UserTags";
-import { APP } from '../Constants';
-import SettingsModal from "../settings/SettingsModal";
+import { SUPPORTED_SEARCH_ENGINES } from '../Constants'
+import SettingsModal from '../settings/SettingsModal'
 import { BsMoon } from 'react-icons/bs'
 import { IoMdSunny } from 'react-icons/io'
-import { trackThemeChange } from '../utils/Analytics'
+import { trackThemeChange, trackSearch } from '../utils/Analytics'
 import Changelog from './Changelog'
+import { GoSearch } from 'react-icons/go'
 
+function SearchBar({ state }) {
+  const keywordsInputRef = React.useRef(null)
+  const userSearchEngine = SUPPORTED_SEARCH_ENGINES.find(
+    (engine) => engine.label == state.searchEngine
+  )
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const keywords = e.target.children[1].value
+    trackSearch(userSearchEngine.label)
+    window.open(`${userSearchEngine.url}${keywords}`, '_self')
+  }
+
+  useEffect(() => {
+    keywordsInputRef.current.focus()
+  }, [])
+
+  return (
+    <form className="searchBar" onSubmit={handleSubmit}>
+      <GoSearch className="searchBarIcon" size={20} />
+      <input
+        ref={keywordsInputRef}
+        type="text"
+        className="searchBarInput"
+        placeholder={`Search on ${userSearchEngine.label}`}
+      />
+    </form>
+  )
+}
 function Header({ state, dispatcher, showSideBar, setShowSideBar, showSettings, setShowSettings }) {
   const [themeIcon, setThemeIcon] = useState(<BsMoon />)
   const isFirstRun = useRef(true)
@@ -68,7 +98,7 @@ function Header({ state, dispatcher, showSideBar, setShowSideBar, showSettings, 
           <HackertabLogo className="logoText" />
           <Changelog />
         </span>
-        <div className="slogan">{APP.slogan}</div>
+        <SearchBar state={state} />
         <div className="extras">
           <button className="extraBtn" onClick={onSettingsClick}>
             <BsFillGearFill />
