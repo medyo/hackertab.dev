@@ -16,6 +16,7 @@ import {
   trackRemoveCard,
   trackOpenLinksNewTab,
   trackListingModeChange,
+  trackSearchEngineChange,
 } from '../utils/Analytics'
 
 function SettingsModal({ showSettings, setShowSettings }) {
@@ -66,6 +67,7 @@ function SettingsModal({ showSettings, setShowSettings }) {
   }
 
   const onSearchEngineSelectChange = (value) => {
+    trackSearchEngineChange(value.label)
     dispatcher({ type: 'setSearchEngine', value })
   }
 

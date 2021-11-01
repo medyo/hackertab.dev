@@ -5,6 +5,10 @@ const trackPageScroll = (direction) => {
   trackEvent('Pages', 'Scroll', direction)
 }
 
+const trackSearchEngineChange = (searchEngine) => {
+  trackEvent('Search', 'Use', searchEngine)
+}
+
 const trackSearch = (searchEngine) => {
   trackEvent('Search', 'Submit', searchEngine)
 }
@@ -128,4 +132,5 @@ export {
   trackListingModeChange,
   trackPageScroll,
   trackSearch,
+  trackSearchEngineChange,
 }
