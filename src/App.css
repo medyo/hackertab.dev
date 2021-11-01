@@ -715,11 +715,12 @@ Producthunt item
 }
 .searchBarInput {
   border-radius: 50px;
+  color: var(--primary-text-color);
   border:1px solid var(--card-border-color);
   box-shadow: 0 0 20px var(--card-border-color);
   height: 42px;
-  padding:0 32px 0 40px;
-  width:600px;
+  padding:0 32px 0 48px;
+  width:580px;
   background-color: var(--card-header-background-color);
 }
 
