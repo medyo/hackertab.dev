@@ -14,9 +14,9 @@ jobs:
       with:
         host: ${{ secrets.SSH_HOST }}
         user: ${{ secrets.SSH_USERNAME }}
-        pass: ${{ secrets.SSH_PASSWORD }}
+        key: ${{ secrets.SSH_KEY }}
         command: |
           cd ~/hackertab.dev
           git pull origin master
           yarn install --production
-          yarn build
+          yarn web-build

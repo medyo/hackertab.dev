@@ -33,7 +33,7 @@
   "proxy": "https://api.hackertab.dev/",
   "scripts": {
     "start": "react-scripts start",
-    "web-build": "REACT_APP_WEB_BUILD=1 CI= react-scripts --max_old_space_size=512 build",
+    "web-build": "REACT_APP_WEB_BUILD=1 CI= react-scripts --max_old_space_size=3072 build",
     "build": "./script/build.sh",
     "stores-build": "./script/stores_build.sh",
     "eject": "react-scripts eject"
