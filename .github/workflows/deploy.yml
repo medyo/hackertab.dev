@@ -19,4 +19,4 @@ jobs:
           cd ~/hackertab.dev
           git pull origin master
           yarn install --production
-          yarn build
+          yarn web-build
