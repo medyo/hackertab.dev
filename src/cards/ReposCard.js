@@ -152,8 +152,7 @@ function ReposCard({ analyticsTag, icon, withAds }) {
       )
       let values = await Promise.all(promises)
       const nbrTags = values.length
-      let minLength = 25
-
+      let minLength = Math.min(...values.map(v => v.length))
       const data = []
       for (let index = 0; index < minLength; index++) {
         for (let i = 0; i < nbrTags; i++) {
