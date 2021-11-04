@@ -54,6 +54,15 @@ const AppReducer = (state, action) => {
     case 'setSearchEngine':
       newState = { ...newState, searchEngine: value.label }
       break
+    case 'setCardSettings':
+      newState = {
+        ...newState,
+        cardsSettings: {
+          ...newState?.cardsSettings,
+          [value.card]: { ...newState?.cardsSettings?.[value.card], ...value },
+        },
+      }
+      break
     default:
       throw new Error()
   }
@@ -67,6 +76,7 @@ const AppReducer = (state, action) => {
     changelogMeta: newState.changelogMeta,
     userBookmarks: newState.userBookmarks,
     searchEngine: newState.searchEngine,
+    cardsSettings: newState.cardsSettings,
   }
   AppStorage.setItem(LS_PREFERENCES_KEY, storageData)
   return newState

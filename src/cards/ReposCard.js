@@ -63,32 +63,43 @@ const TAGS_MENU_ID = "tags-menu";
 const DATE_RANGE_MENU_ID = "date-range-id"
 
 function ReposCard({ analyticsTag, icon, withAds }) {
+
+  const getInitialSelectedTag = () => {
+    const githubCardSettings = cardsSettings && cardsSettings.repos ? cardsSettings.repos : null
+    if (githubCardSettings && githubCardSettings.language) {
+      return getTags().find((t) => t.label == githubCardSettings.language)
+    }
+
+    return getTags().find((t) => t.githubValues != null)
+  }
+
+  const getInitialDateRange = () => {
+    const githubCardSettings = cardsSettings && cardsSettings.repos ? cardsSettings.repos : null
+    console.log(githubCardSettings)
+    if (githubCardSettings && githubCardSettings.dateRange) {
+      return githubCardSettings.dateRange
+    }
+    return 'daily'
+  }
+
   const globalTag = { value: 'global', label: 'All trending', githubValues: ['global'] }
 
   const preferences = useContext(PreferencesContext)
 
-  const { userSelectedTags = [], userBookmarks = [] } = preferences
+  const { userSelectedTags = [], dispatcher, cardsSettings } = preferences
 
   const getTags = () => [...userSelectedTags, globalTag]
 
   const { show: showMenu } = useContextMenu()
 
-  const [selectedTag, setSelectedTag] = useState(getTags()[0])
-  const [since, setSince] = useState('daily')
+  const [selectedTag, setSelectedTag] = useState(getInitialSelectedTag())
+  const [since, setSince] = useState(getInitialDateRange())
   const [refresh, setRefresh] = useState(true)
   const dateRangeMapper = {
     daily: 'the day',
     weekly: 'the week',
     monthly: 'the month',
   }
-
-  const getInitialSelectedTag = () => {
-    return getTags().find((t) => t.githubValues != null)
-  }
-
-  useEffect(() => {
-    setSelectedTag(getInitialSelectedTag())
-  }, [])
 
   useEffect(() => {
     setSelectedTag(getInitialSelectedTag())
@@ -98,11 +109,13 @@ function ReposCard({ analyticsTag, icon, withAds }) {
   const onSelectedTagChange = (selTag) => {
     setSelectedTag(selTag)
     trackReposLanguageChange(selTag.value)
+    dispatcher({ type: 'setCardSettings', value: { card: 'repos', language: selTag.label } })
     setRefresh(!refresh)
   }
 
   const onDateRangeChange = (dateRange) => {
     setSince(dateRange)
+    dispatcher({ type: 'setCardSettings', value: { card: 'repos', dateRange } })
     trackReposDateRangeChange(dateRange)
     setRefresh(!refresh)
   }
@@ -165,7 +178,7 @@ function ReposCard({ analyticsTag, icon, withAds }) {
         <Menu id={TAGS_MENU_ID} animation={animation.fade}>
           {getTags().map((tag) => {
             return (
-              <Item key={tag} onClick={() => onSelectedTagChange(tag)}>
+              <Item key={tag.value} onClick={() => onSelectedTagChange(tag)}>
                 {tag.label}
               </Item>
             )
