@@ -671,7 +671,9 @@ Producthunt item
 .navigationItem.active {
   background-color: #3c4f651f;
 }
-
+.changelogTooltip {
+  overflow-x: hidden !important;
+}
 .changelogButton {
   width: 20px;
   height: 20px;

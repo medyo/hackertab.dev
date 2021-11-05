@@ -82,6 +82,7 @@ function Changelog({}) {
         scrollHide={false}
         afterShow={afterShow}
         place="bottom"
+        className="changelogTooltip scrollable"
         globalEventOff="click">
         {loading ? (
           <div className="tooltipLoading">
