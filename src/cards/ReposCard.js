@@ -75,7 +75,6 @@ function ReposCard({ analyticsTag, icon, withAds }) {
 
   const getInitialDateRange = () => {
     const githubCardSettings = cardsSettings && cardsSettings.repos ? cardsSettings.repos : null
-    console.log(githubCardSettings)
     if (githubCardSettings && githubCardSettings.dateRange) {
       return githubCardSettings.dateRange
     }
