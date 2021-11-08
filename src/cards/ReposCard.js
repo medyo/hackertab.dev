@@ -82,18 +82,20 @@ function ReposCard({ analyticsTag, icon, withAds }) {
   }
 
   const globalTag = { value: 'global', label: 'All trending', githubValues: ['global'] }
+  const myLangsTag = { value: 'myLangs', label: 'My Languages', githubValues: ['myLangs'] }
 
   const preferences = useContext(PreferencesContext)
 
   const { userSelectedTags = [], dispatcher, cardsSettings } = preferences
 
-  const getTags = () => [...userSelectedTags, globalTag]
+  const getTags = () => [...userSelectedTags, globalTag, myLangsTag]
 
   const { show: showMenu } = useContextMenu()
 
   const [selectedTag, setSelectedTag] = useState(getInitialSelectedTag())
   const [since, setSince] = useState(getInitialDateRange())
   const [refresh, setRefresh] = useState(true)
+  const [repos, setRepos] = useState({})
   const dateRangeMapper = {
     daily: 'the day',
     weekly: 'the week',
@@ -102,6 +104,7 @@ function ReposCard({ analyticsTag, icon, withAds }) {
 
   useEffect(() => {
     setSelectedTag(getInitialSelectedTag())
+    setRepos({})
     setRefresh(!refresh)
   }, [userSelectedTags])
 
@@ -135,7 +138,34 @@ function ReposCard({ analyticsTag, icon, withAds }) {
       throw Error(`Github Trending does not support ${selectedTag.label}.`)
     }
 
-    const data = await githubApi.getTrending(selectedTag.githubValues[0], since)
+    const tagValue = selectedTag.githubValues[0]
+    const key = `${tagValue}-${since}` 
+
+    if (repos[key]) {
+      return repos[key]
+    }
+
+    if (tagValue == myLangsTag.githubValues[0]) {
+      const promises = userSelectedTags.map(
+        t => !t.githubValues ? false : githubApi.getTrending(t.githubValues[0], since)
+      )
+      let values = await Promise.all(promises)
+      const nbrTags = values.length
+      let minLength = Math.min(...values.map(v => v.length))
+      const data = []
+      for (let index = 0; index < minLength; index++) {
+        for (let i = 0; i < nbrTags; i++) {
+          data.push(values[i][index])
+        }
+      }
+
+      setRepos({ ...repos, [key]: data })
+      return data
+      
+    }
+
+    const data = await githubApi.getTrending(tagValue, since)
+    setRepos({ ...repos, [key]: data })
     return data
   }
 
