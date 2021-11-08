@@ -134,6 +134,10 @@ export const SUPPORTED_SEARCH_ENGINES = [
     label: 'Yandex',
     url: 'https://yandex.ru/search/?text=',
   },
+  {
+    label: 'Startpage',
+    url: 'https://www.startpage.com/sp/search?query=',
+  },
 ]
 export const LS_PREFERENCES_KEY = 'hackerTabPrefs'
 export const LS_ANALYTICS_ID_KEY = 'hackerTabAnalyticsId'
