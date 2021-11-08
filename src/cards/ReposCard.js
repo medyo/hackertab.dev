@@ -63,46 +63,61 @@ const TAGS_MENU_ID = "tags-menu";
 const DATE_RANGE_MENU_ID = "date-range-id"
 
 function ReposCard({ analyticsTag, icon, withAds }) {
+
+  const getInitialSelectedTag = () => {
+    const githubCardSettings = cardsSettings && cardsSettings.repos ? cardsSettings.repos : null
+    if (githubCardSettings && githubCardSettings.language) {
+      return getTags().find((t) => t.label == githubCardSettings.language)
+    }
+
+    return getTags().find((t) => t.githubValues != null)
+  }
+
+  const getInitialDateRange = () => {
+    const githubCardSettings = cardsSettings && cardsSettings.repos ? cardsSettings.repos : null
+    if (githubCardSettings && githubCardSettings.dateRange) {
+      return githubCardSettings.dateRange
+    }
+    return 'daily'
+  }
+
   const globalTag = { value: 'global', label: 'All trending', githubValues: ['global'] }
+  const myLangsTag = { value: 'myLangs', label: 'My Languages', githubValues: ['myLangs'] }
 
   const preferences = useContext(PreferencesContext)
 
-  const { userSelectedTags = [], userBookmarks = [] } = preferences
+  const { userSelectedTags = [], dispatcher, cardsSettings } = preferences
 
-  const getTags = () => [...userSelectedTags, globalTag]
+  const getTags = () => [...userSelectedTags, globalTag, myLangsTag]
 
   const { show: showMenu } = useContextMenu()
 
-  const [selectedTag, setSelectedTag] = useState(getTags()[0])
-  const [since, setSince] = useState('daily')
+  const [selectedTag, setSelectedTag] = useState(getInitialSelectedTag())
+  const [since, setSince] = useState(getInitialDateRange())
   const [refresh, setRefresh] = useState(true)
+  const [repos, setRepos] = useState({})
   const dateRangeMapper = {
     daily: 'the day',
     weekly: 'the week',
     monthly: 'the month',
   }
 
-  const getInitialSelectedTag = () => {
-    return getTags().find((t) => t.githubValues != null)
-  }
-
   useEffect(() => {
     setSelectedTag(getInitialSelectedTag())
-  }, [])
-
-  useEffect(() => {
-    setSelectedTag(getInitialSelectedTag())
+    setRepos({})
     setRefresh(!refresh)
   }, [userSelectedTags])
 
   const onSelectedTagChange = (selTag) => {
     setSelectedTag(selTag)
     trackReposLanguageChange(selTag.value)
+    dispatcher({ type: 'setCardSettings', value: { card: 'repos', language: selTag.label } })
     setRefresh(!refresh)
   }
 
   const onDateRangeChange = (dateRange) => {
     setSince(dateRange)
+    dispatcher({ type: 'setCardSettings', value: { card: 'repos', dateRange } })
     trackReposDateRangeChange(dateRange)
     setRefresh(!refresh)
   }
@@ -123,7 +138,34 @@ function ReposCard({ analyticsTag, icon, withAds }) {
       throw Error(`Github Trending does not support ${selectedTag.label}.`)
     }
 
-    const data = await githubApi.getTrending(selectedTag.githubValues[0], since)
+    const tagValue = selectedTag.githubValues[0]
+    const key = `${tagValue}-${since}` 
+
+    if (repos[key]) {
+      return repos[key]
+    }
+
+    if (tagValue == myLangsTag.githubValues[0]) {
+      const promises = userSelectedTags.map(
+        t => !t.githubValues ? false : githubApi.getTrending(t.githubValues[0], since)
+      )
+      let values = await Promise.all(promises)
+      const nbrTags = values.length
+      let minLength = Math.min(...values.map(v => v.length))
+      const data = []
+      for (let index = 0; index < minLength; index++) {
+        for (let i = 0; i < nbrTags; i++) {
+          data.push(values[i][index])
+        }
+      }
+
+      setRepos({ ...repos, [key]: data })
+      return data
+      
+    }
+
+    const data = await githubApi.getTrending(tagValue, since)
+    setRepos({ ...repos, [key]: data })
     return data
   }
 
@@ -165,7 +207,7 @@ function ReposCard({ analyticsTag, icon, withAds }) {
         <Menu id={TAGS_MENU_ID} animation={animation.fade}>
           {getTags().map((tag) => {
             return (
-              <Item key={tag} onClick={() => onSelectedTagChange(tag)}>
+              <Item key={tag.value} onClick={() => onSelectedTagChange(tag)}>
                 {tag.label}
               </Item>
             )
