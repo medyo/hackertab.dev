@@ -530,6 +530,12 @@ Github languages colors
 .gh-language-android::before {
   background-color: #30D880;
 }
+.gh-language-flutter::before {
+  background-color: #67B1F1;
+}
+.gh-language-dart::before {
+  background-color: #045797;
+}
 
 .headerSelect {
   align-self: center;
