@@ -69,6 +69,12 @@ const trackReposDateRangeChange = (dateRange) => {
   trackEvent('Repos', 'ChangeDateRange', dateRange)
 }
 
+const getResolution = () => {
+  const realWidth = window.screen.width
+  const realHeight = window.screen.height
+  return `${realWidth}x${realHeight}`
+}
+
 const trackEvent = (category, action, label) => {
   if (!process.env.REACT_APP_ANALYTICS_ID) {
     console.log('Missing analytics ID')
@@ -92,6 +98,8 @@ const trackEvent = (category, action, label) => {
     ['ul', navigator.language],
     ['ua', navigator.userAgent],
   ])
+
+  payload.append('sr', getResolution())
 
   if (label) {
     payload.append('el', label.capitalize())
