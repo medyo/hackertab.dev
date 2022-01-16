@@ -61,8 +61,8 @@ const trackUnbookmarkFrom = (dataSource) => {
   trackEvent('Bookmarks', 'Remove', dataSource)
 }
 
-const trackReposLanguageChange = (language) => {
-  trackEvent('Repos', 'ChangeLanguage', language)
+const trackCardLanguageChange = (cardName, language) => {
+  trackEvent(cardName, 'ChangeLanguage', language)
 }
 
 const trackReposDateRangeChange = (dateRange) => {
@@ -135,7 +135,7 @@ export {
   trackOpenLinksNewTab,
   trackBookmarkFrom,
   trackUnbookmarkFrom,
-  trackReposLanguageChange,
+  trackCardLanguageChange,
   trackReposDateRangeChange,
   trackListingModeChange,
   trackPageScroll,

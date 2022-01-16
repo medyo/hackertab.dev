@@ -3,14 +3,14 @@ import CardComponent from "../components/CardComponent";
 import ListComponent from '../components/ListComponent'
 import { VscRepo, VscRepoForked, VscStarFull } from 'react-icons/vsc'
 import githubApi from '../services/github'
-import { Menu, Item, animation, useContextMenu } from 'react-contexify'
-import 'react-contexify/dist/ReactContexify.css'
 import PreferencesContext from '../preferences/PreferencesContext'
 import CardLink from '../components/CardLink'
 import CardItemWithActions from '../components/CardItemWithActions'
-import { trackReposLanguageChange, trackReposDateRangeChange } from '../utils/Analytics'
+import SelectableCard from '../components/SelectableCard'
+import { GLOBAL_TAG, MY_LANGUAGES_TAG, MAX_MERGED_ITEMS_PER_LANGUAGE } from '../Constants'
+import { mergeMultipleDataSources } from '../utils/DataUtils'
 import ColoredLanguagesBadge from '../components/ColoredLanguagesBadge'
-import DropDownMenu from '../components/DropDownMenu'
+import { trackCardLanguageChange } from '../utils/Analytics'
 
 const RepoItem = ({ item, index }) => {
   const { listingMode } = useContext(PreferencesContext)
@@ -53,39 +53,14 @@ const RepoItem = ({ item, index }) => {
 const TAGS_MENU_ID = 'tags-menu'
 const DATE_RANGE_MENU_ID = 'date-range-id'
 
-function ReposCard({ analyticsTag, icon, withAds }) {
-  const getInitialSelectedTag = () => {
-    const githubCardSettings = cardsSettings && cardsSettings.repos ? cardsSettings.repos : null
-    if (githubCardSettings && githubCardSettings.language) {
-      return getTags().find((t) => t.label == githubCardSettings.language)
-    }
-
-    return getTags().find((t) => t.githubValues != null)
-  }
-
-  const getInitialDateRange = () => {
-    const githubCardSettings = cardsSettings && cardsSettings.repos ? cardsSettings.repos : null
-    if (githubCardSettings && githubCardSettings.dateRange) {
-      return githubCardSettings.dateRange
-    }
-    return 'daily'
-  }
-
-  const globalTag = { value: 'global', label: 'All trending', githubValues: ['global'] }
-  const myLangsTag = { value: 'myLangs', label: 'My Languages', githubValues: ['myLangs'] }
-
+function ReposCard({ analyticsTag, label, icon, withAds }) {
   const preferences = useContext(PreferencesContext)
-
   const { userSelectedTags = [], dispatcher, cardsSettings } = preferences
-
-  const getTags = () => [...userSelectedTags, globalTag, myLangsTag]
-
-  const { show: showMenu } = useContextMenu()
-
-  const [selectedTag, setSelectedTag] = useState(getInitialSelectedTag())
-  const [since, setSince] = useState(getInitialDateRange())
+  const [selectedLanguage, setSelectedLanguage] = useState()
+  const [selectedDateRange, setSelectedDateRange] = useState()
   const [refresh, setRefresh] = useState(true)
-  const [repos, setRepos] = useState({})
+  const [cacheCardData, setCacheCardData] = useState({})
+
   const dateRangeMapper = {
     daily: 'the day',
     weekly: 'the week',
@@ -93,81 +68,97 @@ function ReposCard({ analyticsTag, icon, withAds }) {
   }
 
   useEffect(() => {
-    setSelectedTag(getInitialSelectedTag())
-    setRepos({})
-    setRefresh(!refresh)
-  }, [userSelectedTags])
-
-  const onSelectedTagChange = (selTag) => {
-    setSelectedTag(selTag)
-    trackReposLanguageChange(selTag.value)
-    dispatcher({ type: 'setCardSettings', value: { card: 'repos', language: selTag.label } })
-    setRefresh(!refresh)
-  }
-
-  const onDateRangeChange = (dateRange) => {
-    setSince(dateRange)
-    dispatcher({ type: 'setCardSettings', value: { card: 'repos', dateRange } })
-    trackReposDateRangeChange(dateRange)
-    setRefresh(!refresh)
-  }
-
-  const displayMenu = (e) => {
-    const {
-      target: {
-        dataset: { targetId },
-      },
-    } = e
-    if (targetId) {
-      showMenu(e, { id: targetId })
+    if (selectedLanguage) {
+      trackCardLanguageChange('Repos', selectedLanguage.value)
+      dispatcher({
+        type: 'setCardSettings',
+        value: { card: 'repos', language: selectedLanguage.label },
+      })
+      setRefresh(!refresh)
     }
-  }
+  }, [selectedLanguage])
+
+  useEffect(() => {
+    if (selectedDateRange) {
+      trackCardLanguageChange('Repos', selectedDateRange.value)
+      dispatcher({
+        type: 'setCardSettings',
+        value: { card: 'repos', dateRange: selectedDateRange.value },
+      })
+      setRefresh(!refresh)
+    }
+  }, [selectedDateRange])
 
   const fetchRepos = async () => {
-    if (!selectedTag.githubValues) {
-      throw Error(`Github Trending does not support ${selectedTag.label}.`)
+    if (!selectedLanguage?.githubValues) {
+      throw Error(`Github Trending does not support ${selectedLanguage.label}.`)
     }
 
-    const tagValue = selectedTag.githubValues[0]
-    const key = `${tagValue}-${since}`
+    let data = []
+    const cacheKey = `${selectedLanguage.value}-${selectedDateRange.value}`
 
-    if (repos[key]) {
-      return repos[key]
+    // Cache found
+    if (cacheCardData[cacheKey]) {
+      return cacheCardData[cacheKey]
     }
-
-    if (tagValue == myLangsTag.githubValues[0]) {
-      const promises = userSelectedTags.map((t) =>
-        !t.githubValues ? false : githubApi.getTrending(t.githubValues[0], since)
-      )
-      let values = await Promise.all(promises)
-      values = values.filter(Boolean)
-      const nbrTags = values.length
-      let minLength = Math.min(...values.map((v) => v.length))
-      const data = []
-      for (let index = 0; index < minLength; index++) {
-        for (let i = 0; i < nbrTags; i++) {
-          data.push(values[i][index])
+    if (selectedLanguage.value == MY_LANGUAGES_TAG.value) {
+      const selectedTagsReposPromises = userSelectedTags.map((tag) => {
+        if (tag.githubValues) {
+          if (cacheCardData[tag.value + `-${selectedDateRange.value}`]) {
+            return cacheCardData[tag.value + `-${selectedDateRange.value}`]
+          } else {
+            return githubApi.getTrending(tag.githubValues[0], selectedDateRange.value)
+          }
         }
-      }
+        return []
+      })
 
-      setRepos({ ...repos, [key]: data })
-      return data
+      data = await mergeMultipleDataSources(
+        selectedTagsReposPromises,
+        MAX_MERGED_ITEMS_PER_LANGUAGE
+      )
+    } else {
+      data = await githubApi.getTrending(selectedLanguage.githubValues[0], selectedDateRange.value)
     }
 
-    const data = await githubApi.getTrending(tagValue, since)
-    setRepos({ ...repos, [key]: data })
+    data = data.sort((a, b) => b.public_reactions_count - a.public_reactions_count)
+
+    setCacheCardData({ ...cacheCardData, [cacheKey]: data })
     return data
   }
 
   function HeaderTitle() {
-    if (!selectedTag) {
-      return null
-    }
     return (
       <div style={{ display: 'inline-block', margin: 0, padding: 0 }}>
-        <DropDownMenu tagId={TAGS_MENU_ID} label={selectedTag.label} />
+        <SelectableCard
+          isLanguage={true}
+          tagId={TAGS_MENU_ID}
+          selectedTag={selectedLanguage}
+          setSelectedTag={setSelectedLanguage}
+          fallbackTag={GLOBAL_TAG}
+          cardSettings={cardsSettings?.repos?.language}
+          data={userSelectedTags.map((tag) => ({
+            label: tag.label,
+            value: tag.value,
+          }))}
+        />
         <span> Repos of </span>
-        <DropDownMenu tagId={DATE_RANGE_MENU_ID} label={dateRangeMapper[since]} />
+        {
+          <SelectableCard
+            tagId={DATE_RANGE_MENU_ID}
+            selectedTag={selectedDateRange}
+            setSelectedTag={setSelectedDateRange}
+            fallbackTag={{
+              value: Object.keys(dateRangeMapper)[0],
+              label: Object.values(dateRangeMapper)[0],
+            }}
+            cardSettings={cardsSettings?.repos?.dateRange}
+            data={Object.keys(dateRangeMapper).map((tag) => ({
+              label: dateRangeMapper[tag],
+              value: tag,
+            }))}
+          />
+        }
       </div>
     )
   }
@@ -188,24 +179,6 @@ function ReposCard({ analyticsTag, icon, withAds }) {
           refresh={refresh}
           withAds={withAds}
         />
-        <Menu id={TAGS_MENU_ID} animation={animation.fade}>
-          {getTags().map((tag) => {
-            return (
-              <Item key={tag.value} onClick={() => onSelectedTagChange(tag)}>
-                {tag.label}
-              </Item>
-            )
-          })}
-        </Menu>
-        <Menu id={DATE_RANGE_MENU_ID} animation={animation.fade}>
-          {Object.keys(dateRangeMapper).map((key) => {
-            return (
-              <Item key={key} onClick={() => onDateRangeChange(key)}>
-                {dateRangeMapper[key]}
-              </Item>
-            )
-          })}
-        </Menu>
       </CardComponent>
     </>
   )

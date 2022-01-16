@@ -7,10 +7,15 @@ import PreferencesContext from '../preferences/PreferencesContext'
 import CardLink from '../components/CardLink'
 import { BiCommentDetail } from 'react-icons/bi'
 import { MdAccessTime } from 'react-icons/md'
-import { AiOutlineLike, AiTwotoneHeart } from 'react-icons/ai'
-
+import { AiTwotoneHeart } from 'react-icons/ai'
 import CardItemWithActions from '../components/CardItemWithActions'
 import ColoredLanguagesBadge from '../components/ColoredLanguagesBadge'
+import SelectableCard from '../components/SelectableCard'
+import { GLOBAL_TAG, MY_LANGUAGES_TAG, MAX_MERGED_ITEMS_PER_LANGUAGE } from '../Constants'
+import { mergeMultipleDataSources } from '../utils/DataUtils'
+import { trackCardLanguageChange } from '../utils/Analytics'
+
+const HN_MENU_LANGUAGE_ID = 'HN_MENU_LANGUAGE_ID'
 
 const ArticleItem = ({ item, index, analyticsTag }) => {
   const { listingMode } = useContext(PreferencesContext)
@@ -62,33 +67,80 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
 
 function HashNodeCard({ analyticsTag, label, icon, withAds }) {
   const preferences = useContext(PreferencesContext)
-  const { userSelectedTags } = preferences
-
+  const { userSelectedTags, cardsSettings, dispatcher } = preferences
+  const [selectedLanguage, setSelectedLanguage] = useState()
   const [refresh, setRefresh] = useState(true)
+  const [cacheCardData, setCacheCardData] = useState({})
 
   useEffect(() => {
-    setRefresh(!refresh)
-  }, [userSelectedTags])
+    if (selectedLanguage) {
+      trackCardLanguageChange('Hashnode', selectedLanguage.value)
+      dispatcher({
+        type: 'setCardSettings',
+        value: { card: label, language: selectedLanguage.label.toLowerCase() },
+      })
+      setRefresh(!refresh)
+    }
+  }, [selectedLanguage])
 
   const fetchArticles = async () => {
-    const promises = userSelectedTags.map((tag) => {
-      if (tag.hashnodeValues) {
-        return hashNodeApi.getArticles(tag.hashnodeValues[0])
-      }
+    if (!selectedLanguage) {
       return []
-    })
+    }
+    if (!selectedLanguage.label) {
+      throw Error(`Hashnode does not support ${selectedLanguage.label}.`)
+    }
 
-    const results = await Promise.allSettled(promises)
-    return results
-      .map((res) => {
-        let value = res.value
-        if (res.status === 'rejected') {
-          value = []
+    let data = []
+    const cacheKey = `${selectedLanguage.label}`
+
+    // Cache found
+    if (cacheCardData[cacheKey]) {
+      return cacheCardData[cacheKey]
+    }
+
+    if (selectedLanguage.value == MY_LANGUAGES_TAG.value) {
+      const selectedTagsArticlesPromises = userSelectedTags.map((tag) => {
+        if (tag.hashnodeValues) {
+          if (cacheCardData[tag.label]) {
+            return cacheCardData[tag.label]
+          } else {
+            return hashNodeApi.getArticles(tag.hashnodeValues[0])
+          }
         }
-        return value
+        return []
       })
-      .flat()
-      .sort((a, b) => b.public_reactions_count - a.public_reactions_count)
+
+      data = await mergeMultipleDataSources(
+        selectedTagsArticlesPromises,
+        MAX_MERGED_ITEMS_PER_LANGUAGE
+      )
+    } else {
+      data = await hashNodeApi.getArticles(selectedLanguage.hashnodeValues[0])
+    }
+
+    setCacheCardData({ ...cacheCardData, [cacheKey]: data })
+    return data
+  }
+
+  function HeaderTitle() {
+    return (
+      <div style={{ display: 'inline-block', margin: 0, padding: 0 }}>
+        <span> Hashnode </span>
+        <SelectableCard
+          isLanguage={true}
+          tagId={HN_MENU_LANGUAGE_ID}
+          selectedTag={selectedLanguage}
+          setSelectedTag={setSelectedLanguage}
+          fallbackTag={GLOBAL_TAG}
+          cardSettings={cardsSettings?.hashnode?.language}
+          data={userSelectedTags.map((tag) => ({
+            label: tag.label,
+            value: tag.value,
+          }))}
+        />
+      </div>
+    )
   }
 
   const renderItem = (item, index) => (
@@ -98,7 +150,7 @@ function HashNodeCard({ analyticsTag, label, icon, withAds }) {
   return (
     <CardComponent
       icon={<span className="blockHeaderIcon">{icon}</span>}
-      title={label}
+      title={<HeaderTitle />}
       link="https://hashnode.com/">
       <ListComponent
         fetchData={fetchArticles}
