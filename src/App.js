@@ -17,6 +17,7 @@ import MarketingBanner from './components/MarketingBanner'
 import ScrollCardsNavigator from './components/ScrollCardsNavigator'
 import BottomNavigation from './components/BottomNavigation'
 import AppContentLayout from './components/AppContentLayout'
+import 'react-contexify/dist/ReactContexify.css'
 
 function App() {
   const {
