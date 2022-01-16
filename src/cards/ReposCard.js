@@ -1,26 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react'
 import CardComponent from "../components/CardComponent";
-import ListComponent from "../components/ListComponent";
-import { SiGithub } from 'react-icons/si';
-import { VscRepo, VscRepoForked, VscStarFull } from 'react-icons/vsc';
+import ListComponent from '../components/ListComponent'
+import { VscRepo, VscRepoForked, VscStarFull } from 'react-icons/vsc'
 import githubApi from '../services/github'
-import { RiArrowDownSFill } from 'react-icons/ri';
-import {
-  Menu,
-  Item,
-  animation,
-  useContextMenu
-} from "react-contexify";
-import "react-contexify/dist/ReactContexify.css";
+import { Menu, Item, animation, useContextMenu } from 'react-contexify'
+import 'react-contexify/dist/ReactContexify.css'
 import PreferencesContext from '../preferences/PreferencesContext'
-import CardLink from "../components/CardLink";
+import CardLink from '../components/CardLink'
 import CardItemWithActions from '../components/CardItemWithActions'
-import { trackReposLanguageChange, trackReposDateRangeChange } from "../utils/Analytics"
-import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
-
+import { trackReposLanguageChange, trackReposDateRangeChange } from '../utils/Analytics'
+import ColoredLanguagesBadge from '../components/ColoredLanguagesBadge'
+import DropDownMenu from '../components/DropDownMenu'
 
 const RepoItem = ({ item, index }) => {
-
   const { listingMode } = useContext(PreferencesContext)
 
   return (
@@ -28,42 +20,40 @@ const RepoItem = ({ item, index }) => {
       source={'github'}
       key={index}
       index={index}
-      item={{...item, title: `${item.owner ? item.owner + "/" : ""}${item.name}`}}
-      cardItem={(
+      item={{ ...item, title: `${item.owner ? item.owner + '/' : ''}${item.name}` }}
+      cardItem={
         <>
           <CardLink className="githubTitle" link={item.url} analyticsSource="repos">
-            <VscRepo className={"rowTitleIcon"} />
-            {
-              item.owner && `${item?.owner}/`
-            }
+            <VscRepo className={'rowTitleIcon'} />
+            {item.owner && `${item?.owner}/`}
             <b>{item.name}</b>
           </CardLink>
           <p className="rowDescription">{item.description}</p>
-          { listingMode === "normal" && 
+          {listingMode === 'normal' && (
             <div className="rowDetails">
               <ColoredLanguagesBadge languages={[item.programmingLanguage]} />
-              {
-                item.stars &&
-                <span className="rowItem"><VscStarFull className="rowItemIcon" /> {item.stars} stars</span>
-              }
-              {
-                item.forks &&
-                <span className="rowItem"><VscRepoForked className="rowItemIcon" /> {item.forks} forks</span>
-              }
+              {item.stars && (
+                <span className="rowItem">
+                  <VscStarFull className="rowItemIcon" /> {item.stars} stars
+                </span>
+              )}
+              {item.forks && (
+                <span className="rowItem">
+                  <VscRepoForked className="rowItemIcon" /> {item.forks} forks
+                </span>
+              )}
             </div>
-          }
+          )}
         </>
-      )}
+      }
     />
   )
 }
 
-
-const TAGS_MENU_ID = "tags-menu";
-const DATE_RANGE_MENU_ID = "date-range-id"
+const TAGS_MENU_ID = 'tags-menu'
+const DATE_RANGE_MENU_ID = 'date-range-id'
 
 function ReposCard({ analyticsTag, icon, withAds }) {
-
   const getInitialSelectedTag = () => {
     const githubCardSettings = cardsSettings && cardsSettings.repos ? cardsSettings.repos : null
     if (githubCardSettings && githubCardSettings.language) {
@@ -139,20 +129,20 @@ function ReposCard({ analyticsTag, icon, withAds }) {
     }
 
     const tagValue = selectedTag.githubValues[0]
-    const key = `${tagValue}-${since}` 
+    const key = `${tagValue}-${since}`
 
     if (repos[key]) {
       return repos[key]
     }
 
     if (tagValue == myLangsTag.githubValues[0]) {
-      const promises = userSelectedTags.map(
-        t => !t.githubValues ? false : githubApi.getTrending(t.githubValues[0], since)
+      const promises = userSelectedTags.map((t) =>
+        !t.githubValues ? false : githubApi.getTrending(t.githubValues[0], since)
       )
       let values = await Promise.all(promises)
       values = values.filter(Boolean)
       const nbrTags = values.length
-      let minLength = Math.min(...values.map(v => v.length))
+      let minLength = Math.min(...values.map((v) => v.length))
       const data = []
       for (let index = 0; index < minLength; index++) {
         for (let i = 0; i < nbrTags; i++) {
@@ -162,7 +152,6 @@ function ReposCard({ analyticsTag, icon, withAds }) {
 
       setRepos({ ...repos, [key]: data })
       return data
-      
     }
 
     const data = await githubApi.getTrending(tagValue, since)
@@ -176,15 +165,9 @@ function ReposCard({ analyticsTag, icon, withAds }) {
     }
     return (
       <div style={{ display: 'inline-block', margin: 0, padding: 0 }}>
-        <span onClick={displayMenu} className="headerSelect" data-target-id={TAGS_MENU_ID}>
-          {selectedTag.label}
-          <RiArrowDownSFill className="headerSelectIcon" />
-        </span>
+        <DropDownMenu tagId={TAGS_MENU_ID} label={selectedTag.label} />
         <span> Repos of </span>
-        <span onClick={displayMenu} className="headerSelect" data-target-id={DATE_RANGE_MENU_ID}>
-          {dateRangeMapper[since]}
-          <RiArrowDownSFill className="headerSelectIcon" />
-        </span>
+        <DropDownMenu tagId={DATE_RANGE_MENU_ID} label={dateRangeMapper[since]} />
       </div>
     )
   }
