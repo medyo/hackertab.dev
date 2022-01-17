@@ -16,7 +16,7 @@ stores_build() {
     mkdir -p dist
     cp -r build/* dist
     echo 'zipping the dist'
-    zip -r extension.zip dist/* -x "*.DS_Store"
+    cd dist/ && zip -r ../extension.zip * -x "*.DS_Store" && cd ..
 
     echo 'zipping the source code for Firefox'
     zip -r source_code.zip 'public/' 'script/' 'src' 'LICENCE' 'package.json' 'yarn.lock' 'README.md' -x "*.DS_Store"
