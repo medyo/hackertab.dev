@@ -1,12 +1,21 @@
 export const mergeMultipleDataSources = async (promises, maxCount) => {
-  let values = await Promise.all(promises)
-  values = values.filter((value) => value && value.length > 0)
-  const nbrTags = values.length
-  let minLength = Math.min(maxCount, ...values.map((v) => v.length))
+  let promisesRequests = await Promise.allSettled(promises)
+  let promisesValues = promisesRequests
+    .map((res) => {
+      let value = res.value
+      if (res.status === 'rejected') {
+        value = []
+      }
+      return value
+    })
+    .filter(Boolean)
+    .filter((value) => value.length > 1)
+  const nbrTags = promisesValues.length
+  let minLength = Math.min(maxCount, ...promisesValues.map((v) => v.length))
   const data = []
   for (let index = 0; index < minLength; index++) {
     for (let i = 0; i < nbrTags; i++) {
-      data.push(values[i][index])
+      data.push(promisesValues[i][index])
     }
   }
   return data
