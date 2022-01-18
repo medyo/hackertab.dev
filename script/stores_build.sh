@@ -10,8 +10,9 @@ stores_build() {
 
     rm -f source_code.zip
     rm -f extension.zip
-
-    react-scripts build
+    
+    yarn global add @craco/craco
+    craco build
 
     mkdir -p dist
     cp -r build/* dist
@@ -19,7 +20,7 @@ stores_build() {
     cd dist/ && zip -r ../extension.zip * -x "*.DS_Store" && cd ..
 
     echo 'zipping the source code for Firefox'
-    zip -r source_code.zip 'public/' 'script/' 'src' 'LICENCE' 'package.json' 'yarn.lock' 'README.md' -x "*.DS_Store"
+    zip -r source_code.zip 'public/' 'script/' 'src' 'LICENSE' 'package.json' 'yarn.lock' 'README.md' -x "*.DS_Store"
 }
 
 stores_build
