@@ -20,7 +20,7 @@ stores_build() {
     cd dist/ && zip -r ../extension.zip * -x "*.DS_Store" && cd ..
 
     echo 'zipping the source code for Firefox'
-    zip -r source_code.zip 'public/' 'script/' 'src' 'LICENSE' 'package.json' 'yarn.lock' 'README.md' -x "*.DS_Store"
+    zip -r source_code.zip 'public/' 'script/' 'src' 'LICENSE' 'package.json' 'yarn.lock' 'README.md' 'craco.config.js' '.env' -x "*.DS_Store"
 }
 
 stores_build
