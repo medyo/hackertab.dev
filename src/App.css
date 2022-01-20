@@ -19,6 +19,13 @@ body {
   height: 100vh;
   display: flex;
 }
+.appError {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
 a {
   color: var(--primary-text-color);

@@ -18,5 +18,5 @@
 
 .Page .buttonIcon {
   position: relative;
-  top: 2px;
+  vertical-align: middle;
 }
