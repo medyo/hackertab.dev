@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import BeatLoader from "react-spinners/BeatLoader";
-import CarbonAd from "./CarbonAd";
+import CarbonAd from './CarbonAd'
 
 function ListComponent({ fetchData, refresh, renderItem, withAds }) {
   const [items, setItems] = useState([])
