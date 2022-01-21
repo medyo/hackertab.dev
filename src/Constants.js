@@ -29,6 +29,9 @@ const APP = {
   contactEmail: 'hello@hackertab.dev',
   maxCardsPerRow: 4,
   supportLink: 'https://github.com/medyo/hackertab.dev/issues',
+  privacyPolicyLink: 'https://www.hackertab.dev/extension-privacy',
+  termsAndConditionsLink: 'https://www.hackertab.dev/extension-terms-and-conditions',
+  dataSourcesLink: 'https://www.hackertab.dev/data-sources',
   changeLogLink: 'https://api.github.com/repos/medyo/hackertab.dev/releases',
 }
 

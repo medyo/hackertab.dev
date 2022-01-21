@@ -1,22 +1,29 @@
 import React from 'react'
 import { APP } from '../Constants';
 import { RiCodeSSlashFill } from "react-icons/ri"
-import { trackPageView } from "../utils/Analytics"
-import { AiFillHeart } from "react-icons/ai"
-import { HiLightBulb } from "react-icons/hi"
+import { trackPageView } from '../utils/Analytics'
+import { HiLightBulb } from 'react-icons/hi'
 
-
-function Footer({ setCurrentPage, feedbackWidget }) {
-
-  const { show: showFeedbackWidget } = feedbackWidget || { show: false };
+function Footer({ feedbackWidget }) {
+  const { show: showFeedbackWidget } = feedbackWidget || { show: false }
 
   const onSourceCodeClick = () => {
     trackPageView('source code')
-    window.open(APP.repository, "_blank")
+    window.open(APP.repository, '_blank')
   }
 
   const onNewFeatureRequest = () => {
     window.open(APP.supportLink)
+  }
+
+  const onPrivacyPolicyClick = () => {
+    window.open(APP.privacyPolicyLink)
+  }
+  const onTermsClick = () => {
+    window.open(APP.termsAndConditionsLink)
+  }
+  const onDataSourcesClick = () => {
+    window.open(APP.dataSourcesLink)
   }
 
   return (
@@ -29,14 +36,11 @@ function Footer({ setCurrentPage, feedbackWidget }) {
       <a className="linkItem" href="#" onClick={() => onSourceCodeClick()}>
         <RiCodeSSlashFill className="linkItemIcon" /> Source code
       </a>
-      <a
-        className="linkItem"
-        href="#"
-        onClick={() => setCurrentPage('terms')}>{`Terms & conditions`}</a>
-      <a className="linkItem" href="#" onClick={() => setCurrentPage('privacy')}>
+      <a className="linkItem" href="#" onClick={() => onTermsClick()}>{`Terms & conditions`}</a>
+      <a className="linkItem" href="#" onClick={() => onPrivacyPolicyClick()}>
         Privacy policy
       </a>
-      <a className="linkItem" href="#" onClick={() => setCurrentPage('dataSource')}>
+      <a className="linkItem" href="#" onClick={() => onDataSourcesClick()}>
         Data sources
       </a>
     </footer>
