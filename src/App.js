@@ -16,7 +16,7 @@ function App() {
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [currentPage, setCurrentPage] = useState('home')
-  const { state, dispatcher } = useContext(PreferencesContext)
+  const { dispatcher, ...state } = useContext(PreferencesContext)
 
   useEffect(() => {
     trackPageView(currentPage)

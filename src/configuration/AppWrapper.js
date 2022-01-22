@@ -7,7 +7,8 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { trackException } from '../utils/Analytics'
 import { AiFillBug } from 'react-icons/ai'
 import { WiRefresh } from 'react-icons/wi'
-import { APP } from '../Constants'
+import { APP, LS_PREFERENCES_KEY } from '../Constants'
+import AppStorage from '../services/localStorage'
 
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
@@ -24,7 +25,6 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 
 export default function AppWrapper({ children }) {
   const configuration = useContext(ConfigurationContext)
-
   const [state, dispatcher] = useReducer(
     AppReducer,
     {
@@ -42,22 +42,21 @@ export default function AppWrapper({ children }) {
       ],
     },
     (initialState) => {
-      try {
-        let preferences = AppStorage.getItem(LS_PREFERENCES_KEY)
-        if (preferences) {
-          preferences = JSON.parse(preferences)
-          preferences = {
-            ...preferences,
-            userSelectedTags: supportedTags.filter((tag) =>
-              preferences.userSelectedTags.includes(tag.value)
-            ),
-          }
-          return {
-            ...initialState,
-            ...preferences,
-          }
+      let preferences = AppStorage.getItem(LS_PREFERENCES_KEY)
+      if (preferences) {
+        preferences = JSON.parse(preferences)
+        preferences = {
+          ...preferences,
+          userSelectedTags: configuration.supportedTags.filter((tag) =>
+            preferences.userSelectedTags.includes(tag.value)
+          ),
         }
-      } catch (e) {}
+        return {
+          ...initialState,
+          ...preferences,
+        }
+      }
+
       return initialState
     }
   )
@@ -67,13 +66,8 @@ export default function AppWrapper({ children }) {
   }
 
   return (
-    <ErrorBoundary
-      FallbackComponent={ErrorFallback}
-      onError={errorHandler}
-      onReset={() => {
-        // reset the state of your app so the error doesn't happen again
-      }}>
-      <PreferencesProvider value={{ ...state, state, dispatcher: dispatcher }}>
+    <ErrorBoundary FallbackComponent={ErrorFallback} onError={errorHandler}>
+      <PreferencesProvider value={{ ...state, dispatcher: dispatcher }}>
         {children}
       </PreferencesProvider>
     </ErrorBoundary>
