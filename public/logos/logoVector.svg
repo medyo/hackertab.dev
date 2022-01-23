@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200px" height="1200px" viewBox="0 0 1200 1200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Artboard Copy</title>
+    <defs>
+        <rect id="path-1" x="510" y="-28" width="142" height="199"></rect>
+        <filter x="-28.2%" y="-28.6%" width="156.3%" height="140.2%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="-17" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="10.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.194875437 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Artboard-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="#000000" x="0" y="0" width="1200" height="1200"></rect>
+        <g id="Group" transform="translate(125.000000, 295.000000)">
+            <rect id="Rectangle" fill="#FFFFFF" x="0" y="0" width="142" height="610"></rect>
+            <rect id="Rectangle-Copy" fill="#FFFFFF" x="340" y="0" width="142" height="610"></rect>
+            <rect id="Rectangle-Copy-2" fill="#FFFFFF" x="680" y="0" width="142" height="610"></rect>
+            <rect id="Rectangle-Copy-3" fill="#FFFFFF" transform="translate(241.000000, 305.500000) rotate(-90.000000) translate(-241.000000, -305.500000) " x="170" y="206" width="142" height="199"></rect>
+            <g id="Rectangle-Copy-3" transform="translate(581.000000, 71.500000) rotate(-90.000000) translate(-581.000000, -71.500000) ">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+            <rect id="Rectangle-Copy-3" fill="#FFFFFF" transform="translate(921.000000, 71.500000) rotate(-90.000000) translate(-921.000000, -71.500000) " x="850" y="-28" width="142" height="199"></rect>
+        </g>
+    </g>
+</svg>
