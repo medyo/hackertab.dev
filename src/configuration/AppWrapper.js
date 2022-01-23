@@ -9,6 +9,7 @@ import { AiFillBug } from 'react-icons/ai'
 import { WiRefresh } from 'react-icons/wi'
 import { APP, LS_PREFERENCES_KEY } from '../Constants'
 import AppStorage from '../services/localStorage'
+import '../pages/Page.css'
 
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
