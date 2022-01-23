@@ -13,16 +13,20 @@ function Footer({ feedbackWidget }) {
   }
 
   const onNewFeatureRequest = () => {
+    trackPageView('feature request')
     window.open(APP.supportLink)
   }
 
   const onPrivacyPolicyClick = () => {
+    trackPageView('privacy policy')
     window.open(APP.privacyPolicyLink)
   }
   const onTermsClick = () => {
+    trackPageView('terms and conditions')
     window.open(APP.termsAndConditionsLink)
   }
   const onDataSourcesClick = () => {
+    trackPageView('data sources')
     window.open(APP.dataSourcesLink)
   }
 

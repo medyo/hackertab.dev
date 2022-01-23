@@ -15,12 +15,11 @@ function App() {
   const { marketingBannerConfig = {}, feedbackWidget } = useContext(ConfigurationContext)
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
-  const [currentPage, setCurrentPage] = useState('home')
   const { dispatcher, ...state } = useContext(PreferencesContext)
 
   useEffect(() => {
-    trackPageView(currentPage)
-  }, [currentPage])
+    trackPageView('home')
+  }, [])
 
   return (
     <div className="App">
@@ -37,7 +36,7 @@ function App() {
       <AppContentLayout setShowSettings={setShowSettings} />
       <BookmarksSidebar showSidebar={showSideBar} onClose={() => setShowSideBar(false)} />
 
-      <Footer setCurrentPage={setCurrentPage} feedbackWidget={feedbackWidget} />
+      <Footer feedbackWidget={feedbackWidget} />
     </div>
   )
 }
