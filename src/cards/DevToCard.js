@@ -74,7 +74,6 @@ function DevToCard({ analyticsTag, label, icon, withAds }) {
 
   useEffect(() => {
     if (selectedLanguage) {
-      trackCardLanguageChange('Devto', selectedLanguage.value)
       dispatcher({
         type: 'setCardSettings',
         value: { card: label.toLowerCase(), language: selectedLanguage.label },
@@ -141,6 +140,7 @@ function DevToCard({ analyticsTag, label, icon, withAds }) {
           setSelectedTag={setSelectedLanguage}
           fallbackTag={GLOBAL_TAG}
           cardSettings={cardsSettings?.devto?.language}
+          trackEvent={(tag) => trackCardLanguageChange('Devto', tag.value)}
           data={userSelectedTags.map((tag) => ({
             label: tag.label,
             value: tag.value,

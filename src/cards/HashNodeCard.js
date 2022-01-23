@@ -74,7 +74,6 @@ function HashNodeCard({ analyticsTag, label, icon, withAds }) {
 
   useEffect(() => {
     if (selectedLanguage) {
-      trackCardLanguageChange('Hashnode', selectedLanguage.value)
       dispatcher({
         type: 'setCardSettings',
         value: { card: label, language: selectedLanguage.label.toLowerCase() },
@@ -132,6 +131,7 @@ function HashNodeCard({ analyticsTag, label, icon, withAds }) {
           tagId={HN_MENU_LANGUAGE_ID}
           selectedTag={selectedLanguage}
           setSelectedTag={setSelectedLanguage}
+          trackEvent={(tag) => trackCardLanguageChange('Hashnode', tag.value)}
           fallbackTag={GLOBAL_TAG}
           cardSettings={cardsSettings?.hashnode?.language}
           data={userSelectedTags.map((tag) => ({

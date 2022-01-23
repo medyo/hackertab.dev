@@ -69,7 +69,6 @@ function ReposCard({ analyticsTag, label, icon, withAds }) {
 
   useEffect(() => {
     if (selectedLanguage) {
-      trackCardLanguageChange('Repos', selectedLanguage.value)
       dispatcher({
         type: 'setCardSettings',
         value: { card: 'repos', language: selectedLanguage.label },
@@ -80,7 +79,6 @@ function ReposCard({ analyticsTag, label, icon, withAds }) {
 
   useEffect(() => {
     if (selectedDateRange) {
-      trackCardLanguageChange('Repos', selectedDateRange.value)
       dispatcher({
         type: 'setCardSettings',
         value: { card: 'repos', dateRange: selectedDateRange.value },
@@ -137,6 +135,7 @@ function ReposCard({ analyticsTag, label, icon, withAds }) {
           setSelectedTag={setSelectedLanguage}
           fallbackTag={GLOBAL_TAG}
           cardSettings={cardsSettings?.repos?.language}
+          trackEvent={(tag) => trackCardLanguageChange('Repos', tag.value)}
           data={userSelectedTags.map((tag) => ({
             label: tag.label,
             value: tag.value,
@@ -152,6 +151,7 @@ function ReposCard({ analyticsTag, label, icon, withAds }) {
               value: Object.keys(dateRangeMapper)[0],
               label: Object.values(dateRangeMapper)[0],
             }}
+            trackEvent={(tag) => trackCardLanguageChange('Repos', tag.value)}
             cardSettings={cardsSettings?.repos?.dateRange}
             data={Object.keys(dateRangeMapper).map((tag) => ({
               label: dateRangeMapper[tag],

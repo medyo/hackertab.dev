@@ -10,6 +10,7 @@ function SelectableCard({
   fallbackTag,
   selectedTag,
   setSelectedTag,
+  trackEvent,
   isLanguage = false,
 }) {
   const preferences = useContext(PreferencesContext)
@@ -58,6 +59,9 @@ function SelectableCard({
       setSelectedDropDownItem={(item) => {
         const tag = findTagByValue(item.value)
         if (tag) {
+          if (trackEvent) {
+            trackEvent(tag)
+          }
           setSelectedTag(tag)
         }
       }}
