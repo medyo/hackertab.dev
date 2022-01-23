@@ -37,9 +37,7 @@ function ListComponent({ fetchData, refresh, renderItem, withAds }) {
     return items.map((item, index) => {
       let content = [renderItem(item, index)]
       if(withAds && index == 0) {
-        content.unshift(
-          <CarbonAd />
-        )
+        content.unshift(<CarbonAd key={'carbonAd0'} />)
       }
       return content
     })
