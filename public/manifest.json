@@ -7,20 +7,16 @@
     "newtab": "index.html"
   },
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "scripts": ["background.js"]
   },
-  "permissions": [
-    "https://*.hackertab.dev/*"
-  ],
+  "permissions": ["https://*.hackertab.dev/*"],
   "icons": {
     "16": "/logos/logo16.png",
     "32": "/logos/logo32.png",
     "48": "/logos/logo48.png",
     "128": "/logos/logo128.png"
   },
-  "content_security_policy": "script-src 'self' https://*.carbonads.com https://*.buysellads.net https://*.buysellads.com https://*.servedby-buysellads.com https://*.carbonads.net sha256-9wgUeE7o26PX9BlGznRgR+gJarj/ugHxm3UOzKP13EE='; object-src 'self'",
+  "content_security_policy": "script-src 'self' https://*.carbonads.com https://*.buysellads.net https://*.buysellads.com https://*.servedby-buysellads.com https://*.carbonads.net; object-src 'self'",
   "applications": {
     "gecko": {
       "id": "{f8793186-e9da-4332-aa1e-dc3d9f7bb04c}"
