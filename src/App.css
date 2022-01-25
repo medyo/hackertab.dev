@@ -19,6 +19,13 @@ body {
   height: 100vh;
   display: flex;
 }
+.appError {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
 a {
   color: var(--primary-text-color);
@@ -180,7 +187,7 @@ a {
   border-radius: 10px;
   overflow: hidden;
   flex-direction: column;
-  height: 80vh;
+  height: 78vh;
   width: 10vw;
   flex: 0 0 auto;
 }
@@ -231,7 +238,7 @@ a {
   color: var(--card-header-text-color);
   font-weight: 400;
   height: 30px;
-  font-size: 18px;
+  font-size: 16px;
   padding-top: 16px;
   padding-bottom: 16px;
   cursor: pointer;

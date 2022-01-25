@@ -1,0 +1,27 @@
+{
+  "short_name": "Hackertab.dev",
+  "name": "The Developer’s Homepage",
+  "description": "Hackertab helps developers stay up-to-date with the latest tech happenings",
+  "icons": [
+    {
+      "src": "/logos/logoVector.svg",
+      "type": "image/svg+xml",
+      "sizes": "1200x1200"
+    },
+    {
+      "src": "/logos/logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/logos/logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/?source=pwa",
+  "background_color": "#000000",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#000000"
+}

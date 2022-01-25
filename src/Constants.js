@@ -29,6 +29,9 @@ const APP = {
   contactEmail: 'hello@hackertab.dev',
   maxCardsPerRow: 4,
   supportLink: 'https://github.com/medyo/hackertab.dev/issues',
+  privacyPolicyLink: 'https://www.hackertab.dev/privacy-policy',
+  termsAndConditionsLink: 'https://www.hackertab.dev/terms-and-conditions',
+  dataSourcesLink: 'https://www.hackertab.dev/data-sources',
   changeLogLink: 'https://api.github.com/repos/medyo/hackertab.dev/releases',
 }
 
@@ -141,5 +144,19 @@ export const SUPPORTED_SEARCH_ENGINES = [
 ]
 export const LS_PREFERENCES_KEY = 'hackerTabPrefs'
 export const LS_ANALYTICS_ID_KEY = 'hackerTabAnalyticsId'
-
+export const GLOBAL_TAG = {
+  value: 'global',
+  label: 'Trending',
+  githubValues: ['global'],
+  devtoValues: [''],
+  hashnodeValues: ['programming'],
+}
+export const MY_LANGUAGES_TAG = {
+  value: 'myLangs',
+  label: 'My Languages',
+  githubValues: ['myLangs'],
+  devtoValues: ['myLangs'],
+  hashnodeValues: ['myLangs'],
+}
+export const MAX_MERGED_ITEMS_PER_LANGUAGE = 10
 export { APP }
