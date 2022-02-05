@@ -1,31 +1,14 @@
 import React, { useReducer, useContext } from 'react'
+import { LS_PREFERENCES_KEY } from '../Constants'
+import AppStorage from '../services/localStorage'
+import { PreferencesProvider } from '../preferences/PreferencesContext'
 import { getOSMode } from '../services/os'
 import AppReducer from '../preferences/AppReducer'
-import { PreferencesProvider } from '../preferences/PreferencesContext'
 import ConfigurationContext from './ConfigurationContext'
-import { ErrorBoundary } from 'react-error-boundary'
-import { trackException } from '../utils/Analytics'
-import { AiFillBug } from 'react-icons/ai'
-import { WiRefresh } from 'react-icons/wi'
-import { APP, LS_PREFERENCES_KEY } from '../Constants'
-import AppStorage from '../services/localStorage'
-import '../pages/Page.css'
-
-function ErrorFallback({ error, resetErrorBoundary }) {
-  return (
-    <div className="Page appError">
-      <AiFillBug size={64} />
-      <p>Sorry there was a problem loading this page.</p>
-      <p>Please try again or contact the developer at {APP.contactEmail}</p>
-      <button onClick={resetErrorBoundary}>
-        <WiRefresh size={32} className={'buttonIcon'} /> Try again
-      </button>
-    </div>
-  )
-}
 
 export default function AppWrapper({ children }) {
   const configuration = useContext(ConfigurationContext)
+
   const [state, dispatcher] = useReducer(
     AppReducer,
     {
@@ -62,15 +45,9 @@ export default function AppWrapper({ children }) {
     }
   )
 
-  const errorHandler = (error, info) => {
-    trackException(error, true)
-  }
-
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback} onError={errorHandler}>
-      <PreferencesProvider value={{ ...state, dispatcher: dispatcher }}>
-        {children}
-      </PreferencesProvider>
-    </ErrorBoundary>
+    <PreferencesProvider value={{ ...state, dispatcher: dispatcher }}>
+      {children}
+    </PreferencesProvider>
   )
 }

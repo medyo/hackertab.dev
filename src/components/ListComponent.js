@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BeatLoader from "react-spinners/BeatLoader";
 import CarbonAd from './CarbonAd'
+import { trackException } from '../utils/Analytics'
 
 function ListComponent({ fetchData, refresh, renderItem, withAds }) {
   const [items, setItems] = useState([])
@@ -14,11 +15,10 @@ function ListComponent({ fetchData, refresh, renderItem, withAds }) {
     try {
       const data = await fetchData()
       setItems(data)
-    }
-    catch (e) {
+    } catch (e) {
       setError(e)
-    }
-    finally {
+      trackException(e, true)
+    } finally {
       setLoading(false)
     }
   }
@@ -27,16 +27,16 @@ function ListComponent({ fetchData, refresh, renderItem, withAds }) {
   }, [refresh])
 
   if (error) {
-    return (<p className="errorMsg">{error.message}</p>)
+    return <p className="errorMsg">{error.message}</p>
   }
 
   const renderItems = () => {
-    if (!items || items.length == 0 ) {
-      <p className="errorMsg">Could not find any content using the selected languages!</p>
+    if (!items) {
+      return
     }
     return items.map((item, index) => {
       let content = [renderItem(item, index)]
-      if(withAds && index == 0) {
+      if (withAds && index == 0) {
         content.unshift(<CarbonAd key={'carbonAd0'} />)
       }
       return content
@@ -45,13 +45,13 @@ function ListComponent({ fetchData, refresh, renderItem, withAds }) {
 
   return (
     <>
-      {
-        loading ?
-          <div className="cardLoading">
-            <BeatLoader color={"#A9B2BD"} loading={loading} size={15} className="loading" />
-          </div> : renderItems()
-      }
-
+      {loading ? (
+        <div className="cardLoading">
+          <BeatLoader color={'#A9B2BD'} loading={loading} size={15} className="loading" />
+        </div>
+      ) : (
+        renderItems()
+      )}
     </>
   )
 }

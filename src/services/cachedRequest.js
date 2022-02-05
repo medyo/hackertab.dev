@@ -26,7 +26,7 @@ const cachedRequest = async (url) => {
     }
   } catch (error) {
     if (!error.response || error.response.status !== 304) {
-      throw error
+      return null //throw error
     }
     if (!cachedResponse) {
       throw 'Network Failed'
