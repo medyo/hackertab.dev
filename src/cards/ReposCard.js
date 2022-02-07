@@ -88,6 +88,11 @@ function ReposCard({ analyticsTag, label, icon, withAds }) {
   }, [selectedDateRange])
 
   const fetchRepos = async () => {
+   
+    if (!selectedLanguage) {
+      return []
+    }
+
     if (!selectedLanguage?.githubValues) {
       throw Error(`Github Trending does not support ${selectedLanguage.label}.`)
     }
@@ -123,6 +128,7 @@ function ReposCard({ analyticsTag, label, icon, withAds }) {
 
     setCacheCardData({ ...cacheCardData, [cacheKey]: data })
     return data
+    
   }
 
   function HeaderTitle() {

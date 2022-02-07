@@ -1,24 +1,39 @@
-import useRemoteConfiguration from './useRemoteConfiguration';
-import { ConfigurationProvider } from './ConfigurationContext';
-import { LOCAL_CONFIGURATION } from '../Constants';
-import BeatLoader from "react-spinners/BeatLoader";
-import AppWrapper from './AppWrapper'
+import React, { useEffect, useState } from 'react'
+import remoteConfigurationApi from '../services/remoteConfiguration'
+import { ConfigurationProvider } from './ConfigurationContext'
+import { AppLoadingHOC } from './AppLoadingHOC'
+import useAsyncError from '../hooks/useAsyncError'
 
-export default function ConfigurationWrapper({ children }) {
-  const [configuration, loadingConfiguration, errorConfiguration] = useRemoteConfiguration()
-  if (loadingConfiguration) {
-    return (
-      <div className="appLoading">
-        <BeatLoader color={'#A9B2BD'} loading={true} size={15} />
-      </div>
-    )
-  }
+export const ConfigurationWrapper = (props) => {
+  const { setLoading, isLoading } = props
+  const [configurationData, setConfigurationData] = useState(null)
+  const throwError = useAsyncError()
 
-  const getConfiguration = () => (errorConfiguration ? LOCAL_CONFIGURATION : configuration)
+  useEffect(() => {
+    setLoading(true)
+    const setup = async () => {
+      // try {
+      const data = await remoteConfigurationApi.getRemoteConfiguration()
+      if (!data) {
+        throwError(
+          'Could not fetch configuration data, Make sure you are connected to the internet'
+        )
+      } else {
+        setConfigurationData(data)
+      }
+      setLoading(false)
+    }
+
+    setup()
+  }, [])
 
   return (
-    <ConfigurationProvider value={getConfiguration()}>
-      <AppWrapper>{children}</AppWrapper>
-    </ConfigurationProvider>
+    <>
+      {configurationData && (
+        <ConfigurationProvider value={configurationData}>{props.children}</ConfigurationProvider>
+      )}
+    </>
   )
 }
+
+export default AppLoadingHOC(ConfigurationWrapper)
