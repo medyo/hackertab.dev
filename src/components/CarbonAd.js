@@ -32,7 +32,6 @@ export default function CarbonAd() {
                 title={ad.company + ' ' + ad.companyTagline}>
                 <img
                   src={ad.smallImage}
-                  alt="ads via Carbon"
                   border="0"
                   height="100"
                   width="130"
