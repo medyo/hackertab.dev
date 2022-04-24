@@ -18,6 +18,14 @@ export default function CarbonAd() {
     setup()
   }, [])
 
+  const prependHTTP = (url) => {
+    url = decodeURIComponent(url)
+    if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
+      url = 'https://' + url
+    }
+    return url
+  }
+
   return (
     <div className="carbon-ad-wrapper blockRow">
       {ad && (
@@ -25,7 +33,7 @@ export default function CarbonAd() {
           <span>
             <span className="carbon-wrap">
               <a
-                href={ad.statlink}
+                href={prependHTTP(ad.statlink)}
                 className="carbon-img"
                 target="_blank"
                 rel="noopener sponsored"
@@ -40,7 +48,7 @@ export default function CarbonAd() {
               </a>
 
               <a
-                href={ad.statlink}
+                href={prependHTTP(ad.statlink)}
                 className="carbon-text"
                 target="_blank"
                 rel="noopener sponsored">
