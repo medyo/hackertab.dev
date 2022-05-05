@@ -1,16 +1,15 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import './CarbonAd.css'
+import { getBaseApi } from '../utils/DataUtils'
 
 export default function CarbonAd() {
   const [ad, setAd] = useState()
-  const packageFile = require('../../package.json')
 
   useEffect(() => {
     const setup = async () => {
       const userAgent = new URLSearchParams(navigator.userAgent).toString()
-      var baseUrl = process.env.NODE_ENV === 'production' ? packageFile.proxy : ''
-      const request = await axios.get(`${baseUrl}/monetization/?useragent=${userAgent}`)
+      const request = await axios.get(`${getBaseApi('')}/monetization/?useragent=${userAgent}`)
       if (request.data) {
         setAd(request.data.ads[0])
       }
