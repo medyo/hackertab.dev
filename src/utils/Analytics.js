@@ -90,8 +90,8 @@ const trackException = (exceptionMessage, fatal) => {
     console.log('Analytics debug payload', payload.toString())
     return
   }
-
-  navigator.sendBeacon('https://www.google-analytics.com/collect', payload.toString())
+  // Disabled
+  //navigator.sendBeacon('https://www.google-analytics.com/collect', payload.toString())
 }
 const getResolution = () => {
   const realWidth = window.screen.width
@@ -133,8 +133,8 @@ const trackEvent = (category, action, label) => {
     console.log('Analytics debug payload', payload.toString())
     return
   }
-
-  navigator.sendBeacon('https://www.google-analytics.com/collect', payload.toString())
+  // Disabled
+  //navigator.sendBeacon('https://www.google-analytics.com/collect', payload.toString())
 }
 
 const getRandomUserId = () => {
