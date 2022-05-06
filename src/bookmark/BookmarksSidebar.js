@@ -3,7 +3,7 @@ import './Sidebar.css';
 import { VscChromeClose } from 'react-icons/vsc';
 import { TiDelete } from 'react-icons/ti';
 import { HiTicket } from 'react-icons/hi';
-import { SiGithub, SiReddit,  SiStackoverflow, SiProducthunt, SiYcombinator } from 'react-icons/si';
+import { SiGithub, SiReddit, SiProducthunt, SiYcombinator } from 'react-icons/si'
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarContent } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import PreferencesContext from '../preferences/PreferencesContext';
@@ -80,13 +80,6 @@ function BookmarksSidebar({ showSidebar, onClose }) {
 
           </SubMenu>
 
-          <SubMenu title="Featured Jobs" icon={<SiStackoverflow />}
-            suffix={<span className="badge yellow">{jobsBookmarks.length}</span>}
-          >
-            {
-              jobsBookmarks.map((bm, index) => (<BookmarkItem item={bm} key={`ft-${index}`} />))
-            }
-          </SubMenu>
           <SubMenu title="Conferences" icon={<HiTicket />}
             suffix={<span className="badge yellow">{conferencesBookmarks.length}</span>}
           >

@@ -5,7 +5,7 @@
 [![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/stars/ocoipcahhaedjhnpoanfflhbdcpmalmp.svg?colorB=%234FC828&label=rating&style=flat)](https://chrome.google.com/webstore/detail/hackertabdev/ocoipcahhaedjhnpoanfflhbdcpmalmp/reviews)
 
 # Hackertab.dev — The Developer’s Homepage
-Hackertab turns your New Tab page into a geeky one that keeps you as a developer updated with the latest tech news, libs, jobs and events.
+Hackertab turns your New Tab page into a geeky one that keeps you as a developer updated with the latest tech news, libs and events.
 
 <img src="/demo/demo_hackertab.dev.jpeg" width="100%" alt="Hackertab.dev"/>
 
@@ -16,7 +16,7 @@ Hackertab saves you time and gives you a daily dose of tech news you need to kno
 👉 [now.hackertab.dev](https://now.hackertab.dev)
 
 #### How?
-Hackertab brings the latest news, libraries, tech events, jobs... related to your profile (back-end, mobile, full stack, data scientist...)
+Hackertab brings the latest news, libraries, tech events... related to your profile (back-end, mobile, full stack, data scientist...)
 and visualize them in a proper way so you don't have to waste time jumping between different data sources.
 
 
@@ -43,7 +43,6 @@ and visualize them in a proper way so you don't have to waste time jumping betwe
 - DevTo
 - Hashnode
 - Lobsters
-- Stackoverflow Jobs
 - Confs.tech
 - Product Hunt
 - Reddit

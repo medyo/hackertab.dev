@@ -1,20 +1,70 @@
-import React, { Component } from 'react';
-import './CarbonAd.css';
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import './CarbonAd.css'
+import { getBaseApi } from '../utils/DataUtils'
 
-class CarbonAd extends Component {
-  componentDidMount() {
-    const carbon_wrapper = document.querySelector('.carbon-ad-wrapper')
-    const script = document.createElement('script')
-    script.src = process.env.PUBLIC_URL + '/carbon.js?serve=CESDP23I&placement=hackertabdev'
-    script.async = true
-    script.id = '_carbonads_js'
+export default function CarbonAd() {
+  const [ad, setAd] = useState()
 
-    carbon_wrapper.appendChild(script)
+  useEffect(() => {
+    const setup = async () => {
+      const userAgent = new URLSearchParams(navigator.userAgent).toString()
+      const request = await axios.get(`${getBaseApi('')}/monetization/?useragent=${userAgent}`)
+      if (request.data) {
+        setAd(request.data.ads[0])
+      }
+    }
+    setup()
+  }, [])
+
+  const prependHTTP = (url) => {
+    url = decodeURIComponent(url)
+    if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
+      url = 'https://' + url
+    }
+    return url
   }
 
-  render() {
-    return <div className="carbon-ad-wrapper blockRow" />
-  }
+  return (
+    <div className="carbon-ad-wrapper blockRow">
+      {ad && (
+        <div id="carbonads">
+          <span>
+            <span className="carbon-wrap">
+              <a
+                href={prependHTTP(ad.statlink)}
+                className="carbon-img"
+                target="_blank"
+                rel="noopener sponsored"
+                title={ad.company + ' ' + ad.companyTagline}>
+                <img
+                  src={ad.smallImage}
+                  border="0"
+                  height="100"
+                  width="130"
+                  style={{ background: ad.backgroundColor }}
+                />
+              </a>
+
+              <a
+                href={prependHTTP(ad.statlink)}
+                className="carbon-text"
+                target="_blank"
+                rel="noopener sponsored">
+                {ad.description}
+              </a>
+            </span>
+
+            <a
+              href={ad.ad_via_link}
+              className="carbon-poweredby"
+              target="_blank"
+              rel="noopener sponsored">
+              ads via Carbon
+            </a>
+          </span>
+        </div>
+      )}
+    </div>
+  )
 }
-
-export default CarbonAd;

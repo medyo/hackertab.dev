@@ -7,7 +7,6 @@ const ConfigurationContext = React.createContext({
       label: 'Javascript',
       githubValues: ['javascript'],
       confsValues: ['javascript'],
-      stackoverflowValues: ['javascript'],
       devtoValues: ['javascript'],
       hashnodeValues: ['javascript'],
     },

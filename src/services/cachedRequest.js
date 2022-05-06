@@ -1,11 +1,10 @@
 import axios from 'axios';
 import AppStorage from "./localStorage";
-
-var packageFile = require("../../package.json");
+import { getBaseApi } from '../utils/DataUtils'
 
 const axiosInstance = axios.create({
-  baseURL: process.env.NODE_ENV === "production" ? packageFile.proxy : null,
-});
+  baseURL: getBaseApi(null),
+})
 const isWebVersion = !!+process.env.REACT_APP_WEB_BUILD
 
 const cachedRequest = async (url) => {

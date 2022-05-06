@@ -1,3 +1,5 @@
+const packageFile = require('../../package.json')
+
 export const mergeMultipleDataSources = async (promises, maxCount) => {
   let promisesRequests = await Promise.allSettled(promises)
   let promisesValues = promisesRequests
@@ -19,4 +21,8 @@ export const mergeMultipleDataSources = async (promises, maxCount) => {
     }
   }
   return data
+}
+
+export const getBaseApi = (fallback) => {
+  return process.env.NODE_ENV === 'production' ? packageFile.proxy : fallback
 }

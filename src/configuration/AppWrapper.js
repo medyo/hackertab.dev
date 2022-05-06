@@ -34,6 +34,7 @@ export default function AppWrapper({ children }) {
           userSelectedTags: configuration.supportedTags.filter((tag) =>
             preferences.userSelectedTags.includes(tag.value)
           ),
+          cards: preferences.cards.filter((card) => card.name != 'stackoverflow'),
         }
         return {
           ...initialState,

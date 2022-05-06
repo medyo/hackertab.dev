@@ -2,7 +2,6 @@ import React from 'react'
 import HNCard from './cards/HNCard'
 import DevToCard from './cards/DevToCard'
 import ConferencesCard from './cards/ConferencesCard'
-import JobsCard from './cards/JobsCard'
 import ReposCard from './cards/ReposCard'
 import ProductHuntCard from './cards/ProductHuntCard'
 import RedditCard from './cards/RedditCard'
@@ -14,12 +13,10 @@ import { SiYcombinator } from 'react-icons/si'
 import { FaDev } from 'react-icons/fa'
 import { SiProducthunt } from 'react-icons/si'
 import { FaReddit } from 'react-icons/fa'
-import { SiStackoverflow } from 'react-icons/si'
 import { HiTicket } from 'react-icons/hi'
 import HashNodeIcon from './static/icon_hashnode.png'
 import LobstersIcon from './static/icon_lobsters.png'
 import { FaFreeCodeCamp } from 'react-icons/fa'
-
 
 const APP = {
   name: 'Hackertab.dev',
@@ -46,13 +43,6 @@ export const SUPPORTED_CARDS = [
     analyticsTag: 'repos',
     label: 'Github repositories',
     component: ReposCard,
-  },
-  {
-    value: 'jobs',
-    icon: <SiStackoverflow color="#F18032" />,
-    analyticsTag: 'jobs',
-    label: 'Featured jobs',
-    component: JobsCard,
   },
   {
     value: 'hackernews',
