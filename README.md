@@ -46,7 +46,6 @@ and visualize them in a proper way so you don't have to waste time jumping betwe
 - Confs.tech
 - Product Hunt
 - Reddit
-- Lobsters
 - Freecodecamp
 - **or create an issue to ask for a new data source**
 
