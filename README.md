@@ -46,13 +46,11 @@ and visualize them in a proper way so you don't have to waste time jumping betwe
 - Confs.tech
 - Product Hunt
 - Reddit
-- Lobsters
-- Hashnode
 - Freecodecamp
 - **or create an issue to ask for a new data source**
 
 ## Support
-Please th github issues to request help, ask a question, report a bug or add a suggestion. or send an email to hello@hackertab.dev
+Please do not ever hesitate to ask a question, report a bug or add a suggestion. or send an email to hello@hackertab.dev
 
 ## Development
 Please use the develop branch
