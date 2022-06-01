@@ -50,7 +50,7 @@ and visualize them in a proper way so you don't have to waste time jumping betwe
 - **or create an issue to ask for a new data source**
 
 ## Support
-Please do not ever hesitate to ask a question, report a bug or add a suggestion. or send an email to hello@hackertab.dev
+Please do not hesitate to ask a question, report a bug or add a suggestion. or send an email to hello@hackertab.dev
 
 ## Development
 Please use the develop branch
