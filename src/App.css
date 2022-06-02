@@ -876,6 +876,72 @@ Producthunt item
   }
 }
 
+@keyframes cardPlaceholderPulse {
+  0% {
+    opacity: .6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .6;
+  }
+}
+
+.cardPlaceholder {
+  padding: 16px 16px 24px 16px;
+  animation-duration: 1.5s;
+  animation-name: cardPlaceholderPulse;
+  animation-iteration-count: infinite;
+}
+.mediaCardPlaceholder {
+  display: flex;
+  flex-direction: row;
+}
+
+.cardPlaceholder .media {
+  width:  50px;
+  height: 50px;
+  margin-right: 16px;
+  background: var(--placeholder-background-color);
+  display: inline-block;
+}
+.cardPlaceholder .cardContent {
+  display: flex;
+  flex-direction: column;
+}
+.cardPlaceholder .cardUpvote {
+  margin-left: auto;
+  background: var(--placeholder-background-color);
+  width:  33px;
+  height: 44px;
+}
+.cardPlaceholder .line {
+  background: var(--placeholder-background-color);
+  display: block;
+  height: 17px;
+  border-radius: 4px;
+}
+.cardPlaceholder .smallLine {
+  margin-top: 8px;
+  background: var(--placeholder-background-color);
+  display: block;
+  height: 14px;
+  width: 90%;
+  border-radius: 4px;
+}
+.cardPlaceholder .details {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+.cardPlaceholder .detail {
+  background: var(--placeholder-background-color);
+  height: 10px;
+  width: 73px;
+  margin-right: 16px;
+  border-radius: 4px;
+}
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   .block {

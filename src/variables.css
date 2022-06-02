@@ -49,18 +49,6 @@ html.dark {
   --placeholder-background-color: #1c2026;
 }
 
-@keyframes react-placeholder-pulse {
-  0% {
-    opacity: .6;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: .6;
-  }
-}
-
 html.light {
   --app-name-text-color: #253B53;
   --background-color: #EFF6FE;

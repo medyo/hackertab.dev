@@ -3,7 +3,7 @@ import CarbonAd from './CarbonAd'
 import { trackException } from '../utils/Analytics'
 import Placeholder from './Placeholder'
 
-function ListComponent({ fetchData, refresh, renderItem, withAds }) {
+function ListComponent({ fetchData, refresh, renderItem, withAds, placeholder = <Placeholder /> }) {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -43,17 +43,17 @@ function ListComponent({ fetchData, refresh, renderItem, withAds }) {
     })
   }
 
-  function CustomPlaceholder() {
+  function Placeholders() {
     return (
       <>
         {[...Array(5)].map((x, i) => (
-          <Placeholder key={i} />
+          <span key={i}>{placeholder}</span>
         ))}
       </>
     )
   }
 
-  return <>{loading ? <CustomPlaceholder /> : renderItems()}</>
+  return <>{loading ? <Placeholders /> : renderItems()}</>
 }
 
 export default ListComponent
