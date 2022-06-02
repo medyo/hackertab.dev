@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import BeatLoader from "react-spinners/BeatLoader";
+import React, { useState, useEffect } from 'react'
 import CarbonAd from './CarbonAd'
 import { trackException } from '../utils/Analytics'
+import Placeholder from './Placeholder'
 
 function ListComponent({ fetchData, refresh, renderItem, withAds }) {
   const [items, setItems] = useState([])
@@ -43,17 +43,17 @@ function ListComponent({ fetchData, refresh, renderItem, withAds }) {
     })
   }
 
-  return (
-    <>
-      {loading ? (
-        <div className="cardLoading">
-          <BeatLoader color={'#A9B2BD'} loading={loading} size={15} className="loading" />
-        </div>
-      ) : (
-        renderItems()
-      )}
-    </>
-  )
+  function CustomPlaceholder() {
+    return (
+      <>
+        {[...Array(5)].map((x, i) => (
+          <Placeholder key={i} />
+        ))}
+      </>
+    )
+  }
+
+  return <>{loading ? <CustomPlaceholder /> : renderItems()}</>
 }
 
 export default ListComponent

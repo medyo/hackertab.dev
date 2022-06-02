@@ -45,6 +45,20 @@ html.dark {
   --tooltip-text-color: #FFF;
   --tooltip-shadow-color: #000000;
   --tooltip-accent-color: #0366D6;
+
+  --placeholder-background-color: #1c2026;
+}
+
+@keyframes react-placeholder-pulse {
+  0% {
+    opacity: .6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .6;
+  }
 }
 
 html.light {
@@ -93,4 +107,7 @@ html.light {
   --tooltip-text-color: #3C5065;
   --tooltip-shadow-color: #dee4ec;
   --tooltip-accent-color: #0366D6;
+
+  --placeholder-background-color: #e7eff7;
+
 }
