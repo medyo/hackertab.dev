@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'Nunito';
+  src: url("static/fonts/nunito/nunito-regular.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: 'Nunito';
+  font-weight: 600;
+  font-style: normal;
+  src: url("static/fonts/nunito/nunito-semibold.woff2") format('woff2');
+}
+
 html.dark {
   --app-name-text-color: #FFF;
   --background-color: #0D1116;
