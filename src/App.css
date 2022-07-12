@@ -333,7 +333,7 @@ a {
   visibility: visible;
 }
 
-.blockRow:not(:last-child) {
+.blockContent > div > div > div:not(:last-child), .blockRow:not(:last-child) {
   border-bottom: 1px solid var(--card-content-divider);
 }
 

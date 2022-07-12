@@ -22,7 +22,7 @@ function CardComponent({ icon, title, children, fullBlock, link }) {
           </a>
         )}
       </div>
-      <div className="blockContent scrollable">{children}</div>
+      {children}
     </div>
   )
 }

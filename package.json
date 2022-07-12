@@ -27,6 +27,7 @@
     "react-spinners": "^0.10.4",
     "react-toggle": "^4.1.1",
     "react-tooltip": "^4.2.21",
+    "react-virtuoso": "^2.16.3",
     "styled-components": "2",
     "timeago.js": "^4.0.2",
     "web-vitals": "^0.2.4"
