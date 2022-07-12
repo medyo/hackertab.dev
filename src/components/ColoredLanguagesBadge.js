@@ -4,7 +4,6 @@ function ColoredLanguageItem({ language }) {
   return (<span className={"rowItem rowLanguage gh-language-" + language.toLowerCase()}>{language}</span>)
 }
 function ColoredLanguagesBadge({ languages }) {
-  console.log(languages)
   return languages
     ? languages.map(
         (language, index) =>
