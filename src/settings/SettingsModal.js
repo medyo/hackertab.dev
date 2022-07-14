@@ -3,6 +3,7 @@ import ReactModal from 'react-modal';
 import "react-toggle/style.css"
 import { VscClose } from "react-icons/vsc"
 import Select from 'react-select'
+import CreatableSelect from 'react-select/creatable';
 import Toggle from 'react-toggle'
 import '../App.css';
 import './settings.css';
@@ -10,6 +11,8 @@ import PreferencesContext from '../preferences/PreferencesContext';
 import ConfigurationContext from '../configuration/ConfigurationContext';
 import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, APP } from '../Constants'
 import {
+  trackAddLink,
+  trackRemoveLink,
   trackAddLanguage,
   trackRemoveLanguage,
   trackAddCard,
@@ -22,7 +25,7 @@ import {
 function SettingsModal({ showSettings, setShowSettings }) {
   const { supportedTags } = useContext(ConfigurationContext)
   const preferences = useContext(PreferencesContext)
-  const { dispatcher, cards, userSelectedTags, openLinksNewTab, listingMode, theme, searchEngine } =
+  const { dispatcher, cards, userSelectedTags, userSelectedLinks, openLinksNewTab, listingMode, theme, searchEngine } =
     preferences
   const [selectedCards, setSelectedCards] = useState(cards)
 
@@ -41,6 +44,26 @@ function SettingsModal({ showSettings, setShowSettings }) {
     }
 
     dispatcher({ type: 'setUserSelectedTags', value: tags })
+  }
+  
+  const onLinksSelectChange = (tags, metas) => {
+    switch (metas.action) {
+      case 'select-option':
+        trackAddLink(metas.option.label)
+        break
+      case 'remove-value':
+        trackRemoveLink(metas.removedValue.label)
+        break
+    }
+
+    let formatedTags = tags.map(el => {
+      let pattern = /^((http|https):\/\/)/;
+      if(!pattern.test(el.value)) el.value = "https://" + el.value;
+      el.label = new URL(el.value).hostname.replace("www.", "")
+      return el
+    })
+
+    dispatcher({ type: 'setUserSelectedLinks', value: formatedTags })
   }
 
   const onlistingModeChange = (e) => {
@@ -111,6 +134,20 @@ function SettingsModal({ showSettings, setShowSettings }) {
               isSearchable={false}
               classNamePrefix={'hackertab'}
               onChange={onTagsSelectChange}
+            />
+          </div>
+        </div>
+
+        <div className="settingRow">
+          <p className="settingTitle">Easy access websites</p>
+          <div className="settingContent">
+            <CreatableSelect
+              options={userSelectedLinks}
+              defaultValue={userSelectedLinks}
+              isMulti={true}
+              isClearable={false}
+              classNamePrefix={'hackertab'}
+              onChange={onLinksSelectChange}
             />
             <p className="settingHint">
               Missing language or technology? create an issue{' '}

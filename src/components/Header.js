@@ -4,6 +4,7 @@ import { CgTab } from 'react-icons/cg';
 import { BsFillBookmarksFill } from "react-icons/bs"
 import { ReactComponent as HackertabLogo } from '../logo.svg';
 import UserTags from "./UserTags";
+import ShortLinks from "./ShortLinks";
 import { SUPPORTED_SEARCH_ENGINES } from '../Constants'
 import SettingsModal from '../settings/SettingsModal'
 import { BsMoon } from 'react-icons/bs'
@@ -112,7 +113,10 @@ function Header({ state, dispatcher, showSideBar, setShowSideBar, showSettings, 
           </button>
         </div>
         <div className="break"></div>
-        <UserTags userSelectedTags={state.userSelectedTags} onAddClicked={onSettingsClick} />
+        <div className="tag-container">
+          <UserTags userSelectedTags={state.userSelectedTags} onAddClicked={onSettingsClick} />
+          <ShortLinks userSelectedLinks={state.userSelectedLinks} onAddClicked={onSettingsClick} />
+        </div>
       </header>
     </>
   )

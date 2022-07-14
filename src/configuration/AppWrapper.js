@@ -13,6 +13,7 @@ export default function AppWrapper({ children }) {
     AppReducer,
     {
       userSelectedTags: configuration.supportedTags.filter((t) => t.value === 'javascript'),
+      userSelectedLinks: [{ label: "hackertab.dev", value: "https://hackertab.dev/" }],
       userBookmarks: [],
       theme: getOSMode(),
       openLinksNewTab: true,

@@ -9,6 +9,13 @@ const AppReducer = (state, action) => {
 
 
   switch (action.type) {
+    case 'setUserSelectedLinks':
+      // check duplication.
+      newState = {
+        ...newState,
+        userSelectedLinks: value,
+      }
+      break
     case 'setUserSelectedTags':
       // check duplication.
       newState = {
@@ -69,6 +76,7 @@ const AppReducer = (state, action) => {
 
   const storageData = {
     userSelectedTags: newState.userSelectedTags.map((tag) => tag.value),
+    userSelectedLinks: newState.userSelectedLinks,
     theme: newState.theme,
     cards: newState.cards,
     openLinksNewTab: newState.openLinksNewTab,

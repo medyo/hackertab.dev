@@ -33,8 +33,17 @@ const trackAddLanguage = (language) => {
   trackEvent('Language', 'Add', language)
 }
 
-const trackRemoveLanguage = (card) => {
-  trackEvent('Language', 'Remove', card)
+const trackRemoveLanguage = (language) => {
+  trackEvent('Language', 'Remove', language)
+}
+
+
+const trackAddLink = (link) => {
+  trackEvent('Link', 'Add', link)
+}
+
+const trackRemoveLink = (link) => {
+  trackEvent('Link', 'Remove', link)
 }
 
 const trackAddCard = (card) => {
@@ -158,6 +167,8 @@ export {
   trackOpenLinkFrom,
   trackAddLanguage,
   trackRemoveLanguage,
+  trackAddLink,
+  trackRemoveLink,
   trackAddCard,
   trackRemoveCard,
   trackOpenLinksNewTab,
