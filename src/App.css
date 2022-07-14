@@ -993,3 +993,14 @@ Producthunt item
     width: calc((1800px - 12px * 4)/4);
   }
 }
+
+.tag-container {
+  display: flex;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.tag-container .shortlinks {
+  flex: 1;
+  justify-content: center;
+}

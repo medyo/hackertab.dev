@@ -7,9 +7,13 @@
     "newtab": "index.html"
   },
   "background": {
-    "scripts": ["background.js"]
+    "scripts": [
+      "background.js"
+    ]
   },
-  "permissions": ["https://*.hackertab.dev/*"],
+  "permissions": [
+    "https://*.hackertab.dev/*"
+  ],
   "icons": {
     "16": "/logos/logo16.png",
     "32": "/logos/logo32.png",
