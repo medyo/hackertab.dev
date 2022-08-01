@@ -12,7 +12,8 @@
     ]
   },
   "permissions": [
-    "https://*.hackertab.dev/*"
+    "https://*.hackertab.dev/*",
+    "bookmarks"
   ],
   "icons": {
     "16": "/logos/logo16.png",

@@ -135,6 +135,12 @@ function SettingsModal({ showSettings, setShowSettings }) {
               classNamePrefix={'hackertab'}
               onChange={onTagsSelectChange}
             />
+            <p className="settingHint">
+              Missing language or technology? create an issue{' '}
+              <a href="#" onClick={(e) => window.open(APP.supportLink, '_blank')}>
+                here
+              </a>
+            </p>
           </div>
         </div>
 
@@ -149,12 +155,6 @@ function SettingsModal({ showSettings, setShowSettings }) {
               classNamePrefix={'hackertab'}
               onChange={onLinksSelectChange}
             />
-            <p className="settingHint">
-              Missing language or technology? create an issue{' '}
-              <a href="#" onClick={(e) => window.open(APP.supportLink, '_blank')}>
-                here
-              </a>
-            </p>
           </div>
         </div>
 

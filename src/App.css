@@ -61,7 +61,7 @@ a {
   align-items: center;
   align-content: center;
   flex-wrap: wrap;
-  height:86px;
+  /* height:86px; */
   margin: 0 1% 12px 1%;
 }
 
@@ -434,6 +434,17 @@ a {
   border-radius: 20px;
   padding: 2px 8px;
   margin-right: 8px;
+}
+.link-tag {
+  width: 1rem;
+  height: 1rem;
+  padding: 0.5rem;
+}
+.link-tag img {
+  width: 100%;
+}
+.add-link-tag .tagIcon {
+  top: .3rem;
 }
 .tagHoverable:hover {
   cursor: pointer;
@@ -856,6 +867,8 @@ Producthunt item
   .AppHeader {
     padding: 0;
     margin: 0 12px;
+    gap: .5rem;
+    justify-content: center;
   }
   .AppFooter {
     display: none;

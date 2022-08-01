@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import './App.css'
 import ConfigurationContext from './configuration/ConfigurationContext'
+import AppStorage from './services/localStorage'
+import { LS_PREFERENCES_KEY } from './Constants'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import { trackPageView } from './utils/Analytics'
@@ -17,8 +19,32 @@ function App() {
   const [showSettings, setShowSettings] = useState(false)
   const { dispatcher, ...state } = useContext(PreferencesContext)
 
+  let links = state.userSelectedLinks
+  
+  function traverseBookmarks(bookmarkTreeNodes) {
+    for(var i=0; i < bookmarkTreeNodes.length; i++) {
+      if (bookmarkTreeNodes[i].url) {
+        links.push({
+          label: bookmarkTreeNodes[i].title,
+          value: bookmarkTreeNodes[i].url
+        })
+        dispatcher({ type: 'setUserSelectedLinks', value: links })
+      }
+
+      if(bookmarkTreeNodes[i].children) {
+          traverseBookmarks(bookmarkTreeNodes[i].children);
+      }
+    }
+  }
+
   useEffect(() => {
     trackPageView('home')
+    let preferences = AppStorage.getItem(LS_PREFERENCES_KEY)
+    if (!preferences && chrome && chrome.bookmarks) {
+      chrome.bookmarks.getTree((bookmarkTreeNodes) => {
+        traverseBookmarks(bookmarkTreeNodes)
+      })
+    }
   }, [])
 
   return (
