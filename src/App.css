@@ -7,6 +7,7 @@ body {
   color: var(--primary-text-color);  
   font-family: "nunito";
   font-size: 100%;
+  overflow-y: scroll;
 }
 .transitionBgColor {
   transition: background-color 0.3s ease-in-out; 
