@@ -344,6 +344,8 @@ a {
   font-size: 16px;
   text-decoration: none;
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 .rowTitle:hover {
   color: var(--primary-hover-text-color);
@@ -392,10 +394,12 @@ a {
 .rowDescription .rowItem {
   font-size: 12px;
 }
-.rowDetails  .hnRowItem {
+.rowDetails .hnRowItem {
   color: #F6682F
 }
-
+.rowDetails .inRowItem {
+  color: #4799EB
+}
 .rowDetails .redditRowItem {
   color: #FA481D;
 }
