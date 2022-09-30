@@ -9,11 +9,12 @@ import LobstersCard from './cards/LobstersCard'
 import HashNodeCard from './cards/HashNodeCard'
 import IndieHackersCard from './cards/IndieHackersCard'
 import FreeCodeCampCard from './cards/FreeCodeCampCard'
+import MediumCard from './cards/MediumCard'
 import { SiGithub } from 'react-icons/si'
 import { SiYcombinator } from 'react-icons/si'
 import { FaDev } from 'react-icons/fa'
 import { SiProducthunt } from 'react-icons/si'
-import { FaReddit } from 'react-icons/fa'
+import { FaReddit, FaMediumM } from 'react-icons/fa'
 import { HiTicket } from 'react-icons/hi'
 import HashNodeIcon from './static/icon_hashnode.png'
 import LobstersIcon from './static/icon_lobsters.png'
@@ -109,6 +110,13 @@ export const SUPPORTED_CARDS = [
     label: 'IndieHackers',
     component: IndieHackersCard,
   },
+  {
+    value: 'medium',
+    icon: <FaMediumM />,
+    analyticsTag: 'medium',
+    label: 'Medium',
+    component: MediumCard,
+  }
 ]
 
 export const SUPPORTED_SEARCH_ENGINES = [
@@ -149,6 +157,7 @@ export const GLOBAL_TAG = {
   githubValues: ['global'],
   devtoValues: [''],
   hashnodeValues: ['programming'],
+  mediumValues: ['javascript'], //TODO: change javascript
 }
 export const MY_LANGUAGES_TAG = {
   value: 'myLangs',
@@ -156,6 +165,7 @@ export const MY_LANGUAGES_TAG = {
   githubValues: ['myLangs'],
   devtoValues: ['myLangs'],
   hashnodeValues: ['myLangs'],
+  mediumValues: ['myLangs'],
 }
 export const MAX_MERGED_ITEMS_PER_LANGUAGE = 10
 export { APP }
