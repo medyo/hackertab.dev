@@ -27,7 +27,7 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
       item={{ ...item, url: item.link }}
       cardItem={
         <>
-          <CardLink link={item.link} analyticsSource={analyticsTag}>
+          <CardLink link={item.mediumUrl} analyticsSource={analyticsTag}>
             {listingMode === 'compact' && (
               <div className="counterWrapper">
                 <AiTwotoneHeart />
