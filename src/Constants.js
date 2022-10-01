@@ -157,7 +157,7 @@ export const GLOBAL_TAG = {
   githubValues: ['global'],
   devtoValues: [''],
   hashnodeValues: ['programming'],
-  mediumValues: ['javascript'], //TODO: change javascript
+  mediumValues: ['programming'],
 }
 export const MY_LANGUAGES_TAG = {
   value: 'myLangs',
