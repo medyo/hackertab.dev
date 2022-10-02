@@ -34,6 +34,8 @@ const APP = {
   dataSourcesLink: 'https://www.hackertab.dev/data-sources',
   changeLogLink: 'https://api.github.com/repos/medyo/hackertab.dev/releases',
 }
+export const ANALYTICS_ENDPOINT = 'https://api.hackertab.dev/analytics'
+export const ANALYTICS_SDK_KEY = '9662c93f91473ba6e96711b22e0a367d'
 
 export const LOCAL_CONFIGURATION = {
   supportedTags: [], // Loaded remotly
