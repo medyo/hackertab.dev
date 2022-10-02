@@ -345,7 +345,6 @@ a {
   text-decoration: none;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
 }
 .rowTitle:hover {
   color: var(--primary-hover-text-color);
