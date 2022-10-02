@@ -157,12 +157,12 @@ const trackEvent = (category, action, label) => {
 
   payload.append('cd1', getAppVersion())
 
-  track(`${category.toLowerCase()}_${action.toLowerCase()}`)
-
   if (process.env.NODE_ENV !== 'production') {
     console.log('Analytics debug payload', payload.toString())
     return
   }
+
+  track(`${category.toLowerCase()}_${action.toLowerCase()}`)
 
   navigator.sendBeacon('https://www.google-analytics.com/collect', payload.toString())
 }
