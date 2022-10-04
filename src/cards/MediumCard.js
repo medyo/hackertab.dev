@@ -66,7 +66,7 @@ function MediumCard({ analyticsTag, label, icon, withAds }) {
     if (selectedLanguage) {
       dispatcher({
         type: 'setCardSettings',
-        value: { card: label, language: selectedLanguage.label.toLowerCase() },
+        value: { card: label.toLowerCase(), language: selectedLanguage.label },
       })
       setRefresh(!refresh)
     }
@@ -121,7 +121,7 @@ function MediumCard({ analyticsTag, label, icon, withAds }) {
           tagId={'MEDIUM_MENU_LANGUAGE_ID'}
           selectedTag={selectedLanguage}
           setSelectedTag={setSelectedLanguage}
-          trackEvent={(tag) => trackCardLanguageChange('medium', tag.value)}
+          trackEvent={(tag) => trackCardLanguageChange('Medium', tag.value)}
           fallbackTag={GLOBAL_TAG}
           cardSettings={cardsSettings?.medium?.language}
           data={userSelectedTags.map((tag) => ({
