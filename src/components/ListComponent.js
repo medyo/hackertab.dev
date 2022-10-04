@@ -45,6 +45,7 @@ function ListComponent({ fetchData, refresh, renderItem, withAds, placeholder = 
 
     return (
       <Virtuoso
+        style={{ height: '71vh' }}
         className="blockContent scrollable"
         components={{ Header: () => ListHeader(withAds) }}
         data={items}
