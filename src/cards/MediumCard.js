@@ -7,10 +7,8 @@ import PreferencesContext from '../preferences/PreferencesContext'
 import CardLink from '../components/CardLink'
 import { BiCommentDetail } from 'react-icons/bi'
 import { MdAccessTime } from 'react-icons/md'
-import { AiTwotoneHeart } from 'react-icons/ai'
-import { IoMdHand } from 'react-icons/io'
+import { MdWavingHand } from 'react-icons/md'
 import CardItemWithActions from '../components/CardItemWithActions'
-import ColoredLanguagesBadge from '../components/ColoredLanguagesBadge'
 import SelectableCard from '../components/SelectableCard'
 import { GLOBAL_TAG, MY_LANGUAGES_TAG, MAX_MERGED_ITEMS_PER_LANGUAGE } from '../Constants'
 import { mergeMultipleDataSources } from '../utils/DataUtils'
@@ -30,33 +28,26 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
           <CardLink link={item.mediumUrl} analyticsSource={analyticsTag}>
             {listingMode === 'compact' && (
               <div className="counterWrapper">
-                <AiTwotoneHeart />
-                <span className="value">{item.totalReactions || 0}</span>
+                <MdWavingHand />
+                <span className="value">{item.clapCount || 0}</span>
               </div>
             )}
             <div className="subTitle">{item.title}</div>
           </CardLink>
 
           {listingMode === 'normal' && (
-            <>
-              <p className="rowDescription">
-                <span className="rowItem">
-                  <MdAccessTime className={'rowTitleIcon'} />
-                  {format(new Date(item.latestPublishedAt))}
-                </span>
-                <span className="rowItem">
-                  <BiCommentDetail className={'rowTitleIcon'} />
-                  {item.replyCount || 0} comments
-                </span>
-                <span className="rowItem">
-                  <IoMdHand className={'rowTitleIcon'} />
-                  {item.totalReactions || 0} claps
-                </span>
-              </p>
-              <p className="rowDetails">
-                <ColoredLanguagesBadge languages={item.tag_list} />
-              </p>
-            </>
+            <p className="rowDetails">
+              <span className="rowItem mediumRowItem">
+                <MdWavingHand className={'rowItemIcon'} /> {item.clapCount || 0} claps
+              </span>
+              <span className="rowItem">
+                <BiCommentDetail className={'rowItemIcon'} /> {item.commentsCount || 0} comments
+              </span>
+              <span className="rowItem">
+                <MdAccessTime className={'rowItemIcon'} />
+                {format(new Date(item.latestPublishedAt))}
+              </span>
+            </p>
           )}
         </>
       }
