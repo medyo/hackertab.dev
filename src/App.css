@@ -409,7 +409,9 @@ a {
 .rowDetails .mediumRowItem {
   color: #000000;
 }
-
+.dark .rowDetails .mediumRowItem {
+color:#FFFFFF;
+}
 .rowItemIcon {
   position: relative;
   top: 1px;
