@@ -62,7 +62,7 @@ a {
   align-content: center;
   flex-wrap: wrap;
   height:86px;
-  margin: 0 1% 12px 1%;
+  margin: 0 1% 0px 1%;
 }
 
 .AppFooter {
@@ -193,7 +193,6 @@ a {
 .blockContent {
   flex-grow: 1;
   overflow-y: auto;
-  height: calc(80vh - 1% - 16px - 30px);
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
@@ -202,6 +201,7 @@ a {
 .scrollable {
   scrollbar-color: var(--scrollbar-accent-color) var(--scrollbar-background-color);
   scrollbar-width: thin;
+  overflow-y: hidden;
 }
 
 .scrollable::-webkit-scrollbar {
@@ -233,13 +233,12 @@ a {
 .blockHeader {
   text-align: center;
   vertical-align: baseline;
-  background: var(--card-header-background-color);
   color: var(--card-header-text-color);
   font-weight: 400;
   height: 30px;
   font-size: 16px;
   padding-top: 16px;
-  padding-bottom: 16px;
+  padding-bottom: 8px;
   cursor: pointer;
 }
 .blockHeader:hover .blockHeaderLink{
@@ -407,6 +406,10 @@ a {
   color: #A91916
 }
 
+.rowDetails .mediumRowItem {
+  color: #000000;
+}
+
 .rowItemIcon {
   position: relative;
   top: 1px;
@@ -428,6 +431,7 @@ a {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 4px;
+  margin-top: 12px;
 }
 
 .tag {
