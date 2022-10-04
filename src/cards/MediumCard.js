@@ -22,7 +22,7 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
       source={'medium'}
       index={index}
       key={index}
-      item={{ ...item, url: item.link }}
+      item={{ ...item, url: item.mediumUrl }}
       cardItem={
         <>
           <CardLink link={item.mediumUrl} analyticsSource={analyticsTag}>
