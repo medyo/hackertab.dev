@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import CarbonAd from './CarbonAd'
 import { trackException } from '../utils/Analytics'
 import Placeholder from './Placeholder'
-import { Virtuoso } from 'react-virtuoso'
-
 
 function ListComponent({ fetchData, refresh, renderItem, withAds, placeholder = <Placeholder /> }) {
   const [items, setItems] = useState([])
