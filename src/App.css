@@ -196,12 +196,12 @@ a {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  height: calc(80vh - 1% - 46px);
 }
 
 .scrollable {
   scrollbar-color: var(--scrollbar-accent-color) var(--scrollbar-background-color);
   scrollbar-width: thin;
-  overflow-y: hidden;
 }
 
 .scrollable::-webkit-scrollbar {
@@ -267,6 +267,10 @@ a {
   position: relative;
 }
 
+.blockRow:last-child {
+  padding-bottom: 42px;
+
+}
 /* Actions */
 .blockActions {
   position: absolute;
@@ -332,7 +336,8 @@ a {
   visibility: visible;
 }
 
-.blockContent > div > div > div:not(:last-child), .blockRow:not(:last-child) {
+/* .blockContent > div > div > div:not(:last-child), .blockRow:not(:last-child) */
+.blockRow:not(:last-child) {
   border-bottom: 1px solid var(--card-content-divider);
 }
 

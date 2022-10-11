@@ -4,12 +4,6 @@ import { trackException } from '../utils/Analytics'
 import Placeholder from './Placeholder'
 import { Virtuoso } from 'react-virtuoso'
 
-function ListHeader(withAds) {
-  if (!withAds) {
-    return null
-  }
-  return <CarbonAd key={'carbonAd0'} />
-}
 
 function ListComponent({ fetchData, refresh, renderItem, withAds, placeholder = <Placeholder /> }) {
   const [items, setItems] = useState([])
@@ -43,15 +37,13 @@ function ListComponent({ fetchData, refresh, renderItem, withAds, placeholder = 
       return
     }
 
-    return (
-      <Virtuoso
-        style={{ height: '71vh' }}
-        className="blockContent scrollable"
-        components={{ Header: () => ListHeader(withAds) }}
-        data={items}
-        itemContent={(index, item) => renderItem(item, index)}
-      />
-    )
+    return items.map((item, index) => {
+      let content = [renderItem(item, index)]
+      if (withAds && index == 0) {
+        content.unshift(<CarbonAd key={'carbonAd0'} />)
+      }
+      return content
+    })
   }
 
   function Placeholders() {
