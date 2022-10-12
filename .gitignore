@@ -3,7 +3,7 @@
 .eslintcache
 .env*
 *.zip
-
+.todo
 # dependencies
 /node_modules
 /.pnp

@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState, useContext } from 'react'
-import { SiProducthunt } from 'react-icons/si';
 import CardComponent from "../components/CardComponent";
 import ListComponent from "../components/ListComponent";
 import { BiCommentDetail } from "react-icons/bi"
@@ -9,6 +8,7 @@ import PreferencesContext from '../preferences/PreferencesContext'
 import CardLink from "../components/CardLink"
 import CardItemWithActions from '../components/CardItemWithActions'
 import producthuntApi from '../services/producthunt'
+import ProductHuntPlaceholder from '../components/ProductHuntPlaceholder'
 
 const ProductItem = ({ item, index, analyticsTag }) => {
 
@@ -78,6 +78,7 @@ function ProductHuntCard({ label, icon, analyticsTag, withAds }) {
       <ListComponent
         fetchData={fetchProducts}
         renderItem={renderItem}
+        placeholder={<ProductHuntPlaceholder />}
         refresh={refresh}
         withAds={withAds}
       />

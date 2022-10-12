@@ -1,6 +1,14 @@
 import AppStorage from '../services/localStorage';
 import { LS_ANALYTICS_ID_KEY } from '../Constants';
+import { init, track, Identify, identify } from '@amplitude/analytics-browser'
+import { ANALYTICS_SDK_KEY, ANALYTICS_ENDPOINT } from '../Constants'
 
+const initAnalytics = () => {
+  init(ANALYTICS_SDK_KEY, getRandomUserId(), {
+    disableCookies: true,
+    serverUrl: ANALYTICS_ENDPOINT,
+  })
+}
 const trackPageScroll = (direction) => {
   trackEvent('Pages', 'Scroll', direction)
 }
@@ -39,6 +47,29 @@ const trackRemoveLanguage = (card) => {
 
 const trackAddCard = (card) => {
   trackEvent('Card', 'Add', card)
+}
+
+const identifyUserLanguages = (languages) => {
+  const identity = new Identify()
+  identity.set('Languages', languages)
+  identify(identity)
+}
+
+const identifyListingMode = (listingMode) => {
+  const identity = new Identify()
+  identity.set('ListingMode', listingMode)
+  identify(identity)
+}
+const identifyUserCards = (cards) => {
+  const identity = new Identify()
+  identity.set('Sources', cards)
+  identify(identity)
+}
+
+const identifyUserTheme = (theme) => {
+  const identity = new Identify()
+  identity.set('Theme', theme)
+  identify(identity)
 }
 
 const trackRemoveCard = (card) => {
@@ -90,8 +121,8 @@ const trackException = (exceptionMessage, fatal) => {
     console.log('Analytics debug payload', payload.toString())
     return
   }
-  // Disabled
-  //navigator.sendBeacon('https://www.google-analytics.com/collect', payload.toString())
+
+  navigator.sendBeacon('https://www.google-analytics.com/collect', payload.toString())
 }
 const getResolution = () => {
   const realWidth = window.screen.width
@@ -124,28 +155,39 @@ const trackEvent = (category, action, label) => {
     payload.append('el', label.capitalize())
   }
 
-  try {
-    var manifestData = chrome.runtime.getManifest()
-    payload.append('cd1', manifestData.version)
-  } catch (e) {}
+  payload.append('cd1', getAppVersion())
 
   if (process.env.NODE_ENV !== 'production') {
     console.log('Analytics debug payload', payload.toString())
     return
   }
-  // Disabled
-  //navigator.sendBeacon('https://www.google-analytics.com/collect', payload.toString())
+
+  track(`${category.toLowerCase()}_${action.toLowerCase()}`)
+
+  navigator.sendBeacon('https://www.google-analytics.com/collect', payload.toString())
 }
 
+const getAppVersion = () => {
+  try {
+    var manifestData = chrome.runtime.getManifest()
+    return manifestData.version
+  } catch (e) {
+    return '0.0'
+  }
+}
+/**
+ * Generates a random user id
+ */
 const getRandomUserId = () => {
   let userId = AppStorage.getItem(LS_ANALYTICS_ID_KEY)
   if (!userId) {
-    let newUserId = `${new Date().getTime()}${Math.random()}` // Random User Id
+    let newUserId = `${new Date().getTime()}${Math.random()}`
     AppStorage.setItem(LS_ANALYTICS_ID_KEY, newUserId)
     userId = newUserId
   }
   return userId
 }
+
 Object.assign(String.prototype, {
   capitalize() {
     return this.charAt(0).toUpperCase() + this.slice(1)
@@ -153,12 +195,17 @@ Object.assign(String.prototype, {
 })
 
 export {
+  initAnalytics,
   trackPageView,
   trackThemeChange,
   trackOpenLinkFrom,
   trackAddLanguage,
   trackRemoveLanguage,
   trackAddCard,
+  identifyUserLanguages,
+  identifyUserCards,
+  identifyListingMode,
+  identifyUserTheme,
   trackRemoveCard,
   trackOpenLinksNewTab,
   trackBookmarkFrom,

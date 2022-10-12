@@ -1,26 +1,36 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import './CarbonAd.css'
 import { getBaseApi } from '../utils/DataUtils'
 
 export default function CarbonAd() {
   const [ad, setAd] = useState()
+  const cancelTokenSource = useRef()
 
   useEffect(() => {
+    cancelTokenSource.current = axios.CancelToken.source()
+
     const setup = async () => {
       const userAgent = new URLSearchParams(navigator.userAgent).toString()
-      const request = await axios.get(`${getBaseApi('')}/monetization/?useragent=${userAgent}`)
-      if (request.data) {
-        setAd(request.data.ads[0])
-      }
+      try {
+        const request = await axios.get(`${getBaseApi('')}/monetization/?useragent=${userAgent}`, {
+          cancelToken: cancelTokenSource.current.token,
+        })
+        if (request.data) {
+          setAd(request.data.ads[0])
+        }
+      } catch (_) {}
     }
     setup()
+    return () => {
+      cancelTokenSource.current.cancel()
+    }
   }, [])
 
   const prependHTTP = (url) => {
     url = decodeURIComponent(url)
     if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
-      url = 'https://' + url
+      url = 'https:' + url
     }
     return url
   }

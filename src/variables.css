@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'Nunito';
+  src: url("static/fonts/nunito/nunito-regular.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: 'Nunito';
+  font-weight: 600;
+  font-style: normal;
+  src: url("static/fonts/nunito/nunito-semibold.woff2") format('woff2');
+}
+
 html.dark {
   --app-name-text-color: #FFF;
   --background-color: #0D1116;
@@ -45,6 +57,8 @@ html.dark {
   --tooltip-text-color: #FFF;
   --tooltip-shadow-color: #000000;
   --tooltip-accent-color: #0366D6;
+
+  --placeholder-background-color: #1c2026;
 }
 
 html.light {
@@ -93,4 +107,7 @@ html.light {
   --tooltip-text-color: #3C5065;
   --tooltip-shadow-color: #dee4ec;
   --tooltip-accent-color: #0366D6;
+
+  --placeholder-background-color: #e7eff7;
+
 }

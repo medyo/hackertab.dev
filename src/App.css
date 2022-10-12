@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito:regular,600');
 @import "variables.css";
 
 html {
@@ -63,7 +62,7 @@ a {
   align-content: center;
   flex-wrap: wrap;
   height:86px;
-  margin: 0 1% 12px 1%;
+  margin: 0 1% 0px 1%;
 }
 
 .AppFooter {
@@ -194,10 +193,10 @@ a {
 .blockContent {
   flex-grow: 1;
   overflow-y: auto;
-  height: calc(80vh - 1% - 16px - 30px);
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  height: calc(80vh - 1% - 46px);
 }
 
 .scrollable {
@@ -234,13 +233,12 @@ a {
 .blockHeader {
   text-align: center;
   vertical-align: baseline;
-  background: var(--card-header-background-color);
   color: var(--card-header-text-color);
   font-weight: 400;
   height: 30px;
   font-size: 16px;
   padding-top: 16px;
-  padding-bottom: 16px;
+  padding-bottom: 8px;
   cursor: pointer;
 }
 .blockHeader:hover .blockHeaderLink{
@@ -269,6 +267,10 @@ a {
   position: relative;
 }
 
+.blockRow:last-child {
+  padding-bottom: 42px;
+
+}
 /* Actions */
 .blockActions {
   position: absolute;
@@ -334,6 +336,7 @@ a {
   visibility: visible;
 }
 
+/* .blockContent > div > div > div:not(:last-child), .blockRow:not(:last-child) */
 .blockRow:not(:last-child) {
   border-bottom: 1px solid var(--card-content-divider);
 }
@@ -345,6 +348,7 @@ a {
   font-size: 16px;
   text-decoration: none;
   display: flex;
+  flex-direction: row;
 }
 .rowTitle:hover {
   color: var(--primary-hover-text-color);
@@ -393,10 +397,12 @@ a {
 .rowDescription .rowItem {
   font-size: 12px;
 }
-.rowDetails  .hnRowItem {
+.rowDetails .hnRowItem {
   color: #F6682F
 }
-
+.rowDetails .inRowItem {
+  color: #4799EB
+}
 .rowDetails .redditRowItem {
   color: #FA481D;
 }
@@ -405,6 +411,12 @@ a {
   color: #A91916
 }
 
+.rowDetails .mediumRowItem {
+  color: #000000;
+}
+.dark .rowDetails .mediumRowItem {
+color:#FFFFFF;
+}
 .rowItemIcon {
   position: relative;
   top: 1px;
@@ -426,6 +438,7 @@ a {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 4px;
+  margin-top: 12px;
 }
 
 .tag {
@@ -876,6 +889,72 @@ Producthunt item
   }
 }
 
+@keyframes cardPlaceholderPulse {
+  0% {
+    opacity: .6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .6;
+  }
+}
+
+.cardPlaceholder {
+  padding: 16px 16px 24px 16px;
+  animation-duration: 1.5s;
+  animation-name: cardPlaceholderPulse;
+  animation-iteration-count: infinite;
+}
+.mediaCardPlaceholder {
+  display: flex;
+  flex-direction: row;
+}
+
+.cardPlaceholder .media {
+  width:  50px;
+  height: 50px;
+  margin-right: 16px;
+  background: var(--placeholder-background-color);
+  display: inline-block;
+}
+.cardPlaceholder .cardContent {
+  display: flex;
+  flex-direction: column;
+}
+.cardPlaceholder .cardUpvote {
+  margin-left: auto;
+  background: var(--placeholder-background-color);
+  width:  33px;
+  height: 44px;
+}
+.cardPlaceholder .line {
+  background: var(--placeholder-background-color);
+  display: block;
+  height: 17px;
+  border-radius: 4px;
+}
+.cardPlaceholder .smallLine {
+  margin-top: 8px;
+  background: var(--placeholder-background-color);
+  display: block;
+  height: 14px;
+  width: 90%;
+  border-radius: 4px;
+}
+.cardPlaceholder .details {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+.cardPlaceholder .detail {
+  background: var(--placeholder-background-color);
+  height: 10px;
+  width: 73px;
+  margin-right: 16px;
+  border-radius: 4px;
+}
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   .block {

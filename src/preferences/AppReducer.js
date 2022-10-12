@@ -1,7 +1,12 @@
 
 import { LS_PREFERENCES_KEY } from '../Constants';
 import AppStorage from '../services/localStorage';
-
+import {
+  identifyUserLanguages,
+  identifyUserCards,
+  identifyListingMode,
+  identifyUserTheme,
+} from '../utils/Analytics'
 
 const AppReducer = (state, action) => {
   let newState = { ...state }
@@ -10,6 +15,7 @@ const AppReducer = (state, action) => {
 
   switch (action.type) {
     case 'setUserSelectedTags':
+      identifyUserLanguages(value.map((tag) => tag.value))
       // check duplication.
       newState = {
         ...newState,
@@ -17,6 +23,7 @@ const AppReducer = (state, action) => {
       }
       break
     case 'setCards':
+      identifyUserCards(value.map((card) => card.value))
       newState = { ...state, cards: value }
       break
     case 'setChangelogMeta':
@@ -27,6 +34,7 @@ const AppReducer = (state, action) => {
       if (!theme) {
         theme = state.theme === 'dark' ? 'light' : 'dark'
       }
+      identifyUserTheme(theme)
       newState = { ...newState, theme }
       break
     case 'setOpenLinksNewTab':
@@ -36,6 +44,7 @@ const AppReducer = (state, action) => {
       }
       break
     case 'changelistingMode':
+      identifyListingMode(value)
       newState = { ...newState, listingMode: value }
       break
     case 'bookmarkItem':

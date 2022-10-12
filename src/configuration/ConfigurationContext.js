@@ -9,6 +9,7 @@ const ConfigurationContext = React.createContext({
       confsValues: ['javascript'],
       devtoValues: ['javascript'],
       hashnodeValues: ['javascript'],
+      mediumValues: ['javascript'],
     },
   ],
 })

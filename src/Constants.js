@@ -7,16 +7,19 @@ import ProductHuntCard from './cards/ProductHuntCard'
 import RedditCard from './cards/RedditCard'
 import LobstersCard from './cards/LobstersCard'
 import HashNodeCard from './cards/HashNodeCard'
+import IndieHackersCard from './cards/IndieHackersCard'
 import FreeCodeCampCard from './cards/FreeCodeCampCard'
+import MediumCard from './cards/MediumCard'
 import { SiGithub } from 'react-icons/si'
 import { SiYcombinator } from 'react-icons/si'
 import { FaDev } from 'react-icons/fa'
 import { SiProducthunt } from 'react-icons/si'
-import { FaReddit } from 'react-icons/fa'
+import { FaReddit, FaMediumM } from 'react-icons/fa'
 import { HiTicket } from 'react-icons/hi'
 import HashNodeIcon from './static/icon_hashnode.png'
 import LobstersIcon from './static/icon_lobsters.png'
 import { FaFreeCodeCamp } from 'react-icons/fa'
+import { CgIndieHackers } from 'react-icons/cg'
 
 const APP = {
   name: 'Hackertab.dev',
@@ -31,6 +34,8 @@ const APP = {
   dataSourcesLink: 'https://www.hackertab.dev/data-sources',
   changeLogLink: 'https://api.github.com/repos/medyo/hackertab.dev/releases',
 }
+export const ANALYTICS_ENDPOINT = 'https://api.hackertab.dev/analytics'
+export const ANALYTICS_SDK_KEY = '9662c93f91473ba6e96711b22e0a367d'
 
 export const LOCAL_CONFIGURATION = {
   supportedTags: [], // Loaded remotly
@@ -100,6 +105,20 @@ export const SUPPORTED_CARDS = [
     label: 'FreeCodeCamp',
     component: FreeCodeCampCard,
   },
+  {
+    value: 'indiehackers',
+    icon: <CgIndieHackers className="blockHeaderWhite" />,
+    analyticsTag: 'indiehackers',
+    label: 'IndieHackers',
+    component: IndieHackersCard,
+  },
+  {
+    value: 'medium',
+    icon: <FaMediumM />,
+    analyticsTag: 'medium',
+    label: 'Medium',
+    component: MediumCard,
+  }
 ]
 
 export const SUPPORTED_SEARCH_ENGINES = [
@@ -140,6 +159,7 @@ export const GLOBAL_TAG = {
   githubValues: ['global'],
   devtoValues: [''],
   hashnodeValues: ['programming'],
+  mediumValues: ['programming'],
 }
 export const MY_LANGUAGES_TAG = {
   value: 'myLangs',
@@ -147,6 +167,7 @@ export const MY_LANGUAGES_TAG = {
   githubValues: ['myLangs'],
   devtoValues: ['myLangs'],
   hashnodeValues: ['myLangs'],
+  mediumValues: ['myLangs'],
 }
 export const MAX_MERGED_ITEMS_PER_LANGUAGE = 10
 export { APP }
