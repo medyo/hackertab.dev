@@ -4,9 +4,14 @@
   "private": false,
   "dependencies": {
     "@amplitude/analytics-browser": "^1.5.3",
+    "@craco/craco": "^6.4.5",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^29.1.2",
+    "@types/node": "^18.11.0",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
     "axios": "^0.21.2",
     "axios-cache-adapter": "^2.7.3",
     "country-emoji": "^1.5.4",
@@ -30,11 +35,12 @@
     "react-tooltip": "^4.2.21",
     "styled-components": "2",
     "timeago.js": "^4.0.2",
+    "typescript": "^4.8.4",
     "web-vitals": "^0.2.4"
   },
   "proxy": "https://api.hackertab.dev/",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "craco start",
     "web-build": "REACT_APP_WEB_BUILD=1 CI= react-scripts --max_old_space_size=3072 build",
     "build": "./script/build.sh",
     "stores-build": "./script/stores_build.sh",
