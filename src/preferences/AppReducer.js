@@ -25,7 +25,7 @@ const AppReducer = (state, action) => {
       }
       break
     case 'setCards':
-      identifyUserCards(value.map((card) => card.value))
+      identifyUserCards(value.map((card) => card.name))
       newState = { ...state, cards: value }
       break
     case 'setChangelogMeta':
