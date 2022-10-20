@@ -1,6 +1,6 @@
 {
-  "name": "Hackertab.dev",
-  "description": "The Developer’s Homepage",
+  "name": "Hackertab.dev - developer news",
+  "description": "All developer news in one tab",
   "version": "1.14.1",
   "manifest_version": 2,
   "chrome_url_overrides": {
