@@ -239,6 +239,9 @@ type trackEventProps = {
 }
 
 const trackEvent = ({ object, verb, attributes }: trackEventProps) => {
+  try {
+
+
   const event = `${object}${_SEP_}${verb}`
   Object.keys(attributes).map(attr => {
     const value = attributes[attr];
@@ -259,31 +262,37 @@ const trackEvent = ({ object, verb, attributes }: trackEventProps) => {
     return;
   }
 
-  track(event, attributes);
+    track(event, attributes);
+  } catch (e) {
+    console.log("analytics", e)
+  }
 }
 
 const identifyUserProperty = (attributes: Attributes, value: string | string[]) => {
 
-  let formatedValue;
+  try {
+    let formatedValue;
+    if (Array.isArray(value)) {
+      formatedValue = value.filter(Boolean).map(item => item.toLowerCase());
+    } else {
+      formatedValue = value.toLowerCase();
+    }
 
-  if (Array.isArray(value)) {
-    formatedValue = value.filter(Boolean).map(item => item.toLowerCase());
-  } else {
-    formatedValue = value.toLowerCase();
+    if (isDevelopment()) {
+      console.log("analytics", "identify", attributes, formatedValue)
+      return;
+    }
+
+    if (formatedValue == null) {
+      return;
+    }
+
+    const identity = new Identify()
+    identity.set(attributes.toString(), formatedValue)
+    identify(identity)
+  } catch (e) {
+    console.log("analytics", e)
   }
-
-  if (isDevelopment()) {
-    console.log("analytics", "identify", attributes, formatedValue)
-    return;
-  }
-
-  if (formatedValue == null) {
-    return;
-  }
-
-  const identity = new Identify()
-  identity.set(attributes.toString(), formatedValue)
-  identify(identity)
 }
 
 /**
