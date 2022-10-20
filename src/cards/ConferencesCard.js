@@ -66,8 +66,8 @@ const ConferenceItem = ({ conf, index }) => {
             link={conf.url}
             analyticsAttributes={{
               [Attributes.TRIGERED_FROM]: 'card',
-              [Attributes.TITLE]: item.name,
-              [Attributes.LINK]: item.url,
+              [Attributes.TITLE]: conf.name,
+              [Attributes.LINK]: conf.url,
               [Attributes.SOURCE]: 'conferences',
             }}>
             <RiCalendarEventFill className={'rowTitleIcon'} />
