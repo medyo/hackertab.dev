@@ -240,27 +240,24 @@ type trackEventProps = {
 
 const trackEvent = ({ object, verb, attributes }: trackEventProps) => {
   try {
+    const event = `${object}${_SEP_}${verb}`
+    Object.keys(attributes).map(attr => {
+      const value = attributes[attr];
+      if (typeof value !== "number") {
+        attributes[attr] = value.toLowerCase();
+      }
+      return attr;
+    });
 
-
-  const event = `${object}${_SEP_}${verb}`
-  Object.keys(attributes).map(attr => {
-    const value = attributes[attr];
-    if (typeof value !== "number") {
-      attributes[attr] = value.toLowerCase();
+    // Remove http and www from links
+    if (Object.keys(attributes).some((attr) => attr == Attributes.LINK)) {
+      attributes[Attributes.LINK] = attributes[Attributes.LINK].replace(/(https*:\/\/[www.]*)/, '')
     }
-    return attr;
-  });
 
-  // Remove http and www from links
-
-  if (Object.keys(attributes).some((attr) => attr == Attributes.LINK)) {
-    attributes[Attributes.LINK] = attributes[Attributes.LINK].replace(/(https*:\/\/[www.]*)/, '')
-  }
-
-  if (isDevelopment()) {
-    console.log("analytics", event, attributes)
-    return;
-  }
+    if (isDevelopment()) {
+      console.log("analytics", event, attributes)
+      return;
+    }
 
     track(event, attributes);
   } catch (e) {
