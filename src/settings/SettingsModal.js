@@ -10,14 +10,14 @@ import PreferencesContext from '../preferences/PreferencesContext';
 import ConfigurationContext from '../configuration/ConfigurationContext';
 import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, APP } from '../Constants'
 import {
-  trackAddLanguage,
-  trackRemoveLanguage,
-  trackAddCard,
-  trackRemoveCard,
-  trackOpenLinksNewTab,
-  trackListingModeChange,
-  trackSearchEngineChange,
-} from '../utils/Analytics'
+  trackLanguageAdd,
+  trackLanguageRemove,
+  trackSourceAdd,
+  trackSourceRemove,
+  trackSearchEngineSelect,
+  trackListingModeSelect,
+  trackTabTarget,
+} from 'src/lib/analytics'
 
 function SettingsModal({ showSettings, setShowSettings }) {
   const { supportedTags } = useContext(ConfigurationContext)
@@ -33,10 +33,10 @@ function SettingsModal({ showSettings, setShowSettings }) {
   const onTagsSelectChange = (tags, metas) => {
     switch (metas.action) {
       case 'select-option':
-        trackAddLanguage(metas.option.label)
+        trackLanguageAdd(metas.option.label)
         break
       case 'remove-value':
-        trackRemoveLanguage(metas.removedValue.label)
+        trackLanguageRemove(metas.removedValue.label)
         break
     }
 
@@ -45,17 +45,17 @@ function SettingsModal({ showSettings, setShowSettings }) {
 
   const onlistingModeChange = (e) => {
     const value = e.target.checked ? 'compact' : 'normal'
-    trackListingModeChange(value)
+    trackListingModeSelect(value)
     dispatcher({ type: 'changelistingMode', value })
   }
 
   const onCardSelectChange = (cards, metas) => {
     switch (metas.action) {
       case 'select-option':
-        trackAddCard(metas.option.label)
+        trackSourceAdd(metas.option.label)
         break
       case 'remove-value':
-        trackRemoveCard(metas.removedValue.label)
+        trackSourceRemove(metas.removedValue.label)
         break
     }
 
@@ -67,13 +67,13 @@ function SettingsModal({ showSettings, setShowSettings }) {
   }
 
   const onSearchEngineSelectChange = (value) => {
-    trackSearchEngineChange(value.label)
+    trackSearchEngineSelect(value.label)
     dispatcher({ type: 'setSearchEngine', value })
   }
 
   const onOpenLinksNewTabChange = (e) => {
     const checked = e.target.checked
-    trackOpenLinksNewTab(checked)
+    trackTabTarget(checked)
     dispatcher({ type: 'setOpenLinksNewTab', value: checked })
   }
 

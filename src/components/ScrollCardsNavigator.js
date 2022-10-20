@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useLayoutEffect, useRef } from 
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { APP } from '../Constants'
 import PreferencesContext from '../preferences/PreferencesContext'
-import { trackPageScroll } from '../utils/Analytics'
+import { trackPageScroll } from 'src/lib/analytics'
 
 function ScrollCardsNavigator() {
   const { cards } = useContext(PreferencesContext)

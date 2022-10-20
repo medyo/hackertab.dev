@@ -13,11 +13,11 @@ import ColoredLanguagesBadge from '../components/ColoredLanguagesBadge'
 import SelectableCard from '../components/SelectableCard'
 import { GLOBAL_TAG, MY_LANGUAGES_TAG, MAX_MERGED_ITEMS_PER_LANGUAGE } from '../Constants'
 import { mergeMultipleDataSources } from '../utils/DataUtils'
-import { trackCardLanguageChange } from '../utils/Analytics'
+import { trackCardLanguageSelect, Attributes } from 'src/lib/analytics'
 
 const HN_MENU_LANGUAGE_ID = 'HN_MENU_LANGUAGE_ID'
 
-const ArticleItem = ({ item, index, analyticsTag }) => {
+const ArticleItem = ({ item, index, selectedLanguage }) => {
   const { listingMode } = useContext(PreferencesContext)
 
   return (
@@ -28,7 +28,16 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
       item={{ ...item, url: item.link }}
       cardItem={
         <>
-          <CardLink link={item.link} analyticsSource={analyticsTag}>
+          <CardLink
+            link={item.link}
+            analyticsAttributes={{
+              [Attributes.POINTS]: item.totalReactions,
+              [Attributes.TRIGERED_FROM]: 'card',
+              [Attributes.TITLE]: item.title,
+              [Attributes.LINK]: item.link,
+              [Attributes.SOURCE]: 'hashnode',
+              [Attributes.LANGUAGE]: selectedLanguage?.value,
+            }}>
             {listingMode === 'compact' && (
               <div className="counterWrapper">
                 <AiTwotoneHeart />
@@ -131,7 +140,7 @@ function HashNodeCard({ analyticsTag, label, icon, withAds }) {
           tagId={HN_MENU_LANGUAGE_ID}
           selectedTag={selectedLanguage}
           setSelectedTag={setSelectedLanguage}
-          trackEvent={(tag) => trackCardLanguageChange('Hashnode', tag.value)}
+          trackEvent={(tag) => trackCardLanguageSelect('Hashnode', tag.value)}
           fallbackTag={GLOBAL_TAG}
           cardSettings={cardsSettings?.hashnode?.language}
           data={userSelectedTags.map((tag) => ({
@@ -144,7 +153,12 @@ function HashNodeCard({ analyticsTag, label, icon, withAds }) {
   }
 
   const renderItem = (item, index) => (
-    <ArticleItem item={item} key={`hno-${index}`} index={index} analyticsTag={analyticsTag} />
+    <ArticleItem
+      item={item}
+      key={`hno-${index}`}
+      index={index}
+      selectedLanguage={selectedLanguage}
+    />
   )
 
   return (

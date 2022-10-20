@@ -1,17 +1,19 @@
 
-import { LS_PREFERENCES_KEY } from '../Constants';
-import AppStorage from '../services/localStorage';
+import { LS_PREFERENCES_KEY } from '../Constants'
+import AppStorage from '../services/localStorage'
 import {
+  trackThemeSelect,
   identifyUserLanguages,
   identifyUserCards,
-  identifyListingMode,
+  identifyUserListingMode,
   identifyUserTheme,
-} from '../utils/Analytics'
+  identifyUserLinksInNewTab,
+  identifyUserSearchEngine,
+} from 'src/lib/analytics'
 
 const AppReducer = (state, action) => {
   let newState = { ...state }
   const { value } = action
-
 
   switch (action.type) {
     case 'setUserSelectedTags':
@@ -23,7 +25,7 @@ const AppReducer = (state, action) => {
       }
       break
     case 'setCards':
-      identifyUserCards(value.map((card) => card.value))
+      identifyUserCards(value.map((card) => card.name))
       newState = { ...state, cards: value }
       break
     case 'setChangelogMeta':
@@ -34,6 +36,8 @@ const AppReducer = (state, action) => {
       if (!theme) {
         theme = state.theme === 'dark' ? 'light' : 'dark'
       }
+
+      trackThemeSelect(theme)
       identifyUserTheme(theme)
       newState = { ...newState, theme }
       break
@@ -42,9 +46,10 @@ const AppReducer = (state, action) => {
         ...newState,
         openLinksNewTab: value,
       }
+      identifyUserLinksInNewTab(value)
       break
     case 'changelistingMode':
-      identifyListingMode(value)
+      identifyUserListingMode(value)
       newState = { ...newState, listingMode: value }
       break
     case 'bookmarkItem':
@@ -62,6 +67,7 @@ const AppReducer = (state, action) => {
       break
     case 'setSearchEngine':
       newState = { ...newState, searchEngine: value.label }
+      identifyUserSearchEngine(value.label)
       break
     case 'setCardSettings':
       newState = {

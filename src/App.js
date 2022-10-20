@@ -3,14 +3,13 @@ import './App.css'
 import ConfigurationContext from './configuration/ConfigurationContext'
 import Footer from './components/Footer'
 import Header from './components/Header'
-import { trackPageView } from './utils/Analytics'
 import BookmarksSidebar from './bookmark/BookmarksSidebar'
 import MarketingBanner from './components/MarketingBanner'
 import ScrollCardsNavigator from './components/ScrollCardsNavigator'
 import AppContentLayout from './components/AppContentLayout'
 import 'react-contexify/dist/ReactContexify.css'
 import PreferencesContext from './preferences/PreferencesContext'
-import { initAnalytics } from './utils/Analytics'
+import { setupAnalytics, trackPageView, setupIdentification } from 'src/lib/analytics'
 
 function App() {
   const { marketingBannerConfig = {}, feedbackWidget } = useContext(ConfigurationContext)
@@ -19,7 +18,8 @@ function App() {
   const { dispatcher, ...state } = useContext(PreferencesContext)
 
   useEffect(() => {
-    initAnalytics()
+    setupAnalytics()
+    setupIdentification(state)
     trackPageView('home')
   }, [])
 

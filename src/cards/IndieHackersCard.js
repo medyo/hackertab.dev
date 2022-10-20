@@ -10,8 +10,9 @@ import CardItemWithActions from '../components/CardItemWithActions'
 import PreferencesContext from '../preferences/PreferencesContext'
 import { FaChevronUp } from 'react-icons/fa'
 import { format } from 'timeago.js'
+import { Attributes } from 'src/lib/analytics'
 
-const StoryItem = ({ item, index, analyticsTag }) => {
+const StoryItem = ({ item, index }) => {
   const { listingMode } = useContext(PreferencesContext)
 
   return (
@@ -23,11 +24,19 @@ const StoryItem = ({ item, index, analyticsTag }) => {
       cardItem={
         <>
           <p className="rowTitle">
-            <CardLink link={item.url} analyticsSource={analyticsTag}>
+            <CardLink
+              link={item.url}
+              analyticsAttributes={{
+                [Attributes.POINTS]: item.likes,
+                [Attributes.TRIGERED_FROM]: 'card',
+                [Attributes.TITLE]: item.title,
+                [Attributes.LINK]: item.url,
+                [Attributes.SOURCE]: 'indiehackers',
+              }}>
               {listingMode === 'compact' && (
                 <span className="counterWrapper">
                   <VscTriangleUp />
-                  <span className="value">{item.score}</span>
+                  <span className="value">{item.likes}</span>
                 </span>
               )}
 

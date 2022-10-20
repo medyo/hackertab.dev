@@ -1,50 +1,56 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { HiTicket } from 'react-icons/hi';
-import CardComponent from "../components/CardComponent";
-import ListComponent from "../components/ListComponent";
+import CardComponent from '../components/CardComponent'
+import ListComponent from '../components/ListComponent'
 import confstechApi from '../services/confstech'
-import { MdAccessTime } from "react-icons/md"
-import { flag } from 'country-emoji';
-import { IoIosPin } from "react-icons/io"
-import { RiCalendarEventFill } from "react-icons/ri";
+import { MdAccessTime } from 'react-icons/md'
+import { flag } from 'country-emoji'
+import { IoIosPin } from 'react-icons/io'
+import { RiCalendarEventFill } from 'react-icons/ri'
 import PreferencesContext from '../preferences/PreferencesContext'
-import CardLink from "../components/CardLink";
+import CardLink from '../components/CardLink'
 import CardItemWithActions from '../components/CardItemWithActions'
-import ColoredLanguagesBadge from "../components/ColoredLanguagesBadge"
+import ColoredLanguagesBadge from '../components/ColoredLanguagesBadge'
+import { Attributes } from 'src/lib/analytics'
 
-
-const ConferenceItem = ({ conf, index, analyticsTag }) => {
-  
+const ConferenceItem = ({ conf, index }) => {
   const { listingMode } = useContext(PreferencesContext)
 
   const formatConfsDate = (date) => {
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
-    ];
+    const monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ]
 
-    return `${monthNames[date.getMonth()]} ${("0" + date.getDate()).slice(-2)}`
-
+    return `${monthNames[date.getMonth()]} ${('0' + date.getDate()).slice(-2)}`
   }
 
   const ConferenceLocation = () => {
-    return (
-      conf.online ?
-        "🌐 Online" :
-        `${flag(conf.country.replace(/[^a-zA-Z ]/g, ""))} ${conf.city}`
-    )
+    return conf.online
+      ? '🌐 Online'
+      : `${flag(conf.country.replace(/[^a-zA-Z ]/g, ''))} ${conf.city}`
   }
 
   const ConferenceDate = () => {
-    let value = ""
+    let value = ''
     if (conf.startDate) {
       value = `${formatConfsDate(conf.startDate)}`
     }
     if (conf.endDate && conf.endDate > conf.startDate) {
       value = `${value} - ${
-        conf.endDate.getMonth() === conf.startDate.getMonth() ?
-          ("0" + conf.endDate.getDate()).slice(-2)
+        conf.endDate.getMonth() === conf.startDate.getMonth()
+          ? ('0' + conf.endDate.getDate()).slice(-2)
           : formatConfsDate(conf.endDate)
-        }`
+      }`
     }
     return value
   }
@@ -54,36 +60,47 @@ const ConferenceItem = ({ conf, index, analyticsTag }) => {
       index={index}
       key={index}
       item={{ ...conf, title: conf.name }}
-      cardItem={(
+      cardItem={
         <>
-          <CardLink link={conf.url} analyticsSource={analyticsTag}>
-            <RiCalendarEventFill className={"rowTitleIcon"} />
+          <CardLink
+            link={conf.url}
+            analyticsAttributes={{
+              [Attributes.TRIGERED_FROM]: 'card',
+              [Attributes.TITLE]: conf.name,
+              [Attributes.LINK]: conf.url,
+              [Attributes.SOURCE]: 'conferences',
+            }}>
+            <RiCalendarEventFill className={'rowTitleIcon'} />
             {conf.name}
           </CardLink>
-          {
-            listingMode === "normal" ?
+          {listingMode === 'normal' ? (
             <>
               <div className="rowDescription">
-                <span className="rowItem"><IoIosPin className="rowItemIcon" /> {ConferenceLocation()}</span>
-                <span className="rowItem"><MdAccessTime className="rowItemIcon" /> {ConferenceDate()}</span>
+                <span className="rowItem">
+                  <IoIosPin className="rowItemIcon" /> {ConferenceLocation()}
+                </span>
+                <span className="rowItem">
+                  <MdAccessTime className="rowItemIcon" /> {ConferenceDate()}
+                </span>
               </div>
               <div className="rowDetails">
                 <ColoredLanguagesBadge languages={[conf.tag.value]} />
               </div>
-            </> :
+            </>
+          ) : (
             <div className="rowDescription">
-              <span className="rowItem"><MdAccessTime className="rowItemIcon" /> {ConferenceDate()}</span>
+              <span className="rowItem">
+                <MdAccessTime className="rowItemIcon" /> {ConferenceDate()}
+              </span>
             </div>
-          }
-          
+          )}
         </>
-      )}
+      }
     />
   )
 }
 
-
-function ConferencesCard({ label, icon, analyticsTag, withAds }) {
+function ConferencesCard({ label, icon, withAds }) {
   const preferences = useContext(PreferencesContext)
   const { userSelectedTags = [] } = preferences
   const [refresh, setRefresh] = useState(true)
@@ -120,7 +137,7 @@ function ConferencesCard({ label, icon, analyticsTag, withAds }) {
   }
 
   const renderItem = (item, index) => (
-    <ConferenceItem conf={item} key={`cf-${index}`} index={index} analyticsTag={analyticsTag} />
+    <ConferenceItem conf={item} key={`cf-${index}`} index={index} />
   )
 
   return (

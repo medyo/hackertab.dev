@@ -12,80 +12,102 @@ import { VscTriangleUp } from 'react-icons/vsc';
 import { GoPrimitiveDot } from "react-icons/go"
 import { BsArrowReturnRight } from "react-icons/bs"
 import CardItemWithActions from '../components/CardItemWithActions'
+import { Attributes } from 'src/lib/analytics'
 
 const formatResponsePost = (post) => {
-    const { data: {
-        title, subreddit, link_flair_text, link_flair_background_color,
-        score, num_comments, permalink, created_utc, link_flair_text_color
-    } } = post
-    return { 
-        title, subreddit, link_flair_text, link_flair_background_color,
-        score, num_comments, permalink, created_utc, link_flair_text_color
-    }
+  const {
+    data: {
+      title,
+      subreddit,
+      link_flair_text,
+      link_flair_background_color,
+      score,
+      num_comments,
+      permalink,
+      created_utc,
+      link_flair_text_color,
+    },
+  } = post
+  return {
+    title,
+    subreddit,
+    link_flair_text,
+    link_flair_background_color,
+    score,
+    num_comments,
+    permalink,
+    created_utc,
+    link_flair_text_color,
+  }
 }
 
 const PostFlair = ({ link_flair_text, link_flair_background_color, link_flair_text_color }) => {
-    const color = link_flair_text_color == 'light' ? "#fff" : "#000"
-    const backgroundColor = link_flair_background_color ? link_flair_background_color : "#dadada"
-    return (
-        <div style={{ backgroundColor, color}} className="flair">
-            <span>{ link_flair_text }</span>
-        </div>
-    )
+  const color = link_flair_text_color == 'light' ? '#fff' : '#000'
+  const backgroundColor = link_flair_background_color ? link_flair_background_color : '#dadada'
+  return (
+    <div style={{ backgroundColor, color }} className="flair">
+      <span>{link_flair_text}</span>
+    </div>
+  )
 }
 
-const PostItem = ({ item, index, analyticsTag }) => {
-    const fullUrl = `https://www.reddit.com${item.permalink}`
-    const { listingMode } = useContext(PreferencesContext)
+const PostItem = ({ item, index }) => {
+  const fullUrl = `https://www.reddit.com${item.permalink}`
+  const { listingMode } = useContext(PreferencesContext)
 
-    return (
-      <CardItemWithActions
-        source={"reddit"}
-        index={index}
-        key={index}
-        item={{ ...item, url: fullUrl }}
-        cardItem={
-          <>
-            <CardLink link={fullUrl} analyticsSource={analyticsTag}>
-                { listingMode === "compact" && 
-                    <div className="counterWrapper">
-                        <VscTriangleUp/>
-                        <span className="value">{item.score}</span>
-                    </div>
-                }
-                
-                <div className="subTitle">
-                    {item.link_flair_text && <PostFlair {...item} />}
-                    {item.title}
-                </div>
-            </CardLink>
+  return (
+    <CardItemWithActions
+      source={'reddit'}
+      index={index}
+      key={index}
+      item={{ ...item, url: fullUrl }}
+      cardItem={
+        <>
+          <CardLink
+            link={fullUrl}
+            analyticsAttributes={{
+              [Attributes.POINTS]: item.score,
+              [Attributes.TRIGERED_FROM]: 'card',
+              [Attributes.TITLE]: item.title,
+              [Attributes.LINK]: fullUrl,
+              [Attributes.SOURCE]: 'reddit',
+            }}>
+            {listingMode === 'compact' && (
+              <div className="counterWrapper">
+                <VscTriangleUp />
+                <span className="value">{item.score}</span>
+              </div>
+            )}
 
-            <div className="rowDetails">
-              {listingMode === "normal" && (
-                <>
-                  <span className="rowItem redditRowItem">
-                    <GoPrimitiveDot className="rowItemIcon" /> {item.score}{" "}
-                    points
-                  </span>
-                  <span className="rowItem">
-                    <MdAccessTime className="rowItemIcon" />{" "}
-                    {format(new Date(item.created_utc * 1000))}
-                  </span>
-                  <span className="rowItem">
-                    <BiCommentDetail className="rowItemIcon" />{" "}
-                    {item.num_comments} comments
-                  </span>
-                  <span className="rowItem">
-                    <BsArrowReturnRight className="rowItemIcon" />{" "}
-                    {`r/${item.subreddit}`}
-                  </span>
-                </>
-              ) }
+            <div className="subTitle">
+              {item.link_flair_text && <PostFlair {...item} />}
+              {item.title}
             </div>
-          </>
-        }
-      />
-    );
+          </CardLink>
+
+          <div className="rowDetails">
+            {listingMode === 'normal' && (
+              <>
+                <span className="rowItem redditRowItem">
+                  <GoPrimitiveDot className="rowItemIcon" /> {item.score} points
+                </span>
+                <span className="rowItem">
+                  <MdAccessTime className="rowItemIcon" />{' '}
+                  {format(new Date(item.created_utc * 1000))}
+                </span>
+                <span className="rowItem">
+                  <BiCommentDetail className="rowItemIcon" /> {item.num_comments} comments
+                </span>
+                <span className="rowItem">
+                  <BsArrowReturnRight className="rowItemIcon" /> {`r/${item.subreddit}`}
+                </span>
+              </>
+            )}
+          </div>
+        </>
+      }
+    />
+  )
 }
 
 

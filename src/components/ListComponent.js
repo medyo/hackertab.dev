@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import CarbonAd from './CarbonAd'
-import { trackException } from '../utils/Analytics'
 import Placeholder from './Placeholder'
 
 function ListComponent({ fetchData, refresh, renderItem, withAds, placeholder = <Placeholder /> }) {
@@ -17,7 +16,6 @@ function ListComponent({ fetchData, refresh, renderItem, withAds, placeholder = 
       setItems(data)
     } catch (e) {
       setError(e)
-      trackException(e, true)
     } finally {
       setLoading(false)
     }

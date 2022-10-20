@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { format } from 'timeago.js'
-import { SiLetterboxd } from 'react-icons/si'
 import { VscTriangleUp } from 'react-icons/vsc'
 import CardComponent from '../components/CardComponent'
 import ListComponent from '../components/ListComponent'
@@ -12,8 +11,9 @@ import CardLink from '../components/CardLink'
 import CardItemWithActions from '../components/CardItemWithActions'
 import ClickableItem from '../components/ClickableItem'
 import PreferencesContext from '../preferences/PreferencesContext'
+import { Attributes } from 'src/lib/analytics'
 
-const StoryItem = ({ item, index, analyticsTag }) => {
+const StoryItem = ({ item, index }) => {
   const { listingMode } = useContext(PreferencesContext)
   return (
     <CardItemWithActions
@@ -24,7 +24,15 @@ const StoryItem = ({ item, index, analyticsTag }) => {
       cardItem={
         <>
           <p className="rowTitle">
-            <CardLink link={item.url} analyticsSource={analyticsTag}>
+            <CardLink
+              link={item.url}
+              analyticsAttributes={{
+                [Attributes.POINTS]: item.score,
+                [Attributes.TRIGERED_FROM]: 'card',
+                [Attributes.TITLE]: item.title,
+                [Attributes.LINK]: item.url,
+                [Attributes.SOURCE]: 'lobsters',
+              }}>
               {listingMode === 'compact' && (
                 <div className="counterWrapper">
                   <VscTriangleUp />
@@ -46,7 +54,13 @@ const StoryItem = ({ item, index, analyticsTag }) => {
               <ClickableItem
                 link={item.comments_url}
                 className="rowItem rowItemClickable"
-                analyticsSource={analyticsTag}>
+                analyticsAttributes={{
+                  [Attributes.POINTS]: item.score,
+                  [Attributes.TRIGERED_FROM]: 'card',
+                  [Attributes.TITLE]: `${item.title} comments`,
+                  [Attributes.LINK]: item.comments_url,
+                  [Attributes.SOURCE]: 'lobsters',
+                }}>
                 <BiCommentDetail className="rowItemIcon" /> {item.comment_count} comments
               </ClickableItem>
             </div>

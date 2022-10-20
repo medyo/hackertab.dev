@@ -27,8 +27,7 @@ firefox_build() {
     export INLINE_RUNTIME_CHUNK=false
     export GENERATE_SOURCEMAP=false
 
-    yarn global add @craco/craco
-    craco build
+    yarn build
 
     mkdir -p dist
     cp -r build/* dist

@@ -13,11 +13,12 @@ import ColoredLanguagesBadge from '../components/ColoredLanguagesBadge'
 import SelectableCard from '../components/SelectableCard'
 import { GLOBAL_TAG, MY_LANGUAGES_TAG, MAX_MERGED_ITEMS_PER_LANGUAGE } from '../Constants'
 import { mergeMultipleDataSources } from '../utils/DataUtils'
-import { trackCardLanguageChange } from '../utils/Analytics'
+import { trackCardLanguageSelect } from 'src/lib/analytics'
+import { Attributes } from 'src/lib/analytics'
 
 const DT_MENU_LANGUAGE_ID = 'DT_MENU_LANGUAGE_ID'
 
-const ArticleItem = ({ item, index, analyticsTag }) => {
+const ArticleItem = ({ item, index, selectedLanguage }) => {
   const { listingMode } = useContext(PreferencesContext)
 
   return (
@@ -28,7 +29,16 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
       item={item}
       cardItem={
         <>
-          <CardLink link={item.url} analyticsSource={analyticsTag}>
+          <CardLink
+            link={item.url}
+            analyticsAttributes={{
+              [Attributes.TRIGERED_FROM]: 'card',
+              [Attributes.POINTS]: item.public_reactions_count,
+              [Attributes.TITLE]: item.title,
+              [Attributes.LINK]: item.url,
+              [Attributes.SOURCE]: 'devto',
+              [Attributes.LANGUAGE]: selectedLanguage?.value,
+            }}>
             {listingMode === 'compact' && (
               <div className="counterWrapper">
                 <AiOutlineLike />
@@ -126,7 +136,12 @@ function DevToCard({ analyticsTag, label, icon, withAds }) {
   }
 
   const renderItem = (item, index) => (
-    <ArticleItem item={item} key={`at-${index}`} index={index} analyticsTag={analyticsTag} />
+    <ArticleItem
+      item={item}
+      key={`at-${index}`}
+      index={index}
+      selectedLanguage={selectedLanguage}
+    />
   )
 
   function HeaderTitle() {
@@ -140,7 +155,7 @@ function DevToCard({ analyticsTag, label, icon, withAds }) {
           setSelectedTag={setSelectedLanguage}
           fallbackTag={GLOBAL_TAG}
           cardSettings={cardsSettings?.devto?.language}
-          trackEvent={(tag) => trackCardLanguageChange('Devto', tag.value)}
+          trackEvent={(tag) => trackCardLanguageSelect('Devto', tag.value)}
           data={userSelectedTags.map((tag) => ({
             label: tag.label,
             value: tag.value,
