@@ -3,9 +3,7 @@
 }
 );*/
 
-const uninstallUrl = `https://hackertab.dev/uninstall.html`;
-var anonymousUserId = window.localStorage.getItem('hackerTabAnalyticsId')
-
+const uninstallUrl = `https://hackertab.dev/uninstall.html`
 if (chrome.runtime.setUninstallURL) {
-  chrome.runtime.setUninstallURL(`${uninstallUrl}?u=${anonymousUserId}`)
+  chrome.runtime.setUninstallURL(uninstallUrl)
 }
