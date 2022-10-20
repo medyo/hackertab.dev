@@ -27,7 +27,7 @@ const StoryItem = ({ item, index }) => {
             <CardLink
               link={item.url}
               analyticsAttributes={{
-                [Attributes.POINTS]: item.score,
+                [Attributes.POINTS]: item.likes,
                 [Attributes.TRIGERED_FROM]: 'card',
                 [Attributes.TITLE]: item.title,
                 [Attributes.LINK]: item.url,
@@ -36,7 +36,7 @@ const StoryItem = ({ item, index }) => {
               {listingMode === 'compact' && (
                 <span className="counterWrapper">
                   <VscTriangleUp />
-                  <span className="value">{item.score}</span>
+                  <span className="value">{item.likes}</span>
                 </span>
               )}
 
