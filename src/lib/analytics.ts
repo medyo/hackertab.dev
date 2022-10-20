@@ -1,7 +1,7 @@
 import AppStorage from '../services/localStorage';
 import { init, track, identify, Identify } from '@amplitude/analytics-browser'
 import { isDevelopment } from 'src/utils/Environment';
-import { ANALYTICS_SDK_KEY, ANALYTICS_ENDPOINT, LS_ANALYTICS_ID_KEY } from 'src/constants'
+import { ANALYTICS_SDK_KEY, ANALYTICS_ENDPOINT, LS_ANALYTICS_ID_KEY } from 'src/Constants'
 
 enum Objects {
   PAGE = 'Page',

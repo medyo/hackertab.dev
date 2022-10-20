@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { SUPPORTED_CARDS } from '../constants'
+import { SUPPORTED_CARDS } from '../Constants'
 import PreferencesContext from '../preferences/PreferencesContext'
 import { AiOutlineMenu } from 'react-icons/ai'
 

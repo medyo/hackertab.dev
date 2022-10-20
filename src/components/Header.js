@@ -4,7 +4,7 @@ import { CgTab } from 'react-icons/cg';
 import { BsFillBookmarksFill } from "react-icons/bs"
 import { ReactComponent as HackertabLogo } from '../logo.svg';
 import UserTags from "./UserTags";
-import { SUPPORTED_SEARCH_ENGINES } from '../constants'
+import { SUPPORTED_SEARCH_ENGINES } from '../Constants'
 import SettingsModal from '../settings/SettingsModal'
 import { BsMoon } from 'react-icons/bs'
 import { IoMdSunny } from 'react-icons/io'

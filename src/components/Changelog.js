@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown'
 import axios from 'axios'
 import { format } from 'timeago.js'
 import BeatLoader from 'react-spinners/BeatLoader'
-import { APP } from '../constants'
+import { APP } from '../Constants'
 import PreferencesContext from '../preferences/PreferencesContext'
 
 function Changelog({}) {

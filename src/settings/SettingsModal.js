@@ -8,7 +8,7 @@ import '../App.css';
 import './settings.css';
 import PreferencesContext from '../preferences/PreferencesContext';
 import ConfigurationContext from '../configuration/ConfigurationContext';
-import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, APP } from '../constants'
+import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, APP } from '../Constants'
 import {
   trackLanguageAdd,
   trackLanguageRemove,

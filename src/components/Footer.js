@@ -1,5 +1,5 @@
 import React from 'react'
-import { APP } from '../constants'
+import { APP } from '../Constants'
 import { RiCodeSSlashFill } from 'react-icons/ri'
 import { HiLightBulb } from 'react-icons/hi'
 import { trackPageView } from 'src/lib/analytics'

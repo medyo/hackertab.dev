@@ -1,5 +1,5 @@
 
-import { LS_PREFERENCES_KEY } from '../constants'
+import { LS_PREFERENCES_KEY } from '../Constants'
 import AppStorage from '../services/localStorage'
 import {
   trackThemeSelect,

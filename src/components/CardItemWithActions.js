@@ -19,21 +19,16 @@ export default function CardItemWithActions({ cardItem, item, index, source }) {
       },
     })
     setIsBookmarked(!isBookmarked)
-
+    const analyticsAttrs = {
+      [Attributes.TRIGERED_FROM]: 'card',
+      [Attributes.TITLE]: item.title,
+      [Attributes.LINK]: item.url,
+      [Attributes.SOURCE]: source,
+    } 
     if (isBookmarked) {
-      trackLinkUnBookmark({
-        [Attributes.TRIGERED_FROM]: 'bookmarks',
-        [Attributes.TITLE]: item.title,
-        [Attributes.LINK]: item.url,
-        [Attributes.SOURCE]: source,
-      })
+      trackLinkUnBookmark(analyticsAttrs)
     } else {
-      trackLinkBookmark({
-        [Attributes.TRIGERED_FROM]: 'bookmarks',
-        [Attributes.TITLE]: item.title,
-        [Attributes.LINK]: item.url,
-        [Attributes.SOURCE]: source,
-      })
+      trackLinkBookmark(analyticsAttrs)
     }
   }
   useEffect(() => {

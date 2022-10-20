@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useLayoutEffect, useRef } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
-import { APP } from '../constants'
+import { APP } from '../Constants'
 import PreferencesContext from '../preferences/PreferencesContext'
 import { trackPageScroll } from 'src/lib/analytics'
 
