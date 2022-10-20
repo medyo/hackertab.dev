@@ -54,7 +54,13 @@ const StoryItem = ({ item, index }) => {
               <ClickableItem
                 link={item.comments_url}
                 className="rowItem rowItemClickable"
-                analyticsSource={analyticsTag}>
+                analyticsAttributes={{
+                  [Attributes.POINTS]: item.score,
+                  [Attributes.TRIGERED_FROM]: 'card',
+                  [Attributes.TITLE]: `${item.title} comments`,
+                  [Attributes.LINK]: item.comments_url,
+                  [Attributes.SOURCE]: 'lobsters',
+                }}>
                 <BiCommentDetail className="rowItemIcon" /> {item.comment_count} comments
               </ClickableItem>
             </div>
