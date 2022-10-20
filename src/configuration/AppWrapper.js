@@ -1,5 +1,5 @@
 import React, { useReducer, useContext } from 'react'
-import { LS_PREFERENCES_KEY } from '../constants'
+import { LS_PREFERENCES_KEY } from 'src/Constants'
 import AppStorage from '../services/localStorage'
 import { PreferencesProvider } from '../preferences/PreferencesContext'
 import { getOSMode } from '../services/os'

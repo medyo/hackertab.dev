@@ -12,9 +12,15 @@ import { trackLinkUnBookmark, Attributes } from 'src/lib/analytics'
 
 const BookmarkItem = ({ item, appendRef = true }) => {
   const { dispatcher } = useContext(PreferencesContext)
+  const analyticsAttrs = {
+    [Attributes.TRIGERED_FROM]: 'bookmarks',
+    [Attributes.TITLE]: item.title,
+    [Attributes.LINK]: item.url,
+    [Attributes.SOURCE]: item.source,
+  } 
   const unBookmark = () => {
     dispatcher({ type: 'unBookmarkItem', value: item })
-    trackLinkUnBookmark(item.source)
+    trackLinkUnBookmark(analyticsAttrs)
   }
   return (
     <MenuItem
@@ -26,12 +32,10 @@ const BookmarkItem = ({ item, appendRef = true }) => {
       <CardLink
         link={item.url}
         appendRef={appendRef}
-        analyticsAttributes={{
-          [Attributes.TRIGERED_FROM]: 'bookmarks',
-          [Attributes.TITLE]: item.title,
-          [Attributes.LINK]: item.url,
-          [Attributes.SOURCE]: item.source,
-        }}>{`${item.title}`}</CardLink>
+        analyticsAttributes={analyticsAttrs}
+        >
+          {`${item.title}`}
+        </CardLink>
     </MenuItem>
   )
 }

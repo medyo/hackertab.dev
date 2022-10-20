@@ -1,6 +1,6 @@
 import { trackLinkOpen } from 'src/lib/analytics'
 import React, { useContext } from 'react'
-import { APP } from '../constants'
+import { APP } from '../Constants'
 import PreferencesContext from '../preferences/PreferencesContext'
 
 const ClickableItem = ({ link, className, children, analyticsAttributes, appendRef = true }) => {

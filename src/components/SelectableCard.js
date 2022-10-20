@@ -1,6 +1,6 @@
 import React, { useContext, useLayoutEffect } from 'react'
 import DropDownMenu from './DropDownMenu'
-import { GLOBAL_TAG, MY_LANGUAGES_TAG } from '../constants'
+import { GLOBAL_TAG, MY_LANGUAGES_TAG } from '../Constants'
 import PreferencesContext from '../preferences/PreferencesContext'
 
 function SelectableCard({
