@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react'
-import CardComponent from "../components/CardComponent";
+import React, { useState, useEffect, useContext, useMemo } from 'react'
+import CardComponent from '../components/CardComponent'
 import ListComponent from '../components/ListComponent'
 import { VscRepo, VscRepoForked, VscStarFull } from 'react-icons/vsc'
 import githubApi from '../services/github'
@@ -7,23 +7,38 @@ import PreferencesContext from '../preferences/PreferencesContext'
 import CardLink from '../components/CardLink'
 import CardItemWithActions from '../components/CardItemWithActions'
 import SelectableCard from '../components/SelectableCard'
-import { GLOBAL_TAG, MY_LANGUAGES_TAG, MAX_MERGED_ITEMS_PER_LANGUAGE } from '../Constants'
+import { GLOBAL_TAG, MY_LANGUAGES_TAG, MAX_MERGED_ITEMS_PER_LANGUAGE } from '../constants'
 import { mergeMultipleDataSources } from '../utils/DataUtils'
 import ColoredLanguagesBadge from '../components/ColoredLanguagesBadge'
-import { trackCardLanguageChange } from '../utils/Analytics'
+import { trackCardLanguageSelect, trackCardDateRangeSelect, Attributes } from 'src/lib/analytics'
 
-const RepoItem = ({ item, index }) => {
+const sourceName = 'github'
+
+const RepoItem = ({ item, index, selectedLanguage }) => {
   const { listingMode } = useContext(PreferencesContext)
+  const title = useMemo(() => {
+    return `${item.owner ? item.owner + '/' : ''}${item.name}`
+  }, [item])
 
   return (
     <CardItemWithActions
-      source={'github'}
+      source={sourceName}
       key={index}
       index={index}
-      item={{ ...item, title: `${item.owner ? item.owner + '/' : ''}${item.name}` }}
+      item={{ ...item, title }}
       cardItem={
         <>
-          <CardLink className="githubTitle" link={item.url} analyticsSource="repos">
+          <CardLink
+            className="githubTitle"
+            link={item.url}
+            analyticsAttributes={{
+              [Attributes.POINTS]: item.stars,
+              [Attributes.TRIGERED_FROM]: 'card',
+              [Attributes.TITLE]: title,
+              [Attributes.LINK]: item.url,
+              [Attributes.SOURCE]: sourceName,
+              [Attributes.LANGUAGE]: selectedLanguage?.value,
+            }}>
             <VscRepo className={'rowTitleIcon'} />
             {item.owner && `${item?.owner}/`}
             <b>{item.name}</b>
@@ -88,7 +103,6 @@ function ReposCard({ analyticsTag, label, icon, withAds }) {
   }, [selectedDateRange])
 
   const fetchRepos = async () => {
-   
     if (!selectedLanguage) {
       return []
     }
@@ -128,7 +142,6 @@ function ReposCard({ analyticsTag, label, icon, withAds }) {
 
     setCacheCardData({ ...cacheCardData, [cacheKey]: data })
     return data
-    
   }
 
   function HeaderTitle() {
@@ -141,7 +154,7 @@ function ReposCard({ analyticsTag, label, icon, withAds }) {
           setSelectedTag={setSelectedLanguage}
           fallbackTag={GLOBAL_TAG}
           cardSettings={cardsSettings?.repos?.language}
-          trackEvent={(tag) => trackCardLanguageChange('Repos', tag.value)}
+          trackEvent={(tag) => trackCardLanguageSelect('Repos', tag.value)}
           data={userSelectedTags.map((tag) => ({
             label: tag.label,
             value: tag.value,
@@ -157,7 +170,7 @@ function ReposCard({ analyticsTag, label, icon, withAds }) {
               value: Object.keys(dateRangeMapper)[0],
               label: Object.values(dateRangeMapper)[0],
             }}
-            trackEvent={(tag) => trackCardLanguageChange('Repos', tag.value)}
+            trackEvent={(tag) => trackCardDateRangeSelect('Repos', tag.value)}
             cardSettings={cardsSettings?.repos?.dateRange}
             data={Object.keys(dateRangeMapper).map((tag) => ({
               label: dateRangeMapper[tag],
@@ -170,7 +183,12 @@ function ReposCard({ analyticsTag, label, icon, withAds }) {
   }
 
   const renderItem = (item, index) => (
-    <RepoItem item={item} key={`rp-${index}`} analyticsTag={analyticsTag} />
+    <RepoItem
+      item={item}
+      key={`rp-${index}`}
+      analyticsTag={analyticsTag}
+      selectedLanguage={selectedLanguage}
+    />
   )
 
   return (
@@ -190,4 +208,4 @@ function ReposCard({ analyticsTag, label, icon, withAds }) {
   )
 }
 
-export default ReposCard;
+export default ReposCard

@@ -2,11 +2,12 @@ import React from 'react';
 import ClickableItem from "./ClickableItem"
 
 
-function CardLink({ link, className, children, analyticsSource, appendRef = true }) {
+function CardLink({ link, className, children, appendRef = true, analyticsAttributes }) {
   return (
-    <ClickableItem link={link}
+    <ClickableItem
+      link={link}
       className={'rowTitle' + (className ? ` ${className}` : '')}
-      analyticsSource={analyticsSource}
+      analyticsAttributes={analyticsAttributes}
       appendRef={appendRef}>
       {children}
     </ClickableItem>

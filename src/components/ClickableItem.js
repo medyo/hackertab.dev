@@ -1,23 +1,22 @@
-import React, { useContext } from 'react';
-import { APP } from "../Constants";
+import { trackLinkOpen } from 'src/lib/analytics'
+import React, { useContext } from 'react'
+import { APP } from '../constants'
 import PreferencesContext from '../preferences/PreferencesContext'
-import { trackOpenLinkFrom } from "../utils/Analytics"
 
-
-const ClickableItem = ({ link, className, children, analyticsSource, appendRef = true }) => {
+const ClickableItem = ({ link, className, children, analyticsAttributes, appendRef = true }) => {
   const { openLinksNewTab } = useContext(PreferencesContext)
 
   const handleClick = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    trackOpenLinkFrom(analyticsSource)
+    trackLinkOpen(analyticsAttributes)
 
     if (!link) {
       return
     }
 
     if (appendRef) {
-      const url = new URL(link);
+      const url = new URL(link)
       let utmUrl = link
 
       // Url has some query params
@@ -27,14 +26,14 @@ const ClickableItem = ({ link, className, children, analyticsSource, appendRef =
         utmUrl += `?${APP.ref}`
       }
 
-      window.open(utmUrl, openLinksNewTab ? "_blank" : "_self")
+      window.open(utmUrl, openLinksNewTab ? '_blank' : '_self')
     } else {
-      window.open(link, openLinksNewTab ? "_blank" : "_self")
+      window.open(link, openLinksNewTab ? '_blank' : '_self')
     }
   }
 
   return (
-    <a href={link} className={className} onClick={handleClick} >
+    <a href={link} className={className} onClick={handleClick}>
       {children}
     </a>
   )

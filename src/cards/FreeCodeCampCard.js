@@ -6,12 +6,11 @@ import { format } from 'timeago.js'
 import PreferencesContext from '../preferences/PreferencesContext'
 import CardLink from '../components/CardLink'
 import { MdAccessTime } from 'react-icons/md'
-
 import CardItemWithActions from '../components/CardItemWithActions'
 import ColoredLanguagesBadge from '../components/ColoredLanguagesBadge'
+import { Attributes } from 'src/lib/analytics'
 
-const ArticleItem = ({ item, index, analyticsTag }) => {
-
+const ArticleItem = ({ item, index }) => {
   return (
     <CardItemWithActions
       source={'freecodecamp'}
@@ -20,20 +19,27 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
       item={{ ...item, url: item.link }}
       cardItem={
         <>
-          <CardLink link={item.link} analyticsSource={analyticsTag}>
+          <CardLink
+            link={item.link}
+            analyticsAttributes={{
+              [Attributes.TRIGERED_FROM]: 'card',
+              [Attributes.TITLE]: item.title,
+              [Attributes.LINK]: item.link,
+              [Attributes.SOURCE]: 'freecodecamp',
+            }}>
             <div className="subTitle">{item.title}</div>
           </CardLink>
-            <>
-              <p className="rowDescription">
-                <span className="rowItem">
-                  <MdAccessTime className={'rowTitleIcon'} />
-                  {format(new Date(item.isoDate))}
-                </span>
-              </p>
-              <p className="rowDetails">
-                <ColoredLanguagesBadge languages={item.categories.slice(0, 4)} />
-              </p>
-            </>
+          <>
+            <p className="rowDescription">
+              <span className="rowItem">
+                <MdAccessTime className={'rowTitleIcon'} />
+                {format(new Date(item.isoDate))}
+              </span>
+            </p>
+            <p className="rowDetails">
+              <ColoredLanguagesBadge languages={item.categories.slice(0, 4)} />
+            </p>
+          </>
         </>
       }
     />

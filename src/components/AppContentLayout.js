@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { SUPPORTED_CARDS } from '../Constants'
+import { SUPPORTED_CARDS } from '../constants'
 import PreferencesContext from '../preferences/PreferencesContext'
 import BottomNavigation from './BottomNavigation'
 import { isDesktop } from 'react-device-detect'

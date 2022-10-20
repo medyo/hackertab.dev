@@ -1,32 +1,32 @@
 import React from 'react'
-import { APP } from '../Constants';
-import { RiCodeSSlashFill } from "react-icons/ri"
-import { trackPageView } from '../utils/Analytics'
+import { APP } from '../constants'
+import { RiCodeSSlashFill } from 'react-icons/ri'
 import { HiLightBulb } from 'react-icons/hi'
+import { trackPageView } from 'src/lib/analytics'
 
 function Footer({ feedbackWidget }) {
   const { show: showFeedbackWidget } = feedbackWidget || { show: false }
 
   const onSourceCodeClick = () => {
-    trackPageView('source code')
+    trackPageView('Source Code')
     window.open(APP.repository, '_blank')
   }
 
   const onNewFeatureRequest = () => {
-    trackPageView('feature request')
+    trackPageView('Feature Request')
     window.open(APP.supportLink)
   }
 
   const onPrivacyPolicyClick = () => {
-    trackPageView('privacy policy')
+    trackPageView('Privacy Policy')
     window.open(APP.privacyPolicyLink)
   }
   const onTermsClick = () => {
-    trackPageView('terms and conditions')
+    trackPageView('Terms And Conditions')
     window.open(APP.termsAndConditionsLink)
   }
   const onDataSourcesClick = () => {
-    trackPageView('data sources')
+    trackPageView('Data Sources')
     window.open(APP.dataSourcesLink)
   }
 

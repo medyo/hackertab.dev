@@ -1,7 +1,7 @@
 {
   "name": "Hackertab.dev",
   "description": "The Developer’s Homepage",
-  "version": "1.14.0",
+  "version": "1.14.1",
   "manifest_version": 2,
   "chrome_url_overrides": {
     "newtab": "index.html"
@@ -16,7 +16,7 @@
     "48": "/logos/logo48.png",
     "128": "/logos/logo128.png"
   },
-  "content_security_policy": "script-src 'self' object-src 'self'",
+  "content_security_policy": "script-src 'self' default-src 'self'",
   "applications": {
     "gecko": {
       "id": "{f8793186-e9da-4332-aa1e-dc3d9f7bb04c}"

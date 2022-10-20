@@ -8,20 +8,30 @@ import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarContent } fr
 import 'react-pro-sidebar/dist/css/styles.css';
 import PreferencesContext from '../preferences/PreferencesContext';
 import CardLink from "../components/CardLink";
-import { trackUnbookmarkFrom } from "../utils/Analytics"
-
+import { trackLinkUnBookmark, Attributes } from 'src/lib/analytics'
 
 const BookmarkItem = ({ item, appendRef = true }) => {
   const { dispatcher } = useContext(PreferencesContext)
   const unBookmark = () => {
     dispatcher({ type: 'unBookmarkItem', value: item })
-    trackUnbookmarkFrom(item.source)
+    trackLinkUnBookmark(item.source)
   }
   return (
     <MenuItem
-      suffix={<span className="unbookmarkBtn" onClick={unBookmark}><TiDelete /></span>}
-    >
-      <CardLink link={item.url} appendRef={appendRef}>{`${item.title}`}</CardLink>
+      suffix={
+        <span className="unbookmarkBtn" onClick={unBookmark}>
+          <TiDelete />
+        </span>
+      }>
+      <CardLink
+        link={item.url}
+        appendRef={appendRef}
+        analyticsAttributes={{
+          [Attributes.TRIGERED_FROM]: 'bookmarks',
+          [Attributes.TITLE]: item.title,
+          [Attributes.LINK]: item.url,
+          [Attributes.SOURCE]: item.source,
+        }}>{`${item.title}`}</CardLink>
     </MenuItem>
   )
 }
@@ -29,8 +39,7 @@ const BookmarkItem = ({ item, appendRef = true }) => {
 function BookmarksSidebar({ showSidebar, onClose }) {
 
   const { userBookmarks = [] } = useContext(PreferencesContext)
-  const githubBookmarks = userBookmarks.filter(bm => bm.source == "github")
-  const jobsBookmarks = userBookmarks.filter(bm => bm.source == "jobs")
+  const githubBookmarks = userBookmarks.filter((bm) => bm.source == 'github')
   const newsBookmarks = userBookmarks.filter(
     (bm) =>
       [

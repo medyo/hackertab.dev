@@ -4,11 +4,11 @@ import { CgTab } from 'react-icons/cg';
 import { BsFillBookmarksFill } from "react-icons/bs"
 import { ReactComponent as HackertabLogo } from '../logo.svg';
 import UserTags from "./UserTags";
-import { SUPPORTED_SEARCH_ENGINES } from '../Constants'
+import { SUPPORTED_SEARCH_ENGINES } from '../constants'
 import SettingsModal from '../settings/SettingsModal'
 import { BsMoon } from 'react-icons/bs'
 import { IoMdSunny } from 'react-icons/io'
-import { trackThemeChange, trackSearch } from '../utils/Analytics'
+import { trackSearchEngineUse } from 'src/lib/analytics'
 import Changelog from './Changelog'
 import { GoSearch } from 'react-icons/go'
 
@@ -21,7 +21,7 @@ function SearchBar({ state }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     const keywords = e.target.children[1].value
-    trackSearch(userSearchEngine.label)
+    trackSearchEngineUse(userSearchEngine.label)
     window.open(`${userSearchEngine.url}${keywords}`, '_self')
   }
 
@@ -56,7 +56,6 @@ function Header({ state, dispatcher, showSideBar, setShowSideBar, showSettings, 
       if (!document.documentElement.classList.contains('transitionBgColor')) {
         document.documentElement.classList.add('transitionBgColor')
       }
-      trackThemeChange(state.theme)
     }
 
     if (state.theme === 'light') {

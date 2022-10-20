@@ -10,11 +10,12 @@ import { MdAccessTime } from 'react-icons/md'
 import { MdWavingHand } from 'react-icons/md'
 import CardItemWithActions from '../components/CardItemWithActions'
 import SelectableCard from '../components/SelectableCard'
-import { GLOBAL_TAG, MY_LANGUAGES_TAG, MAX_MERGED_ITEMS_PER_LANGUAGE } from '../Constants'
+import { GLOBAL_TAG, MY_LANGUAGES_TAG, MAX_MERGED_ITEMS_PER_LANGUAGE } from '../constants'
 import { mergeMultipleDataSources } from '../utils/DataUtils'
-import { trackCardLanguageChange } from '../utils/Analytics'
+import { trackCardLanguageSelect } from 'src/lib/analytics'
+import { Attributes } from 'src/lib/analytics'
 
-const ArticleItem = ({ item, index, analyticsTag }) => {
+const ArticleItem = ({ item, index, selectedLanguage }) => {
   const { listingMode } = useContext(PreferencesContext)
 
   return (
@@ -25,7 +26,16 @@ const ArticleItem = ({ item, index, analyticsTag }) => {
       item={{ ...item, url: item.mediumUrl }}
       cardItem={
         <>
-          <CardLink link={item.mediumUrl} analyticsSource={analyticsTag}>
+          <CardLink
+            link={item.mediumUrl}
+            analyticsAttributes={{
+              [Attributes.POINTS]: item.clapCount,
+              [Attributes.TRIGERED_FROM]: 'card',
+              [Attributes.TITLE]: item.title,
+              [Attributes.LINK]: item.mediumUrl,
+              [Attributes.SOURCE]: 'medium',
+              [Attributes.LANGUAGE]: selectedLanguage?.value,
+            }}>
             {listingMode === 'compact' && (
               <div className="counterWrapper">
                 <MdWavingHand />
@@ -121,7 +131,7 @@ function MediumCard({ analyticsTag, label, icon, withAds }) {
           tagId={'MEDIUM_MENU_LANGUAGE_ID'}
           selectedTag={selectedLanguage}
           setSelectedTag={setSelectedLanguage}
-          trackEvent={(tag) => trackCardLanguageChange('Medium', tag.value)}
+          trackEvent={(tag) => trackCardLanguageSelect('Medium', tag.value)}
           fallbackTag={GLOBAL_TAG}
           cardSettings={cardsSettings?.medium?.language}
           data={userSelectedTags.map((tag) => ({
@@ -134,7 +144,12 @@ function MediumCard({ analyticsTag, label, icon, withAds }) {
   }
 
   const renderItem = (item, index) => (
-    <ArticleItem item={item} key={`md-${index}`} index={index} analyticsTag={analyticsTag} />
+    <ArticleItem
+      item={item}
+      key={`md-${index}`}
+      index={index}
+      selectedLanguage={selectedLanguage}
+    />
   )
 
   return (
