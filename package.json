@@ -36,7 +36,7 @@
   "proxy": "https://api.hackertab.dev/",
   "scripts": {
     "start": "craco start",
-    "web-build": "REACT_APP_WEB_BUILD=1 CI= react-scripts --max_old_space_size=3072 build",
+    "web-build": "craco --max_old_space_size=4096 build",
     "build": "./script/build.sh",
     "stores-build": "./script/stores_build.sh",
     "eject": "react-scripts eject"
