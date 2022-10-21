@@ -3962,7 +3962,7 @@ console-browserify@^1.1.0:
 
 constants-browserify@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/Constants-browserify/-/Constants-browserify-1.0.0.tgz#c20b96d8c617748aaf1c16021760cd27fcb8cb75"
+  resolved "https://registry.yarnpkg.com/constants-browserify/-/constants-browserify-1.0.0.tgz#c20b96d8c617748aaf1c16021760cd27fcb8cb75"
   integrity sha512-xFxOwqIzR/e1k1gLiWEophSCMqXcwVHIH7akf7b/vxcUeGunlj3hvZaaqxwHsTgn+IndtkQJgSztIDWeumWJDQ==
 
 content-disposition@0.5.4:
