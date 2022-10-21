@@ -1,17 +1,15 @@
 {
   "name": "Hackertab.dev - developer news",
   "description": "All developer news in one tab",
-  "version": "1.14.1",
-  "manifest_version": 2,
+  "version": "1.14.2",
+  "manifest_version": 3,
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "service_worker": "background.js"
   },
-  "permissions": [
+  "host_permissions": [
     "https://*.hackertab.dev/*"
   ],
   "icons": {
@@ -19,11 +17,5 @@
     "32": "/logos/logo32.png",
     "48": "/logos/logo48.png",
     "128": "/logos/logo128.png"
-  },
-  "content_security_policy": "script-src 'self' object-src 'self'",
-  "applications": {
-    "gecko": {
-      "id": "{f8793186-e9da-4332-aa1e-dc3d9f7bb04c}"
-    }
   }
 }
