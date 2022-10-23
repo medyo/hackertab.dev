@@ -1,5 +1,9 @@
 const path = require('path')
 
+function isDevelopmentEnv() {
+  return process.env.NODE_ENV === 'development'
+}
+
 module.exports = {
   webpack: {
     alias: {
@@ -10,10 +14,10 @@ module.exports = {
         filename: 'static/js/[name].js',
       },
       optimization: {
-        runtimeChunk: false,
+        runtimeChunk: isDevelopmentEnv(),
         splitChunks: {
           chunks(chunk) {
-            return false
+            return isDevelopmentEnv()
           },
         },
       },
@@ -23,6 +27,10 @@ module.exports = {
     {
       plugin: {
         overrideWebpackConfig: ({ webpackConfig }) => {
+          if (isDevelopmentEnv()) {
+            return webpackConfig
+          }
+
           let mcep
           webpackConfig.plugins.some((p) => {
             if (p.constructor.name === 'MiniCssExtractPlugin') {
