@@ -51,4 +51,4 @@ function Footer({ feedbackWidget }) {
   )
 }
 
-export default Footer;
+export default Footer

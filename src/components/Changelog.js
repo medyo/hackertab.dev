@@ -31,7 +31,7 @@ function Changelog({}) {
 
   useEffect(() => {
     try {
-      setLocalAppVersion(chrome.runtime.getManifest().version)
+      //setLocalAppVersion(chrome.runtime.getManifest().version)
     } catch (e) {
       setLocalAppVersion('')
     }

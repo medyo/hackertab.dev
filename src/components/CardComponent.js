@@ -1,18 +1,18 @@
-import React, { useContext } from 'react';
-import { BsBoxArrowInUpRight } from 'react-icons/bs';
+import React, { useContext } from 'react'
+import { BsBoxArrowInUpRight } from 'react-icons/bs'
 import { APP } from '../Constants'
 import PreferencesContext from '../preferences/PreferencesContext'
 
 function CardComponent({ icon, title, children, fullBlock, link }) {
-	const { openLinksNewTab } = useContext(PreferencesContext);
+  const { openLinksNewTab } = useContext(PreferencesContext)
 
-	const handleHeaderLinkClick = (e) => {
-		e.preventDefault();
-		let url = `${link}?${APP.ref}`;
-		window.open(url, openLinksNewTab ? '_blank' : '_self');
-	};
+  const handleHeaderLinkClick = (e) => {
+    e.preventDefault()
+    let url = `${link}?${APP.ref}`
+    window.open(url, openLinksNewTab ? '_blank' : '_self')
+  }
 
-	return (
+  return (
     <div className={'block' + (fullBlock ? ' fullBlock' : '')}>
       <div className="blockHeader">
         {icon} {title}{' '}
@@ -27,4 +27,4 @@ function CardComponent({ icon, title, children, fullBlock, link }) {
   )
 }
 
-export default CardComponent;
+export default CardComponent

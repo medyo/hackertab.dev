@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { FaReddit } from 'react-icons/fa';
 import redditApi from '../services/reddit'
-import CardComponent from "../components/CardComponent"
-import ListComponent from "../components/ListComponent"
-import { format } from 'timeago.js';
+import CardComponent from '../components/CardComponent'
+import ListComponent from '../components/ListComponent'
+import { format } from 'timeago.js'
 import PreferencesContext from '../preferences/PreferencesContext'
-import CardLink from "../components/CardLink"
+import CardLink from '../components/CardLink'
 import { BiCommentDetail } from 'react-icons/bi';
 import { MdAccessTime } from "react-icons/md"
 import { VscTriangleUp } from 'react-icons/vsc';

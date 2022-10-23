@@ -1,11 +1,11 @@
 
 import React, { useEffect, useState, useContext } from 'react'
-import CardComponent from "../components/CardComponent";
-import ListComponent from "../components/ListComponent";
-import { BiCommentDetail } from "react-icons/bi"
-import { VscTriangleUp } from 'react-icons/vsc';
+import CardComponent from '../components/CardComponent'
+import ListComponent from '../components/ListComponent'
+import { BiCommentDetail } from 'react-icons/bi'
+import { VscTriangleUp } from 'react-icons/vsc'
 import PreferencesContext from '../preferences/PreferencesContext'
-import CardLink from "../components/CardLink"
+import CardLink from '../components/CardLink'
 import CardItemWithActions from '../components/CardItemWithActions'
 import producthuntApi from '../services/producthunt'
 import ProductHuntPlaceholder from '../components/ProductHuntPlaceholder'

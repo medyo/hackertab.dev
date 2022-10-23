@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import PreferencesContext from '../preferences/PreferencesContext'
-import { BiBookmarkPlus } from "react-icons/bi";
-import { BiBookmarkMinus } from "react-icons/bi";
+import { BiBookmarkPlus } from 'react-icons/bi'
+import { BiBookmarkMinus } from 'react-icons/bi'
 import { trackLinkBookmark, trackLinkUnBookmark, Attributes } from 'src/lib/analytics'
 
 export default function CardItemWithActions({ cardItem, item, index, source }) {
@@ -24,7 +24,7 @@ export default function CardItemWithActions({ cardItem, item, index, source }) {
       [Attributes.TITLE]: item.title,
       [Attributes.LINK]: item.url,
       [Attributes.SOURCE]: source,
-    } 
+    }
     if (isBookmarked) {
       trackLinkUnBookmark(analyticsAttrs)
     } else {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import CarbonAd from './CarbonAd'
+import CarbonAd from '../features/carbonAds/components/CarbonAd'
 import Placeholder from './Placeholder'
 
 function ListComponent({ fetchData, refresh, renderItem, withAds, placeholder = <Placeholder /> }) {

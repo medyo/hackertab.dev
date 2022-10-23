@@ -7,7 +7,7 @@ import { SiGithub, SiReddit, SiProducthunt, SiYcombinator } from 'react-icons/si
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarContent } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import PreferencesContext from '../preferences/PreferencesContext';
-import CardLink from "../components/CardLink";
+import CardLink from '../components/CardLink'
 import { trackLinkUnBookmark, Attributes } from 'src/lib/analytics'
 
 const BookmarkItem = ({ item, appendRef = true }) => {
