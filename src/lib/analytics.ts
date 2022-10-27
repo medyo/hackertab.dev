@@ -2,6 +2,7 @@ import AppStorage from '../services/localStorage';
 import { init, track, identify, Identify } from '@amplitude/analytics-browser'
 import { isDevelopment } from 'src/utils/Environment';
 import { ANALYTICS_SDK_KEY, ANALYTICS_ENDPOINT, LS_ANALYTICS_ID_KEY } from 'src/Constants'
+import {getAppVersion} from "src/utils/Os";
 
 enum Objects {
   PAGE = 'Page',
@@ -305,14 +306,7 @@ const getRandomUserId = () => {
   return userId
 }
 
-const getAppVersion = (): string | undefined => {
-  try {
-    var manifestData = chrome.runtime.getManifest()
-    return manifestData.version
-  } catch (e) {
-    return undefined
-  }
-}
+
 const getScreenResolution = (): string => {
   const realWidth = window.screen.width
   const realHeight = window.screen.height

@@ -9,7 +9,7 @@ import SettingsModal from '../settings/SettingsModal'
 import { BsMoon } from 'react-icons/bs'
 import { IoMdSunny } from 'react-icons/io'
 import { trackSearchEngineUse } from 'src/lib/analytics'
-import Changelog from './Changelog'
+import {Changelog} from 'src/features/changelog'
 import { GoSearch } from 'react-icons/go'
 
 function SearchBar({ state }) {
