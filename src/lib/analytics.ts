@@ -15,6 +15,7 @@ enum Objects {
   CARD = 'Card',
   SEARCH_ENGINE = 'Search Engine',
   LISTING_MODE = 'Listing Mode',
+  CHANGE_LOG = 'Change Log',
 }
 
 enum Verbs {
@@ -206,6 +207,13 @@ export const trackCardDateRangeSelect = (sourceName: string, dateRange: string) 
   })
 }
 
+export const trackChangeLogOpen = () => {
+  trackEvent({
+    object: Objects.CHANGE_LOG,
+    verb: Verbs.OPEN
+  })
+}
+
 // Identification
 
 export const identifyUserLanguages = (languages: string[]) => {
@@ -233,7 +241,7 @@ export const identifyUserLinksInNewTab = (enabled: boolean) => {
 type trackEventProps = {
   object: Exclude<Objects, null | undefined>,
   verb: Exclude<Verbs, null | undefined>,
-  attributes: {
+  attributes?: {
     //[P in Exclude<Attributes, null | undefined>]?: string;
     [P: string]: string;
   }
@@ -242,17 +250,20 @@ type trackEventProps = {
 const trackEvent = ({ object, verb, attributes }: trackEventProps) => {
   try {
     const event = `${object}${_SEP_}${verb}`
-    Object.keys(attributes).map(attr => {
-      const value = attributes[attr];
-      if (typeof value !== "number") {
-        attributes[attr] = value.toLowerCase();
-      }
-      return attr;
-    });
 
-    // Remove http and www from links
-    if (Object.keys(attributes).some((attr) => attr == Attributes.LINK)) {
-      attributes[Attributes.LINK] = attributes[Attributes.LINK].replace(/(https*:\/\/[www.]*)/, '')
+    if (attributes) {
+      Object.keys(attributes).map(attr => {
+        const value = attributes[attr];
+        if (typeof value !== "number") {
+          attributes[attr] = value.toLowerCase();
+        }
+        return attr;
+      });
+
+      // Remove http and www from links
+      if (Object.keys(attributes).some((attr) => attr == Attributes.LINK)) {
+        attributes[Attributes.LINK] = attributes[Attributes.LINK].replace(/(https*:\/\/[www.]*)/, '')
+      }
     }
 
     if (isDevelopment()) {
