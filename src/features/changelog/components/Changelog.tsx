@@ -7,27 +7,37 @@ import BeatLoader from 'react-spinners/BeatLoader'
 import {useGetVersions} from "../api/getVersions";
 import {useChangelogStore} from "../stores/changelog";
 import {getAppVersion} from "src/utils/Os";
+import { trackChangeLogOpen } from 'src/lib/analytics'
 
-export const Changelog = ()  => {
+export const Changelog = () => {
   const tooltipId = 'tl-1'
-  const [tooltipOpen, setTooltipShown] = useState(false);
-  const {isLoading, isError, data: versions} = useGetVersions({
+  const [tooltipShown, setTooltipShown] = useState(false)
+  const {
+    isLoading,
+    isError,
+    data: versions,
+  } = useGetVersions({
     config: {
-      enabled: tooltipOpen
-    }
-  });
+      enabled: tooltipShown,
+    },
+  })
 
-  const {lastReadVersion, setVersionAsRead} = useChangelogStore();
+  const { lastReadVersion, setVersionAsRead } = useChangelogStore()
 
   const isChangelogRead = (): boolean => {
-    return lastReadVersion === getAppVersion();
+    return lastReadVersion === getAppVersion()
   }
 
   useEffect(() => {
-    if (tooltipOpen) {
-      setVersionAsRead(getAppVersion())
+    const currentVersion = getAppVersion()
+    if (tooltipShown) {
+      trackChangeLogOpen()
+
+      if (currentVersion) {
+        setVersionAsRead(currentVersion)
+      }
     }
-  }, [tooltipOpen, setVersionAsRead])
+  }, [tooltipShown, setVersionAsRead])
 
   return (
     <>
@@ -35,7 +45,9 @@ export const Changelog = ()  => {
         id={tooltipId}
         event="click"
         scrollHide={false}
-        afterShow={() => {setTooltipShown(true)}}
+        afterShow={() => {
+          setTooltipShown(true)
+        }}
         place="bottom"
         className="changelogTooltip scrollable"
         globalEventOff="click">
@@ -50,7 +62,9 @@ export const Changelog = ()  => {
             return (
               <div key={item.name}>
                 <div className="tooltipHeader">
-                  <a className="tooltipVersion" onClick={() => window.open(item.html_url, '_blank')}>
+                  <a
+                    className="tooltipVersion"
+                    onClick={() => window.open(item.html_url, '_blank')}>
                     {item.name}
                   </a>
                   <span className="tooltipDate">{format(new Date(item.published_at))}</span>
@@ -67,7 +81,7 @@ export const Changelog = ()  => {
         data-tip
         data-for={tooltipId}
         className={'changelogButton' + (!isChangelogRead() ? ' active' : '')}>
-        <HiBell style={{ width: 14 }} />
+        {isChangelogRead() ? <HiBell style={{ width: 14 }} /> : `New`}
       </span>
     </>
   )
