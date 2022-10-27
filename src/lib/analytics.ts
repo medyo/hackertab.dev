@@ -217,7 +217,7 @@ export const trackChangeLogOpen = () => {
 // Identification
 
 export const identifyUserLanguages = (languages: string[]) => {
-  identifyUserProperty(Attributes.LANGUAGE, languages)
+  identifyUserProperty(Attributes.LANGUAGES, languages)
 }
 
 export const identifyUserListingMode = (listingMode: "compact" | "normal") => {
