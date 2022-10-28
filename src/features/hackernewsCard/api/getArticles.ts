@@ -16,7 +16,7 @@ type UseGetArticlesOptions = {
 export const useGetArticles = ({ config }: UseGetArticlesOptions = {}) => {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
     ...config,
-    queryKey: ['ad'],
+    queryKey: ['hackernewsArticles'],
     queryFn: () => getArticles(),
   })
 }
