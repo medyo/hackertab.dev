@@ -1,10 +1,10 @@
 import create from 'zustand';
 import { persist } from 'zustand/middleware'
-import { SelectedCard, SelectedTag, Theme, ListingMode } from "../types";
+import { SelectedCard, SelectedTag, Theme, ListingMode, BookmarkedPost } from "../types";
 
 type UserPreferencesStore = {
   userSelectedTags: SelectedTag[]
-  userBookmarks: any[]
+  userBookmarks: BookmarkedPost[]
   theme: Theme,
   openLinksNewTab: boolean,
   listingMode: ListingMode,
@@ -16,6 +16,8 @@ type UserPreferencesStore = {
   setListingMode: (listingMode: ListingMode) => void;
   setCards: (selectedCards: SelectedCard[]) => void;
   setTags: (selectedTags: SelectedTag[]) => void;
+  bookmarkPost: (post: BookmarkedPost) => void;
+  unbookmarkPost: (post: BookmarkedPost) => void;
 };
 
 export const useUserPreferences = create(persist<UserPreferencesStore>((set) => ({
@@ -32,6 +34,8 @@ export const useUserPreferences = create(persist<UserPreferencesStore>((set) => 
   setOpenLinksNewTab: (openLinksNewTab: boolean) => set({ openLinksNewTab: openLinksNewTab }),
   setCards: (selectedCards: SelectedCard[]) => set({ cards: selectedCards }),
   setTags: (selectedTags: SelectedTag[]) => set({ userSelectedTags: selectedTags }),
+  bookmarkPost: (post: BookmarkedPost) => set((state) => ({ userBookmarks: [post, ...state.userBookmarks] })),
+  unbookmarkPost: (post: BookmarkedPost) => set((state) => ({ userBookmarks: state.userBookmarks.filter((bookmarkedPost) => bookmarkedPost.url !== post.url), }))
 }), {
   name: 'preferences_storage',
 }));

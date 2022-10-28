@@ -13,6 +13,12 @@ export type SelectedTag = {
   value: string
 }
 
+export type BookmarkedPost = {
+  title: string,
+  source: string,
+  url: string;
+}
+
 export type UserPreferences = {
   userSelectedTags: string[]
   userBookmarks: any[]
