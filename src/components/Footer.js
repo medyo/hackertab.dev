@@ -5,8 +5,6 @@ import { HiLightBulb } from 'react-icons/hi'
 import { trackPageView } from 'src/lib/analytics'
 
 function Footer({ feedbackWidget }) {
-  const { show: showFeedbackWidget } = feedbackWidget || { show: false }
-
   const onSourceCodeClick = () => {
     trackPageView('Source Code')
     window.open(APP.repository, '_blank')
@@ -32,11 +30,9 @@ function Footer({ feedbackWidget }) {
 
   return (
     <footer className="AppFooter">
-      {showFeedbackWidget && (
-        <a className="linkItem" href="#" onClick={(e) => onNewFeatureRequest(e)}>
-          <HiLightBulb className="linkItemIcon" /> New Feature?
-        </a>
-      )}
+      <a className="linkItem" href="#" onClick={(e) => onNewFeatureRequest(e)}>
+        <HiLightBulb className="linkItemIcon" /> New Feature?
+      </a>
       <a className="linkItem" href="#" onClick={() => onSourceCodeClick()}>
         <RiCodeSSlashFill className="linkItemIcon" /> Source code
       </a>

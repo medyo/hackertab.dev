@@ -12,7 +12,7 @@ import PreferencesContext from './preferences/PreferencesContext'
 import { setupAnalytics, trackPageView, setupIdentification } from 'src/lib/analytics'
 
 function App() {
-  const { marketingBannerConfig = {}, feedbackWidget } = useContext(ConfigurationContext)
+  const { marketingBannerConfig = {} } = useContext(ConfigurationContext)
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const { dispatcher, ...state } = useContext(PreferencesContext)
@@ -38,7 +38,7 @@ function App() {
       <AppContentLayout setShowSettings={setShowSettings} />
       <BookmarksSidebar showSidebar={showSideBar} onClose={() => setShowSideBar(false)} />
 
-      <Footer feedbackWidget={feedbackWidget} />
+      <Footer />
     </div>
   )
 }
