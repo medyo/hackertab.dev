@@ -5,7 +5,7 @@ import { BsFillBookmarksFill } from 'react-icons/bs'
 import { ReactComponent as HackertabLogo } from '../logo.svg'
 import UserTags from './UserTags'
 import { SUPPORTED_SEARCH_ENGINES } from '../Constants'
-import SettingsModal from '../settings/SettingsModal'
+import { SettingsModal } from 'src/features/settings'
 import { BsMoon } from 'react-icons/bs'
 import { IoMdSunny } from 'react-icons/io'
 import { trackSearchEngineUse } from 'src/lib/analytics'
@@ -15,7 +15,7 @@ import { GoSearch } from 'react-icons/go'
 function SearchBar({ state }) {
   const keywordsInputRef = React.useRef(null)
   const userSearchEngine = SUPPORTED_SEARCH_ENGINES.find(
-    (engine) => engine.label == state.searchEngine
+    (engine) => engine.label === state.searchEngine
   )
 
   const handleSubmit = (e) => {

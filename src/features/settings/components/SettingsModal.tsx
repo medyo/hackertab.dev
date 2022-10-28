@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react";
-import ReactModal from 'react-modal';
-import "react-toggle/style.css"
-import { VscClose } from "react-icons/vsc"
-import Select from 'react-select'
+import React, { useContext, useState } from 'react'
+import ReactModal from 'react-modal'
+import 'react-toggle/style.css'
+import { VscClose } from 'react-icons/vsc'
+import Select, { ActionMeta, MultiValue, SingleValue } from 'react-select'
+import { SearchEngineType } from 'src/types'
 import Toggle from 'react-toggle'
-import '../App.css';
-import './settings.css';
-import PreferencesContext from '../preferences/PreferencesContext';
-import ConfigurationContext from '../configuration/ConfigurationContext';
-import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, APP } from '../Constants'
+import './settings.css'
+import PreferencesContext from 'src/preferences/PreferencesContext'
+import ConfigurationContext from 'src/configuration/ConfigurationContext'
+import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, APP } from 'src/Constants'
 import {
   trackLanguageAdd,
   trackLanguageRemove,
@@ -19,7 +19,17 @@ import {
   trackTabTarget,
 } from 'src/lib/analytics'
 
-function SettingsModal({ showSettings, setShowSettings }) {
+type SettingsModalProps = {
+  showSettings: boolean
+  setShowSettings: (show: boolean) => void
+}
+
+type OptionType = {
+  value: string
+  label: string
+}
+
+export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalProps) => {
   const { supportedTags } = useContext(ConfigurationContext)
   const preferences = useContext(PreferencesContext)
   const { dispatcher, cards, userSelectedTags, openLinksNewTab, listingMode, theme, searchEngine } =
@@ -30,32 +40,41 @@ function SettingsModal({ showSettings, setShowSettings }) {
     setShowSettings(false)
   }
 
-  const onTagsSelectChange = (tags, metas) => {
+  const onTagsSelectChange = (tags: MultiValue<OptionType>, metas: ActionMeta<OptionType>) => {
     switch (metas.action) {
       case 'select-option':
-        trackLanguageAdd(metas.option.label)
+        if (metas.option?.label) {
+          trackLanguageAdd(metas.option.label)
+        }
         break
       case 'remove-value':
-        trackLanguageRemove(metas.removedValue.label)
+        if (metas.removedValue?.label) {
+          trackLanguageRemove(metas.removedValue.label)
+        }
+
         break
     }
 
     dispatcher({ type: 'setUserSelectedTags', value: tags })
   }
 
-  const onlistingModeChange = (e) => {
+  const onlistingModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.checked ? 'compact' : 'normal'
     trackListingModeSelect(value)
     dispatcher({ type: 'changelistingMode', value })
   }
 
-  const onCardSelectChange = (cards, metas) => {
+  const onCardSelectChange = (cards: MultiValue<OptionType>, metas: ActionMeta<OptionType>) => {
     switch (metas.action) {
       case 'select-option':
-        trackSourceAdd(metas.option.label)
+        if (metas.option?.label) {
+          trackSourceAdd(metas.option.label)
+        }
         break
       case 'remove-value':
-        trackSourceRemove(metas.removedValue.label)
+        if (metas.removedValue?.label) {
+          trackSourceRemove(metas.removedValue.label)
+        }
         break
     }
 
@@ -66,18 +85,22 @@ function SettingsModal({ showSettings, setShowSettings }) {
     dispatcher({ type: 'setCards', value: newCards })
   }
 
-  const onSearchEngineSelectChange = (value) => {
+  const onSearchEngineSelectChange = (value: SingleValue<SearchEngineType>) => {
+    if (!value) {
+      return
+    }
+
     trackSearchEngineSelect(value.label)
     dispatcher({ type: 'setSearchEngine', value })
   }
 
-  const onOpenLinksNewTabChange = (e) => {
+  const onOpenLinksNewTabChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked
     trackTabTarget(checked)
     dispatcher({ type: 'setOpenLinksNewTab', value: checked })
   }
 
-  const onDarkModeChange = (e) => {
+  const onDarkModeChange = () => {
     dispatcher({ type: 'toggleTheme' })
   }
 
@@ -127,7 +150,7 @@ function SettingsModal({ showSettings, setShowSettings }) {
             <Select
               options={SUPPORTED_CARDS}
               value={selectedCards.map((c) => ({
-                label: SUPPORTED_CARDS.find((c2) => c.name == c2.value).label,
+                label: SUPPORTED_CARDS.find((c2) => c.name === c2.value)?.label || '',
                 value: c.name,
               }))}
               onChange={onCardSelectChange}
@@ -138,7 +161,7 @@ function SettingsModal({ showSettings, setShowSettings }) {
             />
             <p className="settingHint">
               Missing a cool data source? create an issue{' '}
-              <a href="#" onClick={(e) => window.open(APP.supportLink, '_blank')}>
+              <a href="#" onClick={(_e) => window.open(APP.supportLink, '_blank')}>
                 here
               </a>
             </p>
@@ -163,7 +186,7 @@ function SettingsModal({ showSettings, setShowSettings }) {
           <p className="settingTitle">Compact mode</p>
           <div className="settingContent">
             <Toggle
-              checked={listingMode == 'compact'}
+              checked={listingMode === 'compact'}
               icons={false}
               onChange={onlistingModeChange}
             />
@@ -175,7 +198,7 @@ function SettingsModal({ showSettings, setShowSettings }) {
           <div className="settingContent">
             <Select
               options={SUPPORTED_SEARCH_ENGINES}
-              value={SUPPORTED_SEARCH_ENGINES.find((e) => e.label == searchEngine)}
+              value={SUPPORTED_SEARCH_ENGINES.find((e) => e.label === searchEngine)}
               isMulti={false}
               isClearable={false}
               isSearchable={false}
@@ -193,6 +216,5 @@ function SettingsModal({ showSettings, setShowSettings }) {
       </div>
     </ReactModal>
   )
+  return <div></div>
 }
-
-export default SettingsModal

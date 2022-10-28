@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 
 function isDevelopmentEnv() {
   return process.env.NODE_ENV === 'development'
@@ -6,6 +7,13 @@ function isDevelopmentEnv() {
 
 module.exports = {
   webpack: {
+    plugins: {
+      add: [
+        new webpack.DefinePlugin({
+          process: { env: {} },
+        }),
+      ],
+    },
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
