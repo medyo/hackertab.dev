@@ -1,10 +1,11 @@
 import { trackLinkOpen } from 'src/lib/analytics'
-import React, { useContext } from 'react'
+import React from 'react'
 import { APP } from '../Constants'
-import PreferencesContext from '../preferences/PreferencesContext'
+
+import { useUserPreferences } from 'src/stores/preferences'
 
 const ClickableItem = ({ link, className, children, analyticsAttributes, appendRef = true }) => {
-  const { openLinksNewTab } = useContext(PreferencesContext)
+  const { openLinksNewTab } = useUserPreferences()
 
   const handleClick = (e) => {
     e.preventDefault()

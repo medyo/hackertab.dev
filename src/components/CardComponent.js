@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { BsBoxArrowInUpRight } from 'react-icons/bs'
 import { APP } from '../Constants'
-import PreferencesContext from '../preferences/PreferencesContext'
+import { useUserPreferences } from 'src/stores/preferences'
 
 function CardComponent({ icon, title, children, fullBlock, link }) {
-  const { openLinksNewTab } = useContext(PreferencesContext)
+  const { openLinksNewTab } = useUserPreferences()
 
   const handleHeaderLinkClick = (e) => {
     e.preventDefault()

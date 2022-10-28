@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import ReactModal from 'react-modal'
 import 'react-toggle/style.css'
 import { VscClose } from 'react-icons/vsc'
@@ -6,7 +6,7 @@ import Select, { ActionMeta, MultiValue, SingleValue } from 'react-select'
 import { SearchEngineType } from 'src/types'
 import Toggle from 'react-toggle'
 import './settings.css'
-import PreferencesContext from 'src/preferences/PreferencesContext'
+import { useUserPreferences } from 'src/stores/preferences'
 import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, APP } from 'src/Constants'
 import {
   trackLanguageAdd,
@@ -34,9 +34,20 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     remoteConfig: { supportedTags },
   } = useRemoteConfigStore()
 
-  const preferences = useContext(PreferencesContext)
-  const { dispatcher, cards, userSelectedTags, openLinksNewTab, listingMode, theme, searchEngine } =
-    preferences
+  const {
+    cards,
+    userSelectedTags,
+    openLinksNewTab,
+    listingMode,
+    theme,
+    searchEngine,
+    setTheme,
+    setListingMode,
+    setSearchEngine,
+    setOpenLinksNewTab,
+    setCards,
+    setTags,
+  } = useUserPreferences()
   const [selectedCards, setSelectedCards] = useState(cards)
 
   const handleCloseModal = () => {
@@ -58,13 +69,21 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
         break
     }
 
-    dispatcher({ type: 'setUserSelectedTags', value: tags })
+    console.log(tags)
+    setTags(
+      tags.map((tag) => {
+        return {
+          label: tag.label,
+          value: tag.value,
+        }
+      })
+    )
   }
 
   const onlistingModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.checked ? 'compact' : 'normal'
     trackListingModeSelect(value)
-    dispatcher({ type: 'changelistingMode', value })
+    setListingMode(value)
   }
 
   const onCardSelectChange = (cards: MultiValue<OptionType>, metas: ActionMeta<OptionType>) => {
@@ -85,7 +104,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
       return { id: index, name: c.value }
     })
     setSelectedCards(newCards)
-    dispatcher({ type: 'setCards', value: newCards })
+    setCards(newCards)
   }
 
   const onSearchEngineSelectChange = (value: SingleValue<SearchEngineType>) => {
@@ -94,17 +113,21 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     }
 
     trackSearchEngineSelect(value.label)
-    dispatcher({ type: 'setSearchEngine', value })
+    setSearchEngine(value.label)
   }
 
   const onOpenLinksNewTabChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked
     trackTabTarget(checked)
-    dispatcher({ type: 'setOpenLinksNewTab', value: checked })
+    setOpenLinksNewTab(checked)
   }
 
   const onDarkModeChange = () => {
-    dispatcher({ type: 'toggleTheme' })
+    if (theme === 'dark') {
+      setTheme('light')
+    } else {
+      setTheme('dark')
+    }
   }
 
   return (
