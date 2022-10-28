@@ -1,7 +1,7 @@
 import './CarbonAd.css'
 import { addHttpsProtocol } from 'src/utils/UrlUtils'
 import { useGetAd } from '../api/getAd'
-export function CarbonAd() {
+export default function CarbonAd() {
   const { data: ad } = useGetAd()
 
   if (!ad) {
