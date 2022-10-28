@@ -3,7 +3,7 @@ import { BsBoxArrowInUpRight } from 'react-icons/bs'
 import { APP } from '../Constants'
 import { useUserPreferences } from 'src/stores/preferences'
 
-function CardComponent({ icon, title, children, fullBlock, link }) {
+function CardComponent({ icon, title, children, fullBlock = false, link }) {
   const { openLinksNewTab } = useUserPreferences()
 
   const handleHeaderLinkClick = (e) => {

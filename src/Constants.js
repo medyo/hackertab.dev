@@ -20,6 +20,7 @@ import HashNodeIcon from 'src/assets/icon_hashnode.png'
 import LobstersIcon from 'src/assets/icon_lobsters.png'
 import { FaFreeCodeCamp } from 'react-icons/fa'
 import { CgIndieHackers } from 'react-icons/cg'
+import { HackernewsCard } from 'src/features/hackernewsCard'
 
 const APP = {
   name: 'Hackertab.dev',
@@ -48,7 +49,7 @@ export const SUPPORTED_CARDS = [
     icon: <SiYcombinator color="#FB6720" />,
     analyticsTag: 'hackernews',
     label: 'Hackernews',
-    component: HNCard,
+    component: HackernewsCard,
   },
   {
     value: 'conferences',
