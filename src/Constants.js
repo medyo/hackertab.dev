@@ -16,8 +16,8 @@ import { FaDev } from 'react-icons/fa'
 import { SiProducthunt } from 'react-icons/si'
 import { FaReddit, FaMediumM } from 'react-icons/fa'
 import { HiTicket } from 'react-icons/hi'
-import HashNodeIcon from './static/icon_hashnode.png'
-import LobstersIcon from './static/icon_lobsters.png'
+import HashNodeIcon from 'src/assets/icon_hashnode.png'
+import LobstersIcon from 'src/assets/icon_lobsters.png'
 import { FaFreeCodeCamp } from 'react-icons/fa'
 import { CgIndieHackers } from 'react-icons/cg'
 
@@ -33,12 +33,6 @@ const APP = {
   termsAndConditionsLink: 'https://www.hackertab.dev/terms-and-conditions',
   dataSourcesLink: 'https://www.hackertab.dev/data-sources',
   changeLogLink: 'https://api.github.com/repos/medyo/hackertab.dev/releases',
-}
-export const ANALYTICS_ENDPOINT = 'https://api.hackertab.dev/analytics'
-export const ANALYTICS_SDK_KEY = '9662c93f91473ba6e96711b22e0a367d'
-
-export const LOCAL_CONFIGURATION = {
-  supportedTags: [], // Loaded remotly
 }
 
 export const SUPPORTED_CARDS = [
@@ -152,7 +146,6 @@ export const SUPPORTED_SEARCH_ENGINES = [
   },
 ]
 export const LS_PREFERENCES_KEY = 'hackerTabPrefs'
-export const LS_ANALYTICS_ID_KEY = 'hackerTabAnalyticsId'
 export const GLOBAL_TAG = {
   value: 'global',
   label: 'Trending',
