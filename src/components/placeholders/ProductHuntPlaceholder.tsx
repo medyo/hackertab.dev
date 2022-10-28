@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ProductHuntPlaceholder() {
+export const ProductHuntPlaceholder = () => {
   return (
     <div className="cardPlaceholder mediaCardPlaceholder">
       <span className="media" />
@@ -16,5 +16,3 @@ function ProductHuntPlaceholder() {
     </div>
   )
 }
-
-export default ProductHuntPlaceholder

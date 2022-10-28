@@ -8,7 +8,7 @@ import PreferencesContext from '../preferences/PreferencesContext'
 import CardLink from '../components/CardLink'
 import CardItemWithActions from '../components/CardItemWithActions'
 import producthuntApi from '../services/producthunt'
-import ProductHuntPlaceholder from '../components/ProductHuntPlaceholder'
+import { ProductHuntPlaceholder } from '../components/placeholders'
 import { Attributes } from 'src/lib/analytics'
 
 const ProductItem = ({ item, index }) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Placeholder() {
+export const Placeholder = () => {
   return (
     <div className="cardPlaceholder">
       <span className="line"></span>
@@ -13,5 +13,3 @@ function Placeholder() {
     </div>
   )
 }
-
-export default Placeholder

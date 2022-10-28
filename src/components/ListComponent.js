@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import CarbonAd from '../features/carbonAds/components/CarbonAd'
-import Placeholder from './Placeholder'
+import { Placeholder } from 'src/components/placeholders'
 
 function ListComponent({ fetchData, refresh, renderItem, withAds, placeholder = <Placeholder /> }) {
   const [items, setItems] = useState([])
