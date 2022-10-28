@@ -3,17 +3,23 @@ import { ExtractFnReturnType, QueryConfig } from 'src/lib/react-query';
 import { Ad } from "../types";
 import { axios } from 'src/lib/axios';
 
-const getAd = async (): Promise<Ad> => {
+type Response = {
+  ads: Ad[]
+}
+
+const getAd = async (): Promise<Ad | null> => {
   const userAgent = new URLSearchParams(navigator.userAgent).toString()
 
-  return axios.get('/monetization/', {
+  return axios.get<Ad | null>('/monetization/', {
     params: {
       useragent: userAgent
     }
   }).then(response => {
-    if (response.data?.ads?.length) {
-      return response.data.ads[0];
-    }
+    const data = response as unknown as Response;
+    if (!!data.ads.length) {
+      return data.ads[0];
+    } 
+    return null;
   });
 }
 
