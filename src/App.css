@@ -1011,3 +1011,27 @@ Producthunt item
     width: calc((1800px - 12px * 4)/4);
   }
 }
+
+/***** PAGE ****/
+.Page {
+  max-width: 1024px;
+  margin: 0 auto;
+  color: var(--primary-text-color);
+}
+.Page .title {
+  color: var(--primary-text-color)
+}
+.Page button {
+  background: var(--card-background-color);
+  border:none;
+  border-radius: 20px;
+  border: 1px solid var(--card-border-color);
+  padding: 8px 16px;
+  color: var(--primary-text-color);
+  cursor: pointer;
+}
+
+.Page .buttonIcon {
+  position: relative;
+  vertical-align: middle;
+}
