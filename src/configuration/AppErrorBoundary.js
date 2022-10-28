@@ -1,8 +1,7 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { AiFillBug } from 'react-icons/ai'
 import { WiRefresh } from 'react-icons/wi'
-import '../pages/Page.css'
 
 export default function AppErrorBoundary({ children }) {
   function ErrorFallback({ error, resetErrorBoundary }) {
