@@ -5,7 +5,7 @@ import './index.css';
 import App from './App';
 import AppWrapper from './configuration/AppWrapper'
 import AppErrorBoundary from './configuration/AppErrorBoundary'
-import ConfigurationWrapper from './configuration/ConfigurationWrapper'
+import { ConfigurationWrapper } from 'src/features/remoteConfig/'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from 'src/lib/react-query'
 
