@@ -4,7 +4,16 @@ import { useGetRemoteConfig } from '../api/getRemoteConfig'
 import BeatLoader from 'react-spinners/BeatLoader'
 
 export const ConfigurationWrapper = (props) => {
-  const { isLoading, isError, data: remoteConfig } = useGetRemoteConfig()
+  const {
+    isLoading,
+    isError,
+    data: remoteConfig,
+  } = useGetRemoteConfig({
+    config: {
+      staleTime: 3600000, //1 Hour
+      cacheTime: 86400000, // 1 Day
+    },
+  })
   const throwError = useAsyncError()
 
   if (isLoading) {
