@@ -7,7 +7,6 @@ import { SearchEngineType } from 'src/types'
 import Toggle from 'react-toggle'
 import './settings.css'
 import PreferencesContext from 'src/preferences/PreferencesContext'
-import ConfigurationContext from 'src/configuration/ConfigurationContext'
 import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, APP } from 'src/Constants'
 import {
   trackLanguageAdd,
@@ -18,6 +17,7 @@ import {
   trackListingModeSelect,
   trackTabTarget,
 } from 'src/lib/analytics'
+import { useRemoteConfigStore } from 'src/features/remoteConfig'
 
 type SettingsModalProps = {
   showSettings: boolean
@@ -30,7 +30,10 @@ type OptionType = {
 }
 
 export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalProps) => {
-  const { supportedTags } = useContext(ConfigurationContext)
+  const {
+    remoteConfig: { supportedTags },
+  } = useRemoteConfigStore()
+
   const preferences = useContext(PreferencesContext)
   const { dispatcher, cards, userSelectedTags, openLinksNewTab, listingMode, theme, searchEngine } =
     preferences

@@ -3,6 +3,7 @@ export type Tag = {
   devtoValues: string[],
   hashnodeValues: string[],
   redditValues: string[],
+  githubValues: string[],
   freecodecampValues: string[],
   mediumValues: string[],
   label: string,
@@ -17,5 +18,5 @@ export type MarketingBannerConfig = {
 
 export type RemoteConfig = {
   supportedTags: Tag[],
-  marketingBannerConfig: MarketingBannerConfig
+  marketingBannerConfig?: MarketingBannerConfig
 }

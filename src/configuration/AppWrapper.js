@@ -1,18 +1,20 @@
-import React, { useReducer, useContext } from 'react'
+import React, { useReducer } from 'react'
 import { LS_PREFERENCES_KEY } from 'src/Constants'
 import AppStorage from '../services/localStorage'
 import { PreferencesProvider } from '../preferences/PreferencesContext'
 import { getOSMode } from '../services/os'
 import AppReducer from '../preferences/AppReducer'
-import ConfigurationContext from './ConfigurationContext'
+import { useRemoteConfigStore } from 'src/features/remoteConfig'
 
 export default function AppWrapper({ children }) {
-  const configuration = useContext(ConfigurationContext)
+  const {
+    remoteConfig: { supportedTags },
+  } = useRemoteConfigStore()
 
   const [state, dispatcher] = useReducer(
     AppReducer,
     {
-      userSelectedTags: configuration.supportedTags.filter((t) => t.value === 'javascript'),
+      userSelectedTags: supportedTags.filter((t) => t.value === 'javascript'),
       userBookmarks: [],
       theme: getOSMode(),
       openLinksNewTab: true,
@@ -31,10 +33,10 @@ export default function AppWrapper({ children }) {
         preferences = JSON.parse(preferences)
         preferences = {
           ...preferences,
-          userSelectedTags: configuration.supportedTags.filter((tag) =>
+          userSelectedTags: supportedTags.filter((tag) =>
             preferences.userSelectedTags.includes(tag.value)
           ),
-          cards: preferences.cards.filter((card) => card.name != 'stackoverflow'),
+          cards: preferences.cards.filter((card) => card.name !== 'stackoverflow'),
         }
         return {
           ...initialState,

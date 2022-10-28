@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
 import './App.css'
-import ConfigurationContext from './configuration/ConfigurationContext'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import BookmarksSidebar from './bookmark/BookmarksSidebar'
@@ -10,12 +9,15 @@ import AppContentLayout from './components/AppContentLayout'
 import 'react-contexify/dist/ReactContexify.css'
 import PreferencesContext from './preferences/PreferencesContext'
 import { setupAnalytics, trackPageView, setupIdentification } from 'src/lib/analytics'
+import { useRemoteConfigStore } from 'src/features/remoteConfig'
 
 function App() {
-  const { marketingBannerConfig = {} } = useContext(ConfigurationContext)
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const { dispatcher, ...state } = useContext(PreferencesContext)
+  const {
+    remoteConfig: { marketingBannerConfig },
+  } = useRemoteConfigStore()
 
   useEffect(() => {
     setupAnalytics()
