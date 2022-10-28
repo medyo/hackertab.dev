@@ -9,7 +9,7 @@ import CardItemWithActions from '../../../components/CardItemWithActions'
 import ClickableItem from '../../../components/ClickableItem'
 import PreferencesContext from '../../../preferences/PreferencesContext'
 import { Attributes } from 'src/lib/analytics'
-import { ArticleItemPropsType } from '../../card/types'
+import { ArticleItemPropsType } from 'src/types'
 
 const ArticleItem = (props: ArticleItemPropsType) => {
   const { item, index, listingMode } = props

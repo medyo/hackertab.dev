@@ -2,7 +2,7 @@ import CardComponent from '../../../components/CardComponent'
 import { ListComponent } from 'src/components/List'
 import { useUserPreferences } from 'src/stores/preferences'
 import { useGetArticles } from '../api/getArticles'
-import { ArticleType, CardPropsType } from '../../card/types'
+import { ArticleType, CardPropsType } from 'src/types'
 import ArticleItem from './ArticleItem'
 
 export function HackernewsCard(props: CardPropsType) {

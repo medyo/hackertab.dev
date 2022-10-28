@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArticleType } from 'src/features/card/types'
+import { ArticleType } from 'src/types'
 
 export type ListComponentPropsType = {
   items: ArticleType[], // <== TODO: Unified Article Type
