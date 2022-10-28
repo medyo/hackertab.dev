@@ -12,7 +12,7 @@ export function ProductHuntCard(props: CardPropsType) {
   const { data: articles = [], isLoading, error } = useGetArticles()
 
   const renderItem = (item: ArticleType, index: number) => (
-    <ArticleItem item={item} key={`lb-${index}`} index={index}  />
+    <ArticleItem item={item} key={`ph-${index}`} index={index}  />
   )
 
   return (

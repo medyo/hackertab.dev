@@ -1,12 +1,10 @@
 import React from 'react'
-import HNCard from './cards/HNCard'
 import DevToCard from './cards/DevToCard'
 import ConferencesCard from './cards/ConferencesCard'
 import ReposCard from './cards/ReposCard'
 import RedditCard from './cards/RedditCard'
 import LobstersCard from './cards/LobstersCard'
 import HashNodeCard from './cards/HashNodeCard'
-import IndieHackersCard from './cards/IndieHackersCard'
 import FreeCodeCampCard from './cards/FreeCodeCampCard'
 import MediumCard from './cards/MediumCard'
 import { SiGithub } from 'react-icons/si'
@@ -21,6 +19,8 @@ import { FaFreeCodeCamp } from 'react-icons/fa'
 import { CgIndieHackers } from 'react-icons/cg'
 import { HackernewsCard } from 'src/features/hackernewsCard'
 import { ProductHuntCard } from 'src/features/producthuntCard'
+import { IndiehackersCard } from 'src/features/indiehackersCard'
+
 
 
 const APP = {
@@ -106,7 +106,7 @@ export const SUPPORTED_CARDS = [
     icon: <CgIndieHackers className="blockHeaderWhite" />,
     analyticsTag: 'indiehackers',
     label: 'IndieHackers',
-    component: IndieHackersCard,
+    component: IndiehackersCard,
   },
   {
     value: 'medium',
