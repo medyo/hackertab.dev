@@ -38,6 +38,7 @@ export type ArticleType = {
   source: string
   original_url?: string
   comments_url?: string
+  description?: string
 }
 
 export type CardPropsType = {
@@ -50,5 +51,5 @@ export type CardPropsType = {
 export type ArticleItemPropsType = {
   index: number
   item: ArticleType
-  listingMode: ListingMode
+  listingMode?: ListingMode
 }

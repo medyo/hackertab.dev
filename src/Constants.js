@@ -3,7 +3,6 @@ import HNCard from './cards/HNCard'
 import DevToCard from './cards/DevToCard'
 import ConferencesCard from './cards/ConferencesCard'
 import ReposCard from './cards/ReposCard'
-import ProductHuntCard from './cards/ProductHuntCard'
 import RedditCard from './cards/RedditCard'
 import LobstersCard from './cards/LobstersCard'
 import HashNodeCard from './cards/HashNodeCard'
@@ -21,6 +20,8 @@ import LobstersIcon from 'src/assets/icon_lobsters.png'
 import { FaFreeCodeCamp } from 'react-icons/fa'
 import { CgIndieHackers } from 'react-icons/cg'
 import { HackernewsCard } from 'src/features/hackernewsCard'
+import { ProductHuntCard } from 'src/features/producthuntCard'
+
 
 const APP = {
   name: 'Hackertab.dev',
