@@ -1,10 +1,10 @@
 import React from 'react'
-import { APP } from '../Constants'
+import { APP } from '../../Constants'
 import { RiCodeSSlashFill } from 'react-icons/ri'
 import { HiLightBulb } from 'react-icons/hi'
 import { trackPageView } from 'src/lib/analytics'
 
-function Footer({ feedbackWidget }) {
+export const Footer = () => {
   const onSourceCodeClick = () => {
     trackPageView('Source Code')
     window.open(APP.repository, '_blank')
@@ -30,7 +30,7 @@ function Footer({ feedbackWidget }) {
 
   return (
     <footer className="AppFooter">
-      <a className="linkItem" href="#" onClick={(e) => onNewFeatureRequest(e)}>
+      <a className="linkItem" href="#" onClick={() => onNewFeatureRequest()}>
         <HiLightBulb className="linkItemIcon" /> New Feature?
       </a>
       <a className="linkItem" href="#" onClick={() => onSourceCodeClick()}>
@@ -46,5 +46,3 @@ function Footer({ feedbackWidget }) {
     </footer>
   )
 }
-
-export default Footer
