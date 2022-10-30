@@ -18,6 +18,7 @@ import {
   trackTabTarget,
 } from 'src/lib/analytics'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
+import { enhanceTags } from 'src/utils/DataEnhancement'
 
 type SettingsModalProps = {
   showSettings: boolean
@@ -154,7 +155,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
           <div className="settingContent">
             <Select
               options={supportedTags}
-              defaultValue={userSelectedTags}
+              defaultValue={enhanceTags(userSelectedTags)}
               isMulti={true}
               isClearable={false}
               isSearchable={false}

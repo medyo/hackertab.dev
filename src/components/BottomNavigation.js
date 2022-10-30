@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { SUPPORTED_CARDS } from '../Constants'
-import PreferencesContext from '../preferences/PreferencesContext'
+import { useUserPreferences } from 'src/stores/preferences'
 import { AiOutlineMenu } from 'react-icons/ai'
 
 function BottomNavigation({ selectedCard, setSelectedCard, setShowSettings }) {
-  const { cards } = useContext(PreferencesContext)
+  const { cards } = useUserPreferences()
 
   return (
     <div className="bottomNavigation">

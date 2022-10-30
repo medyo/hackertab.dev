@@ -1,41 +1,49 @@
 import create from 'zustand';
 import { persist } from 'zustand/middleware'
-import { SelectedCard, SelectedTag, Theme, ListingMode, BookmarkedPost } from "../types";
+import { SelectedCard, SelectedTag, Theme, ListingMode } from "../types";
 
-type UserPreferencesStore = {
-  userSelectedTags: SelectedTag[]
-  userBookmarks: BookmarkedPost[]
+export type UserPreferencesState = {
+  userSelectedTags: string[]
   theme: Theme,
   openLinksNewTab: boolean,
   listingMode: ListingMode,
   searchEngine: string,
   cards: SelectedCard[],
+};
+
+type UserPreferencesStoreActions = {
+  initState: (newState: UserPreferencesState) => void;
   setTheme: (theme: Theme) => void;
   setSearchEngine: (theme: string) => void;
   setOpenLinksNewTab: (openLinksNewTab: boolean) => void;
   setListingMode: (listingMode: ListingMode) => void;
   setCards: (selectedCards: SelectedCard[]) => void;
   setTags: (selectedTags: SelectedTag[]) => void;
-  bookmarkPost: (post: BookmarkedPost) => void;
-  unbookmarkPost: (post: BookmarkedPost) => void;
 };
 
-export const useUserPreferences = create(persist<UserPreferencesStore>((set) => ({
+export const useUserPreferences = create(persist<UserPreferencesState & UserPreferencesStoreActions>((set) => ({
   userSelectedTags: [],
-  userBookmarks: [],
   theme: "dark",
   searchEngine: "google",
   listingMode: "normal",
   openLinksNewTab: true,
-  cards: [],
+  cards: [
+    { id: 0, name: 'github' },
+    { id: 1, name: 'hackernews' },
+    { id: 2, name: 'devto' },
+    { id: 3, name: 'producthunt' },
+  ],
   setSearchEngine: (searchEngine: string) => set({ searchEngine: searchEngine }),
   setListingMode: (listingMode: ListingMode) => set({ listingMode: listingMode }),
   setTheme: (theme: Theme) => set({ theme: theme }),
   setOpenLinksNewTab: (openLinksNewTab: boolean) => set({ openLinksNewTab: openLinksNewTab }),
   setCards: (selectedCards: SelectedCard[]) => set({ cards: selectedCards }),
-  setTags: (selectedTags: SelectedTag[]) => set({ userSelectedTags: selectedTags }),
-  bookmarkPost: (post: BookmarkedPost) => set((state) => ({ userBookmarks: [post, ...state.userBookmarks] })),
-  unbookmarkPost: (post: BookmarkedPost) => set((state) => ({ userBookmarks: state.userBookmarks.filter((bookmarkedPost) => bookmarkedPost.url !== post.url), }))
+  setTags: (selectedTags: SelectedTag[]) => set({ userSelectedTags: selectedTags.map(tag => tag.value) }),
+  initState: (newState: UserPreferencesState) => set(() => ({ ...newState }))
+
 }), {
   name: 'preferences_storage',
+  onRehydrateStorage(state) {
+    console.log("state", state)
+  },
 }));

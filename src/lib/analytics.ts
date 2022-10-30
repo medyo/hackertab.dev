@@ -3,6 +3,7 @@ import { init, track, identify, Identify } from '@amplitude/analytics-browser'
 import { isDevelopment } from 'src/utils/Environment';
 import { ANALYTICS_SDK_KEY, ANALYTICS_ENDPOINT, LS_ANALYTICS_ID_KEY } from 'src/config'
 import {getAppVersion} from "src/utils/Os";
+import { useUserPreferences } from "src/stores/preferences";
 
 enum Objects {
   PAGE = 'Page',
@@ -62,14 +63,16 @@ export const setupAnalytics = () => {
   })
 }
 
-export const setupIdentification = (state: any) => {
+export const setupIdentification = () => {
+  const { userSelectedTags, theme, cards, listingMode, openLinksNewTab, searchEngine, } = useUserPreferences.getState();
+
   identifyUserProperty(Attributes.RESOLUTION, getScreenResolution())
-  identifyUserLanguages(state.userSelectedTags.map((tag: any) => tag.value))
-  identifyUserTheme(state.theme)
-  identifyUserCards(state.cards.map((card: any) => card.name))
-  identifyUserListingMode(state.listingMode)
-  identifyUserSearchEngine(state.searchEngine)
-  identifyUserLinksInNewTab(state.searchEngine)
+  identifyUserLanguages(userSelectedTags.map((tag: any) => tag.value))
+  identifyUserTheme(theme)
+  identifyUserCards(cards.map((card: any) => card.name))
+  identifyUserListingMode(listingMode)
+  identifyUserSearchEngine(searchEngine)
+  identifyUserLinksInNewTab(openLinksNewTab)
 }
 
 export const trackPageView = (pageName: string) => {

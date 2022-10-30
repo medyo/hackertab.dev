@@ -15,7 +15,7 @@ import {
 import 'react-pro-sidebar/dist/css/styles.css'
 import CardLink from '../../../components/CardLink'
 import { trackLinkUnBookmark, Attributes } from 'src/lib/analytics'
-import { useUserPreferences } from 'src/stores/preferences'
+import { useBookmarks } from 'src/stores/bookmarks'
 
 type BookmarkItemProps = {
   item: {
@@ -26,7 +26,7 @@ type BookmarkItemProps = {
   appendRef?: boolean
 }
 const BookmarkItem = ({ item, appendRef = true }: BookmarkItemProps) => {
-  const { unbookmarkPost } = useUserPreferences()
+  const { unbookmarkPost } = useBookmarks()
   const analyticsAttrs = {
     [Attributes.TRIGERED_FROM]: 'bookmarks',
     [Attributes.TITLE]: item.title,
@@ -60,7 +60,7 @@ type BookmarksSidebarTtypes = {
   onClose: () => void
 }
 export const BookmarksSidebar = ({ showSidebar, onClose }: BookmarksSidebarTtypes) => {
-  const { userBookmarks } = useUserPreferences()
+  const { userBookmarks } = useBookmarks()
   const githubBookmarks = userBookmarks.filter((bm) => bm.source === 'github')
   const newsBookmarks = userBookmarks.filter(
     (bm) =>

@@ -4,49 +4,23 @@ import { CgTab } from 'react-icons/cg'
 import { BsFillBookmarksFill } from 'react-icons/bs'
 import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
 import UserTags from './UserTags'
-import { SUPPORTED_SEARCH_ENGINES } from '../Constants'
 import { SettingsModal } from 'src/features/settings'
 import { BsMoon } from 'react-icons/bs'
 import { IoMdSunny } from 'react-icons/io'
-import { trackSearchEngineUse } from 'src/lib/analytics'
-import {Changelog} from 'src/features/changelog'
-import { GoSearch } from 'react-icons/go'
+import { Changelog } from 'src/features/changelog'
+import { SearchBar } from 'src/components/Elements/SearchBar'
+import { useUserPreferences } from 'src/stores/preferences'
+import { useBookmarks } from 'src/stores/bookmarks'
 
-function SearchBar({ state }) {
-  const keywordsInputRef = React.useRef(null)
-  const userSearchEngine = SUPPORTED_SEARCH_ENGINES.find(
-    (engine) => engine.label === state.searchEngine
-  )
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const keywords = e.target.children[1].value
-    trackSearchEngineUse(userSearchEngine.label)
-    window.open(`${userSearchEngine.url}${keywords}`, '_self')
-  }
-
-  useEffect(() => {
-    keywordsInputRef.current.focus()
-  }, [])
-
-  return (
-    <form className="searchBar" onSubmit={handleSubmit}>
-      <GoSearch className="searchBarIcon" size={20} />
-      <input
-        ref={keywordsInputRef}
-        type="text"
-        className="searchBarInput"
-        placeholder={`Search on ${userSearchEngine.label}`}
-      />
-    </form>
-  )
-}
-function Header({ state, dispatcher, showSideBar, setShowSideBar, showSettings, setShowSettings }) {
+function Header({ showSideBar, setShowSideBar, showSettings, setShowSettings }) {
   const [themeIcon, setThemeIcon] = useState(<BsMoon />)
   const isFirstRun = useRef(true)
+  const { theme, setTheme } = useUserPreferences()
+  const { userBookmarks } = useBookmarks()
 
   useEffect(() => {
-    document.documentElement.classList.add(state.theme)
+    document.documentElement.classList.add(theme)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -58,17 +32,21 @@ function Header({ state, dispatcher, showSideBar, setShowSideBar, showSettings, 
       }
     }
 
-    if (state.theme === 'light') {
-      document.documentElement.classList.replace('dark', state.theme)
+    if (theme === 'light') {
+      document.documentElement.classList.replace('dark', theme)
       setThemeIcon(<BsMoon />)
-    } else if (state.theme === 'dark') {
-      document.documentElement.classList.replace('light', state.theme)
+    } else if (theme === 'dark') {
+      document.documentElement.classList.replace('light', theme)
       setThemeIcon(<IoMdSunny />)
     }
-  }, [state?.theme])
+  }, [theme])
 
   const onThemeChange = () => {
-    dispatcher({ type: 'toggleTheme' })
+    if (theme === 'dark') {
+      setTheme('light')
+    } else {
+      setTheme('dark')
+    }
   }
 
   const onSettingsClick = () => {
@@ -76,9 +54,9 @@ function Header({ state, dispatcher, showSideBar, setShowSideBar, showSettings, 
   }
 
   const BookmarksBadgeCount = () => {
-    return state.userBookmarks.length > 0 ? (
-      state.userBookmarks.length < 10 ? (
-        <span className="badgeCount">{state.userBookmarks.length}</span>
+    return userBookmarks.length > 0 ? (
+      userBookmarks.length < 10 ? (
+        <span className="badgeCount">{userBookmarks.length}</span>
       ) : (
         <span className="badgeCount">+9</span>
       )
@@ -97,7 +75,7 @@ function Header({ state, dispatcher, showSideBar, setShowSideBar, showSettings, 
           <HackertabLogo className="logoText" />
           <Changelog />
         </span>
-        <SearchBar state={state} />
+        <SearchBar />
         <div className="extras">
           <button className="extraBtn" onClick={onSettingsClick}>
             <BsFillGearFill />
@@ -111,7 +89,7 @@ function Header({ state, dispatcher, showSideBar, setShowSideBar, showSettings, 
           </button>
         </div>
         <div className="break"></div>
-        <UserTags userSelectedTags={state.userSelectedTags} onAddClicked={onSettingsClick} />
+        <UserTags onAddClicked={onSettingsClick} />
       </header>
     </>
   )

@@ -1,23 +1,25 @@
-import React, { useState, useContext, useEffect } from 'react'
-import PreferencesContext from '../preferences/PreferencesContext'
+import React, { useState, useEffect } from 'react'
+import { useBookmarks } from 'src/stores/bookmarks'
 import { BiBookmarkPlus } from 'react-icons/bi'
 import { BiBookmarkMinus } from 'react-icons/bi'
 import { trackLinkBookmark, trackLinkUnBookmark, Attributes } from 'src/lib/analytics'
 
 export default function CardItemWithActions({ cardItem, item, index, source }) {
-  const { dispatcher, userBookmarks } = useContext(PreferencesContext)
+  const { bookmarkPost, unbookmarkPost, userBookmarks } = useBookmarks()
   const [isBookmarked, setIsBookmarked] = useState(
-    userBookmarks.some((bm) => bm.source == source && bm.url == item.url)
+    userBookmarks.some((bm) => bm.source === source && bm.url === item.url)
   )
   const onBookmarkClick = () => {
-    dispatcher({
-      type: isBookmarked ? 'unBookmarkItem' : 'bookmarkItem',
-      value: {
-        title: item.title,
-        url: item.url,
-        source,
-      },
-    })
+    const itemToBookmark = {
+      title: item.title,
+      url: item.url,
+      source,
+    }
+    if (isBookmarked) {
+      unbookmarkPost(itemToBookmark)
+    } else {
+      bookmarkPost(itemToBookmark)
+    }
     setIsBookmarked(!isBookmarked)
     const analyticsAttrs = {
       [Attributes.TRIGERED_FROM]: 'card',
@@ -32,7 +34,7 @@ export default function CardItemWithActions({ cardItem, item, index, source }) {
     }
   }
   useEffect(() => {
-    setIsBookmarked(userBookmarks.some((bm) => bm.source == source && bm.url == item.url))
+    setIsBookmarked(userBookmarks.some((bm) => bm.source === source && bm.url === item.url))
   }, [userBookmarks])
 
   return (

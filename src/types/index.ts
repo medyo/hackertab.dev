@@ -13,20 +13,18 @@ export type SelectedTag = {
   value: string
 }
 
-export type BookmarkedPost = {
-  title: string,
-  source: string,
-  url: string;
-}
-
 export type UserPreferences = {
   userSelectedTags: string[]
-  userBookmarks: any[]
   theme: "light" | "dark",
   openLinksNewTab: boolean,
   listingMode: "normal" | "compact",
   searchEngine: string,
   cards: SelectedCard[]
+}
+
+export type SearchEngine = {
+  url: string,
+  label: string,
 }
 
 export type Theme = "dark" | "light";

@@ -1,7 +1,7 @@
-import React, { useContext, useLayoutEffect } from 'react'
+import React, { useLayoutEffect } from 'react'
 import DropDownMenu from './DropDownMenu'
 import { GLOBAL_TAG, MY_LANGUAGES_TAG } from '../Constants'
-import PreferencesContext from '../preferences/PreferencesContext'
+import { useUserPreferences } from 'src/stores/preferences'
 
 function SelectableCard({
   tagId,
@@ -13,8 +13,7 @@ function SelectableCard({
   trackEvent,
   isLanguage = false,
 }) {
-  const preferences = useContext(PreferencesContext)
-  const { userSelectedTags } = preferences
+  const { userSelectedTags } = useUserPreferences()
 
   let mergedTags = data
   if (isLanguage) {

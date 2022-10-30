@@ -1,15 +1,17 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useState, useEffect } from 'react'
 import { LS_PREFERENCES_KEY } from 'src/Constants'
 import AppStorage from '../services/localStorage'
 import { PreferencesProvider } from '../preferences/PreferencesContext'
 import { getOSMode } from '../services/os'
 import AppReducer from '../preferences/AppReducer'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
+import { migrateToNewStorage } from 'src/utils/StorageMigration'
 
 export default function AppWrapper({ children }) {
   const {
     remoteConfig: { supportedTags },
   } = useRemoteConfigStore()
+  const [appReady, setAppReady] = useState(false)
 
   const [state, dispatcher] = useReducer(
     AppReducer,
@@ -48,9 +50,18 @@ export default function AppWrapper({ children }) {
     }
   )
 
+  useEffect(() => {
+    try {
+      migrateToNewStorage()
+    } catch {
+    } finally {
+      setAppReady(true)
+    }
+  }, [])
+
   return (
     <PreferencesProvider value={{ ...state, dispatcher: dispatcher }}>
-      {children}
+      {appReady && children}
     </PreferencesProvider>
   )
 }

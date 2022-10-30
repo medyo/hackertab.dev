@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import { Footer } from 'src/components/Layout'
 import Header from 'src/components/Header'
@@ -7,21 +7,20 @@ import { MarketingBanner } from 'src/components/Elements/MarketingBanner'
 import ScrollCardsNavigator from './components/ScrollCardsNavigator'
 import AppContentLayout from './components/AppContentLayout'
 import 'react-contexify/dist/ReactContexify.css'
-import PreferencesContext from './preferences/PreferencesContext'
 import { setupAnalytics, trackPageView, setupIdentification } from 'src/lib/analytics'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
 
 function App() {
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
-  const { dispatcher, ...state } = useContext(PreferencesContext)
+
   const {
     remoteConfig: { marketingBannerConfig },
   } = useRemoteConfigStore()
 
   useEffect(() => {
     setupAnalytics()
-    setupIdentification(state)
+    setupIdentification()
     trackPageView('home')
   }, [])
 
@@ -29,8 +28,6 @@ function App() {
     <div className="App">
       <Header
         setShowSideBar={setShowSideBar}
-        state={state}
-        dispatcher={dispatcher}
         showSideBar={showSideBar}
         showSettings={showSettings}
         setShowSettings={setShowSettings}
