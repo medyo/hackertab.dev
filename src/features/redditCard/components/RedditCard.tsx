@@ -4,7 +4,6 @@ import { useGetArticles } from '../api/getArticles'
 import { ArticleType, CardPropsType } from 'src/types'
 import { ProductHuntPlaceholder } from 'src/components/placeholders'
 import { useUserPreferences } from 'src/stores/preferences'
-import { UseQueryResult } from '@tanstack/react-query'
 
 import ArticleItem from './ArticleItem'
 
