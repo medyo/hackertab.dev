@@ -7,7 +7,7 @@ import ArticleItem from './ArticleItem';
 
 
 
-export function RedditCard(props: CardPropsType) {
+export function ProductHuntCard(props: CardPropsType) {
   const { label, icon, withAds } = props
   const { data: articles = [], isLoading, error } = useGetArticles()
 
