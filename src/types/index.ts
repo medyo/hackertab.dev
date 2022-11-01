@@ -43,6 +43,10 @@ export type ArticleType = {
   original_url?: string
   comments_url?: string
   description?: string
+  subreddit?: string
+  flair_text?: string
+  flair_background_color?: string
+  flair_text_color?: string
 }
 
 export type CardPropsType = {

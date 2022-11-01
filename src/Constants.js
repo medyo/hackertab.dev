@@ -2,8 +2,6 @@ import React from 'react'
 import DevToCard from './cards/DevToCard'
 import ConferencesCard from './cards/ConferencesCard'
 import ReposCard from './cards/ReposCard'
-import RedditCard from './cards/RedditCard'
-import LobstersCard from './cards/LobstersCard'
 import HashNodeCard from './cards/HashNodeCard'
 import FreeCodeCampCard from './cards/FreeCodeCampCard'
 import MediumCard from './cards/MediumCard'
@@ -20,6 +18,8 @@ import { CgIndieHackers } from 'react-icons/cg'
 import { HackernewsCard } from 'src/features/hackernewsCard'
 import { ProductHuntCard } from 'src/features/producthuntCard'
 import { IndiehackersCard } from 'src/features/indiehackersCard'
+import { RedditCard } from 'src/features/redditCard'
+import { LobstersCard } from 'src/features/lobstersCard'
 
 
 

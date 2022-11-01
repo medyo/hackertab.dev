@@ -1,22 +1,28 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQueries, UseQueryOptions } from '@tanstack/react-query'
 import { ExtractFnReturnType, QueryConfig } from 'src/lib/react-query'
 import { ArticleType } from 'src/types'
 import { axios } from 'src/lib/axios'
 
-const getArticles = async (): Promise<ArticleType[]> => {
-  return axios.get('/data/v2/producthunt.json')
+const getArticles = async (tag: string): Promise<ArticleType[]> => {
+  return axios.get(`/data/v2/reddit/${tag}.json`)
 }
 
 type QueryFnType = typeof getArticles
 
 type UseGetArticlesOptions = {
   config?: QueryConfig<QueryFnType>
+  tags: string[]
 }
 
-export const useGetArticles = ({ config }: UseGetArticlesOptions = {}) => {
-  return useQuery<ExtractFnReturnType<QueryFnType>>({
+export const useGetArticles = ({ config, tags }: UseGetArticlesOptions) => {
+  return useQueries({
     ...config,
-    queryKey: ['producthuntArticles'],
-    queryFn: () => getArticles(),
+    queries: tags.map<UseQueryOptions<ArticleType[] >>((tag) => {
+      return {
+        ...config,
+        queryKey: ['redditArticles', tag],
+        queryFn: () => getArticles(tag),
+      }
+    })
   })
 }
