@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { SUPPORTED_CARDS } from '../Constants'
-import PreferencesContext from '../preferences/PreferencesContext'
 import BottomNavigation from './BottomNavigation'
 import { isDesktop } from 'react-device-detect'
+import { useUserPreferences } from 'src/stores/preferences'
 
 function MobileCards({ selectedCard }) {
   const currentCard = SUPPORTED_CARDS.find((c) => c.value === selectedCard.name)
@@ -31,7 +31,7 @@ function DesktopCards({ cards }) {
 }
 
 function AppContentLayout({ setShowSettings }) {
-  const { cards } = useContext(PreferencesContext)
+  const { cards } = useUserPreferences()
   const [selectedCard, setSelectedCard] = useState(cards[0])
 
   return (

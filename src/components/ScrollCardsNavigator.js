@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext, useLayoutEffect, useRef } from 'react'
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { APP } from '../Constants'
-import PreferencesContext from '../preferences/PreferencesContext'
+import { useUserPreferences } from 'src/stores/preferences'
 import { trackPageScroll } from 'src/lib/analytics'
 
 function ScrollCardsNavigator() {
-  const { cards } = useContext(PreferencesContext)
+  const { cards } = useUserPreferences()
   const [leftButtonVisible, setLeftButtonVisible] = useState(true)
   const [rightButtonVisible, setRightButtonVisible] = useState(true)
   const scrollBarContainer = useRef(null)
