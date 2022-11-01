@@ -1,5 +1,5 @@
 import { useQueries, UseQueryOptions } from '@tanstack/react-query'
-import { ExtractFnReturnType, QueryConfig } from 'src/lib/react-query'
+import { QueryConfig } from 'src/lib/react-query'
 import { ArticleType } from 'src/types'
 import { axios } from 'src/lib/axios'
 
@@ -16,8 +16,7 @@ type UseGetArticlesOptions = {
 
 export const useGetArticles = ({ config, tags }: UseGetArticlesOptions) => {
   return useQueries({
-    ...config,
-    queries: tags.map<UseQueryOptions<ArticleType[] >>((tag) => {
+    queries: tags.map<UseQueryOptions<ArticleType[]>>((tag) => {
       return {
         ...config,
         queryKey: ['redditArticles', tag],

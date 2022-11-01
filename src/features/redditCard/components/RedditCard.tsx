@@ -4,14 +4,17 @@ import { useGetArticles } from '../api/getArticles'
 import { ArticleType, CardPropsType } from 'src/types'
 import { ProductHuntPlaceholder } from 'src/components/placeholders'
 import { useUserPreferences } from 'src/stores/preferences'
-
+import { getCardTagsValue } from 'src/utils/DataEnhancement'
 import ArticleItem from './ArticleItem'
+
 
 export function RedditCard(props: CardPropsType) {
   const { label, icon, withAds } = props
   const { userSelectedTags, listingMode } = useUserPreferences()
 
-  const results = useGetArticles({ tags: userSelectedTags })
+  const tags  = getCardTagsValue(userSelectedTags, "redditValues")
+  
+  const results = useGetArticles({ tags })
 
   const getIsLoading = () => results.some((result) => result.isLoading)
 
