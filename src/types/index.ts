@@ -49,6 +49,9 @@ export type ArticleType = {
   flair_text?: string
   flair_background_color?: string
   flair_text_color?: string
+  owner?: string
+  forks?: string
+  starsInDateRange?: string
 }
 
 export type CardPropsType = {

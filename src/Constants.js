@@ -1,6 +1,5 @@
 import React from 'react'
 import ConferencesCard from './cards/ConferencesCard'
-import ReposCard from './cards/ReposCard'
 import { SiGithub } from 'react-icons/si'
 import { SiYcombinator } from 'react-icons/si'
 import { FaDev } from 'react-icons/fa'
@@ -20,6 +19,7 @@ import { DevtoCard } from 'src/features/devtoCard'
 import { HashnodeCard } from 'src/features/hashnodeCard'
 import { MediumCard } from 'src/features/mediumCard'
 import { FreecodecampCard } from 'src/features/freecodecampCard'
+import { GithubCard } from 'src/features/githubCard'
 
 
 
@@ -47,7 +47,7 @@ export const SUPPORTED_CARDS = [
     icon: <SiGithub className="blockHeaderWhite" />,
     analyticsTag: 'repos',
     label: 'Github repositories',
-    component: ReposCard,
+    component: GithubCard,
   },
   {
     value: 'hackernews',
