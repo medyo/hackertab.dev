@@ -1,5 +1,4 @@
 import React from 'react'
-import DevToCard from './cards/DevToCard'
 import ConferencesCard from './cards/ConferencesCard'
 import ReposCard from './cards/ReposCard'
 import HashNodeCard from './cards/HashNodeCard'
@@ -20,6 +19,8 @@ import { ProductHuntCard } from 'src/features/producthuntCard'
 import { IndiehackersCard } from 'src/features/indiehackersCard'
 import { RedditCard } from 'src/features/redditCard'
 import { LobstersCard } from 'src/features/lobstersCard'
+import { DevtoCard } from 'src/features/devtoCard'
+
 
 
 
@@ -64,7 +65,7 @@ export const SUPPORTED_CARDS = [
     icon: <FaDev className="blockHeaderWhite" />,
     analyticsTag: 'devto',
     label: 'DevTo',
-    component: DevToCard,
+    component: DevtoCard,
   },
   {
     value: 'producthunt',
@@ -152,7 +153,7 @@ export const GLOBAL_TAG = {
   value: 'global',
   label: 'Trending',
   githubValues: ['global'],
-  devtoValues: [''],
+  devtoValues: ['programming'],
   hashnodeValues: ['programming'],
   mediumValues: ['programming'],
 }
