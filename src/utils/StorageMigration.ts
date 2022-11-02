@@ -8,7 +8,7 @@ export const migrateToNewStorage = () => {
   console.error('Here')
   //userSelectedTags: supportedTags.filter((t) => t.value === 'javascript'),
 
-  console.log('preferences', preferences)
+  
   if (!preferences) {
     return
   }

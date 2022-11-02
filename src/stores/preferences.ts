@@ -4,7 +4,6 @@ import { persist } from 'zustand/middleware'
 import { SelectedCard, SelectedTag, Theme, ListingMode, CardSettingsType } from '../types'
 import { Tag } from 'src/features/remoteConfig'
 
-
 export type UserPreferencesState = {
   userSelectedTags: Tag[]
   theme: Theme
@@ -47,9 +46,10 @@ export const useUserPreferences = create(
       setOpenLinksNewTab: (openLinksNewTab: boolean) => set({ openLinksNewTab: openLinksNewTab }),
       setCards: (selectedCards: SelectedCard[]) => set({ cards: selectedCards }),
       setTags: (selectedTags: Tag[]) => set({ userSelectedTags: selectedTags }),
-      initState: (newState: UserPreferencesState) => set(() => {
-        return { ...newState }
-      }),
+      initState: (newState: UserPreferencesState) =>
+        set(() => {
+          return { ...newState }
+        }),
       setCardSettings: (card: string, settings: CardSettingsType) =>
         set((state) => ({
           cardsSettings: {
@@ -61,24 +61,28 @@ export const useUserPreferences = create(
     {
       name: 'preferences_storage',
       onRehydrateStorage(state) {
-        console.log('state', state)
+        return (state, error) => {
+          if (error) {
+            console.log(666, 'an error happened during hydration', error)
+          } else {
+            console.log(666, 'hydration finished', state)
+          }
+        }
       },
-      serialize: ({ state }) => {
-        let stateStr = JSON.stringify({
+      serialize: ({ state, version }) => {
+        const newState = {
           ...state,
           userSelectedTags: state.userSelectedTags.map((tag) => tag.value),
-        })
-        console.log(666, stateStr, 'serialize')
-        return stateStr
+        }
+        return JSON.stringify({ state: newState, version })
       },
       deserialize: (stateStr) => {
-        let state = JSON.parse(stateStr)
+        let { state, version } = JSON.parse(stateStr)
         state = {
           ...state,
           userSelectedTags: enhanceTags(state.userSelectedTags),
         }
-        console.log(666, state, 'deserialize')
-        return state
+        return { state, version }
       },
     }
   )

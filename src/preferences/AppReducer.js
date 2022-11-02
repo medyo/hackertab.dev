@@ -93,7 +93,7 @@ const AppReducer = (state, action) => {
     searchEngine: newState.searchEngine,
     cardsSettings: newState.cardsSettings,
   }
-  AppStorage.setItem(LS_PREFERENCES_KEY, storageData)
+  // AppStorage.setItem(LS_PREFERENCES_KEY, storageData)
   return newState
 }
 
