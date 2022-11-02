@@ -12,9 +12,9 @@ import { GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/Constants'
 import { trackCardLanguageSelect } from 'src/lib/analytics'
 import SelectableCard from 'src/components/SelectableCard'
 
-const HN_MENU_LANGUAGE_ID = 'HN_MENU_LANGUAGE_ID'
+const MEDIUM_MENU_LANGUAGE_ID = 'MEDIUM_MENU_LANGUAGE_ID'
 
-export function HashnodeCard(props: CardPropsType) {
+export function MediumCard(props: CardPropsType) {
   const { label, icon, withAds } = props
   const { userSelectedTags, cardsSettings, setCardSettings, listingMode } = useUserPreferences()
   const [selectedTag, setSelectedTag] = useState<Tag>()
@@ -30,10 +30,10 @@ export function HashnodeCard(props: CardPropsType) {
       return []
     }
 
-    if (selectedTag.value === MY_LANGUAGES_TAG.hashnodeValues[0]) {
-      return getCardTagsValue(userSelectedTags, 'hashnodeValues')
+    if (selectedTag.value === MY_LANGUAGES_TAG.devtoValues[0]) {
+      return getCardTagsValue(userSelectedTags, 'devtoValues')
     }
-    return selectedTag.hashnodeValues
+    return selectedTag.devtoValues
   }
 
   const results = useGetArticles({ tags: getQueryTags() })
@@ -52,7 +52,7 @@ export function HashnodeCard(props: CardPropsType) {
   const renderItem = (item: ArticleType, index: number) => (
     <ArticleItem
       item={item}
-      key={`hno-${index}`}
+      key={`md-${index}`}
       index={index}
       selectedTag={selectedTag}
       listingMode={listingMode}
@@ -62,15 +62,15 @@ export function HashnodeCard(props: CardPropsType) {
   const HeaderTitle = () => {
     return (
       <div style={{ display: 'inline-block', margin: 0, padding: 0 }}>
-        <span> Hashnode </span>
+        <span> Medium </span>
         <SelectableCard
           isLanguage={true}
-          tagId={HN_MENU_LANGUAGE_ID}
+          tagId={MEDIUM_MENU_LANGUAGE_ID}
           selectedTag={selectedTag}
           setSelectedTag={setSelectedTag}
           fallbackTag={GLOBAL_TAG}
-          cardSettings={cardsSettings?.hashnode?.language}
-          trackEvent={(tag: Tag) => trackCardLanguageSelect('Hashnode', tag.value)}
+          cardSettings={cardsSettings?.medium?.language}
+          trackEvent={(tag: Tag) => trackCardLanguageSelect('Medium', tag.value)}
           data={userSelectedTags.map((tag) => ({
             label: tag.label,
             value: tag.value,
@@ -83,7 +83,7 @@ export function HashnodeCard(props: CardPropsType) {
   return (
     <CardComponent
       icon={<span className="blockHeaderIcon">{icon}</span>}
-      link="https://hashnode.com/"
+      link="https://medium.com/"
       title={<HeaderTitle />}>
       <ListComponent
         items={getData()}
