@@ -3,7 +3,6 @@ import CardComponent from 'src/components/CardComponent'
 import { ListComponent } from 'src/components/List'
 import { useGetArticles } from '../api/getArticles'
 import { ArticleType, CardPropsType } from 'src/types'
-import { ProductHuntPlaceholder } from 'src/components/placeholders'
 import { useUserPreferences } from 'src/stores/preferences'
 import { getCardTagsValue } from 'src/utils/DataEnhancement'
 import ArticleItem from './ArticleItem'
@@ -90,7 +89,6 @@ export function DevtoCard(props: CardPropsType) {
         isLoading={getIsLoading()}
         renderItem={renderItem}
         withAds={withAds}
-        placeholder={<ProductHuntPlaceholder />}
       />
     </CardComponent>
   )
