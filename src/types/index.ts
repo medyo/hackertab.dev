@@ -1,3 +1,5 @@
+import { Tag } from "src/features/remoteConfig"
+
 export type SearchEngineType = {
   url: string
   label: string
@@ -14,7 +16,7 @@ export type SelectedTag = {
 }
 
 export type UserPreferences = {
-  userSelectedTags: string[]
+  userSelectedTags: Tag[]
   theme: "light" | "dark",
   openLinksNewTab: boolean,
   listingMode: "normal" | "compact",
@@ -59,5 +61,11 @@ export type CardPropsType = {
 export type ArticleItemPropsType = {
   index: number
   item: ArticleType
-  listingMode?: ListingMode
+  listingMode?: ListingMode,
+  selectedTag?: SelectedTag
+}
+
+export type CardSettingsType = {
+  language: string
+  dateRange?: string
 }

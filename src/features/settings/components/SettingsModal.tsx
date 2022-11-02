@@ -18,7 +18,8 @@ import {
   trackTabTarget,
 } from 'src/lib/analytics'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
-import { enhanceTags } from 'src/utils/DataEnhancement'
+import { Tag } from 'src/features/remoteConfig'
+
 
 type SettingsModalProps = {
   showSettings: boolean
@@ -55,7 +56,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     setShowSettings(false)
   }
 
-  const onTagsSelectChange = (tags: MultiValue<OptionType>, metas: ActionMeta<OptionType>) => {
+  const onTagsSelectChange = (tags: MultiValue<Tag>, metas: ActionMeta<OptionType>) => {
     switch (metas.action) {
       case 'select-option':
         if (metas.option?.label) {
@@ -71,14 +72,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     }
 
     console.log(tags)
-    setTags(
-      tags.map((tag) => {
-        return {
-          label: tag.label,
-          value: tag.value,
-        }
-      })
-    )
+    setTags(tags as Tag[])
   }
 
   const onlistingModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -155,7 +149,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
           <div className="settingContent">
             <Select
               options={supportedTags}
-              defaultValue={enhanceTags(userSelectedTags)}
+              defaultValue={userSelectedTags}
               isMulti={true}
               isClearable={false}
               isSearchable={false}

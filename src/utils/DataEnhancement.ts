@@ -9,8 +9,8 @@ export const enhanceTags = (tags: string[]): Tag[] => {
 }
 
 
-export const getCardTagsValue = (tags: string[], valuesField: TagValuesFieldType): string[] => {
-  return enhanceTags(tags).reduce((acc: string[], curr) => {
+export const getCardTagsValue = (tags: Tag[], valuesField: TagValuesFieldType): string[] => {
+  return tags.reduce((acc: string[], curr) => {
     if (!curr[valuesField] || curr[valuesField].length === 0) return acc
     acc = [...acc, ...curr[valuesField]]
     return acc
