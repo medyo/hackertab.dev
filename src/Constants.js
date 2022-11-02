@@ -1,7 +1,6 @@
 import React from 'react'
 import ConferencesCard from './cards/ConferencesCard'
 import ReposCard from './cards/ReposCard'
-import FreeCodeCampCard from './cards/FreeCodeCampCard'
 import { SiGithub } from 'react-icons/si'
 import { SiYcombinator } from 'react-icons/si'
 import { FaDev } from 'react-icons/fa'
@@ -20,6 +19,8 @@ import { LobstersCard } from 'src/features/lobstersCard'
 import { DevtoCard } from 'src/features/devtoCard'
 import { HashnodeCard } from 'src/features/hashnodeCard'
 import { MediumCard } from 'src/features/mediumCard'
+import { FreecodecampCard } from 'src/features/freecodecampCard'
+
 
 
 
@@ -102,7 +103,7 @@ export const SUPPORTED_CARDS = [
     icon: <FaFreeCodeCamp className="blockHeaderWhite" />,
     analyticsTag: 'freecodecamp',
     label: 'FreeCodeCamp',
-    component: FreeCodeCampCard,
+    component: FreecodecampCard,
   },
   {
     value: 'indiehackers',
@@ -158,6 +159,7 @@ export const GLOBAL_TAG = {
   devtoValues: ['programming'],
   hashnodeValues: ['programming'],
   mediumValues: ['programming'],
+  freecodecampValues: ['programming']
 }
 export const MY_LANGUAGES_TAG = {
   value: 'myLangs',
@@ -166,6 +168,7 @@ export const MY_LANGUAGES_TAG = {
   devtoValues: ['myLangs'],
   hashnodeValues: ['myLangs'],
   mediumValues: ['myLangs'],
+  freecodecampValues: ['myLangs']
 }
 export const MAX_MERGED_ITEMS_PER_LANGUAGE = 10
 export { APP }
