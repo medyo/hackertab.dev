@@ -1,7 +1,6 @@
 import React from 'react'
 import ConferencesCard from './cards/ConferencesCard'
 import ReposCard from './cards/ReposCard'
-import HashNodeCard from './cards/HashNodeCard'
 import FreeCodeCampCard from './cards/FreeCodeCampCard'
 import MediumCard from './cards/MediumCard'
 import { SiGithub } from 'react-icons/si'
@@ -20,6 +19,8 @@ import { IndiehackersCard } from 'src/features/indiehackersCard'
 import { RedditCard } from 'src/features/redditCard'
 import { LobstersCard } from 'src/features/lobstersCard'
 import { DevtoCard } from 'src/features/devtoCard'
+import { HashnodeCard } from 'src/features/hashnodeCard'
+
 
 
 
@@ -93,7 +94,7 @@ export const SUPPORTED_CARDS = [
     icon: <img src={HashNodeIcon} />,
     analyticsTag: 'hashnode',
     label: 'Hashnode',
-    component: HashNodeCard,
+    component: HashnodeCard,
   },
   {
     value: 'freecodecamp',
