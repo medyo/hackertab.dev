@@ -63,6 +63,9 @@
       "last 1 safari version"
     ]
   },
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
+  },
   "devDependencies": {
     "@types/chrome": "^0.0.198",
     "@types/jest": "^29.1.2",
