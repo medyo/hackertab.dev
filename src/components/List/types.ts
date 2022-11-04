@@ -1,10 +1,10 @@
 import React from 'react'
-import { ArticleType } from 'src/types'
+import { ArticleType, ConferenceType } from 'src/types'
 
 export type ListComponentPropsType = {
-  items: ArticleType[], // <== TODO: Unified Article Type
+  items: ArticleType[] | ConferenceType[]
   isLoading: boolean,
-  renderItem: (item: ArticleType, index: number) => React.ReactNode,
+  renderItem: (item: any, index: number) => React.ReactNode,
   withAds: boolean,
   placeholder?: React.ReactNode,
   refresh?: boolean,

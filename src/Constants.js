@@ -1,5 +1,4 @@
 import React from 'react'
-import ConferencesCard from './cards/ConferencesCard'
 import { SiGithub } from 'react-icons/si'
 import { SiYcombinator } from 'react-icons/si'
 import { FaDev } from 'react-icons/fa'
@@ -20,6 +19,8 @@ import { HashnodeCard } from 'src/features/hashnodeCard'
 import { MediumCard } from 'src/features/mediumCard'
 import { FreecodecampCard } from 'src/features/freecodecampCard'
 import { GithubCard } from 'src/features/githubCard'
+import { ConferencesCard } from 'src/features/conferencesCard'
+
 
 
 

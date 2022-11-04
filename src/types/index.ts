@@ -54,6 +54,18 @@ export type ArticleType = {
   starsInDateRange?: string
 }
 
+export type ConferenceType = {
+  id: string
+  name: string
+  url: string
+  start_date: number
+  end_date: number
+  tag: string
+  online: Boolean
+  city?: string
+  country?: string
+}
+
 export type CardPropsType = {
   label: string
   icon: React.ReactNode
@@ -71,4 +83,10 @@ export type ArticleItemPropsType = {
 export type CardSettingsType = {
   language: string
   dateRange?: string
+}
+
+export type ConferenceItemPropsType = {
+  index: number
+  item: ConferenceType
+  listingMode?: ListingMode
 }
