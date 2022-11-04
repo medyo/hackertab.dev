@@ -52,6 +52,7 @@ export type ArticleType = {
   owner?: string
   forks?: string
   starsInDateRange?: string
+  name?: string
 }
 
 export type ConferenceType = {

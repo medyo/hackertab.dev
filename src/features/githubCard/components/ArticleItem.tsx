@@ -20,7 +20,7 @@ const ArticleItem = (props: ArticleItemPropsType) => {
       source={sourceName}
       key={index}
       index={index}
-      item={{ ...item, title }}
+      item={item}
       cardItem={
         <>
           <CardLink
@@ -29,14 +29,14 @@ const ArticleItem = (props: ArticleItemPropsType) => {
             analyticsAttributes={{
               [Attributes.POINTS]: item.reactions,
               [Attributes.TRIGERED_FROM]: 'card',
-              [Attributes.TITLE]: title,
+              [Attributes.TITLE]: item.title,
               [Attributes.LINK]: item.url,
               [Attributes.SOURCE]: sourceName,
               [Attributes.LANGUAGE]: selectedTag?.value,
             }}>
             <VscRepo className={'rowTitleIcon'} />
             {item.owner && `${item?.owner}/`}
-            <b>{item.title}</b>
+            <b>{item.name}</b>
           </CardLink>
           <p className="rowDescription">{item.description}</p>
           {listingMode === 'normal' && (
