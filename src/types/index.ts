@@ -67,7 +67,7 @@ export type RepoType = {
 
 export type ConferenceType = {
   id: string
-  name: string
+  title: string
   url: string
   start_date: number
   end_date: number
