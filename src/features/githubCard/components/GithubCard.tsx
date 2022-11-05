@@ -47,7 +47,7 @@ export function GithubCard(props: CardPropsType) {
       return []
     }
     if (!selectedTag?.githubValues) {
-      throw Error(`Github Trending does not support ${selectedTag.label}.`)
+      return []
     }
 
     if (selectedTag.value === MY_LANGUAGES_TAG.githubValues[0]) {
@@ -56,7 +56,13 @@ export function GithubCard(props: CardPropsType) {
     return selectedTag.githubValues
   }
 
-  const results = useGetArticles({ tags: getQueryTags(), dateRange: selectedDateRange.value })
+  const results = useGetArticles({
+    tags: getQueryTags(),
+    dateRange: selectedDateRange.value,
+    config: {
+      enabled: !!selectedTag?.githubValues,
+    },
+  })
 
   const getIsLoading = () => results.some((result) => result.isLoading)
 
@@ -97,18 +103,27 @@ export function GithubCard(props: CardPropsType) {
         />
         <span> Repos of </span>
         <SelectableCard
-            tagId={DATE_RANGE_MENU_ID}
-            selectedTag={selectedDateRange}
-            setSelectedTag={setSelectedDateRange}
-            fallbackTag={dateRanges[0]}
-            trackEvent={(tag: DateRangeType) => trackCardDateRangeSelect('Repos', tag.value)}
-            cardSettings={cardsSettings?.repos?.dateRange}
-            data={dateRanges}
-          />
+          tagId={DATE_RANGE_MENU_ID}
+          selectedTag={selectedDateRange}
+          setSelectedTag={setSelectedDateRange}
+          fallbackTag={dateRanges[0]}
+          trackEvent={(tag: DateRangeType) => trackCardDateRangeSelect('Repos', tag.value)}
+          cardSettings={cardsSettings?.repos?.dateRange}
+          data={dateRanges}
+        />
       </div>
     )
   }
 
+  const getError = () => {
+    if (!selectedTag?.githubValues) {
+      return `Github Trending does not support ${selectedTag?.label || 'the selected tag'}.`
+    } else if (results.every((result) => result.isError)) {
+      return 'Failed to load Github trending repositories'
+    } else {
+      return undefined
+    }
+  }
   return (
     <CardComponent
       fullBlock={true}
@@ -117,6 +132,7 @@ export function GithubCard(props: CardPropsType) {
       title={<HeaderTitle />}>
       <ListComponent
         items={getData()}
+        error={getError()}
         isLoading={getIsLoading()}
         renderItem={renderItem}
         withAds={withAds}

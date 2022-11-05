@@ -7,7 +7,7 @@ export function ListComponent(props: ListComponentPropsType) {
   const { items, isLoading, error, renderItem, withAds, placeholder = <Placeholder /> } = props
 
   if (error) {
-    return <p className="errorMsg">{error.message}</p>
+    return <p className="errorMsg">{error?.message || error}</p>
   }
 
   const renderItems = () => {
