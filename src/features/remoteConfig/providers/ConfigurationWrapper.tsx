@@ -1,5 +1,5 @@
 import React from 'react'
-import useAsyncError from 'src/hooks/useAsyncError'
+import { useAsyncError } from 'src/hooks/useAsyncError'
 import { useGetRemoteConfig } from '../api/getRemoteConfig'
 import BeatLoader from 'react-spinners/BeatLoader'
 
