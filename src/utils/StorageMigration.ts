@@ -1,4 +1,4 @@
-import AppStorage from 'src/services/localStorage'
+import AppStorage from 'src/lib/localStorage'
 import { useUserPreferences } from 'src/stores/preferences'
 import { useBookmarks } from 'src/stores/bookmarks'
 import { enhanceTags } from './DataEnhancement'
@@ -8,7 +8,13 @@ export const migrateToNewStorage = () => {
   console.error('Here')
   //userSelectedTags: supportedTags.filter((t) => t.value === 'javascript'),
 
-  
+  // Remove legacy cached requests
+  const legacyStorageKeys = AppStorage.getKeys()
+  for (let key of legacyStorageKeys) {
+    if (key.startsWith("/data/") || key.startsWith("/devto/")) {
+      AppStorage.removeItem(key)
+    }
+  }
   if (!preferences) {
     return
   }
@@ -31,4 +37,5 @@ export const migrateToNewStorage = () => {
 
   // Remove old LocalStorage item
   AppStorage.removeItem('hackerTabPrefs')
+
 }

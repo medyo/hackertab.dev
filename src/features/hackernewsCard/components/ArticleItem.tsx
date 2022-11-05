@@ -7,7 +7,6 @@ import { GoPrimitiveDot } from 'react-icons/go'
 import CardLink from '../../../components/CardLink'
 import CardItemWithActions from '../../../components/CardItemWithActions'
 import ClickableItem from '../../../components/ClickableItem'
-import PreferencesContext from '../../../preferences/PreferencesContext'
 import { Attributes } from 'src/lib/analytics'
 import { ArticleItemPropsType } from 'src/types'
 

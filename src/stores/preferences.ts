@@ -60,15 +60,6 @@ export const useUserPreferences = create(
     }),
     {
       name: 'preferences_storage',
-      onRehydrateStorage(state) {
-        return (state, error) => {
-          if (error) {
-            console.log(666, 'an error happened during hydration', error)
-          } else {
-            console.log(666, 'hydration finished', state)
-          }
-        }
-      },
       serialize: ({ state, version }) => {
         const newState = {
           ...state,
