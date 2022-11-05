@@ -1,6 +1,6 @@
 import { trackLinkOpen } from 'src/lib/analytics'
 import React from 'react'
-import { APP } from '../Constants'
+import { ref } from 'src/config'
 
 import { useUserPreferences } from 'src/stores/preferences'
 
@@ -22,9 +22,9 @@ const ClickableItem = ({ link, className, children, analyticsAttributes, appendR
 
       // Url has some query params
       if (url.search) {
-        utmUrl += `&${APP.ref}`
+        utmUrl += `&${ref}`
       } else {
-        utmUrl += `?${APP.ref}`
+        utmUrl += `?${ref}`
       }
 
       window.open(utmUrl, openLinksNewTab ? '_blank' : '_self')

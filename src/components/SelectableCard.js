@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react'
 import DropDownMenu from './DropDownMenu'
-import { GLOBAL_TAG, MY_LANGUAGES_TAG } from '../Constants'
+import { GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/config'
 import { useUserPreferences } from 'src/stores/preferences'
 
 function SelectableCard({
@@ -33,7 +33,7 @@ function SelectableCard({
       return null
     }
 
-    return mergedTags.find((t) => t.value == value)
+    return mergedTags.find((t) => t.value === value)
   }
 
   const findTagByLabel = (name) => {
@@ -41,7 +41,7 @@ function SelectableCard({
       return null
     }
 
-    return mergedTags.find((t) => t.label == name)
+    return mergedTags.find((t) => t.label === name)
   }
 
   useLayoutEffect(() => {

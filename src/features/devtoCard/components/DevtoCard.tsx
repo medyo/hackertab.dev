@@ -7,7 +7,7 @@ import { useUserPreferences } from 'src/stores/preferences'
 import { getCardTagsValue } from 'src/utils/DataEnhancement'
 import ArticleItem from './ArticleItem'
 import { Tag } from 'src/features/remoteConfig'
-import { GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/Constants'
+import { GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/config'
 import { trackCardLanguageSelect } from 'src/lib/analytics'
 import SelectableCard from 'src/components/SelectableCard'
 

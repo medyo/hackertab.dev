@@ -7,7 +7,7 @@ import { SearchEngineType } from 'src/types'
 import Toggle from 'react-toggle'
 import './settings.css'
 import { useUserPreferences } from 'src/stores/preferences'
-import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, APP } from 'src/Constants'
+import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, supportLink } from 'src/config'
 import {
   trackLanguageAdd,
   trackLanguageRemove,
@@ -19,7 +19,6 @@ import {
 } from 'src/lib/analytics'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
 import { Tag } from 'src/features/remoteConfig'
-
 
 type SettingsModalProps = {
   showSettings: boolean
@@ -158,7 +157,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
             />
             <p className="settingHint">
               Missing language or technology? create an issue{' '}
-              <a href="#" onClick={(e) => window.open(APP.supportLink, '_blank')}>
+              <a href="#" onClick={(e) => window.open(supportLink, '_blank')}>
                 here
               </a>
             </p>
@@ -182,7 +181,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
             />
             <p className="settingHint">
               Missing a cool data source? create an issue{' '}
-              <a href="#" onClick={(_e) => window.open(APP.supportLink, '_blank')}>
+              <a href="#" onClick={(_e) => window.open(supportLink, '_blank')}>
                 here
               </a>
             </p>
@@ -228,7 +227,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
             />
             <p className="settingHint">
               Missing a search engine? create an issue{' '}
-              <a href="#" onClick={(e) => window.open(APP.supportLink, '_blank')}>
+              <a href="#" onClick={(e) => window.open(supportLink, '_blank')}>
                 here
               </a>
             </p>

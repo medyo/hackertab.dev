@@ -1,5 +1,11 @@
 import React from 'react'
-import { APP } from '../../Constants'
+import {
+  repository,
+  supportLink,
+  privacyPolicyLink,
+  termsAndConditionsLink,
+  dataSourcesLink,
+} from 'src/config'
 import { RiCodeSSlashFill } from 'react-icons/ri'
 import { HiLightBulb } from 'react-icons/hi'
 import { trackPageView } from 'src/lib/analytics'
@@ -7,25 +13,25 @@ import { trackPageView } from 'src/lib/analytics'
 export const Footer = () => {
   const onSourceCodeClick = () => {
     trackPageView('Source Code')
-    window.open(APP.repository, '_blank')
+    window.open(repository, '_blank')
   }
 
   const onNewFeatureRequest = () => {
     trackPageView('Feature Request')
-    window.open(APP.supportLink)
+    window.open(supportLink)
   }
 
   const onPrivacyPolicyClick = () => {
     trackPageView('Privacy Policy')
-    window.open(APP.privacyPolicyLink)
+    window.open(privacyPolicyLink)
   }
   const onTermsClick = () => {
     trackPageView('Terms And Conditions')
-    window.open(APP.termsAndConditionsLink)
+    window.open(termsAndConditionsLink)
   }
   const onDataSourcesClick = () => {
     trackPageView('Data Sources')
-    window.open(APP.dataSourcesLink)
+    window.open(dataSourcesLink)
   }
 
   return (

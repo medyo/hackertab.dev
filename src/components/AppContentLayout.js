@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SUPPORTED_CARDS } from '../Constants'
+import { SUPPORTED_CARDS } from 'src/config'
 import BottomNavigation from './BottomNavigation'
 import { isDesktop } from 'react-device-detect'
 import { useUserPreferences } from 'src/stores/preferences'
@@ -25,7 +25,7 @@ function DesktopCards({ cards }) {
       label: constantCard.label,
       icon: constantCard.icon,
       analyticsTag: constantCard.analyticsTag,
-      withAds: index == 0,
+      withAds: index === 0,
     })
   })
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { BsBoxArrowInUpRight } from 'react-icons/bs'
-import { APP } from '../Constants'
+import { ref } from 'src/config'
 import { useUserPreferences } from 'src/stores/preferences'
 
 function CardComponent({ icon, title, children, fullBlock = false, link }) {
@@ -8,7 +8,7 @@ function CardComponent({ icon, title, children, fullBlock = false, link }) {
 
   const handleHeaderLinkClick = (e) => {
     e.preventDefault()
-    let url = `${link}?${APP.ref}`
+    let url = `${link}?${ref}`
     window.open(url, openLinksNewTab ? '_blank' : '_self')
   }
 

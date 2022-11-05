@@ -1,5 +1,5 @@
 import React from 'react'
-import { SUPPORTED_CARDS } from '../Constants'
+import { SUPPORTED_CARDS } from 'src/config'
 import { useUserPreferences } from 'src/stores/preferences'
 import { AiOutlineMenu } from 'react-icons/ai'
 

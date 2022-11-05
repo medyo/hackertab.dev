@@ -1,8 +1,12 @@
 import React from 'react'
-import { TiPlus } from 'react-icons/ti';
+import { TiPlus } from 'react-icons/ti'
 import { useUserPreferences } from 'src/stores/preferences'
 
-function UserTags({ onAddClicked }) {
+type UserTagsProps = {
+  onAddClicked: () => void
+}
+
+export const UserTags = ({ onAddClicked }: UserTagsProps) => {
   const { userSelectedTags } = useUserPreferences()
 
   return (
@@ -18,5 +22,3 @@ function UserTags({ onAddClicked }) {
     </nav>
   )
 }
-
-export default UserTags
