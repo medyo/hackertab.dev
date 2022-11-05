@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Card } from 'src/components/Elements/Card'
 import { ListComponent } from 'src/components/List'
 import { useGetRepos } from '../api/getRepos'
-import { RepoType, CardPropsType } from 'src/types'
+import { Repository, CardPropsType } from 'src/types'
 import { useUserPreferences } from 'src/stores/preferences'
 import { getCardTagsValue } from 'src/utils/DataEnhancement'
 import RepoItem from './RepoItem'
@@ -67,14 +67,14 @@ export function GithubCard({ meta, withAds }: CardPropsType) {
 
   const getData = () => {
     return results
-      .reduce((acc: RepoType[], curr) => {
+      .reduce((acc: Repository[], curr) => {
         if (!curr.data) return acc
         return [...acc, ...curr.data]
       }, [])
       .sort((a, b) => b.stars - a.stars)
   }
 
-  const renderItem = (item: RepoType, index: number) => (
+  const renderItem = (item: Repository, index: number) => (
     <RepoItem
       item={item}
       key={`rp-${index}`}

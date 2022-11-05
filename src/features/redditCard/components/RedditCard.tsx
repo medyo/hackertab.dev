@@ -1,7 +1,7 @@
 import { Card } from 'src/components/Elements/Card'
 import { ListComponent } from 'src/components/List'
 import { useGetArticles } from '../api/getArticles'
-import { ArticleType, CardPropsType } from 'src/types'
+import { Article, CardPropsType } from 'src/types'
 import { useUserPreferences } from 'src/stores/preferences'
 import { getCardTagsValue } from 'src/utils/DataEnhancement'
 import ArticleItem from './ArticleItem'
@@ -17,14 +17,14 @@ export function RedditCard({ withAds, meta }: CardPropsType) {
 
   const getData = () => {
     return results
-      .reduce((acc: ArticleType[], curr) => {
+      .reduce((acc: Article[], curr) => {
         if (!curr.data) return acc
         return [...acc, ...curr.data]
       }, [])
       .sort((a, b) => b.reactions - a.reactions)
   }
 
-  const renderItem = (item: ArticleType, index: number) => (
+  const renderItem = (item: Article, index: number) => (
     <ArticleItem item={item} key={`re-${index}`} index={index} listingMode={listingMode} />
   )
 

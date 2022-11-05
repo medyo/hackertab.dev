@@ -1,9 +1,9 @@
 import { useQueries, UseQueryOptions } from '@tanstack/react-query'
 import { QueryConfig } from 'src/lib/react-query'
-import { ArticleType } from 'src/types'
+import { Article } from 'src/types'
 import { axios } from 'src/lib/axios'
 
-const getArticles = async (tag: string): Promise<ArticleType[]> => {
+const getArticles = async (tag: string): Promise<Article[]> => {
   return axios.get(`/data/v2/hashnode/${tag}.json`)
 }
 
@@ -16,7 +16,7 @@ type UseGetArticlesOptions = {
 
 export const useGetArticles = ({ config, tags }: UseGetArticlesOptions) => {
   return useQueries({
-    queries: tags.map<UseQueryOptions<ArticleType[]>>((tag) => {
+    queries: tags.map<UseQueryOptions<Article[]>>((tag) => {
       return {
         ...config,
         queryKey: ['hashnodeArticles', tag],

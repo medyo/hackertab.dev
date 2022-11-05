@@ -38,7 +38,7 @@ export type BaseEntry = {
   url: string
 }
 
-export type ArticleType = BaseEntry & {
+export type Article = BaseEntry & {
   title: string
   published_at: number
   tags: Array<string>
@@ -55,7 +55,7 @@ export type ArticleType = BaseEntry & {
   flair_text_color?: string
 }
 
-export type RepoType = BaseEntry & {
+export type Repository = BaseEntry & {
   title: string
   programmingLanguage: string
   stars: number
@@ -67,7 +67,7 @@ export type RepoType = BaseEntry & {
   name: string
 }
 
-export type ConferenceType = BaseEntry & {
+export type Conference = BaseEntry & {
   name: string
   start_date: number
   end_date: number
@@ -85,7 +85,7 @@ export type CardPropsType = {
 
 export type ArticleItemPropsType = {
   index: number
-  item: ArticleType
+  item: Article
   listingMode?: ListingMode,
   selectedTag?: SelectedTag
 }
@@ -97,13 +97,13 @@ export type CardSettingsType = {
 
 export type ConferenceItemPropsType = {
   index: number
-  item: ConferenceType
+  item: Conference
   listingMode?: ListingMode
 }
 
 export type RepoItemPropsType = {
   index: number
-  item: RepoType
+  item: Repository
   listingMode?: ListingMode,
   selectedTag?: SelectedTag
 }

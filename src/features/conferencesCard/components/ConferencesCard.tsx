@@ -1,7 +1,7 @@
 import { Card } from 'src/components/Elements/Card'
 import { ListComponent } from 'src/components/List'
 import { useGetConferences } from '../api/getConferences'
-import { ConferenceType, CardPropsType } from 'src/types'
+import { Conference, CardPropsType } from 'src/types'
 import { useUserPreferences } from 'src/stores/preferences'
 import { getCardTagsValue } from 'src/utils/DataEnhancement'
 import ConferenceItem from './ConferenceItem'
@@ -15,14 +15,14 @@ export function ConferencesCard({ meta, withAds }: CardPropsType) {
 
   const getData = () => {
     return results
-      .reduce((acc: ConferenceType[], curr) => {
+      .reduce((acc: Conference[], curr) => {
         if (!curr.data) return acc
         return [...acc, ...curr.data]
       }, [])
       .sort((a, b) => a.start_date - b.start_date)
   }
 
-  const renderItem = (item: ConferenceType, index: number) => (
+  const renderItem = (item: Conference, index: number) => (
     <ConferenceItem item={item} key={`cf-${index}`} index={index} listingMode={listingMode} />
   )
 
