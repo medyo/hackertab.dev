@@ -4,7 +4,7 @@ export const ProductHuntPlaceholder = () => {
   return (
     <div className="cardPlaceholder mediaCardPlaceholder">
       <span className="media" />
-      <div className="cardContent">
+      <div className="cardContent" style={{ marginRight: '20px' }}>
         <span className="line" />
         <span className="smallLine" />
         <div className="details">
