@@ -94,7 +94,7 @@ export function GithubCard({ meta, withAds }: CardPropsType) {
           setSelectedTag={setSelectedTag}
           fallbackTag={GLOBAL_TAG}
           cardSettings={cardsSettings?.repos?.language}
-          trackEvent={(tag: Tag) => trackCardLanguageSelect('Github', tag.value)}
+          trackEvent={(tag: Tag) => trackCardLanguageSelect(meta.analyticsTag, tag.value)}
           data={userSelectedTags.map((tag) => ({
             label: tag.label,
             value: tag.value,
@@ -106,7 +106,9 @@ export function GithubCard({ meta, withAds }: CardPropsType) {
           selectedTag={selectedDateRange}
           setSelectedTag={setSelectedDateRange}
           fallbackTag={dateRanges[0]}
-          trackEvent={(tag: DateRangeType) => trackCardDateRangeSelect('Github', tag.value)}
+          trackEvent={(tag: DateRangeType) =>
+            trackCardDateRangeSelect(meta.analyticsTag, tag.value)
+          }
           cardSettings={cardsSettings?.repos?.dateRange}
           data={dateRanges}
         />

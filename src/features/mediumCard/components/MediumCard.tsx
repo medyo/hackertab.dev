@@ -60,7 +60,7 @@ export function MediumCard({ meta, withAds }: CardPropsType) {
   const HeaderTitle = () => {
     return (
       <div style={{ display: 'inline-block', margin: 0, padding: 0 }}>
-        <span> Medium </span>
+        <span> {meta.label} </span>
         <SelectableCard
           isLanguage={true}
           tagId={MEDIUM_MENU_LANGUAGE_ID}
@@ -68,7 +68,7 @@ export function MediumCard({ meta, withAds }: CardPropsType) {
           setSelectedTag={setSelectedTag}
           fallbackTag={GLOBAL_TAG}
           cardSettings={cardsSettings?.medium?.language}
-          trackEvent={(tag: Tag) => trackCardLanguageSelect('Medium', tag.value)}
+          trackEvent={(tag: Tag) => trackCardLanguageSelect(meta.analyticsTag, tag.value)}
           data={userSelectedTags.map((tag) => ({
             label: tag.label,
             value: tag.value,

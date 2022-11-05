@@ -60,7 +60,7 @@ export function DevtoCard({ withAds, meta }: CardPropsType) {
   const HeaderTitle = () => {
     return (
       <div style={{ display: 'inline-block', margin: 0, padding: 0 }}>
-        <span> DevTo </span>
+        <span> {meta.label} </span>
         <SelectableCard
           isLanguage={true}
           tagId={DT_MENU_LANGUAGE_ID}
@@ -68,7 +68,7 @@ export function DevtoCard({ withAds, meta }: CardPropsType) {
           setSelectedTag={setSelectedTag}
           fallbackTag={GLOBAL_TAG}
           cardSettings={cardsSettings?.devto?.language}
-          trackEvent={(tag: Tag) => trackCardLanguageSelect('Devto', tag.value)}
+          trackEvent={(tag: Tag) => trackCardLanguageSelect(meta.analyticsTag, tag.value)}
           data={userSelectedTags.map((tag) => ({
             label: tag.label,
             value: tag.value,

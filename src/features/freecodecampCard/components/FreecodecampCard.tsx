@@ -21,7 +21,7 @@ export function FreecodecampCard({ meta, withAds }: CardPropsType) {
     if (selectedTag) {
       setCardSettings(meta.label.toLowerCase(), { language: selectedTag.label })
     }
-  }, [selectedTag])
+  }, [meta.label, setCardSettings, selectedTag])
 
   const getQueryTags = () => {
     if (!selectedTag) {
@@ -68,7 +68,7 @@ export function FreecodecampCard({ meta, withAds }: CardPropsType) {
           setSelectedTag={setSelectedTag}
           fallbackTag={GLOBAL_TAG}
           cardSettings={cardsSettings?.devto?.language}
-          trackEvent={(tag: Tag) => trackCardLanguageSelect('Devto', tag.value)}
+          trackEvent={(tag: Tag) => trackCardLanguageSelect(meta.analyticsTag, tag.value)}
           data={userSelectedTags.map((tag) => ({
             label: tag.label,
             value: tag.value,

@@ -21,7 +21,7 @@ export function HashnodeCard({ withAds, meta }: CardPropsType) {
     if (selectedTag) {
       setCardSettings(meta.label.toLowerCase(), { language: selectedTag.label })
     }
-  }, [selectedTag])
+  }, [selectedTag, meta.label, setCardSettings])
 
   const getQueryTags = () => {
     if (!selectedTag) {
@@ -60,7 +60,7 @@ export function HashnodeCard({ withAds, meta }: CardPropsType) {
   const HeaderTitle = () => {
     return (
       <div style={{ display: 'inline-block', margin: 0, padding: 0 }}>
-        <span> Hashnode </span>
+        <span> {meta.label} </span>
         <SelectableCard
           isLanguage={true}
           tagId={HN_MENU_LANGUAGE_ID}
@@ -68,7 +68,7 @@ export function HashnodeCard({ withAds, meta }: CardPropsType) {
           setSelectedTag={setSelectedTag}
           fallbackTag={GLOBAL_TAG}
           cardSettings={cardsSettings?.hashnode?.language}
-          trackEvent={(tag: Tag) => trackCardLanguageSelect('Hashnode', tag.value)}
+          trackEvent={(tag: Tag) => trackCardLanguageSelect(meta.analyticsTag, tag.value)}
           data={userSelectedTags.map((tag) => ({
             label: tag.label,
             value: tag.value,
