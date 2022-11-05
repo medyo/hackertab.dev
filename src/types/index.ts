@@ -36,10 +36,10 @@ export type ListingMode = "normal" | "compact";
 export type BaseEntry = {
   id: string
   url: string
+  title: string
 }
 
 export type Article = BaseEntry & {
-  title: string
   published_at: number
   tags: Array<string>
   reactions: number
@@ -56,7 +56,6 @@ export type Article = BaseEntry & {
 }
 
 export type Repository = BaseEntry & {
-  title: string
   programmingLanguage: string
   stars: number
   source: string
@@ -68,7 +67,6 @@ export type Repository = BaseEntry & {
 }
 
 export type Conference = BaseEntry & {
-  name: string
   start_date: number
   end_date: number
   tag: string

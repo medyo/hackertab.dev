@@ -56,19 +56,19 @@ const ConferencesItem = (props: ConferenceItemPropsType) => {
       source={'conferences'}
       index={index}
       key={index}
-      item={{ ...item, title: item.name }}
+      item={item}
       cardItem={
         <>
           <CardLink
             link={item.url}
             analyticsAttributes={{
               [Attributes.TRIGERED_FROM]: 'card',
-              [Attributes.TITLE]: item.name,
+              [Attributes.TITLE]: item.title,
               [Attributes.LINK]: item.url,
               [Attributes.SOURCE]: 'conferences',
             }}>
             <RiCalendarEventFill className={'rowTitleIcon'} />
-            {item.name}
+            {item.title}
           </CardLink>
           {listingMode === 'normal' ? (
             <>
