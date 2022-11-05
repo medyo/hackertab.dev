@@ -35,7 +35,7 @@ export default function CardItemWithActions({ cardItem, item, index, source }) {
   }
   useEffect(() => {
     setIsBookmarked(userBookmarks.some((bm) => bm.source === source && bm.url === item.url))
-  }, [userBookmarks])
+  }, [userBookmarks, source, item])
 
   return (
     <div key={`${source}-${index}`} className="blockRow">

@@ -14,16 +14,19 @@ function BottomNavigation({ selectedCard, setSelectedCard, setShowSettings }) {
           <a
             key={card.name}
             className={
-              'navigationItem ' + (selectedCard && selectedCard.name == card.name ? 'active' : '')
+              'navigationItem ' + (selectedCard && selectedCard.name === card.name ? 'active' : '')
             }
-            href="#"
+            href="/#"
             onClick={(e) => setSelectedCard(card)}>
             {constantCard.icon}
           </a>
         )
       })}
       {
-        <a className={'navigationItem '} href="#" onClick={(e) => setShowSettings((prev) => !prev)}>
+        <a
+          className={'navigationItem '}
+          href="/#"
+          onClick={(e) => setShowSettings((prev) => !prev)}>
           {<AiOutlineMenu />}
         </a>
       }

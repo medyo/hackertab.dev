@@ -157,7 +157,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
             />
             <p className="settingHint">
               Missing language or technology? create an issue{' '}
-              <a href="#" onClick={(e) => window.open(supportLink, '_blank')}>
+              <a href={supportLink} target="_blank" rel="noreferrer">
                 here
               </a>
             </p>
@@ -181,7 +181,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
             />
             <p className="settingHint">
               Missing a cool data source? create an issue{' '}
-              <a href="#" onClick={(_e) => window.open(supportLink, '_blank')}>
+              <a href={supportLink} target="_blank" rel="noreferrer">
                 here
               </a>
             </p>

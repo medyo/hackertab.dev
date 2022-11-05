@@ -63,6 +63,7 @@ export const Changelog = () => {
               <div key={item.name}>
                 <div className="tooltipHeader">
                   <a
+                    href="/#"
                     className="tooltipVersion"
                     onClick={() => window.open(item.html_url, '_blank')}>
                     {item.name}
