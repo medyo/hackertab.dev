@@ -1,8 +1,17 @@
 import { ReactNode } from 'react'
 import { Placeholder } from 'src/components/placeholders'
-import { ListComponentPropsType } from './types'
 import { CarbonAd } from 'src/features/carbonAds'
 import { BaseEntry } from 'src/types'
+
+export type ListComponentPropsType<T extends BaseEntry> = {
+  items: T[]
+  isLoading: boolean
+  renderItem: (item: T, index: number) => React.ReactNode
+  withAds: boolean
+  placeholder?: React.ReactNode
+  refresh?: boolean
+  error?: any
+}
 
 export function ListComponent<T extends BaseEntry>(props: ListComponentPropsType<T>) {
   const { items, isLoading, error, renderItem, withAds, placeholder = <Placeholder /> } = props

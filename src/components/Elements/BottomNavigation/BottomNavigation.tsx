@@ -1,9 +1,19 @@
-import React from 'react'
 import { SUPPORTED_CARDS } from 'src/config'
+import { SelectedCard } from 'src/types'
 import { useUserPreferences } from 'src/stores/preferences'
 import { AiOutlineMenu } from 'react-icons/ai'
 
-function BottomNavigation({ selectedCard, setSelectedCard, setShowSettings }) {
+type BottomNavigationProps = {
+  selectedCard: SelectedCard
+  setSelectedCard: (card: SelectedCard) => void
+  setShowSettings: (value: boolean | ((prevVar: boolean) => boolean)) => void
+}
+
+export const BottomNavigation = ({
+  selectedCard,
+  setSelectedCard,
+  setShowSettings,
+}: BottomNavigationProps) => {
   const { cards } = useUserPreferences()
 
   return (
@@ -18,7 +28,7 @@ function BottomNavigation({ selectedCard, setSelectedCard, setShowSettings }) {
             }
             href="/#"
             onClick={(e) => setSelectedCard(card)}>
-            {constantCard.icon}
+            {constantCard?.icon}
           </a>
         )
       })}
@@ -26,12 +36,10 @@ function BottomNavigation({ selectedCard, setSelectedCard, setShowSettings }) {
         <a
           className={'navigationItem '}
           href="/#"
-          onClick={(e) => setShowSettings((prev) => !prev)}>
+          onClick={(e) => setShowSettings((prev: boolean) => !prev)}>
           {<AiOutlineMenu />}
         </a>
       }
     </div>
   )
 }
-
-export default BottomNavigation

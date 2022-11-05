@@ -4,7 +4,7 @@ import { Attributes } from 'src/lib/analytics'
 import { ArticleItemPropsType } from 'src/types'
 import { format } from 'timeago.js'
 import { MdAccessTime } from 'react-icons/md'
-import ColoredLanguagesBadge from 'src/components/ColoredLanguagesBadge'
+import { ColoredLanguagesBadge } from 'src/components/Elements'
 
 const ArticleItem = (props: ArticleItemPropsType) => {
   const { item, index, selectedTag } = props

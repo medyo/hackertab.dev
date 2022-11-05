@@ -2,7 +2,7 @@ import CardLink from 'src/components/CardLink'
 import CardItemWithActions from 'src/components/CardItemWithActions'
 import { Attributes } from 'src/lib/analytics'
 import { RepoItemPropsType } from 'src/types'
-import ColoredLanguagesBadge from 'src/components/ColoredLanguagesBadge'
+import { ColoredLanguagesBadge } from 'src/components/Elements'
 import { VscRepo, VscRepoForked, VscStarFull } from 'react-icons/vsc'
 
 const sourceName = 'github'

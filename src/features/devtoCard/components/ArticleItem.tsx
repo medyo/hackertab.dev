@@ -6,7 +6,7 @@ import { ArticleItemPropsType } from 'src/types'
 import { format } from 'timeago.js'
 import { MdAccessTime } from 'react-icons/md'
 import { AiOutlineLike } from 'react-icons/ai'
-import ColoredLanguagesBadge from 'src/components/ColoredLanguagesBadge'
+import { ColoredLanguagesBadge } from 'src/components/Elements'
 
 const ArticleItem = (props: ArticleItemPropsType) => {
   const { item, index, listingMode, selectedTag } = props

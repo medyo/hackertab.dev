@@ -1,4 +1,4 @@
-import { Card } from 'src/components/Elements/Card'
+import { Card } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
 import { useGetConferences } from '../api/getConferences'
 import { Conference, CardPropsType } from 'src/types'

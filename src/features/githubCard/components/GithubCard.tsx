@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Card } from 'src/components/Elements/Card'
+import { Card } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
 import { useGetRepos } from '../api/getRepos'
 import { Repository, CardPropsType } from 'src/types'

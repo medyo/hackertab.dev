@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { SUPPORTED_CARDS } from 'src/config'
-import BottomNavigation from './BottomNavigation'
+import { BottomNavigation } from './Elements/'
 import { isDesktop } from 'react-device-detect'
 import { useUserPreferences } from 'src/stores/preferences'
 

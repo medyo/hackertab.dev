@@ -1,4 +1,4 @@
-import { Card } from 'src/components/Elements/Card'
+import { Card } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
 import { useUserPreferences } from 'src/stores/preferences'
 import { useGetArticles } from '../api/getArticles'

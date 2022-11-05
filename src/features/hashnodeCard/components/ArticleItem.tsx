@@ -4,7 +4,7 @@ import CardItemWithActions from 'src/components/CardItemWithActions'
 import { ArticleItemPropsType } from 'src/types'
 import { format } from 'timeago.js'
 import { MdAccessTime } from 'react-icons/md'
-import ColoredLanguagesBadge from 'src/components/ColoredLanguagesBadge'
+import { ColoredLanguagesBadge } from 'src/components/Elements'
 
 import { AiTwotoneHeart } from 'react-icons/ai'
 import { Attributes } from 'src/lib/analytics'
