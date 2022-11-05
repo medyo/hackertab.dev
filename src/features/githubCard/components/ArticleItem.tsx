@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import CardLink from 'src/components/CardLink'
 import CardItemWithActions from 'src/components/CardItemWithActions'
 import { Attributes } from 'src/lib/analytics'
@@ -10,10 +9,6 @@ const sourceName = 'github'
 
 const ArticleItem = (props: ArticleItemPropsType) => {
   const { item, index, listingMode, selectedTag } = props
-
-  const title = useMemo(() => {
-    return `${item.owner ? item.owner + '/' : ''}${item.title}`
-  }, [item])
 
   return (
     <CardItemWithActions
@@ -35,8 +30,7 @@ const ArticleItem = (props: ArticleItemPropsType) => {
               [Attributes.LANGUAGE]: selectedTag?.value,
             }}>
             <VscRepo className={'rowTitleIcon'} />
-            {item.owner && `${item?.owner}/`}
-            <b>{item.name}</b>
+            {item.title}
           </CardLink>
           <p className="rowDescription">{item.description}</p>
           {listingMode === 'normal' && (

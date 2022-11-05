@@ -34,13 +34,13 @@ export function GithubCard(props: CardPropsType) {
     if (selectedTag) {
       setCardSettings(label.toLowerCase(), { language: selectedTag.label })
     }
-  }, [selectedTag])
+  }, [label, selectedTag, setCardSettings])
 
   useEffect(() => {
     if (selectedDateRange) {
       setCardSettings(label.toLowerCase(), { language: selectedDateRange.value })
     }
-  }, [selectedDateRange])
+  }, [label, selectedDateRange, setCardSettings])
 
   const getQueryTags = () => {
     if (!selectedTag) {
@@ -95,7 +95,7 @@ export function GithubCard(props: CardPropsType) {
           setSelectedTag={setSelectedTag}
           fallbackTag={GLOBAL_TAG}
           cardSettings={cardsSettings?.repos?.language}
-          trackEvent={(tag: Tag) => trackCardLanguageSelect('Repos', tag.value)}
+          trackEvent={(tag: Tag) => trackCardLanguageSelect('Github', tag.value)}
           data={userSelectedTags.map((tag) => ({
             label: tag.label,
             value: tag.value,
@@ -107,7 +107,7 @@ export function GithubCard(props: CardPropsType) {
           selectedTag={selectedDateRange}
           setSelectedTag={setSelectedDateRange}
           fallbackTag={dateRanges[0]}
-          trackEvent={(tag: DateRangeType) => trackCardDateRangeSelect('Repos', tag.value)}
+          trackEvent={(tag: DateRangeType) => trackCardDateRangeSelect('Github', tag.value)}
           cardSettings={cardsSettings?.repos?.dateRange}
           data={dateRanges}
         />
