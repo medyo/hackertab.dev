@@ -49,10 +49,20 @@ export type ArticleType = {
   flair_text?: string
   flair_background_color?: string
   flair_text_color?: string
-  owner?: string
-  forks?: string
-  starsInDateRange?: string
-  name?: string
+}
+
+export type RepoType = {
+  id: string
+  title: string
+  url: string
+  programmingLanguage: string
+  stars: number
+  source: string
+  description: string
+  owner: string
+  forks: number
+  starsInDateRange?: number
+  name: string
 }
 
 export type ConferenceType = {
@@ -90,4 +100,11 @@ export type ConferenceItemPropsType = {
   index: number
   item: ConferenceType
   listingMode?: ListingMode
+}
+
+export type RepoItemPropsType = {
+  index: number
+  item: RepoType
+  listingMode?: ListingMode,
+  selectedTag?: SelectedTag
 }

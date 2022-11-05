@@ -1,15 +1,19 @@
 import CardLink from 'src/components/CardLink'
 import CardItemWithActions from 'src/components/CardItemWithActions'
 import { Attributes } from 'src/lib/analytics'
-import { ArticleItemPropsType } from 'src/types'
+import { RepoItemPropsType } from 'src/types'
 import ColoredLanguagesBadge from 'src/components/ColoredLanguagesBadge'
 import { VscRepo, VscRepoForked, VscStarFull } from 'react-icons/vsc'
 
 const sourceName = 'github'
 
-const ArticleItem = (props: ArticleItemPropsType) => {
-  const { item, index, listingMode, selectedTag } = props
+function numberWithCommas(x:number|string) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
+const RepoItem = (props: RepoItemPropsType) => {
+  const { item, index, listingMode, selectedTag } = props
+  
   return (
     <CardItemWithActions
       source={sourceName}
@@ -22,7 +26,7 @@ const ArticleItem = (props: ArticleItemPropsType) => {
             className="githubTitle"
             link={item.url}
             analyticsAttributes={{
-              [Attributes.POINTS]: item.reactions,
+              [Attributes.POINTS]: numberWithCommas(item.stars),
               [Attributes.TRIGERED_FROM]: 'card',
               [Attributes.TITLE]: item.title,
               [Attributes.LINK]: item.url,
@@ -35,15 +39,15 @@ const ArticleItem = (props: ArticleItemPropsType) => {
           <p className="rowDescription">{item.description}</p>
           {listingMode === 'normal' && (
             <div className="rowDetails">
-              <ColoredLanguagesBadge languages={item.tags} />
-              {item.reactions && (
+              <ColoredLanguagesBadge languages={[item.programmingLanguage]} />
+              {numberWithCommas(item.stars) && (
                 <span className="rowItem">
-                  <VscStarFull className="rowItemIcon" /> {item.reactions} stars
+                  <VscStarFull className="rowItemIcon" /> {numberWithCommas(item.stars)} stars
                 </span>
               )}
               {item.forks && (
                 <span className="rowItem">
-                  <VscRepoForked className="rowItemIcon" /> {item.forks} forks
+                  <VscRepoForked className="rowItemIcon" /> {numberWithCommas(item.forks)} forks
                 </span>
               )}
             </div>
@@ -54,4 +58,4 @@ const ArticleItem = (props: ArticleItemPropsType) => {
   )
 }
 
-export default ArticleItem
+export default RepoItem

@@ -1,8 +1,8 @@
 import React from 'react'
-import { ArticleType, ConferenceType } from 'src/types'
+import { ArticleType, ConferenceType, RepoType } from 'src/types'
 
 export type ListComponentPropsType = {
-  items: ArticleType[] | ConferenceType[]
+  items: ArticleType[] | ConferenceType[] | RepoType[],
   isLoading: boolean,
   renderItem: (item: any, index: number) => React.ReactNode,
   withAds: boolean,

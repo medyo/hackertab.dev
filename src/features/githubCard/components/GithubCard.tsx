@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import CardComponent from 'src/components/CardComponent'
 import { ListComponent } from 'src/components/List'
-import { useGetArticles } from '../api/getArticles'
-import { ArticleType, CardPropsType } from 'src/types'
+import { useGetRepos } from '../api/getRepos'
+import { RepoType, CardPropsType } from 'src/types'
 import { useUserPreferences } from 'src/stores/preferences'
 import { getCardTagsValue } from 'src/utils/DataEnhancement'
-import ArticleItem from './ArticleItem'
+import RepoItem from './RepoItem'
 import { Tag } from 'src/features/remoteConfig'
 import { GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/config'
 import { trackCardLanguageSelect, trackCardDateRangeSelect } from 'src/lib/analytics'
@@ -56,7 +56,7 @@ export function GithubCard(props: CardPropsType) {
     return selectedTag.githubValues
   }
 
-  const results = useGetArticles({
+  const results = useGetRepos({
     tags: getQueryTags(),
     dateRange: selectedDateRange.value,
     config: {
@@ -68,15 +68,15 @@ export function GithubCard(props: CardPropsType) {
 
   const getData = () => {
     return results
-      .reduce((acc: ArticleType[], curr) => {
+      .reduce((acc: RepoType[], curr) => {
         if (!curr.data) return acc
         return [...acc, ...curr.data]
       }, [])
-      .sort((a, b) => b.reactions - a.reactions)
+      .sort((a, b) => b.stars - a.stars)
   }
 
-  const renderItem = (item: ArticleType, index: number) => (
-    <ArticleItem
+  const renderItem = (item: RepoType, index: number) => (
+    <RepoItem
       item={item}
       key={`rp-${index}`}
       index={index}
