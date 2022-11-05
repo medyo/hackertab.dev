@@ -78,7 +78,6 @@ export type Conference = BaseEntry & {
 export type CardPropsType = {
   meta: SupportedCard,
   withAds: boolean
-  analyticsTag?: string
 }
 
 export type ArticleItemPropsType = {
