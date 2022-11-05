@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import CardComponent from 'src/components/CardComponent'
+import { Card } from 'src/components/Elements/Card'
 import { ListComponent } from 'src/components/List'
 import { useGetRepos } from '../api/getRepos'
 import { RepoType, CardPropsType } from 'src/types'
@@ -15,32 +15,31 @@ const TAGS_MENU_ID = 'tags-menu'
 const DATE_RANGE_MENU_ID = 'date-range-id'
 
 type DateRangeType = {
-  value: "daily" | "monthly" | "weekly"
+  value: 'daily' | 'monthly' | 'weekly'
   label: string
 }
+const dateRanges: DateRangeType[] = [
+  { label: 'the day', value: 'daily' },
+  { label: 'the week', value: 'weekly' },
+  { label: 'the month', value: 'monthly' },
+]
 
-export function GithubCard(props: CardPropsType) {
-  const dateRanges: DateRangeType[] = [
-    { label: 'the day', value: 'daily' },
-    { label: 'the week', value: 'weekly' },
-    { label: 'the month', value: 'monthly' },
-  ]
-  const { label, icon, withAds } = props
+export function GithubCard({ meta, withAds }: CardPropsType) {
   const { userSelectedTags, cardsSettings, setCardSettings, listingMode } = useUserPreferences()
   const [selectedTag, setSelectedTag] = useState<Tag>()
   const [selectedDateRange, setSelectedDateRange] = useState<DateRangeType>(dateRanges[0])
 
   useEffect(() => {
     if (selectedTag) {
-      setCardSettings(label.toLowerCase(), { language: selectedTag.label })
+      setCardSettings(meta.label.toLowerCase(), { language: selectedTag.label })
     }
-  }, [label, selectedTag, setCardSettings])
+  }, [meta.label, selectedTag, setCardSettings])
 
   useEffect(() => {
     if (selectedDateRange) {
-      setCardSettings(label.toLowerCase(), { language: selectedDateRange.value })
+      setCardSettings(meta.label.toLowerCase(), { language: selectedDateRange.value })
     }
-  }, [label, selectedDateRange, setCardSettings])
+  }, [meta.label, selectedDateRange, setCardSettings])
 
   const getQueryTags = () => {
     if (!selectedTag) {
@@ -125,11 +124,7 @@ export function GithubCard(props: CardPropsType) {
     }
   }
   return (
-    <CardComponent
-      fullBlock={true}
-      icon={<span className="blockHeaderIcon">{icon}</span>}
-      link="https://github.com/"
-      title={<HeaderTitle />}>
+    <Card fullBlock={true} card={meta} titleComponent={<HeaderTitle />}>
       <ListComponent
         items={getData()}
         error={getError()}
@@ -137,6 +132,6 @@ export function GithubCard(props: CardPropsType) {
         renderItem={renderItem}
         withAds={withAds}
       />
-    </CardComponent>
+    </Card>
   )
 }

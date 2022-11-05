@@ -70,20 +70,22 @@ export const SUPPORTED_SEARCH_ENGINES = [
   },
 ]
 
-type SupportedCard = {
+export type SupportedCard = {
   value: string
   icon: React.ReactNode
   analyticsTag: string
   label: string
+  link: string
   component: React.FunctionComponent<CardPropsType>
 }
 export const SUPPORTED_CARDS: SupportedCard[] = [
   {
     value: 'github',
-    analyticsTag: 'repos',
+    analyticsTag: 'github',
     label: 'Github repositories',
     component: GithubCard,
     icon: <SiGithub className="blockHeaderWhite" />,
+    link: 'https://github.com/',
   },
   {
     value: 'hackernews',
@@ -91,6 +93,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     analyticsTag: 'hackernews',
     label: 'Hackernews',
     component: HackernewsCard,
+    link: 'https://news.ycombinator.com/',
   },
   {
     value: 'conferences',
@@ -98,6 +101,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     analyticsTag: 'events',
     label: 'Upcoming events',
     component: ConferencesCard,
+    link: 'https://confs.tech/',
   },
   {
     value: 'devto',
@@ -105,6 +109,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     analyticsTag: 'devto',
     label: 'DevTo',
     component: DevtoCard,
+    link: 'https://dev.to/',
   },
   {
     value: 'producthunt',
@@ -112,6 +117,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     analyticsTag: 'producthunt',
     label: 'Product Hunt',
     component: ProductHuntCard,
+    link: 'https://producthunt.com/',
   },
   {
     value: 'reddit',
@@ -119,6 +125,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     analyticsTag: 'reddit',
     label: 'Reddit',
     component: RedditCard,
+    link: 'https://reddit.com/',
   },
   {
     value: 'lobsters',
@@ -126,6 +133,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     analyticsTag: 'lobsters',
     label: 'Lobsters',
     component: LobstersCard,
+    link: 'https://lobste.rs/',
   },
   {
     value: 'hashnode',
@@ -133,6 +141,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     analyticsTag: 'hashnode',
     label: 'Hashnode',
     component: HashnodeCard,
+    link: 'https://hashnode.com/',
   },
   {
     value: 'freecodecamp',
@@ -140,6 +149,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     analyticsTag: 'freecodecamp',
     label: 'FreeCodeCamp',
     component: FreecodecampCard,
+    link: 'https://freecodecamp.com/news',
   },
   {
     value: 'indiehackers',
@@ -147,6 +157,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     analyticsTag: 'indiehackers',
     label: 'IndieHackers',
     component: IndiehackersCard,
+    link: 'https://indiehackers.com/',
   },
   {
     value: 'medium',
@@ -154,6 +165,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     analyticsTag: 'medium',
     label: 'Medium',
     component: MediumCard,
+    link: 'https://medium.com/',
   },
 ]
 

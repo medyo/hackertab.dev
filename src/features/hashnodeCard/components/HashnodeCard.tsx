@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import CardComponent from 'src/components/CardComponent'
+import { Card } from 'src/components/Elements/Card'
 import { ListComponent } from 'src/components/List'
 import { useGetArticles } from '../api/getArticles'
 import { ArticleType, CardPropsType } from 'src/types'
@@ -13,14 +13,13 @@ import SelectableCard from 'src/components/SelectableCard'
 
 const HN_MENU_LANGUAGE_ID = 'HN_MENU_LANGUAGE_ID'
 
-export function HashnodeCard(props: CardPropsType) {
-  const { label, icon, withAds } = props
+export function HashnodeCard({ withAds, meta }: CardPropsType) {
   const { userSelectedTags, cardsSettings, setCardSettings, listingMode } = useUserPreferences()
   const [selectedTag, setSelectedTag] = useState<Tag>()
 
   useEffect(() => {
     if (selectedTag) {
-      setCardSettings(label.toLowerCase(), { language: selectedTag.label })
+      setCardSettings(meta.label.toLowerCase(), { language: selectedTag.label })
     }
   }, [selectedTag])
 
@@ -80,16 +79,13 @@ export function HashnodeCard(props: CardPropsType) {
   }
 
   return (
-    <CardComponent
-      icon={<span className="blockHeaderIcon">{icon}</span>}
-      link="https://hashnode.com/"
-      title={<HeaderTitle />}>
+    <Card card={meta} titleComponent={<HeaderTitle />}>
       <ListComponent
         items={getData()}
         isLoading={getIsLoading()}
         renderItem={renderItem}
         withAds={withAds}
       />
-    </CardComponent>
+    </Card>
   )
 }

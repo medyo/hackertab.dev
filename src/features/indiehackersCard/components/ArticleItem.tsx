@@ -7,9 +7,11 @@ import CardItemWithActions from '../../../components/CardItemWithActions'
 import { Attributes } from 'src/lib/analytics'
 import { ArticleItemPropsType } from 'src/types'
 import { FaChevronUp } from 'react-icons/fa'
+import { useUserPreferences } from 'src/stores/preferences'
 
 const ArticleItem = (props: ArticleItemPropsType) => {
-  const { item, index, listingMode } = props
+  const { item, index } = props
+  const { listingMode } = useUserPreferences()
 
   return (
     <CardItemWithActions

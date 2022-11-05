@@ -1,4 +1,5 @@
 import { Tag } from "src/features/remoteConfig"
+import { SupportedCard } from "src/config";
 
 export type SearchEngineType = {
   url: string
@@ -32,10 +33,13 @@ export type SearchEngine = {
 export type Theme = "dark" | "light";
 export type ListingMode = "normal" | "compact";
 
-export type ArticleType = {
+export type BaseEntry = {
   id: string
-  title: string
   url: string
+}
+
+export type ArticleType = BaseEntry & {
+  title: string
   published_at: number
   tags: Array<string>
   reactions: number
@@ -51,10 +55,8 @@ export type ArticleType = {
   flair_text_color?: string
 }
 
-export type RepoType = {
-  id: string
+export type RepoType = BaseEntry & {
   title: string
-  url: string
   programmingLanguage: string
   stars: number
   source: string
@@ -65,10 +67,8 @@ export type RepoType = {
   name: string
 }
 
-export type ConferenceType = {
-  id: string
+export type ConferenceType = BaseEntry & {
   name: string
-  url: string
   start_date: number
   end_date: number
   tag: string
@@ -78,8 +78,7 @@ export type ConferenceType = {
 }
 
 export type CardPropsType = {
-  label: string
-  icon: React.ReactNode
+  meta: SupportedCard,
   withAds: boolean
   analyticsTag?: string
 }

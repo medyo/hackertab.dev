@@ -2,8 +2,9 @@ import { ReactNode } from 'react'
 import { Placeholder } from 'src/components/placeholders'
 import { ListComponentPropsType } from './types'
 import { CarbonAd } from 'src/features/carbonAds'
+import { BaseEntry } from 'src/types'
 
-export function ListComponent(props: ListComponentPropsType) {
+export function ListComponent<T extends BaseEntry>(props: ListComponentPropsType<T>) {
   const { items, isLoading, error, renderItem, withAds, placeholder = <Placeholder /> } = props
 
   if (error) {
@@ -14,12 +15,12 @@ export function ListComponent(props: ListComponentPropsType) {
     if (!items) {
       return
     }
-    
+
     return items.map((item, index) => {
       let content: ReactNode[] = [renderItem(item, index)]
-       if (withAds && index === 0) {
-         content.unshift(<CarbonAd key={'carbonAd0'} />)
-       }
+      if (withAds && index === 0) {
+        content.unshift(<CarbonAd key={'carbonAd0'} />)
+      }
       return content
     })
   }
@@ -27,7 +28,7 @@ export function ListComponent(props: ListComponentPropsType) {
   function Placeholders() {
     return (
       <>
-        {[...Array(5)].map((x, i) => (
+        {[...Array(7)].map((x, i) => (
           <span key={i}>{placeholder}</span>
         ))}
       </>

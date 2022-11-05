@@ -10,8 +10,7 @@ function MobileCards({ selectedCard }) {
     currentCard &&
     React.createElement(currentCard.component, {
       key: currentCard.value,
-      label: currentCard.label,
-      analyticsTag: currentCard.analyticsTag,
+      meta: currentCard,
       withAds: true,
     })
   )
@@ -22,9 +21,7 @@ function DesktopCards({ cards }) {
     const constantCard = SUPPORTED_CARDS.find((c) => c.value === card.name)
     return React.createElement(constantCard.component, {
       key: card.name,
-      label: constantCard.label,
-      icon: constantCard.icon,
-      analyticsTag: constantCard.analyticsTag,
+      meta: constantCard,
       withAds: index === 0,
     })
   })
