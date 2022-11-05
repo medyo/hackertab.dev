@@ -3,7 +3,7 @@ import { BsFillGearFill } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
 import { BsFillBookmarksFill } from 'react-icons/bs'
 import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
-import { UserTags } from './Elements/UserTags'
+import { UserTags } from 'src/components/Elements/UserTags'
 import { SettingsModal } from 'src/features/settings'
 import { BsMoon } from 'react-icons/bs'
 import { IoMdSunny } from 'react-icons/io'
@@ -12,7 +12,19 @@ import { SearchBar } from 'src/components/Elements/SearchBar'
 import { useUserPreferences } from 'src/stores/preferences'
 import { useBookmarks } from 'src/stores/bookmarks'
 
-function Header({ showSideBar, setShowSideBar, showSettings, setShowSettings }) {
+type HeaderProps = {
+  showSideBar: boolean
+  setShowSideBar: (show: boolean) => void
+  showSettings: boolean
+  setShowSettings: (show: boolean) => void
+}
+
+export const Header = ({
+  showSideBar,
+  setShowSideBar,
+  showSettings,
+  setShowSettings,
+}: HeaderProps) => {
   const [themeIcon, setThemeIcon] = useState(<BsMoon />)
   const isFirstRun = useRef(true)
   const { theme, setTheme } = useUserPreferences()
@@ -94,5 +106,3 @@ function Header({ showSideBar, setShowSideBar, showSettings, setShowSettings }) 
     </>
   )
 }
-
-export default Header

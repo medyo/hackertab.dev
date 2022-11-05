@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
-import { Footer } from 'src/components/Layout'
-import Header from 'src/components/Header'
+import { Footer, Header } from 'src/components/Layout'
 import { BookmarksSidebar } from 'src/features/bookmarks'
 import { MarketingBanner } from 'src/components/Elements'
 import ScrollCardsNavigator from './components/ScrollCardsNavigator'
