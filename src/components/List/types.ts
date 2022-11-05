@@ -1,10 +1,10 @@
 import React from 'react'
-import { ArticleType, ConferenceType, RepoType } from 'src/types'
+import { BaseEntry } from 'src/types'
 
-export type ListComponentPropsType = {
-  items: ArticleType[] | ConferenceType[] | RepoType[],
+export type ListComponentPropsType<T extends BaseEntry> = {
+  items: T[],
   isLoading: boolean,
-  renderItem: (item: any, index: number) => React.ReactNode,
+  renderItem: (item: T, index: number) => React.ReactNode,
   withAds: boolean,
   placeholder?: React.ReactNode,
   refresh?: boolean,

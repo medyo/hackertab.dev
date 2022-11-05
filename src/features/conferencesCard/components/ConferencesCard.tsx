@@ -1,4 +1,4 @@
-import CardComponent from 'src/components/CardComponent'
+import { Card } from 'src/components/Elements/Card'
 import { ListComponent } from 'src/components/List'
 import { useGetConferences } from '../api/getConferences'
 import { ConferenceType, CardPropsType } from 'src/types'
@@ -6,9 +6,7 @@ import { useUserPreferences } from 'src/stores/preferences'
 import { getCardTagsValue } from 'src/utils/DataEnhancement'
 import ConferenceItem from './ConferenceItem'
 
-
-export function ConferencesCard(props: CardPropsType) {
-  const { label, icon, withAds } = props
+export function ConferencesCard({ meta, withAds }: CardPropsType) {
   const { userSelectedTags, listingMode } = useUserPreferences()
 
   const results = useGetConferences({ tags: getCardTagsValue(userSelectedTags, 'devtoValues') })
@@ -25,25 +23,17 @@ export function ConferencesCard(props: CardPropsType) {
   }
 
   const renderItem = (item: ConferenceType, index: number) => (
-    <ConferenceItem
-      item={item}
-      key={`cf-${index}`}
-      index={index}
-      listingMode={listingMode}
-    />
+    <ConferenceItem item={item} key={`cf-${index}`} index={index} listingMode={listingMode} />
   )
 
   return (
-    <CardComponent
-      icon={<span className="blockHeaderIcon">{icon}</span>}
-      link="https://confs.tech/"
-      title={label}>
+    <Card card={meta}>
       <ListComponent
         items={getData()}
         isLoading={isLoading}
         renderItem={renderItem}
         withAds={withAds}
       />
-    </CardComponent>
+    </Card>
   )
 }

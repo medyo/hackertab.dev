@@ -1,25 +1,18 @@
-import CardComponent from '../../../components/CardComponent'
+import { Card } from 'src/components/Elements/Card'
 import { ListComponent } from 'src/components/List'
-import { useUserPreferences } from 'src/stores/preferences'
 import { useGetArticles } from '../api/getArticles'
 import { ArticleType, CardPropsType } from 'src/types'
-import ArticleItem from './ArticleItem';
+import ArticleItem from './ArticleItem'
 
-
-export function IndiehackersCard(props: CardPropsType) {
-  const { label, icon, withAds } = props
+export function IndiehackersCard({ meta, withAds }: CardPropsType) {
   const { data: articles = [], isLoading, error } = useGetArticles()
-  const { listingMode } = useUserPreferences()
 
   const renderItem = (item: ArticleType, index: number) => (
-    <ArticleItem item={item} key={`ih-${index}`} index={index} listingMode={listingMode} />
+    <ArticleItem item={item} key={`ih-${index}`} index={index} />
   )
 
   return (
-    <CardComponent
-      icon={<span className="blockHeaderIcon">{icon}</span>}
-      link="https://indiehackers.com/"
-      title={label}>
+    <Card card={meta}>
       <ListComponent
         items={articles}
         error={error}
@@ -27,8 +20,6 @@ export function IndiehackersCard(props: CardPropsType) {
         renderItem={renderItem}
         withAds={withAds}
       />
-    </CardComponent>
+    </Card>
   )
 }
-
-
