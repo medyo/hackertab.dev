@@ -264,7 +264,7 @@ const trackEvent = ({ object, verb, attributes }: trackEventProps) => {
       });
 
       // Remove http and www from links
-      if (Object.keys(attributes).some((attr) => attr == Attributes.LINK)) {
+      if (Object.keys(attributes).some((attr) => attr === Attributes.LINK)) {
         attributes[Attributes.LINK] = attributes[Attributes.LINK].replace(/(https*:\/\/[www.]*)/, '')
       }
     }

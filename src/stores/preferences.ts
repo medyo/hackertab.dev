@@ -1,7 +1,7 @@
 import { enhanceTags } from 'src/utils/DataEnhancement'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
-import { SelectedCard, SelectedTag, Theme, ListingMode, CardSettingsType } from '../types'
+import { SelectedCard, Theme, ListingMode, CardSettingsType } from '../types'
 import { Tag } from 'src/features/remoteConfig'
 
 export type UserPreferencesState = {

@@ -1,5 +1,3 @@
-import localforage from 'localforage';
-
 export const canUseLocalStorage = () => {
   try {
     window.localStorage.setItem('test', 'test');
@@ -10,7 +8,6 @@ export const canUseLocalStorage = () => {
     return false;
   }
 };
-
 
 export default class AppStorage {
   static getItem(key: string, defaultValue: string | null = null) {
