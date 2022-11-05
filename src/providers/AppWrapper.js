@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { migrateToNewStorage } from 'src/utils/StorageMigration'
 
 export default function AppWrapper({ children }) {
