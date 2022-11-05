@@ -11,42 +11,30 @@ import { HiLightBulb } from 'react-icons/hi'
 import { trackPageView } from 'src/lib/analytics'
 
 export const Footer = () => {
-  const onSourceCodeClick = () => {
-    trackPageView('Source Code')
-    window.open(repository, '_blank')
-  }
-
-  const onNewFeatureRequest = () => {
-    trackPageView('Feature Request')
-    window.open(supportLink)
-  }
-
-  const onPrivacyPolicyClick = () => {
-    trackPageView('Privacy Policy')
-    window.open(privacyPolicyLink)
-  }
-  const onTermsClick = () => {
-    trackPageView('Terms And Conditions')
-    window.open(termsAndConditionsLink)
-  }
-  const onDataSourcesClick = () => {
-    trackPageView('Data Sources')
-    window.open(dataSourcesLink)
-  }
-
   return (
     <footer className="AppFooter">
-      <a className="linkItem" href="#" onClick={() => onNewFeatureRequest()}>
+      <a className="linkItem" href={supportLink} onClick={() => trackPageView('Feature Request')}>
         <HiLightBulb className="linkItemIcon" /> New Feature?
       </a>
-      <a className="linkItem" href="#" onClick={() => onSourceCodeClick()}>
+      <a
+        className="linkItem"
+        href={repository}
+        target="_blank"
+        onClick={() => trackPageView('Source Code')}
+        rel="noreferrer">
         <RiCodeSSlashFill className="linkItemIcon" /> Source code
       </a>
-      <a className="linkItem" href="#" onClick={() => onTermsClick()}>{`Terms & conditions`}</a>
-      <a className="linkItem" href="#" onClick={() => onPrivacyPolicyClick()}>
+      <a
+        className="linkItem"
+        href={termsAndConditionsLink}
+        onClick={() => trackPageView('Terms And Conditions')}>{`Terms & conditions`}</a>
+      <a
+        className="linkItem"
+        href={privacyPolicyLink}
+        onClick={() => trackPageView('Privacy Policy')}>
         Privacy policy
       </a>
-      <a className="linkItem" href="#" onClick={() => onDataSourcesClick()}>
+      <a className="linkItem" href={dataSourcesLink} onClick={() => trackPageView('Data Sources')}>
         Data sources
       </a>
     </footer>
