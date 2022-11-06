@@ -24,7 +24,7 @@ const ArticleItem = (props: ArticleItemPropsType) => {
               link={item.url}
               appendRef={false}
               analyticsAttributes={{
-                [Attributes.POINTS]: item.image_url,
+                [Attributes.POINTS]: item.reactions,
                 [Attributes.TRIGERED_FROM]: 'card',
                 [Attributes.TITLE]: item.title,
                 [Attributes.LINK]: item.url,
