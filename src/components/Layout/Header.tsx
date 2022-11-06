@@ -11,6 +11,7 @@ import { Changelog } from 'src/features/changelog'
 import { SearchBar } from 'src/components/Elements/SearchBar'
 import { useUserPreferences } from 'src/stores/preferences'
 import { useBookmarks } from 'src/stores/bookmarks'
+import { trackThemeSelect, identifyUserTheme } from 'src/lib/analytics'
 
 type HeaderProps = {
   showSideBar: boolean
@@ -54,11 +55,10 @@ export const Header = ({
   }, [theme])
 
   const onThemeChange = () => {
-    if (theme === 'dark') {
-      setTheme('light')
-    } else {
-      setTheme('dark')
-    }
+    const newTheme = theme === 'dark' ? 'light' : 'dark'
+    setTheme(newTheme)
+    trackThemeSelect(newTheme)
+    identifyUserTheme(newTheme)
   }
 
   const onSettingsClick = () => {

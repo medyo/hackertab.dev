@@ -16,6 +16,13 @@ import {
   trackSearchEngineSelect,
   trackListingModeSelect,
   trackTabTarget,
+  trackThemeSelect,
+  identifyUserTheme,
+  identifyUserLinksInNewTab,
+  identifyUserSearchEngine,
+  identifyUserCards,
+  identifyUserListingMode,
+  identifyUserLanguages,
 } from 'src/lib/analytics'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
 import { Tag } from 'src/features/remoteConfig'
@@ -69,14 +76,14 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
 
         break
     }
-
-    console.log(tags)
     setTags(tags as Tag[])
+    identifyUserLanguages(tags.map((tag) => tag.value))
   }
 
   const onlistingModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.checked ? 'compact' : 'normal'
     trackListingModeSelect(value)
+    identifyUserListingMode(value)
     setListingMode(value)
   }
 
@@ -97,6 +104,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     let newCards = cards.map((c, index) => {
       return { id: index, name: c.value }
     })
+    identifyUserCards(newCards.map((card) => card.name))
     setSelectedCards(newCards)
     setCards(newCards)
   }
@@ -106,6 +114,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
       return
     }
 
+    identifyUserSearchEngine(value.label)
     trackSearchEngineSelect(value.label)
     setSearchEngine(value.label)
   }
@@ -113,15 +122,15 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
   const onOpenLinksNewTabChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked
     trackTabTarget(checked)
+    identifyUserLinksInNewTab(checked)
     setOpenLinksNewTab(checked)
   }
 
   const onDarkModeChange = () => {
-    if (theme === 'dark') {
-      setTheme('light')
-    } else {
-      setTheme('dark')
-    }
+    const newTheme = theme === 'dark' ? 'light' : 'dark'
+    setTheme(newTheme)
+    trackThemeSelect(newTheme)
+    identifyUserTheme(newTheme)
   }
 
   return (
