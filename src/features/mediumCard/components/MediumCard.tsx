@@ -28,10 +28,10 @@ export function MediumCard({ meta, withAds }: CardPropsType) {
       return []
     }
 
-    if (selectedTag.value === MY_LANGUAGES_TAG.devtoValues[0]) {
-      return getCardTagsValue(userSelectedTags, 'devtoValues')
+    if (selectedTag.value === MY_LANGUAGES_TAG.mediumValues[0]) {
+      return getCardTagsValue(userSelectedTags, 'mediumValues')
     }
-    return selectedTag.devtoValues
+    return selectedTag.mediumValues
   }
 
   const results = useGetArticles({ tags: getQueryTags() })
