@@ -19,7 +19,7 @@ export const useGetArticles = ({ config, tags }: UseGetArticlesOptions) => {
     queries: tags.map<UseQueryOptions<Article[]>>((tag) => {
       return {
         ...config,
-        queryKey: ['devtoArticles', tag],
+        queryKey: ['medium', tag],
         queryFn: () => getArticles(tag),
       }
     })

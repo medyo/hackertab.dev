@@ -19,7 +19,7 @@ export const useGetArticles = ({ config, tags }: UseGetArticlesOptions) => {
     queries: tags.map<UseQueryOptions<Article[]>>((tag) => {
       return {
         ...config,
-        queryKey: ['hashnodeArticles', tag],
+        queryKey: ['hashnode', tag],
         queryFn: () => getArticles(tag),
       }
     })

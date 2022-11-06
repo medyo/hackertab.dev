@@ -20,7 +20,7 @@ export const useGetRepos = ({ config, tags, dateRange }: UseGetReposOptions) => 
     queries: tags.map<UseQueryOptions<Repository[]>>((tag) => {
       return {
         ...config,
-        queryKey: ['githubArticles', tag, dateRange],
+        queryKey: ['github', tag, dateRange],
         queryFn: () => getRepos(tag, dateRange),
       }
     })
