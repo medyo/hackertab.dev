@@ -9,7 +9,7 @@ import ConferenceItem from './ConferenceItem'
 export function ConferencesCard({ meta, withAds }: CardPropsType) {
   const { userSelectedTags, listingMode } = useUserPreferences()
 
-  const results = useGetConferences({ tags: getCardTagsValue(userSelectedTags, 'devtoValues') })
+  const results = useGetConferences({ tags: getCardTagsValue(userSelectedTags, 'confsValues') })
 
   const isLoading = results.some((result) => result.isLoading)
 
