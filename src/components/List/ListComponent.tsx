@@ -1,8 +1,22 @@
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import { Placeholder } from 'src/components/placeholders'
 import { MAX_ITEMS_PER_CARD } from 'src/config'
 import { CarbonAd } from 'src/features/carbonAds'
 import { BaseEntry } from 'src/types'
+
+type PlaceholdersProps = {
+  placeholder: ReactNode
+}
+
+const Placeholders = React.memo<PlaceholdersProps>(({ placeholder }) => {
+  return (
+    <>
+      {[...Array(7)].map((x, i) => (
+        <span key={i}>{placeholder}</span>
+      ))}
+    </>
+  )
+})
 
 export type ListComponentPropsType<T extends BaseEntry> = {
   items: T[]
@@ -44,15 +58,5 @@ export function ListComponent<T extends BaseEntry>(props: ListComponentPropsType
     })
   }
 
-  function Placeholders() {
-    return (
-      <>
-        {[...Array(7)].map((x, i) => (
-          <span key={i}>{placeholder}</span>
-        ))}
-      </>
-    )
-  }
-
-  return <>{isLoading ? <Placeholders /> : renderItems()}</>
+  return <>{isLoading ? <Placeholders placeholder={placeholder} /> : renderItems()}</>
 }
