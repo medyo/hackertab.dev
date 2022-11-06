@@ -4,15 +4,15 @@ import { VscTriangleUp } from 'react-icons/vsc'
 import { CardLink } from 'src/components/Elements'
 import CardItemWithActions from 'src/components/CardItemWithActions'
 import { Attributes } from 'src/lib/analytics'
-import { ArticleItemPropsType } from 'src/types'
+import { BaseItemPropsType, Article } from 'src/types'
+import { useUserPreferences } from 'src/stores/preferences'
 
-
-const ArticleItem = (props: ArticleItemPropsType) => {
-  const { item, index, listingMode } = props
+const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) => {
+  const { listingMode } = useUserPreferences()
 
   return (
     <CardItemWithActions
-      source={'producthunt'}
+      source={analyticsTag}
       index={index}
       key={index}
       item={{ ...item, title: item.title }}
@@ -28,7 +28,7 @@ const ArticleItem = (props: ArticleItemPropsType) => {
                 [Attributes.TRIGERED_FROM]: 'card',
                 [Attributes.TITLE]: item.title,
                 [Attributes.LINK]: item.url,
-                [Attributes.SOURCE]: 'producthunt',
+                [Attributes.SOURCE]: analyticsTag,
               }}>
               {item.title}
             </CardLink>

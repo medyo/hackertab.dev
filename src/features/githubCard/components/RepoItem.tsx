@@ -1,22 +1,21 @@
 import { CardLink } from 'src/components/Elements'
 import CardItemWithActions from 'src/components/CardItemWithActions'
 import { Attributes } from 'src/lib/analytics'
-import { RepoItemPropsType } from 'src/types'
 import { ColoredLanguagesBadge } from 'src/components/Elements'
 import { VscRepo, VscRepoForked, VscStarFull } from 'react-icons/vsc'
-
-const sourceName = 'github'
+import { BaseItemPropsType, Repository } from 'src/types'
+import { useUserPreferences } from 'src/stores/preferences'
 
 function numberWithCommas(x: number | string) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
-const RepoItem = (props: RepoItemPropsType) => {
-  const { item, index, listingMode, selectedTag } = props
+const RepoItem = ({ item, index, selectedTag, analyticsTag }: BaseItemPropsType<Repository>) => {
+  const { listingMode } = useUserPreferences()
 
   return (
     <CardItemWithActions
-      source={sourceName}
+      source={analyticsTag}
       key={index}
       index={index}
       item={item}
@@ -30,7 +29,7 @@ const RepoItem = (props: RepoItemPropsType) => {
               [Attributes.TRIGERED_FROM]: 'card',
               [Attributes.TITLE]: item.title,
               [Attributes.LINK]: item.url,
-              [Attributes.SOURCE]: sourceName,
+              [Attributes.SOURCE]: analyticsTag,
               [Attributes.LANGUAGE]: selectedTag?.value,
             }}>
             <VscRepo className={'rowTitleIcon'} />

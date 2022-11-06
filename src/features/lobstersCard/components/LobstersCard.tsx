@@ -1,16 +1,14 @@
 import { Card } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
-import { useUserPreferences } from 'src/stores/preferences'
 import { useGetArticles } from '../api/getArticles'
 import { Article, CardPropsType } from 'src/types'
 import ArticleItem from './ArticleItem'
 
 export function LobstersCard({ withAds, meta }: CardPropsType) {
   const { data: articles = [], isLoading, error } = useGetArticles()
-  const { listingMode } = useUserPreferences()
 
   const renderItem = (item: Article, index: number) => (
-    <ArticleItem item={item} key={`lb-${index}`} index={index} listingMode={listingMode} />
+    <ArticleItem item={item} key={`lb-${index}`} index={index} analyticsTag={meta.analyticsTag} />
   )
 
   return (

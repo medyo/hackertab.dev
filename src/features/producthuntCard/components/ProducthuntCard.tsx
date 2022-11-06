@@ -9,7 +9,7 @@ export function ProductHuntCard({ meta, withAds }: CardPropsType) {
   const { data: articles = [], isLoading, error } = useGetArticles()
 
   const renderItem = (item: Article, index: number) => (
-    <ArticleItem item={item} key={`ph-${index}`} index={index} />
+    <ArticleItem item={item} key={`ph-${index}`} index={index} analyticsTag={meta.analyticsTag} />
   )
 
   return (

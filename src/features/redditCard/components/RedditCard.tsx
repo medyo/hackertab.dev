@@ -7,7 +7,7 @@ import { getCardTagsValue } from 'src/utils/DataEnhancement'
 import ArticleItem from './ArticleItem'
 
 export function RedditCard({ withAds, meta }: CardPropsType) {
-  const { userSelectedTags, listingMode } = useUserPreferences()
+  const { userSelectedTags } = useUserPreferences()
 
   const tags = getCardTagsValue(userSelectedTags, 'redditValues')
 
@@ -25,7 +25,7 @@ export function RedditCard({ withAds, meta }: CardPropsType) {
   }
 
   const renderItem = (item: Article, index: number) => (
-    <ArticleItem item={item} key={`re-${index}`} index={index} listingMode={listingMode} />
+    <ArticleItem item={item} key={`re-${index}`} index={index} analyticsTag={meta.analyticsTag} />
   )
 
   return (

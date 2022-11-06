@@ -14,8 +14,8 @@ import SelectableCard from 'src/components/SelectableCard'
 const FCC_MENU_LANGUAGE_ID = 'FCC_MENU_LANGUAGE_ID'
 
 export function FreecodecampCard({ meta, withAds }: CardPropsType) {
-  const { userSelectedTags, cardsSettings, setCardSettings, listingMode } = useUserPreferences()
   const [selectedTag, setSelectedTag] = useState<Tag>()
+  const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
 
   useEffect(() => {
     if (selectedTag) {
@@ -53,7 +53,7 @@ export function FreecodecampCard({ meta, withAds }: CardPropsType) {
       key={`fcc-${index}`}
       index={index}
       selectedTag={selectedTag}
-      listingMode={listingMode}
+      analyticsTag={meta.analyticsTag}
     />
   )
 

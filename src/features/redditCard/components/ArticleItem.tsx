@@ -3,7 +3,8 @@ import { VscTriangleUp } from 'react-icons/vsc'
 import { CardLink } from 'src/components/Elements'
 import CardItemWithActions from 'src/components/CardItemWithActions'
 import { Attributes } from 'src/lib/analytics'
-import { ArticleItemPropsType } from 'src/types'
+import { BaseItemPropsType, Article } from 'src/types'
+import { useUserPreferences } from 'src/stores/preferences'
 import { format } from 'timeago.js'
 import { MdAccessTime } from 'react-icons/md'
 import { GoPrimitiveDot } from 'react-icons/go'
@@ -25,12 +26,11 @@ const PostFlair = ({ text, bgColor, textColor }: PostFlairPropsType) => {
   )
 }
 
-const ArticleItem = (props: ArticleItemPropsType) => {
-  const { item, index, listingMode } = props
-
+const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) => {
+  const { listingMode } = useUserPreferences()
   return (
     <CardItemWithActions
-      source={'reddit'}
+      source={analyticsTag}
       index={index}
       key={index}
       item={item}
@@ -43,7 +43,7 @@ const ArticleItem = (props: ArticleItemPropsType) => {
               [Attributes.TRIGERED_FROM]: 'card',
               [Attributes.TITLE]: item.title,
               [Attributes.LINK]: item.url,
-              [Attributes.SOURCE]: 'reddit',
+              [Attributes.SOURCE]: analyticsTag,
             }}>
             {listingMode === 'compact' && (
               <div className="counterWrapper">

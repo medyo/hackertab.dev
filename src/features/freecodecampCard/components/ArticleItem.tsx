@@ -1,16 +1,16 @@
 import { CardLink } from 'src/components/Elements'
 import CardItemWithActions from 'src/components/CardItemWithActions'
 import { Attributes } from 'src/lib/analytics'
-import { ArticleItemPropsType } from 'src/types'
+import { BaseItemPropsType, Article } from 'src/types'
 import { format } from 'timeago.js'
 import { MdAccessTime } from 'react-icons/md'
 import { ColoredLanguagesBadge } from 'src/components/Elements'
 
-const ArticleItem = (props: ArticleItemPropsType) => {
-  const { item, index, selectedTag } = props
+const ArticleItem = (props: BaseItemPropsType<Article>) => {
+  const { item, index, selectedTag, analyticsTag } = props
   return (
     <CardItemWithActions
-      source={'freecodecamp'}
+      source={analyticsTag}
       index={index}
       key={index}
       item={item}
@@ -22,7 +22,7 @@ const ArticleItem = (props: ArticleItemPropsType) => {
               [Attributes.TRIGERED_FROM]: 'card',
               [Attributes.TITLE]: item.title,
               [Attributes.LINK]: item.url,
-              [Attributes.SOURCE]: 'freecodecamp',
+              [Attributes.SOURCE]: analyticsTag,
               [Attributes.LANGUAGE]: selectedTag?.value,
             }}>
             <div className="subTitle">{item.title}</div>

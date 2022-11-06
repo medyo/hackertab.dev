@@ -80,27 +80,14 @@ export type CardPropsType = {
   withAds: boolean
 }
 
-export type ArticleItemPropsType = {
+export type BaseItemPropsType<T extends BaseEntry> = {
   index: number
-  item: Article
-  listingMode?: ListingMode,
+  item: T
+  analyticsTag: string
   selectedTag?: SelectedTag
 }
 
 export type CardSettingsType = {
   language: string
   dateRange?: string
-}
-
-export type ConferenceItemPropsType = {
-  index: number
-  item: Conference
-  listingMode?: ListingMode
-}
-
-export type RepoItemPropsType = {
-  index: number
-  item: Repository
-  listingMode?: ListingMode,
-  selectedTag?: SelectedTag
 }

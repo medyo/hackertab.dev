@@ -2,18 +2,20 @@ import { BiCommentDetail } from 'react-icons/bi'
 import { CardLink } from 'src/components/Elements'
 import CardItemWithActions from 'src/components/CardItemWithActions'
 import { Attributes } from 'src/lib/analytics'
-import { ArticleItemPropsType } from 'src/types'
+import { BaseItemPropsType, Article } from 'src/types'
+import { useUserPreferences } from 'src/stores/preferences'
 import { format } from 'timeago.js'
 import { MdAccessTime } from 'react-icons/md'
 import { AiOutlineLike } from 'react-icons/ai'
 import { ColoredLanguagesBadge } from 'src/components/Elements'
 
-const ArticleItem = (props: ArticleItemPropsType) => {
-  const { item, index, listingMode, selectedTag } = props
-  
+const ArticleItem = (props: BaseItemPropsType<Article>) => {
+  const { item, index, selectedTag, analyticsTag } = props
+  const { listingMode } = useUserPreferences()
+
   return (
     <CardItemWithActions
-      source={'devto'}
+      source={analyticsTag}
       index={index}
       key={index}
       item={item}
@@ -26,7 +28,7 @@ const ArticleItem = (props: ArticleItemPropsType) => {
               [Attributes.POINTS]: item.reactions,
               [Attributes.TITLE]: item.title,
               [Attributes.LINK]: item.url,
-              [Attributes.SOURCE]: 'devto',
+              [Attributes.SOURCE]: analyticsTag,
               [Attributes.LANGUAGE]: selectedTag?.value,
             }}>
             {listingMode === 'compact' && (

@@ -14,7 +14,7 @@ import SelectableCard from 'src/components/SelectableCard'
 const MEDIUM_MENU_LANGUAGE_ID = 'MEDIUM_MENU_LANGUAGE_ID'
 
 export function MediumCard({ meta, withAds }: CardPropsType) {
-  const { userSelectedTags, cardsSettings, setCardSettings, listingMode } = useUserPreferences()
+  const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
   const [selectedTag, setSelectedTag] = useState<Tag>()
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export function MediumCard({ meta, withAds }: CardPropsType) {
       key={`md-${index}`}
       index={index}
       selectedTag={selectedTag}
-      listingMode={listingMode}
+      analyticsTag={meta.analyticsTag}
     />
   )
 

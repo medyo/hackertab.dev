@@ -7,13 +7,15 @@ import { CardLink } from 'src/components/Elements'
 import CardItemWithActions from '../../../components/CardItemWithActions'
 import ClickableItem from '../../../components/ClickableItem'
 import { Attributes } from 'src/lib/analytics'
-import { ArticleItemPropsType } from 'src/types'
+import { BaseItemPropsType, Article } from 'src/types'
+import { useUserPreferences } from 'src/stores/preferences'
 
-const ArticleItem = (props: ArticleItemPropsType) => {
-  const { item, index, listingMode } = props
+const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) => {
+  const { listingMode } = useUserPreferences()
+
   return (
     <CardItemWithActions
-      source={'lobsters'}
+      source={analyticsTag}
       index={index}
       item={item}
       key={index}
@@ -27,7 +29,7 @@ const ArticleItem = (props: ArticleItemPropsType) => {
                 [Attributes.TRIGERED_FROM]: 'card',
                 [Attributes.TITLE]: item.title,
                 [Attributes.LINK]: item.url,
-                [Attributes.SOURCE]: 'lobsters',
+                [Attributes.SOURCE]: analyticsTag,
               }}>
               {listingMode === 'compact' && (
                 <div className="counterWrapper">
@@ -55,7 +57,7 @@ const ArticleItem = (props: ArticleItemPropsType) => {
                   [Attributes.TRIGERED_FROM]: 'card',
                   [Attributes.TITLE]: `${item.title} comments`,
                   [Attributes.LINK]: item.comments_url,
-                  [Attributes.SOURCE]: 'lobsters',
+                  [Attributes.SOURCE]: analyticsTag,
                 }}>
                 <BiCommentDetail className="rowItemIcon" /> {item.comments} comments
               </ClickableItem>

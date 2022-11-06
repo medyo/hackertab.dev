@@ -5,20 +5,20 @@ import { MdAccessTime } from 'react-icons/md'
 import { CardLink } from 'src/components/Elements'
 import CardItemWithActions from '../../../components/CardItemWithActions'
 import { Attributes } from 'src/lib/analytics'
-import { ArticleItemPropsType } from 'src/types'
+import { BaseItemPropsType, Article } from 'src/types'
 import { FaChevronUp } from 'react-icons/fa'
 import { useUserPreferences } from 'src/stores/preferences'
 
-const ArticleItem = (props: ArticleItemPropsType) => {
-  const { item, index } = props
+export const ArticleItem = (props: BaseItemPropsType<Article>) => {
+  const { item, index, analyticsTag } = props
   const { listingMode } = useUserPreferences()
 
   return (
     <CardItemWithActions
-      source={'indiehackers'}
+      source={analyticsTag}
       index={index}
       item={item}
-      key={index}
+      key={item.id}
       cardItem={
         <>
           <p className="rowTitle">
@@ -29,7 +29,7 @@ const ArticleItem = (props: ArticleItemPropsType) => {
                 [Attributes.TRIGERED_FROM]: 'card',
                 [Attributes.TITLE]: item.title,
                 [Attributes.LINK]: item.url,
-                [Attributes.SOURCE]: 'indiehackers',
+                [Attributes.SOURCE]: analyticsTag,
               }}>
               {listingMode === 'compact' && (
                 <span className="counterWrapper">
@@ -59,5 +59,3 @@ const ArticleItem = (props: ArticleItemPropsType) => {
     />
   )
 }
-
-export default ArticleItem

@@ -1,15 +1,16 @@
 import { CardLink } from 'src/components/Elements'
 import CardItemWithActions from 'src/components/CardItemWithActions'
 import { Attributes } from 'src/lib/analytics'
-import { ConferenceItemPropsType } from 'src/types'
+import { BaseItemPropsType, Conference } from 'src/types'
 import { MdAccessTime } from 'react-icons/md'
 import { ColoredLanguagesBadge } from 'src/components/Elements'
 import { flag } from 'country-emoji'
 import { IoIosPin } from 'react-icons/io'
 import { RiCalendarEventFill } from 'react-icons/ri'
+import { useUserPreferences } from 'src/stores/preferences'
 
-const ConferencesItem = (props: ConferenceItemPropsType) => {
-  const { item, index, listingMode } = props
+const ConferencesItem = ({ item, index, analyticsTag }: BaseItemPropsType<Conference>) => {
+  const { listingMode } = useUserPreferences()
 
   const ConferenceLocation = () => {
     if (item.online) {
@@ -53,7 +54,7 @@ const ConferencesItem = (props: ConferenceItemPropsType) => {
   }
   return (
     <CardItemWithActions
-      source={'conferences'}
+      source={analyticsTag}
       index={index}
       key={index}
       item={item}
@@ -65,7 +66,7 @@ const ConferencesItem = (props: ConferenceItemPropsType) => {
               [Attributes.TRIGERED_FROM]: 'card',
               [Attributes.TITLE]: item.title,
               [Attributes.LINK]: item.url,
-              [Attributes.SOURCE]: 'conferences',
+              [Attributes.SOURCE]: analyticsTag,
             }}>
             <RiCalendarEventFill className={'rowTitleIcon'} />
             {item.title}

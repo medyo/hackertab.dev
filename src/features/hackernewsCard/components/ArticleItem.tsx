@@ -7,14 +7,16 @@ import { CardLink } from 'src/components/Elements'
 import CardItemWithActions from '../../../components/CardItemWithActions'
 import ClickableItem from '../../../components/ClickableItem'
 import { Attributes } from 'src/lib/analytics'
-import { ArticleItemPropsType } from 'src/types'
+import { BaseItemPropsType, Article } from 'src/types'
+import { useUserPreferences } from 'src/stores/preferences'
 
-const ArticleItem = (props: ArticleItemPropsType) => {
-  const { item, index, listingMode } = props
+const ArticleItem = (props: BaseItemPropsType<Article>) => {
+  const { item, index, analyticsTag } = props
+  const { listingMode } = useUserPreferences()
 
   return (
     <CardItemWithActions
-      source={'hackernews'}
+      source={analyticsTag}
       index={index}
       item={item}
       key={index}
@@ -28,7 +30,7 @@ const ArticleItem = (props: ArticleItemPropsType) => {
                 [Attributes.TRIGERED_FROM]: 'card',
                 [Attributes.TITLE]: item.title,
                 [Attributes.LINK]: item.url,
-                [Attributes.SOURCE]: 'hackernews',
+                [Attributes.SOURCE]: analyticsTag,
               }}>
               {listingMode === 'compact' && (
                 <span className="counterWrapper">
@@ -56,7 +58,7 @@ const ArticleItem = (props: ArticleItemPropsType) => {
                   [Attributes.TRIGERED_FROM]: 'card',
                   [Attributes.TITLE]: `${item.title} comments`,
                   [Attributes.LINK]: `https://news.ycombinator.com/item?id=${item.id}`,
-                  [Attributes.SOURCE]: 'hackernews',
+                  [Attributes.SOURCE]: analyticsTag,
                 }}>
                 <BiCommentDetail className="rowItemIcon" /> {item.comments} comments
               </ClickableItem>

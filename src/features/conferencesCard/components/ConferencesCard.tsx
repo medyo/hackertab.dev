@@ -7,7 +7,7 @@ import { getCardTagsValue } from 'src/utils/DataEnhancement'
 import ConferenceItem from './ConferenceItem'
 
 export function ConferencesCard({ meta, withAds }: CardPropsType) {
-  const { userSelectedTags, listingMode } = useUserPreferences()
+  const { userSelectedTags } = useUserPreferences()
 
   const results = useGetConferences({ tags: getCardTagsValue(userSelectedTags, 'confsValues') })
 
@@ -23,7 +23,12 @@ export function ConferencesCard({ meta, withAds }: CardPropsType) {
   }
 
   const renderItem = (item: Conference, index: number) => (
-    <ConferenceItem item={item} key={`cf-${index}`} index={index} listingMode={listingMode} />
+    <ConferenceItem
+      item={item}
+      key={`cf-${index}`}
+      index={index}
+      analyticsTag={meta.analyticsTag}
+    />
   )
 
   return (

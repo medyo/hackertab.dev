@@ -25,7 +25,7 @@ const dateRanges: DateRangeType[] = [
 ]
 
 export function GithubCard({ meta, withAds }: CardPropsType) {
-  const { userSelectedTags, cardsSettings, setCardSettings, listingMode } = useUserPreferences()
+  const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
   const [selectedTag, setSelectedTag] = useState<Tag>()
   const [selectedDateRange, setSelectedDateRange] = useState<DateRangeType>(dateRanges[0])
 
@@ -80,7 +80,7 @@ export function GithubCard({ meta, withAds }: CardPropsType) {
       key={`rp-${index}`}
       index={index}
       selectedTag={selectedTag}
-      listingMode={listingMode}
+      analyticsTag={meta.analyticsTag}
     />
   )
 

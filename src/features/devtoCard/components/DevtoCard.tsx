@@ -14,7 +14,7 @@ import SelectableCard from 'src/components/SelectableCard'
 const DT_MENU_LANGUAGE_ID = 'DT_MENU_LANGUAGE_ID'
 
 export function DevtoCard({ withAds, meta }: CardPropsType) {
-  const { userSelectedTags, cardsSettings, setCardSettings, listingMode } = useUserPreferences()
+  const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
   const [selectedTag, setSelectedTag] = useState<Tag>()
 
   useEffect(() => {
@@ -52,8 +52,8 @@ export function DevtoCard({ withAds, meta }: CardPropsType) {
       item={item}
       key={`at-${index}`}
       index={index}
+      analyticsTag={meta.analyticsTag}
       selectedTag={selectedTag}
-      listingMode={listingMode}
     />
   )
 

@@ -2,13 +2,13 @@ import { Card } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
 import { useGetArticles } from '../api/getArticles'
 import { Article, CardPropsType } from 'src/types'
-import ArticleItem from './ArticleItem'
+import { ArticleItem } from './ArticleItem'
 
 export function IndiehackersCard({ meta, withAds }: CardPropsType) {
   const { data: articles = [], isLoading, error } = useGetArticles()
 
   const renderItem = (item: Article, index: number) => (
-    <ArticleItem item={item} key={`ih-${index}`} index={index} />
+    <ArticleItem item={item} key={`ih-${index}`} index={index} analyticsTag={meta.analyticsTag} />
   )
 
   return (

@@ -14,7 +14,7 @@ import SelectableCard from 'src/components/SelectableCard'
 const HN_MENU_LANGUAGE_ID = 'HN_MENU_LANGUAGE_ID'
 
 export function HashnodeCard({ withAds, meta }: CardPropsType) {
-  const { userSelectedTags, cardsSettings, setCardSettings, listingMode } = useUserPreferences()
+  const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
   const [selectedTag, setSelectedTag] = useState<Tag>()
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export function HashnodeCard({ withAds, meta }: CardPropsType) {
       key={`hno-${index}`}
       index={index}
       selectedTag={selectedTag}
-      listingMode={listingMode}
+      analyticsTag={meta.analyticsTag}
     />
   )
 
