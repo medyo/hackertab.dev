@@ -4,7 +4,7 @@ import { Repository } from 'src/types'
 import { axios } from 'src/lib/axios'
 
 const getRepos = async (tag: string, dateRange: string): Promise<Repository[]> => {
-  return axios.get(`/data/v2/github/${tag}/${dateRange}.json?s`)
+  return axios.get(`/data/v2/github/${tag}/${dateRange}.json`)
 }
 
 type QueryFnType = typeof getRepos
