@@ -26,7 +26,7 @@ const RepoItem = (props: RepoItemPropsType) => {
             className="githubTitle"
             link={item.url}
             analyticsAttributes={{
-              [Attributes.POINTS]: numberWithCommas(item.stars),
+              [Attributes.POINTS]: item.stars,
               [Attributes.TRIGERED_FROM]: 'card',
               [Attributes.TITLE]: item.title,
               [Attributes.LINK]: item.url,
