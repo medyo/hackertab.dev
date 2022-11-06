@@ -38,9 +38,7 @@ type OptionType = {
 }
 
 export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalProps) => {
-  const {
-    remoteConfig: { supportedTags },
-  } = useRemoteConfigStore()
+  const { supportedTags } = useRemoteConfigStore()
 
   const {
     cards,

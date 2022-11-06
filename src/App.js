@@ -13,9 +13,7 @@ function App() {
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
 
-  const {
-    remoteConfig: { marketingBannerConfig },
-  } = useRemoteConfigStore()
+  const { marketingBannerConfig } = useRemoteConfigStore()
 
   useEffect(() => {
     setupAnalytics()

@@ -1,33 +1,34 @@
 import create from 'zustand';
 import { persist } from 'zustand/middleware'
-import { RemoteConfig } from "../types";
+import { RemoteConfig, Tag, MarketingBannerConfig } from "../types";
 
 type ChangelogVersionStore = {
-  remoteConfig: RemoteConfig;
+  supportedTags: Tag[];
+  refresh_rate: number | false;
+  marketingBannerConfig?: MarketingBannerConfig;
   setRemoteConfig: (remoteConfig: RemoteConfig) => void;
 };
 
 export const useRemoteConfigStore = create(persist<ChangelogVersionStore>((set) => ({
-  remoteConfig: {
-    marketingBannerConfig: undefined,
-    supportedTags: [
-      {
-        value: 'javascript',
-        label: 'Javascript',
-        githubValues: ['javascript'],
-        confsValues: ['javascript'],
-        devtoValues: ['javascript'],
-        hashnodeValues: ['javascript'],
-        mediumValues: ['javascript'],
-        redditValues: ['javascript'],
-        freecodecampValues: ['javascript']
-      },
-    ],
-  },
+  marketingBannerConfig: undefined,
+  refresh_rate: false,
+  supportedTags: [
+    {
+      value: 'javascript',
+      label: 'Javascript',
+      githubValues: ['javascript'],
+      confsValues: ['javascript'],
+      devtoValues: ['javascript'],
+      hashnodeValues: ['javascript'],
+      mediumValues: ['javascript'],
+      redditValues: ['javascript'],
+      freecodecampValues: ['javascript']
+    },
+  ],
   setRemoteConfig: (remoteConfig: RemoteConfig) =>
-    set(() => ({
-      remoteConfig: remoteConfig,
-    }))
+    set(() => {
+      return { ...remoteConfig }
+    }),
 }), {
   name: 'remote_config_storage',
 }));

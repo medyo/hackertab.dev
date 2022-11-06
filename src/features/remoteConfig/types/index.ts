@@ -27,5 +27,6 @@ export type MarketingBannerConfig = {
 
 export type RemoteConfig = {
   supportedTags: Tag[]
+  refresh_rate: number | false,
   marketingBannerConfig?: MarketingBannerConfig
 }
