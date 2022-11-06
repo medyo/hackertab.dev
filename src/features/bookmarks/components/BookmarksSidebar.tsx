@@ -1,4 +1,3 @@
-import React from 'react'
 import './Sidebar.css'
 import { VscChromeClose } from 'react-icons/vsc'
 import { TiDelete } from 'react-icons/ti'
@@ -13,7 +12,7 @@ import {
   SidebarContent,
 } from 'react-pro-sidebar'
 import 'react-pro-sidebar/dist/css/styles.css'
-import CardLink from '../../../components/CardLink'
+import { CardLink } from 'src/components/Elements'
 import { trackLinkUnBookmark, Attributes } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
 

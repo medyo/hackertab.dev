@@ -1,5 +1,5 @@
 import { useQueries, UseQueryOptions } from '@tanstack/react-query'
-import { QueryConfig, ExtractFnReturnType } from 'src/lib/react-query'
+import { QueryConfig } from 'src/lib/react-query'
 import { Repository } from 'src/types'
 import { axios } from 'src/lib/axios'
 

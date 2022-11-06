@@ -236,7 +236,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
             />
             <p className="settingHint">
               Missing a search engine? create an issue{' '}
-              <a href="#" onClick={(e) => window.open(supportLink, '_blank')}>
+              <a href={supportLink} target="_blank" rel="noreferrer">
                 here
               </a>
             </p>
@@ -245,5 +245,4 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
       </div>
     </ReactModal>
   )
-  return <div></div>
 }

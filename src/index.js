@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'normalize.css';
-import './index.css';
+import 'src/assets/index.css'
 import App from './App';
 import AppWrapper from 'src/providers/AppWrapper'
 import {AppErrorBoundary} from 'src/providers/AppErrorBoundary'

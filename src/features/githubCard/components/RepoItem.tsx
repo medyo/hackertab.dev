@@ -1,4 +1,4 @@
-import CardLink from 'src/components/CardLink'
+import { CardLink } from 'src/components/Elements'
 import CardItemWithActions from 'src/components/CardItemWithActions'
 import { Attributes } from 'src/lib/analytics'
 import { RepoItemPropsType } from 'src/types'
@@ -7,13 +7,13 @@ import { VscRepo, VscRepoForked, VscStarFull } from 'react-icons/vsc'
 
 const sourceName = 'github'
 
-function numberWithCommas(x:number|string) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+function numberWithCommas(x: number | string) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
 const RepoItem = (props: RepoItemPropsType) => {
   const { item, index, listingMode, selectedTag } = props
-  
+
   return (
     <CardItemWithActions
       source={sourceName}

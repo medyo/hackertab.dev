@@ -1,4 +1,4 @@
-import CardLink from 'src/components/CardLink'
+import { CardLink } from 'src/components/Elements'
 import CardItemWithActions from 'src/components/CardItemWithActions'
 import { Attributes } from 'src/lib/analytics'
 import { ConferenceItemPropsType } from 'src/types'
@@ -38,10 +38,10 @@ const ConferencesItem = (props: ConferenceItemPropsType) => {
       'November',
       'December',
     ]
-    const startDate = new Date(item.start_date) 
+    const startDate = new Date(item.start_date)
     const startMnth = monthNames[startDate.getMonth()]
     let value = `${startMnth} ${('0' + startDate.getDate()).slice(-2)}`
-    if (!item.end_date || item.end_date  === item.start_date) {
+    if (!item.end_date || item.end_date === item.start_date) {
       return value
     }
     const endDate = new Date(item.end_date)

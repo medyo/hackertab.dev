@@ -1,10 +1,9 @@
-import React, { useContext } from 'react'
 import { format } from 'timeago.js'
 import { VscTriangleUp } from 'react-icons/vsc'
 import { BiCommentDetail } from 'react-icons/bi'
 import { MdAccessTime } from 'react-icons/md'
 import { GoPrimitiveDot } from 'react-icons/go'
-import CardLink from '../../../components/CardLink'
+import { CardLink } from 'src/components/Elements'
 import CardItemWithActions from '../../../components/CardItemWithActions'
 import ClickableItem from '../../../components/ClickableItem'
 import { Attributes } from 'src/lib/analytics'
@@ -12,8 +11,6 @@ import { ArticleItemPropsType } from 'src/types'
 
 const ArticleItem = (props: ArticleItemPropsType) => {
   const { item, index, listingMode } = props
-  // const { listingMode } = useContext(PreferencesContext)
-
 
   return (
     <CardItemWithActions

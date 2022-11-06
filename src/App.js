@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './App.css'
+import 'src/assets/App.css'
 import { Footer, Header } from 'src/components/Layout'
 import { BookmarksSidebar } from 'src/features/bookmarks'
 import { MarketingBanner } from 'src/components/Elements'

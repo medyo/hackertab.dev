@@ -1,13 +1,13 @@
 @font-face {
   font-family: 'Nunito';
-  src: url("assets/fonts/nunito/nunito-regular.woff2") format('woff2');
+  src: url("fonts/nunito/nunito-regular.woff2") format('woff2');
 }
 
 @font-face {
   font-family: 'Nunito';
   font-weight: 600;
   font-style: normal;
-  src: url("assets/fonts/nunito/nunito-semibold.woff2") format('woff2');
+  src: url("fonts/nunito/nunito-semibold.woff2") format('woff2');
 }
 
 html.dark {

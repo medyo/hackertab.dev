@@ -1,5 +1,5 @@
 import { BiCommentDetail } from 'react-icons/bi'
-import CardLink from 'src/components/CardLink'
+import { CardLink } from 'src/components/Elements'
 import CardItemWithActions from 'src/components/CardItemWithActions'
 import { Attributes } from 'src/lib/analytics'
 import { ArticleItemPropsType } from 'src/types'
