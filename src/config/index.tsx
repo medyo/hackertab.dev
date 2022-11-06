@@ -188,4 +188,4 @@ export const MY_LANGUAGES_TAG = {
   mediumValues: ['myLangs'],
   freecodecampValues: ['myLangs'],
 }
-export const MAX_MERGED_ITEMS_PER_LANGUAGE = 10
+export const MAX_ITEMS_PER_CARD = 50
