@@ -4,7 +4,7 @@ import { Article } from 'src/types'
 import { axios } from 'src/lib/axios'
 
 const getArticles = async (): Promise<Article[]> => {
-  return axios.get('/data/v2/lobsters.json?a')
+  return axios.get('/data/v2/lobsters.json')
 }
 
 type QueryFnType = typeof getArticles
