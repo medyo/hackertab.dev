@@ -9,17 +9,19 @@ import HashNodeIcon from 'src/assets/icon_hashnode.png'
 import LobstersIcon from 'src/assets/icon_lobsters.png'
 import { FaFreeCodeCamp } from 'react-icons/fa'
 import { CgIndieHackers } from 'react-icons/cg'
-import { HackernewsCard } from 'src/features/hackernewsCard'
-import { ProductHuntCard } from 'src/features/producthuntCard'
-import { IndiehackersCard } from 'src/features/indiehackersCard'
-import { RedditCard } from 'src/features/redditCard'
-import { LobstersCard } from 'src/features/lobstersCard'
-import { DevtoCard } from 'src/features/devtoCard'
-import { HashnodeCard } from 'src/features/hashnodeCard'
-import { MediumCard } from 'src/features/mediumCard'
-import { FreecodecampCard } from 'src/features/freecodecampCard'
-import { GithubCard } from 'src/features/githubCard'
-import { ConferencesCard } from 'src/features/conferencesCard'
+import {
+  HackernewsCard,
+  ProductHuntCard,
+  IndiehackersCard,
+  FreecodecampCard,
+  ConferencesCard,
+  GithubCard,
+  MediumCard,
+  HashnodeCard,
+  LobstersCard,
+  DevtoCard,
+  RedditCard,
+} from 'src/features/cards'
 import { CardPropsType } from 'src/types'
 
 // Keys
