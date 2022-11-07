@@ -8,6 +8,15 @@ import {AppErrorBoundary} from 'src/providers/AppErrorBoundary'
 import { ConfigurationWrapper } from 'src/features/remoteConfig/'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from 'src/lib/react-query'
+import * as Sentry from '@sentry/react'
+import { SENTRY_DSN } from './config'
+import { BrowserTracing } from '@sentry/tracing'
+
+Sentry.init({
+  dsn: SENTRY_DSN,
+  integrations: [new BrowserTracing()],
+  tracesSampleRate: 1.0,
+})
 
 ReactDOM.render(
   <React.StrictMode>
