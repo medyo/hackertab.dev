@@ -4,10 +4,25 @@ import { ref } from 'src/config'
 
 import { useUserPreferences } from 'src/stores/preferences'
 
-const ClickableItem = ({ link, className, children, analyticsAttributes, appendRef = true }) => {
+type ClickableItemProps = {
+  link: string
+  className?: string
+  children: React.ReactNode
+  analyticsAttributes: {
+    [key: string]: string | number | undefined
+  }
+  appendRef?: boolean
+}
+export const ClickableItem = ({
+  link,
+  className,
+  children,
+  analyticsAttributes,
+  appendRef = true,
+}: ClickableItemProps) => {
   const { openLinksNewTab } = useUserPreferences()
 
-  const handleClick = (e) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
 
     trackLinkOpen(analyticsAttributes)
@@ -39,5 +54,3 @@ const ClickableItem = ({ link, className, children, analyticsAttributes, appendR
     </a>
   )
 }
-
-export default ClickableItem

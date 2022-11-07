@@ -3,8 +3,21 @@ import { useBookmarks } from 'src/stores/bookmarks'
 import { BiBookmarkPlus } from 'react-icons/bi'
 import { BiBookmarkMinus } from 'react-icons/bi'
 import { trackLinkBookmark, trackLinkUnBookmark, Attributes } from 'src/lib/analytics'
+import { BaseEntry } from 'src/types'
 
-export default function CardItemWithActions({ cardItem, item, index, source }) {
+type CardItemWithActionsProps = {
+  item: BaseEntry
+  index: number
+  source: string
+  cardItem: React.ReactNode
+}
+
+export const CardItemWithActions = ({
+  cardItem,
+  item,
+  index,
+  source,
+}: CardItemWithActionsProps) => {
   const { bookmarkPost, unbookmarkPost, userBookmarks } = useBookmarks()
   const [isBookmarked, setIsBookmarked] = useState(
     userBookmarks.some((bm) => bm.source === source && bm.url === item.url)

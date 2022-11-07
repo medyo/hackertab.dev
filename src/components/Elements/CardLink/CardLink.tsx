@@ -1,5 +1,5 @@
 import React from 'react'
-import ClickableItem from '../../ClickableItem'
+import { ClickableItem } from '../ClickableItem'
 
 type CardLinkProps = {
   link: string
