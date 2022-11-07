@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import './App.css'
-import { Footer } from 'src/components/Layout'
-import Header from 'src/components/Header'
+import 'src/assets/App.css'
+import { Footer, Header } from 'src/components/Layout'
 import { BookmarksSidebar } from 'src/features/bookmarks'
-import { MarketingBanner } from 'src/components/Elements/MarketingBanner'
+import { MarketingBanner } from 'src/components/Elements'
 import ScrollCardsNavigator from './components/ScrollCardsNavigator'
-import AppContentLayout from './components/AppContentLayout'
+import { AppContentLayout } from './components/Layout'
 import 'react-contexify/dist/ReactContexify.css'
 import { setupAnalytics, trackPageView, setupIdentification } from 'src/lib/analytics'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
@@ -14,9 +13,7 @@ function App() {
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
 
-  const {
-    remoteConfig: { marketingBannerConfig },
-  } = useRemoteConfigStore()
+  const { marketingBannerConfig } = useRemoteConfigStore()
 
   useEffect(() => {
     setupAnalytics()

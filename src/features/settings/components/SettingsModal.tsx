@@ -7,7 +7,7 @@ import { SearchEngineType } from 'src/types'
 import Toggle from 'react-toggle'
 import './settings.css'
 import { useUserPreferences } from 'src/stores/preferences'
-import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, APP } from 'src/Constants'
+import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, supportLink } from 'src/config'
 import {
   trackLanguageAdd,
   trackLanguageRemove,
@@ -16,9 +16,16 @@ import {
   trackSearchEngineSelect,
   trackListingModeSelect,
   trackTabTarget,
+  trackThemeSelect,
+  identifyUserTheme,
+  identifyUserLinksInNewTab,
+  identifyUserSearchEngine,
+  identifyUserCards,
+  identifyUserListingMode,
+  identifyUserLanguages,
 } from 'src/lib/analytics'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
-import { enhanceTags } from 'src/utils/DataEnhancement'
+import { Tag } from 'src/features/remoteConfig'
 
 type SettingsModalProps = {
   showSettings: boolean
@@ -31,9 +38,7 @@ type OptionType = {
 }
 
 export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalProps) => {
-  const {
-    remoteConfig: { supportedTags },
-  } = useRemoteConfigStore()
+  const { supportedTags } = useRemoteConfigStore()
 
   const {
     cards,
@@ -55,7 +60,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     setShowSettings(false)
   }
 
-  const onTagsSelectChange = (tags: MultiValue<OptionType>, metas: ActionMeta<OptionType>) => {
+  const onTagsSelectChange = (tags: MultiValue<Tag>, metas: ActionMeta<OptionType>) => {
     switch (metas.action) {
       case 'select-option':
         if (metas.option?.label) {
@@ -69,21 +74,14 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
 
         break
     }
-
-    console.log(tags)
-    setTags(
-      tags.map((tag) => {
-        return {
-          label: tag.label,
-          value: tag.value,
-        }
-      })
-    )
+    setTags(tags as Tag[])
+    identifyUserLanguages(tags.map((tag) => tag.value))
   }
 
   const onlistingModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.checked ? 'compact' : 'normal'
     trackListingModeSelect(value)
+    identifyUserListingMode(value)
     setListingMode(value)
   }
 
@@ -104,6 +102,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     let newCards = cards.map((c, index) => {
       return { id: index, name: c.value }
     })
+    identifyUserCards(newCards.map((card) => card.name))
     setSelectedCards(newCards)
     setCards(newCards)
   }
@@ -113,6 +112,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
       return
     }
 
+    identifyUserSearchEngine(value.label)
     trackSearchEngineSelect(value.label)
     setSearchEngine(value.label)
   }
@@ -120,15 +120,15 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
   const onOpenLinksNewTabChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked
     trackTabTarget(checked)
+    identifyUserLinksInNewTab(checked)
     setOpenLinksNewTab(checked)
   }
 
   const onDarkModeChange = () => {
-    if (theme === 'dark') {
-      setTheme('light')
-    } else {
-      setTheme('dark')
-    }
+    const newTheme = theme === 'dark' ? 'light' : 'dark'
+    setTheme(newTheme)
+    trackThemeSelect(newTheme)
+    identifyUserTheme(newTheme)
   }
 
   return (
@@ -155,7 +155,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
           <div className="settingContent">
             <Select
               options={supportedTags}
-              defaultValue={enhanceTags(userSelectedTags)}
+              defaultValue={userSelectedTags}
               isMulti={true}
               isClearable={false}
               isSearchable={false}
@@ -164,7 +164,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
             />
             <p className="settingHint">
               Missing language or technology? create an issue{' '}
-              <a href="#" onClick={(e) => window.open(APP.supportLink, '_blank')}>
+              <a href={supportLink} target="_blank" rel="noreferrer">
                 here
               </a>
             </p>
@@ -188,7 +188,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
             />
             <p className="settingHint">
               Missing a cool data source? create an issue{' '}
-              <a href="#" onClick={(_e) => window.open(APP.supportLink, '_blank')}>
+              <a href={supportLink} target="_blank" rel="noreferrer">
                 here
               </a>
             </p>
@@ -234,7 +234,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
             />
             <p className="settingHint">
               Missing a search engine? create an issue{' '}
-              <a href="#" onClick={(e) => window.open(APP.supportLink, '_blank')}>
+              <a href={supportLink} target="_blank" rel="noreferrer">
                 here
               </a>
             </p>
@@ -243,5 +243,4 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
       </div>
     </ReactModal>
   )
-  return <div></div>
 }

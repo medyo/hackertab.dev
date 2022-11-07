@@ -1,4 +1,4 @@
-import AppStorage from '../services/localStorage';
+import AppStorage from './localStorage';
 import { init, track, identify, Identify } from '@amplitude/analytics-browser'
 import { isDevelopment } from 'src/utils/Environment';
 import { ANALYTICS_SDK_KEY, ANALYTICS_ENDPOINT, LS_ANALYTICS_ID_KEY } from 'src/config'
@@ -176,7 +176,7 @@ export const trackLinkUnBookmark = (attributes: {
 }
 
 export const trackLinkOpen = (attributes: {
-  [P: string]: string;
+  [P: string]: string | number | undefined;
 }) => {
 
   trackEvent({
@@ -246,7 +246,7 @@ type trackEventProps = {
   verb: Exclude<Verbs, null | undefined>,
   attributes?: {
     //[P in Exclude<Attributes, null | undefined>]?: string;
-    [P: string]: string;
+    [P: string]: string | number | undefined;
   }
 }
 
@@ -257,6 +257,9 @@ const trackEvent = ({ object, verb, attributes }: trackEventProps) => {
     if (attributes) {
       Object.keys(attributes).map(attr => {
         const value = attributes[attr];
+        if (!value) {
+          return null;
+        }
         if (typeof value !== "number") {
           attributes[attr] = value.toLowerCase();
         }
@@ -264,8 +267,8 @@ const trackEvent = ({ object, verb, attributes }: trackEventProps) => {
       });
 
       // Remove http and www from links
-      if (Object.keys(attributes).some((attr) => attr == Attributes.LINK)) {
-        attributes[Attributes.LINK] = attributes[Attributes.LINK].replace(/(https*:\/\/[www.]*)/, '')
+      if (Object.keys(attributes).some((attr) => attr === Attributes.LINK)) {
+        attributes[Attributes.LINK] = (attributes[Attributes.LINK] as string).replace(/(https*:\/\/[www.]*)/, '')
       }
     }
 

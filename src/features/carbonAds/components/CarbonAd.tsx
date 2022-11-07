@@ -1,8 +1,14 @@
 import './CarbonAd.css'
 import { addHttpsProtocol } from 'src/utils/UrlUtils'
 import { useGetAd } from '../api/getAd'
-export default function CarbonAd() {
-  const { data: ad } = useGetAd()
+import { useRemoteConfigStore } from 'src/features/remoteConfig'
+export const CarbonAd = () => {
+  const { refresh_rate } = useRemoteConfigStore()
+  const { data: ad } = useGetAd({
+    config: {
+      refetchInterval: refresh_rate,
+    },
+  })
 
   if (!ad) {
     return null

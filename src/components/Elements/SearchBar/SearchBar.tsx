@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { trackSearchEngineUse } from 'src/lib/analytics'
 import { GoSearch } from 'react-icons/go'
-import { SUPPORTED_SEARCH_ENGINES } from 'src/Constants'
+import { SUPPORTED_SEARCH_ENGINES } from 'src/config'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SearchEngine } from 'src/types'
 

@@ -1,6 +1,5 @@
 import { RiArrowDownSFill } from 'react-icons/ri'
 import { Menu, Item, animation, useContextMenu } from 'react-contexify'
-import { useEffect, useState } from 'react'
 
 const DropDownMenu = ({ data, tagId, label, setSelectedDropDownItem }) => {
   const { show: showMenu } = useContextMenu()

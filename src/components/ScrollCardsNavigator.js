@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useLayoutEffect, useRef } from 'react'
+import React, { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
-import { APP } from '../Constants'
+import { maxCardsPerRow } from 'src/config'
 import { useUserPreferences } from 'src/stores/preferences'
 import { trackPageScroll } from 'src/lib/analytics'
 
@@ -17,13 +17,13 @@ function ScrollCardsNavigator() {
     setRightButtonVisible(scrollRight > 0)
   }
 
-  const handleKeyboardKeys = (e) => {
-    if (e.keyCode == 37) {
+  const handleKeyboardKeys = useCallback((e) => {
+    if (e.keyCode === 37) {
       scrollTo('left')
-    } else if (e.keyCode == 39) {
+    } else if (e.keyCode === 39) {
       scrollTo('right')
     }
-  }
+  }, [])
 
   useLayoutEffect(() => {
     scrollBarContainer.current = document.querySelector('.AppContent')
@@ -36,11 +36,11 @@ function ScrollCardsNavigator() {
       window.removeEventListener('keydown', handleKeyboardKeys)
       scrollBarContainer.current.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [handleKeyboardKeys])
 
   useEffect(() => {
     setLeftButtonVisible(false)
-    setRightButtonVisible(cards.length > APP.maxCardsPerRow)
+    setRightButtonVisible(cards.length > maxCardsPerRow)
   }, [cards])
 
   const scrollTo = (direction) => {
