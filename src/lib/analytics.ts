@@ -1,7 +1,9 @@
-import AppStorage from '../services/localStorage';
+import AppStorage from './localStorage';
 import { init, track, identify, Identify } from '@amplitude/analytics-browser'
 import { isDevelopment } from 'src/utils/Environment';
-import { ANALYTICS_SDK_KEY, ANALYTICS_ENDPOINT, LS_ANALYTICS_ID_KEY } from 'src/Constants'
+import { ANALYTICS_SDK_KEY, ANALYTICS_ENDPOINT, LS_ANALYTICS_ID_KEY } from 'src/config'
+import {getAppVersion} from "src/utils/Os";
+import { useUserPreferences } from "src/stores/preferences";
 
 enum Objects {
   PAGE = 'Page',
@@ -14,6 +16,7 @@ enum Objects {
   CARD = 'Card',
   SEARCH_ENGINE = 'Search Engine',
   LISTING_MODE = 'Listing Mode',
+  CHANGE_LOG = 'Change Log',
 }
 
 enum Verbs {
@@ -60,14 +63,16 @@ export const setupAnalytics = () => {
   })
 }
 
-export const setupIdentification = (state: any) => {
+export const setupIdentification = () => {
+  const { userSelectedTags, theme, cards, listingMode, openLinksNewTab, searchEngine, } = useUserPreferences.getState();
+
   identifyUserProperty(Attributes.RESOLUTION, getScreenResolution())
-  identifyUserLanguages(state.userSelectedTags.map((tag: any) => tag.value))
-  identifyUserTheme(state.theme)
-  identifyUserCards(state.cards.map((card: any) => card.name))
-  identifyUserListingMode(state.listingMode)
-  identifyUserSearchEngine(state.searchEngine)
-  identifyUserLinksInNewTab(state.searchEngine)
+  identifyUserLanguages(userSelectedTags.map((tag: any) => tag.value))
+  identifyUserTheme(theme)
+  identifyUserCards(cards.map((card: any) => card.name))
+  identifyUserListingMode(listingMode)
+  identifyUserSearchEngine(searchEngine)
+  identifyUserLinksInNewTab(openLinksNewTab)
 }
 
 export const trackPageView = (pageName: string) => {
@@ -171,7 +176,7 @@ export const trackLinkUnBookmark = (attributes: {
 }
 
 export const trackLinkOpen = (attributes: {
-  [P: string]: string;
+  [P: string]: string | number | undefined;
 }) => {
 
   trackEvent({
@@ -205,10 +210,17 @@ export const trackCardDateRangeSelect = (sourceName: string, dateRange: string) 
   })
 }
 
+export const trackChangeLogOpen = () => {
+  trackEvent({
+    object: Objects.CHANGE_LOG,
+    verb: Verbs.OPEN
+  })
+}
+
 // Identification
 
 export const identifyUserLanguages = (languages: string[]) => {
-  identifyUserProperty(Attributes.LANGUAGE, languages)
+  identifyUserProperty(Attributes.LANGUAGES, languages)
 }
 
 export const identifyUserListingMode = (listingMode: "compact" | "normal") => {
@@ -232,26 +244,32 @@ export const identifyUserLinksInNewTab = (enabled: boolean) => {
 type trackEventProps = {
   object: Exclude<Objects, null | undefined>,
   verb: Exclude<Verbs, null | undefined>,
-  attributes: {
+  attributes?: {
     //[P in Exclude<Attributes, null | undefined>]?: string;
-    [P: string]: string;
+    [P: string]: string | number | undefined;
   }
 }
 
 const trackEvent = ({ object, verb, attributes }: trackEventProps) => {
   try {
     const event = `${object}${_SEP_}${verb}`
-    Object.keys(attributes).map(attr => {
-      const value = attributes[attr];
-      if (typeof value !== "number") {
-        attributes[attr] = value.toLowerCase();
-      }
-      return attr;
-    });
 
-    // Remove http and www from links
-    if (Object.keys(attributes).some((attr) => attr == Attributes.LINK)) {
-      attributes[Attributes.LINK] = attributes[Attributes.LINK].replace(/(https*:\/\/[www.]*)/, '')
+    if (attributes) {
+      Object.keys(attributes).map(attr => {
+        const value = attributes[attr];
+        if (!value) {
+          return null;
+        }
+        if (typeof value !== "number") {
+          attributes[attr] = value.toLowerCase();
+        }
+        return attr;
+      });
+
+      // Remove http and www from links
+      if (Object.keys(attributes).some((attr) => attr === Attributes.LINK)) {
+        attributes[Attributes.LINK] = (attributes[Attributes.LINK] as string).replace(/(https*:\/\/[www.]*)/, '')
+      }
     }
 
     if (isDevelopment()) {
@@ -305,14 +323,7 @@ const getRandomUserId = () => {
   return userId
 }
 
-const getAppVersion = (): string | undefined => {
-  try {
-    var manifestData = chrome.runtime.getManifest()
-    return manifestData.version
-  } catch (e) {
-    return undefined
-  }
-}
+
 const getScreenResolution = (): string => {
   const realWidth = window.screen.width
   const realHeight = window.screen.height

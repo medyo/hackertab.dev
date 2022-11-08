@@ -1,25 +1,23 @@
-import React, { useState, useEffect, useContext } from 'react'
-import './App.css'
-import ConfigurationContext from './configuration/ConfigurationContext'
-import Footer from './components/Footer'
-import Header from './components/Header'
-import BookmarksSidebar from './bookmark/BookmarksSidebar'
-import MarketingBanner from './components/MarketingBanner'
+import React, { useState, useEffect } from 'react'
+import 'src/assets/App.css'
+import { Footer, Header } from 'src/components/Layout'
+import { BookmarksSidebar } from 'src/features/bookmarks'
+import { MarketingBanner } from 'src/components/Elements'
 import ScrollCardsNavigator from './components/ScrollCardsNavigator'
-import AppContentLayout from './components/AppContentLayout'
+import { AppContentLayout } from './components/Layout'
 import 'react-contexify/dist/ReactContexify.css'
-import PreferencesContext from './preferences/PreferencesContext'
 import { setupAnalytics, trackPageView, setupIdentification } from 'src/lib/analytics'
+import { useRemoteConfigStore } from 'src/features/remoteConfig'
 
 function App() {
-  const { marketingBannerConfig = {}, feedbackWidget } = useContext(ConfigurationContext)
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
-  const { dispatcher, ...state } = useContext(PreferencesContext)
+
+  const { marketingBannerConfig } = useRemoteConfigStore()
 
   useEffect(() => {
     setupAnalytics()
-    setupIdentification(state)
+    setupIdentification()
     trackPageView('home')
   }, [])
 
@@ -27,8 +25,6 @@ function App() {
     <div className="App">
       <Header
         setShowSideBar={setShowSideBar}
-        state={state}
-        dispatcher={dispatcher}
         showSideBar={showSideBar}
         showSettings={showSettings}
         setShowSettings={setShowSettings}
@@ -38,7 +34,7 @@ function App() {
       <AppContentLayout setShowSettings={setShowSettings} />
       <BookmarksSidebar showSidebar={showSideBar} onClose={() => setShowSideBar(false)} />
 
-      <Footer feedbackWidget={feedbackWidget} />
+      <Footer />
     </div>
   )
 }

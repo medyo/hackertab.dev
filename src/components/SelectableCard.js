@@ -1,7 +1,7 @@
-import React, { useContext, useLayoutEffect } from 'react'
+import { useCallback, useLayoutEffect } from 'react'
 import DropDownMenu from './DropDownMenu'
-import { GLOBAL_TAG, MY_LANGUAGES_TAG } from '../Constants'
-import PreferencesContext from '../preferences/PreferencesContext'
+import { GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/config'
+import { useUserPreferences } from 'src/stores/preferences'
 
 function SelectableCard({
   tagId,
@@ -13,43 +13,47 @@ function SelectableCard({
   trackEvent,
   isLanguage = false,
 }) {
-  const preferences = useContext(PreferencesContext)
-  const { userSelectedTags } = preferences
+  const { userSelectedTags } = useUserPreferences()
 
   let mergedTags = data
   if (isLanguage) {
     mergedTags = [...userSelectedTags, GLOBAL_TAG, MY_LANGUAGES_TAG]
   }
 
-  const getInitialSelectedTagValue = () => {
+  const findTagByValue = useCallback(
+    (value) => {
+      if (!value) {
+        return null
+      }
+
+      return mergedTags.find((t) => t.value === value)
+    },
+    [mergedTags]
+  )
+
+  const findTagByLabel = useCallback(
+    (name) => {
+      if (!name) {
+        return null
+      }
+
+      return mergedTags.find((t) => t.label === name)
+    },
+    [mergedTags]
+  )
+  const getInitialSelectedTagValue = useCallback(() => {
     if (isLanguage) {
       return findTagByLabel(cardSettings) ?? fallbackTag
     } else {
       return findTagByValue(cardSettings) ?? fallbackTag
     }
-  }
-
-  const findTagByValue = (value) => {
-    if (!value) {
-      return null
-    }
-
-    return mergedTags.find((t) => t.value == value)
-  }
-
-  const findTagByLabel = (name) => {
-    if (!name) {
-      return null
-    }
-
-    return mergedTags.find((t) => t.label == name)
-  }
+  }, [cardSettings, fallbackTag, findTagByLabel, findTagByValue, isLanguage])
 
   useLayoutEffect(() => {
     if (selectedTag == null) {
       setSelectedTag(getInitialSelectedTagValue())
     }
-  }, [])
+  }, [getInitialSelectedTagValue, selectedTag, setSelectedTag])
 
   return (
     <DropDownMenu

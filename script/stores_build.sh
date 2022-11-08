@@ -27,6 +27,12 @@ firefox_build() {
     export INLINE_RUNTIME_CHUNK=false
     export GENERATE_SOURCEMAP=false
 
+    echo 'add missing geeko id'
+    yarn global add json
+    json -I -f public/manifest.json -e 'this.applications={}'
+    json -I -f public/manifest.json -e 'this.applications.gecko={}'
+    json -I -f public/manifest.json -e 'this.applications.gecko.id="{f8793186-e9da-4332-aa1e-dc3d9f7bb04c}"'
+
     yarn build
 
     mkdir -p dist
@@ -35,7 +41,10 @@ firefox_build() {
     cd dist/ && zip -r ../firefox_extension.zip * -x "*.DS_Store" && cd ..
 
     echo 'zipping the source code for Firefox'
-    zip -r source_code.zip 'public/' 'script/' 'src' 'LICENSE' 'package.json' 'yarn.lock' 'README.md' 'craco.config.js' '.env' -x "*.DS_Store"
+    zip -r source_code.zip 'public/' 'script/' 'src' 'LICENSE' 'package.json' 'yarn.lock' 'README.md' 'craco.config.js' '.env' 'tsconfig.json' -x "*.DS_Store"
+
+    echo "revert manifest changes"
+    git restore public/manifest.json
 }
 chrome_build
 firefox_build
