@@ -19,9 +19,9 @@ export function HashnodeCard({ withAds, meta }: CardPropsType) {
 
   useEffect(() => {
     if (selectedTag) {
-      setCardSettings(meta.label.toLowerCase(), { language: selectedTag.label })
+      setCardSettings(meta.value, { language: selectedTag.label })
     }
-  }, [selectedTag, meta.label, setCardSettings])
+  }, [selectedTag, meta.value, setCardSettings])
 
   const getQueryTags = () => {
     if (!selectedTag) {
