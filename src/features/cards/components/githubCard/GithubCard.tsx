@@ -24,22 +24,30 @@ const dateRanges: DateRangeType[] = [
   { label: 'the month', value: 'monthly' },
 ]
 
+const getInitialDateRange = (value: string | undefined) => {  
+  let initialDateRange = dateRanges.find((t) => t.value === value)
+  if (initialDateRange) return initialDateRange
+  return dateRanges[0]
+}
+
 export function GithubCard({ meta, withAds }: CardPropsType) {
   const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
   const [selectedTag, setSelectedTag] = useState<Tag>()
-  const [selectedDateRange, setSelectedDateRange] = useState<DateRangeType>(dateRanges[0])
+  const [selectedDateRange, setSelectedDateRange] = useState<DateRangeType>(
+    getInitialDateRange(cardsSettings?.github?.dateRange)
+  )
 
   useEffect(() => {
     if (selectedTag) {
-      setCardSettings(meta.label.toLowerCase(), { language: selectedTag.label })
+      setCardSettings(meta.value, { language: selectedTag.label })
     }
-  }, [meta.label, selectedTag, setCardSettings])
+  }, [meta.value, selectedTag, setCardSettings])
 
   useEffect(() => {
     if (selectedDateRange) {
-      setCardSettings(meta.label.toLowerCase(), { language: selectedDateRange.value })
+      setCardSettings(meta.value, { ...cardsSettings.github, dateRange: selectedDateRange.value })
     }
-  }, [meta.label, selectedDateRange, setCardSettings])
+  }, [meta.value, selectedDateRange, setCardSettings])
 
   const getQueryTags = () => {
     if (!selectedTag) {
@@ -59,7 +67,7 @@ export function GithubCard({ meta, withAds }: CardPropsType) {
     tags: getQueryTags(),
     dateRange: selectedDateRange.value,
     config: {
-      enabled: !!selectedTag?.githubValues,
+      enabled: !!selectedTag?.githubValues
     },
   })
 
@@ -93,7 +101,7 @@ export function GithubCard({ meta, withAds }: CardPropsType) {
           selectedTag={selectedTag}
           setSelectedTag={setSelectedTag}
           fallbackTag={GLOBAL_TAG}
-          cardSettings={cardsSettings?.repos?.language}
+          cardSettings={cardsSettings?.github?.language}
           trackEvent={(tag: Tag) => trackCardLanguageSelect(meta.analyticsTag, tag.value)}
           data={userSelectedTags.map((tag) => ({
             label: tag.label,
@@ -109,7 +117,7 @@ export function GithubCard({ meta, withAds }: CardPropsType) {
           trackEvent={(tag: DateRangeType) =>
             trackCardDateRangeSelect(meta.analyticsTag, tag.value)
           }
-          cardSettings={cardsSettings?.repos?.dateRange}
+          cardSettings={cardsSettings?.github?.dateRange}
           data={dateRanges}
         />
       </div>
