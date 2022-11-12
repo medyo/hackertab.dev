@@ -723,7 +723,11 @@ Producthunt item
   text-transform: lowercase;
   background-color: var(--tooltip-accent-color);
 }
-
+.changelogNewButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .searchBar {
   position: relative;
   margin: 0 auto;
