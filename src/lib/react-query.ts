@@ -7,6 +7,8 @@ const queryConfig: DefaultOptions = {
     useErrorBoundary: false,
     refetchOnWindowFocus: false,
     retry: false,
+    staleTime: 3600000, //1 Hour
+    cacheTime: 3600000, // 1 Day
   },
 };
 
