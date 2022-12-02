@@ -4,7 +4,7 @@ import { Article } from 'src/types'
 import { axios } from 'src/lib/axios'
 
 const getArticles = async (tag: string): Promise<Article[]> => {
-  return axios.get(`/data/v2/devto/${tag}.json`)
+  return axios.get(`/data/v2/medium/${tag}.json`)
 }
 
 type QueryFnType = typeof getArticles
