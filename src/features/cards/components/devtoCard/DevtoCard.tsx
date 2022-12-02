@@ -44,7 +44,7 @@ export function DevtoCard({ withAds, meta }: CardPropsType) {
         if (!curr.data) return acc
         return [...acc, ...curr.data]
       }, [])
-      .sort((a, b) => b.reactions - a.reactions)
+      .sort((a, b) => b.published_at - a.published_at)
   }
 
   const renderItem = (item: Article, index: number) => (
