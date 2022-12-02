@@ -179,6 +179,7 @@ export const GLOBAL_TAG = {
   devtoValues: ['programming'],
   hashnodeValues: ['programming'],
   mediumValues: ['programming'],
+  redditValues: ['programming'],
   freecodecampValues: ['programming'],
 }
 export const MY_LANGUAGES_TAG = {
@@ -188,6 +189,7 @@ export const MY_LANGUAGES_TAG = {
   devtoValues: ['myLangs'],
   hashnodeValues: ['myLangs'],
   mediumValues: ['myLangs'],
+  redditValues: ['myLangs'],
   freecodecampValues: ['myLangs'],
 }
 export const MAX_ITEMS_PER_CARD = 50
