@@ -20,7 +20,7 @@ export const SearchBar = () => {
     }
 
     trackSearchEngineUse(usedSearchEngine.label)
-    window.open(`${usedSearchEngine.url}${target.keyword}`, '_self')
+    window.open(`${usedSearchEngine.url}${target.keyword.value}`, '_self')
   }
 
   useEffect(() => {
@@ -33,6 +33,7 @@ export const SearchBar = () => {
       <input
         ref={keywordsInputRef}
         type="text"
+        name="keyword"
         className="searchBarInput"
         placeholder={`Search on ${usedSearchEngine.label}`}
       />
