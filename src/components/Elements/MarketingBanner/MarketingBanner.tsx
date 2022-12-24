@@ -10,5 +10,5 @@ export const MarketingBanner = ({ show, htmlContent }: MarketingBannerProps) => 
   }
   let cleanHtmlContent = DOMPurify.sanitize(htmlContent)
 
-  return <div className="marketingBanner" dangerouslySetInnerHTML={{ __html: cleanHtmlContent }} />
+  return <div dangerouslySetInnerHTML={{ __html: cleanHtmlContent }} />
 }

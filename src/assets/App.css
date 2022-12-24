@@ -638,12 +638,6 @@ Producthunt item
   position: relative;
 }
 
-.marketingBanner {
-  width: 48%;
-  margin: 0 auto;
-  margin-bottom: 16px;
-}
-
 .counterWrapper {
   display: flex;
   flex-direction: column;
