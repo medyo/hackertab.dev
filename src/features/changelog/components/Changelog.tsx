@@ -1,6 +1,6 @@
 import React, { useEffect, useState }  from 'react'
 import ReactTooltip from 'react-tooltip'
-import { HiBell, HiSparkles } from 'react-icons/hi'
+import { HiSparkles } from 'react-icons/hi'
 import ReactMarkdown from 'react-markdown'
 import { format } from 'timeago.js'
 import BeatLoader from 'react-spinners/BeatLoader'
