@@ -141,6 +141,11 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
       onRequestClose={() => handleCloseModal()}
       contentLabel="Minimal Modal Example"
       className="Modal"
+      style={{
+        overlay: {
+          zIndex: 3,
+        },
+      }}
       overlayClassName="Overlay">
       <div className="modalHeader">
         <h1 className="modalTitle">Settings</h1>

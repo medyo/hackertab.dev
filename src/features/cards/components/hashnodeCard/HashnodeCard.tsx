@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { Card } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
 import { useGetHashnodeArticles } from '../../api/getHashnodeArticles'
@@ -6,22 +5,16 @@ import { Article, CardPropsType } from 'src/types'
 import { useUserPreferences } from 'src/stores/preferences'
 import { getCardTagsValue } from 'src/utils/DataEnhancement'
 import ArticleItem from './ArticleItem'
-import { Tag } from 'src/features/remoteConfig'
 import { GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/config'
 import { trackCardLanguageSelect } from 'src/lib/analytics'
-import SelectableCard from 'src/components/SelectableCard'
-
-const HN_MENU_LANGUAGE_ID = 'HN_MENU_LANGUAGE_ID'
+import { FloatingFilter, InlineTextFilter } from 'src/components/Elements'
 
 export function HashnodeCard({ withAds, meta }: CardPropsType) {
   const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
-  const [selectedTag, setSelectedTag] = useState<Tag>()
-
-  useEffect(() => {
-    if (selectedTag) {
-      setCardSettings(meta.value, { language: selectedTag.label })
-    }
-  }, [selectedTag, meta.value, setCardSettings])
+  const selectedTag =
+    [GLOBAL_TAG, MY_LANGUAGES_TAG, ...userSelectedTags].find(
+      (lang) => lang.value === cardsSettings?.[meta.value]?.language
+    ) || GLOBAL_TAG
 
   const getQueryTags = () => {
     if (!selectedTag) {
@@ -61,18 +54,17 @@ export function HashnodeCard({ withAds, meta }: CardPropsType) {
     return (
       <div style={{ display: 'inline-block', margin: 0, padding: 0 }}>
         <span> {meta.label} </span>
-        <SelectableCard
-          isLanguage={true}
-          tagId={HN_MENU_LANGUAGE_ID}
-          selectedTag={selectedTag}
-          setSelectedTag={setSelectedTag}
-          fallbackTag={GLOBAL_TAG}
-          cardSettings={cardsSettings?.hashnode?.language}
-          trackEvent={(tag: Tag) => trackCardLanguageSelect(meta.analyticsTag, tag.value)}
-          data={userSelectedTags.map((tag) => ({
+        <FloatingFilter card={meta} filters={['language']} />
+        <InlineTextFilter
+          options={[GLOBAL_TAG, ...userSelectedTags, MY_LANGUAGES_TAG].map((tag) => ({
             label: tag.label,
             value: tag.value,
           }))}
+          onChange={(item) => {
+            setCardSettings(meta.value, { ...cardsSettings[meta.value], language: item.value })
+            trackCardLanguageSelect(meta.analyticsTag, item.value)
+          }}
+          value={cardsSettings?.[meta.value]?.language}
         />
       </div>
     )

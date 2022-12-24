@@ -59,6 +59,12 @@ html.dark {
   --tooltip-accent-color: #0366D6;
 
   --placeholder-background-color: #1c2026;
+
+  --rsbs-bg: #0D1116;
+  --chip-background: #0D1116;
+  --chip-text: #FFF;
+  --chip-active-background: #576172;
+  --chip-active-text: #FFF;
 }
 
 html.light {
@@ -109,5 +115,12 @@ html.light {
   --tooltip-accent-color: #0366D6;
 
   --placeholder-background-color: #e7eff7;
+
+  --rsbs-bg: #fff;
+
+  --chip-background: #e7eff7;
+  --chip-text: #3C5065;
+  --chip-active-background: #0366D6;
+  --chip-active-text: #FFF;
 
 }

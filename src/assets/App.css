@@ -963,6 +963,34 @@ Producthunt item
   margin-right: 16px;
   border-radius: 4px;
 }
+
+.floatingFilter {
+  background: rgb(44, 128, 232);
+  border: transparent;
+  width: 48px;
+  height: 48px;
+  border-radius: 48px;
+  position: fixed;
+  bottom: 78px;
+  z-index: 2;
+  right: 32px;
+  display: none;
+  box-shadow: 0 2px 8px var(--card-actions-background-shadow);
+}
+.floatingFilterBottomSheet .title {
+  font-size: 22px;
+  margin:0 0 8px 0;
+}
+
+.floatingFilterIcon {
+  color: white;
+  font-size: 24px;
+}
+@media only screen and (max-width: 600px)  {
+  .floatingFilter {
+    display: block
+  }
+}
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   .block {
@@ -1038,4 +1066,26 @@ Producthunt item
 .Page .buttonIcon {
   position: relative;
   vertical-align: middle;
+}
+
+
+.chipsSet {
+  margin: 6px 0;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  font-weight: 500;
+  border-radius: 50px;
+  padding:6px 12px;
+  border: transparent;
+  font-family: "nunito";
+  color:var(--chip-text);
+  background-color: var(--chip-background);
+}
+.chip.active {
+  background-color: var(--chip-active-background);
+  color:var(--chip-active-text);
 }

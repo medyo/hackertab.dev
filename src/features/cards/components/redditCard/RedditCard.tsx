@@ -5,23 +5,16 @@ import { Article, CardPropsType } from 'src/types'
 import { useUserPreferences } from 'src/stores/preferences'
 import { getCardTagsValue } from 'src/utils/DataEnhancement'
 import ArticleItem from './ArticleItem'
-import { useState, useEffect } from 'react'
-import { Tag } from 'src/features/remoteConfig'
 import { GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/config'
-import SelectableCard from 'src/components/SelectableCard'
 import { trackCardLanguageSelect } from 'src/lib/analytics'
-
-const REDDIT_MENU_LANGUAGE_ID = 'REDDIT_MENU_LANGUAGE_ID'
+import { FloatingFilter, InlineTextFilter } from 'src/components/Elements'
 
 export function RedditCard({ withAds, meta }: CardPropsType) {
   const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
-  const [selectedTag, setSelectedTag] = useState<Tag>()
-
-  useEffect(() => {
-    if (selectedTag) {
-      setCardSettings(meta.value, { language: selectedTag.label })
-    }
-  }, [selectedTag, meta, setCardSettings])
+  const selectedTag =
+    [GLOBAL_TAG, MY_LANGUAGES_TAG, ...userSelectedTags].find(
+      (lang) => lang.value === cardsSettings?.[meta.value]?.language
+    ) || GLOBAL_TAG
 
   const getQueryTags = () => {
     if (!selectedTag) {
@@ -34,7 +27,6 @@ export function RedditCard({ withAds, meta }: CardPropsType) {
     return selectedTag.redditValues || []
   }
 
-  console.log('getQueryTags()', getQueryTags())
   const results = useGetRedditArticles({ tags: getQueryTags() })
 
   const getIsLoading = () => results.some((result) => result.isLoading)
@@ -61,19 +53,18 @@ export function RedditCard({ withAds, meta }: CardPropsType) {
   const HeaderTitle = () => {
     return (
       <div style={{ display: 'inline-block', margin: 0, padding: 0 }}>
+        <FloatingFilter card={meta} filters={['language']} />
         <span> {meta.label} </span>
-        <SelectableCard
-          isLanguage={true}
-          tagId={REDDIT_MENU_LANGUAGE_ID}
-          selectedTag={selectedTag}
-          setSelectedTag={setSelectedTag}
-          fallbackTag={GLOBAL_TAG}
-          cardSettings={cardsSettings?.reddit?.language}
-          trackEvent={(tag: Tag) => trackCardLanguageSelect(meta.analyticsTag, tag.value)}
-          data={userSelectedTags.map((tag) => ({
+        <InlineTextFilter
+          options={[GLOBAL_TAG, ...userSelectedTags, MY_LANGUAGES_TAG].map((tag) => ({
             label: tag.label,
             value: tag.value,
           }))}
+          onChange={(item) => {
+            setCardSettings(meta.value, { ...cardsSettings[meta.value], language: item.value })
+            trackCardLanguageSelect(meta.analyticsTag, item.value)
+          }}
+          value={cardsSettings?.[meta.value]?.language}
         />
       </div>
     )
@@ -81,6 +72,7 @@ export function RedditCard({ withAds, meta }: CardPropsType) {
 
   return (
     <Card card={meta} titleComponent={<HeaderTitle />}>
+      <FloatingFilter card={meta} />
       <ListComponent
         items={getData()}
         isLoading={getIsLoading()}
