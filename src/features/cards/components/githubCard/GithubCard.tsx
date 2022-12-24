@@ -8,6 +8,7 @@ import RepoItem from './RepoItem'
 import { GLOBAL_TAG, MY_LANGUAGES_TAG, dateRanges } from 'src/config'
 import { trackCardLanguageSelect, trackCardDateRangeSelect } from 'src/lib/analytics'
 import { FloatingFilter, InlineTextFilter } from 'src/components/Elements'
+import { filterUniqueEntries } from 'src/utils/DataEnhancement'
 
 export function GithubCard({ meta, withAds }: CardPropsType) {
   const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
@@ -43,12 +44,14 @@ export function GithubCard({ meta, withAds }: CardPropsType) {
   const getIsLoading = () => results.some((result) => result.isLoading)
 
   const getData = () => {
-    return results
-      .reduce((acc: Repository[], curr) => {
-        if (!curr.data) return acc
-        return [...acc, ...curr.data]
-      }, [])
-      .sort((a, b) => b.stars - a.stars)
+    return filterUniqueEntries(
+      results
+        .reduce((acc: Repository[], curr) => {
+          if (!curr.data) return acc
+          return [...acc, ...curr.data]
+        }, [])
+        .sort((a, b) => b.stars - a.stars)
+    )
   }
 
   const renderItem = (item: Repository, index: number) => (

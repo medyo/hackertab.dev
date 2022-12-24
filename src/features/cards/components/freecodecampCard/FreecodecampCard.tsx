@@ -8,6 +8,7 @@ import ArticleItem from './ArticleItem'
 import { GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/config'
 import { trackCardLanguageSelect } from 'src/lib/analytics'
 import { FloatingFilter, InlineTextFilter } from 'src/components/Elements'
+import { filterUniqueEntries } from 'src/utils/DataEnhancement'
 
 export function FreecodecampCard({ meta, withAds }: CardPropsType) {
   const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
@@ -32,12 +33,14 @@ export function FreecodecampCard({ meta, withAds }: CardPropsType) {
   const getIsLoading = () => results.some((result) => result.isLoading)
 
   const getData = () => {
-    return results
-      .reduce((acc: Article[], curr) => {
-        if (!curr.data) return acc
-        return [...acc, ...curr.data]
-      }, [])
-      .sort((a, b) => b.published_at - a.published_at)
+    return filterUniqueEntries(
+      results
+        .reduce((acc: Article[], curr) => {
+          if (!curr.data) return acc
+          return [...acc, ...curr.data]
+        }, [])
+        .sort((a, b) => b.published_at - a.published_at)
+    )
   }
 
   const renderItem = (item: Article, index: number) => (
