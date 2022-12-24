@@ -701,7 +701,8 @@ Producthunt item
   overflow-x: hidden !important;
 }
 .changelogButton {
-  width: 20px;
+  width: auto;
+  font-size: 12px;
   height: 20px;
   background-color: gray;
   border-radius: 20px;
@@ -714,13 +715,11 @@ Producthunt item
   border: 2px solid var(--background-color);
   left: -6px;
   top: -10px;
+  padding:0 4px;
+  text-transform: lowercase;
   color: white;
 }
 .changelogButton.active {
-  width: auto;
-  font-size: 12px;
-  padding:0 4px;
-  text-transform: lowercase;
   background-color: var(--tooltip-accent-color);
 }
 .changelogNewButton {

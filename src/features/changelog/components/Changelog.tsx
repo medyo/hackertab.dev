@@ -82,13 +82,9 @@ export const Changelog = () => {
         data-tip
         data-for={tooltipId}
         className={'changelogButton' + (!isChangelogRead() ? ' active' : '')}>
-        {isChangelogRead() ? (
-          <HiBell style={{ width: 14 }} />
-        ) : (
-          <div className="changelogNewButton">
-            <HiSparkles style={{ width: 14 }} /> New
-          </div>
-        )}
+        <div className="changelogNewButton">
+          <HiSparkles style={{ width: 14 }} /> {!isChangelogRead() && 'New'}
+        </div>
       </span>
     </>
   )
