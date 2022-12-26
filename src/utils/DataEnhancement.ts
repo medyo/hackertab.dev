@@ -1,4 +1,5 @@
 import { Tag, useRemoteConfigStore, TagValuesFieldType } from 'src/features/remoteConfig'
+import { BaseEntry } from 'src/types'
 
 export const enhanceTags = (tags: string[]): Tag[] => {
   const savedTags = useRemoteConfigStore.getState().supportedTags
@@ -15,4 +16,11 @@ export const getCardTagsValue = (tags: Tag[], valuesField: TagValuesFieldType): 
     acc = [...acc, ...curr[valuesField]]
     return acc
   }, [])
+}
+
+
+export const filterUniqueEntries = (entries: BaseEntry[]) => {
+  const uniqueResults = new Map()
+  entries.forEach((item) => uniqueResults.set(item.id, item))
+  return Array.from(uniqueResults.values())
 }

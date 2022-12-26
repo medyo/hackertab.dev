@@ -193,3 +193,14 @@ export const MY_LANGUAGES_TAG = {
   freecodecampValues: ['myLangs'],
 }
 export const MAX_ITEMS_PER_CARD = 50
+
+
+export type DateRangeType = {
+  value: 'daily' | 'monthly' | 'weekly'
+  label: string
+}
+export const dateRanges: DateRangeType[] = [
+  { label: 'the day', value: 'daily' },
+  { label: 'the week', value: 'weekly' },
+  { label: 'the month', value: 'monthly' },
+]

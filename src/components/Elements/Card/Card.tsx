@@ -10,14 +10,10 @@ type CardProps = {
   titleComponent?: React.ReactNode
   fullBlock?: boolean
 }
-export const Card = ({
-  card: { link, icon, label },
-  titleComponent,
-  children,
-  fullBlock = false,
-}: CardProps) => {
-  const { openLinksNewTab } = useUserPreferences()
 
+export const Card = ({ card, titleComponent, children, fullBlock = false }: CardProps) => {
+  const { openLinksNewTab } = useUserPreferences()
+  const { link, icon, label } = card
   const handleHeaderLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     let url = `${link}?${ref}`

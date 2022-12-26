@@ -1,6 +1,6 @@
 import React, { useEffect, useState }  from 'react'
 import ReactTooltip from 'react-tooltip'
-import { HiBell, HiSparkles } from 'react-icons/hi'
+import { HiSparkles } from 'react-icons/hi'
 import ReactMarkdown from 'react-markdown'
 import { format } from 'timeago.js'
 import BeatLoader from 'react-spinners/BeatLoader'
@@ -82,13 +82,9 @@ export const Changelog = () => {
         data-tip
         data-for={tooltipId}
         className={'changelogButton' + (!isChangelogRead() ? ' active' : '')}>
-        {isChangelogRead() ? (
-          <HiBell style={{ width: 14 }} />
-        ) : (
-          <div className="changelogNewButton">
-            <HiSparkles style={{ width: 14 }} /> New
-          </div>
-        )}
+        <div className="changelogNewButton">
+          <HiSparkles style={{ width: 14 }} /> {!isChangelogRead() && 'New'}
+        </div>
       </span>
     </>
   )

@@ -91,3 +91,8 @@ export type CardSettingsType = {
   language: string
   dateRange?: string
 }
+
+export type Option = {
+  label: string
+  value: string
+}
