@@ -7,6 +7,9 @@ function isDevelopmentEnv() {
 
 module.exports = {
   webpack: {
+    eslint: {
+      enable: isDevelopmentEnv(),
+    },
     plugins: {
       add: [
         new webpack.DefinePlugin({
