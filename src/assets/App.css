@@ -2,6 +2,7 @@
 
 html {
   background: var(--background-color); 
+  scroll-behavior: smooth;
 }
 body {
   color: var(--primary-text-color);  
@@ -94,9 +95,19 @@ a {
   gap: 12px;
   padding: 1%;
   position: relative;
-  overflow:hidden;
+  overflow-y:hidden;
   padding-bottom: 12px;
+  scroll-snap-type: x mandatory;
 }
+
+.HorizontalScroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
+}
+.HorizontalScroll::-webkit-scrollbar {
+  display: none;
+}
+
 .extras {
 
   flex-direction: row;
@@ -189,6 +200,7 @@ a {
   height: 78vh;
   width: 10vw;
   flex: 0 0 auto;
+  scroll-snap-align: start;
 }
 .blockContent {
   flex-grow: 1;
@@ -196,6 +208,7 @@ a {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  scroll-snap-type: y mandatory;
   height: calc(80vh - 1% - 46px);
 }
 
@@ -263,6 +276,7 @@ a {
 }
 
 .blockRow {
+  scroll-snap-align: start;
   padding: 8px 16px;
   position: relative;
 }
