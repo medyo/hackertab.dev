@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import 'src/assets/App.css'
 import { Footer, Header } from 'src/components/Layout'
 import { BookmarksSidebar } from 'src/features/bookmarks'
-import { MarketingBanner } from 'src/components/Elements'
+import { MarketingBanner } from 'src/features/MarketingBanner'
 import { ScrollCardsNavigator } from './components/Layout'
 import { AppContentLayout } from './components/Layout'
 import 'react-contexify/dist/ReactContexify.css'
@@ -22,20 +22,22 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
-      <Header
-        setShowSideBar={setShowSideBar}
-        showSideBar={showSideBar}
-        showSettings={showSettings}
-        setShowSettings={setShowSettings}
-      />
-      <ScrollCardsNavigator />
+    <>
       <MarketingBanner {...marketingBannerConfig} />
-      <AppContentLayout setShowSettings={setShowSettings} />
-      <BookmarksSidebar showSidebar={showSideBar} onClose={() => setShowSideBar(false)} />
+      <div className="App">
+        <Header
+          setShowSideBar={setShowSideBar}
+          showSideBar={showSideBar}
+          showSettings={showSettings}
+          setShowSettings={setShowSettings}
+        />
+        <ScrollCardsNavigator />
+        <AppContentLayout setShowSettings={setShowSettings} />
+        <BookmarksSidebar showSidebar={showSideBar} onClose={() => setShowSideBar(false)} />
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   )
 }
 
