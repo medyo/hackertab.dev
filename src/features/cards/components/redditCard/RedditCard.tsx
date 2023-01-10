@@ -56,7 +56,6 @@ export function RedditCard({ withAds, meta }: CardPropsType) {
   const HeaderTitle = () => {
     return (
       <div style={{ display: 'inline-block', margin: 0, padding: 0 }}>
-        <FloatingFilter card={meta} filters={['language']} />
         <span> {meta.label} </span>
         <InlineTextFilter
           options={[GLOBAL_TAG, ...userSelectedTags, MY_LANGUAGES_TAG].map((tag) => ({
@@ -75,7 +74,7 @@ export function RedditCard({ withAds, meta }: CardPropsType) {
 
   return (
     <Card card={meta} titleComponent={<HeaderTitle />}>
-      <FloatingFilter card={meta} />
+      <FloatingFilter card={meta} filters={['language']} />
       <ListComponent
         items={getData()}
         isLoading={getIsLoading()}

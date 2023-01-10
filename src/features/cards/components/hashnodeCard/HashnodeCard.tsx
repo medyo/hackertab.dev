@@ -57,7 +57,6 @@ export function HashnodeCard({ withAds, meta }: CardPropsType) {
     return (
       <div style={{ display: 'inline-block', margin: 0, padding: 0 }}>
         <span> {meta.label} </span>
-        <FloatingFilter card={meta} filters={['language']} />
         <InlineTextFilter
           options={[GLOBAL_TAG, ...userSelectedTags, MY_LANGUAGES_TAG].map((tag) => ({
             label: tag.label,
@@ -75,6 +74,7 @@ export function HashnodeCard({ withAds, meta }: CardPropsType) {
 
   return (
     <Card card={meta} titleComponent={<HeaderTitle />}>
+      <FloatingFilter card={meta} filters={['language']} />
       <ListComponent
         items={getData()}
         isLoading={getIsLoading()}
