@@ -15,7 +15,7 @@ export const AppContentLayout = ({
 
   return (
     <>
-      <main className="AppContent scrollable">
+      <main className="AppContent HorizontalScroll">
         {isDesktop ? <DesktopCards cards={cards} /> : <MobileCards selectedCard={selectedCard} />}
       </main>
 

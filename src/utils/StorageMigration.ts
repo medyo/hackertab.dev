@@ -5,8 +5,6 @@ import { enhanceTags } from './DataEnhancement'
 
 export const migrateToNewStorage = () => {
   let preferences = AppStorage.getItem('hackerTabPrefs')
-  console.error('Here')
-  //userSelectedTags: supportedTags.filter((t) => t.value === 'javascript'),
 
   // Remove legacy cached requests
   const legacyStorageKeys = AppStorage.getKeys()

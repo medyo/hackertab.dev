@@ -34,12 +34,10 @@ export function MediumCard({ meta, withAds }: CardPropsType) {
 
   const getData = () => {
     return filterUniqueEntries(
-      results
-        .reduce((acc: Article[], curr) => {
-          if (!curr.data) return acc
-          return [...acc, ...curr.data]
-        }, [])
-        .sort((a, b) => b.published_at - a.published_at)
+      results.reduce((acc: Article[], curr) => {
+        if (!curr.data) return acc
+        return [...acc, ...curr.data]
+      }, [])
     )
   }
 
@@ -57,7 +55,6 @@ export function MediumCard({ meta, withAds }: CardPropsType) {
     return (
       <div style={{ display: 'inline-block', margin: 0, padding: 0 }}>
         <span> {meta.label} </span>
-        <FloatingFilter card={meta} filters={['language']} />
         <InlineTextFilter
           options={[GLOBAL_TAG, ...userSelectedTags, MY_LANGUAGES_TAG].map((tag) => ({
             label: tag.label,
@@ -75,6 +72,7 @@ export function MediumCard({ meta, withAds }: CardPropsType) {
 
   return (
     <Card card={meta} titleComponent={<HeaderTitle />}>
+      <FloatingFilter card={meta} filters={['language']} />
       <ListComponent
         items={getData()}
         isLoading={getIsLoading()}

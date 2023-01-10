@@ -1,26 +1,31 @@
-import React, { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { maxCardsPerRow } from 'src/config'
 import { useUserPreferences } from 'src/stores/preferences'
 import { trackPageScroll } from 'src/lib/analytics'
 
-function ScrollCardsNavigator() {
+export const ScrollCardsNavigator = () => {
   const { cards } = useUserPreferences()
   const [leftButtonVisible, setLeftButtonVisible] = useState(true)
   const [rightButtonVisible, setRightButtonVisible] = useState(true)
-  const scrollBarContainer = useRef(null)
+  const scrollBarContainer = useRef<HTMLElement | null>(null)
 
-  const handleScroll = (e) => {
-    const { scrollLeft, scrollWidth, offsetWidth } = e.target
-    setLeftButtonVisible(scrollLeft > 0)
-    const scrollRight = scrollWidth - offsetWidth - Math.abs(scrollLeft)
-    setRightButtonVisible(scrollRight > 0)
+  const handleScroll = (e: Event) => {
+    if (cards.length <= maxCardsPerRow) {
+      setLeftButtonVisible(false)
+      setRightButtonVisible(false)
+    } else {
+      const { scrollLeft, scrollWidth, offsetWidth } = e.target as HTMLElement
+      setLeftButtonVisible(scrollLeft > 100)
+      const scrollRight = scrollWidth - offsetWidth - Math.abs(scrollLeft)
+      setRightButtonVisible(scrollRight > 100)
+    }
   }
 
-  const handleKeyboardKeys = useCallback((e) => {
-    if (e.keyCode === 37) {
+  const handleKeyboardKeys = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') {
       scrollTo('left')
-    } else if (e.keyCode === 39) {
+    } else if (e.key === 'ArrowRight') {
       scrollTo('right')
     }
   }, [])
@@ -30,12 +35,13 @@ function ScrollCardsNavigator() {
   }, [])
 
   useEffect(() => {
-    scrollBarContainer.current.addEventListener('scroll', handleScroll, true)
+    scrollBarContainer.current?.addEventListener('scroll', handleScroll, true)
     window.addEventListener('keydown', handleKeyboardKeys)
     return () => {
       window.removeEventListener('keydown', handleKeyboardKeys)
-      scrollBarContainer.current.removeEventListener('scroll', handleScroll)
+      scrollBarContainer.current?.removeEventListener('scroll', handleScroll)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleKeyboardKeys])
 
   useEffect(() => {
@@ -43,19 +49,15 @@ function ScrollCardsNavigator() {
     setRightButtonVisible(cards.length > maxCardsPerRow)
   }, [cards])
 
-  const scrollTo = (direction) => {
+  const scrollTo = (direction: 'left' | 'right') => {
     if (!scrollBarContainer.current) {
       return
     }
     trackPageScroll(direction)
     const { scrollLeft } = scrollBarContainer.current
-    const { offsetWidth } = scrollBarContainer.current.children[0]
-    let extraPadding = 32 // Should be calculated dynamically
+    const { offsetWidth } = scrollBarContainer.current?.firstChild as HTMLElement
 
-    const position =
-      direction === 'left'
-        ? scrollLeft - offsetWidth - extraPadding
-        : scrollLeft + offsetWidth + extraPadding
+    const position = direction === 'left' ? scrollLeft - offsetWidth : scrollLeft + offsetWidth
 
     scrollBarContainer.current.scrollTo({
       left: position,
@@ -78,5 +80,3 @@ function ScrollCardsNavigator() {
     </>
   )
 }
-
-export default ScrollCardsNavigator

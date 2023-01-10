@@ -1,5 +1,5 @@
 export type Ad = {
-  statlink: string,
+  statlink?: string,
   company: string,
   companyTagline: string,
   smallImage: string,
