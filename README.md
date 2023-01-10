@@ -5,7 +5,7 @@
 [![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/stars/ocoipcahhaedjhnpoanfflhbdcpmalmp.svg?colorB=%234FC828&label=rating&style=flat)](https://chrome.google.com/webstore/detail/hackertabdev/ocoipcahhaedjhnpoanfflhbdcpmalmp/reviews)
 
 # Hackertab.dev — All Developer news in one tab!
-Hackertab makes it easy for you to stay up-to-date with the latest developer news, tools, jobs and events.
+**Hackertab makes it easy for you to stay up-to-date with the latest developer news, tools, jobs and events.**
 
 <img src="/demo/demo_hackertab.dev.jpeg" width="100%" alt="Hackertab.dev"/>
 
@@ -22,11 +22,11 @@ As a developer, it can be difficult to stay on top of everything happening in th
 - Enjoy
 
 ## 🔥 Features
-• 🆕 Hourly updated content
-• 💻 Customizable by language or topic
-• 👍 Curated content from the best sources
-• 🔖 Bookmark and read it later
-• 🌙 Dark mode for when it gets late 
+- 🆕 Hourly updated content
+- 💻 Customizable by language or topic
+- 👍 Curated content from the best sources
+- 🔖 Bookmark and read it later
+- 🌙 Dark mode for when it gets late 
 Even more features are going to come in the future!
 
 ## Data sources
