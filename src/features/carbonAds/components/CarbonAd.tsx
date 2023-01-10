@@ -10,7 +10,7 @@ export const CarbonAd = () => {
     },
   })
 
-  if (!ad) {
+  if (!ad || !ad.statlink) {
     return null
   }
 
