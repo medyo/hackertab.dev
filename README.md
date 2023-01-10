@@ -4,38 +4,30 @@
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/ocoipcahhaedjhnpoanfflhbdcpmalmp?style=plastic)](https://bit.ly/hackertab-ch)
 [![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/stars/ocoipcahhaedjhnpoanfflhbdcpmalmp.svg?colorB=%234FC828&label=rating&style=flat)](https://chrome.google.com/webstore/detail/hackertabdev/ocoipcahhaedjhnpoanfflhbdcpmalmp/reviews)
 
-# Hackertab.dev — The Developer’s Homepage
-Hackertab turns your New Tab page into a geeky one that keeps you as a developer updated with the latest tech news, libs and events.
+# Hackertab.dev — All Developer news in one tab!
+Hackertab makes it easy for you to stay up-to-date with the latest developer news, tools, jobs and events.
 
 <img src="/demo/demo_hackertab.dev.jpeg" width="100%" alt="Hackertab.dev"/>
 
-**Whether you are a back-end, front-end coder or a data scientist 👨‍💻, there’s something new on the bend every day.
-Hackertab saves you time and gives you a daily dose of tech news you need to know to stay updated!**
+As a developer, it can be difficult to stay on top of everything happening in the field. Hackertab makes it easy by allowing you to customize your default tab page to include news, tools and events from top sources such as GitHub Trendings, Hacker News, DevTo, Medium, and Product Hunt. No matter what type of developer you are, you'll find valuable and relevant information with Hackertab. Don't miss out - give it a try today!
 
 #### Demo
 👉 [now.hackertab.dev](https://now.hackertab.dev)
 
-#### How?
-Hackertab brings the latest news, libraries, tech events... related to your profile (back-end, mobile, full stack, data scientist...)
-and visualize them in a proper way so you don't have to waste time jumping between different data sources.
-
-
 ## 👩‍💻 How to use it
 - Install the extension from the [Chrome store](https://bit.ly/hackertab-ch), or [Mozilla add-ons](https://bit.ly/hackertab-ff)
 - Open a new tab
-- You should see Hackertab running
-- Choose your favorite languages, technologies and data sources.
+- The extension should now be running and visible
+- Select your preferred programming languages and sources.
 - Enjoy
 
 ## 🔥 Features
-- [x] Support of the main programming languages & technologies: **Python, Javascript, Ruby, Java, Kotlin, data science...**
-- [x] Updated content every 4 hours
-- [x] Full dark mode support
-- [x] Keep or hide the wanted cards
-- [x] Bookmarks
-- [ ] Add your favorite newsletters
-- [ ] Sortable tabs (change order)
-
+• 🆕 Hourly updated content
+• 💻 Customizable by language or topic
+• 👍 Curated content from the best sources
+• 🔖 Bookmark and read it later
+• 🌙 Dark mode for when it gets late 
+Even more features are going to come in the future!
 
 ## Data sources
 - Github Trendings
