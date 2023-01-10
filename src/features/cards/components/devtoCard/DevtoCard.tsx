@@ -35,12 +35,10 @@ export function DevtoCard({ withAds, meta }: CardPropsType) {
 
   const getData = () => {
     return filterUniqueEntries(
-      results
-        .reduce((acc: Article[], curr) => {
-          if (!curr.data) return acc
-          return [...acc, ...curr.data]
-        }, [])
-        .sort((a, b) => b.published_at - a.published_at)
+      results.reduce((acc: Article[], curr) => {
+        if (!curr.data) return acc
+        return [...acc, ...curr.data]
+      }, [])
     )
   }
 
