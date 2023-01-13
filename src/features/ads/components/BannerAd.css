@@ -1,60 +1,59 @@
 #bannerads * {
-    margin: initial;
-    padding: initial;
-  }
-  #bannerads {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-      Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial,
-      sans-serif;
-  }
-  #bannerads {
-    display: flex;
-    max-width: 330px;
-    z-index: 100;
-    margin: 0 auto
-  }
-  #bannerads a {
-    color: inherit;
-    text-decoration: none;
-  }
-  #bannerads a:hover {
-    color: inherit;
-  }
-  #bannerads span {
-    position: relative;
-    display: block;
-    overflow: hidden;
-  }
-  #bannerads .carbon-wrap {
-    display: flex;
-  }
-  #bannerads .carbon-img {
-    display: block;
-    margin: 0;
-    line-height: 1;
-  }
-  #bannerads .carbon-img img {
-    display: block;
-  }
-  #bannerads .carbon-text {
-    font-size: 13px;
-    padding: 10px;
-    margin-bottom: 16px;
-    line-height: 1.5;
-    text-align: left;
-  }
-  #bannerads .carbon-poweredby {
-    display: block;
-    padding: 6px 8px;
-    background: inherit;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
-    font-size: 8px;
-    line-height: 1;
-    border-top-left-radius: 3px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
+  margin: initial;
+  padding: initial;
+}
+#bannerads {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+    'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+#bannerads {
+  display: flex;
+  max-width: 330px;
+  z-index: 100;
+  margin: 0 auto;
+}
+#bannerads a {
+  color: inherit;
+  text-decoration: none;
+}
+#bannerads a:hover {
+  color: inherit;
+}
+#bannerads span {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+#bannerads .carbon-wrap {
+  display: flex;
+}
+#bannerads .carbon-img {
+  display: block;
+  margin: 0;
+  line-height: 1;
+}
+#bannerads .carbon-img img {
+  display: block;
+}
+#bannerads .carbon-text {
+  font-size: 13px;
+  padding: 10px;
+  margin-bottom: 16px;
+  line-height: 1.5;
+  text-align: left;
+}
+#bannerads .carbon-poweredby {
+  display: block;
+  padding: 6px 8px;
+  background: inherit;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  font-size: 8px;
+  line-height: 1;
+  border-top-left-radius: 3px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
