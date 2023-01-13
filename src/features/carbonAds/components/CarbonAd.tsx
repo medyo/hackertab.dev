@@ -1,14 +1,8 @@
 import './CarbonAd.css'
 import { useGetAd } from '../api/getAd'
-import { useRemoteConfigStore } from 'src/features/remoteConfig'
 
 export const CarbonAd = () => {
-  const { refresh_rate } = useRemoteConfigStore()
-  const { data: ad } = useGetAd({
-    config: {
-      refetchInterval: refresh_rate,
-    },
-  })
+  const { data: ad } = useGetAd()
 
   if (!ad || !ad.link) {
     return null

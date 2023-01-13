@@ -7,13 +7,10 @@ import { ScrollCardsNavigator } from './components/Layout'
 import { AppContentLayout } from './components/Layout'
 import 'react-contexify/dist/ReactContexify.css'
 import { setupAnalytics, trackPageView, setupIdentification } from 'src/lib/analytics'
-import { useRemoteConfigStore } from 'src/features/remoteConfig'
 
 function App() {
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
-
-  const { marketingBannerConfig } = useRemoteConfigStore()
 
   useEffect(() => {
     setupAnalytics()
@@ -23,7 +20,7 @@ function App() {
 
   return (
     <>
-      <MarketingBanner {...marketingBannerConfig} />
+      <MarketingBanner />
       <div className="App">
         <Header
           setShowSideBar={setShowSideBar}
