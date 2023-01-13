@@ -2,9 +2,9 @@ import './BannerAd.css'
 import { useGetAd } from '../api/getAd'
 
 export const BannerAd = () => {
-  const { data: ad } = useGetAd()
+  const { data: ad, isError } = useGetAd()
 
-  if (!ad || !ad.link) {
+  if (isError || !ad) {
     return null
   }
 
