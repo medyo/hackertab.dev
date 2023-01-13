@@ -4,7 +4,9 @@ import { Ad } from '../types'
 import { axios } from 'src/lib/axios'
 
 const getAd = async (): Promise<Ad | null> => {
-  return axios.get('/engine/ads/')
+  let url = new URL(window.location.href);
+  let ref  = url.searchParams.get("ref");
+  return axios.get('/engine/ads/', {params: { ref }})
 }
 
 type QueryFnType = typeof getAd
