@@ -19,14 +19,8 @@ export type TagValuesFieldType =
   | 'freecodecampValues'
   | 'mediumValues'
 
-export type MarketingBannerConfig = {
-  show: boolean
-  campaign_name: string
-  htmlContent: string
-}
-
 export type RemoteConfig = {
   supportedTags: Tag[]
   refresh_rate: number | false,
-  marketingBannerConfig?: MarketingBannerConfig
+  marketingBannerConfig?: any
 }
