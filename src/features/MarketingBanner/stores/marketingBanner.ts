@@ -1,16 +1,24 @@
 import create from 'zustand';
 import { persist } from 'zustand/middleware'
 
+type ClosedCampaign = {
+  id: string;
+  date: number;
+}
+
 type MarketingBannerStore = {
-  closedCampaigns: string[];
-  setCampaignClosed: (compaignName: string) => void;
+  closedCampaigns: ClosedCampaign[];
+  setCampaignClosed: (compaignId: string) => void;
 };
 
-export const useMarketingBanner = create(persist<MarketingBannerStore>((set) => ({
+export const useMarketingConfigStore = create(persist<MarketingBannerStore>((set) => ({
   closedCampaigns: [],
-  setCampaignClosed: (compaignName: string) =>
+  setCampaignClosed: (compaignId: string) =>
     set((state) => ({
-      closedCampaigns: [...state.closedCampaigns, compaignName]
+      closedCampaigns: [...state.closedCampaigns, {
+        id: compaignId,
+        date: Date.now()
+      }]
     })),
 }), {
   name: 'ht_marketing_storage',

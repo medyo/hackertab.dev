@@ -12,6 +12,7 @@ export type UserPreferencesState = {
   searchEngine: string
   cards: SelectedCard[]
   cardsSettings: Record<string, CardSettingsType>
+  firstSeenDate: number;
 }
 
 type UserPreferencesStoreActions = {
@@ -34,6 +35,7 @@ export const useUserPreferences = create(
       searchEngine: 'google',
       listingMode: 'normal',
       openLinksNewTab: true,
+      firstSeenDate: Date.now(),
       cards: [
         { id: 0, name: 'github' },
         { id: 1, name: 'hackernews' },
