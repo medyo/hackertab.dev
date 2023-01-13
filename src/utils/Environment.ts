@@ -7,9 +7,8 @@ export const isDevelopment = (): boolean => {
 }
 
 export const isWebOrExtensionVersion = (): string => {
-  const webBuild = process.env.REACT_APP_WEB_BUILD as string;
-
-  return webBuild === "0" ? "web" : "extension"
+  const buildTarget = process.env.REACT_APP_BUILD_TARGET as "web" | "extension" | undefined;
+  return buildTarget || "web";
 }
 
 export const getBrowserName = (): string => {

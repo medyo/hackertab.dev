@@ -8,8 +8,7 @@ on:
     types:
       - created
 env:
-  REACT_APP_ANALYTICS_ID: ${{ secrets.ANALYTICS_ID }}
-  REACT_APP_WEB_BUILD: 0
+  REACT_APP_BUILD_TARGET: "extension"
 jobs:
       
   bump-manifest-version:
