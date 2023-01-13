@@ -2,21 +2,26 @@ import './BannerAd.css'
 import { useGetAd } from '../api/getAd'
 
 export const BannerAd = () => {
-  const { data: ad, isError } = useGetAd()
+  const { data: ad, isError } = useGetAd({
+    config: {
+      cacheTime: 0,
+      staleTime: 0,
+    }
+  })
 
   if (isError || !ad) {
     return null
   }
 
   return (
-    <div className="carbon-ad-wrapper blockRow">
+    <div className="ad-wrapper blockRow">
       {ad && (
         <div id="bannerads">
           <span>
-            <span className="carbon-wrap">
+            <span className="wrap">
               <a
                 href={ad.link}
-                className="carbon-img"
+                className="img"
                 target="_blank"
                 rel="noopener sponsored noreferrer"
                 title={ad.title}>
@@ -31,7 +36,7 @@ export const BannerAd = () => {
 
               <a
                 href={ad.link}
-                className="carbon-text"
+                className="text"
                 target="_blank"
                 rel="noopener sponsored noreferrer">
                 {ad.description}
@@ -40,7 +45,7 @@ export const BannerAd = () => {
 
             <a
               href={ad.provider.link}
-              className="carbon-poweredby"
+              className="poweredby"
               target="_blank"
               rel="noopener sponsored noreferrer">
               {ad.provider.title}

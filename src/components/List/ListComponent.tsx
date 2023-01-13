@@ -52,7 +52,7 @@ export function ListComponent<T extends BaseEntry>(props: ListComponentPropsType
     return items.slice(0, limit).map((item, index) => {
       let content: ReactNode[] = [renderItem(item, index)]
       if (withAds && index === 0) {
-        content.unshift(<BannerAd key={'BannerAd0'} />)
+        content.unshift(<BannerAd key={'banner-ad'} />)
       }
       return content
     })
