@@ -1,9 +1,14 @@
+type AdProvider = {
+  name: string,
+  title: string,
+  link?: string,
+}
+
 export type Ad = {
-  statlink?: string,
-  company: string,
-  companyTagline: string,
-  smallImage: string,
-  backgroundColor: string,
+  title?: string,
   description: string,
-  ad_via_link: string
+  imageUrl: string,
+  link: string,
+  backgroundColor?: string,
+  provider: AdProvider,
 }

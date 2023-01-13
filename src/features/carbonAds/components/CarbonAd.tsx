@@ -1,7 +1,7 @@
 import './CarbonAd.css'
-import { addHttpsProtocol } from 'src/utils/UrlUtils'
 import { useGetAd } from '../api/getAd'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
+
 export const CarbonAd = () => {
   const { refresh_rate } = useRemoteConfigStore()
   const { data: ad } = useGetAd({
@@ -10,7 +10,7 @@ export const CarbonAd = () => {
     },
   })
 
-  if (!ad || !ad.statlink) {
+  if (!ad || !ad.link) {
     return null
   }
 
@@ -21,22 +21,22 @@ export const CarbonAd = () => {
           <span>
             <span className="carbon-wrap">
               <a
-                href={addHttpsProtocol(ad.statlink)}
+                href={ad.link}
                 className="carbon-img"
                 target="_blank"
                 rel="noopener sponsored noreferrer"
-                title={ad.company + ' ' + ad.companyTagline}>
+                title={ad.title}>
                 <img
-                  src={ad.smallImage}
-                  alt={ad.company}
+                  src={ad.imageUrl}
+                  alt={ad.title}
                   height="100"
                   width="130"
-                  style={{ background: ad.backgroundColor, border: 0 }}
+                  style={{ border: 0 }}
                 />
               </a>
 
               <a
-                href={addHttpsProtocol(ad.statlink)}
+                href={ad.link}
                 className="carbon-text"
                 target="_blank"
                 rel="noopener sponsored noreferrer">
@@ -45,11 +45,11 @@ export const CarbonAd = () => {
             </span>
 
             <a
-              href={ad.ad_via_link}
+              href={ad.provider.link}
               className="carbon-poweredby"
               target="_blank"
               rel="noopener sponsored noreferrer">
-              ads via Carbon
+              {ad.provider.title}
             </a>
           </span>
         </div>
