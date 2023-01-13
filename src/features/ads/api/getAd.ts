@@ -4,11 +4,7 @@ import { Ad } from '../types'
 import { axios } from 'src/lib/axios'
 
 const getAd = async (): Promise<Ad | null> => {
-
-  return axios.get<Ad | null>('/engine/ads/').then((response) => {
-    const data = response as unknown as Ad
-    return data
-  })
+  return axios.get('/engine/ads/')
 }
 
 type QueryFnType = typeof getAd
