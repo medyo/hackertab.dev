@@ -1,7 +1,7 @@
-import './CarbonAd.css'
+import './BannerAd.css'
 import { useGetAd } from '../api/getAd'
 
-export const CarbonAd = () => {
+export const BannerAd = () => {
   const { data: ad } = useGetAd()
 
   if (!ad || !ad.link) {
@@ -11,7 +11,7 @@ export const CarbonAd = () => {
   return (
     <div className="carbon-ad-wrapper blockRow">
       {ad && (
-        <div id="carbonads">
+        <div id="bannerads">
           <span>
             <span className="carbon-wrap">
               <a
