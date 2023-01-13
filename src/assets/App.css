@@ -973,15 +973,16 @@ Producthunt item
   border-radius: 4px;
 }
 .adCardPlaceholder {
-  max-width: 300px;
+  width: 300px;
   column-gap: 16px;
   display: flex;
   flex-direction: row;
+  margin:0 auto;
 }
 .adCardPlaceholder .image {
   background: var(--placeholder-background-color);
-  flex: 0 0 120px;
-  height: 90px 
+  flex: 0 0 130px;
+  height: 100px 
 }
 
 .floatingFilter {

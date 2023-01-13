@@ -24,25 +24,25 @@
   display: block;
   overflow: hidden;
 }
-#bannerads .carbon-wrap {
+#bannerads .wrap {
   display: flex;
 }
-#bannerads .carbon-img {
+#bannerads .img {
   display: block;
   margin: 0;
   line-height: 1;
 }
-#bannerads .carbon-img img {
+#bannerads .img img {
   display: block;
 }
-#bannerads .carbon-text {
+#bannerads .text {
   font-size: 13px;
   padding: 10px;
   margin-bottom: 16px;
   line-height: 1.5;
   text-align: left;
 }
-#bannerads .carbon-poweredby {
+#bannerads .poweredby {
   display: block;
   padding: 6px 8px;
   background: inherit;

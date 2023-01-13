@@ -1,13 +1,22 @@
 import './BannerAd.css'
 import { useGetAd } from '../api/getAd'
+import { AdPlaceholder } from 'src/components/placeholders'
 
 export const BannerAd = () => {
-  const { data: ad, isError } = useGetAd({
+  const {
+    data: ad,
+    isLoading,
+    isError,
+  } = useGetAd({
     config: {
       cacheTime: 0,
       staleTime: 0,
-    }
+    },
   })
+
+  if (isLoading) {
+    return <AdPlaceholder />
+  }
 
   if (isError || !ad) {
     return null
