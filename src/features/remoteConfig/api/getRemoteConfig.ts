@@ -4,22 +4,22 @@ import { RemoteConfig } from "../types";
 import { axios } from 'src/lib/axios';
 import { useRemoteConfigStore } from "../stores/remoteConfig";
 
-const getAd = async (): Promise<RemoteConfig> => {
+const getRemoteConfig = async (): Promise<RemoteConfig> => {
   return axios.get('/data/remoteConfiguration.json');
 }
 
-type QueryFnType = typeof getAd;
+type QueryFnType = typeof getRemoteConfig;
 
-type UseGetAdOptions = {
+type UseGetRemoteConfigOptions = {
   config?: QueryConfig<QueryFnType>;
 };
-export const useGetRemoteConfig = ({ config }: UseGetAdOptions = {}) => {
+export const useGetRemoteConfig = ({ config }: UseGetRemoteConfigOptions = {}) => {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
     onSuccess(remoteConfig) {
       useRemoteConfigStore.getState().setRemoteConfig(remoteConfig);
     },
     ...config,
     queryKey: ['remote-config'],
-    queryFn: () => getAd(),
+    queryFn: () => getRemoteConfig(),
   });
 }
