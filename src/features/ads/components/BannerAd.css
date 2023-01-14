@@ -57,3 +57,9 @@
   bottom: 0;
   right: 0;
 }
+
+.hidden {
+  width: 0;
+  height: 0;
+  display: none;
+}
