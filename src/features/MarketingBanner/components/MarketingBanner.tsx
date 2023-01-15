@@ -107,7 +107,7 @@ export const MarketingBanner = () => {
       dangerouslySetInnerHTML={{
         __html: DOMPurify.sanitize(currentCampaign.htmlContent, {
           ADD_ATTR: ['target'],
-          USE_PROFILES: { html: true },
+          USE_PROFILES: { html: true, svg: true },
         }),
       }}
     />
