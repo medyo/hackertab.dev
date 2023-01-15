@@ -921,6 +921,7 @@ Producthunt item
   animation-duration: 1.5s;
   animation-name: cardPlaceholderPulse;
   animation-iteration-count: infinite;
+  scroll-snap-align: start;
 }
 .mediaCardPlaceholder {
   display: flex;
@@ -936,6 +937,7 @@ Producthunt item
 }
 .cardPlaceholder .cardContent {
   display: flex;
+  flex: auto;
   flex-direction: column;
 }
 .cardPlaceholder .cardUpvote {
@@ -969,6 +971,18 @@ Producthunt item
   width: 73px;
   margin-right: 16px;
   border-radius: 4px;
+}
+.adCardPlaceholder {
+  width: 300px;
+  column-gap: 16px;
+  display: flex;
+  flex-direction: row;
+  margin:0 auto;
+}
+.adCardPlaceholder .image {
+  background: var(--placeholder-background-color);
+  flex: 0 0 130px;
+  height: 100px 
 }
 
 .floatingFilter {

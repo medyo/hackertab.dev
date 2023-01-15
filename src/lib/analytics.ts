@@ -17,6 +17,7 @@ enum Objects {
   SEARCH_ENGINE = 'Search Engine',
   LISTING_MODE = 'Listing Mode',
   CHANGE_LOG = 'Change Log',
+  MARKETING_CAMPAIGN = 'Marketing Campaign',
 }
 
 enum Verbs {
@@ -26,6 +27,7 @@ enum Verbs {
   SELECT = 'Select',
   ADD = 'Add',
   OPEN = 'Open',
+  CLOSE = 'Close',
   TARGET = 'Target',
   BOOKMARK = 'Bookmark',
   UNBOOKMARK = 'Unbookmark',
@@ -49,7 +51,8 @@ export enum Attributes {
   TRIGERED_FROM = 'Trigered From',
   TITLE = 'Title',
   LINK = 'Link',
-  SOURCE_TAGS = 'Source Tags'
+  SOURCE_TAGS = 'Source Tags',
+  CAMPAIGN_ID = 'Campaign Id'
 }
 
 const _SEP_ = ' '
@@ -217,6 +220,29 @@ export const trackChangeLogOpen = () => {
   })
 }
 
+export const trackMarketingCampaignOpen = (campaignId: string) => {
+  trackEvent({
+    object: Objects.MARKETING_CAMPAIGN,
+    verb: Verbs.OPEN,
+    attributes: { [Attributes.CAMPAIGN_ID]: campaignId }
+  })
+}
+
+export const trackMarketingCampaignClose = (campaignId: string) => {
+  trackEvent({
+    object: Objects.MARKETING_CAMPAIGN,
+    verb: Verbs.CLOSE,
+    attributes: { [Attributes.CAMPAIGN_ID]: campaignId }
+  })
+}
+
+export const trackMarketingCampaignView = (campaignId: string) => {
+  trackEvent({
+    object: Objects.MARKETING_CAMPAIGN,
+    verb: Verbs.VIEW,
+    attributes: { [Attributes.CAMPAIGN_ID]: campaignId }
+  })
+}
 // Identification
 
 export const identifyUserLanguages = (languages: string[]) => {

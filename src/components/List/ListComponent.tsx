@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import { Placeholder } from 'src/components/placeholders'
 import { MAX_ITEMS_PER_CARD } from 'src/config'
-import { CarbonAd } from 'src/features/carbonAds'
+import { BannerAd } from 'src/features/ads'
 import { BaseEntry } from 'src/types'
 
 type PlaceholdersProps = {
@@ -52,7 +52,7 @@ export function ListComponent<T extends BaseEntry>(props: ListComponentPropsType
     return items.slice(0, limit).map((item, index) => {
       let content: ReactNode[] = [renderItem(item, index)]
       if (withAds && index === 0) {
-        content.unshift(<CarbonAd key={'carbonAd0'} />)
+        content.unshift(<BannerAd key={'banner-ad'} />)
       }
       return content
     })

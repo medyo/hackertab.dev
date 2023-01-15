@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://hackertab.dev" />
     <script src="./startup.js"></script>
 
-    <% if (!!+process.env.REACT_APP_WEB_BUILD) { %>
+    <% if (process.env.REACT_APP_BUILD_TARGET==='web' ) { %>
       <title>Hackertab</title>
       <link rel="manifest" href="%PUBLIC_URL%/web_manifest.json" />
       <% } else { %>

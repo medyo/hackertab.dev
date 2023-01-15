@@ -1,17 +1,15 @@
 import create from 'zustand';
 import { persist } from 'zustand/middleware'
-import { RemoteConfig, Tag, MarketingBannerConfig } from "../types";
+import { RemoteConfig, Tag } from "../types";
 
-type ChangelogVersionStore = {
+type RemoteConfigStore = {
   supportedTags: Tag[];
-  refresh_rate: number | false;
-  marketingBannerConfig?: MarketingBannerConfig;
+  marketingBannerConfig?: any;
   setRemoteConfig: (remoteConfig: RemoteConfig) => void;
 };
 
-export const useRemoteConfigStore = create(persist<ChangelogVersionStore>((set) => ({
+export const useRemoteConfigStore = create(persist<RemoteConfigStore>((set) => ({
   marketingBannerConfig: undefined,
-  refresh_rate: false,
   supportedTags: [
     {
       value: 'javascript',
@@ -27,8 +25,17 @@ export const useRemoteConfigStore = create(persist<ChangelogVersionStore>((set) 
   ],
   setRemoteConfig: (remoteConfig: RemoteConfig) =>
     set(() => {
-      return { ...remoteConfig }
+      const { marketingBannerConfig, ...otherConfigs } = remoteConfig
+      return { ...otherConfigs }
     }),
 }), {
   name: 'remote_config_storage',
+  version: 1,
+  migrate(persistedState, version) {
+    const newState = persistedState as RemoteConfigStore;
+    if (version === 0) {
+      delete newState.marketingBannerConfig
+    }
+    return newState;
+  },
 }));
