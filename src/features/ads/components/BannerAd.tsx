@@ -1,13 +1,16 @@
 import './BannerAd.css'
 import { useGetAd } from '../api/getAd'
+import { useUserPreferences } from 'src/stores/preferences'
 import { AdPlaceholder } from 'src/components/placeholders'
 
 export const BannerAd = () => {
+  const { userSelectedTags } = useUserPreferences()
   const {
     data: ad,
     isLoading,
     isError,
   } = useGetAd({
+    keywords: userSelectedTags.map(tag => tag.label.toLocaleLowerCase()),
     config: {
       cacheTime: 0,
       staleTime: 0,
@@ -57,7 +60,7 @@ export const BannerAd = () => {
         </span>
       </div>
       {ad.viewUrl && (
-        <img src={ad.viewUrl} key={ad.viewUrl} className="hidden" alt="Pixel" />
+        <img src={ad.viewUrl} key={ad.viewUrl} className="hidden" alt="" />
       )}
     </div>
   )
