@@ -12,7 +12,7 @@ import {
   trackMarketingCampaignView,
   trackMarketingCampaignOpen,
 } from 'src/lib/analytics'
-import { DiffBetweenTwoDatesInDays } from 'src/utils/DateUtils'
+import { diffBetweenTwoDatesInDays } from 'src/utils/DateUtils'
 
 export const MarketingBanner = () => {
   const { setCampaignClosed, closedCampaigns } = useMarketingConfigStore()
@@ -34,7 +34,7 @@ export const MarketingBanner = () => {
       userTags: userSelectedTags.map((tag) => tag.label),
       cards: cards.map((card) => card.name),
       firstSeenDate,
-      usageInDays: DiffBetweenTwoDatesInDays(firstSeenDate, Date.now()),
+      usageInDays: diffBetweenTwoDatesInDays(firstSeenDate, Date.now()),
     }
   }, [userSelectedTags, firstSeenDate, cards])
 
