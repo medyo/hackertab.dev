@@ -13,6 +13,7 @@ import {
   trackMarketingCampaignOpen,
 } from 'src/lib/analytics'
 import { diffBetweenTwoDatesInDays } from 'src/utils/DateUtils'
+import { isMobile } from 'react-device-detect'
 
 export const MarketingBanner = () => {
   const { setCampaignClosed, closedCampaigns } = useMarketingConfigStore()
@@ -21,7 +22,7 @@ export const MarketingBanner = () => {
   const { data: marketingConfig } = useGetMarketingConfig({
     config: {
       staleTime: 60000,
-      cacheTime: 3600000,
+      cacheTime: 600000,
     },
   })
 
@@ -30,6 +31,7 @@ export const MarketingBanner = () => {
       platform: isWebOrExtensionVersion(),
       browser: getBrowserName(),
       version: getAppVersion() || '0.0.0',
+      device: isMobile ? "mobile" : "desktop",
       environment: isProduction() ? 'prod' : 'dev',
       userTags: userSelectedTags.map((tag) => tag.label),
       cards: cards.map((card) => card.name),
@@ -61,7 +63,7 @@ export const MarketingBanner = () => {
     const campaignsWithUserAttr = config.campaigns.map((camp) => {
       return { ...camp, userAtttributes: userAtttributes }
     })
-
+    
     const lastVisibleAdDate = Math.max(...closedCampaigns.map((camp) => camp.date))
     if (lastVisibleAdDate > Date.now() - config.campaigns_interval) {
       return []
