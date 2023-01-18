@@ -1,19 +1,15 @@
 {
   "name": "Hackertab.dev - developer news",
   "description": "All developer news in one tab",
-  "version": "1.15.2",
-  "manifest_version": 3,
+  "version": "1.2.3",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
+  "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
   },
-  "host_permissions": ["https://*.hackertab.dev/*"],
-  "icons": {
-    "16": "/logos/logo16.png",
-    "32": "/logos/logo32.png",
-    "48": "/logos/logo48.png",
-    "128": "/logos/logo128.png"
-  }
+  "host_permissions": [
+    "https://*.hackertab.dev/*"
+  ]
 }
