@@ -27,3 +27,4 @@ yarn-debug.log*
 yarn-error.log*
 TODO
 jq
+public/manifest.json
