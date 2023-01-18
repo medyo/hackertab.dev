@@ -41,7 +41,6 @@ jobs:
         run: yarn
       - name: Build and zip the extension
         run: |
-          sudo apt-get install jq -y
           echo version=${{ steps.tag_version.outputs.new_version }}
           if [ ${{github.event.inputs.targetStore}} == 'chrome' ] || [ ${{github.event.inputs.targetStore}} == 'all' ]; then
             yarn build-chrome
