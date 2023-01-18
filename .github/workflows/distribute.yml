@@ -27,9 +27,13 @@ env:
   REACT_APP_AMPLITUDE_URL: ${{ secrets.REACT_APP_AMPLITUDE_URL }}
   REACT_APP_AMPLITUDE_KEY: ${{ secrets.REACT_APP_AMPLITUDE_KEY }}
 jobs:
+  runs-on: ubuntu-latest
+  defaults:
+    run:
+      working-directory: ./hackertab
+
   install-dependencies:
     needs: tag_version
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -42,7 +46,6 @@ jobs:
         run: yarn
       
   tag_version:
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Bump version and push tag
@@ -68,7 +71,6 @@ jobs:
   chrome-deploy:
     if: ${{ (github.event.inputs.targetStore == 'chrome') || (github.event.inputs.targetStore == 'all') }}
     needs: install-dependencies
-    runs-on: ubuntu-latest
     steps:     
       - name: Build and zip the extension
         run: yarn build-chrome
@@ -86,7 +88,6 @@ jobs:
   firefox-deploy:
     if: ${{ (github.event.inputs.targetStore == 'firefox') || (github.event.inputs.targetStore == 'all') }}
     needs: install-dependencies
-    runs-on: ubuntu-latest
     steps:
       - name: Build and zip the extension
         run: yarn build-firefox
