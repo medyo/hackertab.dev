@@ -1,7 +1,7 @@
 {
   "short_name": "Hackertab.dev",
-  "name": "The Developer’s Homepage",
-  "description": "Hackertab helps developers stay up-to-date with the latest tech happenings",
+  "name": "All developer news in one tab",
+  "description": "Hackertab helps developers stay up-to-date with the latest dev trends and tools",
   "icons": [
     {
       "src": "/logos/logoVector.svg",

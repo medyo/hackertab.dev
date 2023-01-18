@@ -44,9 +44,10 @@
   "proxy": "https://api.hackertab.dev/",
   "scripts": {
     "start": "craco start",
-    "web-build": "craco --max_old_space_size=4096 build",
+    "build-web": "craco --max_old_space_size=4096 build",
     "build": "./script/build.sh",
-    "stores-build": "./script/stores_build.sh",
+    "build-firefox": "./script/build-firefox.sh",
+    "build-chrome": "./script/build-chrome.sh",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
