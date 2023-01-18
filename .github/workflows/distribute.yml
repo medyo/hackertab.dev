@@ -40,14 +40,6 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Install yarn dependencies
         run: yarn
-      - name: Build and zip the extension
-        run: |
-          if [ ${{github.event.inputs.targetStore}} == 'chrome' ] || [ ${{github.event.inputs.targetStore}} == 'all' ]; then
-            yarn build-chrome
-          fi
-          if [ ${{github.event.inputs.targetStore}} == 'firefox' ] || [ ${{github.event.inputs.targetStore}} == 'all' ]; then
-            yarn build-firefox
-          fi
       
   tag_version:
     runs-on: ubuntu-latest
@@ -78,6 +70,8 @@ jobs:
     needs: install-dependencies
     runs-on: ubuntu-latest
     steps:     
+      - name: Build and zip the extension
+        run: yarn build-chrome
       - name: Install chrome dependencies
         run: yarn global add chrome-webstore-upload-cli
         
@@ -94,8 +88,10 @@ jobs:
     needs: install-dependencies
     runs-on: ubuntu-latest
     steps:
+      - name: Build and zip the extension
+        run: yarn build-firefox
       - name: Install Firefox dependencies
-        run: yarn global add web-ext web-ext-submit@6
+        run: yarn global add web-ext web-ext-submit@7
         
       - name: Upload the package to Firefox web store
         if: ${{ github.event.inputs.testMode == 'false' }}
