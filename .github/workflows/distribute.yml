@@ -78,7 +78,7 @@ jobs:
           CLIENT_ID: ${{secrets.CHROME_EXTENSION_CLIENT_ID}}
           REFRESH_TOKEN: ${{secrets.CHROME_EXTENSION_REFRESH_TOKEN}}
           CLIENT_SECRET: ${{secrets.CHROME_EXTENSION_CLIENT_SECRET}}
-        run: chrome-webstore-upload upload --source dist/chrome_extension.zip --extension-id $EXTENSION_ID --auto-publish
+        run: chrome-webstore-upload upload --source chrome_extension.zip --extension-id $EXTENSION_ID --auto-publish
 
   firefox-deploy:
     if: ${{ (github.event.inputs.targetStore == 'firefox') || (github.event.inputs.targetStore == 'all') }}
