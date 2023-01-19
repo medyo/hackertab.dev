@@ -26,29 +26,6 @@ env:
   REACT_APP_BUILD_TARGET: 'extension'
 
 jobs:
-  install-dependencies:
-    needs: tag_version
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: master
-      - uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - name: Install yarn dependencies
-        run: yarn
-      - name: Build and zip the extension
-        run: |
-          echo version=${{ steps.tag_version.outputs.new_version }}
-          if [ ${{github.event.inputs.targetStore}} == 'chrome' ] || [ ${{github.event.inputs.targetStore}} == 'all' ]; then
-            yarn build-chrome
-          fi
-          if [ ${{github.event.inputs.targetStore}} == 'firefox' ] || [ ${{github.event.inputs.targetStore}} == 'all' ]; then
-            yarn build-firefox
-          fi
-      
   tag_version:
     runs-on: ubuntu-latest
     steps:
@@ -75,9 +52,22 @@ jobs:
 
   chrome-deploy:
     if: ${{ (github.event.inputs.targetStore == 'chrome') || (github.event.inputs.targetStore == 'all') }}
-    needs: install-dependencies
+    needs: tag_version
     runs-on: ubuntu-latest
-    steps:     
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: master
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install yarn dependencies
+        run: yarn
+        
+      - name: Build and zip the extension
+        run: yarn build-chrome
+        
       - name: Install chrome dependencies
         run: yarn global add chrome-webstore-upload-cli
         
@@ -92,9 +82,22 @@ jobs:
 
   firefox-deploy:
     if: ${{ (github.event.inputs.targetStore == 'firefox') || (github.event.inputs.targetStore == 'all') }}
-    needs: install-dependencies
+    needs: tag_version
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: master
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install yarn dependencies
+        run: yarn
+  
+      - name: Build and zip the extension
+        run: yarn build-firefox
+  
       - name: Install Firefox dependencies
         run: yarn global add web-ext web-ext-submit@6
         
