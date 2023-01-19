@@ -16,7 +16,7 @@
     "country-emoji": "^1.5.4",
     "dompurify": "^2.2.7",
     "eslint-plugin-react": "^7.28.0",
-    "jspath": "^0.4.0",
+    "jsonpath": "^1.1.1",
     "localforage": "^1.9.0",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.0.0-0",
@@ -74,6 +74,7 @@
   "devDependencies": {
     "@types/chrome": "^0.0.198",
     "@types/jest": "^29.1.2",
+    "@types/jsonpath": "^0.2.0",
     "@types/node": "^18.11.0",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",

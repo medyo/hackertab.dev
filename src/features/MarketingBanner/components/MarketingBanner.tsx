@@ -1,6 +1,5 @@
 import DOMPurify from 'dompurify'
 import { useMarketingConfigStore } from '../stores/marketingBanner'
-import JSPath from 'jspath'
 import { useUserPreferences } from 'src/stores/preferences'
 import { getAppVersion } from 'src/utils/Os'
 import { isWebOrExtensionVersion, isProduction, getBrowserName } from 'src/utils/Environment'
@@ -14,6 +13,7 @@ import {
 } from 'src/lib/analytics'
 import { diffBetweenTwoDatesInDays } from 'src/utils/DateUtils'
 import { isMobile } from 'react-device-detect'
+import jsonPath from "jsonpath";
 
 export const MarketingBanner = () => {
   const { setCampaignClosed, closedCampaigns } = useMarketingConfigStore()
@@ -41,7 +41,7 @@ export const MarketingBanner = () => {
   }, [userSelectedTags, firstSeenDate, cards])
 
   useEffect(() => {
-    if (marketingConfig) {
+    if (marketingConfig && marketingConfig.version == 1) {
       const availableCampaigns: Campaign[] = getAvailableCampaigns(marketingConfig)
       setAvailableCampaigns(availableCampaigns)
     }
@@ -60,8 +60,9 @@ export const MarketingBanner = () => {
   }
 
   const getAvailableCampaigns = (config: MarketingConfig) => {
+
     const campaignsWithUserAttr = config.campaigns.map((camp) => {
-      return { ...camp, userAtttributes: userAtttributes }
+      return { ...camp, attrs: userAtttributes }
     })
     
     const lastVisibleAdDate = Math.max(...closedCampaigns.map((camp) => camp.date))
@@ -69,14 +70,20 @@ export const MarketingBanner = () => {
       return []
     }
 
-    const closedCampaignsSet = new Set(closedCampaigns.map((closedCamp) => closedCamp.id))
-    const availableCampaigns = campaignsWithUserAttr
-      .filter((camp) => camp.enabled && !closedCampaignsSet.has(camp.id))
-      .flatMap((camp) => JSPath.apply(camp.condition, camp))
-      .sort((a, b) => (a.priority || 0) - (b.priority || 0))
-      .reverse()
-
-    return availableCampaigns
+    try {
+      const closedCampaignsSet = new Set(closedCampaigns.map((closedCamp) => closedCamp.id))
+      const availableCampaigns = campaignsWithUserAttr
+        .filter((camp) => camp.enabled && !closedCampaignsSet.has(camp.id))
+        .flatMap((camp) => jsonPath.query([camp], camp.condition) as Campaign[])
+        .sort((a, b) => (a.priority || 0) - (b.priority || 0))
+        .reverse()
+  
+      return availableCampaigns
+    } catch(e) {
+      console.log("getAvailableCampaigns", e)
+      return []
+    }
+    
   }
 
   if (!marketingConfig.enabled) {
