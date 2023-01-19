@@ -48,8 +48,8 @@ jobs:
   tag_version:
     runs-on: ubuntu-latest
     defaults:
-    run:
-      working-directory: ./hackertab
+      run:
+        working-directory: ./hackertab
     steps:
       - uses: actions/checkout@v2
       - name: Bump version and push tag
