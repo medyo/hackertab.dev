@@ -27,12 +27,12 @@ env:
   REACT_APP_AMPLITUDE_URL: ${{ secrets.REACT_APP_AMPLITUDE_URL }}
   REACT_APP_AMPLITUDE_KEY: ${{ secrets.REACT_APP_AMPLITUDE_KEY }}
 jobs:
-  runs-on: ubuntu-latest
   defaults:
     run:
       working-directory: ./hackertab
 
   install-dependencies:
+    runs-on: ubuntu-latest
     needs: tag_version
     steps:
       - uses: actions/checkout@v2
@@ -46,6 +46,7 @@ jobs:
         run: yarn
       
   tag_version:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Bump version and push tag
@@ -69,6 +70,7 @@ jobs:
           message: "Bump manifest version"
 
   chrome-deploy:
+    runs-on: ubuntu-latest
     if: ${{ (github.event.inputs.targetStore == 'chrome') || (github.event.inputs.targetStore == 'all') }}
     needs: install-dependencies
     steps:     
@@ -86,6 +88,7 @@ jobs:
         run: chrome-webstore-upload upload --source dist/chrome_extension.zip --extension-id $EXTENSION_ID --auto-publish
 
   firefox-deploy:
+    runs-on: ubuntu-latest
     if: ${{ (github.event.inputs.targetStore == 'firefox') || (github.event.inputs.targetStore == 'all') }}
     needs: install-dependencies
     steps:
