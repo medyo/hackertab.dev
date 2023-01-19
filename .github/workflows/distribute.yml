@@ -31,9 +31,6 @@ jobs:
   install-dependencies:
     runs-on: ubuntu-latest
     needs: tag_version
-    defaults:
-      run:
-        working-directory: ./hackertab
     steps:
       - uses: actions/checkout@v2
         with:
@@ -47,9 +44,6 @@ jobs:
       
   tag_version:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./hackertab
     steps:
       - uses: actions/checkout@v2
       - name: Bump version and push tag
@@ -74,9 +68,6 @@ jobs:
 
   chrome-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./hackertab
     if: ${{ (github.event.inputs.targetStore == 'chrome') || (github.event.inputs.targetStore == 'all') }}
     needs: install-dependencies
     steps:     
@@ -95,9 +86,6 @@ jobs:
 
   firefox-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./hackertab
     if: ${{ (github.event.inputs.targetStore == 'firefox') || (github.event.inputs.targetStore == 'all') }}
     needs: install-dependencies
     steps:
