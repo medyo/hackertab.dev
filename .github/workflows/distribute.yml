@@ -58,7 +58,7 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          dry_run: ${{ github.event.inputs.testMode == 'true' }}
+          dry_run: ${{ github.event.inputs.autoTag == 'false' }}
 
       - name: Update manifest.json
         if: github.event.inputs.autoTag == 'true'
