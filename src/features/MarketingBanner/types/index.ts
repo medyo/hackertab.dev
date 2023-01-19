@@ -1,6 +1,7 @@
 export type MarketingConfig = {
   enabled: boolean;
   campaigns_interval: number;
+  version: number;
   campaigns: Campaign[]
 }
 
@@ -15,5 +16,5 @@ export type Campaign = {
 }
 
 type UserAttribute = {
-  [key: string]: string | string[];
+  [key: string]: string | number | string[];
 }
