@@ -44,16 +44,13 @@ export const FloatingFilter = ({ card, filters = ['language'] }: ListingFilterMo
                 <p className="settingTitle">Language</p>
                 <div className="settingContent">
                   <ChipsSet
-                    defaultValue={
-                      availableTagOptions.find(
-                        (tag) => tag.value === cardsSettings[card.value]?.language
-                      ) || {
-                        label: GLOBAL_TAG.label,
-                        value: GLOBAL_TAG.value,
-                      }
+                    defaultValues={
+                      availableTagOptions
+                        .filter((tag) => tag.value === cardsSettings[card.value]?.language)
+                        ?.map((tag) => tag.label) || [GLOBAL_TAG.value]
                     }
                     options={availableTagOptions}
-                    onChange={(option) => {
+                    onChange={(_, option) => {
                       setCardSettings(card.value, {
                         ...cardsSettings[card.value],
                         language: option.value,
@@ -70,13 +67,13 @@ export const FloatingFilter = ({ card, filters = ['language'] }: ListingFilterMo
                 <p className="settingTitle">Date Range</p>
                 <div className="settingContent">
                   <ChipsSet
-                    defaultValue={
-                      dateRanges.find(
-                        (date) => date.value === cardsSettings[card.value]?.dateRange
-                      ) || dateRanges[0]
+                    defaultValues={
+                      dateRanges
+                        .filter((date) => date.value === cardsSettings[card.value]?.dateRange)
+                        .map((date) => date.value) || dateRanges[0].value
                     }
                     options={dateRanges}
-                    onChange={(option) => {
+                    onChange={(_, option) => {
                       setCardSettings(card.value, {
                         ...cardsSettings[card.value],
                         dateRange: option.value,

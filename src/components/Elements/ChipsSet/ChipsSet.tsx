@@ -1,5 +1,6 @@
-import { Option } from 'src/types'
 import { useState } from 'react'
+import { Option } from 'src/types'
+import './chipset.css'
 
 type ChipProps = {
   option: Option
@@ -10,30 +11,41 @@ type ChipProps = {
 const Chip = ({ option, onSelect, active = false }: ChipProps) => {
   return (
     <button className={'chip ' + (active && 'active')} onClick={() => onSelect(option)}>
+      {option.icon && <span className="chipIcon">{option.icon}</span>}
       {option.label}
     </button>
   )
 }
-
+type ChangeAction = 'ADD' | 'REMOVE'
 type ChipsSetProps = {
   options: Option[]
-  defaultValue: Option
-  onChange: (option: Option) => void
+  defaultValues?: string[]
+  onChange?: (action: ChangeAction, option: Option) => void
 }
 
-export const ChipsSet = ({ options, onChange, defaultValue }: ChipsSetProps) => {
-  const [selectedChip, setSelectedChip] = useState<Option>(defaultValue)
+export const ChipsSet = ({ options, onChange, defaultValues }: ChipsSetProps) => {
+  const [selectedChips, setSelectedChips] = useState<string[] | undefined>(defaultValues || [])
 
   const onSelect = (option: Option) => {
-    setSelectedChip(option)
-    onChange(option)
+    if (selectedChips?.some((chipValue) => chipValue === option.value)) {
+      setSelectedChips((prev) => prev?.filter((chipValue) => chipValue !== option.value))
+      onChange && onChange('REMOVE', option)
+    } else {
+      setSelectedChips((prev) => [...(prev || []), option.value])
+      onChange && onChange('ADD', option)
+    }
   }
 
   return (
     <div className="chipsSet">
       {options.map((option) => {
         return (
-          <Chip option={option} onSelect={onSelect} active={selectedChip.value === option.value} />
+          <Chip
+            key={option.value}
+            option={option}
+            onSelect={onSelect}
+            active={selectedChips?.some((chipValue) => chipValue === option.value) || false}
+          />
         )
       })}
     </div>
