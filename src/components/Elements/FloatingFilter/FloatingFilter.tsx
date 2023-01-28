@@ -1,11 +1,11 @@
-import { SupportedCard, GLOBAL_TAG, MY_LANGUAGES_TAG, dateRanges } from 'src/config'
-import { FiFilter } from 'react-icons/fi'
 import { useState } from 'react'
+import { FiFilter } from 'react-icons/fi'
 import { BottomSheet } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
-import { useUserPreferences } from 'src/stores/preferences'
-import { trackCardLanguageSelect, trackCardDateRangeSelect } from 'src/lib/analytics'
 import { ChipsSet } from 'src/components/Elements'
+import { dateRanges, GLOBAL_TAG, MY_LANGUAGES_TAG, SupportedCard } from 'src/config'
+import { trackCardDateRangeSelect, trackCardLanguageSelect } from 'src/lib/analytics'
+import { useUserPreferences } from 'src/stores/preferences'
 
 type ListingFilterMobileProps = {
   card: SupportedCard
@@ -53,9 +53,9 @@ export const FloatingFilter = ({ card, filters = ['language'] }: ListingFilterMo
                     onChange={(_, option) => {
                       setCardSettings(card.value, {
                         ...cardsSettings[card.value],
-                        language: option.value,
+                        language: option[0].value,
                       })
-                      trackCardLanguageSelect(card.analyticsTag, option.value)
+                      trackCardLanguageSelect(card.analyticsTag, option[0].value)
                     }}
                   />
                 </div>
@@ -76,9 +76,9 @@ export const FloatingFilter = ({ card, filters = ['language'] }: ListingFilterMo
                     onChange={(_, option) => {
                       setCardSettings(card.value, {
                         ...cardsSettings[card.value],
-                        dateRange: option.value,
+                        dateRange: option[0].value,
                       })
-                      trackCardDateRangeSelect(card.analyticsTag, option.value)
+                      trackCardDateRangeSelect(card.analyticsTag, option[0].value)
                     }}
                   />
                 </div>

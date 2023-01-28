@@ -20,19 +20,44 @@ type ChangeAction = 'ADD' | 'REMOVE'
 type ChipsSetProps = {
   options: Option[]
   defaultValues?: string[]
-  onChange?: (action: ChangeAction, option: Option) => void
+  canSelectMultiple?: boolean
+  onChange?: (action: ChangeAction, options: Option[]) => void
 }
 
-export const ChipsSet = ({ options, onChange, defaultValues }: ChipsSetProps) => {
+export const ChipsSet = ({
+  options,
+  canSelectMultiple = false,
+  onChange,
+  defaultValues,
+}: ChipsSetProps) => {
   const [selectedChips, setSelectedChips] = useState<string[] | undefined>(defaultValues || [])
 
   const onSelect = (option: Option) => {
     if (selectedChips?.some((chipValue) => chipValue === option.value)) {
-      setSelectedChips((prev) => prev?.filter((chipValue) => chipValue !== option.value))
-      onChange && onChange('REMOVE', option)
+      if (!canSelectMultiple) {
+        return
+      }
+      const newVal = selectedChips?.filter((chipValue) => chipValue !== option.value)
+      setSelectedChips(newVal)
+      onChange &&
+        onChange(
+          'REMOVE',
+          options.filter((opt) => newVal.some((selectedVal) => selectedVal === opt.value))
+        )
     } else {
-      setSelectedChips((prev) => [...(prev || []), option.value])
-      onChange && onChange('ADD', option)
+      let newVal: string[] = []
+      if (canSelectMultiple) {
+        newVal = [...(selectedChips || []), option.value]
+      } else {
+        newVal = [option.value]
+      }
+
+      setSelectedChips(newVal)
+      onChange &&
+        onChange(
+          'ADD',
+          options.filter((opt) => newVal.some((selectedVal) => selectedVal === opt.value))
+        )
     }
   }
 
