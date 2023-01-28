@@ -1,0 +1,105 @@
+.onboardingModal {
+  padding: 24px 0 0 0;
+}
+.occupations {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(3, 110px);
+  gap: 18px;
+  grid-auto-rows: minmax(110px, auto);
+  margin: 0 72px;
+}
+
+.occupation {
+  background: none;
+  border: 1px solid var(--chip-border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 6px;
+  border-radius: 8px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+.occupation:hover {
+  filter: brightness(95%);
+}
+.occupation.active {
+  border: none;
+  background-color: var(--chip-active-background);
+}
+.occupation.active .occupationIcon,
+.occupation.active .occupationTitle {
+  color: var(--chip-active-text);
+}
+
+.occupationIcon {
+  width: 24px;
+  height: 24px;
+  color: var(--chip-text);
+}
+.occupationTitle {
+  margin: 0;
+  font-family: nunito;
+  font-size: 15px;
+  text-align: center;
+  color: var(--chip-text);
+}
+.tabHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px 0;
+  padding: 32px 0 42px 0;
+}
+.tabTitle {
+  margin: 0;
+  font-family: nunito;
+  text-align: center;
+  font-weight: bold;
+  color: var(--tab-title-color);
+}
+.tabBody {
+  margin: 0;
+  text-align: center;
+  font-size: 18px;
+  color: var(--tab-description-color);
+}
+.tabContent {
+  border: 1px solid var(--tab-border-color);
+  padding: 16px;
+  border-radius: 12px;
+}
+.tabFooter {
+  display: flex;
+  flex-direction: row;
+  column-gap: 12px;
+  align-items: center;
+  margin-top: 32px;
+  justify-content: flex-end;
+}
+.tabFooter button {
+  border: none;
+  background: var(--tab-neutral-button-background);
+  color: var(--tab-neutral-button-text);
+  border-radius: 50px;
+  padding: 8px 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+.tabFooter button:hover {
+  filter: brightness(95%);
+}
+
+.tabFooter .positiveButton {
+  background: var(--tab-positive-button-background);
+  color: var(--tab-positive-button-text);
+}
+
+.sources {
+  justify-content: center;
+  margin: 0 64px;
+}
