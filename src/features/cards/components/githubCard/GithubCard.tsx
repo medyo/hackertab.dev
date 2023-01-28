@@ -1,14 +1,12 @@
-import { Card } from 'src/components/Elements'
+import { Card, FloatingFilter, InlineTextFilter } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
-import { useGetGithubRepos } from '../../api/getGithubRepos'
-import { Repository, CardPropsType } from 'src/types'
+import { dateRanges, GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/config'
+import { trackCardDateRangeSelect, trackCardLanguageSelect } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
-import { getCardTagsValue } from 'src/utils/DataEnhancement'
+import { CardPropsType, Repository } from 'src/types'
+import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement'
+import { useGetGithubRepos } from '../../api/getGithubRepos'
 import RepoItem from './RepoItem'
-import { GLOBAL_TAG, MY_LANGUAGES_TAG, dateRanges } from 'src/config'
-import { trackCardLanguageSelect, trackCardDateRangeSelect } from 'src/lib/analytics'
-import { FloatingFilter, InlineTextFilter } from 'src/components/Elements'
-import { filterUniqueEntries } from 'src/utils/DataEnhancement'
 
 export function GithubCard({ meta, withAds }: CardPropsType) {
   const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
@@ -82,7 +80,6 @@ export function GithubCard({ meta, withAds }: CardPropsType) {
         <InlineTextFilter
           options={dateRanges}
           onChange={(item) => {
-            console.log(item)
             setCardSettings(meta.value, { ...cardsSettings[meta.value], dateRange: item.value })
             trackCardDateRangeSelect(meta.analyticsTag, item.value)
           }}

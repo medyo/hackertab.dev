@@ -4,16 +4,16 @@ Modal
 
 .Modal {
   position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 650px;
-  height: 100vh;
   background-color: var(--card-background-color);
-  padding:24px;
+  padding: 24px;
   border-radius: 10px;
   left: 50%;
-  top: 50%; 
-  margin-left: -325px;
-  margin-top: -325px;
-  box-shadow:0 0 20px #00000052;
+  top: 50%;
+  box-shadow: 0 0 20px #00000052;
   z-index: 3;
 }
 
@@ -24,6 +24,7 @@ Modal
   right: 0;
   bottom: 0;
   background-color: var(--overlay-background-color);
+  backdrop-filter: blur(2px);
 }
 
 .settings {
@@ -32,10 +33,10 @@ Modal
 }
 .settingTitle {
   width: 300px;
-  margin:0;
+  margin: 0;
   margin-right: 8px;
   align-self: flex-start;
-  color: var(--primary-text-color)
+  color: var(--primary-text-color);
 }
 .settingRow {
   padding: 10px 0;
@@ -49,7 +50,7 @@ Modal
 }
 .settingContent {
   width: 100%;
-  flex: 1
+  flex: 1;
 }
 .settingHint {
   font-size: 12px;
@@ -59,7 +60,7 @@ Modal
   text-decoration: underline;
   cursor: pointer;
   font-weight: 500;
-  color: var(--primary-text-color)
+  color: var(--primary-text-color);
 }
 .modalHeader {
   display: flex;
@@ -69,9 +70,9 @@ Modal
 }
 
 .modalTitle {
-  margin:0;
-  padding:0;
-  color: var(--primary-text-color)
+  margin: 0;
+  padding: 0;
+  color: var(--primary-text-color);
 }
 .modalCloseBtn {
   cursor: pointer;
@@ -80,11 +81,11 @@ Modal
   background: none;
   border: none;
   width: 24px;
-  height:24px;
-  padding:0;
-  margin:0;
+  height: 24px;
+  padding: 0;
+  margin: 0;
   border-radius: 24px;
-  color: var(--primary-text-color)
+  color: var(--primary-text-color);
 }
 .modalCloseBtn:hover {
   opacity: 0.7;
@@ -127,24 +128,23 @@ Select styles
   color: var(--tag-text-color) !important;
 }
 .hackertab__multi-value__remove {
-  
   border-radius: 20px !important;
-  color: var(--tag-secondary-color) !important
+  color: var(--tag-secondary-color) !important;
 }
 
 @media (max-width: 768px) {
-
   .Modal {
-    left:0;
+    left: 0;
     top: 0;
-    margin:0;
+    margin: 0;
+    height: 100vh;
     border-radius: 0;
     position: relative;
     box-shadow: none;
-    width: auto
+    width: auto;
   }
   .settingContent {
-    margin-top: 6px;;
+    margin-top: 6px;
   }
   .settingRow {
     flex-direction: column;
