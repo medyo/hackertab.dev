@@ -90,7 +90,7 @@ export const setupIdentification = () => {
   identifyUserSearchEngine(searchEngine)
   identifyUserLinksInNewTab(openLinksNewTab)
   if (onboardingResult?.title) {
-    identifyUserProperty(Attributes.OCCUPATION, onboardingResult.title)
+    identifyUserOccupation(onboardingResult.title)
   }
 }
 
@@ -297,6 +297,10 @@ export const identifyUserSearchEngine = (searchEngineName: string) => {
 export const identifyUserLinksInNewTab = (enabled: boolean) => {
   identifyUserProperty(Attributes.TARGET, enabled ? 'New Tab' : 'Same Tab')
 }
+export const identifyUserOccupation = (occupation: string) => {
+  identifyUserProperty(Attributes.OCCUPATION, occupation)
+}
+
 // Private functions
 type trackEventProps = {
   object: Exclude<Objects, null | undefined>

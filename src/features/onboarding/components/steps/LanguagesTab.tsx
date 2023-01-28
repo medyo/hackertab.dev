@@ -2,7 +2,12 @@ import { ChipsSet, StepProps } from 'src/components/Elements'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
 import { Occupation } from '../../types'
 
-export const LanguagesTab = ({ moveToPrevious, moveToNext, tabsData }: StepProps<Occupation>) => {
+export const LanguagesTab = ({
+  moveToPrevious,
+  moveToNext,
+  setTabsData,
+  tabsData,
+}: StepProps<Occupation>) => {
   const { supportedTags } = useRemoteConfigStore()
 
   const sources = supportedTags
@@ -21,7 +26,14 @@ export const LanguagesTab = ({ moveToPrevious, moveToNext, tabsData }: StepProps
         <p className="tabBody">Select the languages you're interested in following.</p>
       </div>
       <div className="tabContent sources">
-        <ChipsSet options={sources} defaultValues={tabsData.tags} />
+        <ChipsSet
+          canSelectMultiple={true}
+          options={sources}
+          defaultValues={tabsData.tags}
+          onChange={(_, selectedChips) => {
+            setTabsData({ ...tabsData, tags: selectedChips.map((chip) => chip.value) })
+          }}
+        />
       </div>
       <div className="tabFooter">
         <button onClick={() => moveToPrevious && moveToPrevious()}>Back</button>

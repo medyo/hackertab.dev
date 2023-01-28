@@ -3,7 +3,12 @@ import { ChipsSet, StepProps } from 'src/components/Elements'
 import { SUPPORTED_CARDS } from '../../../../config'
 import { Occupation } from '../../types'
 
-export const SourcesTab = ({ moveToPrevious, moveToNext, tabsData }: StepProps<Occupation>) => {
+export const SourcesTab = ({
+  moveToPrevious,
+  moveToNext,
+  setTabsData,
+  tabsData,
+}: StepProps<Occupation>) => {
   const sources = SUPPORTED_CARDS.map((source) => {
     return {
       label: source.label,
@@ -19,7 +24,19 @@ export const SourcesTab = ({ moveToPrevious, moveToNext, tabsData }: StepProps<O
         <p className="tabBody">Select the sources you're interested in following.</p>
       </div>
       <div className="tabContent sources">
-        <ChipsSet options={sources} defaultValues={tabsData.sources} />
+        <ChipsSet
+          canSelectMultiple={true}
+          options={sources}
+          defaultValues={tabsData.sources}
+          onChange={(_, selectedChips) => {
+            console.log(
+              'sources',
+              selectedChips.map((chip) => chip.value)
+            )
+
+            setTabsData({ ...tabsData, sources: selectedChips.map((chip) => chip.value) })
+          }}
+        />
       </div>
       <div className="tabFooter">
         <button onClick={() => moveToPrevious && moveToPrevious()}>Back</button>
