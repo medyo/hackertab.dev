@@ -21,7 +21,7 @@ export const SourcesTab = ({
     <div>
       <div className="tabHeader">
         <h1 className="tabTitle">📙 Pick your sources</h1>
-        <p className="tabBody">Select the sources you're interested in following.</p>
+        <p className="tabBody">Your feed will be tailored by your followed sources</p>
       </div>
       <div className="tabContent sources">
         <ChipsSet

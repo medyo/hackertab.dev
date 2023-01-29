@@ -22,7 +22,7 @@ export const LanguagesTab = ({
   return (
     <div>
       <div className="tabHeader">
-        <h1 className="tabTitle">💻 Select your languages & topics</h1>
+        <h1 className="tabTitle">🦾 Select your languages & topics</h1>
         <p className="tabBody">Select the languages you're interested in following.</p>
       </div>
       <div className="tabContent sources">
