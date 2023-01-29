@@ -13,7 +13,7 @@ import {
 } from 'src/lib/analytics'
 import { diffBetweenTwoDatesInDays } from 'src/utils/DateUtils'
 import { isMobile } from 'react-device-detect'
-import jsonPath from "jsonpath";
+import jsonPath from 'jsonpath'
 
 export const MarketingBanner = () => {
   const { setCampaignClosed, closedCampaigns } = useMarketingConfigStore()
@@ -31,7 +31,7 @@ export const MarketingBanner = () => {
       platform: isWebOrExtensionVersion(),
       browser: getBrowserName(),
       version: getAppVersion() || '0.0.0',
-      device: isMobile ? "mobile" : "desktop",
+      device: isMobile ? 'mobile' : 'desktop',
       environment: isProduction() ? 'prod' : 'dev',
       userTags: userSelectedTags.map((tag) => tag.label),
       cards: cards.map((card) => card.name),
@@ -41,7 +41,7 @@ export const MarketingBanner = () => {
   }, [userSelectedTags, firstSeenDate, cards])
 
   useEffect(() => {
-    if (marketingConfig && marketingConfig.version == 1) {
+    if (marketingConfig && marketingConfig.version === 1) {
       const availableCampaigns: Campaign[] = getAvailableCampaigns(marketingConfig)
       setAvailableCampaigns(availableCampaigns)
     }
@@ -60,11 +60,10 @@ export const MarketingBanner = () => {
   }
 
   const getAvailableCampaigns = (config: MarketingConfig) => {
-
     const campaignsWithUserAttr = config.campaigns.map((camp) => {
       return { ...camp, attrs: userAtttributes }
     })
-    
+
     const lastVisibleAdDate = Math.max(...closedCampaigns.map((camp) => camp.date))
     if (lastVisibleAdDate > Date.now() - config.campaigns_interval) {
       return []
@@ -77,13 +76,12 @@ export const MarketingBanner = () => {
         .flatMap((camp) => jsonPath.query([camp], camp.condition) as Campaign[])
         .sort((a, b) => (a.priority || 0) - (b.priority || 0))
         .reverse()
-  
+
       return availableCampaigns
-    } catch(e) {
-      console.log("getAvailableCampaigns", e)
+    } catch (e) {
+      console.log('getAvailableCampaigns', e)
       return []
     }
-    
   }
 
   if (!marketingConfig.enabled) {

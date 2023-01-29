@@ -26,29 +26,6 @@ env:
   REACT_APP_BUILD_TARGET: 'extension'
 
 jobs:
-  install-dependencies:
-    needs: tag_version
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: master
-      - uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - name: Install yarn dependencies
-        run: yarn
-      - name: Build and zip the extension
-        run: |
-          echo version=${{ steps.tag_version.outputs.new_version }}
-          if [ ${{github.event.inputs.targetStore}} == 'chrome' ] || [ ${{github.event.inputs.targetStore}} == 'all' ]; then
-            yarn build-chrome
-          fi
-          if [ ${{github.event.inputs.targetStore}} == 'firefox' ] || [ ${{github.event.inputs.targetStore}} == 'all' ]; then
-            yarn build-firefox
-          fi
-      
   tag_version:
     runs-on: ubuntu-latest
     steps:
@@ -58,7 +35,7 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          dry_run: ${{ github.event.inputs.testMode == 'true' }}
+          dry_run: ${{ github.event.inputs.autoTag == 'false' }}
 
       - name: Update manifest.json
         if: github.event.inputs.autoTag == 'true'
@@ -75,9 +52,22 @@ jobs:
 
   chrome-deploy:
     if: ${{ (github.event.inputs.targetStore == 'chrome') || (github.event.inputs.targetStore == 'all') }}
-    needs: install-dependencies
+    needs: tag_version
     runs-on: ubuntu-latest
-    steps:     
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: master
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install yarn dependencies
+        run: yarn
+        
+      - name: Build and zip the extension
+        run: yarn build-chrome
+        
       - name: Install chrome dependencies
         run: yarn global add chrome-webstore-upload-cli
         
@@ -87,13 +77,27 @@ jobs:
           EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
           CLIENT_ID: ${{secrets.CHROME_EXTENSION_CLIENT_ID}}
           REFRESH_TOKEN: ${{secrets.CHROME_EXTENSION_REFRESH_TOKEN}}
-        run: chrome-webstore-upload upload --source dist/chrome_extension.zip --extension-id $EXTENSION_ID --auto-publish
+          CLIENT_SECRET: ${{secrets.CHROME_EXTENSION_CLIENT_SECRET}}
+        run: chrome-webstore-upload upload --source chrome_extension.zip --extension-id $EXTENSION_ID --auto-publish
 
   firefox-deploy:
     if: ${{ (github.event.inputs.targetStore == 'firefox') || (github.event.inputs.targetStore == 'all') }}
-    needs: install-dependencies
+    needs: tag_version
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: master
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install yarn dependencies
+        run: yarn
+  
+      - name: Build and zip the extension
+        run: yarn build-firefox
+  
       - name: Install Firefox dependencies
         run: yarn global add web-ext web-ext-submit@6
         

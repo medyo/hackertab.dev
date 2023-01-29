@@ -1,18 +1,21 @@
+import { Occupation } from 'src/features/onboarding/types'
+import { Tag } from 'src/features/remoteConfig'
 import { enhanceTags } from 'src/utils/DataEnhancement'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
-import { SelectedCard, Theme, ListingMode, CardSettingsType } from '../types'
-import { Tag } from 'src/features/remoteConfig'
+import { CardSettingsType, ListingMode, SelectedCard, Theme } from '../types'
 
 export type UserPreferencesState = {
   userSelectedTags: Tag[]
   theme: Theme
   openLinksNewTab: boolean
+  onboardingCompleted: boolean
+  onboardingResult: Omit<Occupation, 'icon'> | null
   listingMode: ListingMode
   searchEngine: string
   cards: SelectedCard[]
   cardsSettings: Record<string, CardSettingsType>
-  firstSeenDate: number;
+  firstSeenDate: number
 }
 
 type UserPreferencesStoreActions = {
@@ -24,6 +27,7 @@ type UserPreferencesStoreActions = {
   setCards: (selectedCards: SelectedCard[]) => void
   setTags: (selectedTags: Tag[]) => void
   setCardSettings: (card: string, settings: CardSettingsType) => void
+  markOnboardingAsCompleted: (occupation: Omit<Occupation, 'icon'> | null) => void
 }
 
 export const useUserPreferences = create(
@@ -32,6 +36,8 @@ export const useUserPreferences = create(
       userSelectedTags: [],
       cardsSettings: {},
       theme: 'dark',
+      onboardingCompleted: false,
+      onboardingResult: null,
       searchEngine: 'google',
       listingMode: 'normal',
       openLinksNewTab: true,
@@ -58,6 +64,11 @@ export const useUserPreferences = create(
             ...state.cardsSettings,
             [card]: { ...state.cardsSettings[card], ...settings },
           },
+        })),
+      markOnboardingAsCompleted: (occupation: Omit<Occupation, 'icon'> | null) =>
+        set(() => ({
+          onboardingCompleted: true,
+          onboardingResult: occupation,
         })),
     }),
     {

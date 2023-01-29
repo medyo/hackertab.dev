@@ -1,5 +1,5 @@
-import { Tag } from "src/features/remoteConfig"
-import { SupportedCard } from "src/config";
+import { Tag } from 'src/features/remoteConfig'
+import { SupportedCard } from 'src/config'
 
 export type SearchEngineType = {
   url: string
@@ -7,31 +7,31 @@ export type SearchEngineType = {
 }
 
 export type SelectedCard = {
-  id: number,
+  id: number
   name: string
 }
 
 export type SelectedTag = {
-  label: string,
+  label: string
   value: string
 }
 
 export type UserPreferences = {
   userSelectedTags: Tag[]
-  theme: "light" | "dark",
-  openLinksNewTab: boolean,
-  listingMode: "normal" | "compact",
-  searchEngine: string,
+  theme: 'light' | 'dark'
+  openLinksNewTab: boolean
+  listingMode: 'normal' | 'compact'
+  searchEngine: string
   cards: SelectedCard[]
 }
 
 export type SearchEngine = {
-  url: string,
-  label: string,
+  url: string
+  label: string
 }
 
-export type Theme = "dark" | "light";
-export type ListingMode = "normal" | "compact";
+export type Theme = 'dark' | 'light'
+export type ListingMode = 'normal' | 'compact'
 
 export type BaseEntry = {
   id: string
@@ -76,7 +76,7 @@ export type Conference = BaseEntry & {
 }
 
 export type CardPropsType = {
-  meta: SupportedCard,
+  meta: SupportedCard
   withAds: boolean
 }
 
@@ -95,4 +95,5 @@ export type CardSettingsType = {
 export type Option = {
   label: string
   value: string
+  icon?: React.ReactNode
 }

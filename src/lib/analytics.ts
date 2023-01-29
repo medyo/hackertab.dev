@@ -1,9 +1,9 @@
-import AppStorage from './localStorage';
-import { init, track, identify, Identify } from '@amplitude/analytics-browser'
-import { isDevelopment } from 'src/utils/Environment';
-import { ANALYTICS_SDK_KEY, ANALYTICS_ENDPOINT, LS_ANALYTICS_ID_KEY } from 'src/config'
-import {getAppVersion} from "src/utils/Os";
-import { useUserPreferences } from "src/stores/preferences";
+import { identify, Identify, init, track } from '@amplitude/analytics-browser'
+import { ANALYTICS_ENDPOINT, ANALYTICS_SDK_KEY, LS_ANALYTICS_ID_KEY } from 'src/config'
+import { useUserPreferences } from 'src/stores/preferences'
+import { isDevelopment } from 'src/utils/Environment'
+import { getAppVersion } from 'src/utils/Os'
+import AppStorage from './localStorage'
 
 enum Objects {
   PAGE = 'Page',
@@ -18,6 +18,7 @@ enum Objects {
   LISTING_MODE = 'Listing Mode',
   CHANGE_LOG = 'Change Log',
   MARKETING_CAMPAIGN = 'Marketing Campaign',
+  ONBOARDING = 'Onboarding',
 }
 
 enum Verbs {
@@ -32,6 +33,9 @@ enum Verbs {
   BOOKMARK = 'Bookmark',
   UNBOOKMARK = 'Unbookmark',
   REMOVE = 'Remove',
+  START = 'Start',
+  FINISH = 'Finish',
+  SKIP = 'Skip',
 }
 
 export enum Attributes {
@@ -52,7 +56,8 @@ export enum Attributes {
   TITLE = 'Title',
   LINK = 'Link',
   SOURCE_TAGS = 'Source Tags',
-  CAMPAIGN_ID = 'Campaign Id'
+  CAMPAIGN_ID = 'Campaign Id',
+  OCCUPATION = 'Occupation',
 }
 
 const _SEP_ = ' '
@@ -61,13 +66,21 @@ export const setupAnalytics = () => {
   init(ANALYTICS_SDK_KEY, getRandomUserId(), {
     disableCookies: true,
     serverUrl: ANALYTICS_ENDPOINT,
-    appVersion: getAppVersion() || "0.0.0",
-    useBatch: false
+    appVersion: getAppVersion() || '0.0.0',
+    useBatch: false,
   })
 }
 
 export const setupIdentification = () => {
-  const { userSelectedTags, theme, cards, listingMode, openLinksNewTab, searchEngine, } = useUserPreferences.getState();
+  const {
+    userSelectedTags,
+    onboardingResult,
+    theme,
+    cards,
+    listingMode,
+    openLinksNewTab,
+    searchEngine,
+  } = useUserPreferences.getState()
 
   identifyUserProperty(Attributes.RESOLUTION, getScreenResolution())
   identifyUserLanguages(userSelectedTags.map((tag: any) => tag.value))
@@ -76,13 +89,16 @@ export const setupIdentification = () => {
   identifyUserListingMode(listingMode)
   identifyUserSearchEngine(searchEngine)
   identifyUserLinksInNewTab(openLinksNewTab)
+  if (onboardingResult?.title) {
+    identifyUserOccupation(onboardingResult.title)
+  }
 }
 
 export const trackPageView = (pageName: string) => {
   trackEvent({
     object: Objects.PAGE,
     verb: Verbs.VIEW,
-    attributes: { [Attributes.PAGE_NAME]: pageName }
+    attributes: { [Attributes.PAGE_NAME]: pageName },
   })
 }
 
@@ -90,7 +106,7 @@ export const trackPageScroll = (direction: 'left' | 'right') => {
   trackEvent({
     object: Objects.PAGE,
     verb: Verbs.SCROLL,
-    attributes: { [Attributes.DIRECTION]: direction }
+    attributes: { [Attributes.DIRECTION]: direction },
   })
 }
 
@@ -98,7 +114,7 @@ export const trackSearchEngineUse = (searchEngineName: string) => {
   trackEvent({
     object: Objects.SEARCH_ENGINE,
     verb: Verbs.SEARCH,
-    attributes: { [Attributes.SEARCH_ENGINE]: searchEngineName }
+    attributes: { [Attributes.SEARCH_ENGINE]: searchEngineName },
   })
 }
 
@@ -106,15 +122,15 @@ export const trackSearchEngineSelect = (searchEngineName: string) => {
   trackEvent({
     object: Objects.SEARCH_ENGINE,
     verb: Verbs.SELECT,
-    attributes: { [Attributes.SEARCH_ENGINE]: searchEngineName }
+    attributes: { [Attributes.SEARCH_ENGINE]: searchEngineName },
   })
 }
 
-export const trackThemeSelect = (theme: "dark" | "light") => {
+export const trackThemeSelect = (theme: 'dark' | 'light') => {
   trackEvent({
     object: Objects.THEME,
     verb: Verbs.SELECT,
-    attributes: { [Attributes.THEME]: theme }
+    attributes: { [Attributes.THEME]: theme },
   })
 }
 
@@ -122,7 +138,7 @@ export const trackLanguageAdd = (languageName: string) => {
   trackEvent({
     object: Objects.LANGUAGE,
     verb: Verbs.ADD,
-    attributes: { [Attributes.LANGUAGE]: languageName }
+    attributes: { [Attributes.LANGUAGE]: languageName },
   })
 }
 
@@ -130,7 +146,7 @@ export const trackLanguageRemove = (languageName: string) => {
   trackEvent({
     object: Objects.LANGUAGE,
     verb: Verbs.REMOVE,
-    attributes: { [Attributes.LANGUAGE]: languageName }
+    attributes: { [Attributes.LANGUAGE]: languageName },
   })
 }
 
@@ -138,7 +154,7 @@ export const trackSourceAdd = (sourceName: string) => {
   trackEvent({
     object: Objects.SOURCE,
     verb: Verbs.ADD,
-    attributes: { [Attributes.SOURCE]: sourceName }
+    attributes: { [Attributes.SOURCE]: sourceName },
   })
 }
 
@@ -146,46 +162,39 @@ export const trackSourceRemove = (sourceName: string) => {
   trackEvent({
     object: Objects.SOURCE,
     verb: Verbs.REMOVE,
-    attributes: { [Attributes.SOURCE]: sourceName }
+    attributes: { [Attributes.SOURCE]: sourceName },
   })
 }
 
-export const trackListingModeSelect = (listingMode: "compact" | "normal") => {
+export const trackListingModeSelect = (listingMode: 'compact' | 'normal') => {
   trackEvent({
     object: Objects.LISTING_MODE,
     verb: Verbs.SELECT,
-    attributes: { [Attributes.LISTING_MODE]: listingMode }
+    attributes: { [Attributes.LISTING_MODE]: listingMode },
   })
 }
 
-export const trackLinkBookmark = (attributes: {
-  [P: string]: string;
-}) => {
+export const trackLinkBookmark = (attributes: { [P: string]: string }) => {
   trackEvent({
     object: Objects.LINK,
     verb: Verbs.BOOKMARK,
-    attributes
+    attributes,
   })
 }
 
-export const trackLinkUnBookmark = (attributes: {
-  [P: string]: string;
-}) => {
+export const trackLinkUnBookmark = (attributes: { [P: string]: string }) => {
   trackEvent({
     object: Objects.LINK,
     verb: Verbs.UNBOOKMARK,
-    attributes
+    attributes,
   })
 }
 
-export const trackLinkOpen = (attributes: {
-  [P: string]: string | number | undefined;
-}) => {
-
+export const trackLinkOpen = (attributes: { [P: string]: string | number | undefined }) => {
   trackEvent({
     object: Objects.LINK,
     verb: Verbs.OPEN,
-    attributes: attributes
+    attributes: attributes,
   })
 }
 
@@ -193,7 +202,7 @@ export const trackTabTarget = (enabled: boolean) => {
   trackEvent({
     object: Objects.TAB,
     verb: Verbs.TARGET,
-    attributes: { [Attributes.TARGET]: enabled ? "New Tab" : "Same Tab" }
+    attributes: { [Attributes.TARGET]: enabled ? 'New Tab' : 'Same Tab' },
   })
 }
 
@@ -201,7 +210,7 @@ export const trackCardLanguageSelect = (sourceName: string, languageName: string
   trackEvent({
     object: Objects.CARD,
     verb: Verbs.SELECT,
-    attributes: { [Attributes.LANGUAGE]: languageName, [Attributes.SOURCE]: sourceName }
+    attributes: { [Attributes.LANGUAGE]: languageName, [Attributes.SOURCE]: sourceName },
   })
 }
 
@@ -209,14 +218,14 @@ export const trackCardDateRangeSelect = (sourceName: string, dateRange: string) 
   trackEvent({
     object: Objects.CARD,
     verb: Verbs.SELECT,
-    attributes: { [Attributes.DATE_RANGE]: dateRange, [Attributes.SOURCE]: sourceName }
+    attributes: { [Attributes.DATE_RANGE]: dateRange, [Attributes.SOURCE]: sourceName },
   })
 }
 
 export const trackChangeLogOpen = () => {
   trackEvent({
     object: Objects.CHANGE_LOG,
-    verb: Verbs.OPEN
+    verb: Verbs.OPEN,
   })
 }
 
@@ -224,7 +233,7 @@ export const trackMarketingCampaignOpen = (campaignId: string) => {
   trackEvent({
     object: Objects.MARKETING_CAMPAIGN,
     verb: Verbs.OPEN,
-    attributes: { [Attributes.CAMPAIGN_ID]: campaignId }
+    attributes: { [Attributes.CAMPAIGN_ID]: campaignId },
   })
 }
 
@@ -232,7 +241,7 @@ export const trackMarketingCampaignClose = (campaignId: string) => {
   trackEvent({
     object: Objects.MARKETING_CAMPAIGN,
     verb: Verbs.CLOSE,
-    attributes: { [Attributes.CAMPAIGN_ID]: campaignId }
+    attributes: { [Attributes.CAMPAIGN_ID]: campaignId },
   })
 }
 
@@ -240,23 +249,45 @@ export const trackMarketingCampaignView = (campaignId: string) => {
   trackEvent({
     object: Objects.MARKETING_CAMPAIGN,
     verb: Verbs.VIEW,
-    attributes: { [Attributes.CAMPAIGN_ID]: campaignId }
+    attributes: { [Attributes.CAMPAIGN_ID]: campaignId },
   })
 }
+
+export const trackOnboardingStart = () => {
+  trackEvent({
+    object: Objects.ONBOARDING,
+    verb: Verbs.START,
+  })
+}
+
+export const trackOnboardingSkip = () => {
+  trackEvent({
+    object: Objects.ONBOARDING,
+    verb: Verbs.SKIP,
+  })
+}
+
+export const trackOnboardingFinish = () => {
+  trackEvent({
+    object: Objects.ONBOARDING,
+    verb: Verbs.FINISH,
+  })
+}
+
 // Identification
 
 export const identifyUserLanguages = (languages: string[]) => {
   identifyUserProperty(Attributes.LANGUAGES, languages)
 }
 
-export const identifyUserListingMode = (listingMode: "compact" | "normal") => {
+export const identifyUserListingMode = (listingMode: 'compact' | 'normal') => {
   identifyUserProperty(Attributes.LISTING_MODE, listingMode)
 }
 export const identifyUserCards = (sources: string[]) => {
   identifyUserProperty(Attributes.SOURCES, sources)
 }
 
-export const identifyUserTheme = (theme: "dark" | "light") => {
+export const identifyUserTheme = (theme: 'dark' | 'light') => {
   identifyUserProperty(Attributes.THEME, theme)
 }
 
@@ -264,15 +295,19 @@ export const identifyUserSearchEngine = (searchEngineName: string) => {
   identifyUserProperty(Attributes.SEARCH_ENGINE, searchEngineName)
 }
 export const identifyUserLinksInNewTab = (enabled: boolean) => {
-  identifyUserProperty(Attributes.TARGET, enabled ? "New Tab" : "Same Tab")
+  identifyUserProperty(Attributes.TARGET, enabled ? 'New Tab' : 'Same Tab')
 }
+export const identifyUserOccupation = (occupation: string) => {
+  identifyUserProperty(Attributes.OCCUPATION, occupation)
+}
+
 // Private functions
 type trackEventProps = {
-  object: Exclude<Objects, null | undefined>,
-  verb: Exclude<Verbs, null | undefined>,
+  object: Exclude<Objects, null | undefined>
+  verb: Exclude<Verbs, null | undefined>
   attributes?: {
     //[P in Exclude<Attributes, null | undefined>]?: string;
-    [P: string]: string | number | undefined;
+    [P: string]: string | number | undefined
   }
 }
 
@@ -281,58 +316,60 @@ const trackEvent = ({ object, verb, attributes }: trackEventProps) => {
     const event = `${object}${_SEP_}${verb}`
 
     if (attributes) {
-      Object.keys(attributes).map(attr => {
-        const value = attributes[attr];
+      Object.keys(attributes).map((attr) => {
+        const value = attributes[attr]
         if (!value) {
-          return null;
+          return null
         }
-        if (typeof value !== "number") {
-          attributes[attr] = value.toLowerCase();
+        if (typeof value !== 'number') {
+          attributes[attr] = value.toLowerCase()
         }
-        return attr;
-      });
+        return attr
+      })
 
       // Remove http and www from links
       if (Object.keys(attributes).some((attr) => attr === Attributes.LINK)) {
-        attributes[Attributes.LINK] = (attributes[Attributes.LINK] as string).replace(/(https*:\/\/[www.]*)/, '')
+        attributes[Attributes.LINK] = (attributes[Attributes.LINK] as string).replace(
+          /(https*:\/\/[www.]*)/,
+          ''
+        )
       }
     }
 
     if (isDevelopment()) {
-      console.log("analytics", event, attributes)
-      return;
+      console.log('analytics', event, attributes)
+      return
     }
 
-    track(event, attributes);
+    track(event, attributes)
   } catch (e) {
-    console.log("analytics", e)
+    console.log('analytics', e)
   }
 }
 
 const identifyUserProperty = (attributes: Attributes, value: string | string[]) => {
-
   try {
-    let formatedValue;
+    let formatedValue
     if (Array.isArray(value)) {
-      formatedValue = value.filter(Boolean).map(item => item.toLowerCase());
+      formatedValue = value.filter(Boolean).map((item) => item.toLowerCase())
     } else {
-      formatedValue = value.toLowerCase();
+      formatedValue = value.toLowerCase()
     }
 
     if (isDevelopment()) {
-      console.log("analytics", "identify", attributes, formatedValue)
-      return;
+      console.log('analytics', 'identify', attributes, formatedValue)
+      return
     }
 
     if (formatedValue == null) {
-      return;
+      return
     }
 
     const identity = new Identify()
     identity.set(attributes.toString(), formatedValue)
     identify(identity)
   } catch (e) {
-    console.log("analytics", e)
+    console.log('analytics', e)
   }
 }
 
@@ -348,7 +385,6 @@ const getRandomUserId = () => {
   }
   return userId
 }
-
 
 const getScreenResolution = (): string => {
   const realWidth = window.screen.width

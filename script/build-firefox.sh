@@ -1,22 +1,5 @@
 echo 'building extension for Firefox...'
 
-# install jq if not installed
-if ! command -v jq &> /dev/null
-then
-    echo "jq command not found. attempting to download jq binary"
-    pth=$(pwd)
-    export PATH=$PATH:$pth
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        curl -L https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -o jq
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        curl -L https://github.com/stedolan/jq/releases/download/jq-1.6/jq-osx-amd64 -o jq
-    else
-        echo "Unsupported OS type. Exiting..."
-        exit 1
-    fi
-    chmod +x jq
-fi
-
 # Merge base and Firefox jsons
 if [ -n "$version" ]; then
     echo "Change manifest version to ${version}"

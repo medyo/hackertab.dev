@@ -1,16 +1,16 @@
-@import "variables.css";
+@import 'variables.css';
 
 html {
-  background: var(--background-color); 
+  background: var(--background-color);
   scroll-behavior: smooth;
 }
 body {
-  color: var(--primary-text-color);  
-  font-family: "nunito";
+  color: var(--primary-text-color);
+  font-family: 'nunito';
   font-size: 100%;
 }
 .transitionBgColor {
-  transition: background-color 0.3s ease-in-out; 
+  transition: background-color 0.3s ease-in-out;
 }
 
 .appLoading {
@@ -44,17 +44,17 @@ a {
   padding: 16px;
 }
 
-.ghostCard{
+.ghostCard {
   opacity: 0.3;
 }
-.cardLoading{
+.cardLoading {
   display: flex;
   justify-content: center;
   min-height: 240px;
   align-items: center;
 }
 .loadingIcon {
-  color: var(--app-name-text-color)
+  color: var(--app-name-text-color);
 }
 .AppHeader {
   display: flex;
@@ -62,8 +62,8 @@ a {
   align-items: center;
   align-content: center;
   flex-wrap: wrap;
-  height:86px;
-  margin: 1% 1% 0px 1%;
+  height: 86px;
+  margin: 0.5% 1% 0px 1%;
 }
 
 .AppFooter {
@@ -80,7 +80,7 @@ a {
   margin-right: 12px;
   cursor: pointer;
   display: inline-flex;
-  vertical-align: middle
+  vertical-align: middle;
 }
 .linkItemIcon {
   margin-right: 4px;
@@ -95,21 +95,20 @@ a {
   gap: 12px;
   padding: 1%;
   position: relative;
-  overflow-y:hidden;
+  overflow-y: hidden;
   padding-bottom: 12px;
   scroll-snap-type: x mandatory;
 }
 
 .HorizontalScroll {
   -ms-overflow-style: none;
-  scrollbar-width: none; 
+  scrollbar-width: none;
 }
 .HorizontalScroll::-webkit-scrollbar {
   display: none;
 }
 
 .extras {
-
   flex-direction: row;
   margin-right: 16px;
   align-content: center;
@@ -124,7 +123,7 @@ a {
   background-color: var(--button-background-color);
   color: var(--button-text-color);
   margin-left: 8px;
-  height:40px;
+  height: 40px;
   width: 40px;
   line-height: 44px;
   font-size: 18px;
@@ -146,7 +145,7 @@ a {
 }
 .extraTextBtnIcon {
   margin-right: 4px;
-  transition: color 400ms,transform .1s;
+  transition: color 400ms, transform 0.1s;
 }
 .extraTextBtn:hover .extraTextBtnIcon {
   color: red;
@@ -168,7 +167,7 @@ a {
   bottom: -6px;
 }
 
-.AppName{
+.AppName {
   color: var(--app-name-text-color);
   text-align: left;
 }
@@ -182,14 +181,13 @@ a {
 .logoText {
   height: 16px;
   width: auto;
-  fill: var(--app-name-text-color)
+  fill: var(--app-name-text-color);
 }
 .cards {
-  display:flex;
+  display: flex;
   align-items: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
-
 }
 
 .block {
@@ -222,7 +220,7 @@ a {
   height: 6px;
 }
 
-.scrollable::-webkit-scrollbar-track-piece  {
+.scrollable::-webkit-scrollbar-track-piece {
   background-color: var(--scrollbar-background-color);
 }
 
@@ -236,7 +234,7 @@ a {
   background-color: var(--scrollbar-accent-color);
 }
 
-.dark .block{
+.dark .block {
   border: 1px solid var(--card-border-color);
 }
 .light .block {
@@ -254,7 +252,7 @@ a {
   padding-bottom: 8px;
   cursor: pointer;
 }
-.blockHeader:hover .blockHeaderLink{
+.blockHeader:hover .blockHeaderLink {
   opacity: 1;
 }
 .blockHeaderLink {
@@ -263,7 +261,7 @@ a {
   color: #96a2ae;
   vertical-align: middle;
   opacity: 0;
-  transition:opacity 0.2s linear;
+  transition: opacity 0.2s linear;
 }
 .blockHeaderIcon {
   position: relative;
@@ -283,14 +281,13 @@ a {
 
 .blockRow:last-child {
   padding-bottom: 42px;
-
 }
 /* Actions */
 .blockActions {
   position: absolute;
-  transition: right .2s ease;
-  top:0;
-  right :-100%;
+  transition: right 0.2s ease;
+  top: 0;
+  right: -100%;
   background: linear-gradient(to right, transparent, var(--card-actions-background-shadow));
   height: 100%;
   width: 26%;
@@ -299,11 +296,11 @@ a {
   display: flex;
 }
 .blockActions.active {
-  right:0;
+  right: 0;
 }
 
 .blockRow:hover .blockActions {
-  right:0;
+  right: 0;
 }
 .blockActionButton.active {
   background-color: var(--card-active-action-button-background);
@@ -324,7 +321,6 @@ a {
   padding: 0;
 }
 
-
 .blockRow:hover {
   background-color: var(--card-background-focus-color);
 }
@@ -342,9 +338,8 @@ a {
 }
 
 .bookmarkBtn.active {
-  color: #3572a5
+  color: #3572a5;
 }
-
 
 .blockRow:hover .bookmarkBtn {
   visibility: visible;
@@ -357,8 +352,8 @@ a {
 
 .rowTitle {
   color: var(--primary-text-color);
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   font-size: 16px;
   text-decoration: none;
   display: flex;
@@ -369,18 +364,18 @@ a {
 }
 
 .dark .blockHeaderWhite {
-  color: white
+  color: white;
 }
 .light .blockHeaderWhite {
-  color: black
+  color: black;
 }
 .githubTitle {
   color: #0366d6;
 }
 
 .rowDescription {
-  padding:0;
-  margin:0;
+  padding: 0;
+  margin: 0;
   color: var(--secondary-text-color);
   margin-top: 8px;
   display: block;
@@ -388,7 +383,7 @@ a {
 }
 .rowDetails {
   display: block;
-  margin:0;
+  margin: 0;
   margin-top: 8px;
   display: flex;
   flex-direction: row;
@@ -412,24 +407,24 @@ a {
   font-size: 12px;
 }
 .rowDetails .hnRowItem {
-  color: #F6682F
+  color: #f6682f;
 }
 .rowDetails .inRowItem {
-  color: #4799EB
+  color: #4799eb;
 }
 .rowDetails .redditRowItem {
-  color: #FA481D;
+  color: #fa481d;
 }
 
 .rowDetails .lobstersRowItem {
-  color: #A91916
+  color: #a91916;
 }
 
 .rowDetails .mediumRowItem {
   color: #000000;
 }
 .dark .rowDetails .mediumRowItem {
-color:#FFFFFF;
+  color: #ffffff;
 }
 .rowItemIcon {
   position: relative;
@@ -439,7 +434,7 @@ color:#FFFFFF;
   position: relative;
   top: 3px;
   margin-right: 6px;
-  color: #99A2AC
+  color: #99a2ac;
 }
 
 .break {
@@ -456,7 +451,7 @@ color:#FFFFFF;
 }
 
 .tag {
-  color:var(--tag-text-color);
+  color: var(--tag-text-color);
   font-weight: 500;
   background-color: var(--tag-background-color);
   border-radius: 20px;
@@ -483,19 +478,18 @@ color:#FFFFFF;
   margin-top: 8px;
 }
 
-
-
 .rowLanguage {
   font-size: 12px;
   color: #616970;
   text-transform: capitalize;
 }
 .rowLanguage::before {
-  content: "";
+  content: '';
   display: inline-block;
   width: 8px;
   height: 8px;
-  border-radius: 8px;margin-right: 4px;
+  border-radius: 8px;
+  margin-right: 4px;
   background-color: var(--language-dot-background-color);
   display: relative;
 }
@@ -504,7 +498,7 @@ color:#FFFFFF;
 Github languages colors
 **/
 .gh-language-python::before {
-  background-color: #3572A5;
+  background-color: #3572a5;
 }
 
 .gh-language-javascript::before {
@@ -520,52 +514,52 @@ Github languages colors
   background-color: #ffac45;
 }
 .gh-language-go::before {
-  background-color: #00ADD8;
+  background-color: #00add8;
 }
 .gh-language-kotlin::before {
-  background-color: #F18E33;
+  background-color: #f18e33;
 }
 .gh-language-ruby::before {
   background-color: #701516;
 }
 .gh-language-php::before {
-  background-color: #4F5E95;
+  background-color: #4f5e95;
 }
 .gh-language-typescript::before {
-  background-color: #2B7489;
+  background-color: #2b7489;
 }
 .gh-language-objective-c::before {
-  background-color: #438EFF;
+  background-color: #438eff;
 }
 .gh-language-django::before {
-  background-color: #0C4B33;
+  background-color: #0c4b33;
 }
-*[class*="gh-language-node"]::before {
-  background-color: #5B9853;
+*[class*='gh-language-node']::before {
+  background-color: #5b9853;
 }
-*[class*="gh-language-angular"]::before {
-  background-color: #DE0032;
+*[class*='gh-language-angular']::before {
+  background-color: #de0032;
 }
-*[class*="gh-language-react"]::before {
-  background-color: #61DBFB;
+*[class*='gh-language-react']::before {
+  background-color: #61dbfb;
 }
-*[class*="gh-language-postgres"]::before {
+*[class*='gh-language-postgres']::before {
   background-color: #346792;
 }
-*[class*="gh-language-mongodb"]::before {
-  background-color: #14AA52;
+*[class*='gh-language-mongodb']::before {
+  background-color: #14aa52;
 }
-*[class*="gh-language-vue"]::before {
-  background-color: #41B884;
+*[class*='gh-language-vue']::before {
+  background-color: #41b884;
 }
 .gh-language-ruby-on-rails::before {
-  background-color: #CC0000;
+  background-color: #cc0000;
 }
 .gh-language-android::before {
-  background-color: #30D880;
+  background-color: #30d880;
 }
 .gh-language-flutter::before {
-  background-color: #67B1F1;
+  background-color: #67b1f1;
 }
 .gh-language-dart::before {
   background-color: #045797;
@@ -594,9 +588,10 @@ Contextify
 .react-contexify__item__content {
   color: var(--primary-text-color) !important;
 }
-.react-contexify__item__content:hover, .react-contexify__item__content:active {
+.react-contexify__item__content:hover,
+.react-contexify__item__content:active {
   background-color: var(--app-name-text-color) !important;
-  color: var(--background-color) !important
+  color: var(--background-color) !important;
 }
 
 /**
@@ -617,7 +612,7 @@ Producthunt item
 .phContent {
   display: flex;
   flex-direction: column;
-  flex-basis: 100%
+  flex-basis: 100%;
 }
 
 .phVote {
@@ -629,7 +624,6 @@ Producthunt item
   width: 45px;
   text-align: center;
   margin-left: 4px;
-  
 }
 
 .phVotesCount {
@@ -637,7 +631,6 @@ Producthunt item
   font-size: 14px;
   margin-top: 4px;
 }
-
 
 /* reddit flairs */
 
@@ -662,7 +655,7 @@ Producthunt item
   min-width: 32px;
 }
 
-.counterWrapper .value{
+.counterWrapper .value {
   margin-top: 4px;
   font-size: 14px;
 }
@@ -683,12 +676,11 @@ Producthunt item
   box-shadow: 0 0 20px var(--card-border-color);
   position: fixed;
   bottom: 0;
-  left:0;
-  
+  left: 0;
 }
 
 .navigationItem {
-  flex-grow:1;
+  flex-grow: 1;
   height: 100%;
   line-height: 56px;
   font-size: 24px;
@@ -723,7 +715,7 @@ Producthunt item
   border: 2px solid var(--background-color);
   left: -6px;
   top: -10px;
-  padding:0 4px;
+  padding: 0 4px;
   text-transform: lowercase;
   color: white;
 }
@@ -748,11 +740,11 @@ Producthunt item
 .searchBarInput {
   border-radius: 50px;
   color: var(--primary-text-color);
-  border:1px solid var(--card-border-color);
+  border: 1px solid var(--card-border-color);
   box-shadow: 0 0 20px var(--card-border-color);
   height: 42px;
-  padding:0 32px 0 48px;
-  width:580px;
+  padding: 0 32px 0 48px;
+  width: 580px;
   background-color: var(--card-header-background-color);
 }
 
@@ -772,9 +764,8 @@ Producthunt item
 .tooltipHeader {
   display: flex;
   justify-content: space-between;
-  align-items: center;  
+  align-items: center;
   padding: 16px 16px 4px 16px !important;
-
 }
 .tooltipVersion {
   background-color: var(--tooltip-accent-color);
@@ -783,7 +774,7 @@ Producthunt item
   align-items: center;
   align-content: center;
   font-weight: bold;
-  padding:2px 8px;
+  padding: 2px 8px;
   font-size: 14px;
   color: white;
   text-decoration: none;
@@ -792,10 +783,10 @@ Producthunt item
 .tooltipDate {
   font-size: 12px;
 }
-.tooltipContent  {
+.tooltipContent {
   padding: 0 16px !important;
   line-height: 26px;
-  border-bottom: 1px solid var(--tooltip-divider-color) ;
+  border-bottom: 1px solid var(--tooltip-divider-color);
   font-size: 110%;
 }
 .__react_component_tooltip {
@@ -817,13 +808,13 @@ Producthunt item
 }
 
 .scrollButton {
-  border:none;
+  border: none;
   position: fixed;
   top: 45%;
   margin: 0 1%;
   background-color: var(--card-action-button-background);
   color: var(--card-action-button-color);
-  opacity: .8;
+  opacity: 0.8;
   border-radius: 48px;
   width: 48px;
   height: 48px;
@@ -836,14 +827,14 @@ Producthunt item
 }
 
 .scrollButton:hover {
-  opacity:1
+  opacity: 1;
 }
 
 /*****************
 *** BREAKPOINTS
 *******************/
 /* Extra small devices (phones, 600px and down) */
-@media (max-width: 600px) { 
+@media (max-width: 600px) {
   .bottomNavigation {
     display: flex;
   }
@@ -855,12 +846,12 @@ Producthunt item
     border-radius: 0;
     box-shadow: none !important;
   }
-  .AppContent .block:nth-child(n+2) {
-    display:none;
+  .AppContent .block:nth-child(n + 2) {
+    display: none;
   }
   ::-webkit-scrollbar {
     width: 0px;
-    background: transparent; 
+    background: transparent;
   }
   .searchBar {
     display: none;
@@ -874,9 +865,9 @@ Producthunt item
   .changelogButton {
     display: none;
   }
-  .extras  {
+  .extras {
     display: block;
-    margin:0;
+    margin: 0;
     display: none;
   }
   .App {
@@ -889,10 +880,10 @@ Producthunt item
   .AppFooter {
     display: none;
   }
-  .blockHeader{
+  .blockHeader {
     display: none;
   }
-  .blockContent{
+  .blockContent {
     height: 100%;
     overflow: hidden;
   }
@@ -906,13 +897,13 @@ Producthunt item
 
 @keyframes cardPlaceholderPulse {
   0% {
-    opacity: .6;
+    opacity: 0.6;
   }
   50% {
     opacity: 1;
   }
   100% {
-    opacity: .6;
+    opacity: 0.6;
   }
 }
 
@@ -929,7 +920,7 @@ Producthunt item
 }
 
 .cardPlaceholder .media {
-  width:  50px;
+  width: 50px;
   height: 50px;
   margin-right: 16px;
   background: var(--placeholder-background-color);
@@ -943,7 +934,7 @@ Producthunt item
 .cardPlaceholder .cardUpvote {
   margin-left: auto;
   background: var(--placeholder-background-color);
-  width:  33px;
+  width: 33px;
   height: 44px;
 }
 .cardPlaceholder .line {
@@ -977,12 +968,12 @@ Producthunt item
   column-gap: 16px;
   display: flex;
   flex-direction: row;
-  margin:0 auto;
+  margin: 0 auto;
 }
 .adCardPlaceholder .image {
   background: var(--placeholder-background-color);
   flex: 0 0 130px;
-  height: 100px 
+  height: 100px;
 }
 
 .floatingFilter {
@@ -1000,68 +991,68 @@ Producthunt item
 }
 .floatingFilterBottomSheet .title {
   font-size: 22px;
-  margin:0 0 8px 0;
+  margin: 0 0 8px 0;
 }
 
 .floatingFilterIcon {
   color: white;
   font-size: 24px;
 }
-@media only screen and (max-width: 600px)  {
+@media only screen and (max-width: 600px) {
   .floatingFilter {
-    display: block
+    display: block;
   }
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   .block {
-    width: calc(96vw/2);
+    width: calc(96vw / 2);
   }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
   .block {
-    width: calc(96vw/3);
+    width: calc(96vw / 3);
   }
-  .searchBarInput  {
+  .searchBarInput {
     width: 200px;
   }
 }
 
 /* Large devices (desktops, 992px and up)*/
-@media only screen and (min-width: 992px) { 
+@media only screen and (min-width: 992px) {
   .block {
-    width: calc(96vw/3);
+    width: calc(96vw / 3);
   }
 
-  .searchBarInput  {
+  .searchBarInput {
     width: 480px;
   }
 }
 
 /* X-Large devices (large desktops, 1200px and up)*/
-@media only screen and (min-width: 1200px) { 
+@media only screen and (min-width: 1200px) {
   .block {
-    width: calc(96vw/4);
+    width: calc(96vw / 4);
   }
 }
 
 /* XX-Large devices (larger desktops, 1400px and up)*/
-@media only screen and (min-width: 1400px) { 
+@media only screen and (min-width: 1400px) {
   .block {
-    width: calc(96vw/4);
+    width: calc(96vw / 4);
   }
 }
 
-@media(min-width: 1800px) {
+@media (min-width: 1800px) {
   .App {
     width: 1800px;
     margin: 0 auto;
     padding: 0;
   }
   .block {
-    width: calc((1800px - 12px * 4)/4);
+    width: calc((1800px - 12px * 4) / 4);
   }
 }
 
@@ -1072,11 +1063,11 @@ Producthunt item
   color: var(--primary-text-color);
 }
 .Page .title {
-  color: var(--primary-text-color)
+  color: var(--primary-text-color);
 }
 .Page button {
   background: var(--card-background-color);
-  border:none;
+  border: none;
   border-radius: 20px;
   border: 1px solid var(--card-border-color);
   padding: 8px 16px;
@@ -1087,26 +1078,4 @@ Producthunt item
 .Page .buttonIcon {
   position: relative;
   vertical-align: middle;
-}
-
-
-.chipsSet {
-  margin: 6px 0;
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.chip {
-  font-weight: 500;
-  border-radius: 50px;
-  padding:6px 12px;
-  border: transparent;
-  font-family: "nunito";
-  color:var(--chip-text);
-  background-color: var(--chip-background);
-}
-.chip.active {
-  background-color: var(--chip-active-background);
-  color:var(--chip-active-text);
 }
