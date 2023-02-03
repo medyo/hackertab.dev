@@ -1,20 +1,20 @@
-import './Sidebar.css'
-import { VscChromeClose } from 'react-icons/vsc'
-import { TiDelete } from 'react-icons/ti'
 import { HiTicket } from 'react-icons/hi'
-import { SiGithub, SiReddit, SiProducthunt, SiYcombinator } from 'react-icons/si'
+import { SiGithub, SiProducthunt, SiReddit, SiYcombinator } from 'react-icons/si'
+import { TiDelete } from 'react-icons/ti'
+import { VscChromeClose } from 'react-icons/vsc'
 import {
-  ProSidebar,
   Menu,
   MenuItem,
-  SubMenu,
-  SidebarHeader,
+  ProSidebar,
   SidebarContent,
+  SidebarHeader,
+  SubMenu,
 } from 'react-pro-sidebar'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { CardLink } from 'src/components/Elements'
-import { trackLinkUnBookmark, Attributes } from 'src/lib/analytics'
+import { Attributes, trackLinkUnBookmark } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
+import './Sidebar.css'
 
 type BookmarkItemProps = {
   item: {
@@ -24,7 +24,7 @@ type BookmarkItemProps = {
   }
   appendRef?: boolean
 }
-const BookmarkItem = ({ item, appendRef = true }: BookmarkItemProps) => {
+const BookmarkItem = ({ item, appendRef = false }: BookmarkItemProps) => {
   const { unbookmarkPost } = useBookmarks()
   const analyticsAttrs = {
     [Attributes.TRIGERED_FROM]: 'bookmarks',

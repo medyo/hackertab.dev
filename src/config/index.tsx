@@ -1,25 +1,21 @@
 import React from 'react'
-import { SiGithub } from 'react-icons/si'
-import { SiYcombinator } from 'react-icons/si'
-import { FaDev } from 'react-icons/fa'
-import { SiProducthunt } from 'react-icons/si'
-import { FaReddit, FaMediumM } from 'react-icons/fa'
+import { CgIndieHackers } from 'react-icons/cg'
+import { FaDev, FaFreeCodeCamp, FaMediumM, FaReddit } from 'react-icons/fa'
 import { HiTicket } from 'react-icons/hi'
+import { SiGithub, SiProducthunt, SiYcombinator } from 'react-icons/si'
 import HashNodeIcon from 'src/assets/icon_hashnode.png'
 import LobstersIcon from 'src/assets/icon_lobsters.png'
-import { FaFreeCodeCamp } from 'react-icons/fa'
-import { CgIndieHackers } from 'react-icons/cg'
 import {
-  HackernewsCard,
-  ProductHuntCard,
-  IndiehackersCard,
-  FreecodecampCard,
   ConferencesCard,
-  GithubCard,
-  MediumCard,
-  HashnodeCard,
-  LobstersCard,
   DevtoCard,
+  FreecodecampCard,
+  GithubCard,
+  HackernewsCard,
+  HashnodeCard,
+  IndiehackersCard,
+  LobstersCard,
+  MediumCard,
+  ProductHuntCard,
   RedditCard,
 } from 'src/features/cards'
 import { CardPropsType } from 'src/types'
@@ -32,7 +28,7 @@ export const LS_ANALYTICS_ID_KEY = 'hackerTabAnalyticsId'
 export const name = 'Hackertab.dev'
 export const slogan = '— Stay updated with the new technology and trends'
 export const repository = 'https://github.com/medyo/hackertab.dev'
-export const ref = 'utm_source=hackertab.dev&utm_medium=post&utm_campaign=home'
+export const ref = 'ref=hackertab.dev'
 export const contactEmail = 'hello@hackertab.dev'
 export const maxCardsPerRow = 4
 export const supportLink = 'https://github.com/medyo/hackertab.dev/issues'
