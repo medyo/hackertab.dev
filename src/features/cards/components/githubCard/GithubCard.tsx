@@ -43,12 +43,10 @@ export function GithubCard({ meta, withAds }: CardPropsType) {
 
   const getData = () => {
     return filterUniqueEntries(
-      results
-        .reduce((acc: Repository[], curr) => {
-          if (!curr.data) return acc
-          return [...acc, ...curr.data]
-        }, [])
-        .sort((a, b) => b.stars - a.stars)
+      results.reduce((acc: Repository[], curr) => {
+        if (!curr.data) return acc
+        return [...acc, ...curr.data]
+      }, [])
     )
   }
 
