@@ -1,0 +1,42 @@
+.chipsSet {
+  margin: 6px 0;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  font-weight: 500;
+  border-radius: 50px;
+  padding: 6px 12px;
+  border: transparent;
+  font-family: 'nunito';
+  color: var(--chip-text);
+  background-color: var(--chip-background);
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  cursor: pointer;
+}
+.chip:hover {
+  filter: brightness(95%);
+}
+
+.chip .chipIcon {
+  margin: 0;
+  padding: 0;
+  line-height: 14px;
+}
+.chip .chipIcon > img,
+.chip .chipIcon > svg {
+  background-color: white;
+  color: black;
+  border-radius: 50px;
+  padding: 2px;
+  width: 20px;
+  height: 20px;
+}
+.chip.active {
+  background-color: var(--chip-active-background);
+  color: var(--chip-active-text);
+}

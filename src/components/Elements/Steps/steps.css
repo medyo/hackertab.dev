@@ -1,0 +1,64 @@
+.steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.steps .wrapper {
+  position: relative;
+}
+.step {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+}
+
+.step .stepBadge {
+  width: 38px;
+  height: 38px;
+  background-color: var(--step-normal-background-color);
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--step-normal-text-color);
+  font-size: 16px;
+  border: 1px solid var(--step-normal-border-color);
+  font-weight: bold;
+}
+.step .stepBadge:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.step.active .stepBadge {
+  background-color: var(--step-active-background-color);
+  color: var(--step-active-text-color);
+  border: 1px solid var(--step-active-border-color);
+}
+
+.step .stepLine {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.step .stepLine .progressLine {
+  position: relative;
+  height: 2px;
+  width: 80px;
+  background-color: var(--step-normal-border-color);
+  margin-left: 12px;
+  margin-right: 2px;
+  border-radius: 50px;
+}
+.step.active .stepLine .progressLine {
+  background-color: var(--step-active-background-color);
+}

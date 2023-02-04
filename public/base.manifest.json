@@ -4,5 +4,11 @@
   "version": "1.15.10",
   "chrome_url_overrides": {
     "newtab": "index.html"
+  },
+  "icons": {
+    "16": "/logos/logo16.png",
+    "32": "/logos/logo32.png",
+    "48": "/logos/logo48.png",
+    "128": "/logos/logo128.png"
   }
 }

@@ -1,11 +1,11 @@
-import { SupportedCard, GLOBAL_TAG, MY_LANGUAGES_TAG, dateRanges } from 'src/config'
-import { FiFilter } from 'react-icons/fi'
 import { useState } from 'react'
+import { FiFilter } from 'react-icons/fi'
 import { BottomSheet } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
-import { useUserPreferences } from 'src/stores/preferences'
-import { trackCardLanguageSelect, trackCardDateRangeSelect } from 'src/lib/analytics'
 import { ChipsSet } from 'src/components/Elements'
+import { dateRanges, GLOBAL_TAG, MY_LANGUAGES_TAG, SupportedCard } from 'src/config'
+import { trackCardDateRangeSelect, trackCardLanguageSelect } from 'src/lib/analytics'
+import { useUserPreferences } from 'src/stores/preferences'
 
 type ListingFilterMobileProps = {
   card: SupportedCard
@@ -44,21 +44,18 @@ export const FloatingFilter = ({ card, filters = ['language'] }: ListingFilterMo
                 <p className="settingTitle">Language</p>
                 <div className="settingContent">
                   <ChipsSet
-                    defaultValue={
-                      availableTagOptions.find(
-                        (tag) => tag.value === cardsSettings[card.value]?.language
-                      ) || {
-                        label: GLOBAL_TAG.label,
-                        value: GLOBAL_TAG.value,
-                      }
+                    defaultValues={
+                      availableTagOptions
+                        .filter((tag) => tag.value === cardsSettings[card.value]?.language)
+                        ?.map((tag) => tag.label) || [GLOBAL_TAG.value]
                     }
                     options={availableTagOptions}
-                    onChange={(option) => {
+                    onChange={(_, option) => {
                       setCardSettings(card.value, {
                         ...cardsSettings[card.value],
-                        language: option.value,
+                        language: option[0].value,
                       })
-                      trackCardLanguageSelect(card.analyticsTag, option.value)
+                      trackCardLanguageSelect(card.analyticsTag, option[0].value)
                     }}
                   />
                 </div>
@@ -70,18 +67,18 @@ export const FloatingFilter = ({ card, filters = ['language'] }: ListingFilterMo
                 <p className="settingTitle">Date Range</p>
                 <div className="settingContent">
                   <ChipsSet
-                    defaultValue={
-                      dateRanges.find(
-                        (date) => date.value === cardsSettings[card.value]?.dateRange
-                      ) || dateRanges[0]
+                    defaultValues={
+                      dateRanges
+                        .filter((date) => date.value === cardsSettings[card.value]?.dateRange)
+                        .map((date) => date.value) || dateRanges[0].value
                     }
                     options={dateRanges}
-                    onChange={(option) => {
+                    onChange={(_, option) => {
                       setCardSettings(card.value, {
                         ...cardsSettings[card.value],
-                        dateRange: option.value,
+                        dateRange: option[0].value,
                       })
-                      trackCardDateRangeSelect(card.analyticsTag, option.value)
+                      trackCardDateRangeSelect(card.analyticsTag, option[0].value)
                     }}
                   />
                 </div>

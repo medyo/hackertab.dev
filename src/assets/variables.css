@@ -1,77 +1,96 @@
 @font-face {
   font-family: 'Nunito';
-  src: url("fonts/nunito/nunito-regular.woff2") format('woff2');
+  src: url('fonts/nunito/nunito-regular.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'Nunito';
   font-weight: 600;
   font-style: normal;
-  src: url("fonts/nunito/nunito-semibold.woff2") format('woff2');
+  src: url('fonts/nunito/nunito-semibold.woff2') format('woff2');
 }
 
 html.dark {
-  --app-name-text-color: #FFF;
-  --background-color: #0D1116;
-  --primary-text-color: #FFF;
+  --app-name-text-color: #fff;
+  --background-color: #0d1116;
+  --primary-text-color: #fff;
   --primary-hover-text-color: #b1b1b1;
   --secondary-text-color: #a2a7ad;
   --overlay-background-color: #7985958a;
   --language-dot-background-color: #424d5a;
 
   --dark-mode-background-color: #1c2026;
-  --dark-mode-text-color: #F0C73D;
+  --dark-mode-text-color: #f0c73d;
 
   --scrollbar-background-color: #1d2126;
   --scrollbar-accent-color: #6c6e71;
 
   /** Buttons **/
-  --button-background-color: #1C2026 ;
-  --button-text-color: #FFF ;
+  --button-background-color: #1c2026;
+  --button-text-color: #fff;
 
   /**Card **/
-  --card-background-color: #0D1116;
+  --card-background-color: #0d1116;
   --card-header-text-color: #798595;
-  --card-header-background-color: #1C2026;
-  --card-border-color: #1F2429;
-  --card-content-divider:#1F2429;
+  --card-header-background-color: #1c2026;
+  --card-border-color: #1f2429;
+  --card-content-divider: #1f2429;
   --card-background-focus-color: #181c21;
 
   /*Tag*/
-  --tag-background-color: #1C2026;
-  --tag-border-color: #1F2429;
-  --tag-text-color: #FFFFFF;
+  --tag-background-color: #1c2026;
+  --tag-border-color: #1f2429;
+  --tag-text-color: #ffffff;
   --tag-secondary-color: #4d535a;
-  --tag-input-background: #FFF;
+  --tag-input-background: #fff;
 
   /*Card Action button*/
-  --card-actions-background-shadow: #1C2026;
+  --card-actions-background-shadow: #1c2026;
   --card-action-button-background: #798595;
-  --card-action-button-color: #FFF;
-  --card-active-action-button-background: #FFF;
+  --card-action-button-color: #fff;
+  --card-active-action-button-background: #fff;
   --card-active-action-button-color: #798595;
 
   /*Tooltip */
   --tooltip-background-color: #252a31;
   --tooltip-divider-color: #576172;
-  --tooltip-text-color: #FFF;
+  --tooltip-text-color: #fff;
   --tooltip-shadow-color: #000000;
-  --tooltip-accent-color: #0366D6;
+  --tooltip-accent-color: #0366d6;
 
   --placeholder-background-color: #1c2026;
 
-  --rsbs-bg: #0D1116;
-  --chip-background: #0D1116;
-  --chip-text: #FFF;
-  --chip-active-background: #576172;
-  --chip-active-text: #FFF;
+  --rsbs-bg: #0d1116;
+  --chip-background: #1c2026;
+  --chip-border-color: #1c2026;
+  --chip-text: #fff;
+  --chip-active-background: #0366d6;
+  --chip-active-text: #fff;
+
+  /* Step */
+  --step-normal-background-color: none;
+  --step-normal-border-color: #3d3e40;
+  --step-normal-text-color: white;
+
+  --step-active-background-color: white;
+  --step-active-border-color: none;
+  --step-active-text-color: black;
+
+  /*Tab*/
+  --tab-title-color: white;
+  --tab-description-color: rgb(212, 212, 212);
+  --tab-border-color: #1f2429;
+  --tab-neutral-button-background: none;
+  --tab-neutral-button-text: #a2a7ad;
+  --tab-positive-button-background: #0366d6;
+  --tab-positive-button-text: white;
 }
 
 html.light {
-  --app-name-text-color: #253B53;
-  --background-color: #EFF6FE;
+  --app-name-text-color: #253b53;
+  --background-color: #eff6fe;
   --primary-text-color: #2d3b4a;
-  --secondary-text-color: #656D76;
+  --secondary-text-color: #656d76;
   --overlay-background-color: #0000005c;
   --primary-hover-text-color: #495a6b;
   --language-dot-background-color: #cfddec;
@@ -80,47 +99,65 @@ html.light {
   --scrollbar-accent-color: #b9cadc;
 
   --dark-mode-background-color: #243b53;
-  --dark-mode-text-color: #F0C73D;
+  --dark-mode-text-color: #f0c73d;
 
-  --button-background-color: #d2deeb ;
-  --button-text-color: #3C5065;
+  --button-background-color: #d2deeb;
+  --button-text-color: #3c5065;
 
   /**Card **/
-  --card-background-color: #FFFFFF;
-  --card-header-text-color: #3C5065;
-  --card-header-background-color: #F9FAFE;
+  --card-background-color: #ffffff;
+  --card-header-text-color: #3c5065;
+  --card-header-background-color: #f9fafe;
   --card-border-color: #007eff1f;
-  --card-content-divider:#e9ebec;
+  --card-content-divider: #e9ebec;
   --card-background-focus-color: #f5f8fb;
 
   /*Card Action button*/
   --card-actions-background-shadow: #edf5ff;
   --card-action-button-background: #d2deeb;
-  --card-action-button-color: #3C5065;
-  --card-active-action-button-background: #253B53;
-  --card-active-action-button-color: #FFF;
+  --card-action-button-color: #3c5065;
+  --card-active-action-button-background: #253b53;
+  --card-active-action-button-color: #fff;
 
   /*Tag*/
-  --tag-background-color: #243B53;
+  --tag-background-color: #243b53;
   --tag-border-color: #e9ebec;
-  --tag-text-color: #FFFFFF;
+  --tag-text-color: #ffffff;
   --tag-secondary-color: #e9ebec;
-  --tag-input-background: #243B53;
+  --tag-input-background: #243b53;
 
   /*Tooltip */
-  --tooltip-background-color: #FFFFFF;
+  --tooltip-background-color: #ffffff;
   --tooltip-divider-color: #e9ebec;
-  --tooltip-text-color: #3C5065;
+  --tooltip-text-color: #3c5065;
   --tooltip-shadow-color: #dee4ec;
-  --tooltip-accent-color: #0366D6;
+  --tooltip-accent-color: #0366d6;
 
   --placeholder-background-color: #e7eff7;
 
   --rsbs-bg: #fff;
 
   --chip-background: #e7eff7;
-  --chip-text: #3C5065;
-  --chip-active-background: #0366D6;
-  --chip-active-text: #FFF;
+  --chip-text: #3c5065;
+  --chip-border-color: #e7eff7;
+  --chip-active-background: #0366d6;
+  --chip-active-text: #fff;
 
+  /* Step */
+  --step-normal-background-color: white;
+  --step-normal-border-color: #cdd3db;
+  --step-normal-text-color: #7a8592;
+
+  --step-active-background-color: #0366d6;
+  --step-active-border-color: none;
+  --step-active-text-color: white;
+
+  /*Tab*/
+  --tab-title-color: #253b53;
+  --tab-description-color: #798595;
+  --tab-border-color: #e0e3e8;
+  --tab-neutral-button-background: none;
+  --tab-neutral-button-text: #3c5065;
+  --tab-positive-button-background: #0366d6;
+  --tab-positive-button-text: white;
 }
