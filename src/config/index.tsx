@@ -1,28 +1,23 @@
-import React from 'react'
-import { SiGithub } from 'react-icons/si'
-import { SiYcombinator } from 'react-icons/si'
-import { FaDev } from 'react-icons/fa'
-import { SiProducthunt } from 'react-icons/si'
-import { FaReddit, FaMediumM } from 'react-icons/fa'
+import { CgIndieHackers } from 'react-icons/cg'
+import { FaDev, FaFreeCodeCamp, FaMediumM, FaReddit } from 'react-icons/fa'
 import { HiTicket } from 'react-icons/hi'
+import { SiGithub, SiProducthunt, SiYcombinator } from 'react-icons/si'
 import HashNodeIcon from 'src/assets/icon_hashnode.png'
 import LobstersIcon from 'src/assets/icon_lobsters.png'
-import { FaFreeCodeCamp } from 'react-icons/fa'
-import { CgIndieHackers } from 'react-icons/cg'
 import {
-  HackernewsCard,
-  ProductHuntCard,
-  IndiehackersCard,
-  FreecodecampCard,
   ConferencesCard,
-  GithubCard,
-  MediumCard,
-  HashnodeCard,
-  LobstersCard,
   DevtoCard,
-  RedditCard,
+  FreecodecampCard,
+  GithubCard,
+  HackernewsCard,
+  HashnodeCard,
+  IndiehackersCard,
+  LobstersCard,
+  MediumCard,
+  ProductHuntCard,
+  RedditCard
 } from 'src/features/cards'
-import { CardPropsType } from 'src/types'
+import { SupportedCardType } from 'src/types'
 
 // Keys
 export const ANALYTICS_ENDPOINT = process.env.REACT_APP_AMPLITUDE_URL as string
@@ -71,16 +66,7 @@ export const SUPPORTED_SEARCH_ENGINES = [
     url: 'https://www.startpage.com/sp/search?query=',
   },
 ]
-
-export type SupportedCard = {
-  value: string
-  icon: React.ReactNode
-  analyticsTag: string
-  label: string
-  link: string
-  component: React.FunctionComponent<CardPropsType>
-}
-export const SUPPORTED_CARDS: SupportedCard[] = [
+export const SUPPORTED_CARDS: SupportedCardType[] = [
   {
     value: 'github',
     analyticsTag: 'github',
@@ -88,6 +74,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     component: GithubCard,
     icon: <SiGithub className="blockHeaderWhite" />,
     link: 'https://github.com/',
+    type: 'supported',
   },
   {
     value: 'hackernews',
@@ -96,6 +83,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     label: 'Hackernews',
     component: HackernewsCard,
     link: 'https://news.ycombinator.com/',
+    type: 'supported',
   },
   {
     value: 'conferences',
@@ -104,6 +92,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     label: 'Upcoming events',
     component: ConferencesCard,
     link: 'https://confs.tech/',
+    type: 'supported',
   },
   {
     value: 'devto',
@@ -112,6 +101,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     label: 'DevTo',
     component: DevtoCard,
     link: 'https://dev.to/',
+    type: 'supported',
   },
   {
     value: 'producthunt',
@@ -120,6 +110,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     label: 'Product Hunt',
     component: ProductHuntCard,
     link: 'https://producthunt.com/',
+    type: 'supported',
   },
   {
     value: 'reddit',
@@ -128,6 +119,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     label: 'Reddit',
     component: RedditCard,
     link: 'https://reddit.com/',
+    type: 'supported',
   },
   {
     value: 'lobsters',
@@ -136,6 +128,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     label: 'Lobsters',
     component: LobstersCard,
     link: 'https://lobste.rs/',
+    type: 'supported',
   },
   {
     value: 'hashnode',
@@ -144,6 +137,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     label: 'Hashnode',
     component: HashnodeCard,
     link: 'https://hashnode.com/',
+    type: 'supported',
   },
   {
     value: 'freecodecamp',
@@ -152,6 +146,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     label: 'FreeCodeCamp',
     component: FreecodecampCard,
     link: 'https://freecodecamp.com/news',
+    type: 'supported',
   },
   {
     value: 'indiehackers',
@@ -160,6 +155,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     label: 'IndieHackers',
     component: IndiehackersCard,
     link: 'https://indiehackers.com/',
+    type: 'supported',
   },
   {
     value: 'medium',
@@ -168,6 +164,7 @@ export const SUPPORTED_CARDS: SupportedCard[] = [
     label: 'Medium',
     component: MediumCard,
     link: 'https://medium.com/',
+    type: 'supported',
   },
 ]
 

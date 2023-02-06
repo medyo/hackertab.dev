@@ -2,11 +2,11 @@ import React from 'react'
 import { BsBoxArrowInUpRight } from 'react-icons/bs'
 import { ref } from 'src/config'
 import { useUserPreferences } from 'src/stores/preferences'
-import { SupportedCard } from 'src/config'
+import { SupportedCardType } from 'src/types'
 
 type CardProps = {
   children: React.ReactNode
-  card: SupportedCard
+  card: SupportedCardType
   titleComponent?: React.ReactNode
   fullBlock?: boolean
 }

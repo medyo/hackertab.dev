@@ -1,31 +1,30 @@
 import React, { useState } from 'react'
-import ReactModal from 'react-modal'
-import 'react-toggle/style.css'
 import { VscClose } from 'react-icons/vsc'
+import ReactModal from 'react-modal'
 import Select, { ActionMeta, MultiValue, SingleValue } from 'react-select'
-import { SearchEngineType } from 'src/types'
 import Toggle from 'react-toggle'
-import './settings.css'
-import { useUserPreferences } from 'src/stores/preferences'
+import 'react-toggle/style.css'
 import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, supportLink } from 'src/config'
+import { Tag, useRemoteConfigStore } from 'src/features/remoteConfig'
 import {
+  identifyUserCards,
+  identifyUserLanguages,
+  identifyUserLinksInNewTab,
+  identifyUserListingMode,
+  identifyUserSearchEngine,
+  identifyUserTheme,
   trackLanguageAdd,
   trackLanguageRemove,
+  trackListingModeSelect,
+  trackSearchEngineSelect,
   trackSourceAdd,
   trackSourceRemove,
-  trackSearchEngineSelect,
-  trackListingModeSelect,
   trackTabTarget,
   trackThemeSelect,
-  identifyUserTheme,
-  identifyUserLinksInNewTab,
-  identifyUserSearchEngine,
-  identifyUserCards,
-  identifyUserListingMode,
-  identifyUserLanguages,
 } from 'src/lib/analytics'
-import { useRemoteConfigStore } from 'src/features/remoteConfig'
-import { Tag } from 'src/features/remoteConfig'
+import { useUserPreferences } from 'src/stores/preferences'
+import { SearchEngineType, SelectedCard } from 'src/types'
+import './settings.css'
 
 type SettingsModalProps = {
   showSettings: boolean
@@ -53,8 +52,11 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     setOpenLinksNewTab,
     setCards,
     setTags,
+    userCustomCards,
   } = useUserPreferences()
   const [selectedCards, setSelectedCards] = useState(cards)
+
+  const AVAILABLE_CARDS = [...SUPPORTED_CARDS, ...userCustomCards]
 
   const handleCloseModal = () => {
     setShowSettings(false)
@@ -100,8 +102,10 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     }
 
     let newCards = cards.map((c, index) => {
-      return { id: index, name: c.value }
-    })
+      // Re-Check
+      let type = AVAILABLE_CARDS.find((ac) => ac.value === c.value)?.type
+      return { id: index, name: c.value, type }
+    }) as SelectedCard[]
     identifyUserCards(newCards.map((card) => card.name))
     setSelectedCards(newCards)
     setCards(newCards)
@@ -180,9 +184,9 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
           <p className="settingTitle">Displayed Cards</p>
           <div className="settingContent">
             <Select
-              options={SUPPORTED_CARDS}
+              options={AVAILABLE_CARDS}
               value={selectedCards.map((c) => ({
-                label: SUPPORTED_CARDS.find((c2) => c.name === c2.value)?.label || '',
+                label: AVAILABLE_CARDS.find((c2) => c.name === c2.value)?.label || '',
                 value: c.name,
               }))}
               onChange={onCardSelectChange}

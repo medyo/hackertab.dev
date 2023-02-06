@@ -1,23 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { BsFillGearFill } from 'react-icons/bs'
+import { useEffect, useRef, useState } from 'react'
+import { BsFillBookmarksFill, BsFillGearFill, BsMoon } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
-import { BsFillBookmarksFill } from 'react-icons/bs'
-import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
-import { UserTags } from 'src/components/Elements/UserTags'
-import { SettingsModal } from 'src/features/settings'
-import { BsMoon } from 'react-icons/bs'
 import { IoMdSunny } from 'react-icons/io'
-import { Changelog } from 'src/features/changelog'
+import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
 import { SearchBar } from 'src/components/Elements/SearchBar'
-import { useUserPreferences } from 'src/stores/preferences'
+import { UserTags } from 'src/components/Elements/UserTags'
+import { Changelog } from 'src/features/changelog'
+import { RSSInputModal } from 'src/features/rssFeed'
+import { SettingsModal } from 'src/features/settings'
+import { identifyUserTheme, trackThemeSelect } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
-import { trackThemeSelect, identifyUserTheme } from 'src/lib/analytics'
+import { useUserPreferences } from 'src/stores/preferences'
 
 type HeaderProps = {
   showSideBar: boolean
   setShowSideBar: (show: boolean) => void
   showSettings: boolean
   setShowSettings: (show: boolean) => void
+  showRSSInput: boolean
+  setShowRSSInput: (show: boolean) => void
 }
 
 export const Header = ({
@@ -25,6 +26,8 @@ export const Header = ({
   setShowSideBar,
   showSettings,
   setShowSettings,
+  showRSSInput,
+  setShowRSSInput,
 }: HeaderProps) => {
   const [themeIcon, setThemeIcon] = useState(<BsMoon />)
   const isFirstRun = useRef(true)
@@ -75,9 +78,13 @@ export const Header = ({
     ) : null
   }
 
+  const onAddSourceClick = () => {
+    setShowRSSInput(true)
+  }
   return (
     <>
       <SettingsModal showSettings={showSettings} setShowSettings={setShowSettings} />
+      <RSSInputModal showRSSInput={showRSSInput} setShowRSSInput={setShowRSSInput} />
 
       <header className="AppHeader">
         <span className="AppName">
@@ -98,6 +105,9 @@ export const Header = ({
           <button className="extraBtn" onClick={() => setShowSideBar(!showSideBar)}>
             <BsFillBookmarksFill />
             <BookmarksBadgeCount />
+          </button>
+          <button className="extraBtn" onClick={onAddSourceClick}>
+            <BsFillGearFill />
           </button>
         </div>
         <div className="break"></div>

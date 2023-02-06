@@ -30,6 +30,7 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onboardingCompleted, firstSeenDate])
+  const [showRSSInput, setShowRSSInput] = useState(false)
 
   useEffect(() => {
     setupAnalytics()
@@ -55,6 +56,8 @@ function App() {
           showSideBar={showSideBar}
           showSettings={showSettings}
           setShowSettings={setShowSettings}
+          showRSSInput={showRSSInput}
+          setShowRSSInput={setShowRSSInput}
         />
         <ScrollCardsNavigator />
         <AppContentLayout setShowSettings={setShowSettings} />
