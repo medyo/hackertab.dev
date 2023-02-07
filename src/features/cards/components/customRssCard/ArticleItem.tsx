@@ -12,6 +12,7 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
   return (
     <CardItemWithActions
       source={analyticsTag}
+      sourceType="rss"
       index={index}
       key={index}
       item={item}
