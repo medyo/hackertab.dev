@@ -6,7 +6,6 @@ import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
 import { SearchBar } from 'src/components/Elements/SearchBar'
 import { UserTags } from 'src/components/Elements/UserTags'
 import { Changelog } from 'src/features/changelog'
-import { RSSInputModal } from 'src/features/rssFeed'
 import { SettingsModal } from 'src/features/settings'
 import { identifyUserTheme, trackThemeSelect } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
@@ -17,8 +16,6 @@ type HeaderProps = {
   setShowSideBar: (show: boolean) => void
   showSettings: boolean
   setShowSettings: (show: boolean) => void
-  showRSSInput: boolean
-  setShowRSSInput: (show: boolean) => void
 }
 
 export const Header = ({
@@ -26,8 +23,6 @@ export const Header = ({
   setShowSideBar,
   showSettings,
   setShowSettings,
-  showRSSInput,
-  setShowRSSInput,
 }: HeaderProps) => {
   const [themeIcon, setThemeIcon] = useState(<BsMoon />)
   const isFirstRun = useRef(true)
@@ -78,13 +73,9 @@ export const Header = ({
     ) : null
   }
 
-  const onAddSourceClick = () => {
-    setShowRSSInput(true)
-  }
   return (
     <>
       <SettingsModal showSettings={showSettings} setShowSettings={setShowSettings} />
-      <RSSInputModal showRSSInput={showRSSInput} setShowRSSInput={setShowRSSInput} />
 
       <header className="AppHeader">
         <span className="AppName">
@@ -105,9 +96,6 @@ export const Header = ({
           <button className="extraBtn" onClick={() => setShowSideBar(!showSideBar)}>
             <BsFillBookmarksFill />
             <BookmarksBadgeCount />
-          </button>
-          <button className="extraBtn" onClick={onAddSourceClick}>
-            <BsFillGearFill />
           </button>
         </div>
         <div className="break"></div>
