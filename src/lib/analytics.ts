@@ -19,6 +19,7 @@ enum Objects {
   CHANGE_LOG = 'Change Log',
   MARKETING_CAMPAIGN = 'Marketing Campaign',
   ONBOARDING = 'Onboarding',
+  CUSTOM_SOURCE = 'Custom Source',
 }
 
 enum Verbs {
@@ -300,6 +301,26 @@ export const identifyUserLinksInNewTab = (enabled: boolean) => {
 export const identifyUserOccupation = (occupation: string) => {
   identifyUserProperty(Attributes.OCCUPATION, occupation)
 }
+
+// Custom RSS Sources
+
+export const trackRssSourceRemove = (source: string) => {
+  trackEvent({
+    object: Objects.CUSTOM_SOURCE,
+    verb: Verbs.REMOVE,
+    attributes: { [Attributes.SOURCE]: source },
+  })
+}
+
+export const trackRssSourceAdd = (source: string) => {
+  trackEvent({
+    object: Objects.CUSTOM_SOURCE,
+    verb: Verbs.ADD,
+    attributes: { [Attributes.SOURCE]: source },
+  })
+}
+
+
 
 // Private functions
 type trackEventProps = {

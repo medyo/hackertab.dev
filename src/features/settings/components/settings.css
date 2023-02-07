@@ -129,6 +129,23 @@ Select styles
   border-radius: 20px !important;
   color: var(--tag-secondary-color) !important;
 }
+.rss-sources .hackertab__indicators {
+  display: none;
+}
+
+.rssUrlControl {
+  margin: 6px 0;
+  color: var(--primary-text-color);
+}
+
+.rssUrlInput {
+  width: 66%;
+  margin-right: 4px;
+  padding: 4px;
+  background-color: var(--card-background-color) !important;
+  border-color: var(--tag-border-color) !important;
+  color: var(--primary-text-color)
+}
 
 @media (max-width: 768px) {
   .Modal {
