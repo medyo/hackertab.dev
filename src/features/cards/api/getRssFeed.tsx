@@ -33,7 +33,7 @@ type UseGetArticlesOptions = {
 export const useRssFeed = ({ feedUrl, config }: UseGetArticlesOptions) => {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
     ...config,
-    queryKey: ['hackernews'],
+    queryKey: [feedUrl],
     queryFn: () => getArticles(feedUrl),
   })
 }
