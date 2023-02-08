@@ -5,7 +5,7 @@ import { ExtractFnReturnType, QueryConfig } from 'src/lib/react-query'
 import { Article } from 'src/types'
 
 const getArticles = async (feedUrl: string): Promise<Article[]> => {
-  const res: string = await axios.get(`/remote_feed?feedUrl=${feedUrl}`)
+  const res: string = await axios.get(`/engine/remote_feed?feedUrl=${feedUrl}`)
   try {
     const feed = htmlparser2.parseFeed(res)
     return feed?.items.map((item) => {
