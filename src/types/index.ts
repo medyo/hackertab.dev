@@ -83,7 +83,7 @@ export type SupportedCardType = {
   type: 'rss' | 'supported'
   component?: React.FunctionComponent<CardPropsType>
   feedUrl?: string
-  icon?: React.ReactNode
+  icon?: React.ReactNode | string
 }
 
 export type CardPropsType = {

@@ -1,9 +1,9 @@
-import { BsRssFill } from 'react-icons/bs'
 import { Card, FloatingFilter } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
 import { Article, CardPropsType } from 'src/types'
 import { useRssFeed } from '../../api/getRssFeed'
 import ArticleItem from './ArticleItem'
+import CardIcon from './CardIcon'
 
 export function CustomRssCard({ meta, withAds }: CardPropsType) {
   const { data = [], isLoading } = useRssFeed({ feedUrl: meta.feedUrl || '' })
@@ -21,7 +21,9 @@ export function CustomRssCard({ meta, withAds }: CardPropsType) {
   }
 
   return (
-    <Card card={{ ...meta, icon: <BsRssFill /> }} titleComponent={<HeaderTitle />}>
+    <Card
+      card={{ ...meta, icon: <CardIcon url={meta.icon as string} /> }}
+      titleComponent={<HeaderTitle />}>
       <FloatingFilter card={meta} filters={['language']} />
       <ListComponent items={data} isLoading={isLoading} renderItem={renderItem} withAds={withAds} />
     </Card>

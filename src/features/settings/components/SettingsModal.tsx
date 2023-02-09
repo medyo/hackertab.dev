@@ -6,8 +6,8 @@ import BeatLoader from 'react-spinners/BeatLoader'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
 import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, supportLink } from 'src/config'
+import { getRssUrlFeed } from 'src/features/cards/api/getRssFeed'
 import { Tag, useRemoteConfigStore } from 'src/features/remoteConfig'
-import { getRssUrlFeed } from 'src/features/rssFeed/api/getRssFeed'
 import {
   identifyUserCards,
   identifyUserLanguages,
@@ -152,27 +152,27 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     }
 
     // check if card exists
-    const exists = userCustomCards.find((card) => card.feedUrl === rssUrl)
-    if (exists) {
-      setRssInputError('RSS Feed already exists')
-      return
-    }
 
     setIsRssInputLoading(true)
 
     // get rssUrl Info
     try {
       const info = await getRssUrlFeed(rssUrl)
+      let value = info.title.toLowerCase()
+      const exists = userCustomCards.find((card) => card.link === info.link)
+      if (exists) {
+        throw Error('RSS Feed already exists', { cause: 'EXISTS' })
+      }
+
       let customCard: SupportedCardType = {
         feedUrl: rssUrl.replace('https:', 'http:'),
         label: info.title,
-        value: info.title.toLowerCase(),
-        analyticsTag: info.title.toLowerCase(),
+        value,
+        analyticsTag: value,
         link: info.link,
         type: 'rss',
-        // icon: <BsFillRssFill className="blockHeaderWhite" />,
+        icon: info.icon,
       }
-      // add card to userCustomCards and selected cards
       setUserCustomCards([...userCustomCards, customCard])
       const newCards = [
         ...cards,
@@ -183,8 +183,10 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
       identifyUserCards(newCards.map((card) => card.name))
       trackRssSourceAdd(customCard.value)
       setRssUrl('')
-    } catch (err) {
-      setRssInputError('rssInputError occured. Please check and try again.')
+    } catch (err: any) {
+      setRssInputError(
+        err?.cause === 'EXISTS' ? err?.message : 'Error occured. Please check and try again.'
+      )
     } finally {
       setIsRssInputLoading(false)
     }
