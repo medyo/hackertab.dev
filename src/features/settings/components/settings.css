@@ -69,11 +69,6 @@ Modal
   font-size: 14px;
 }
 
-.settingContent .rightContent {
-  display: flex;
-  justify-content: end;
-}
-
 .settingContent input[type=text]:focus {
   border-color:var(--settings-input-border-focus-color)
 }

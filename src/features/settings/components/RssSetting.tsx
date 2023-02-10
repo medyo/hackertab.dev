@@ -86,7 +86,7 @@ export const RssSetting = ({ setSelectedCards }: RssSettingProps) => {
           {isRssInputLoading ? (
             <BeatLoader color={'#A9B2BD'} loading={isRssInputLoading} size={6} />
           ) : (
-            <div className="rightContent">
+            <div>
               <button className="rssButton" onClick={onRssAddClick}>
                 <BsRssFill /> Add
               </button>
