@@ -15,7 +15,7 @@ import {
   LobstersCard,
   MediumCard,
   ProductHuntCard,
-  RedditCard
+  RedditCard,
 } from 'src/features/cards'
 import { SupportedCardType } from 'src/types'
 
@@ -27,7 +27,7 @@ export const LS_ANALYTICS_ID_KEY = 'hackerTabAnalyticsId'
 export const name = 'Hackertab.dev'
 export const slogan = '— Stay updated with the new technology and trends'
 export const repository = 'https://github.com/medyo/hackertab.dev'
-export const ref = 'utm_source=hackertab.dev&utm_medium=post&utm_campaign=home'
+export const ref = 'ref=hackertab.dev'
 export const contactEmail = 'hello@hackertab.dev'
 export const maxCardsPerRow = 4
 export const supportLink = 'https://github.com/medyo/hackertab.dev/issues'

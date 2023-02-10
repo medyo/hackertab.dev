@@ -1,6 +1,6 @@
-import { trackLinkOpen } from 'src/lib/analytics'
 import React from 'react'
 import { ref } from 'src/config'
+import { trackLinkOpen } from 'src/lib/analytics'
 
 import { useUserPreferences } from 'src/stores/preferences'
 
@@ -18,7 +18,7 @@ export const ClickableItem = ({
   className,
   children,
   analyticsAttributes,
-  appendRef = true,
+  appendRef = false,
 }: ClickableItemProps) => {
   const { openLinksNewTab } = useUserPreferences()
 

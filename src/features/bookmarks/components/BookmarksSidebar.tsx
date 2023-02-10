@@ -21,7 +21,7 @@ type BookmarkItemProps = {
   item: BookmarkedPost
   appendRef?: boolean
 }
-const BookmarkItem = ({ item, appendRef = true }: BookmarkItemProps) => {
+const BookmarkItem = ({ item, appendRef = false }: BookmarkItemProps) => {
   const { unbookmarkPost } = useBookmarks()
   const analyticsAttrs = {
     [Attributes.TRIGERED_FROM]: 'bookmarks',
