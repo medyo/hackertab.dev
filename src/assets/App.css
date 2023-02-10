@@ -272,7 +272,9 @@ a {
   width: 18px;
   height: 18px;
 }
-
+.blockHeaderIcon .rss {
+  color:#ee802f;
+}
 .blockRow {
   scroll-snap-align: start;
   padding: 8px 16px;

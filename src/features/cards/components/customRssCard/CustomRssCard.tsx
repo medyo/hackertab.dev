@@ -1,4 +1,4 @@
-import { Card, FloatingFilter } from 'src/components/Elements'
+import { Card } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
 import { Article, CardPropsType } from 'src/types'
 import { useRssFeed } from '../../api/getRssFeed'
@@ -9,7 +9,7 @@ export function CustomRssCard({ meta, withAds }: CardPropsType) {
   const { data = [], isLoading } = useRssFeed({ feedUrl: meta.feedUrl || '' })
 
   const renderItem = (item: Article, index: number) => (
-    <ArticleItem item={item} key={`fcc-${index}`} index={index} analyticsTag={meta.analyticsTag} />
+    <ArticleItem item={item} key={`rcc-${index}`} index={index} analyticsTag={meta.analyticsTag} />
   )
 
   const HeaderTitle = () => {
@@ -24,7 +24,6 @@ export function CustomRssCard({ meta, withAds }: CardPropsType) {
     <Card
       card={{ ...meta, icon: <CardIcon url={meta.icon as string} /> }}
       titleComponent={<HeaderTitle />}>
-      <FloatingFilter card={meta} filters={['language']} />
       <ListComponent items={data} isLoading={isLoading} renderItem={renderItem} withAds={withAds} />
     </Card>
   )
