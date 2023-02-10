@@ -19,7 +19,6 @@ import {
   trackLanguageRemove,
   trackListingModeSelect,
   trackRssSourceAdd,
-  trackRssSourceRemove,
   trackSearchEngineSelect,
   trackSourceAdd,
   trackSourceRemove,
@@ -105,6 +104,11 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
         }
         break
       case 'remove-value':
+        // if removed card is a userCustomCard, remove it
+        const newUserCustomCards = userCustomCards.filter(
+          (c) => c.value !== metas.removedValue.value
+        )
+        setUserCustomCards(newUserCustomCards)
         if (metas.removedValue?.label) {
           trackSourceRemove(metas.removedValue.label)
         }
@@ -116,6 +120,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
       let type = AVAILABLE_CARDS.find((ac) => ac.value === c.value)?.type
       return { id: index, name: c.value, type }
     }) as SelectedCard[]
+
     identifyUserCards(newCards.map((card) => card.name))
     setSelectedCards(newCards)
     setCards(newCards)
@@ -192,19 +197,6 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     }
   }
 
-  const onRssSelectChange = (newCards: MultiValue<OptionType>, metas: ActionMeta<OptionType>) => {
-    if (metas.action === 'remove-value') {
-      setUserCustomCards(newCards as SupportedCardType[])
-      let newSelectedCards = cards.filter(
-        (c) => c.type !== 'rss' || c.name !== metas.removedValue.value
-      )
-      setSelectedCards(newSelectedCards)
-      setCards(newSelectedCards)
-      identifyUserCards(newSelectedCards.map((card) => card.name))
-      trackRssSourceRemove(metas.removedValue.value)
-    }
-  }
-
   return (
     <ReactModal
       isOpen={showSettings}
@@ -277,7 +269,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
         <div className="settingRow">
           <p className="settingTitle">Add Custom Source</p>
           <div className="settingContent">
-            <Select
+            {/* <Select
               menuIsOpen={false}
               options={[]}
               value={userCustomCards}
@@ -287,7 +279,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
               isSearchable={false}
               classNamePrefix={'hackertab'}
               className={'rss-sources'}
-            />
+            /> */}
             <div className="rssUrlControl">
               <input
                 className="rssUrlInput"
