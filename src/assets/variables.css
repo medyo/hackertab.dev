@@ -84,6 +84,12 @@ html.dark {
   --tab-neutral-button-text: #a2a7ad;
   --tab-positive-button-background: #0366d6;
   --tab-positive-button-text: white;
+
+  --settings-input-background-color: #0d1116;
+  --settings-input-border-color: #3a4553;
+  --settings-input-border-focus-color: #6b7b90;
+  --settings-input-placeholder-color: #42474e;
+  --settings-input-text-color: #fff
 }
 
 html.light {
@@ -160,4 +166,11 @@ html.light {
   --tab-neutral-button-text: #3c5065;
   --tab-positive-button-background: #0366d6;
   --tab-positive-button-text: white;
+
+  --settings-input-background-color: #ffffff;
+  --settings-input-border-color: #e9ebec;
+  --settings-input-border-focus-color: #c4d6df;
+  --settings-input-placeholder-color: #97a6ad;
+  --settings-input-text-color: #253b53
+
 }

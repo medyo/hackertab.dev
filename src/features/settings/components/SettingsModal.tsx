@@ -2,11 +2,9 @@ import React, { useState } from 'react'
 import { VscClose } from 'react-icons/vsc'
 import ReactModal from 'react-modal'
 import Select, { ActionMeta, MultiValue, SingleValue } from 'react-select'
-import BeatLoader from 'react-spinners/BeatLoader'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
 import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, supportLink } from 'src/config'
-import { getRssUrlFeed } from 'src/features/cards/api/getRssFeed'
 import { Tag, useRemoteConfigStore } from 'src/features/remoteConfig'
 import {
   identifyUserCards,
@@ -18,7 +16,6 @@ import {
   trackLanguageAdd,
   trackLanguageRemove,
   trackListingModeSelect,
-  trackRssSourceAdd,
   trackSearchEngineSelect,
   trackSourceAdd,
   trackSourceRemove,
@@ -26,8 +23,8 @@ import {
   trackThemeSelect,
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
-import { SearchEngineType, SelectedCard, SupportedCardType } from 'src/types'
-import { isValidURL } from 'src/utils/UrlUtils'
+import { SearchEngineType, SelectedCard } from 'src/types'
+import { RssSetting } from './RssSetting'
 import './settings.css'
 
 type SettingsModalProps = {
@@ -60,10 +57,6 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     setUserCustomCards,
   } = useUserPreferences()
   const [selectedCards, setSelectedCards] = useState(cards)
-
-  const [rssUrl, setRssUrl] = useState('')
-  const [rssInputError, setRssInputError] = useState('')
-  const [isRssInputLoading, setIsRssInputLoading] = useState(false)
 
   const AVAILABLE_CARDS = [...SUPPORTED_CARDS, ...userCustomCards]
 
@@ -150,53 +143,6 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     identifyUserTheme(newTheme)
   }
 
-  const onRssAddClick = async () => {
-    if (!isValidURL(rssUrl)) {
-      setRssInputError('Invalid RSS Feed URL. Please check and try again.')
-      return
-    }
-
-    // check if card exists
-
-    setIsRssInputLoading(true)
-
-    // get rssUrl Info
-    try {
-      const info = await getRssUrlFeed(rssUrl)
-      let value = info.title.toLowerCase()
-      const exists = userCustomCards.find((card) => card.link === info.link)
-      if (exists) {
-        throw Error('RSS Feed already exists', { cause: 'EXISTS' })
-      }
-
-      let customCard: SupportedCardType = {
-        feedUrl: rssUrl.replace('https:', 'http:'),
-        label: info.title,
-        value,
-        analyticsTag: value,
-        link: info.link,
-        type: 'rss',
-        icon: info.icon,
-      }
-      setUserCustomCards([...userCustomCards, customCard])
-      const newCards = [
-        ...cards,
-        { id: cards.length, name: customCard.value, type: customCard.type },
-      ]
-      setCards(newCards)
-      setSelectedCards(newCards)
-      identifyUserCards(newCards.map((card) => card.name))
-      trackRssSourceAdd(customCard.value)
-      setRssUrl('')
-    } catch (err: any) {
-      setRssInputError(
-        err?.cause === 'EXISTS' ? err?.message : 'Error occured. Please check and try again.'
-      )
-    } finally {
-      setIsRssInputLoading(false)
-    }
-  }
-
   return (
     <ReactModal
       isOpen={showSettings}
@@ -266,39 +212,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
           </div>
         </div>
 
-        <div className="settingRow">
-          <p className="settingTitle">Add Custom Source</p>
-          <div className="settingContent">
-            {/* <Select
-              menuIsOpen={false}
-              options={[]}
-              value={userCustomCards}
-              onChange={onRssSelectChange}
-              isMulti={true}
-              isClearable={false}
-              isSearchable={false}
-              classNamePrefix={'hackertab'}
-              className={'rss-sources'}
-            /> */}
-            <div className="rssUrlControl">
-              <input
-                className="rssUrlInput"
-                value={rssUrl}
-                onChange={(e) => setRssUrl(e.target.value)}
-              />
-              {isRssInputLoading ? (
-                <BeatLoader color={'#A9B2BD'} loading={isRssInputLoading} size={6} />
-              ) : (
-                <button onClick={onRssAddClick}>ADD</button>
-              )}
-            </div>
-            {rssInputError && (
-              <div className="settingHint">
-                <p>{rssInputError}</p>
-              </div>
-            )}
-          </div>
-        </div>
+        <RssSetting setSelectedCards={setSelectedCards} />
 
         <div className="settingRow">
           <p className="settingTitle">Dark Mode</p>

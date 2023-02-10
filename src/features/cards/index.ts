@@ -1,3 +1,4 @@
+export * from "./api/getRssFeed"
 export * from "./components/conferencesCard"
 export * from './components/customRssCard'
 export * from './components/devtoCard'
