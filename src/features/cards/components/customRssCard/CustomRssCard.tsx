@@ -9,7 +9,7 @@ export function CustomRssCard({ meta, withAds }: CardPropsType) {
   const { data = [], isLoading } = useRssFeed({ feedUrl: meta.feedUrl || '' })
 
   const renderItem = (item: Article, index: number) => (
-    <ArticleItem item={item} key={`fcc-${index}`} index={index} analyticsTag={meta.analyticsTag} />
+    <ArticleItem item={item} key={`rcc-${index}`} index={index} analyticsTag={meta.analyticsTag} />
   )
 
   const HeaderTitle = () => {
