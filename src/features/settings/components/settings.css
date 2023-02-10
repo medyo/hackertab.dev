@@ -49,11 +49,12 @@ Modal
 
 .settingContent .form {
   display: flex;
-  flex-direction: column;
-  row-gap: 12px;
+  flex-direction: row;
+  gap: 12px;
 }
 
 .settingContent input[type=text] {
+  flex:1;
   background-color: var(--settings-input-background-color);
   border:1px solid var(--settings-input-border-color);
   border-radius: 50px;
@@ -66,6 +67,11 @@ Modal
   color: var(--settings-input-placeholder-color);
   opacity: 1;
   font-size: 14px;
+}
+
+.settingContent .rightContent {
+  display: flex;
+  justify-content: end;
 }
 
 .settingContent input[type=text]:focus {
