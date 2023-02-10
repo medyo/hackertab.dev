@@ -20,7 +20,7 @@ export const BannerAd = () => {
     config: {
       cacheTime: 0,
       staleTime: 0,
-      refetchInterval(data, query) {
+      refetchInterval(data) {
         if (data?.nextAd) {
           setAditionalAdQueries(data.nextAd.queries)
           return data.nextAd.interval
