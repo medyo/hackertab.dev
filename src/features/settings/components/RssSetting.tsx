@@ -74,7 +74,7 @@ export const RssSetting = ({ setSelectedCards }: RssSettingProps) => {
         <div className="form">
           <input
             type="text"
-            value={rssUrl}
+            value={rssUrl || ''}
             onChange={(e) => setRssUrl(e.target.value)}
             placeholder="https://url.com/rss/feed"
           />
