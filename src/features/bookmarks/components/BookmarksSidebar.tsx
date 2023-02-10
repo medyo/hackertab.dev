@@ -14,14 +14,11 @@ import 'react-pro-sidebar/dist/css/styles.css'
 import { CardLink } from 'src/components/Elements'
 import { Attributes, trackLinkUnBookmark } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
+import { BookmarkedPost } from '../types'
 import './Sidebar.css'
 
 type BookmarkItemProps = {
-  item: {
-    url: string
-    title: string
-    source: string
-  }
+  item: BookmarkedPost
   appendRef?: boolean
 }
 const BookmarkItem = ({ item, appendRef = false }: BookmarkItemProps) => {
@@ -71,7 +68,7 @@ export const BookmarksSidebar = ({ showSidebar, onClose }: BookmarksSidebarTtype
         'freecodecamp',
         'medium',
         'indiehackers',
-      ].indexOf(bm.source) !== -1
+      ].indexOf(bm.source) !== -1 || bm.sourceType === 'rss'
   )
   const conferencesBookmarks = userBookmarks.filter((bm) => bm.source === 'conferences')
   const productsBookmarks = userBookmarks.filter((bm) => bm.source === 'producthunt')

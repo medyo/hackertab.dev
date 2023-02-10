@@ -1,19 +1,19 @@
 import DOMPurify from 'dompurify'
-import { useMarketingConfigStore } from '../stores/marketingBanner'
-import { useUserPreferences } from 'src/stores/preferences'
-import { getAppVersion } from 'src/utils/Os'
-import { isWebOrExtensionVersion, isProduction, getBrowserName } from 'src/utils/Environment'
-import { useMemo, useState, useEffect } from 'react'
-import { Campaign, MarketingConfig } from '../types'
-import { useGetMarketingConfig } from '../api/getMarketingConfig'
+import jsonPath from 'jsonpath'
+import { useEffect, useMemo, useState } from 'react'
+import { isMobile } from 'react-device-detect'
 import {
   trackMarketingCampaignClose,
-  trackMarketingCampaignView,
   trackMarketingCampaignOpen,
+  trackMarketingCampaignView,
 } from 'src/lib/analytics'
+import { useUserPreferences } from 'src/stores/preferences'
 import { diffBetweenTwoDatesInDays } from 'src/utils/DateUtils'
-import { isMobile } from 'react-device-detect'
-import jsonPath from 'jsonpath'
+import { getBrowserName, isProduction, isWebOrExtensionVersion } from 'src/utils/Environment'
+import { getAppVersion } from 'src/utils/Os'
+import { useGetMarketingConfig } from '../api/getMarketingConfig'
+import { useMarketingConfigStore } from '../stores/marketingBanner'
+import { Campaign, MarketingConfig } from '../types'
 
 export const MarketingBanner = () => {
   const { setCampaignClosed, closedCampaigns } = useMarketingConfigStore()
@@ -79,7 +79,6 @@ export const MarketingBanner = () => {
 
       return availableCampaigns
     } catch (e) {
-      console.log('getAvailableCampaigns', e)
       return []
     }
   }

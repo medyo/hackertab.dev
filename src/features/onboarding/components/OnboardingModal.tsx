@@ -12,6 +12,7 @@ import {
   trackOnboardingStart,
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
+import { SelectedCard } from 'src/types'
 import { HelloTab } from './steps/HelloTab'
 import { LanguagesTab } from './steps/LanguagesTab'
 import { SourcesTab } from './steps/SourcesTab'
@@ -72,16 +73,16 @@ export const OnboardingModal = ({ showOnboarding, setShowOnboarding }: Onboardin
               setTags(tags)
               identifyUserLanguages(tags.map((tag) => tag.value))
 
-              const cards =
-                occupation.sources
-                  .map((source) => SUPPORTED_CARDS.find((sc) => sc.value === source))
-                  .filter(Boolean)
-                  .map((source, index) => {
-                    return {
-                      id: index,
-                      name: source?.value || '',
-                    }
-                  }) || []
+              const cards = (occupation.sources
+                .map((source) => SUPPORTED_CARDS.find((sc) => sc.value === source))
+                .filter(Boolean)
+                .map((source, index) => {
+                  return {
+                    id: index,
+                    name: source?.value || '',
+                    type: 'supported',
+                  }
+                }) || []) as SelectedCard[]
 
               setCards(cards)
               identifyUserCards(cards.map((card) => card.name))

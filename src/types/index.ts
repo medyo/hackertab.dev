@@ -1,5 +1,4 @@
 import { Tag } from 'src/features/remoteConfig'
-import { SupportedCard } from 'src/config'
 
 export type SearchEngineType = {
   url: string
@@ -9,6 +8,7 @@ export type SearchEngineType = {
 export type SelectedCard = {
   id: number
   name: string
+  type: 'rss' | 'supported'
 }
 
 export type SelectedTag = {
@@ -75,8 +75,19 @@ export type Conference = BaseEntry & {
   country?: string
 }
 
+export type SupportedCardType = {
+  value: string
+  analyticsTag: string
+  label: string
+  link: string
+  type: 'rss' | 'supported'
+  component?: React.FunctionComponent<CardPropsType>
+  feedUrl?: string
+  icon?: React.ReactNode | string
+}
+
 export type CardPropsType = {
-  meta: SupportedCard
+  meta: Omit<SupportedCardType, 'component'>
   withAds: boolean
 }
 

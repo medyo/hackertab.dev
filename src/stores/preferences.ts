@@ -1,9 +1,9 @@
 import { Occupation } from 'src/features/onboarding/types'
 import { Tag } from 'src/features/remoteConfig'
 import { enhanceTags } from 'src/utils/DataEnhancement'
-import create from 'zustand'
+import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { CardSettingsType, ListingMode, SelectedCard, Theme } from '../types'
+import { CardSettingsType, ListingMode, SelectedCard, SupportedCardType, Theme } from '../types'
 
 export type UserPreferencesState = {
   userSelectedTags: Tag[]
@@ -16,6 +16,7 @@ export type UserPreferencesState = {
   cards: SelectedCard[]
   cardsSettings: Record<string, CardSettingsType>
   firstSeenDate: number
+  userCustomCards: SupportedCardType[]
 }
 
 type UserPreferencesStoreActions = {
@@ -28,6 +29,7 @@ type UserPreferencesStoreActions = {
   setTags: (selectedTags: Tag[]) => void
   setCardSettings: (card: string, settings: CardSettingsType) => void
   markOnboardingAsCompleted: (occupation: Omit<Occupation, 'icon'> | null) => void
+  setUserCustomCards: (cards: SupportedCardType[]) => void
 }
 
 export const useUserPreferences = create(
@@ -43,11 +45,12 @@ export const useUserPreferences = create(
       openLinksNewTab: true,
       firstSeenDate: Date.now(),
       cards: [
-        { id: 0, name: 'github' },
-        { id: 1, name: 'hackernews' },
-        { id: 2, name: 'devto' },
-        { id: 3, name: 'producthunt' },
+        { id: 0, name: 'github', type: 'supported' },
+        { id: 1, name: 'hackernews', type: 'supported' },
+        { id: 2, name: 'devto', type: 'supported' },
+        { id: 3, name: 'producthunt', type: 'supported' },
       ],
+      userCustomCards: [],
       setSearchEngine: (searchEngine: string) => set({ searchEngine: searchEngine }),
       setListingMode: (listingMode: ListingMode) => set({ listingMode: listingMode }),
       setTheme: (theme: Theme) => set({ theme: theme }),
@@ -70,6 +73,7 @@ export const useUserPreferences = create(
           onboardingCompleted: true,
           onboardingResult: occupation,
         })),
+      setUserCustomCards: (cards: SupportedCardType[]) => set({ userCustomCards: cards }),
     }),
     {
       name: 'preferences_storage',

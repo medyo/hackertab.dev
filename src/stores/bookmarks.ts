@@ -1,6 +1,7 @@
-import create from 'zustand';
-import { persist } from 'zustand/middleware'
-import { BookmarkedPost } from "src/features/bookmarks"
+import { create } from 'zustand';
+
+import { BookmarkedPost } from "src/features/bookmarks";
+import { persist } from 'zustand/middleware';
 
 type BookmarksState = {
   userBookmarks: BookmarkedPost[]
