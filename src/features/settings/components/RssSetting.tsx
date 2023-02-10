@@ -69,7 +69,12 @@ export const RssSetting = ({ setSelectedCards }: RssSettingProps) => {
 
   return (
     <div className="settingRow">
-      <p className="settingTitle">Add New Source</p>
+      <p className="settingTitle">
+        Add New Source
+        <div>
+          <span className="settingHint">(RSS Feed)</span>
+        </div>
+      </p>
       <div className="settingContent">
         <div className="form">
           <input
@@ -81,9 +86,9 @@ export const RssSetting = ({ setSelectedCards }: RssSettingProps) => {
           {isRssInputLoading ? (
             <BeatLoader color={'#A9B2BD'} loading={isRssInputLoading} size={6} />
           ) : (
-            <div>
+            <div className="rightContent">
               <button className="rssButton" onClick={onRssAddClick}>
-                <BsRssFill /> Add Rss Feed
+                <BsRssFill /> Add
               </button>
             </div>
           )}
