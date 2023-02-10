@@ -204,9 +204,9 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
               classNamePrefix={'hackertab'}
             />
             <p className="settingHint">
-              Missing a cool data source? create an issue{' '}
+              Missing a cool data source? Add it below as an RSS or create an issue{' '}
               <a href={supportLink} target="_blank" rel="noreferrer">
-                here
+                here!
               </a>
             </p>
           </div>
