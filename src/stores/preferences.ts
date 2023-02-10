@@ -1,7 +1,7 @@
 import { Occupation } from 'src/features/onboarding/types'
 import { Tag } from 'src/features/remoteConfig'
 import { enhanceTags } from 'src/utils/DataEnhancement'
-import create from 'zustand'
+import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { CardSettingsType, ListingMode, SelectedCard, SupportedCardType, Theme } from '../types'
 
