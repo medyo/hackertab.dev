@@ -31,7 +31,9 @@ jobs:
   tag_version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
       - name: Bump version and push tag
         id: tag_version
         uses: anothrNick/github-tag-action@1.55.0
@@ -40,6 +42,8 @@ jobs:
           DRY_RUN: ${{ github.event.inputs.autoTag == 'false' }}
           WITH_V: true
           DEFAULT_BUMP: patch
+          VERBOSE: true
+          BRANCH_HISTORY: compare
 
       - name: Update manifest.json
         if: github.event.inputs.autoTag == 'true'
