@@ -17,17 +17,17 @@ export const RssSetting = ({ setSelectedCards }: RssSettingProps) => {
   const { cards, setCards, userCustomCards, setUserCustomCards } = useUserPreferences()
 
   const [rssUrl, setRssUrl] = useState<string | undefined>()
-  const [rssInputError, setRssInputError] = useState<string | undefined>()
+  const [RssInputFeedback, setRssInputFeedback] = useState<string | undefined>()
   const [isRssInputLoading, setIsRssInputLoading] = useState<boolean>(false)
 
   const onRssAddClick = async () => {
     if (!rssUrl) {
-      setRssInputError('Please provide an RSS Feed URL')
+      setRssInputFeedback('Please provide an RSS Feed URL')
       return
     }
 
     if (!isValidURL(rssUrl)) {
-      setRssInputError('Invalid RSS Feed URL. Please check and try again')
+      setRssInputFeedback('Invalid RSS Feed URL. Please check and try again')
       return
     }
 
@@ -60,8 +60,9 @@ export const RssSetting = ({ setSelectedCards }: RssSettingProps) => {
       identifyUserCards(newCards.map((card) => card.name))
       trackRssSourceAdd(customCard.value)
       setRssUrl('')
+      setRssInputFeedback('RSS Feed Added')
     } catch (_) {
-      setRssInputError('Error occured. Please check and try again.')
+      setRssInputFeedback('Error occured. Please check and try again')
     } finally {
       setIsRssInputLoading(false)
     }
@@ -93,9 +94,9 @@ export const RssSetting = ({ setSelectedCards }: RssSettingProps) => {
             </div>
           )}
         </div>
-        {rssInputError && (
+        {RssInputFeedback && (
           <div className="settingHint">
-            <p>{rssInputError}</p>
+            <p>{RssInputFeedback}</p>
           </div>
         )}
       </div>
