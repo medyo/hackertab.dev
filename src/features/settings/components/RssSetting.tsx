@@ -38,7 +38,8 @@ export const RssSetting = ({ setSelectedCards }: RssSettingProps) => {
       let value = info.title.toLowerCase()
 
       if (userCustomCards.some((card) => card.link === info.link)) {
-        throw Error('RSS Feed already exists', { cause: 'EXISTS' })
+        setRssInputFeedback('RSS Feed already exists')
+        return
       }
 
       let customCard: SupportedCardType = {
