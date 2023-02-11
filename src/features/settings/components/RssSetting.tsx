@@ -42,7 +42,7 @@ export const RssSetting = ({ setSelectedCards }: RssSettingProps) => {
       }
 
       let customCard: SupportedCardType = {
-        feedUrl: rssUrl.replace('https:', 'http:'),
+        feedUrl: rssUrl,
         label: info.title,
         value,
         analyticsTag: value,
