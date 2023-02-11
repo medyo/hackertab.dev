@@ -42,7 +42,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           dry_run: ${{ github.event.inputs.autoTag == 'false' }}
           custom_release_rules: |
-            "fix:patch:Bug Fixes,hotfix:patch:Bug Fixes,refactor:minor:Refactoring,implement:minor:Features,change:minor:Changes,breaking:major:Breaking Changes,major:major:Major Changes"
+            "fix:patch:Bug Fixes,hotfix:patch:Bug Fixes,patch:patch:Patch,refactor:minor:Refactoring,implement:minor:Features,change:minor:Changes,breaking:major:Changes,major:major:Changes"
 
       - name: Update manifest.json
         if: github.event.inputs.autoTag == 'true'
