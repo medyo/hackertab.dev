@@ -73,9 +73,8 @@ export const RssSetting = ({ setSelectedCards }: RssSettingProps) => {
     <div className="settingRow">
       <p className="settingTitle">
         Add New Source
-        <div>
-          <span className="settingHint">(RSS Feed)</span>
-        </div>
+        <br />
+        <span className="settingHint">(RSS Feed)</span>
       </p>
       <div className="settingContent">
         <div className="form">
