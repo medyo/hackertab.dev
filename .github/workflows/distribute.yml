@@ -34,12 +34,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: Bump version and push tag
         id: tag_version
-        uses: mathieudutour/github-tag-action@v6.1
+        uses: anothrNick/github-tag-action@1.55.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          dry_run: ${{ github.event.inputs.autoTag == 'false' }}
-          custom_release_rules: |
-            "fix:patch:Bug Fixes,hotfix:patch:Bug Fixes,refactor:minor:Refactoring,implement:minor:Features,change:minor:Changes,breaking:major:Breaking Changes,major:major:Major Changes"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ github.event.inputs.autoTag == 'false' }}
 
       - name: Update manifest.json
         if: github.event.inputs.autoTag == 'true'
