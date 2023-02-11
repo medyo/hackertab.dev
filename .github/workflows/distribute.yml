@@ -24,6 +24,8 @@ on:
         type: boolean
 env:
   REACT_APP_BUILD_TARGET: 'extension'
+  REACT_APP_AMPLITUDE_KEY: ${{ secrets.REACT_APP_AMPLITUDE_KEY }}
+  REACT_APP_AMPLITUDE_URL: ${{ secrets.REACT_APP_AMPLITUDE_URL }}
 
 jobs:
   tag_version:
