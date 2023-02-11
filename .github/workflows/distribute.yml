@@ -38,6 +38,8 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DRY_RUN: ${{ github.event.inputs.autoTag == 'false' }}
+          WITH_V: true
+          DEFAULT_BUMP: patch
 
       - name: Update manifest.json
         if: github.event.inputs.autoTag == 'true'
