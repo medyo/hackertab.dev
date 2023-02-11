@@ -1,19 +1,32 @@
-import './BannerAd.css'
-import { useGetAd } from '../api/getAd'
-import { useUserPreferences } from 'src/stores/preferences'
+import { useState } from 'react'
 import { AdPlaceholder } from 'src/components/placeholders'
+import { useUserPreferences } from 'src/stores/preferences'
+import { useGetAd } from '../api/getAd'
+import './BannerAd.css'
 
 export const BannerAd = () => {
   const { userSelectedTags } = useUserPreferences()
+
+  const [aditionalAdQueries, setAditionalAdQueries] = useState<
+    { [key: string]: string } | undefined
+  >()
   const {
     data: ad,
     isLoading,
     isError,
   } = useGetAd({
-    keywords: userSelectedTags.map(tag => tag.label.toLocaleLowerCase()),
+    keywords: userSelectedTags.map((tag) => tag.label.toLocaleLowerCase()),
+    aditionalAdQueries: aditionalAdQueries,
     config: {
       cacheTime: 0,
       staleTime: 0,
+      refetchInterval(data) {
+        if (data?.nextAd) {
+          setAditionalAdQueries(data.nextAd.queries)
+          return data.nextAd.interval
+        }
+        return false
+      },
     },
   })
 
@@ -59,9 +72,7 @@ export const BannerAd = () => {
           </a>
         </span>
       </div>
-      {ad.viewUrl && (
-        <img src={ad.viewUrl} key={ad.viewUrl} className="hidden" alt="" />
-      )}
+      {ad.viewUrl && <img src={ad.viewUrl} key={ad.viewUrl} className="hidden" alt="" />}
     </div>
   )
 }

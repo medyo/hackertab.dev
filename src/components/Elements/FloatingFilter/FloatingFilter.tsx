@@ -3,12 +3,13 @@ import { FiFilter } from 'react-icons/fi'
 import { BottomSheet } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import { ChipsSet } from 'src/components/Elements'
-import { dateRanges, GLOBAL_TAG, MY_LANGUAGES_TAG, SupportedCard } from 'src/config'
+import { dateRanges, GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/config'
 import { trackCardDateRangeSelect, trackCardLanguageSelect } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
+import { SupportedCardType } from 'src/types'
 
 type ListingFilterMobileProps = {
-  card: SupportedCard
+  card: SupportedCardType
   filters?: ('datesRange' | 'language')[]
 }
 

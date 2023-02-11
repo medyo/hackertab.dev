@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { BiBookmarkMinus, BiBookmarkPlus } from 'react-icons/bi'
+import { Attributes, trackLinkBookmark, trackLinkUnBookmark } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
-import { BiBookmarkPlus } from 'react-icons/bi'
-import { BiBookmarkMinus } from 'react-icons/bi'
-import { trackLinkBookmark, trackLinkUnBookmark, Attributes } from 'src/lib/analytics'
 import { BaseEntry } from 'src/types'
 
 type CardItemWithActionsProps = {
@@ -10,6 +9,7 @@ type CardItemWithActionsProps = {
   index: number
   source: string
   cardItem: React.ReactNode
+  sourceType?: 'rss' | 'supported'
 }
 
 export const CardItemWithActions = ({
@@ -17,6 +17,7 @@ export const CardItemWithActions = ({
   item,
   index,
   source,
+  sourceType = 'supported',
 }: CardItemWithActionsProps) => {
   const { bookmarkPost, unbookmarkPost, userBookmarks } = useBookmarks()
   const [isBookmarked, setIsBookmarked] = useState(
@@ -27,6 +28,7 @@ export const CardItemWithActions = ({
       title: item.title,
       url: item.url,
       source,
+      sourceType: sourceType ?? 'rss',
     }
     if (isBookmarked) {
       unbookmarkPost(itemToBookmark)

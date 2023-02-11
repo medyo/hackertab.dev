@@ -1,1 +1,1 @@
-export * from "./FreecodecampCard";
+export * from './FreecodecampCard'
