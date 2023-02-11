@@ -43,7 +43,7 @@ jobs:
           WITH_V: true
           DEFAULT_BUMP: patch
           VERBOSE: true
-          BRANCH_HISTORY: compare
+          BRANCH_HISTORY: full
 
       - name: Update manifest.json
         if: github.event.inputs.autoTag == 'true'
