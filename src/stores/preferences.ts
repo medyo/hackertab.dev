@@ -30,6 +30,7 @@ type UserPreferencesStoreActions = {
   setCardSettings: (card: string, settings: CardSettingsType) => void
   markOnboardingAsCompleted: (occupation: Omit<Occupation, 'icon'> | null) => void
   setUserCustomCards: (cards: SupportedCardType[]) => void
+  updateCardOrder: (prevIndex: number, newIndex: number) => void
 }
 
 export const useUserPreferences = create(
@@ -74,6 +75,15 @@ export const useUserPreferences = create(
           onboardingResult: occupation,
         })),
       setUserCustomCards: (cards: SupportedCardType[]) => set({ userCustomCards: cards }),
+      updateCardOrder: (prevIndex: number, newIndex: number) => set((state) => {
+        const newState = state.cards;
+      
+        const temp =  newState[prevIndex].id;
+        newState[prevIndex].id = newState[newIndex].id;
+        newState[newIndex].id = temp;
+
+        return { cards: newState}
+      }),
     }),
     {
       name: 'preferences_storage',

@@ -251,6 +251,7 @@ a {
   padding-top: 16px;
   padding-bottom: 8px;
   cursor: pointer;
+  position: relative;
 }
 .blockHeader:hover .blockHeaderLink {
   opacity: 1;
@@ -263,6 +264,32 @@ a {
   opacity: 0;
   transition: opacity 0.2s linear;
 }
+.blockHeaderDragButton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to left, transparent, var(--card-actions-background-shadow));
+  border: none;
+  height: 100%;
+  padding: 0 12px;
+  width: 32%;
+  align-items: center;
+  justify-content: start;
+  z-index: 1;
+  cursor: grab;
+  display: none;
+  color: var(--card-action-button-color);
+  font-size: 24px;
+}
+
+.blockHeader:hover .blockHeaderDragButton {
+  display: flex;
+}
+.draggedBlock .block {
+  transform: rotate(3deg);
+  opacity: 0.5;
+}
+
 .blockHeaderIcon {
   position: relative;
   top: 4px;
@@ -273,7 +300,7 @@ a {
   height: 18px;
 }
 .blockHeaderIcon .rss {
-  color:#ee802f;
+  color: #ee802f;
 }
 .blockRow {
   scroll-snap-align: start;
