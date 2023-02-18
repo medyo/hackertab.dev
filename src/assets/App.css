@@ -252,6 +252,16 @@ a {
   padding-bottom: 8px;
   cursor: pointer;
 }
+
+.blockHeader .maxTitle {
+  margin: 0;
+  padding: 0;
+  line-height: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
 .blockHeader:hover .blockHeaderLink {
   opacity: 1;
 }
@@ -273,7 +283,7 @@ a {
   height: 18px;
 }
 .blockHeaderIcon .rss {
-  color:#ee802f;
+  color: #ee802f;
 }
 .blockRow {
   scroll-snap-align: start;
