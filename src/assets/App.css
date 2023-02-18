@@ -90,16 +90,19 @@ a {
 }
 
 .AppContent {
-  flex: 1 1 auto;
-  display: flex;
-  gap: 12px;
-  padding: 1%;
   position: relative;
   overflow-y: hidden;
   padding-bottom: 12px;
+}
+.Cards {
+  padding: 1%;
+  flex: 1 1 auto;
+  display: flex;
+  gap: 12px;
+  position: relative;
+  overflow-y: hidden;
   scroll-snap-type: x mandatory;
 }
-
 .HorizontalScroll {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -699,10 +702,6 @@ Producthunt item
   font-size: 14px;
 }
 
-.test3 {
-  flex-direction: column;
-}
-
 .bottomNavigation {
   display: none;
   flex-grow: 1;
@@ -723,6 +722,9 @@ Producthunt item
   height: 100%;
   line-height: 56px;
   font-size: 24px;
+  margin: 0;
+  border: none;
+  background: none;
 }
 .navigationItem img {
   width: 18px;

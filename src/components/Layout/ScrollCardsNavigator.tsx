@@ -31,7 +31,7 @@ export const ScrollCardsNavigator = () => {
   }, [])
 
   useLayoutEffect(() => {
-    scrollBarContainer.current = document.querySelector('.AppContent div')
+    scrollBarContainer.current = document.querySelector('.Cards')
   }, [])
 
   useEffect(() => {

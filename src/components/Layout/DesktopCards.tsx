@@ -23,7 +23,7 @@ export const DesktopCards = ({
     <SortableList
       as="div"
       onSortEnd={onSortEnd}
-      className="AppContent HorizontalScroll"
+      className="Cards HorizontalScroll"
       draggedItemClassName="draggedBlock">
       {cards
         .sort((a, b) => a.id - b.id)
