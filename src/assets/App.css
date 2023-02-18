@@ -253,6 +253,16 @@ a {
   cursor: pointer;
   position: relative;
 }
+
+.blockHeader .maxTitle {
+  margin: 0;
+  padding: 0;
+  line-height: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
 .blockHeader:hover .blockHeaderLink {
   opacity: 1;
 }

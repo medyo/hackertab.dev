@@ -15,7 +15,7 @@ export function CustomRssCard({ meta, withAds }: CardPropsType) {
   const HeaderTitle = () => {
     return (
       <div style={{ display: 'inline-block', margin: 0, padding: 0 }}>
-        <span> {meta.label} </span>
+        <p className="maxTitle"> {meta.label} </p>
       </div>
     )
   }
