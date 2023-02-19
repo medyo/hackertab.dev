@@ -37,6 +37,7 @@ enum Verbs {
   START = 'Start',
   FINISH = 'Finish',
   SKIP = 'Skip',
+  DRAG = 'Drag',
 }
 
 export enum Attributes {
@@ -280,6 +281,13 @@ export const trackRssSourceAdd = (source: string) => {
     object: Objects.RSS,
     verb: Verbs.ADD,
     attributes: { [Attributes.SOURCE]: source },
+  })
+}
+
+export const trackPageDrag = () => {
+  trackEvent({
+    object: Objects.PAGE,
+    verb: Verbs.DRAG,
   })
 }
 
