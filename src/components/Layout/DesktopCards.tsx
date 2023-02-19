@@ -1,6 +1,8 @@
+import { useLayoutEffect, useRef } from 'react'
 import SortableList, { SortableItem } from 'react-easy-sort'
 import { SUPPORTED_CARDS } from 'src/config'
 import { CustomRssCard } from 'src/features/cards'
+import { trackPageDrag } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SelectedCard, SupportedCardType } from 'src/types'
 
@@ -12,17 +14,27 @@ export const DesktopCards = ({
   userCustomCards: SupportedCardType[]
 }) => {
   const AVAILABLE_CARDS = [...SUPPORTED_CARDS, ...userCustomCards]
-
   const { updateCardOrder } = useUserPreferences()
+  const scrollHolderRef = useRef<HTMLElement | null>(null)
 
   const onSortEnd = (oldIndex: number, newIndex: number) => {
     updateCardOrder(oldIndex, newIndex)
+    trackPageDrag()
+    if (newIndex === 0 || (oldIndex > 3 && newIndex < 3)) {
+      scrollHolderRef.current?.scrollTo(0, 0)
+    }
   }
+
+  useLayoutEffect(() => {
+    scrollHolderRef.current = document.querySelector('.Cards')
+  }, [])
 
   return (
     <SortableList
       as="div"
       onSortEnd={onSortEnd}
+      lockAxis="x"
+      customHolderRef={scrollHolderRef}
       className="Cards HorizontalScroll"
       draggedItemClassName="draggedBlock">
       {cards
