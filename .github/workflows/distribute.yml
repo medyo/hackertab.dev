@@ -73,6 +73,8 @@ jobs:
         run: yarn
 
       - name: Build and zip the extension
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
         run: yarn build-chrome
 
       - name: Install chrome dependencies
@@ -103,6 +105,8 @@ jobs:
         run: yarn
 
       - name: Build and zip the extension
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
         run: yarn build-firefox
 
       - name: Install Firefox dependencies
