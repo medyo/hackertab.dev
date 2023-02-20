@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useLayoutEffect, useState } from 'react'
 import 'react-contexify/dist/ReactContexify.css'
 import 'src/assets/App.css'
-import { Footer, Header } from 'src/components/Layout'
+import { Header } from 'src/components/Layout'
 import { BookmarksSidebar } from 'src/features/bookmarks'
 import { MarketingBanner } from 'src/features/MarketingBanner'
 import { setupAnalytics, setupIdentification, trackPageView } from 'src/lib/analytics'
@@ -59,8 +59,6 @@ function App() {
         <ScrollCardsNavigator />
         <AppContentLayout setShowSettings={setShowSettings} />
         <BookmarksSidebar showSidebar={showSideBar} onClose={() => setShowSideBar(false)} />
-
-        <Footer />
       </div>
     </>
   )

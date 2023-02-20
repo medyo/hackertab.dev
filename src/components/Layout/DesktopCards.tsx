@@ -1,6 +1,9 @@
-import React from 'react'
+import { useLayoutEffect, useRef } from 'react'
+import SortableList, { SortableItem } from 'react-easy-sort'
 import { SUPPORTED_CARDS } from 'src/config'
 import { CustomRssCard } from 'src/features/cards'
+import { trackPageDrag } from 'src/lib/analytics'
+import { useUserPreferences } from 'src/stores/preferences'
 import { SelectedCard, SupportedCardType } from 'src/types'
 
 export const DesktopCards = ({
@@ -11,20 +14,47 @@ export const DesktopCards = ({
   userCustomCards: SupportedCardType[]
 }) => {
   const AVAILABLE_CARDS = [...SUPPORTED_CARDS, ...userCustomCards]
-  return (
-    <>
-      {cards.map((card, index) => {
-        const constantCard = AVAILABLE_CARDS.find((c) => c.value === card.name)
-        if (!constantCard) {
-          return null
-        }
+  const { updateCardOrder } = useUserPreferences()
+  const scrollHolderRef = useRef<HTMLElement | null>(null)
 
-        return React.createElement(constantCard?.component || CustomRssCard, {
-          key: card.name,
-          meta: constantCard,
-          withAds: index === 0,
-        })
-      })}
-    </>
+  const onSortEnd = (oldIndex: number, newIndex: number) => {
+    updateCardOrder(oldIndex, newIndex)
+    trackPageDrag()
+    if (newIndex === 0 || (oldIndex > 3 && newIndex < 3)) {
+      scrollHolderRef.current?.scrollTo(0, 0)
+    }
+  }
+
+  useLayoutEffect(() => {
+    scrollHolderRef.current = document.querySelector('.Cards')
+  }, [])
+
+  return (
+    <SortableList
+      as="div"
+      onSortEnd={onSortEnd}
+      lockAxis="x"
+      customHolderRef={scrollHolderRef}
+      className="Cards HorizontalScroll"
+      draggedItemClassName="draggedBlock">
+      {cards
+        .sort((a, b) => a.id - b.id)
+        .map((card, index) => {
+          const constantCard = AVAILABLE_CARDS.find((c) => c.value === card.name)
+          if (!constantCard) {
+            return null
+          }
+
+          const Component = constantCard?.component || CustomRssCard
+
+          return (
+            <SortableItem key={card.name}>
+              <div>
+                <Component key={card.name} meta={constantCard} withAds={index === 0} />
+              </div>
+            </SortableItem>
+          )
+        })}
+    </SortableList>
   )
 }

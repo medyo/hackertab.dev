@@ -1,7 +1,8 @@
-import { SUPPORTED_CARDS } from 'src/config'
-import { SelectedCard } from 'src/types'
-import { useUserPreferences } from 'src/stores/preferences'
 import { AiOutlineMenu } from 'react-icons/ai'
+import { BsRssFill } from 'react-icons/bs'
+import { SUPPORTED_CARDS } from 'src/config'
+import { useUserPreferences } from 'src/stores/preferences'
+import { SelectedCard } from 'src/types'
 
 type BottomNavigationProps = {
   selectedCard: SelectedCard
@@ -14,31 +15,33 @@ export const BottomNavigation = ({
   setSelectedCard,
   setShowSettings,
 }: BottomNavigationProps) => {
-  const { cards } = useUserPreferences()
+  const { cards, userCustomCards } = useUserPreferences()
+  const AVAILABLE_CARDS = [...SUPPORTED_CARDS, ...userCustomCards]
 
   return (
     <div className="bottomNavigation">
       {cards.map((card) => {
-        const constantCard = SUPPORTED_CARDS.find((c) => c.value === card.name)
+        const constantCard = AVAILABLE_CARDS.find((c) => c.value === card.name)
+
         return (
-          <a
+          <button
             key={card.name}
             className={
               'navigationItem ' + (selectedCard && selectedCard.name === card.name ? 'active' : '')
             }
-            href="/#"
-            onClick={(e) => setSelectedCard(card)}>
-            {constantCard?.icon}
-          </a>
+            onClick={() => setSelectedCard(card)}>
+            {card.type === 'supported'
+              ? constantCard?.icon
+              : <img src={constantCard?.icon as string} alt="" /> || <BsRssFill className="rss" />}
+          </button>
         )
       })}
       {
-        <a
+        <button
           className={'navigationItem '}
-          href="/#"
-          onClick={(e) => setShowSettings((prev: boolean) => !prev)}>
+          onClick={() => setShowSettings((prev: boolean) => !prev)}>
           {<AiOutlineMenu />}
-        </a>
+        </button>
       }
     </div>
   )

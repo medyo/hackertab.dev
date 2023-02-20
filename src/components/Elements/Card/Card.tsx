@@ -1,5 +1,8 @@
 import React from 'react'
+import { isDesktop } from 'react-device-detect'
+import { SortableKnob } from 'react-easy-sort'
 import { BsBoxArrowInUpRight } from 'react-icons/bs'
+import { MdOutlineDragIndicator } from 'react-icons/md'
 import { ref } from 'src/config'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SupportedCardType } from 'src/types'
@@ -23,6 +26,13 @@ export const Card = ({ card, titleComponent, children, fullBlock = false }: Card
   return (
     <div className={'block' + (fullBlock ? ' fullBlock' : '')}>
       <div className="blockHeader">
+        {isDesktop && (
+          <SortableKnob>
+            <button className="blockHeaderDragButton">
+              <MdOutlineDragIndicator />
+            </button>
+          </SortableKnob>
+        )}
         <span className="blockHeaderIcon">{icon}</span> {titleComponent || label}{' '}
         {link && (
           <a className="blockHeaderLink" href={link} onClick={handleHeaderLinkClick}>
@@ -30,6 +40,7 @@ export const Card = ({ card, titleComponent, children, fullBlock = false }: Card
           </a>
         )}
       </div>
+
       <div className="blockContent scrollable">{children}</div>
     </div>
   )

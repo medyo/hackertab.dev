@@ -15,14 +15,15 @@ export const AppContentLayout = ({
 
   return (
     <>
-      <main className="AppContent HorizontalScroll">
+      <main className="AppContent">
         {isDesktop ? (
           <DesktopCards cards={cards} userCustomCards={userCustomCards} />
         ) : (
-          <MobileCards selectedCard={selectedCard} />
+          <div className="HorizontalScroll">
+            <MobileCards selectedCard={selectedCard} />
+          </div>
         )}
       </main>
-
       <BottomNavigation
         selectedCard={selectedCard}
         setSelectedCard={setSelectedCard}

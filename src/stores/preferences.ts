@@ -1,3 +1,4 @@
+import arrayMove from 'array-move'
 import { Occupation } from 'src/features/onboarding/types'
 import { Tag } from 'src/features/remoteConfig'
 import { enhanceTags } from 'src/utils/DataEnhancement'
@@ -30,6 +31,7 @@ type UserPreferencesStoreActions = {
   setCardSettings: (card: string, settings: CardSettingsType) => void
   markOnboardingAsCompleted: (occupation: Omit<Occupation, 'icon'> | null) => void
   setUserCustomCards: (cards: SupportedCardType[]) => void
+  updateCardOrder: (prevIndex: number, newIndex: number) => void
 }
 
 export const useUserPreferences = create(
@@ -74,6 +76,17 @@ export const useUserPreferences = create(
           onboardingResult: occupation,
         })),
       setUserCustomCards: (cards: SupportedCardType[]) => set({ userCustomCards: cards }),
+      updateCardOrder: (prevIndex: number, newIndex: number) => set((state) => {
+    
+        const newState = arrayMove(state.cards, prevIndex, newIndex).map((card, index) => {
+          return {
+           ...card,
+           id: index
+          }
+         })
+
+        return { cards: newState}
+      }),
     }),
     {
       name: 'preferences_storage',

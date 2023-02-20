@@ -1,16 +1,11 @@
-import React from 'react'
-import {
-  repository,
-  supportLink,
-  privacyPolicyLink,
-  termsAndConditionsLink,
-  dataSourcesLink,
-} from 'src/config'
-import { RiCodeSSlashFill } from 'react-icons/ri'
 import { HiLightBulb } from 'react-icons/hi'
+import { RiCodeSSlashFill } from 'react-icons/ri'
+import { privacyPolicyLink, repository, supportLink, termsAndConditionsLink } from 'src/config'
 import { trackPageView } from 'src/lib/analytics'
+import { getAppVersion } from 'src/utils/Os'
 
 export const Footer = () => {
+  const appVersion = getAppVersion()
   return (
     <footer className="AppFooter">
       <a className="linkItem" href={supportLink} onClick={() => trackPageView('Feature Request')}>
@@ -34,9 +29,16 @@ export const Footer = () => {
         onClick={() => trackPageView('Privacy Policy')}>
         Privacy policy
       </a>
-      <a className="linkItem" href={dataSourcesLink} onClick={() => trackPageView('Data Sources')}>
-        Data sources
-      </a>
+      {appVersion && (
+        <a
+          className="linkItem"
+          href={repository}
+          target="_blank"
+          rel="noreferrer"
+          onClick={() => trackPageView('Source Code')}>
+          v{appVersion}
+        </a>
+      )}
     </footer>
   )
 }

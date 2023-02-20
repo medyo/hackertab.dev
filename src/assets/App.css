@@ -67,16 +67,16 @@ a {
 }
 
 .AppFooter {
-  flex: 0 0 auto;
+  display: flex;
   flex-direction: row;
-  text-align: right;
-  margin-top: 12px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
 }
 .AppFooter .linkItem {
   font-size: 12px;
   color: var(--primary-text-color);
   text-decoration: none;
-  text-transform: uppercase;
   margin-right: 12px;
   cursor: pointer;
   display: inline-flex;
@@ -90,16 +90,20 @@ a {
 }
 
 .AppContent {
+  position: relative;
+  overflow-y: hidden;
+  padding: 12px 0;
+}
+.Cards {
+  padding: 1%;
   flex: 1 1 auto;
   display: flex;
   gap: 12px;
-  padding: 1%;
   position: relative;
   overflow-y: hidden;
-  padding-bottom: 12px;
   scroll-snap-type: x mandatory;
+  scroll-padding-left: 12px;
 }
-
 .HorizontalScroll {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -195,7 +199,7 @@ a {
   border-radius: 10px;
   overflow: hidden;
   flex-direction: column;
-  height: 78vh;
+  height: 82vh;
   width: 10vw;
   flex: 0 0 auto;
   scroll-snap-align: start;
@@ -207,7 +211,7 @@ a {
   flex-direction: column;
   overflow-x: hidden;
   scroll-snap-type: y mandatory;
-  height: calc(80vh - 1% - 46px);
+  height: calc(86vh - 1% - 46px);
 }
 
 .scrollable {
@@ -250,7 +254,17 @@ a {
   font-size: 16px;
   padding-top: 16px;
   padding-bottom: 8px;
-  cursor: pointer;
+  position: relative;
+}
+
+.blockHeader .maxTitle {
+  margin: 0;
+  padding: 0;
+  line-height: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
 }
 .blockHeader:hover .blockHeaderLink {
   opacity: 1;
@@ -263,6 +277,32 @@ a {
   opacity: 0;
   transition: opacity 0.2s linear;
 }
+.blockHeaderDragButton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to left, transparent, var(--card-actions-background-shadow));
+  border: none;
+  height: 100%;
+  padding: 0 12px;
+  width: 32%;
+  align-items: center;
+  justify-content: start;
+  z-index: 1;
+  cursor: grab;
+  display: none;
+  color: #96a2ae;
+  font-size: 24px;
+}
+
+.blockHeader:hover .blockHeaderDragButton {
+  display: flex;
+}
+.draggedBlock .block {
+  transform: rotate(3deg);
+  opacity: 0.5;
+}
+
 .blockHeaderIcon {
   position: relative;
   top: 4px;
@@ -273,7 +313,7 @@ a {
   height: 18px;
 }
 .blockHeaderIcon .rss {
-  color:#ee802f;
+  color: #ee802f;
 }
 .blockRow {
   scroll-snap-align: start;
@@ -449,7 +489,7 @@ a {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 4px;
-  margin-top: 12px;
+  margin-top: 24px;
 }
 
 .tag {
@@ -662,10 +702,6 @@ Producthunt item
   font-size: 14px;
 }
 
-.test3 {
-  flex-direction: column;
-}
-
 .bottomNavigation {
   display: none;
   flex-grow: 1;
@@ -686,6 +722,9 @@ Producthunt item
   height: 100%;
   line-height: 56px;
   font-size: 24px;
+  margin: 0;
+  border: none;
+  background: none;
 }
 .navigationItem img {
   width: 18px;
