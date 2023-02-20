@@ -4,6 +4,7 @@ import ReactModal from 'react-modal'
 import Select, { ActionMeta, MultiValue, SingleValue } from 'react-select'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
+import { Footer } from 'src/components/Layout'
 import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, supportLink } from 'src/config'
 import { Tag, useRemoteConfigStore } from 'src/features/remoteConfig'
 import {
@@ -259,6 +260,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
             </p>
           </div>
         </div>
+        <Footer />
       </div>
     </ReactModal>
   )

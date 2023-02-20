@@ -67,16 +67,16 @@ a {
 }
 
 .AppFooter {
-  flex: 0 0 auto;
+  display: flex;
   flex-direction: row;
-  text-align: right;
-  margin-top: 12px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
 }
 .AppFooter .linkItem {
   font-size: 12px;
   color: var(--primary-text-color);
   text-decoration: none;
-  text-transform: uppercase;
   margin-right: 12px;
   cursor: pointer;
   display: inline-flex;
@@ -92,7 +92,7 @@ a {
 .AppContent {
   position: relative;
   overflow-y: hidden;
-  padding-bottom: 12px;
+  padding: 12px 0;
 }
 .Cards {
   padding: 1%;
@@ -102,6 +102,7 @@ a {
   position: relative;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
+  scroll-padding-left: 12px;
 }
 .HorizontalScroll {
   -ms-overflow-style: none;
@@ -198,7 +199,7 @@ a {
   border-radius: 10px;
   overflow: hidden;
   flex-direction: column;
-  height: 78vh;
+  height: 82vh;
   width: 10vw;
   flex: 0 0 auto;
   scroll-snap-align: start;
@@ -210,7 +211,7 @@ a {
   flex-direction: column;
   overflow-x: hidden;
   scroll-snap-type: y mandatory;
-  height: calc(80vh - 1% - 46px);
+  height: calc(86vh - 1% - 46px);
 }
 
 .scrollable {
@@ -253,7 +254,6 @@ a {
   font-size: 16px;
   padding-top: 16px;
   padding-bottom: 8px;
-  cursor: pointer;
   position: relative;
 }
 
@@ -291,7 +291,7 @@ a {
   z-index: 1;
   cursor: grab;
   display: none;
-  color: var(--card-action-button-color);
+  color: #96a2ae;
   font-size: 24px;
 }
 
@@ -489,7 +489,7 @@ a {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 4px;
-  margin-top: 12px;
+  margin-top: 24px;
 }
 
 .tag {
