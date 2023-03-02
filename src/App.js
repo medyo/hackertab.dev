@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useLayoutEffect, useState } from 'react'
 import 'react-contexify/dist/ReactContexify.css'
 import 'src/assets/App.css'
-import { Header } from 'src/components/Layout'
+import { Header, PausedAppContent } from 'src/components/Layout'
 import { BookmarksSidebar } from 'src/features/bookmarks'
 import { MarketingBanner } from 'src/features/MarketingBanner'
 import { setupAnalytics, setupIdentification, trackPageView } from 'src/lib/analytics'
@@ -19,7 +19,7 @@ function App() {
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(true)
-  const { onboardingCompleted, firstSeenDate, markOnboardingAsCompleted } = useUserPreferences()
+  const { onboardingCompleted, firstSeenDate, markOnboardingAsCompleted, pauseTo } = useUserPreferences()
 
   useLayoutEffect(() => {
     if (!onboardingCompleted && getAppVersion() <= '1.15.9') {
@@ -35,13 +35,18 @@ function App() {
     setupAnalytics()
     setupIdentification()
     trackPageView('home')
+
   }, [])
+
+  const isAppPaused = Boolean(pauseTo && pauseTo - (new Date()).getTime() > 0)
+  console.log("pauseTo: ", isAppPaused);
 
   return (
     <>
       <MarketingBanner />
 
       <div className="App">
+        <PausedAppContent isAppPaused={isAppPaused} />
         {!onboardingCompleted && isWebOrExtensionVersion() === 'extension' && (
           <Suspense fallback={null}>
             <OnboardingModal

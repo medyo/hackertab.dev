@@ -18,6 +18,7 @@ export type UserPreferencesState = {
   cardsSettings: Record<string, CardSettingsType>
   firstSeenDate: number
   userCustomCards: SupportedCardType[]
+  pauseTo: number
 }
 
 type UserPreferencesStoreActions = {
@@ -32,6 +33,7 @@ type UserPreferencesStoreActions = {
   markOnboardingAsCompleted: (occupation: Omit<Occupation, 'icon'> | null) => void
   setUserCustomCards: (cards: SupportedCardType[]) => void
   updateCardOrder: (prevIndex: number, newIndex: number) => void
+  setPauseTo: (value: number) => void
 }
 
 export const useUserPreferences = create(
@@ -53,6 +55,7 @@ export const useUserPreferences = create(
         { id: 3, name: 'producthunt', type: 'supported' },
       ],
       userCustomCards: [],
+      pauseTo: 0,
       setSearchEngine: (searchEngine: string) => set({ searchEngine: searchEngine }),
       setListingMode: (listingMode: ListingMode) => set({ listingMode: listingMode }),
       setTheme: (theme: Theme) => set({ theme: theme }),
@@ -76,17 +79,18 @@ export const useUserPreferences = create(
           onboardingResult: occupation,
         })),
       setUserCustomCards: (cards: SupportedCardType[]) => set({ userCustomCards: cards }),
-      updateCardOrder: (prevIndex: number, newIndex: number) => set((state) => {
-    
-        const newState = arrayMove(state.cards, prevIndex, newIndex).map((card, index) => {
-          return {
-           ...card,
-           id: index
-          }
-         })
+      updateCardOrder: (prevIndex: number, newIndex: number) =>
+        set((state) => {
+          const newState = arrayMove(state.cards, prevIndex, newIndex).map((card, index) => {
+            return {
+              ...card,
+              id: index,
+            }
+          })
 
-        return { cards: newState}
-      }),
+          return { cards: newState }
+        }),
+      setPauseTo: (value) => set({ pauseTo: value }),
     }),
     {
       name: 'preferences_storage',

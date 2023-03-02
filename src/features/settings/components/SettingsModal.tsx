@@ -25,6 +25,7 @@ import {
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SearchEngineType, SelectedCard } from 'src/types'
+import { PauseSettings } from './PauseSettings'
 import { RssSetting } from './RssSetting'
 import './settings.css'
 
@@ -56,6 +57,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     setTags,
     userCustomCards,
     setUserCustomCards,
+    setPauseTo,
   } = useUserPreferences()
   const [selectedCards, setSelectedCards] = useState(cards)
 
@@ -144,6 +146,13 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     identifyUserTheme(newTheme)
   }
 
+  const onPauseSubmit = (pauseToValue: number) => {
+    handleCloseModal()
+    setTimeout(() => {
+      setPauseTo(pauseToValue)
+    }, 250)
+  }
+
   return (
     <ReactModal
       isOpen={showSettings}
@@ -214,6 +223,8 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
         </div>
 
         <RssSetting setSelectedCards={setSelectedCards} />
+
+        <PauseSettings onSubmit={onPauseSubmit} />
 
         <div className="settingRow">
           <p className="settingTitle">Dark Mode</p>

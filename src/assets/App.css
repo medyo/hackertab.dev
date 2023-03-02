@@ -1120,3 +1120,29 @@ Producthunt item
   position: relative;
   vertical-align: middle;
 }
+
+/* PAUSE CONTENT */
+
+.pauseContentWrapper {
+  height: 0;
+  transition: height 0.5s ease-out;
+}
+
+.pauseContentWrapper.active {
+  height: 100vh;
+}
+
+.pauseContentWrapper .options {
+  height: 5%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding-right: 24px;
+}
+
+.pauseContentWrapper .searchContainer {
+  height: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

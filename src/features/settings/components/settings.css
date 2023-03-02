@@ -177,24 +177,8 @@ Select styles
   border-radius: 20px !important;
   color: var(--tag-secondary-color) !important;
 }
-.rss-sources .hackertab__indicators {
-  display: none;
-}
 
-.rss-widget 
-.rssUrlControl {
-  margin: 6px 0;
-  color: var(--primary-text-color);
-}
 
-.rssUrlInput {
-  width: 66%;
-  margin-right: 4px;
-  padding: 4px;
-  background-color: var(--card-background-color) !important;
-  border-color: var(--tag-border-color) !important;
-  color: var(--primary-text-color)
-}
 
 @media (max-width: 768px) {
   .Modal {
@@ -215,4 +199,40 @@ Select styles
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+/* PAUSE SETTING */
+
+
+.pauseFormWrapper {
+  margin: 6px 0 0 6px;
+}
+
+.pauseForm {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 8px;
+}
+
+.pauseForm input[type=number] {
+  margin-right: 24px;
+  flex: 1;
+  background-color: var(--settings-input-background-color);
+  border: 1px solid var(--settings-input-border-color);
+  border-radius: 50px;
+  padding: 6px 18px;
+  color: var(--settings-input-text-color);
+  font-size: 14px;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 6px;
+}
+
+.pauseButton {
+
+  background-color: #EE802F;
+  color: white;
 }
