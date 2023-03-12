@@ -4,6 +4,7 @@ import ReactModal from 'react-modal'
 import Select, { ActionMeta, MultiValue, SingleValue } from 'react-select'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
+import { ChipsSet } from 'src/components/Elements'
 import { Footer } from 'src/components/Layout'
 import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, supportLink } from 'src/config'
 import { Tag, useRemoteConfigStore } from 'src/features/remoteConfig'
@@ -24,7 +25,7 @@ import {
   trackThemeSelect,
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
-import { SearchEngineType, SelectedCard } from 'src/types'
+import { Option, SearchEngineType, SelectedCard } from 'src/types'
 import { RssSetting } from './RssSetting'
 import './settings.css'
 
@@ -48,8 +49,10 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     listingMode,
     theme,
     searchEngine,
+    maxVisibleCards,
     setTheme,
     setListingMode,
+    setMaxVisibleCards,
     setSearchEngine,
     setOpenLinksNewTab,
     setCards,
@@ -144,6 +147,12 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     identifyUserTheme(newTheme)
   }
 
+  const onCardsCountChange = (selectedChips: Option[]) => {
+    if (selectedChips.length) {
+      setMaxVisibleCards(parseInt(selectedChips[0].value))
+    }
+  }
+
   return (
     <ReactModal
       isOpen={showSettings}
@@ -214,6 +223,43 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
         </div>
 
         <RssSetting setSelectedCards={setSelectedCards} />
+
+        <div className="settingRow">
+          <p className="settingTitle">Max number of cards to display</p>
+          <div className="settingContent">
+            <ChipsSet
+              className={'noMargin'}
+              canSelectMultiple={false}
+              options={[
+                {
+                  label: '3 cards',
+                  value: '3',
+                },
+                {
+                  label: '4 cards',
+                  value: '4',
+                },
+                {
+                  label: '5 cards',
+                  value: '5',
+                },
+                {
+                  label: '6 cards',
+                  value: '6',
+                },
+              ]}
+              defaultValues={[maxVisibleCards.toString()]}
+              onChange={(_, selectedChips) => {
+                onCardsCountChange(selectedChips)
+              }}
+            />
+
+            <p className="settingHint">
+              To ensure a seamless experience, we may adjust the selected number to align with the
+              resolution of your screen.
+            </p>
+          </div>
+        </div>
 
         <div className="settingRow">
           <p className="settingTitle">Dark Mode</p>
