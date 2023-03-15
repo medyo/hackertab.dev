@@ -13,11 +13,13 @@ import {
   identifyUserLanguages,
   identifyUserLinksInNewTab,
   identifyUserListingMode,
+  identifyUserMaxVisibleCards,
   identifyUserSearchEngine,
   identifyUserTheme,
   trackLanguageAdd,
   trackLanguageRemove,
   trackListingModeSelect,
+  trackMaxVisibleCardsChange,
   trackSearchEngineSelect,
   trackSourceAdd,
   trackSourceRemove,
@@ -147,9 +149,12 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     identifyUserTheme(newTheme)
   }
 
-  const onCardsCountChange = (selectedChips: Option[]) => {
+  const onMaxVisibleCardsChange = (selectedChips: Option[]) => {
     if (selectedChips.length) {
-      setMaxVisibleCards(parseInt(selectedChips[0].value))
+      const maxVisibleCards = parseInt(selectedChips[0].value)
+      setMaxVisibleCards(maxVisibleCards)
+      identifyUserMaxVisibleCards(maxVisibleCards)
+      trackMaxVisibleCardsChange(maxVisibleCards)
     }
   }
 
@@ -250,7 +255,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
               ]}
               defaultValues={[maxVisibleCards.toString()]}
               onChange={(_, selectedChips) => {
-                onCardsCountChange(selectedChips)
+                onMaxVisibleCardsChange(selectedChips)
               }}
             />
 
