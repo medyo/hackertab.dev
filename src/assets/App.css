@@ -1085,7 +1085,7 @@ Producthunt item
 /* XX-Large devices (larger desktops, 1400px and up)*/
 @media only screen and (min-width: 1400px) {
   .block {
-    width: calc(96vw / min(4, var(--max-visible-cards)));
+    width: calc(95vw / min(4, var(--max-visible-cards)));
   }
 }
 
@@ -1097,7 +1097,7 @@ Producthunt item
   }
   .block {
     width: calc(
-      (1800px - 12px * min(5, var(--max-visible-cards))) / min(5, var(--max-visible-cards))
+      (1800px - 14px * min(5, var(--max-visible-cards))) / min(5, var(--max-visible-cards))
     );
   }
 }
