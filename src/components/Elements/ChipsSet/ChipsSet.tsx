@@ -1,7 +1,7 @@
+import clsx from 'clsx'
 import { useState } from 'react'
 import { Option } from 'src/types'
 import './chipset.css'
-
 type ChipProps = {
   option: Option
   onSelect: (option: Option) => void
@@ -19,12 +19,14 @@ const Chip = ({ option, onSelect, active = false }: ChipProps) => {
 type ChangeAction = 'ADD' | 'REMOVE'
 type ChipsSetProps = {
   options: Option[]
+  className?: string
   defaultValues?: string[]
   canSelectMultiple?: boolean
   onChange?: (action: ChangeAction, options: Option[]) => void
 }
 
 export const ChipsSet = ({
+  className,
   options,
   canSelectMultiple = false,
   onChange,
@@ -62,7 +64,7 @@ export const ChipsSet = ({
   }
 
   return (
-    <div className="chipsSet">
+    <div className={clsx('chipsSet', className)}>
       {options.map((option) => {
         return (
           <Chip

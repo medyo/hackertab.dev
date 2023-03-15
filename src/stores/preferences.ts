@@ -14,6 +14,7 @@ export type UserPreferencesState = {
   onboardingResult: Omit<Occupation, 'icon'> | null
   listingMode: ListingMode
   searchEngine: string
+  maxVisibleCards: number
   cards: SelectedCard[]
   cardsSettings: Record<string, CardSettingsType>
   firstSeenDate: number
@@ -28,6 +29,7 @@ type UserPreferencesStoreActions = {
   setListingMode: (listingMode: ListingMode) => void
   setCards: (selectedCards: SelectedCard[]) => void
   setTags: (selectedTags: Tag[]) => void
+  setMaxVisibleCards: (maxVisibleCards: number) => void
   setCardSettings: (card: string, settings: CardSettingsType) => void
   markOnboardingAsCompleted: (occupation: Omit<Occupation, 'icon'> | null) => void
   setUserCustomCards: (cards: SupportedCardType[]) => void
@@ -39,6 +41,7 @@ export const useUserPreferences = create(
     (set) => ({
       userSelectedTags: [],
       cardsSettings: {},
+      maxVisibleCards: 4,
       theme: 'dark',
       onboardingCompleted: false,
       onboardingResult: null,
@@ -59,6 +62,7 @@ export const useUserPreferences = create(
       setOpenLinksNewTab: (openLinksNewTab: boolean) => set({ openLinksNewTab: openLinksNewTab }),
       setCards: (selectedCards: SelectedCard[]) => set({ cards: selectedCards }),
       setTags: (selectedTags: Tag[]) => set({ userSelectedTags: selectedTags }),
+      setMaxVisibleCards: (maxVisibleCards: number) => set({ maxVisibleCards: maxVisibleCards }),
       initState: (newState: UserPreferencesState) =>
         set(() => {
           return { ...newState }

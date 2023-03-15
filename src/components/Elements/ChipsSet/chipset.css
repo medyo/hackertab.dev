@@ -40,3 +40,10 @@
   background-color: var(--chip-active-background);
   color: var(--chip-active-text);
 }
+
+.chipsSet.alternative-color .chip {
+  background-color: var(--card-action-button-background);
+}
+.chipsSet.alternative-color .chip.active {
+  background-color: var(--card-active-action-button-background);
+}
