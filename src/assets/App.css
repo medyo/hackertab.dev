@@ -1043,18 +1043,21 @@ Producthunt item
   .floatingFilter {
     display: block;
   }
+  .block {
+    width: 100vw;
+  }
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   .block {
-    width: calc(96vw / 2);
+    width: calc(96vw / min(2, var(--max-visible-cards)));
   }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
   .block {
-    width: calc(96vw / 3);
+    width: calc(96vw / min(3, var(--max-visible-cards)));
   }
   .searchBarInput {
     width: 200px;
@@ -1064,7 +1067,7 @@ Producthunt item
 /* Large devices (desktops, 992px and up)*/
 @media only screen and (min-width: 992px) {
   .block {
-    width: calc(96vw / 3);
+    width: calc(96vw / min(3, var(--max-visible-cards)));
   }
 
   .searchBarInput {
@@ -1075,14 +1078,14 @@ Producthunt item
 /* X-Large devices (large desktops, 1200px and up)*/
 @media only screen and (min-width: 1200px) {
   .block {
-    width: calc(96vw / 4);
+    width: calc(96vw / min(4, var(--max-visible-cards)));
   }
 }
 
 /* XX-Large devices (larger desktops, 1400px and up)*/
 @media only screen and (min-width: 1400px) {
   .block {
-    width: calc(96vw / 4);
+    width: calc(95vw / min(4, var(--max-visible-cards)));
   }
 }
 
@@ -1093,7 +1096,9 @@ Producthunt item
     padding: 0;
   }
   .block {
-    width: calc((1800px - 12px * 4) / 4);
+    width: calc(
+      (1800px - 14px * min(5, var(--max-visible-cards))) / min(5, var(--max-visible-cards))
+    );
   }
 }
 
@@ -1119,4 +1124,7 @@ Producthunt item
 .Page .buttonIcon {
   position: relative;
   vertical-align: middle;
+}
+.noMargin {
+  margin: 0 !important;
 }

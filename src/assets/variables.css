@@ -10,6 +10,10 @@
   src: url('fonts/nunito/nunito-semibold.woff2') format('woff2');
 }
 
+html {
+  --max-visible-cards: 4;
+}
+
 html.dark {
   --app-name-text-color: #fff;
   --background-color: #0d1116;
@@ -89,7 +93,7 @@ html.dark {
   --settings-input-border-color: #3a4553;
   --settings-input-border-focus-color: #6b7b90;
   --settings-input-placeholder-color: #42474e;
-  --settings-input-text-color: #fff
+  --settings-input-text-color: #fff;
 }
 
 html.light {
@@ -171,6 +175,5 @@ html.light {
   --settings-input-border-color: #e9ebec;
   --settings-input-border-focus-color: #c4d6df;
   --settings-input-placeholder-color: #97a6ad;
-  --settings-input-text-color: #253b53
-
+  --settings-input-text-color: #253b53;
 }
