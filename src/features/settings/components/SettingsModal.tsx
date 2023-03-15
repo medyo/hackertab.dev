@@ -228,7 +228,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
           <p className="settingTitle">Max number of cards to display</p>
           <div className="settingContent">
             <ChipsSet
-              className={'noMargin'}
+              className={'noMargin alternative-color'}
               canSelectMultiple={false}
               options={[
                 {
