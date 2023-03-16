@@ -207,7 +207,10 @@ Select styles
 .pauseFormWrapper {
   margin: 6px 0 0 6px;
 }
+.pauseChips {
+  margin: 8px auto;
 
+}
 .pauseForm {
   display: flex;
   flex-direction: row;
