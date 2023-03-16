@@ -34,6 +34,7 @@ export const ScrollCardsNavigator = () => {
   }, [])
 
   useLayoutEffect(() => {
+    setLeftButtonVisible(false)
     scrollBarContainer.current = document.querySelector('.Cards')
   }, [])
 
@@ -48,7 +49,6 @@ export const ScrollCardsNavigator = () => {
   }, [handleKeyboardKeys])
 
   useEffect(() => {
-    setLeftButtonVisible(false)
     setRightButtonVisible(cards.length > maxCardsPerRow)
   }, [cards])
 

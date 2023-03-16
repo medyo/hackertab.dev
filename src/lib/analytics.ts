@@ -38,6 +38,7 @@ enum Verbs {
   FINISH = 'Finish',
   SKIP = 'Skip',
   DRAG = 'Drag',
+  Change = 'Change',
 }
 
 export enum Attributes {
@@ -60,6 +61,7 @@ export enum Attributes {
   SOURCE_TAGS = 'Source Tags',
   CAMPAIGN_ID = 'Campaign Id',
   OCCUPATION = 'Occupation',
+  MAX_VISIBLE_CARDS = 'Max Visible Cards',
 }
 
 const _SEP_ = ' '
@@ -82,6 +84,7 @@ export const setupIdentification = () => {
     listingMode,
     openLinksNewTab,
     searchEngine,
+    maxVisibleCards
   } = useUserPreferences.getState()
 
   identifyUserProperty(Attributes.RESOLUTION, getScreenResolution())
@@ -91,6 +94,7 @@ export const setupIdentification = () => {
   identifyUserListingMode(listingMode)
   identifyUserSearchEngine(searchEngine)
   identifyUserLinksInNewTab(openLinksNewTab)
+  identifyUserMaxVisibleCards(maxVisibleCards)
   if (onboardingResult?.title) {
     identifyUserOccupation(onboardingResult.title)
   }
@@ -291,6 +295,14 @@ export const trackPageDrag = () => {
   })
 }
 
+export const trackMaxVisibleCardsChange = (maxVisibleCards: number) => {
+  trackEvent({
+    object: Objects.CARD,
+    verb: Verbs.Change,
+    attributes: {[Attributes.MAX_VISIBLE_CARDS]: maxVisibleCards}
+  })
+}
+
 // Identification
 
 export const identifyUserLanguages = (languages: string[]) => {
@@ -317,7 +329,9 @@ export const identifyUserLinksInNewTab = (enabled: boolean) => {
 export const identifyUserOccupation = (occupation: string) => {
   identifyUserProperty(Attributes.OCCUPATION, occupation)
 }
-
+export const identifyUserMaxVisibleCards = (maxVisibleCards: number) => {
+  identifyUserProperty(Attributes.MAX_VISIBLE_CARDS, maxVisibleCards)
+}
 
 // Private functions
 type trackEventProps = {
@@ -365,13 +379,13 @@ const trackEvent = ({ object, verb, attributes }: trackEventProps) => {
   }
 }
 
-const identifyUserProperty = (attributes: Attributes, value: string | string[]) => {
+const identifyUserProperty = (attributes: Attributes, value: string | number | string[]) => {
   try {
     let formatedValue
     if (Array.isArray(value)) {
       formatedValue = value.filter(Boolean).map((item) => item.toLowerCase())
     } else {
-      formatedValue = value.toLowerCase()
+      formatedValue = typeof value === "string" ? value.toLowerCase() : value.toString()
     }
 
     if (isDevelopment()) {

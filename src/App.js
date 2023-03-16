@@ -19,7 +19,8 @@ function App() {
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(true)
-  const { onboardingCompleted, firstSeenDate, markOnboardingAsCompleted, pauseTo } = useUserPreferences()
+  const { onboardingCompleted, firstSeenDate, markOnboardingAsCompleted, maxVisibleCards, pauseTo } =
+    useUserPreferences()
 
   useLayoutEffect(() => {
     if (!onboardingCompleted && getAppVersion() <= '1.15.9') {
@@ -30,6 +31,10 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onboardingCompleted, firstSeenDate])
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--max-visible-cards', maxVisibleCards)
+  }, [maxVisibleCards])
 
   useEffect(() => {
     setupAnalytics()

@@ -4,6 +4,7 @@ import ReactModal from 'react-modal'
 import Select, { ActionMeta, MultiValue, SingleValue } from 'react-select'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
+import { ChipsSet } from 'src/components/Elements'
 import { Footer } from 'src/components/Layout'
 import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, supportLink } from 'src/config'
 import { Tag, useRemoteConfigStore } from 'src/features/remoteConfig'
@@ -12,19 +13,21 @@ import {
   identifyUserLanguages,
   identifyUserLinksInNewTab,
   identifyUserListingMode,
+  identifyUserMaxVisibleCards,
   identifyUserSearchEngine,
   identifyUserTheme,
   trackLanguageAdd,
   trackLanguageRemove,
   trackListingModeSelect,
+  trackMaxVisibleCardsChange,
   trackSearchEngineSelect,
   trackSourceAdd,
   trackSourceRemove,
   trackTabTarget,
-  trackThemeSelect,
+  trackThemeSelect
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
-import { SearchEngineType, SelectedCard } from 'src/types'
+import { Option, SearchEngineType, SelectedCard } from 'src/types'
 import { PauseSettings } from './PauseSettings'
 import { RssSetting } from './RssSetting'
 import './settings.css'
@@ -49,8 +52,10 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     listingMode,
     theme,
     searchEngine,
+    maxVisibleCards,
     setTheme,
     setListingMode,
+    setMaxVisibleCards,
     setSearchEngine,
     setOpenLinksNewTab,
     setCards,
@@ -152,6 +157,14 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
       setPauseTo(pauseToValue)
     }, 250)
   }
+  const onMaxVisibleCardsChange = (selectedChips: Option[]) => {
+    if (selectedChips.length) {
+      const maxVisibleCards = parseInt(selectedChips[0].value)
+      setMaxVisibleCards(maxVisibleCards)
+      identifyUserMaxVisibleCards(maxVisibleCards)
+      trackMaxVisibleCardsChange(maxVisibleCards)
+    }
+  }
 
   return (
     <ReactModal
@@ -225,6 +238,43 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
         <RssSetting setSelectedCards={setSelectedCards} />
 
         <PauseSettings onSubmit={onPauseSubmit} />
+
+        <div className="settingRow">
+          <p className="settingTitle">Max number of cards to display</p>
+          <div className="settingContent">
+            <ChipsSet
+              className={'noMargin alternative-color'}
+              canSelectMultiple={false}
+              options={[
+                {
+                  label: '3 cards',
+                  value: '3',
+                },
+                {
+                  label: '4 cards',
+                  value: '4',
+                },
+                {
+                  label: '5 cards',
+                  value: '5',
+                },
+                {
+                  label: '6 cards',
+                  value: '6',
+                },
+              ]}
+              defaultValues={[maxVisibleCards.toString()]}
+              onChange={(_, selectedChips) => {
+                onMaxVisibleCardsChange(selectedChips)
+              }}
+            />
+
+            <p className="settingHint">
+              To ensure a seamless experience, we may adjust the selected number to align with the
+              resolution of your screen.
+            </p>
+          </div>
+        </div>
 
         <div className="settingRow">
           <p className="settingTitle">Dark Mode</p>
