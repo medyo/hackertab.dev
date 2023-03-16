@@ -19,7 +19,13 @@ function App() {
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(true)
-  const { onboardingCompleted, firstSeenDate, markOnboardingAsCompleted, pauseTo } = useUserPreferences()
+  const {
+    onboardingCompleted,
+    firstSeenDate,
+    markOnboardingAsCompleted,
+    maxVisibleCards,
+    pauseTo,
+  } = useUserPreferences()
 
   useLayoutEffect(() => {
     if (!onboardingCompleted && getAppVersion() <= '1.15.9') {
@@ -32,14 +38,17 @@ function App() {
   }, [onboardingCompleted, firstSeenDate])
 
   useEffect(() => {
+    document.documentElement.style.setProperty('--max-visible-cards', maxVisibleCards)
+  }, [maxVisibleCards])
+
+  useEffect(() => {
     setupAnalytics()
     setupIdentification()
     trackPageView('home')
-
   }, [])
 
-  const isAppPaused = Boolean(pauseTo && pauseTo - (new Date()).getTime() > 0)
-  console.log("pauseTo: ", isAppPaused);
+  const isAppPaused = Boolean(pauseTo && pauseTo - new Date().getTime() > 0)
+  console.log('pauseTo: ', isAppPaused)
 
   return (
     <>
