@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
-import Toggle from 'react-toggle'
-import { SearchBar } from 'src/components/Elements/SearchBar'
+import { CgTab } from 'react-icons/cg'
+import { MdOutlineAirplanemodeInactive } from 'react-icons/md'
+import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
+import { SearchBarWithLogo } from 'src/components/Elements'
 import { useUserPreferences } from 'src/stores/preferences'
 
 type PausedAppContentProps = {
@@ -9,17 +10,11 @@ type PausedAppContentProps = {
 
 export const PausedAppContent = ({ isAppPaused }: PausedAppContentProps) => {
   const { setPauseTo } = useUserPreferences()
-  const [isToggleChecked, setIsToggleChecked] = useState(isAppPaused)
 
-  useEffect(() => {
-    setIsToggleChecked(isAppPaused)
-  }, [isAppPaused])
-
-  const onPauseToggle = () => {
-    setIsToggleChecked(false)
+  const onUnpauseClicked = () => {
     setTimeout(() => {
       setPauseTo(0)
-    }, 550)
+    }, 200)
   }
   const wrapperClassName = `pauseContentWrapper ${isAppPaused ? 'active' : ''}`
 
@@ -27,11 +22,23 @@ export const PausedAppContent = ({ isAppPaused }: PausedAppContentProps) => {
     <div className={wrapperClassName}>
       {isAppPaused && (
         <>
-          <div className="options">
-            <Toggle checked={isToggleChecked} onChange={onPauseToggle} />
-          </div>
+          <header className="AppHeader">
+            <span className="AppName">
+              <i className="logo">
+                <CgTab />
+              </i>{' '}
+              <HackertabLogo className="logoText" />
+            </span>
+            <div className="extras marginLeftAuto">
+              <button className="extraBtn extraTextBtn" onClick={() => onUnpauseClicked()}>
+                <MdOutlineAirplanemodeInactive />
+                &nbsp;Unpause Hackertab
+              </button>
+            </div>
+          </header>
+
           <div className="searchContainer">
-            <SearchBar withLogo={true} />
+            <SearchBarWithLogo />
           </div>
         </>
       )}

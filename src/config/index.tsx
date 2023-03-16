@@ -2,8 +2,16 @@ import { CgIndieHackers } from 'react-icons/cg'
 import { FaDev, FaFreeCodeCamp, FaMediumM, FaReddit } from 'react-icons/fa'
 import { HiTicket } from 'react-icons/hi'
 import { SiGithub, SiProducthunt, SiYcombinator } from 'react-icons/si'
+import { ReactComponent as BaiduLogo } from 'src/assets/baidu_logo.svg'
+import { ReactComponent as BingLogo } from 'src/assets/bing_logo.svg'
+import { ReactComponent as DuckDuckGoLogo } from 'src/assets/duckduckgo_logo.svg'
+import { ReactComponent as GoogleLogo } from 'src/assets/google_logo.svg'
 import HashNodeIcon from 'src/assets/icon_hashnode.png'
 import LobstersIcon from 'src/assets/icon_lobsters.png'
+import { ReactComponent as StartPageLogo } from 'src/assets/startpage_logo.svg'
+import { ReactComponent as YahooLogo } from 'src/assets/yahoo_logo.svg'
+import { ReactComponent as YandexLogo } from 'src/assets/yandex_logo.svg'
+
 import {
   ConferencesCard,
   DevtoCard,
@@ -40,30 +48,37 @@ export const SUPPORTED_SEARCH_ENGINES = [
   {
     label: 'Google',
     url: 'https://google.com/search?q=',
+    logo: GoogleLogo,
   },
   {
     label: 'DuckDuckGo',
     url: 'https://duckduckgo.com?q=',
+    logo: DuckDuckGoLogo,
   },
   {
     label: 'Bing',
     url: 'https://bing.com/search?q=',
+    logo: BingLogo,
   },
   {
     label: 'Yahoo',
     url: 'https://search.yahoo.com/search?p=',
+    logo: YahooLogo,
   },
   {
     label: 'Baidu',
     url: 'https://baidu.com/s?wd=',
+    logo: BaiduLogo,
   },
   {
     label: 'Yandex',
     url: 'https://yandex.ru/search/?text=',
+    logo: YandexLogo,
   },
   {
     label: 'Startpage',
     url: 'https://www.startpage.com/sp/search?query=',
+    logo: StartPageLogo,
   },
 ]
 export const SUPPORTED_CARDS: SupportedCardType[] = [
