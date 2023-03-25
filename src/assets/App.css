@@ -3,6 +3,7 @@
 html {
   background: var(--background-color);
   scroll-behavior: smooth;
+  overflow: hidden;
 }
 body {
   color: var(--primary-text-color);
@@ -36,6 +37,7 @@ a {
   color: var(--primary-text-color);
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 .errorMsg {
   text-align: center;
@@ -62,8 +64,11 @@ a {
   align-items: center;
   align-content: center;
   flex-wrap: wrap;
-  height: 86px;
+  height: 10vh;
   margin: 0.5% 1% 0px 1%;
+  position: sticky;
+  z-index: 1;
+  top: 0;
 }
 
 .AppFooter {
@@ -91,18 +96,19 @@ a {
 
 .AppContent {
   position: relative;
-  overflow-y: hidden;
-  padding: 12px 0;
+  margin: 0;
 }
 .Cards {
-  padding: 1%;
   flex: 1 1 auto;
   display: flex;
   gap: 12px;
   position: relative;
   overflow-y: hidden;
+  justify-content: space-between;
   scroll-snap-type: x mandatory;
   scroll-padding-left: 12px;
+  padding-top: 2vh;
+  height: 87vh;
 }
 .HorizontalScroll {
   -ms-overflow-style: none;
@@ -114,10 +120,7 @@ a {
 
 .extras {
   flex-direction: row;
-  margin-right: 16px;
   align-content: center;
-
-  transition: width, left, right, 0.3s;
 }
 .darkModeBtn {
   background-color: var(--dark-mode-background-color) !important;
@@ -140,6 +143,7 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.4s linear;
 }
 .extraTextBtn {
   padding: 0 16px;
@@ -199,7 +203,7 @@ a {
   border-radius: 10px;
   overflow: hidden;
   flex-direction: column;
-  height: 82vh;
+  height: 98%;
   width: 10vw;
   flex: 0 0 auto;
   scroll-snap-align: start;
@@ -772,6 +776,7 @@ Producthunt item
   position: relative;
   margin: 0 auto;
   margin-top: 6px;
+  transition: all 0.3s linear;
 }
 .searchBarIcon {
   position: absolute;
@@ -850,7 +855,7 @@ Producthunt item
 
 .scrollButton {
   border: none;
-  position: fixed;
+  position: absolute;
   top: 45%;
   margin: 0 1%;
   background-color: var(--card-action-button-background);
@@ -1097,7 +1102,7 @@ Producthunt item
   }
   .block {
     width: calc(
-      (1800px - 14px * min(5, var(--max-visible-cards))) / min(5, var(--max-visible-cards))
+      (1800px - 20px * min(5, var(--max-visible-cards))) / min(5, var(--max-visible-cards))
     );
   }
 }
@@ -1125,54 +1130,36 @@ Producthunt item
   position: relative;
   vertical-align: middle;
 }
-
-/* PAUSE CONTENT */
-.pauseContentWrapper {
-  height: 0;
-  transition: height 0.5s ease-out;
-}
-
-.pauseContentWrapper.active {
-  height: 100vh;
-}
-
-.pauseContentWrapper .options {
-  height: 5%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  padding-right: 24px;
-}
-
-.pauseContentWrapper .searchContainer {
-  height: 95%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.searchBarWithLogo {
+.layoutLayers {
+  scroll-snap-type: y mandatory;
   display: flex;
   flex-direction: column;
-  row-gap: 24px;
-  align-items: center;
-  align-content: center;
+  height: 100vh;
+  overflow-y: scroll;
+  margin: 0 1%;
+}
+.layoutLayers > * {
+  scroll-snap-align: end;
 }
 
-.searchBarWithLogo .searchEngineLogo {
-  width: 280px;
-  height: 120px;
-  text-align: center;
-  margin: 0 auto;
+.tags {
+  transition: visibility 0.3s ease-out, opacity 0.3s ease-in;
+  visibility: visible;
+  opacity: 1;
 }
-.searchEngineLogo svg {
-  width: 100%;
-  height: 100%;
-}
+
 /*Helpers */
 .noMargin {
   margin: 0 !important;
 }
 .marginLeftAuto {
   margin-left: auto;
+}
+
+.hideScrollBar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hideScrollBar::-webkit-scrollbar {
+  display: none;
 }

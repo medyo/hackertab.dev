@@ -68,7 +68,7 @@ export const ScrollCardsNavigator = () => {
   }
 
   return (
-    <>
+    <div className="scrollCardsNavigator">
       {leftButtonVisible && (
         <button onClick={() => scrollTo('left')} className="scrollButton" style={{ left: 0 }}>
           <FiChevronLeft size={32} />
@@ -79,6 +79,6 @@ export const ScrollCardsNavigator = () => {
           <FiChevronRight size={32} />
         </button>
       )}
-    </>
+    </div>
   )
 }

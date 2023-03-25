@@ -1,0 +1,48 @@
+.dndState .AppHeader .searchBar {
+  opacity: 0;
+  transform: translate(0, 10px);
+  transition: all 0.4s ease-out;
+}
+.dndState .tags {
+  opacity: 0;
+  transform: translate(0, 10px);
+  filter: blur(2px);
+  transition: all 0.4s ease-out;
+}
+
+.pauseContentWrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scrollToCardsLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 12px;
+  font-size: 18px;
+  border: none;
+  background: none;
+  color: var(--primary-text-color);
+  cursor: pointer;
+  padding: 20px 0;
+}
+
+.scrollToCardsLayout:hover .icon {
+  transform: translate(0, 10px);
+  transition: transform 0.3s ease-in-out;
+  animation-iteration-count: revert;
+}
+.scrollToCardsLayout .icon {
+  transition: all 0.3s ease-in-out;
+  font-size: 20px;
+}
+
+.searchWidget {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}

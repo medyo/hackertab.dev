@@ -1,19 +1,23 @@
 import React, { Suspense, useEffect, useLayoutEffect, useState } from 'react'
 import 'react-contexify/dist/ReactContexify.css'
 import 'src/assets/App.css'
-import { Header, PausedAppContent } from 'src/components/Layout'
+import { DNDLayout, Header } from 'src/components/Layout'
 import { BookmarksSidebar } from 'src/features/bookmarks'
 import { MarketingBanner } from 'src/features/MarketingBanner'
 import { setupAnalytics, setupIdentification, trackPageView } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { diffBetweenTwoDatesInDays } from 'src/utils/DateUtils'
-import { AppContentLayout, ScrollCardsNavigator } from './components/Layout'
+import { AppContentLayout } from './components/Layout'
 import { isWebOrExtensionVersion } from './utils/Environment'
 import { getAppVersion } from './utils/Os'
 
 const OnboardingModal = React.lazy(() =>
   import('src/features/onboarding').then((module) => ({ default: module.OnboardingModal }))
 )
+
+const intersectionOptions = {
+  threshold: 0.5,
+}
 
 function App() {
   const [showSideBar, setShowSideBar] = useState(false)
@@ -24,7 +28,7 @@ function App() {
     firstSeenDate,
     markOnboardingAsCompleted,
     maxVisibleCards,
-    pauseTo,
+    isPauseModeActive,
   } = useUserPreferences()
 
   useLayoutEffect(() => {
@@ -47,15 +51,34 @@ function App() {
     trackPageView('home')
   }, [])
 
-  const isAppPaused = Boolean(pauseTo && pauseTo - new Date().getTime() > 0)
-  console.log('pauseTo: ', isAppPaused)
+  let callback = (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) {
+        document.documentElement.classList.remove('dndState')
+      } else {
+        document.documentElement.classList.add('dndState')
+      }
+    })
+  }
+
+  useLayoutEffect(() => {
+    let dndLayoutDiv = document.getElementsByClassName('pauseContentWrapper')[0]
+    let observer = new IntersectionObserver(callback, intersectionOptions)
+
+    if (dndLayoutDiv) {
+      observer.observe(dndLayoutDiv)
+    }
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
 
   return (
     <>
       <MarketingBanner />
 
       <div className="App">
-        <PausedAppContent isAppPaused={isAppPaused} />
         {!onboardingCompleted && isWebOrExtensionVersion() === 'extension' && (
           <Suspense fallback={null}>
             <OnboardingModal
@@ -70,8 +93,11 @@ function App() {
           showSettings={showSettings}
           setShowSettings={setShowSettings}
         />
-        <ScrollCardsNavigator />
-        <AppContentLayout setShowSettings={setShowSettings} />
+
+        <div className="layoutLayers hideScrollBar">
+          {isPauseModeActive() && <DNDLayout />}
+          <AppContentLayout setShowSettings={setShowSettings} />
+        </div>
         <BookmarksSidebar showSidebar={showSideBar} onClose={() => setShowSideBar(false)} />
       </div>
     </>
