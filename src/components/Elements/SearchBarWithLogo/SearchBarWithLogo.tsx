@@ -1,6 +1,7 @@
 import { SUPPORTED_SEARCH_ENGINES } from 'src/config'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SearchBar } from '../SearchBar/SearchBar'
+import './SearchBarWithLogo.css'
 
 export const SearchBarWithLogo = () => {
   const { searchEngine } = useUserPreferences()
