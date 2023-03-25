@@ -36,11 +36,12 @@ type UserPreferencesStoreActions = {
   setUserCustomCards: (cards: SupportedCardType[]) => void
   updateCardOrder: (prevIndex: number, newIndex: number) => void
   setPauseTo: (value: number) => void
+  isPauseModeActive: () => boolean;
 }
 
 export const useUserPreferences = create(
   persist<UserPreferencesState & UserPreferencesStoreActions>(
-    (set) => ({
+    (set, get) => ({
       userSelectedTags: [],
       cardsSettings: {},
       maxVisibleCards: 4,
@@ -95,6 +96,10 @@ export const useUserPreferences = create(
           return { cards: newState }
         }),
       setPauseTo: (value) => set({ pauseTo: value }),
+      isPauseModeActive: () => {
+        const pauseTo = get().pauseTo
+        return Boolean(pauseTo && pauseTo - new Date().getTime() > 0)
+      }
     }),
     {
       name: 'preferences_storage',
