@@ -1,13 +1,11 @@
 .dndState .AppHeader .searchBar {
-  opacity: 0;
+  visibility: hidden;
   transform: translate(0, 10px);
-  transition: all 0.4s ease-out;
 }
 .dndState .tags {
-  opacity: 0;
+  visibility: hidden;
   transform: translate(0, 10px);
   filter: blur(2px);
-  transition: all 0.4s ease-out;
 }
 
 .DNDContent {
@@ -16,6 +14,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.dndState .scrollToCardsLayout {
+  visibility: visible;
 }
 
 .scrollToCardsLayout {
@@ -29,11 +30,12 @@
   color: var(--primary-text-color);
   cursor: pointer;
   padding: 20px 0;
+  visibility: hidden;
+  transition: all 0.2s ease-in;
 }
 
 .scrollToCardsLayout:hover .icon {
   transform: translate(0, 10px);
-  transition: transform 0.3s ease-in-out;
   animation-iteration-count: revert;
 }
 .scrollToCardsLayout .icon {

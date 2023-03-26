@@ -22,7 +22,7 @@ type DNDSettingsProps = {
 export const DNDSettings = ({ setShowSettings }: DNDSettingsProps) => {
   const [selectedDNDDuration, setSelectedDNDDuration] = useState<DndOption['value']>()
 
-  const { DNDDurarion, setDNDDuration } = useUserPreferences()
+  const { DNDDuration, setDNDDuration } = useUserPreferences()
 
   const onApplyClicked = () => {
     if (!selectedDNDDuration) {
@@ -65,7 +65,7 @@ export const DNDSettings = ({ setShowSettings }: DNDSettingsProps) => {
               isMulti={false}
               isClearable={false}
               isSearchable={false}
-              value={DNDDurations.find((e) => e.value === DNDDurarion)}
+              value={DNDDurations.find((e) => e.value === DNDDuration)}
               classNamePrefix={'hackertab'}
               onChange={onPeriodSelect}
             />

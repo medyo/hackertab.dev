@@ -10,6 +10,7 @@ body {
   font-family: 'nunito';
   font-size: 100%;
 }
+
 .transitionBgColor {
   transition: background-color 0.3s ease-in-out;
 }
@@ -494,6 +495,7 @@ a {
   flex-wrap: wrap;
   gap: 4px;
   margin-top: 24px;
+  transition: all 0.3s ease-out;
 }
 
 .tag {
@@ -776,7 +778,7 @@ Producthunt item
   position: relative;
   margin: 0 auto;
   margin-top: 6px;
-  transition: all 0.3s linear;
+  transition: all 0.3s ease-out;
 }
 .searchBarIcon {
   position: absolute;
@@ -1142,12 +1144,6 @@ Producthunt item
   scroll-snap-align: end;
 }
 
-.tags {
-  transition: visibility 0.3s ease-out, opacity 0.3s ease-in;
-  visibility: visible;
-  opacity: 1;
-}
-
 /*Helpers */
 .noMargin {
   margin: 0 !important;
@@ -1162,4 +1158,11 @@ Producthunt item
 }
 .hideScrollBar::-webkit-scrollbar {
   display: none;
+}
+
+.preload * {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
 }

@@ -19,7 +19,7 @@ export type UserPreferencesState = {
   cardsSettings: Record<string, CardSettingsType>
   firstSeenDate: number
   userCustomCards: SupportedCardType[]
-  DNDDurarion: number | "always"
+  DNDDuration: number | "always"
 }
 
 type UserPreferencesStoreActions = {
@@ -59,7 +59,7 @@ export const useUserPreferences = create(
         { id: 3, name: 'producthunt', type: 'supported' },
       ],
       userCustomCards: [],
-      DNDDurarion: 0,
+      DNDDuration: 0,
       setSearchEngine: (searchEngine: string) => set({ searchEngine: searchEngine }),
       setListingMode: (listingMode: ListingMode) => set({ listingMode: listingMode }),
       setTheme: (theme: Theme) => set({ theme: theme }),
@@ -95,9 +95,9 @@ export const useUserPreferences = create(
 
           return { cards: newState }
         }),
-      setDNDDuration: (value) => set({ DNDDurarion: value }),
+      setDNDDuration: (value) => set({ DNDDuration: value }),
       isDNDModeActive: () => {
-        const duration = get().DNDDurarion
+        const duration = get().DNDDuration
         if (duration === "always") {
           return true;
         }

@@ -25,7 +25,7 @@ function App() {
     markOnboardingAsCompleted,
     maxVisibleCards,
     isDNDModeActive,
-    DNDDurarion,
+    DNDDuration,
   } = useUserPreferences()
 
   useLayoutEffect(() => {
@@ -43,13 +43,14 @@ function App() {
   }, [maxVisibleCards])
 
   useEffect(() => {
+    document.body.classList.remove('preload')
     setupAnalytics()
     setupIdentification()
   }, [])
 
   useEffect(() => {
     trackPageView('home', isDNDModeActive())
-  }, [DNDDurarion, isDNDModeActive])
+  }, [DNDDuration, isDNDModeActive])
 
   const callback = (entries) => {
     entries.forEach((entry) => {
@@ -76,7 +77,7 @@ function App() {
     return () => {
       observer.disconnect()
     }
-  }, [DNDDurarion])
+  }, [DNDDuration])
 
   return (
     <>
