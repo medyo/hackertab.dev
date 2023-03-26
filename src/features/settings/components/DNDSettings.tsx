@@ -69,7 +69,7 @@ export const DNDSettings = ({ setShowSettings }: DNDSettingsProps) => {
       <p className="settingTitle">
         Do not disturb
         <br />
-        <span className="settingHint">(Pause Hackertab for some moment)</span>
+        <span className="settingHint">Pause Hackertab for for a period of time</span>
       </p>
       <div className="settingContent">
         <div className="form">
