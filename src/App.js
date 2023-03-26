@@ -29,6 +29,7 @@ function App() {
     markOnboardingAsCompleted,
     maxVisibleCards,
     isPauseModeActive,
+    pauseTo,
   } = useUserPreferences()
 
   useLayoutEffect(() => {
@@ -67,12 +68,14 @@ function App() {
 
     if (dndLayoutDiv) {
       observer.observe(dndLayoutDiv)
+    } else {
+      document.documentElement.classList.remove('dndState')
     }
 
     return () => {
       observer.disconnect()
     }
-  }, [])
+  }, [pauseTo])
 
   return (
     <>
