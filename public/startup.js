@@ -5,8 +5,8 @@ function isDNDModeActive(DNDDuration) {
   console.log(DNDDuration)
   if (DNDDuration === 'always') {
     return true
-  } else if (typeof DNDDuration === 'number') {
-    return Boolean(DNDDuration && DNDDuration - new Date().getTime() > 0)
+  } else if (typeof DNDDuration === 'object') {
+    return Boolean(DNDDuration.value && DNDDuration.countdown - new Date().getTime() > 0)
   } else {
     return false
   }

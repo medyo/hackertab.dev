@@ -76,7 +76,7 @@ export const Header = ({
 
   const onUnpauseClicked = () => {
     trackDNDDisable()
-    setDNDDuration(0)
+    setDNDDuration('never')
   }
 
   return (

@@ -12,7 +12,7 @@ const DNDDurations: DndOption[] = [
   { value: 15, label: 'For 15 minutes' },
   { value: 30, label: 'For 30 minutes' },
   { value: 60, label: 'For 1 hour' },
-  { value: 'always', label: 'Until you turn off' },
+  { value: 'always', label: 'Until you turn it off' },
 ]
 
 type DNDSettingsProps = {
@@ -34,7 +34,10 @@ export const DNDSettings = ({ setShowSettings }: DNDSettingsProps) => {
     } else {
       const value = selectedDNDDuration as number
       const futureDate = new Date(new Date().getTime() + value * 60000)
-      setDNDDuration(futureDate.getTime())
+      setDNDDuration({
+        value: selectedDNDDuration,
+        countdown: futureDate.getTime(),
+      })
     }
 
     trackDNDEnable(selectedDNDDuration)
@@ -47,6 +50,18 @@ export const DNDSettings = ({ setShowSettings }: DNDSettingsProps) => {
     }
 
     setSelectedDNDDuration(selectedOption.value)
+  }
+
+  const getDefaultValue = (): DndOption | undefined => {
+    if (typeof DNDDuration === 'string') {
+      return DNDDurations.find((e) => e.value === DNDDuration)
+    } else if (typeof DNDDuration === 'object') {
+      const DNDDurationObject = DNDDuration as {
+        value: number
+        countdown: number
+      }
+      return DNDDurations.find((e) => e.value === DNDDurationObject.value)
+    }
   }
 
   return (
@@ -65,7 +80,7 @@ export const DNDSettings = ({ setShowSettings }: DNDSettingsProps) => {
               isMulti={false}
               isClearable={false}
               isSearchable={false}
-              value={DNDDurations.find((e) => e.value === DNDDuration)}
+              defaultValue={getDefaultValue()}
               classNamePrefix={'hackertab'}
               onChange={onPeriodSelect}
             />
