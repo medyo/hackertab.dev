@@ -28,7 +28,7 @@ import {
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Option, SearchEngineType, SelectedCard } from 'src/types'
-import { PauseSettings } from './PauseSettings'
+import { DNDSettings } from './DNDSettings'
 import { RssSetting } from './RssSetting'
 import './settings.css'
 
@@ -62,7 +62,6 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     setTags,
     userCustomCards,
     setUserCustomCards,
-    setPauseTo,
   } = useUserPreferences()
   const [selectedCards, setSelectedCards] = useState(cards)
 
@@ -151,13 +150,6 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
     identifyUserTheme(newTheme)
   }
 
-  const onPauseSubmit = (pauseToValue: number) => {
-    handleCloseModal()
-    setTimeout(() => {
-      setPauseTo(pauseToValue)
-    }, 250)
-  }
-
   const onMaxVisibleCardsChange = (selectedChips: Option[]) => {
     if (selectedChips.length) {
       const maxVisibleCards = parseInt(selectedChips[0].value)
@@ -237,8 +229,6 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
         </div>
 
         <RssSetting setSelectedCards={setSelectedCards} />
-
-        <PauseSettings onSubmit={onPauseSubmit} />
 
         <div className="settingRow">
           <p className="settingTitle">Max number of cards to display</p>
@@ -322,6 +312,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
             </p>
           </div>
         </div>
+        <DNDSettings setShowSettings={setShowSettings} />
         <Footer />
       </div>
     </ReactModal>
