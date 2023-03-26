@@ -48,7 +48,7 @@ function App() {
     trackPageView('home')
   }, [])
 
-  let callback = (entries) => {
+  const callback = (entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) {
         document.documentElement.classList.remove('dndState')
@@ -59,13 +59,13 @@ function App() {
   }
 
   useLayoutEffect(() => {
-    let dndLayoutDiv = document.getElementsByClassName('DNDContent')[0]
+    let dndContent = document.querySelector('.DNDContent')
     let observer = new IntersectionObserver(callback, {
       threshold: 0.1,
     })
 
-    if (dndLayoutDiv) {
-      observer.observe(dndLayoutDiv)
+    if (dndContent) {
+      observer.observe(dndContent)
     } else {
       document.documentElement.classList.remove('dndState')
     }
