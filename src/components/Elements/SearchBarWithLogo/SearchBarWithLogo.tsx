@@ -6,7 +6,7 @@ import './SearchBarWithLogo.css'
 export const SearchBarWithLogo = () => {
   const { searchEngine } = useUserPreferences()
   const userSearchEngine = SUPPORTED_SEARCH_ENGINES.find(
-    (srchEngn) => srchEngn.label === searchEngine
+    (srchEngn) => srchEngn.label.toLocaleLowerCase() === searchEngine.toLocaleLowerCase()
   )
 
   return (
