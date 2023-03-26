@@ -19,7 +19,7 @@ export type UserPreferencesState = {
   cardsSettings: Record<string, CardSettingsType>
   firstSeenDate: number
   userCustomCards: SupportedCardType[]
-  pauseTo: number
+  pauseTo: number | "always"
 }
 
 type UserPreferencesStoreActions = {
@@ -35,7 +35,7 @@ type UserPreferencesStoreActions = {
   markOnboardingAsCompleted: (occupation: Omit<Occupation, 'icon'> | null) => void
   setUserCustomCards: (cards: SupportedCardType[]) => void
   updateCardOrder: (prevIndex: number, newIndex: number) => void
-  setPauseTo: (value: number) => void
+  setPauseTo: (value: number | "always") => void
   isPauseModeActive: () => boolean;
 }
 
@@ -98,6 +98,9 @@ export const useUserPreferences = create(
       setPauseTo: (value) => set({ pauseTo: value }),
       isPauseModeActive: () => {
         const pauseTo = get().pauseTo
+        if (pauseTo === "always") {
+          return true;
+        }
         return Boolean(pauseTo && pauseTo - new Date().getTime() > 0)
       }
     }),
