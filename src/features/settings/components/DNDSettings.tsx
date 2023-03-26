@@ -21,7 +21,7 @@ type DNDSettingsProps = {
 export const DNDSettings = ({ setShowSettings }: DNDSettingsProps) => {
   const [selectedDNDDuration, setSelectedDNDDuration] = useState<DndOption['value']>()
 
-  const { pauseTo, setPauseTo } = useUserPreferences()
+  const { DNDDurarion, setDNDDuration } = useUserPreferences()
 
   const onApplyClicked = () => {
     if (!selectedDNDDuration) {
@@ -29,11 +29,11 @@ export const DNDSettings = ({ setShowSettings }: DNDSettingsProps) => {
     }
 
     if (typeof selectedDNDDuration === 'string') {
-      setPauseTo('always')
+      setDNDDuration('always')
     } else {
       const value = selectedDNDDuration as number
       const futureDate = new Date(new Date().getTime() + value * 60000)
-      setPauseTo(futureDate.getTime())
+      setDNDDuration(futureDate.getTime())
     }
 
     setShowSettings(false)
@@ -55,25 +55,21 @@ export const DNDSettings = ({ setShowSettings }: DNDSettingsProps) => {
         <span className="settingHint">(Pause Hackertab for some moment)</span>
       </p>
       <div className="settingContent">
-        <div className="pauseFormWrapper">
-          <div className="form">
-            <div style={{ flex: 1 }}>
-              <Select
-                options={DNDDurations}
-                placeholder="For x minutes"
-                isMulti={false}
-                isClearable={false}
-                isSearchable={false}
-                value={DNDDurations.find((e) => e.value === pauseTo)}
-                classNamePrefix={'hackertab'}
-                onChange={onPeriodSelect}
-              />
-            </div>
-
-            <button className="pauseButton" onClick={onApplyClicked}>
-              Apply
-            </button>
+        <div className="form">
+          <div style={{ flex: 1 }}>
+            <Select
+              options={DNDDurations}
+              placeholder="For x minutes"
+              isMulti={false}
+              isClearable={false}
+              isSearchable={false}
+              value={DNDDurations.find((e) => e.value === DNDDurarion)}
+              classNamePrefix={'hackertab'}
+              onChange={onPeriodSelect}
+            />
           </div>
+
+          <button onClick={onApplyClicked}>Apply</button>
         </div>
       </div>
     </div>

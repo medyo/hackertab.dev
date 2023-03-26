@@ -27,7 +27,7 @@ export const Header = ({
 }: HeaderProps) => {
   const [themeIcon, setThemeIcon] = useState(<BsMoon />)
   const isFirstRun = useRef(true)
-  const { theme, setTheme, setPauseTo, isPauseModeActive } = useUserPreferences()
+  const { theme, setTheme, setDNDDuration, isDNDModeActive } = useUserPreferences()
   const { userBookmarks } = useBookmarks()
 
   useEffect(() => {
@@ -75,9 +75,7 @@ export const Header = ({
   }
 
   const onUnpauseClicked = () => {
-    setTimeout(() => {
-      setPauseTo(0)
-    }, 200)
+    setDNDDuration(0)
   }
 
   return (
@@ -94,7 +92,7 @@ export const Header = ({
         </span>
         <SearchBar />
         <div className="extras">
-          {isPauseModeActive() && (
+          {isDNDModeActive() && (
             <button className="extraBtn extraTextBtn" onClick={() => onUnpauseClicked()}>
               <MdDoDisturbOff />
               &nbsp;Unpause

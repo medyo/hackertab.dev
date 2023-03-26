@@ -28,8 +28,8 @@ function App() {
     firstSeenDate,
     markOnboardingAsCompleted,
     maxVisibleCards,
-    isPauseModeActive,
-    pauseTo,
+    isDNDModeActive,
+    DNDDurarion,
   } = useUserPreferences()
 
   useLayoutEffect(() => {
@@ -63,7 +63,7 @@ function App() {
   }
 
   useLayoutEffect(() => {
-    let dndLayoutDiv = document.getElementsByClassName('pauseContentWrapper')[0]
+    let dndLayoutDiv = document.getElementsByClassName('DNDContent')[0]
     let observer = new IntersectionObserver(callback, intersectionOptions)
 
     if (dndLayoutDiv) {
@@ -75,7 +75,7 @@ function App() {
     return () => {
       observer.disconnect()
     }
-  }, [pauseTo])
+  }, [DNDDurarion])
 
   return (
     <>
@@ -98,7 +98,7 @@ function App() {
         />
 
         <div className="layoutLayers hideScrollBar">
-          {isPauseModeActive() && <DNDLayout />}
+          {isDNDModeActive() && <DNDLayout />}
           <AppContentLayout setShowSettings={setShowSettings} />
         </div>
         <BookmarksSidebar showSidebar={showSideBar} onClose={() => setShowSideBar(false)} />

@@ -19,7 +19,7 @@ export type UserPreferencesState = {
   cardsSettings: Record<string, CardSettingsType>
   firstSeenDate: number
   userCustomCards: SupportedCardType[]
-  pauseTo: number | "always"
+  DNDDurarion: number | "always"
 }
 
 type UserPreferencesStoreActions = {
@@ -35,8 +35,8 @@ type UserPreferencesStoreActions = {
   markOnboardingAsCompleted: (occupation: Omit<Occupation, 'icon'> | null) => void
   setUserCustomCards: (cards: SupportedCardType[]) => void
   updateCardOrder: (prevIndex: number, newIndex: number) => void
-  setPauseTo: (value: number | "always") => void
-  isPauseModeActive: () => boolean;
+  setDNDDuration: (value: number | "always") => void
+  isDNDModeActive: () => boolean;
 }
 
 export const useUserPreferences = create(
@@ -59,7 +59,7 @@ export const useUserPreferences = create(
         { id: 3, name: 'producthunt', type: 'supported' },
       ],
       userCustomCards: [],
-      pauseTo: 0,
+      DNDDurarion: 0,
       setSearchEngine: (searchEngine: string) => set({ searchEngine: searchEngine }),
       setListingMode: (listingMode: ListingMode) => set({ listingMode: listingMode }),
       setTheme: (theme: Theme) => set({ theme: theme }),
@@ -95,13 +95,13 @@ export const useUserPreferences = create(
 
           return { cards: newState }
         }),
-      setPauseTo: (value) => set({ pauseTo: value }),
-      isPauseModeActive: () => {
-        const pauseTo = get().pauseTo
-        if (pauseTo === "always") {
+      setDNDDuration: (value) => set({ DNDDurarion: value }),
+      isDNDModeActive: () => {
+        const duration = get().DNDDurarion
+        if (duration === "always") {
           return true;
         }
-        return Boolean(pauseTo && pauseTo - new Date().getTime() > 0)
+        return Boolean(duration && duration - new Date().getTime() > 0)
       }
     }),
     {

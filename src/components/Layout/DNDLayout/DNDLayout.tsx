@@ -18,7 +18,7 @@ export const DNDLayout = () => {
   }
 
   return (
-    <section className="pauseContentWrapper">
+    <section className="DNDContent">
       <div className="searchWidget">
         <SearchBarWithLogo />
       </div>
