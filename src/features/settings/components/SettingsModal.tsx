@@ -167,8 +167,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
       shouldCloseOnOverlayClick={true}
       shouldFocusAfterRender={false}
       onRequestClose={() => handleCloseModal()}
-      contentLabel="Minimal Modal Example"
-      className="Modal"
+      className="Modal scrollable"
       style={{
         overlay: {
           zIndex: 3,

@@ -13,6 +13,8 @@ Modal
   border-radius: 10px;
   box-shadow: 0 0 20px #00000052;
   z-index: 3;
+  max-height: 80vh;
+  overflow-y: scroll;
 }
 
 .Overlay {
@@ -188,6 +190,7 @@ Select styles
     top: 0;
     margin: 0;
     height: 100vh;
+    max-height: 100vh;
     transform: translate(0, 0);
     border-radius: 0;
     position: relative;
