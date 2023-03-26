@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Select, { SingleValue } from 'react-select'
+import { trackDNDEnable } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 
 type DndOption = {
@@ -36,6 +37,7 @@ export const DNDSettings = ({ setShowSettings }: DNDSettingsProps) => {
       setDNDDuration(futureDate.getTime())
     }
 
+    trackDNDEnable(selectedDNDDuration)
     setShowSettings(false)
   }
 

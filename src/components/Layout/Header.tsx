@@ -8,7 +8,7 @@ import { SearchBar } from 'src/components/Elements/SearchBar'
 import { UserTags } from 'src/components/Elements/UserTags'
 import { Changelog } from 'src/features/changelog'
 import { SettingsModal } from 'src/features/settings'
-import { identifyUserTheme, trackThemeSelect } from 'src/lib/analytics'
+import { identifyUserTheme, trackDNDDisable, trackThemeSelect } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
 import { useUserPreferences } from 'src/stores/preferences'
 
@@ -75,6 +75,7 @@ export const Header = ({
   }
 
   const onUnpauseClicked = () => {
+    trackDNDDisable()
     setDNDDuration(0)
   }
 

@@ -20,6 +20,7 @@ enum Objects {
   MARKETING_CAMPAIGN = 'Marketing Campaign',
   ONBOARDING = 'Onboarding',
   RSS = 'Rss',
+  DO_NOT_DISTURB = 'DND',
 }
 
 enum Verbs {
@@ -38,7 +39,9 @@ enum Verbs {
   FINISH = 'Finish',
   SKIP = 'Skip',
   DRAG = 'Drag',
-  Change = 'Change',
+  CHANGE = 'Change',
+  ENABLE = "Enable",
+  DISABLE = "Disable"
 }
 
 export enum Attributes {
@@ -62,6 +65,7 @@ export enum Attributes {
   CAMPAIGN_ID = 'Campaign Id',
   OCCUPATION = 'Occupation',
   MAX_VISIBLE_CARDS = 'Max Visible Cards',
+  DURATION = 'DURATION',
 }
 
 const _SEP_ = ' '
@@ -100,11 +104,13 @@ export const setupIdentification = () => {
   }
 }
 
-export const trackPageView = (pageName: string) => {
+export const trackPageView = (pageName: string, dndModeActive: boolean = false) => {
   trackEvent({
     object: Objects.PAGE,
     verb: Verbs.VIEW,
-    attributes: { [Attributes.PAGE_NAME]: pageName },
+    attributes: { 
+      [Attributes.PAGE_NAME]: pageName,
+      [Objects.DO_NOT_DISTURB]: dndModeActive ? "on" : "off" },
   })
 }
 
@@ -298,8 +304,23 @@ export const trackPageDrag = () => {
 export const trackMaxVisibleCardsChange = (maxVisibleCards: number) => {
   trackEvent({
     object: Objects.CARD,
-    verb: Verbs.Change,
+    verb: Verbs.CHANGE,
     attributes: {[Attributes.MAX_VISIBLE_CARDS]: maxVisibleCards}
+  })
+}
+
+export const trackDNDEnable = (duration: number | "always") => {
+  trackEvent({
+    object: Objects.DO_NOT_DISTURB,
+    verb: Verbs.ENABLE,
+    attributes: {[Attributes.DURATION]: duration}
+  })
+}
+
+export const trackDNDDisable = () => {
+  trackEvent({
+    object: Objects.DO_NOT_DISTURB,
+    verb: Verbs.DISABLE
   })
 }
 

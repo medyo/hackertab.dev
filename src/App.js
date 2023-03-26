@@ -38,15 +38,18 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onboardingCompleted, firstSeenDate])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.style.setProperty('--max-visible-cards', maxVisibleCards)
   }, [maxVisibleCards])
 
   useEffect(() => {
     setupAnalytics()
     setupIdentification()
-    trackPageView('home')
   }, [])
+
+  useEffect(() => {
+    trackPageView('home', isDNDModeActive())
+  }, [DNDDurarion, isDNDModeActive])
 
   const callback = (entries) => {
     entries.forEach((entry) => {
