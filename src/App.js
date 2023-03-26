@@ -15,10 +15,6 @@ const OnboardingModal = React.lazy(() =>
   import('src/features/onboarding').then((module) => ({ default: module.OnboardingModal }))
 )
 
-const intersectionOptions = {
-  threshold: 0.5,
-}
-
 function App() {
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
@@ -64,7 +60,9 @@ function App() {
 
   useLayoutEffect(() => {
     let dndLayoutDiv = document.getElementsByClassName('DNDContent')[0]
-    let observer = new IntersectionObserver(callback, intersectionOptions)
+    let observer = new IntersectionObserver(callback, {
+      threshold: 0.1,
+    })
 
     if (dndLayoutDiv) {
       observer.observe(dndLayoutDiv)
