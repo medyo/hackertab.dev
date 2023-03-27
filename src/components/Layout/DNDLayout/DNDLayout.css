@@ -1,11 +1,13 @@
 .dndState .AppHeader .searchBar {
   visibility: hidden;
   transform: translate(0, 10px);
+  opacity: 0;
 }
 .dndState .tags {
   visibility: hidden;
+  opacity: 0;
   transform: translate(0, 10px);
-  filter: blur(2px);
+  filter: blur(1px);
 }
 
 .DNDContent {

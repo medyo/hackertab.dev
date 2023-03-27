@@ -496,6 +496,7 @@ a {
   gap: 4px;
   margin-top: 24px;
   transition: all 0.3s ease-out;
+  opacity: 1;
 }
 
 .tag {
@@ -779,6 +780,7 @@ Producthunt item
   margin: 0 auto;
   margin-top: 6px;
   transition: all 0.3s ease-out;
+  opacity: 1;
 }
 .searchBarIcon {
   position: absolute;
