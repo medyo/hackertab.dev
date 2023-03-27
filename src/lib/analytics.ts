@@ -65,7 +65,7 @@ export enum Attributes {
   CAMPAIGN_ID = 'Campaign Id',
   OCCUPATION = 'Occupation',
   MAX_VISIBLE_CARDS = 'Max Visible Cards',
-  DURATION = 'DURATION',
+  DURATION = 'Duration',
 }
 
 const _SEP_ = ' '
