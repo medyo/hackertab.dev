@@ -15,6 +15,16 @@ const OnboardingModal = React.lazy(() =>
   import('src/features/onboarding').then((module) => ({ default: module.OnboardingModal }))
 )
 
+const intersectionCallback = (entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) {
+      document.documentElement.classList.remove('dndState')
+    } else {
+      document.documentElement.classList.add('dndState')
+    }
+  })
+}
+
 function App() {
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
@@ -26,6 +36,7 @@ function App() {
     maxVisibleCards,
     isDNDModeActive,
     DNDDuration,
+    setDNDDuration,
   } = useUserPreferences()
 
   useLayoutEffect(() => {
@@ -50,21 +61,14 @@ function App() {
 
   useEffect(() => {
     trackPageView('home', isDNDModeActive())
-  }, [DNDDuration, isDNDModeActive])
-
-  const callback = (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) {
-        document.documentElement.classList.remove('dndState')
-      } else {
-        document.documentElement.classList.add('dndState')
-      }
-    })
-  }
+    if (!isDNDModeActive() && DNDDuration !== 'never') {
+      setDNDDuration('never')
+    }
+  }, [DNDDuration, isDNDModeActive, setDNDDuration])
 
   useLayoutEffect(() => {
     let dndContent = document.querySelector('.DNDContent')
-    let observer = new IntersectionObserver(callback, {
+    let observer = new IntersectionObserver(intersectionCallback, {
       threshold: 0.1,
     })
 
