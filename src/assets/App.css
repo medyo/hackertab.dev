@@ -732,6 +732,7 @@ Producthunt item
   margin: 0;
   border: none;
   background: none;
+  color: var(--primary-text-color);
 }
 .navigationItem img {
   width: 18px;
