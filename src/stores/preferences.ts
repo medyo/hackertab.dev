@@ -4,7 +4,8 @@ import { Tag } from 'src/features/remoteConfig'
 import { enhanceTags } from 'src/utils/DataEnhancement'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { CardSettingsType, ListingMode, SelectedCard, SupportedCardType, Theme } from '../types'
+import { CardSettingsType, DNDDuration, ListingMode, SelectedCard, SupportedCardType, Theme } from '../types'
+
 
 export type UserPreferencesState = {
   userSelectedTags: Tag[]
@@ -19,6 +20,7 @@ export type UserPreferencesState = {
   cardsSettings: Record<string, CardSettingsType>
   firstSeenDate: number
   userCustomCards: SupportedCardType[]
+  DNDDuration: DNDDuration
 }
 
 type UserPreferencesStoreActions = {
@@ -34,11 +36,13 @@ type UserPreferencesStoreActions = {
   markOnboardingAsCompleted: (occupation: Omit<Occupation, 'icon'> | null) => void
   setUserCustomCards: (cards: SupportedCardType[]) => void
   updateCardOrder: (prevIndex: number, newIndex: number) => void
+  setDNDDuration: (value: DNDDuration) => void
+  isDNDModeActive: () => boolean;
 }
 
 export const useUserPreferences = create(
   persist<UserPreferencesState & UserPreferencesStoreActions>(
-    (set) => ({
+    (set, get) => ({
       userSelectedTags: [],
       cardsSettings: {},
       maxVisibleCards: 4,
@@ -56,6 +60,7 @@ export const useUserPreferences = create(
         { id: 3, name: 'producthunt', type: 'supported' },
       ],
       userCustomCards: [],
+      DNDDuration: "never",
       setSearchEngine: (searchEngine: string) => set({ searchEngine: searchEngine }),
       setListingMode: (listingMode: ListingMode) => set({ listingMode: listingMode }),
       setTheme: (theme: Theme) => set({ theme: theme }),
@@ -80,17 +85,33 @@ export const useUserPreferences = create(
           onboardingResult: occupation,
         })),
       setUserCustomCards: (cards: SupportedCardType[]) => set({ userCustomCards: cards }),
-      updateCardOrder: (prevIndex: number, newIndex: number) => set((state) => {
-    
-        const newState = arrayMove(state.cards, prevIndex, newIndex).map((card, index) => {
-          return {
-           ...card,
-           id: index
-          }
-         })
+      updateCardOrder: (prevIndex: number, newIndex: number) =>
+        set((state) => {
+          const newState = arrayMove(state.cards, prevIndex, newIndex).map((card, index) => {
+            return {
+              ...card,
+              id: index,
+            }
+          })
 
-        return { cards: newState}
-      }),
+          return { cards: newState }
+        }),
+      setDNDDuration: (value: DNDDuration) => set({ DNDDuration: value }),
+      isDNDModeActive: () => {
+        const duration = get().DNDDuration
+        if (duration === "always") {
+          return true;
+        } else if (typeof duration === "object") {
+          const dndValue = duration as {
+            value: number
+            countdown: number
+          }
+          return Boolean(dndValue.value && dndValue.countdown - new Date().getTime() > 0)
+        } else {
+          return false;
+        }
+        
+      }
     }),
     {
       name: 'preferences_storage',

@@ -13,6 +13,8 @@ Modal
   border-radius: 10px;
   box-shadow: 0 0 20px #00000052;
   z-index: 3;
+  max-height: 80vh;
+  overflow-y: scroll;
 }
 
 .Overlay {
@@ -54,42 +56,46 @@ Modal
   gap: 12px;
 }
 
-.settingContent input[type=text] {
-  flex:1;
+.settingContent input[type='text'] {
+  flex: 1;
   background-color: var(--settings-input-background-color);
-  border:1px solid var(--settings-input-border-color);
+  border: 1px solid var(--settings-input-border-color);
   border-radius: 50px;
-  padding:6px 18px;
-  color:var(--settings-input-text-color);
+  padding: 6px 18px;
+  color: var(--settings-input-text-color);
   font-size: 14px;
 }
 
-.settingContent input[type=text]::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+.settingContent input[type='text']::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: var(--settings-input-placeholder-color);
   opacity: 1;
   font-size: 14px;
 }
 
-.settingContent input[type=text]:focus {
-  border-color:var(--settings-input-border-focus-color)
+.settingContent input[type='text']:focus {
+  border-color: var(--settings-input-border-focus-color);
 }
 
 .settingContent button {
   display: flex;
   align-items: center;
   column-gap: 8px;
-  background-color:none;
-  border:none;
+  background-color: none;
+  border: none;
   border-radius: 50px;
-  padding:6px 12px;
+  padding: 6px 12px;
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
+  transition: opacity 0.2s linear;
 }
-
+.settingContent button:hover {
+  opacity: 0.9;
+}
 .rssButton {
-  background-color: #EE802F;
-  color:white;
+  background-color: #ee802f;
+  color: white;
 }
 .rssButton:hover {
   opacity: 0.9;
@@ -177,24 +183,6 @@ Select styles
   border-radius: 20px !important;
   color: var(--tag-secondary-color) !important;
 }
-.rss-sources .hackertab__indicators {
-  display: none;
-}
-
-.rss-widget 
-.rssUrlControl {
-  margin: 6px 0;
-  color: var(--primary-text-color);
-}
-
-.rssUrlInput {
-  width: 66%;
-  margin-right: 4px;
-  padding: 4px;
-  background-color: var(--card-background-color) !important;
-  border-color: var(--tag-border-color) !important;
-  color: var(--primary-text-color)
-}
 
 @media (max-width: 768px) {
   .Modal {
@@ -202,6 +190,7 @@ Select styles
     top: 0;
     margin: 0;
     height: 100vh;
+    max-height: 100vh;
     transform: translate(0, 0);
     border-radius: 0;
     position: relative;

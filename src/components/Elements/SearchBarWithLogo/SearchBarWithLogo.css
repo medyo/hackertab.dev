@@ -1,0 +1,18 @@
+.searchBarWithLogo {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  align-items: center;
+  align-content: center;
+}
+
+.searchBarWithLogo .searchEngineLogo {
+  width: 280px;
+  height: 120px;
+  text-align: center;
+  margin: 0 auto;
+}
+.searchEngineLogo svg {
+  width: 100%;
+  height: 100%;
+}

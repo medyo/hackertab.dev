@@ -28,6 +28,7 @@ import {
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Option, SearchEngineType, SelectedCard } from 'src/types'
+import { DNDSettings } from './DNDSettings'
 import { RssSetting } from './RssSetting'
 import './settings.css'
 
@@ -166,8 +167,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
       shouldCloseOnOverlayClick={true}
       shouldFocusAfterRender={false}
       onRequestClose={() => handleCloseModal()}
-      contentLabel="Minimal Modal Example"
-      className="Modal"
+      className="Modal scrollable"
       style={{
         overlay: {
           zIndex: 3,
@@ -311,6 +311,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
             </p>
           </div>
         </div>
+        <DNDSettings setShowSettings={setShowSettings} />
         <Footer />
       </div>
     </ReactModal>

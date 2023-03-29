@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from 'react'
 import { BsFillBookmarksFill, BsFillGearFill, BsMoon } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
 import { IoMdSunny } from 'react-icons/io'
+import { MdDoDisturbOff } from 'react-icons/md'
 import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
 import { SearchBar } from 'src/components/Elements/SearchBar'
 import { UserTags } from 'src/components/Elements/UserTags'
 import { Changelog } from 'src/features/changelog'
 import { SettingsModal } from 'src/features/settings'
-import { identifyUserTheme, trackThemeSelect } from 'src/lib/analytics'
+import { identifyUserTheme, trackDNDDisable, trackThemeSelect } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
 import { useUserPreferences } from 'src/stores/preferences'
 
@@ -26,7 +27,7 @@ export const Header = ({
 }: HeaderProps) => {
   const [themeIcon, setThemeIcon] = useState(<BsMoon />)
   const isFirstRun = useRef(true)
-  const { theme, setTheme } = useUserPreferences()
+  const { theme, setTheme, setDNDDuration, isDNDModeActive } = useUserPreferences()
   const { userBookmarks } = useBookmarks()
 
   useEffect(() => {
@@ -73,6 +74,11 @@ export const Header = ({
     ) : null
   }
 
+  const onUnpauseClicked = () => {
+    trackDNDDisable()
+    setDNDDuration('never')
+  }
+
   return (
     <>
       <SettingsModal showSettings={showSettings} setShowSettings={setShowSettings} />
@@ -87,6 +93,12 @@ export const Header = ({
         </span>
         <SearchBar />
         <div className="extras">
+          {isDNDModeActive() && (
+            <button className="extraBtn extraTextBtn" onClick={() => onUnpauseClicked()}>
+              <MdDoDisturbOff />
+              &nbsp;Unpause
+            </button>
+          )}
           <button className="extraBtn" onClick={onSettingsClick}>
             <BsFillGearFill />
           </button>
