@@ -74,7 +74,7 @@ export const DNDSettings = ({ setShowSettings }: DNDSettingsProps) => {
       }
       const futureDate = new Date(DNDDurationObject.countdown)
       const now = new Date()
-      return `DND will become inactive in ${diffBetweenTwoDatesInMinutes(
+      return `DND will turn off in ${diffBetweenTwoDatesInMinutes(
         futureDate.getTime(),
         now.getTime()
       )} Minutes`
