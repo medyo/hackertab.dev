@@ -1,11 +1,15 @@
 import React, { useEffect, useRef } from 'react'
-import { trackSearchEngineUse } from 'src/lib/analytics'
 import { GoSearch } from 'react-icons/go'
 import { SUPPORTED_SEARCH_ENGINES } from 'src/config'
+import { trackSearchEngineUse } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SearchEngine } from 'src/types'
 
-export const SearchBar = () => {
+type SearchBarProps = {
+  withLogo?: boolean
+}
+
+export const SearchBar = ({ withLogo }: SearchBarProps) => {
   const { searchEngine } = useUserPreferences()
 
   const keywordsInputRef = useRef<HTMLInputElement | null>(null)

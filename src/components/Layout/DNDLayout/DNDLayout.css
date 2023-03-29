@@ -1,0 +1,52 @@
+.dndState .AppHeader .searchBar {
+  visibility: hidden;
+  transform: translate(0, 10px);
+  opacity: 0;
+}
+.dndState .tags {
+  visibility: hidden;
+  opacity: 0;
+  transform: translate(0, 10px);
+  filter: blur(1px);
+}
+
+.DNDContent {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.dndState .scrollToCardsLayout {
+  visibility: visible;
+}
+
+.scrollToCardsLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 12px;
+  font-size: 18px;
+  border: none;
+  background: none;
+  color: var(--primary-text-color);
+  cursor: pointer;
+  padding: 20px 0;
+  visibility: hidden;
+  transition: all 0.2s ease-in;
+}
+
+.scrollToCardsLayout:hover .icon {
+  transform: translate(0, 10px);
+  animation-iteration-count: revert;
+}
+.scrollToCardsLayout .icon {
+  transition: all 0.3s ease-in-out;
+  font-size: 20px;
+}
+
+.searchWidget {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}

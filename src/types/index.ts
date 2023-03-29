@@ -108,3 +108,8 @@ export type Option = {
   value: string
   icon?: React.ReactNode
 }
+
+export type DNDDuration = {
+  value: number
+  countdown: number
+} | "always" | "never"
