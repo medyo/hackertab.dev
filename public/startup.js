@@ -2,7 +2,6 @@
 // https://stackoverflow.com/a/63033934/3495717
 
 function isDNDModeActive(DNDDuration) {
-  console.log(DNDDuration)
   if (DNDDuration === 'always') {
     return true
   } else if (typeof DNDDuration === 'object') {
@@ -16,7 +15,7 @@ try {
   var theme = state.theme || 'dark'
   document.documentElement.classList.add(theme)
 
-  var DNDDuration = state.DNDDuration || 0
+  var DNDDuration = state.DNDDuration || 'never'
   if (isDNDModeActive(DNDDuration)) {
     document.documentElement.classList.add('dndState')
   }
