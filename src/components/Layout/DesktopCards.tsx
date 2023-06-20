@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from 'react'
 import SortableList, { SortableItem } from 'react-easy-sort'
 import { SUPPORTED_CARDS } from 'src/config'
 import { CustomRssCard } from 'src/features/cards'
+import { useRemoteConfigStore } from 'src/features/remoteConfig'
 import { trackPageDrag } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SelectedCard, SupportedCardType } from 'src/types'
@@ -16,6 +17,7 @@ export const DesktopCards = ({
   const AVAILABLE_CARDS = [...SUPPORTED_CARDS, ...userCustomCards]
   const { updateCardOrder } = useUserPreferences()
   const scrollHolderRef = useRef<HTMLElement | null>(null)
+  const { adsConfig } = useRemoteConfigStore()
 
   const onSortEnd = (oldIndex: number, newIndex: number) => {
     updateCardOrder(oldIndex, newIndex)
@@ -50,7 +52,11 @@ export const DesktopCards = ({
           return (
             <SortableItem key={card.name}>
               <div>
-                <Component key={card.name} meta={constantCard} withAds={index === 0} />
+                <Component
+                  key={card.name}
+                  meta={constantCard}
+                  withAds={index === adsConfig.columnPosition}
+                />
               </div>
             </SortableItem>
           )
