@@ -1,7 +1,8 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect } from 'react'
 import { Placeholder } from 'src/components/placeholders'
 import { MAX_ITEMS_PER_CARD } from 'src/config'
 import { BannerAd } from 'src/features/ads'
+import { useRemoteConfigStore } from 'src/features/remoteConfig'
 import { BaseEntry } from 'src/types'
 
 type PlaceholdersProps = {
@@ -39,6 +40,29 @@ export function ListComponent<T extends BaseEntry>(props: ListComponentPropsType
     placeholder = <Placeholder />,
     limit = MAX_ITEMS_PER_CARD,
   } = props
+  const { adsConfig } = useRemoteConfigStore()
+  const [canAdsLoad, setCanAdsLoad] = React.useState(true)
+
+  useEffect(() => {
+    if (!adsConfig.enabled || !withAds) {
+      return
+    }
+
+    const handleClassChange = () => {
+      if (document.documentElement.classList.contains('dndState')) {
+        setCanAdsLoad(false)
+      } else {
+        setCanAdsLoad(true)
+      }
+    }
+
+    const observer = new MutationObserver(handleClassChange)
+    observer.observe(document.documentElement, { attributes: true })
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [withAds, adsConfig.enabled])
 
   if (error) {
     return <p className="errorMsg">{error?.message || error}</p>
@@ -51,7 +75,7 @@ export function ListComponent<T extends BaseEntry>(props: ListComponentPropsType
 
     return items.slice(0, limit).map((item, index) => {
       let content: ReactNode[] = [renderItem(item, index)]
-      if (withAds && index === 0) {
+      if (canAdsLoad && adsConfig.enabled && withAds && index === adsConfig.rowPosition) {
         content.unshift(<BannerAd key={'banner-ad'} />)
       }
       return content

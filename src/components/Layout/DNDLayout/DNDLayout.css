@@ -9,7 +9,9 @@
   transform: translate(0, 10px);
   filter: blur(1px);
 }
-
+.dndState .blockContent {
+  scroll-snap-type: none;
+}
 .DNDContent {
   min-height: 100%;
   display: flex;
