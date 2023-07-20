@@ -4,7 +4,6 @@
   "private": false,
   "dependencies": {
     "@amplitude/analytics-browser": "^1.5.5",
-    "@craco/craco": "^6.4.5",
     "@tanstack/react-query": "^4.13.0",
     "@types/dompurify": "^2.3.4",
     "@types/jspath": "^0.4.0",
@@ -27,7 +26,6 @@
     "react-markdown": "^7.0.1",
     "react-modal": "^3.12.1",
     "react-pro-sidebar": "^0.6.0",
-    "react-scripts": "4.0.1",
     "react-select": "^5.0.1",
     "react-spinners": "^0.10.4",
     "react-spring-bottom-sheet": "^3.4.1",
@@ -42,12 +40,11 @@
   },
   "proxy": "https://api.hackertab.dev/",
   "scripts": {
-    "start": "craco start",
-    "build-web": "craco --max_old_space_size=4096 build",
-    "build": "./script/build.sh",
-    "build-firefox": "./script/build-firefox.sh",
-    "build-chrome": "./script/build-chrome.sh",
-    "eject": "react-scripts eject"
+    "start": "vite",
+    "build:web": "VITE_BUILD_TARGET=web tsc && vite build",
+    "build:ext": "./script/build.sh",
+    "build:firefox": "./script/build-firefox.sh",
+    "build:chrome": "./script/build-chrome.sh"
   },
   "eslintConfig": {
     "extends": [
@@ -74,16 +71,17 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@types/chrome": "^0.0.198",
+    "@types/chrome": "^0.0.241",
     "@types/jest": "^29.1.2",
     "@types/jsonpath": "^0.2.0",
-    "@types/node": "^18.11.0",
+    "@types/node": "^20.4.2",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "@types/react-modal": "^3.13.1",
     "@types/react-toggle": "^4.0.3",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.40.1",
+    "@vitejs/plugin-react": "^4.0.3",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
@@ -96,6 +94,10 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "^2.7.1",
-    "typescript": "^4.8.4"
+    "typescript": "^5.1.6",
+    "vite": "^4.4.5",
+    "vite-plugin-ejs": "^1.6.4",
+    "vite-plugin-svgr": "^3.2.0",
+    "vite-tsconfig-paths": "^4.2.0"
   }
 }

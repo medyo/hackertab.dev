@@ -28,8 +28,9 @@ import {
 import { SupportedCardType } from 'src/types'
 
 // Keys
-export const ANALYTICS_ENDPOINT = process.env.REACT_APP_AMPLITUDE_URL as string
-export const ANALYTICS_SDK_KEY = process.env.REACT_APP_AMPLITUDE_KEY as string
+export const ANALYTICS_ENDPOINT = import.meta.env.VITE_AMPLITUDE_URL as string
+export const ANALYTICS_SDK_KEY = import.meta.env.VITE_AMPLITUDE_KEY as string
+export const API_ENDPOINT = 'https://api.hackertab.dev/' as string
 export const LS_ANALYTICS_ID_KEY = 'hackerTabAnalyticsId'
 // Meta
 export const name = 'Hackertab.dev'

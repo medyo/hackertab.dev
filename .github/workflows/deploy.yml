@@ -2,21 +2,20 @@ name: Deploy to production
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 jobs:
   deploy:
-
     runs-on: ubuntu-latest
 
     steps:
-    - name: SSH and deploy node app
-      uses: fifsky/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        user: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        command: |
-          cd ~/hackertab.dev
-          git pull origin master
-          yarn
-          yarn build-web
+      - name: SSH and deploy node app
+        uses: fifsky/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          user: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          command: |
+            cd ~/hackertab.dev
+            git pull origin master
+            yarn
+            yarn build:web

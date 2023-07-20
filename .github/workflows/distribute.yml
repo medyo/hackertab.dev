@@ -23,9 +23,9 @@ on:
         default: false
         type: boolean
 env:
-  REACT_APP_BUILD_TARGET: 'extension'
-  REACT_APP_AMPLITUDE_KEY: ${{ secrets.REACT_APP_AMPLITUDE_KEY }}
-  REACT_APP_AMPLITUDE_URL: ${{ secrets.REACT_APP_AMPLITUDE_URL }}
+  VITE_BUILD_TARGET: 'extension'
+  VITE_AMPLITUDE_KEY: ${{ secrets.REACT_APP_AMPLITUDE_KEY }}
+  VITE_AMPLITUDE_URL: ${{ secrets.REACT_APP_AMPLITUDE_URL }}
 
 jobs:
   tag_version:
@@ -73,7 +73,7 @@ jobs:
         run: yarn
 
       - name: Build and zip the extension
-        run: yarn build-chrome
+        run: yarn build:chrome
 
       - name: Install chrome dependencies
         run: yarn global add chrome-webstore-upload-cli
@@ -103,7 +103,7 @@ jobs:
         run: yarn
 
       - name: Build and zip the extension
-        run: yarn build-firefox
+        run: yarn build:firefox
 
       - name: Install Firefox dependencies
         run: yarn global add web-ext web-ext-submit@6

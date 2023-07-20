@@ -1,17 +1,29 @@
+import { Item, Menu, MenuId, animation, useContextMenu } from 'react-contexify'
 import { RiArrowDownSFill } from 'react-icons/ri'
-import { Menu, Item, animation, useContextMenu } from 'react-contexify'
 
-const DropDownMenu = ({ data, tagId, label, setSelectedDropDownItem }) => {
+type Option = {
+  label: string
+  value: string
+}
+
+type DropDownMenuProps = {
+  data: Option[]
+  tagId: string
+  label: string
+  setSelectedDropDownItem: (option: Option) => void
+}
+export const DropDownMenu = ({
+  data,
+  tagId,
+  label,
+  setSelectedDropDownItem,
+}: DropDownMenuProps) => {
   const { show: showMenu } = useContextMenu()
 
-  const displayMenu = (e) => {
-    const {
-      target: {
-        dataset: { targetId },
-      },
-    } = e
+  const displayMenu = (e: React.MouseEvent<HTMLSpanElement>) => {
+    const targetId = e.currentTarget.getAttribute('data-target-id')
     if (targetId) {
-      showMenu(e, { id: targetId })
+      showMenu(e, { id: targetId as unknown as MenuId })
     }
   }
 
@@ -34,5 +46,3 @@ const DropDownMenu = ({ data, tagId, label, setSelectedDropDownItem }) => {
     </>
   )
 }
-
-export default DropDownMenu

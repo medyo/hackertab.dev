@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { migrateToNewStorage } from 'src/utils/StorageMigration'
 
 export default function AppWrapper({ children }: { children: React.ReactNode }) {
@@ -13,5 +13,5 @@ export default function AppWrapper({ children }: { children: React.ReactNode }) 
     }
   }, [])
 
-  return appReady && children
+  return appReady ? <>{children}</> : null
 }
