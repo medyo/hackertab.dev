@@ -11,6 +11,7 @@ import LobstersIcon from 'src/assets/icon_lobsters.png'
 import { ReactComponent as StartPageLogo } from 'src/assets/startpage_logo.svg'
 import { ReactComponent as YahooLogo } from 'src/assets/yahoo_logo.svg'
 import { ReactComponent as YandexLogo } from 'src/assets/yandex_logo.svg'
+import { ReactComponent as PhindLogo } from 'src/assets/phind_logo.svg'
 
 import {
   ConferencesCard,
@@ -79,6 +80,11 @@ export const SUPPORTED_SEARCH_ENGINES = [
     label: 'Startpage',
     url: 'https://www.startpage.com/sp/search?query=',
     logo: StartPageLogo,
+  },
+  {
+    label: 'Phind',
+    url: 'https://phind.com/search?q=',
+    logo: PhindLogo,
   },
 ]
 export const SUPPORTED_CARDS: SupportedCardType[] = [
