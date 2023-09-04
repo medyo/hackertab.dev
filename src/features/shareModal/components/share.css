@@ -1,0 +1,62 @@
+.shareModal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 450px;
+    background-color: var(--card-background-color);
+    padding: 24px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #00000052;
+    z-index: 3;
+    max-height: 80vh;
+}
+
+.shareValue {
+    display: flex;
+    flex: row;
+}
+
+.link {
+    width: 80%;
+    background-color: transparent;
+    border: solid 1px var(--card-border-color);
+    padding: 20px;
+}
+
+.copy {
+    width: 20%;
+    padding: 20px;
+    cursor: pointer;
+    background-color: var(--card-border-color);
+    color: var(--card-text-color);
+    border: solid 1px var(--card-border-color);
+}
+
+.shareOptions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .shareModal {
+        left: 0;
+        bottom: 0;
+        margin: 0;
+        height: 50vh;
+        max-height: 50vh;
+        transform: translate(0, 150px);
+        border-radius: 0;
+        position: relative;
+        box-shadow: none;
+        width: auto;
+    }
+
+    .shareOptions {
+        gap: 10px;
+    }
+}
