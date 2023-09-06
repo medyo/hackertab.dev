@@ -1,11 +1,11 @@
 import { BiCommentDetail } from 'react-icons/bi'
-import { CardLink, CardItemWithActions } from 'src/components/Elements'
+import { CardItemWithActions, CardLink } from 'src/components/Elements'
 
-import { BaseItemPropsType, Article } from 'src/types'
-import { format } from 'timeago.js'
 import { MdAccessTime } from 'react-icons/md'
 import { ColoredLanguagesBadge } from 'src/components/Elements'
 import { useUserPreferences } from 'src/stores/preferences'
+import { Article, BaseItemPropsType } from 'src/types'
+import { format } from 'timeago.js'
 
 import { AiTwotoneHeart } from 'react-icons/ai'
 import { Attributes } from 'src/lib/analytics'
@@ -40,14 +40,15 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
             )}
             <div className="subTitle">{item.title}</div>
           </CardLink>
-
           {listingMode === 'normal' && (
             <>
               <p className="rowDescription">
-                <span className="rowItem">
-                  <MdAccessTime className={'rowTitleIcon'} />
-                  {format(new Date(item.published_at))}
-                </span>
+                {(item.published_at!==null && item.published_at !== undefined) && (
+                  <span className="rowItem">
+                    <MdAccessTime className={'rowTitleIcon'} />
+                    {format(new Date(item.published_at))}
+                  </span>
+                )}
                 <span className="rowItem">
                   <BiCommentDetail className={'rowTitleIcon'} />
                   {item.comments || 0} comments
