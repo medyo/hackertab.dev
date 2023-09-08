@@ -84,7 +84,7 @@ export const SUPPORTED_SEARCH_ENGINES = [
   {
     label: 'Phind',
     url: 'https://phind.com/search?q=',
-    logo: <PhindLogo classNameProp="phind-logo" />,
+    logo: <PhindLogo classNameProp="phindLogo" />,
   },
 ]
 export const SUPPORTED_CARDS: SupportedCardType[] = [
