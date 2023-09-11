@@ -12,9 +12,18 @@
     max-height: 80vh;
 }
 
-.shareValue {
+.shareBody {
+    border: solid 1px var(--card-border-color);
+    padding: 14px;
+}
+
+.shareBody p {
+    text-transform: uppercase;
+}
+
+.shareLink {
     display: flex;
-    flex: row;
+    flex-direction: row;
 }
 
 .link {
@@ -48,8 +57,9 @@
         bottom: 0;
         margin: 0;
         height: 50vh;
+        padding: 10px;
         max-height: 50vh;
-        transform: translate(0, 150px);
+        transform: translate(0, 0);
         border-radius: 0;
         position: relative;
         box-shadow: none;

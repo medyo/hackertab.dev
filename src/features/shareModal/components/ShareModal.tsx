@@ -23,15 +23,15 @@ import './share.css'
 type ShareModalProps = {
   showModal: boolean
   setShowModal: (show: boolean) => void
-  link: string
+  data: any
 }
 
-export const ShareModal = ({ showModal, setShowModal, link }: ShareModalProps) => {
+export const ShareModal = ({ showModal, setShowModal, data }: ShareModalProps) => {
   const handleCloseModal = () => {
     setShowModal(false)
   }
   const copyLink = () => {
-    navigator.clipboard.writeText(link)
+    navigator.clipboard.writeText(data.link)
   }
   return (
     <ReactModal
@@ -55,39 +55,43 @@ export const ShareModal = ({ showModal, setShowModal, link }: ShareModalProps) =
         </button>
       </div>
 
-      <div className="shareValue">
-        <input type="text" className="link" value={link} disabled />
-        <button className="copy" onClick={copyLink}>
-          <VscCopy />
-        </button>
+      <div className="shareBody">
+        <p>{data.source}</p>
+        <h3>{data.title}</h3>
+        <div className="shareLink">
+          <input type="text" className="link" value={data.link} disabled />
+          <button className="copy" onClick={copyLink}>
+            <VscCopy />
+          </button>
+        </div>
       </div>
 
       <div className="shareOptions">
-        <FacebookShareButton url={link}>
+        <FacebookShareButton url={data.link}>
           <FaFacebookSquare size={32} />
         </FacebookShareButton>
 
-        <TwitterShareButton url={link}>
+        <TwitterShareButton url={data.link}>
           <FaTwitterSquare size={32} />
         </TwitterShareButton>
 
-        <EmailShareButton url={link}>
+        <EmailShareButton url={data.link}>
           <FaMailBulk size={32} />
         </EmailShareButton>
 
-        <WhatsappShareButton url={link}>
+        <WhatsappShareButton url={data.link}>
           <FaWhatsappSquare size={32} />
         </WhatsappShareButton>
 
-        <TelegramShareButton url={link}>
+        <TelegramShareButton url={data.link}>
           <FaTelegram size={32} />
         </TelegramShareButton>
 
-        <RedditShareButton url={link}>
+        <RedditShareButton url={data.link}>
           <FaRedditSquare size={32} />
         </RedditShareButton>
 
-        <LinkedinShareButton url={link}>
+        <LinkedinShareButton url={data.link}>
           <FaLinkedinIn size={32} />
         </LinkedinShareButton>
       </div>

@@ -21,7 +21,7 @@ export const CardItemWithActions = ({
   sourceType = 'supported',
 }: CardItemWithActionsProps) => {
   const [showModal, setShowModal] = useState(false)
-  const [link, setLink] = useState('')
+  const [link, setLink] = useState({})
   const { bookmarkPost, unbookmarkPost, userBookmarks } = useBookmarks()
   const [isBookmarked, setIsBookmarked] = useState(
     userBookmarks.some((bm) => bm.source === source && bm.url === item.url)
@@ -56,11 +56,11 @@ export const CardItemWithActions = ({
   }, [userBookmarks, source, item])
   const handleOpenModal = () => {
     setShowModal(!showModal)
-    setLink(item.url)
+    setLink({ title: item.title, link: item.url, source: source })
   }
   return (
     <div key={`${source}-${index}`} className="blockRow">
-      <ShareModal showModal={showModal} setShowModal={handleOpenModal} link={link} />
+      <ShareModal showModal={showModal} setShowModal={handleOpenModal} data={link} />
 
       {cardItem}
       <div className={`blockActions ${isBookmarked ? 'active' : ''} `}>
