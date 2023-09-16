@@ -26,6 +26,16 @@ type ShareModalProps = {
   data: any
 }
 
+const sharingButtons = [
+  { component: EmailShareButton, icon: FaMailBulk, title: 'Mail' },
+  { component: FacebookShareButton, icon: FaFacebookSquare, title: 'Facebook' },
+  { component: TwitterShareButton, icon: FaTwitterSquare, title: 'Twitter' },
+  { component: RedditShareButton, icon: FaRedditSquare, title: 'Reddit' },
+  { component: LinkedinShareButton, icon: FaLinkedinIn, title: 'Linkedin' },
+  { component: TelegramShareButton, icon: FaTelegram, title: 'Telegram' },
+  { component: WhatsappShareButton, icon: FaWhatsappSquare, title: 'Whatsapp' },
+]
+
 export const ShareModal = ({ showModal, setShowModal, data }: ShareModalProps) => {
   const handleCloseModal = () => {
     setShowModal(false)
@@ -59,41 +69,19 @@ export const ShareModal = ({ showModal, setShowModal, data }: ShareModalProps) =
         <p>{data.source}</p>
         <h3>{data.title}</h3>
         <div className="shareLink">
-          <input type="text" className="link" value={data.link} disabled />
-          <button className="copy" onClick={copyLink}>
+          <input type="text" value={data.link} disabled />
+          <button onClick={copyLink}>
             <VscCopy />
           </button>
         </div>
       </div>
 
       <div className="shareOptions">
-        <FacebookShareButton url={data.link}>
-          <FaFacebookSquare size={32} />
-        </FacebookShareButton>
-
-        <TwitterShareButton url={data.link}>
-          <FaTwitterSquare size={32} />
-        </TwitterShareButton>
-
-        <EmailShareButton url={data.link}>
-          <FaMailBulk size={32} />
-        </EmailShareButton>
-
-        <WhatsappShareButton url={data.link}>
-          <FaWhatsappSquare size={32} />
-        </WhatsappShareButton>
-
-        <TelegramShareButton url={data.link}>
-          <FaTelegram size={32} />
-        </TelegramShareButton>
-
-        <RedditShareButton url={data.link}>
-          <FaRedditSquare size={32} />
-        </RedditShareButton>
-
-        <LinkedinShareButton url={data.link}>
-          <FaLinkedinIn size={32} />
-        </LinkedinShareButton>
+        {sharingButtons.map(({ component: ShareButton, icon: Icon, title: Title }, index) => (
+          <ShareButton key={index} url={data.link}>
+            <Icon size={32} title={Title} />
+          </ShareButton>
+        ))}
       </div>
     </ReactModal>
   )
