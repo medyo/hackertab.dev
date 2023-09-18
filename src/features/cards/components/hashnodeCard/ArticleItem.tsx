@@ -43,7 +43,7 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
           {listingMode === 'normal' && (
             <>
               <p className="rowDescription">
-                {(item.published_at!==null && item.published_at !== undefined) && (
+                {item.published_at && (
                   <span className="rowItem">
                     <MdAccessTime className={'rowTitleIcon'} />
                     {format(new Date(item.published_at))}
