@@ -6,16 +6,24 @@ import { useUserPreferences } from 'src/stores/preferences'
 
 export const ScrollCardsNavigator = () => {
   const { cards } = useUserPreferences()
-  const [leftButtonVisible, setLeftButtonVisible] = useState(true)
-  const [rightButtonVisible, setRightButtonVisible] = useState(true)
+  const [leftButtonVisible, setLeftButtonVisible] = useState(false)
+  const [rightButtonVisible, setRightButtonVisible] = useState(false)
   const scrollBarContainer = useRef<HTMLElement | null>(null)
+  const CARDS = 'Cards'
 
   const handleScroll = (e: Event) => {
+    const target = e.target as HTMLElement
+
+    // Prevent scrolling conflicts between CARDS and children
+    if (!target.classList.contains(CARDS)) {
+      return
+    }
+
     if (cards.length <= maxCardsPerRow) {
       setLeftButtonVisible(false)
       setRightButtonVisible(false)
     } else {
-      const { scrollLeft, scrollWidth, offsetWidth } = e.target as HTMLElement
+      const { scrollLeft, scrollWidth, offsetWidth } = target
       setLeftButtonVisible(scrollLeft > 100)
       const scrollRight = scrollWidth - offsetWidth - Math.abs(scrollLeft)
       setRightButtonVisible(scrollRight > 100)
@@ -34,8 +42,7 @@ export const ScrollCardsNavigator = () => {
   }, [])
 
   useLayoutEffect(() => {
-    setLeftButtonVisible(false)
-    scrollBarContainer.current = document.querySelector('.Cards')
+    scrollBarContainer.current = document.querySelector(`.${CARDS}`)
   }, [])
 
   useEffect(() => {
@@ -70,12 +77,20 @@ export const ScrollCardsNavigator = () => {
   return (
     <div className="scrollCardsNavigator">
       {leftButtonVisible && (
-        <button onClick={() => scrollTo('left')} className="scrollButton" style={{ left: 0 }}>
+        <button
+          aria-label="Previous cards"
+          className="scrollButton"
+          onClick={() => scrollTo('left')}
+          style={{ left: 0 }}>
           <FiChevronLeft size={32} />
         </button>
       )}
       {rightButtonVisible && (
-        <button onClick={() => scrollTo('right')} className="scrollButton" style={{ right: 0 }}>
+        <button
+          aria-label="Next cards"
+          className="scrollButton"
+          onClick={() => scrollTo('right')}
+          style={{ right: 0 }}>
           <FiChevronRight size={32} />
         </button>
       )}

@@ -107,7 +107,6 @@ a {
   overflow-y: hidden;
   justify-content: space-between;
   scroll-snap-type: x mandatory;
-  scroll-padding-left: 12px;
   padding-top: 2vh;
   height: 87vh;
 }
@@ -863,7 +862,6 @@ Producthunt item
   border: none;
   position: absolute;
   top: 45%;
-  margin: 0 1%;
   background-color: var(--card-action-button-background);
   color: var(--card-action-button-color);
   opacity: 0.8;
