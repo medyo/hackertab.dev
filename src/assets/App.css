@@ -413,6 +413,11 @@ a {
 .dark .blockHeaderWhite {
   color: white;
 }
+.dark .SELogo {
+  fill: white;
+}
+
+
 .light .blockHeaderWhite {
   color: black;
 }
