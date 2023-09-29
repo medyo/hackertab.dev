@@ -11,10 +11,6 @@ body {
   font-size: 100%;
 }
 
-.transitionBgColor {
-  transition: background-color 0.3s ease-in-out;
-}
-
 .appLoading {
   justify-content: center;
   align-items: center;
@@ -60,16 +56,16 @@ a {
   color: var(--app-name-text-color);
 }
 .AppHeader {
+  align-content: center;
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  align-content: center;
   flex-wrap: wrap;
-  height: 10vh;
-  margin: 0.5% 1% 0px 1%;
+  gap: 10px;
+  margin: 10px 1% 0;
   position: sticky;
-  z-index: 1;
   top: 0;
+  z-index: 1;
 }
 
 .AppFooter {
@@ -96,19 +92,21 @@ a {
 }
 
 .AppContent {
-  position: relative;
   margin: 0;
+  min-height: 100%; /* Same as DNDContent */
+  position: relative;
 }
 .Cards {
-  flex: 1 1 auto;
+  box-sizing: border-box;
   display: flex;
+  flex: 1 1 auto;
   gap: 12px;
-  position: relative;
-  overflow-y: hidden;
+  height: 100%;
   justify-content: space-between;
+  overflow-y: hidden;
+  padding-top: 20px;
+  position: relative;
   scroll-snap-type: x mandatory;
-  padding-top: 2vh;
-  height: 87vh;
 }
 .HorizontalScroll {
   -ms-overflow-style: none;
@@ -119,8 +117,10 @@ a {
 }
 
 .extras {
+  display: none;
   flex-direction: row;
   align-content: center;
+  order: 2;
 }
 .darkModeBtn {
   background-color: var(--dark-mode-background-color) !important;
@@ -143,21 +143,15 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.4s linear;
+}
+.extraBtn:first-child {
+  margin-left: 0;
 }
 .extraTextBtn {
   padding: 0 16px;
   width: auto;
   min-width: 40px;
   font-weight: bold;
-}
-.extraTextBtnIcon {
-  margin-right: 4px;
-  transition: color 400ms, transform 0.1s;
-}
-.extraTextBtn:hover .extraTextBtnIcon {
-  color: red;
-  transform: scale(1.2);
 }
 
 .badgeCount {
@@ -177,7 +171,8 @@ a {
 
 .AppName {
   color: var(--app-name-text-color);
-  text-align: left;
+  flex-grow: 1;
+  order: 1;
 }
 
 .logo {
@@ -200,22 +195,22 @@ a {
 
 .block {
   background-color: var(--card-background-color);
-  border-radius: 10px;
-  overflow: hidden;
+  border: 1px solid var(--card-border-color);
   flex-direction: column;
-  height: 98%;
-  width: 10vw;
   flex: 0 0 auto;
+  height: calc(100% - 54px);
+  padding-bottom: 56px;
   scroll-snap-align: start;
+  width: 100vw;
 }
 .blockContent {
-  flex-grow: 1;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
   overflow-x: hidden;
+  overflow-y: auto;
   scroll-snap-type: y mandatory;
-  height: calc(86vh - 1% - 46px);
 }
 
 .scrollable {
@@ -242,9 +237,6 @@ a {
   background-color: var(--scrollbar-accent-color);
 }
 
-.dark .block {
-  border: 1px solid var(--card-border-color);
-}
 .light .block {
   box-shadow: 0 0 20px var(--card-border-color);
 }
@@ -325,9 +317,6 @@ a {
   position: relative;
 }
 
-.blockRow:last-child {
-  padding-bottom: 42px;
-}
 /* Actions */
 .blockActions {
   position: absolute;
@@ -484,28 +473,23 @@ a {
   color: #99a2ac;
 }
 
-.break {
-  flex-basis: 100%;
-  height: 0;
-}
 .tags {
-  align-self: flex-start;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 24px;
-  transition: all 0.3s ease-out;
-  opacity: 1;
+  gap: 8px;
+  order: 4;
+  transition: opacity 0.3s ease-out 0.1s, transform 0.3s ease-out 0.1s,
+    visibility 0.3s ease-out 0.1s;
+  width: 100%;
 }
 
 .tag {
   color: var(--tag-text-color);
   font-weight: 500;
   background-color: var(--tag-background-color);
+  border: 1px solid var(--tag-border-color);
   border-radius: 20px;
   padding: 2px 8px;
-  margin-right: 8px;
 }
 .tagHoverable:hover {
   cursor: pointer;
@@ -514,9 +498,6 @@ a {
 .tagIcon {
   position: relative;
   top: 2px;
-}
-.dark .tag {
-  border: 1px solid var(--tag-border-color);
 }
 
 .slogan {
@@ -777,15 +758,13 @@ Producthunt item
   align-items: center;
 }
 .searchBar {
-  position: relative;
-  margin: 0 auto;
-  margin-top: 6px;
-  transition: all 0.3s ease-out;
-  opacity: 1;
+  order: 3;
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s ease-out;
+  width: 100%;
 }
 .searchBarIcon {
   position: absolute;
-  height: 46px;
+  height: 40px;
   margin: 0 16px;
 }
 .searchBarInput {
@@ -793,9 +772,10 @@ Producthunt item
   color: var(--primary-text-color);
   border: 1px solid var(--card-border-color);
   box-shadow: 0 0 20px var(--card-border-color);
-  height: 42px;
+  box-sizing: border-box;
+  height: 40px;
   padding: 0 32px 0 48px;
-  width: 580px;
+  width: 100%;
   background-color: var(--card-header-background-color);
 }
 
@@ -860,6 +840,7 @@ Producthunt item
 
 .scrollButton {
   border: none;
+  display: none;
   position: absolute;
   top: 45%;
   background-color: var(--card-action-button-background);
@@ -871,9 +852,6 @@ Producthunt item
   box-shadow: 0 0 20px var(--card-border-color);
   z-index: 2;
   cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  display: flex;
 }
 
 .scrollButton:hover {
@@ -888,14 +866,6 @@ Producthunt item
   .bottomNavigation {
     display: flex;
   }
-  .block {
-    margin-top: 8px;
-    height: 100%;
-    width: 100%;
-    padding-bottom: 56px;
-    border-radius: 0;
-    box-shadow: none !important;
-  }
   .AppContent .block:nth-child(n + 2) {
     display: none;
   }
@@ -903,44 +873,19 @@ Producthunt item
     width: 0px;
     background: transparent;
   }
-  .searchBar {
-    display: none;
-  }
   .slogan {
     display: none;
   }
-  .tags {
-    margin-top: 6px;
-  }
   .changelogButton {
-    display: none;
-  }
-  .extras {
-    display: block;
-    margin: 0;
     display: none;
   }
   .App {
     padding: 0;
   }
-  .AppHeader {
-    padding: 0;
-    margin: 0 12px;
-  }
   .AppFooter {
     display: none;
   }
   .blockHeader {
-    display: none;
-  }
-  .blockContent {
-    height: 100%;
-    overflow: hidden;
-  }
-  .scrollable::-webkit-scrollbar {
-    width: 0;
-  }
-  .scrollButton {
     display: none;
   }
 }
@@ -1052,24 +997,70 @@ Producthunt item
   .floatingFilter {
     display: block;
   }
-  .block {
-    width: 100vw;
-  }
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   .block {
-    width: calc(96vw / min(2, var(--max-visible-cards)));
+    border-radius: 10px;
+    height: 100%;
+    padding-bottom: 0;
+    width: calc(95vw / min(2, var(--max-visible-cards)));
+  }
+
+  .blockContent {
+    height: calc(100% - 54px);
+  }
+
+  .searchBar {
+    flex-grow: 1;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .extras {
+    display: block;
+  }
+
+  .scrollButton {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .layoutLayers {
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+
+  .Cards {
+    padding-bottom: 20px;
   }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .AppHeader {
+    height: auto;
+  }
+
+  .AppName {
+    flex-grow: unset;
+    width: auto;
+  }
+
   .block {
     width: calc(96vw / min(3, var(--max-visible-cards)));
   }
-  .searchBarInput {
-    width: 200px;
+
+  .searchBar {
+    width: auto;
+  }
+
+  .AppName,
+  .searchBar,
+  .extras,
+  .tags {
+    order: unset;
   }
 }
 
@@ -1077,10 +1068,6 @@ Producthunt item
 @media only screen and (min-width: 992px) {
   .block {
     width: calc(96vw / min(3, var(--max-visible-cards)));
-  }
-
-  .searchBarInput {
-    width: 480px;
   }
 }
 
@@ -1135,12 +1122,11 @@ Producthunt item
   vertical-align: middle;
 }
 .layoutLayers {
-  scroll-snap-type: y mandatory;
   display: flex;
   flex-direction: column;
   height: 100vh;
   overflow-y: scroll;
-  margin: 0 1%;
+  scroll-snap-type: y mandatory;
 }
 .layoutLayers > * {
   scroll-snap-align: end;

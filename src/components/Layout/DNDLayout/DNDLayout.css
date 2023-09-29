@@ -1,23 +1,19 @@
-.dndState .AppHeader .searchBar {
-  visibility: hidden;
-  transform: translate(0, 10px);
-  opacity: 0;
-}
+.dndState .AppHeader .searchBar,
 .dndState .tags {
-  visibility: hidden;
   opacity: 0;
-  transform: translate(0, 10px);
-  filter: blur(1px);
+  transform: translate(0, 5px);
+  visibility: hidden;
 }
 .dndState .blockContent {
   scroll-snap-type: none;
 }
 .DNDContent {
-  min-height: 100%;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  margin: 0 1%;
+  min-height: 100%; /* Same as AppContent */
 }
 .dndState .scrollToCardsLayout {
   visibility: visible;
@@ -33,9 +29,15 @@
   background: none;
   color: var(--primary-text-color);
   cursor: pointer;
-  padding: 20px 0;
+  padding: 20px 0 70px;
   visibility: hidden;
   transition: all 0.2s ease-in;
+}
+
+@media (min-width: 600px) {
+  .scrollToCardsLayout {
+    padding-bottom: 20px;
+  }
 }
 
 .scrollToCardsLayout:hover .icon {
@@ -49,6 +51,13 @@
 
 .searchWidget {
   flex-grow: 1;
+  justify-content: center;
   display: flex;
   align-items: center;
+  width: 100%;
+}
+
+.searchWidget form {
+  max-width: 480px;
+  width: 100%;
 }
