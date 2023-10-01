@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BsFillBookmarksFill, BsFillGearFill, BsMoon } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
 import { IoMdSunny } from 'react-icons/io'
@@ -26,7 +26,6 @@ export const Header = ({
   setShowSettings,
 }: HeaderProps) => {
   const [themeIcon, setThemeIcon] = useState(<BsMoon />)
-  const isFirstRun = useRef(true)
   const { theme, setTheme, setDNDDuration, isDNDModeActive } = useUserPreferences()
   const { userBookmarks } = useBookmarks()
 
@@ -36,14 +35,6 @@ export const Header = ({
   }, [])
 
   useEffect(() => {
-    if (isFirstRun.current) {
-      isFirstRun.current = false
-    } else {
-      if (!document.documentElement.classList.contains('transitionBgColor')) {
-        document.documentElement.classList.add('transitionBgColor')
-      }
-    }
-
     if (theme === 'light') {
       document.documentElement.classList.replace('dark', theme)
       setThemeIcon(<BsMoon />)
@@ -110,7 +101,6 @@ export const Header = ({
             <BookmarksBadgeCount />
           </button>
         </div>
-        <div className="break"></div>
         <UserTags onAddClicked={onSettingsClick} />
       </header>
     </>

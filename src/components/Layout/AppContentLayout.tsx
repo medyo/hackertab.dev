@@ -15,7 +15,7 @@ export const AppContentLayout = ({
   const [selectedCard, setSelectedCard] = useState(cards[0])
 
   return (
-    <section>
+    <>
       <main className="AppContent">
         <ScrollCardsNavigator />
         {isDesktop ? (
@@ -31,6 +31,6 @@ export const AppContentLayout = ({
         setSelectedCard={setSelectedCard}
         setShowSettings={setShowSettings}
       />
-    </section>
+    </>
   )
 }
