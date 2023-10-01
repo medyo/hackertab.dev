@@ -38,6 +38,7 @@ export const BottomNavigation = ({
       })}
       {
         <button
+          aria-label="Open settings"
           className={'navigationItem '}
           onClick={() => setShowSettings((prev: boolean) => !prev)}>
           {<AiOutlineMenu />}

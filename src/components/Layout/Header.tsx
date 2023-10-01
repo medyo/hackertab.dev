@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BsFillBookmarksFill, BsFillGearFill, BsMoon } from 'react-icons/bs'
+import { BsFillBookmarksFill, BsFillGearFill, BsMoonFill } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
 import { IoMdSunny } from 'react-icons/io'
 import { MdDoDisturbOff } from 'react-icons/md'
@@ -25,7 +25,7 @@ export const Header = ({
   showSettings,
   setShowSettings,
 }: HeaderProps) => {
-  const [themeIcon, setThemeIcon] = useState(<BsMoon />)
+  const [themeIcon, setThemeIcon] = useState(<BsMoonFill />)
   const { theme, setTheme, setDNDDuration, isDNDModeActive } = useUserPreferences()
   const { userBookmarks } = useBookmarks()
 
@@ -37,7 +37,7 @@ export const Header = ({
   useEffect(() => {
     if (theme === 'light') {
       document.documentElement.classList.replace('dark', theme)
-      setThemeIcon(<BsMoon />)
+      setThemeIcon(<BsMoonFill />)
     } else if (theme === 'dark') {
       document.documentElement.classList.replace('light', theme)
       setThemeIcon(<IoMdSunny />)
@@ -79,7 +79,7 @@ export const Header = ({
           <i className="logo">
             <CgTab />
           </i>{' '}
-          <HackertabLogo className="logoText" />
+          <HackertabLogo aria-label="hackertab.dev" className="logoText" />
           <Changelog />
         </span>
         <SearchBar />
@@ -90,13 +90,19 @@ export const Header = ({
               &nbsp;Unpause
             </button>
           )}
-          <button className="extraBtn" onClick={onSettingsClick}>
+          <button aria-label="Open settings" className="extraBtn" onClick={onSettingsClick}>
             <BsFillGearFill />
           </button>
-          <button className="extraBtn darkModeBtn" onClick={onThemeChange}>
+          <button
+            aria-label="Toggle theme"
+            className="extraBtn darkModeBtn"
+            onClick={onThemeChange}>
             {themeIcon}
           </button>
-          <button className="extraBtn" onClick={() => setShowSideBar(!showSideBar)}>
+          <button
+            aria-label="Open bookmarks"
+            className="extraBtn"
+            onClick={() => setShowSideBar(!showSideBar)}>
             <BsFillBookmarksFill />
             <BookmarksBadgeCount />
           </button>

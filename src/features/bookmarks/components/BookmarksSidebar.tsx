@@ -79,9 +79,9 @@ export const BookmarksSidebar = ({ showSidebar, onClose }: BookmarksSidebarTtype
       <SidebarHeader>
         <div className="sidebarHeader">
           <span className="title">Bookmarks</span>
-          <span className="closeBtn" onClick={onClose}>
+          <button aria-label="Close bookmarks" className="closeBtn" onClick={onClose}>
             <VscChromeClose />
-          </span>
+          </button>
         </div>
       </SidebarHeader>
       <SidebarContent>

@@ -35,9 +35,6 @@ export const ScrollCardsNavigator = () => {
       scrollTo('left')
     } else if (e.key === 'ArrowRight') {
       scrollTo('right')
-    } else if (e.key === 'Tab') {
-      e.preventDefault()
-      e.stopPropagation()
     }
   }, [])
 

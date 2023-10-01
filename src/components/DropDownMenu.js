@@ -1,5 +1,5 @@
+import { Item, Menu, animation, useContextMenu } from 'react-contexify'
 import { RiArrowDownSFill } from 'react-icons/ri'
-import { Menu, Item, animation, useContextMenu } from 'react-contexify'
 
 const DropDownMenu = ({ data, tagId, label, setSelectedDropDownItem }) => {
   const { show: showMenu } = useContextMenu()
@@ -17,10 +17,10 @@ const DropDownMenu = ({ data, tagId, label, setSelectedDropDownItem }) => {
 
   return (
     <>
-      <span onClick={displayMenu} className="headerSelect" data-target-id={tagId}>
+      <button onClick={displayMenu} className="headerSelect" data-target-id={tagId}>
         {label}
         <RiArrowDownSFill className="headerSelectIcon" />
-      </span>
+      </button>
       <Menu id={tagId} animation={animation.fade}>
         {data &&
           data.map((tag) => {
