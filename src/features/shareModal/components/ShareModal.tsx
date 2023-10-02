@@ -1,21 +1,19 @@
-import {
-  FaFacebookSquare,
-  FaLinkedinIn,
-  FaMailBulk,
-  FaRedditSquare,
-  FaTelegram,
-  FaTwitterSquare,
-  FaWhatsappSquare,
-} from 'react-icons/fa'
 import { VscClose, VscCopy } from 'react-icons/vsc'
 import ReactModal from 'react-modal'
 import {
+  EmailIcon,
   EmailShareButton,
+  FacebookIcon,
   FacebookShareButton,
+  LinkedinIcon,
   LinkedinShareButton,
+  RedditIcon,
   RedditShareButton,
+  TelegramIcon,
   TelegramShareButton,
+  TwitterIcon,
   TwitterShareButton,
+  WhatsappIcon,
   WhatsappShareButton,
 } from 'react-share'
 import './share.css'
@@ -23,25 +21,25 @@ import './share.css'
 type ShareModalProps = {
   showModal: boolean
   setShowModal: (show: boolean) => void
-  data: any
+  shareData: any
 }
 
 const sharingButtons = [
-  { component: EmailShareButton, icon: FaMailBulk, title: 'Mail' },
-  { component: FacebookShareButton, icon: FaFacebookSquare, title: 'Facebook' },
-  { component: TwitterShareButton, icon: FaTwitterSquare, title: 'Twitter' },
-  { component: RedditShareButton, icon: FaRedditSquare, title: 'Reddit' },
-  { component: LinkedinShareButton, icon: FaLinkedinIn, title: 'Linkedin' },
-  { component: TelegramShareButton, icon: FaTelegram, title: 'Telegram' },
-  { component: WhatsappShareButton, icon: FaWhatsappSquare, title: 'Whatsapp' },
+  { component: EmailShareButton, icon: EmailIcon, title: 'Mail' },
+  { component: FacebookShareButton, icon: FacebookIcon, title: 'Facebook' },
+  { component: TwitterShareButton, icon: TwitterIcon, title: 'Twitter' },
+  { component: RedditShareButton, icon: RedditIcon, title: 'Reddit' },
+  { component: LinkedinShareButton, icon: LinkedinIcon, title: 'Linkedin' },
+  { component: TelegramShareButton, icon: TelegramIcon, title: 'Telegram' },
+  { component: WhatsappShareButton, icon: WhatsappIcon, title: 'Whatsapp' },
 ]
 
-export const ShareModal = ({ showModal, setShowModal, data }: ShareModalProps) => {
+export const ShareModal = ({ showModal, setShowModal, shareData }: ShareModalProps) => {
   const handleCloseModal = () => {
     setShowModal(false)
   }
   const copyLink = () => {
-    navigator.clipboard.writeText(data.link)
+    navigator.clipboard.writeText(shareData.link)
   }
   return (
     <ReactModal
@@ -66,10 +64,10 @@ export const ShareModal = ({ showModal, setShowModal, data }: ShareModalProps) =
       </div>
 
       <div className="shareBody">
-        <p>{data.source}</p>
-        <h3>{data.title}</h3>
+        <p>{shareData.source}</p>
+        <h3>{shareData.title}</h3>
         <div className="shareLink">
-          <input type="text" value={data.link} disabled />
+          <input type="text" value={shareData.link} disabled />
           <button onClick={copyLink}>
             <VscCopy />
           </button>
@@ -77,9 +75,9 @@ export const ShareModal = ({ showModal, setShowModal, data }: ShareModalProps) =
       </div>
 
       <div className="shareOptions">
-        {sharingButtons.map(({ component: ShareButton, icon: Icon, title: Title }, index) => (
-          <ShareButton key={index} url={data.link}>
-            <Icon size={32} title={Title} />
+        {sharingButtons.map(({ component: ShareButton, icon: Icon }, index) => (
+          <ShareButton key={index} url={shareData.link} title={shareData.title}>
+            <Icon size={32} round />
           </ShareButton>
         ))}
       </div>
