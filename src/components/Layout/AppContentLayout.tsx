@@ -21,7 +21,7 @@ export const AppContentLayout = ({
         {isDesktop ? (
           <DesktopCards cards={cards} userCustomCards={userCustomCards} />
         ) : (
-          <div className="HorizontalScroll">
+          <div className="Cards HorizontalScroll">
             <MobileCards selectedCard={selectedCard} />
           </div>
         )}

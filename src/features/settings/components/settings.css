@@ -127,17 +127,19 @@ Modal
   color: var(--primary-text-color);
 }
 .modalCloseBtn {
-  cursor: pointer;
-  text-align: center;
-  align-content: center;
-  background: none;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 50%;
   border: none;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  margin: 0;
-  border-radius: 24px;
   color: var(--primary-text-color);
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 40px;
 }
 .modalCloseBtn:hover {
   opacity: 0.7;

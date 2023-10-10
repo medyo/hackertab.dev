@@ -122,10 +122,6 @@ a {
   align-content: center;
   order: 2;
 }
-.darkModeBtn {
-  background-color: var(--dark-mode-background-color) !important;
-  color: var(--dark-mode-text-color) !important;
-}
 .extraBtn {
   background-color: var(--button-background-color);
   color: var(--button-text-color);
@@ -137,7 +133,6 @@ a {
   text-align: center;
   border: 0;
   border-radius: 20px;
-  outline: none;
   cursor: pointer;
   position: relative;
   display: inline-flex;
@@ -152,6 +147,11 @@ a {
   width: auto;
   min-width: 40px;
   font-weight: bold;
+}
+
+.darkModeBtn {
+  background-color: var(--dark-mode-background-color);
+  color: var(--dark-mode-text-color);
 }
 
 .badgeCount {
@@ -199,6 +199,7 @@ a {
   flex-direction: column;
   flex: 0 0 auto;
   height: calc(100% - 54px);
+  overflow: hidden;
   padding-bottom: 56px;
   scroll-snap-align: start;
   width: 100vw;
@@ -242,15 +243,21 @@ a {
 }
 
 .blockHeader {
-  text-align: center;
-  vertical-align: baseline;
+  align-items: center;
   color: var(--card-header-text-color);
-  font-weight: 400;
-  height: 30px;
+  display: flex;
   font-size: 16px;
-  padding-top: 16px;
-  padding-bottom: 8px;
+  font-weight: 400;
+  gap: 6px;
+  height: 30px;
+  justify-content: center;
+  padding-bottom: 12px;
+  padding-top: 12px;
   position: relative;
+}
+
+.blockHeader:hover {
+  background: linear-gradient(90deg, var(--card-actions-background-shadow) 0%, transparent 34%);
 }
 
 .blockHeader .maxTitle {
@@ -266,29 +273,31 @@ a {
   opacity: 1;
 }
 .blockHeaderLink {
-  display: inline-block;
-  margin-left: 8px;
+  align-items: center;
   color: #96a2ae;
-  vertical-align: middle;
+  display: flex;
+  justify-content: center;
   opacity: 0;
   transition: opacity 0.2s linear;
 }
+.blockHeaderLink:focus {
+  opacity: 1;
+}
 .blockHeaderDragButton {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: linear-gradient(to left, transparent, var(--card-actions-background-shadow));
-  border: none;
-  height: 100%;
-  padding: 0 12px;
-  width: 32%;
   align-items: center;
-  justify-content: start;
-  z-index: 1;
+  background: transparent;
+  border: none;
+  color: #96a2ae;
   cursor: grab;
   display: none;
-  color: #96a2ae;
   font-size: 24px;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  width: 50px;
 }
 
 .blockHeader:hover .blockHeaderDragButton {
@@ -300,84 +309,84 @@ a {
 }
 
 .blockHeaderIcon {
-  position: relative;
-  top: 4px;
-  margin-right: 6px;
+  display: flex;
+  height: 16px;
+  width: 16px;
 }
 .blockHeaderIcon img {
-  width: 18px;
-  height: 18px;
+  display: block;
 }
 .blockHeaderIcon .rss {
   color: #ee802f;
 }
-.blockRow {
-  scroll-snap-align: start;
-  padding: 8px 16px;
-  position: relative;
-}
 
 /* Actions */
 .blockActions {
-  position: absolute;
-  transition: right 0.2s ease;
-  top: 0;
-  right: -100%;
-  background: linear-gradient(to right, transparent, var(--card-actions-background-shadow));
-  height: 100%;
-  width: 26%;
-  justify-content: flex-end;
   align-items: flex-end;
   display: flex;
-}
-.blockActions.active {
+  height: 100%;
+  justify-content: flex-end;
+  pointer-events: none;
+  position: absolute;
   right: 0;
+  top: 0;
+  width: 26%;
 }
 
-.blockRow:hover .blockActions {
-  right: 0;
+.blockActions.active {
+  background: linear-gradient(to right, transparent, var(--card-actions-background-shadow));
 }
+
+.blockActionButton {
+  background-color: var(--card-action-button-background);
+  border-radius: 40px;
+  border: none;
+  bottom: 8px;
+  box-shadow: 0 0 15px 2px var(--card-actions-background-shadow);
+  color: var(--card-action-button-color);
+  cursor: pointer;
+  display: block;
+  font-size: 18px;
+  height: 28px;
+  line-height: 12px;
+  opacity: 1;
+  padding: 0;
+  pointer-events: all;
+  position: absolute;
+  right: 8px;
+  text-align: center;
+  transition: opacity 0.3s ease, right 0.3s ease;
+  width: 28px;
+}
+
 .blockActionButton.active {
   background-color: var(--card-active-action-button-background);
   color: var(--card-active-action-button-color);
 }
-.blockActionButton {
-  margin: 16px;
-  width: 28px;
-  height: 28px;
-  border: none;
-  border-radius: 40px;
-  display: block;
-  text-align: center;
-  background-color: var(--card-action-button-background);
-  color: var(--card-action-button-color);
-  line-height: 12px;
-  cursor: pointer;
-  padding: 0;
+
+@media (hover: hover) {
+  .blockActionButton {
+    opacity: 0;
+    right: -16px;
+  }
+
+  .blockRow:hover .blockActionButton,
+  .blockActionButton:focus-visible,
+  .blockActionButton.active {
+    opacity: 1;
+    right: 8px;
+  }
+}
+
+/* Card (element) */
+.blockRow {
+  padding: 8px 16px;
+  position: relative;
+  scroll-snap-align: start;
 }
 
 .blockRow:hover {
   background-color: var(--card-background-focus-color);
-}
-
-.bookmarkBtnWrapper {
-  display: flex;
-  align-items: center;
-  padding-left: 4;
-  padding-right: 4;
-}
-
-.bookmarkBtn {
-  /* visibility: hidden; */
-  cursor: pointer;
-}
-
-.bookmarkBtn.active {
-  color: #3572a5;
-}
-
-.blockRow:hover .bookmarkBtn {
-  visibility: visible;
 }
 
 /* .blockContent > div > div > div:not(:last-child), .blockRow:not(:last-child) */
@@ -596,12 +605,13 @@ Github languages colors
 }
 
 .headerSelect {
-  align-self: center;
-  text-align: center;
-  font-weight: bold;
+  background-color: transparent;
+  border: 0;
   border-bottom: 2px solid var(--app-name-text-color);
+  color: inherit;
   cursor: pointer;
-  margin: auto 5px;
+  font-weight: bold;
+  padding: 0;
 }
 
 .headerSelectIcon {
@@ -706,14 +716,15 @@ Producthunt item
 }
 
 .navigationItem {
+  background-color: transparent;
+  border: none;
+  color: var(--primary-text-color);
+  cursor: pointer;
   flex-grow: 1;
+  font-size: 24px;
   height: 100%;
   line-height: 56px;
-  font-size: 24px;
   margin: 0;
-  border: none;
-  background: none;
-  color: var(--primary-text-color);
 }
 .navigationItem img {
   width: 18px;
@@ -972,17 +983,19 @@ Producthunt item
 }
 
 .floatingFilter {
-  background: rgb(44, 128, 232);
-  border: transparent;
-  width: 48px;
-  height: 48px;
+  align-items: center;
+  background-color: rgb(44, 128, 232);
   border-radius: 48px;
-  position: fixed;
-  bottom: 78px;
-  z-index: 2;
-  right: 32px;
-  display: none;
+  border: transparent;
+  bottom: 68px;
   box-shadow: 0 2px 8px var(--card-actions-background-shadow);
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  position: fixed;
+  right: 16px;
+  width: 48px;
+  z-index: 2;
 }
 .floatingFilterBottomSheet .title {
   font-size: 22px;
@@ -993,13 +1006,13 @@ Producthunt item
   color: white;
   font-size: 24px;
 }
-@media only screen and (max-width: 600px) {
-  .floatingFilter {
-    display: block;
-  }
-}
+
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
+  .floatingFilter {
+    display: none;
+  }
+
   .block {
     border-radius: 10px;
     height: 100%;

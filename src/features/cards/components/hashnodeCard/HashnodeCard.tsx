@@ -1,14 +1,12 @@
-import { Card } from 'src/components/Elements'
+import { Card, FloatingFilter, InlineTextFilter } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
-import { useGetHashnodeArticles } from '../../api/getHashnodeArticles'
-import { Article, CardPropsType } from 'src/types'
-import { useUserPreferences } from 'src/stores/preferences'
-import { getCardTagsValue } from 'src/utils/DataEnhancement'
-import ArticleItem from './ArticleItem'
 import { GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/config'
 import { trackCardLanguageSelect } from 'src/lib/analytics'
-import { FloatingFilter, InlineTextFilter } from 'src/components/Elements'
-import { filterUniqueEntries } from 'src/utils/DataEnhancement'
+import { useUserPreferences } from 'src/stores/preferences'
+import { Article, CardPropsType } from 'src/types'
+import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement'
+import { useGetHashnodeArticles } from '../../api/getHashnodeArticles'
+import ArticleItem from './ArticleItem'
 
 export function HashnodeCard({ withAds, meta }: CardPropsType) {
   const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
@@ -55,8 +53,8 @@ export function HashnodeCard({ withAds, meta }: CardPropsType) {
 
   const HeaderTitle = () => {
     return (
-      <div style={{ display: 'inline-block', margin: 0, padding: 0 }}>
-        <span> {meta.label} </span>
+      <>
+        {meta.label}
         <InlineTextFilter
           options={[GLOBAL_TAG, ...userSelectedTags, MY_LANGUAGES_TAG].map((tag) => ({
             label: tag.label,
@@ -68,7 +66,7 @@ export function HashnodeCard({ withAds, meta }: CardPropsType) {
           }}
           value={cardsSettings?.[meta.value]?.language}
         />
-      </div>
+      </>
     )
   }
 

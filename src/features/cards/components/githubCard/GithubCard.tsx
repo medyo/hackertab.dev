@@ -1,6 +1,6 @@
 import { Card, FloatingFilter, InlineTextFilter } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
-import { dateRanges, GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/config'
+import { GLOBAL_TAG, MY_LANGUAGES_TAG, dateRanges } from 'src/config'
 import { trackCardDateRangeSelect, trackCardLanguageSelect } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { CardPropsType, Repository } from 'src/types'
@@ -62,7 +62,7 @@ export function GithubCard({ meta, withAds }: CardPropsType) {
 
   const HeaderTitle = () => {
     return (
-      <div style={{ display: 'inline-block', margin: 0, padding: 0 }}>
+      <>
         <InlineTextFilter
           options={[GLOBAL_TAG, ...userSelectedTags, MY_LANGUAGES_TAG].map((tag) => ({
             label: tag.label,
@@ -74,7 +74,7 @@ export function GithubCard({ meta, withAds }: CardPropsType) {
           }}
           value={cardsSettings?.[meta.value]?.language}
         />
-        <span> Repos of </span>
+        Repos of
         <InlineTextFilter
           options={dateRanges}
           onChange={(item) => {
@@ -83,7 +83,7 @@ export function GithubCard({ meta, withAds }: CardPropsType) {
           }}
           value={cardsSettings?.[meta.value]?.dateRange}
         />
-      </div>
+      </>
     )
   }
 
