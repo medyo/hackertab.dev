@@ -21,8 +21,8 @@
 .shareBody p {
     font-size: 15px;
     line-height: 1px;
-    text-transform: uppercase;
-    color: var(--tag-secondary-color);
+    text-transform: capitalize;
+    color: var(--secondary-text-color);
 }
 
 .shareLink {
