@@ -176,7 +176,7 @@ export const SettingsModal = ({ showSettings, setShowSettings }: SettingsModalPr
       overlayClassName="Overlay">
       <div className="modalHeader">
         <h1 className="modalTitle">Settings</h1>
-        <button className="modalCloseBtn" onClick={handleCloseModal}>
+        <button aria-label="Close settings" className="modalCloseBtn" onClick={handleCloseModal}>
           <VscClose size="24" />
         </button>
       </div>
