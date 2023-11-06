@@ -44,7 +44,7 @@ export const ShareModal = ({ showModal, setShowModal, shareData }: ShareModalPro
   return (
     <ReactModal
       isOpen={showModal}
-      ariaHideApp={false}
+      ariaHideApp={true}
       shouldCloseOnEsc={true}
       shouldCloseOnOverlayClick={true}
       shouldFocusAfterRender={false}
@@ -58,17 +58,17 @@ export const ShareModal = ({ showModal, setShowModal, shareData }: ShareModalPro
       overlayClassName="Overlay">
       <div className="modalHeader">
         <h1 className="modalTitle">Share</h1>
-        <button className="modalCloseBtn" onClick={handleCloseModal}>
+        <button className="modalCloseBtn" onClick={handleCloseModal} aria-label="Close share modal">
           <VscClose size="24" />
         </button>
       </div>
 
       <div className="shareBody">
         <p>{shareData.source}</p>
-        <h3>{shareData.title}</h3>
+        <p>{shareData.title}</p>
         <div className="shareLink">
           <input type="text" value={shareData.link} disabled />
-          <button onClick={copyLink}>
+          <button onClick={copyLink} aria-label="Copy source url to clipboard">
             <VscCopy />
           </button>
         </div>

@@ -1,15 +1,13 @@
 .shareModal {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 450px;
     background-color: var(--card-background-color);
-    padding: 24px;
-    border-radius: 10px;
+    bottom: 0;
     box-shadow: 0 0 20px #00000052;
-    z-index: 3;
-    max-height: 80vh;
+    box-sizing: border-box;
+    left: 0;
+    padding-bottom: 90px;
+    padding: 12px 14px 90px;
+    position: absolute;
+    width: 100%;
 }
 
 .shareBody {
@@ -19,15 +17,19 @@
 }
 
 .shareBody p {
-    font-size: 15px;
-    line-height: 1px;
     text-transform: capitalize;
     color: var(--secondary-text-color);
 }
 
+.shareBody p+p {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--primary-text-color);
+    margin-top: -10px;
+}
+
 .shareLink {
     display: flex;
-    flex-direction: row;
     gap: 10px;
 }
 
@@ -64,22 +66,18 @@
     gap: 20px;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
     .shareModal {
-        left: 0;
-        bottom: 0;
-        margin: 0;
-        height: 50vh;
-        padding: 10px;
-        max-height: 50vh;
-        transform: translate(0, 0);
-        border-radius: 0;
-        position: relative;
-        box-shadow: none;
-        width: auto;
+        border-radius: 10px;
+        bottom: auto;
+        left: 50%;
+        padding-bottom: 12px;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 450px;
     }
 
     .shareOptions {
-        gap: 10px;
+        gap: 20px;
     }
 }
