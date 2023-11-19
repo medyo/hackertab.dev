@@ -1,13 +1,13 @@
-import React, { useEffect, useState }  from 'react'
-import ReactTooltip from 'react-tooltip'
+import { useEffect, useState } from 'react'
 import { HiSparkles } from 'react-icons/hi'
 import ReactMarkdown from 'react-markdown'
-import { format } from 'timeago.js'
 import BeatLoader from 'react-spinners/BeatLoader'
+import ReactTooltip from 'react-tooltip'
+import { trackChangeLogOpen } from 'src/lib/analytics'
+import { getAppVersion } from 'src/utils/Os'
+import { format } from 'timeago.js'
 import { useGetVersions } from '../api/getVersions'
 import { useChangelogStore } from '../stores/changelog'
-import { getAppVersion } from 'src/utils/Os'
-import { trackChangeLogOpen } from 'src/lib/analytics'
 
 export const Changelog = () => {
   const tooltipId = 'tl-1'
@@ -78,14 +78,15 @@ export const Changelog = () => {
           })
         )}
       </ReactTooltip>
-      <span
-        data-tip
+      <button
+        aria-label="Open changelog"
+        className={'changelogButton' + (!isChangelogRead() ? ' active' : '')}
         data-for={tooltipId}
-        className={'changelogButton' + (!isChangelogRead() ? ' active' : '')}>
+        data-tip>
         <div className="changelogNewButton">
           <HiSparkles style={{ width: 14 }} /> {!isChangelogRead() && 'New'}
         </div>
-      </span>
+      </button>
     </>
   )
 }

@@ -8,6 +8,7 @@ import { ReactComponent as DuckDuckGoLogo } from 'src/assets/duckduckgo_logo.svg
 import { ReactComponent as GoogleLogo } from 'src/assets/google_logo.svg'
 import HashNodeIcon from 'src/assets/icon_hashnode.png'
 import LobstersIcon from 'src/assets/icon_lobsters.png'
+import { ReactComponent as PhindLogo } from 'src/assets/phind_logo.svg'
 import { ReactComponent as StartPageLogo } from 'src/assets/startpage_logo.svg'
 import { ReactComponent as YahooLogo } from 'src/assets/yahoo_logo.svg'
 import { ReactComponent as YandexLogo } from 'src/assets/yandex_logo.svg'
@@ -74,11 +75,18 @@ export const SUPPORTED_SEARCH_ENGINES = [
     label: 'Yandex',
     url: 'https://yandex.ru/search/?text=',
     logo: YandexLogo,
+    className: 'themeAdaptiveFillColor',
   },
   {
     label: 'Startpage',
     url: 'https://www.startpage.com/sp/search?query=',
     logo: StartPageLogo,
+  },
+  {
+    label: 'Phind',
+    url: 'https://phind.com/search?q=',
+    logo: PhindLogo,
+    className: 'themeAdaptiveFillColor',
   },
 ]
 export const SUPPORTED_CARDS: SupportedCardType[] = [

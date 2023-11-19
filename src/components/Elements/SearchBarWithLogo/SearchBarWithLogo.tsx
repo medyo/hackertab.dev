@@ -11,9 +11,9 @@ export const SearchBarWithLogo = () => {
 
   return (
     <div className="searchBarWithLogo">
-      {userSearchEngine && userSearchEngine.logo && (
+      {userSearchEngine?.logo && (
         <div className="searchEngineLogo">
-          <userSearchEngine.logo />
+          <userSearchEngine.logo className={userSearchEngine?.className} />
         </div>
       )}
       <SearchBar />

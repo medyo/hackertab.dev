@@ -1,5 +1,6 @@
 .searchBarWithLogo {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   row-gap: 24px;
   align-items: center;
@@ -15,4 +16,8 @@
 .searchEngineLogo svg {
   width: 100%;
   height: 100%;
+}
+
+.dark .searchEngineLogo .themeAdaptiveFillColor {
+  fill: white;
 }
