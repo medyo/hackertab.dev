@@ -109,12 +109,12 @@ jobs:
           NODE_OPTIONS: --openssl-legacy-provider
         run: yarn build-firefox
 
-      - name: Install Firefox dependencies
-        run: yarn global add web-ext web-ext-submit@6
-
       - name: Upload the package to Firefox web store
         if: ${{ github.event.inputs.testMode == 'false' }}
-        env:
-          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
-          WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
-        run: cd dist && web-ext-submit #--channel=unlisted
+        uses: yayuyokitano/firefox-addon@v0.0.6-alpha
+        with:
+          api_key: ${{ secrets.WEB_EXT_API_KEY }}
+          api_secret: ${{ secrets.WEB_EXT_API_SECRET }}
+          guid: '{f8793186-e9da-4332-aa1e-dc3d9f7bb04c}'
+          xpi_path: firefox_extension.zip
+          src_path: source_code.zip
