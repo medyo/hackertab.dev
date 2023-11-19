@@ -43,7 +43,7 @@
   "proxy": "https://api.hackertab.dev/",
   "scripts": {
     "start": "craco start",
-    "build-web": "craco --max_old_space_size=4096 build",
+    "build-web": "./script/build-web.sh",
     "build": "./script/build.sh",
     "build-firefox": "./script/build-firefox.sh",
     "build-chrome": "./script/build-chrome.sh",
