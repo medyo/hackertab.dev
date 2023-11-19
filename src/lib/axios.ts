@@ -1,5 +1,4 @@
 import Axios from 'axios'
-import { getAppVersion } from 'src/utils/Os'
 import { ResponseInterceptor } from './interceptors/ResponseInterceptor'
 const packageFile = require('../../package.json')
 
@@ -9,8 +8,8 @@ const getBaseApi = (fallback: string | null = null) => {
 
 export const axios = Axios.create({
   baseURL: getBaseApi(),
-  headers: {
+  /*headers: {
     'App-Version': getAppVersion() || '0.0.0',
-  },
+  },*/
 })
 axios.interceptors.response.use(ResponseInterceptor)
