@@ -65,16 +65,16 @@ export const CardItemWithActions = ({
       {cardItem}
       <div className={`blockActions ${isBookmarked ? 'active' : ''} `}>
         <button
-          className={`blockActionButton ${isBookmarked ? 'active' : ''}`}
-          onClick={onBookmarkClick}
-          aria-label="Bookmark item">
-          {!isBookmarked ? <BiBookmarkPlus /> : <BiBookmarkMinus />}
-        </button>
-        <button
           className={`blockActionButton `}
           onClick={handleOpenModal}
           aria-label="Open share modal">
           <BiShareAlt />
+        </button>
+        <button
+          className={`blockActionButton ${isBookmarked ? 'active' : ''}`}
+          onClick={onBookmarkClick}
+          aria-label="Bookmark item">
+          {!isBookmarked ? <BiBookmarkPlus /> : <BiBookmarkMinus />}
         </button>
       </div>
     </div>

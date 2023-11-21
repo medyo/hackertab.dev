@@ -367,7 +367,6 @@ a {
   background-color: var(--card-action-button-background);
   border-radius: 40px;
   border: none;
-  bottom: 40px;
   box-shadow: 0 0 15px 2px var(--card-actions-background-shadow);
   color: var(--card-action-button-color);
   cursor: pointer;
@@ -378,15 +377,11 @@ a {
   opacity: 1;
   padding: 0;
   pointer-events: all;
-  position: absolute;
-  right: 8px;
   text-align: center;
   transition: opacity 0.3s ease, right 0.3s ease;
   width: 28px;
-}
-
-.blockActionButton+.blockActionButton {
-  bottom: 8px;
+  margin-bottom: 6px;
+  margin-right: 6px;
 }
 
 .blockActionButton.active {
@@ -397,14 +392,12 @@ a {
 @media (hover: hover) {
   .blockActionButton {
     opacity: 0;
-    right: -16px;
   }
 
   .blockRow:hover .blockActionButton,
   .blockActionButton:focus-visible,
   .blockActionButton.active {
     opacity: 1;
-    right: 8px;
   }
 }
 
