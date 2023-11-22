@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { BiBookmarkMinus, BiBookmarkPlus } from 'react-icons/bi'
+import { BiBookmarkMinus, BiBookmarkPlus, BiShareAlt } from 'react-icons/bi'
+import { ShareModal } from 'src/features/shareModal'
 import { Attributes, trackLinkBookmark, trackLinkUnBookmark } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
 import { BaseEntry } from 'src/types'
@@ -19,6 +20,8 @@ export const CardItemWithActions = ({
   source,
   sourceType = 'supported',
 }: CardItemWithActionsProps) => {
+  const [showModal, setShowModal] = useState(false)
+  const [shareData, setShareData] = useState({})
   const { bookmarkPost, unbookmarkPost, userBookmarks } = useBookmarks()
   const [isBookmarked, setIsBookmarked] = useState(
     userBookmarks.some((bm) => bm.source === source && bm.url === item.url)
@@ -51,14 +54,26 @@ export const CardItemWithActions = ({
   useEffect(() => {
     setIsBookmarked(userBookmarks.some((bm) => bm.source === source && bm.url === item.url))
   }, [userBookmarks, source, item])
-
+  const handleOpenModal = () => {
+    setShowModal(!showModal)
+    setShareData({ title: item.title, link: item.url, source: source })
+  }
   return (
     <div key={`${source}-${index}`} className="blockRow">
+      <ShareModal showModal={showModal} setShowModal={handleOpenModal} shareData={shareData} />
+
       {cardItem}
       <div className={`blockActions ${isBookmarked ? 'active' : ''} `}>
         <button
+          className={`blockActionButton `}
+          onClick={handleOpenModal}
+          aria-label="Open share modal">
+          <BiShareAlt />
+        </button>
+        <button
           className={`blockActionButton ${isBookmarked ? 'active' : ''}`}
-          onClick={onBookmarkClick}>
+          onClick={onBookmarkClick}
+          aria-label="Bookmark item">
           {!isBookmarked ? <BiBookmarkPlus /> : <BiBookmarkMinus />}
         </button>
       </div>

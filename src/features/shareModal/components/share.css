@@ -1,0 +1,83 @@
+.shareModal {
+    background-color: var(--card-background-color);
+    bottom: 0;
+    box-shadow: 0 0 20px #00000052;
+    box-sizing: border-box;
+    left: 0;
+    padding-bottom: 90px;
+    padding: 12px 14px 90px;
+    position: absolute;
+    width: 100%;
+}
+
+.shareBody {
+    border: solid 1px var(--card-border-color);
+    padding: 14px;
+    margin-top: 25px;
+}
+
+.shareBody p {
+    text-transform: capitalize;
+    color: var(--secondary-text-color);
+}
+
+.shareBody p+p {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--primary-text-color);
+    margin-top: -10px;
+}
+
+.shareLink {
+    display: flex;
+    gap: 10px;
+}
+
+.shareLink input[type="text"] {
+    flex: 1;
+    background-color: var(--settings-input-background-color);
+    border: 1px solid var(--settings-input-border-color);
+    border-radius: 50px;
+    padding: 6px 18px;
+    color: var(--settings-input-text-color);
+    font-size: 14px;
+}
+
+.shareLink button {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    background-color: none;
+    border: none;
+    border-radius: 50px;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s linear;
+}
+
+.shareOptions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .shareModal {
+        border-radius: 10px;
+        bottom: auto;
+        left: 50%;
+        padding-bottom: 12px;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 450px;
+    }
+
+    .shareOptions {
+        gap: 20px;
+    }
+}
