@@ -1263,3 +1263,10 @@ Producthunt item
   -ms-transition: none !important;
   -o-transition: none !important;
 }
+
+.defaultToast {
+  background-color: var(--card-background-color);
+  padding: 10px 20px;
+  color: var(--primary-text-color);
+  border-radius: 10px;
+}

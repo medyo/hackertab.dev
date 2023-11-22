@@ -4751,6 +4751,11 @@ react-share@^4.4.1:
     classnames "^2.3.2"
     jsonp "^0.2.1"
 
+react-simple-toasts@^5.10.0:
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/react-simple-toasts/-/react-simple-toasts-5.10.0.tgz#cfa692cd06fe858ea327adf32e72db2199459fa7"
+  integrity sha512-GIsBaLkZnyqeTzs0fSmXoLr5GtSnHv9C35tEx/2mc8H7/OaTlwXRHjm0ssDP454gvI4rZFS+rnj2HOL5zuiiwA==
+
 react-slidedown@^2.4.5:
   version "2.4.7"
   resolved "https://registry.yarnpkg.com/react-slidedown/-/react-slidedown-2.4.7.tgz#c09e72bba8aac25018fd644ece041da771854589"

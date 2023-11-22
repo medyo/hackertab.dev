@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BiBookmarkMinus, BiBookmarkPlus, BiShareAlt } from 'react-icons/bi'
 import { ShareModal } from 'src/features/shareModal'
+import { ShareModalData } from 'src/features/shareModal/types'
 import { Attributes, trackLinkBookmark, trackLinkUnBookmark } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
 import { BaseEntry } from 'src/types'
@@ -20,12 +21,13 @@ export const CardItemWithActions = ({
   source,
   sourceType = 'supported',
 }: CardItemWithActionsProps) => {
-  const [showModal, setShowModal] = useState(false)
-  const [shareData, setShareData] = useState({})
+  const [shareModalData, setShareModalData] = useState<ShareModalData>()
+
   const { bookmarkPost, unbookmarkPost, userBookmarks } = useBookmarks()
   const [isBookmarked, setIsBookmarked] = useState(
     userBookmarks.some((bm) => bm.source === source && bm.url === item.url)
   )
+
   const onBookmarkClick = () => {
     const itemToBookmark = {
       title: item.title,
@@ -51,22 +53,28 @@ export const CardItemWithActions = ({
       trackLinkBookmark(analyticsAttrs)
     }
   }
+
   useEffect(() => {
     setIsBookmarked(userBookmarks.some((bm) => bm.source === source && bm.url === item.url))
   }, [userBookmarks, source, item])
-  const handleOpenModal = () => {
-    setShowModal(!showModal)
-    setShareData({ title: item.title, link: item.url, source: source })
+
+  const onShareModalClicked = () => {
+    setShareModalData({ title: item.title, link: item.url, source: source })
   }
+
   return (
     <div key={`${source}-${index}`} className="blockRow">
-      <ShareModal showModal={showModal} setShowModal={handleOpenModal} shareData={shareData} />
+      <ShareModal
+        showModal={setShareModalData !== undefined}
+        closeModal={() => setShareModalData(undefined)}
+        shareData={shareModalData}
+      />
 
       {cardItem}
       <div className={`blockActions ${isBookmarked ? 'active' : ''} `}>
         <button
           className={`blockActionButton `}
-          onClick={handleOpenModal}
+          onClick={onShareModalClicked}
           aria-label="Open share modal">
           <BiShareAlt />
         </button>

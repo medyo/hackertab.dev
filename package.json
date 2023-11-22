@@ -30,6 +30,7 @@
     "react-pro-sidebar": "^0.6.0",
     "react-select": "^5.0.1",
     "react-share": "^4.4.1",
+    "react-simple-toasts": "^5.10.0",
     "react-spinners": "^0.10.4",
     "react-spring-bottom-sheet": "^3.4.1",
     "react-toggle": "^4.1.1",
