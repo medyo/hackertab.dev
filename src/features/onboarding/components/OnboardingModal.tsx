@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import ReactModal from 'react-modal'
 import { Steps } from 'src/components/Elements'
-import { SUPPORTED_CARDS } from 'src/config'
+import { SUPPORTED_CARDS } from 'src/config/supportedCards'
 import { Tag, useRemoteConfigStore } from 'src/features/remoteConfig'
 import {
   identifyUserCards,
@@ -39,7 +39,7 @@ export const OnboardingModal = ({ showOnboarding, setShowOnboarding }: Onboardin
       shouldFocusAfterRender={false}
       onRequestClose={() => setShowOnboarding(false)}
       contentLabel="Onboarding"
-      className="Modal"
+      className="Modal scrollable"
       style={{
         overlay: {
           zIndex: 3,

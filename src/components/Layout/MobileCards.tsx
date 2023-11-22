@@ -1,5 +1,5 @@
 import React from 'react'
-import { SUPPORTED_CARDS } from 'src/config'
+import { SUPPORTED_CARDS } from 'src/config/supportedCards'
 import { CustomRssCard } from 'src/features/cards'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SelectedCard } from 'src/types'

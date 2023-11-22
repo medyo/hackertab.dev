@@ -1,6 +1,6 @@
 import { BsArrowRight } from 'react-icons/bs'
 import { ChipsSet, StepProps } from 'src/components/Elements'
-import { SUPPORTED_CARDS } from '../../../../config'
+import { SUPPORTED_CARDS } from '../../../../config/supportedCards'
 import { Occupation } from '../../types'
 
 export const SourcesTab = ({

@@ -1,21 +1,17 @@
-import React, { Suspense, useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import 'react-contexify/dist/ReactContexify.css'
 import 'src/assets/App.css'
 import { DNDLayout, Header } from 'src/components/Layout'
-import { BookmarksSidebar } from 'src/features/bookmarks'
 import { MarketingBanner } from 'src/features/MarketingBanner'
+import { BookmarksSidebar } from 'src/features/bookmarks'
 import { setupAnalytics, setupIdentification, trackPageView } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
-import { diffBetweenTwoDatesInDays } from 'src/utils/DateUtils'
 import { AppContentLayout } from './components/Layout'
 import { isWebOrExtensionVersion } from './utils/Environment'
-import { getAppVersion } from './utils/Os'
+import { lazyImport } from './utils/lazyImport'
+const { OnboardingModal } = lazyImport(() => import('src/features/onboarding'), 'OnboardingModal')
 
-const OnboardingModal = React.lazy(() =>
-  import('src/features/onboarding').then((module) => ({ default: module.OnboardingModal }))
-)
-
-const intersectionCallback = (entries) => {
+const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
   entries.forEach((entry) => {
     if (!entry.isIntersecting) {
       document.documentElement.classList.remove('dndState')
@@ -25,32 +21,15 @@ const intersectionCallback = (entries) => {
   })
 }
 
-function App() {
+export const App = () => {
   const [showSideBar, setShowSideBar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(true)
-  const {
-    onboardingCompleted,
-    firstSeenDate,
-    markOnboardingAsCompleted,
-    maxVisibleCards,
-    isDNDModeActive,
-    DNDDuration,
-    setDNDDuration,
-  } = useUserPreferences()
+  const { onboardingCompleted, maxVisibleCards, isDNDModeActive, DNDDuration, setDNDDuration } =
+    useUserPreferences()
 
   useLayoutEffect(() => {
-    if (!onboardingCompleted && getAppVersion() <= '1.15.9') {
-      const usageDays = diffBetweenTwoDatesInDays(firstSeenDate, Date.now())
-      if (usageDays > 0) {
-        markOnboardingAsCompleted(null)
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onboardingCompleted, firstSeenDate])
-
-  useLayoutEffect(() => {
-    document.documentElement.style.setProperty('--max-visible-cards', maxVisibleCards)
+    document.documentElement.style.setProperty('--max-visible-cards', maxVisibleCards.toString())
   }, [maxVisibleCards])
 
   useEffect(() => {
@@ -89,12 +68,7 @@ function App() {
 
       <div className="App">
         {!onboardingCompleted && isWebOrExtensionVersion() === 'extension' && (
-          <Suspense fallback={null}>
-            <OnboardingModal
-              showOnboarding={showOnboarding}
-              setShowOnboarding={setShowOnboarding}
-            />
-          </Suspense>
+          <OnboardingModal showOnboarding={showOnboarding} setShowOnboarding={setShowOnboarding} />
         )}
         <Header
           setShowSideBar={setShowSideBar}
@@ -112,5 +86,3 @@ function App() {
     </>
   )
 }
-
-export default App

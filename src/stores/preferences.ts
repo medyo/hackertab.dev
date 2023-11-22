@@ -3,9 +3,15 @@ import { Occupation } from 'src/features/onboarding/types'
 import { Tag } from 'src/features/remoteConfig'
 import { enhanceTags } from 'src/utils/DataEnhancement'
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
-import { CardSettingsType, DNDDuration, ListingMode, SelectedCard, SupportedCardType, Theme } from '../types'
-
+import { StateStorage, createJSONStorage, persist } from 'zustand/middleware'
+import {
+  CardSettingsType,
+  DNDDuration,
+  ListingMode,
+  SelectedCard,
+  SupportedCardType,
+  Theme,
+} from '../types'
 
 export type UserPreferencesState = {
   userSelectedTags: Tag[]
@@ -37,7 +43,56 @@ type UserPreferencesStoreActions = {
   setUserCustomCards: (cards: SupportedCardType[]) => void
   updateCardOrder: (prevIndex: number, newIndex: number) => void
   setDNDDuration: (value: DNDDuration) => void
-  isDNDModeActive: () => boolean;
+  isDNDModeActive: () => boolean
+}
+
+const defaultStorage: StateStorage = {
+  getItem: (name: string) => {
+    const item = window.localStorage.getItem(name)
+
+    if (item) {
+      let {
+        version,
+        state,
+      }: {
+        version: number
+        state: UserPreferencesState
+      } = JSON.parse(item)
+
+      const newState = {
+        ...state,
+        userSelectedTags: enhanceTags(state.userSelectedTags as unknown as string[]),
+      }
+      return JSON.stringify({ state: newState, version })
+    }
+
+    return null
+  },
+  setItem: (name: string, value: string) => {
+    try {
+      let {
+        state,
+        version,
+      }: {
+        version: number
+        state: UserPreferencesState
+      } = JSON.parse(value)
+
+      const newState = {
+        ...state,
+        userSelectedTags: state.userSelectedTags.map((tag) => tag.value),
+      }
+
+      const newValue = JSON.stringify({ state: newState, version })
+      window.localStorage.setItem(name, newValue)
+    } catch (e) {
+      console.log('Prefs, SetItem', e)
+      window.localStorage.setItem(name, '')
+    }
+  },
+  removeItem: (name: string) => {
+    window.localStorage.removeItem(name)
+  },
 }
 
 export const useUserPreferences = create(
@@ -60,7 +115,7 @@ export const useUserPreferences = create(
         { id: 3, name: 'producthunt', type: 'supported' },
       ],
       userCustomCards: [],
-      DNDDuration: "never",
+      DNDDuration: 'never',
       setSearchEngine: (searchEngine: string) => set({ searchEngine: searchEngine }),
       setListingMode: (listingMode: ListingMode) => set({ listingMode: listingMode }),
       setTheme: (theme: Theme) => set({ theme: theme }),
@@ -99,37 +154,22 @@ export const useUserPreferences = create(
       setDNDDuration: (value: DNDDuration) => set({ DNDDuration: value }),
       isDNDModeActive: () => {
         const duration = get().DNDDuration
-        if (duration === "always") {
-          return true;
-        } else if (typeof duration === "object") {
+        if (duration === 'always') {
+          return true
+        } else if (typeof duration === 'object') {
           const dndValue = duration as {
             value: number
             countdown: number
           }
           return Boolean(dndValue.value && dndValue.countdown - new Date().getTime() > 0)
         } else {
-          return false;
+          return false
         }
-        
-      }
+      },
     }),
     {
       name: 'preferences_storage',
-      serialize: ({ state, version }) => {
-        const newState = {
-          ...state,
-          userSelectedTags: state.userSelectedTags.map((tag) => tag.value),
-        }
-        return JSON.stringify({ state: newState, version })
-      },
-      deserialize: (stateStr) => {
-        let { state, version } = JSON.parse(stateStr)
-        state = {
-          ...state,
-          userSelectedTags: enhanceTags(state.userSelectedTags),
-        }
-        return { state, version }
-      },
+      storage: createJSONStorage(() => defaultStorage),
     }
   )
 )

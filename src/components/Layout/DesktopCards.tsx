@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from 'react'
 import SortableList, { SortableItem } from 'react-easy-sort'
-import { SUPPORTED_CARDS } from 'src/config'
+import { SUPPORTED_CARDS } from 'src/config/supportedCards'
 import { CustomRssCard } from 'src/features/cards'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
 import { trackPageDrag } from 'src/lib/analytics'

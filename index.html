@@ -2,22 +2,24 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="apple-touch-icon" href="/logo192.png" />
     <link rel="preconnect" href="https://hackertab.dev" />
-    <script src="./startup.js"></script>
+    <script src="/startup.js"></script>
 
-    <% if (process.env.REACT_APP_BUILD_TARGET==='web' ) { %>
+    <% if (isWebBuild) { %>
       <title>Hackertab</title>
-      <link rel="manifest" href="%PUBLIC_URL%/web_manifest.json" />
-      <% } else { %>
+      <link rel="manifest" href="/web_manifest.json" />
+    <% } else { %>
       <title>New Tab</title>
-    <% } %>
+    <%}%>
   </head>
   <body class="preload">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
+
   </body>
 </html>

@@ -1,4 +1,4 @@
-import DropDownMenu from '../../DropDownMenu'
+import { DropDownMenu } from '../../DropDownMenu'
 
 type Option = {
   label: string
