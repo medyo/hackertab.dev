@@ -1842,10 +1842,36 @@
     "@svgr/hast-util-to-babel-ast" "^7.0.0"
     svg-parser "^2.0.4"
 
+"@tanstack/query-async-storage-persister@^5.8.3":
+  version "5.8.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-async-storage-persister/-/query-async-storage-persister-5.8.3.tgz#7bb53000755e7ba83baec4a36db166f2089ecaad"
+  integrity sha512-yNf0m3Ezx81Mnnzw7Z/G863N16q0fTOFayMLtcoHMLY4wNXIqAYqDk+5p+WgK7Hb30mkKgnyifbPNRpAyor2zg==
+  dependencies:
+    "@tanstack/query-persist-client-core" "5.8.3"
+
 "@tanstack/query-core@4.13.0":
   version "4.13.0"
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.13.0.tgz#89153096d1fce42c0294fa1d1ae4b3e72aa5353b"
   integrity sha512-PzmLQcEgC4rl2OzkiPHYPC9O79DFcMGaKsOzDEP+U4PJ+tbkcEP+Z+FQDlfvX8mCwYC7UNH7hXrQ5EdkGlJjVg==
+
+"@tanstack/query-core@5.8.3":
+  version "5.8.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.8.3.tgz#7c6d62721518223e8b27f1a0b5e9bd4e3bb7ecd8"
+  integrity sha512-SWFMFtcHfttLYif6pevnnMYnBvxKf3C+MHMH7bevyYfpXpTMsLB9O6nNGBdWSoPwnZRXFNyNeVZOw25Wmdasow==
+
+"@tanstack/query-persist-client-core@5.8.3":
+  version "5.8.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-persist-client-core/-/query-persist-client-core-5.8.3.tgz#d2adbfbacc47fd55dce92478b322925e953ac831"
+  integrity sha512-q9FR1HHMWWvL0R2XRTZ5jikXTrj6O7WmXqlouelhxc73ODMg5IiESav9MFKfWXbxHt1C8aKtu3OWYwdbI4K7xw==
+  dependencies:
+    "@tanstack/query-core" "5.8.3"
+
+"@tanstack/react-query-persist-client@^5.8.4":
+  version "5.8.4"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query-persist-client/-/react-query-persist-client-5.8.4.tgz#9c187cd0fcea64d1df520ec9f2db6c5804936e18"
+  integrity sha512-al6FdBwT7+bzbl8T35xDxqAtfa0GBwQNukH2MarwNkutE/WLA2gMIdv1BD2wiGr6BTDzxl4IlZoktBlPFw3s0A==
+  dependencies:
+    "@tanstack/query-persist-client-core" "5.8.3"
 
 "@tanstack/react-query@^4.13.0":
   version "4.13.0"

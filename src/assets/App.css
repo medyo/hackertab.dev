@@ -11,14 +11,6 @@ body {
   font-family: 'nunito';
   font-size: 100%;
 }
-
-.appLoading {
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  display: flex;
-}
-
 .appError {
   justify-content: center;
   align-items: center;
@@ -1203,7 +1195,9 @@ Producthunt item
   }
 
   .block {
-    width: calc((1800px - 20px * min(5, var(--max-visible-cards))) / min(5, var(--max-visible-cards)));
+    width: calc(
+      (1800px - 20px * min(5, var(--max-visible-cards))) / min(5, var(--max-visible-cards))
+    );
   }
 }
 
@@ -1241,7 +1235,7 @@ Producthunt item
   scroll-snap-type: y mandatory;
 }
 
-.layoutLayers>* {
+.layoutLayers > * {
   scroll-snap-align: end;
 }
 
