@@ -17,6 +17,7 @@ import {
   WhatsappShareButton,
 } from 'react-share'
 import toast from 'react-simple-toasts'
+import { trackLinkCopy, trackLinkShare } from 'src/lib/analytics'
 import { ShareModalData } from '../types'
 import './share.css'
 
@@ -27,13 +28,13 @@ type ShareModalProps = {
 }
 
 const sharingButtons = [
-  { component: EmailShareButton, icon: EmailIcon },
-  { component: FacebookShareButton, icon: FacebookIcon },
-  { component: TwitterShareButton, icon: TwitterIcon },
-  { component: RedditShareButton, icon: RedditIcon },
-  { component: LinkedinShareButton, icon: LinkedinIcon },
-  { component: TelegramShareButton, icon: TelegramIcon },
-  { component: WhatsappShareButton, icon: WhatsappIcon },
+  { component: EmailShareButton, icon: EmailIcon, name: 'email' },
+  { component: FacebookShareButton, icon: FacebookIcon, name: 'facebook' },
+  { component: TwitterShareButton, icon: TwitterIcon, name: 'twitter' },
+  { component: RedditShareButton, icon: RedditIcon, name: 'reddit' },
+  { component: LinkedinShareButton, icon: LinkedinIcon, name: 'linkedin' },
+  { component: TelegramShareButton, icon: TelegramIcon, name: 'telegram' },
+  { component: WhatsappShareButton, icon: WhatsappIcon, name: 'whatsapp' },
 ]
 
 export const ShareModal = ({ showModal, closeModal, shareData }: ShareModalProps) => {
@@ -44,10 +45,19 @@ export const ShareModal = ({ showModal, closeModal, shareData }: ShareModalProps
   const { title, link, source } = shareData
 
   const onCopyClicked = () => {
-    toast('Link copied to clipboard', { theme: 'defaultToast' })
     navigator.clipboard.writeText(shareData.link)
+    trackLinkCopy({
+      ...shareData,
+    })
+    toast('Link copied to clipboard', { theme: 'defaultToast' })
   }
 
+  const onSocialMediaClicked = (provider: string) => {
+    trackLinkShare({
+      ...shareData,
+      provider,
+    })
+  }
   return (
     <ReactModal
       isOpen={showModal}
@@ -74,7 +84,7 @@ export const ShareModal = ({ showModal, closeModal, shareData }: ShareModalProps
       </div>
 
       <div className="shareBody">
-        <p className="source">{shareData.source}</p>
+        <p className="source">{source}</p>
         <h3 className="title">{title}</h3>
         <a className="link" href={link} target="_blank">
           {link}
@@ -84,8 +94,12 @@ export const ShareModal = ({ showModal, closeModal, shareData }: ShareModalProps
       <div className="shareOptions">
         <h3>Share via</h3>
         <div className="shareButtons">
-          {sharingButtons.map(({ component: ShareButton, icon: Icon }, index) => (
-            <ShareButton key={index} url={link} title={title}>
+          {sharingButtons.map(({ component: ShareButton, icon: Icon, name }, index) => (
+            <ShareButton
+              key={index}
+              url={link}
+              title={title}
+              onClick={() => onSocialMediaClicked(name)}>
               <Icon size={38} round />
             </ShareButton>
           ))}

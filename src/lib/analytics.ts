@@ -40,8 +40,10 @@ enum Verbs {
   SKIP = 'Skip',
   DRAG = 'Drag',
   CHANGE = 'Change',
-  ENABLE = "Enable",
-  DISABLE = "Disable"
+  ENABLE = 'Enable',
+  DISABLE = 'Disable',
+  SHARE = 'Share',
+  COPY = 'Copy',
 }
 
 export enum Attributes {
@@ -66,6 +68,7 @@ export enum Attributes {
   OCCUPATION = 'Occupation',
   MAX_VISIBLE_CARDS = 'Max Visible Cards',
   DURATION = 'Duration',
+  PROVIDER = 'Provider',
 }
 
 const _SEP_ = ' '
@@ -88,7 +91,7 @@ export const setupIdentification = () => {
     listingMode,
     openLinksNewTab,
     searchEngine,
-    maxVisibleCards
+    maxVisibleCards,
   } = useUserPreferences.getState()
 
   identifyUserProperty(Attributes.RESOLUTION, getScreenResolution())
@@ -108,9 +111,10 @@ export const trackPageView = (pageName: string, dndModeActive: boolean = false) 
   trackEvent({
     object: Objects.PAGE,
     verb: Verbs.VIEW,
-    attributes: { 
+    attributes: {
       [Attributes.PAGE_NAME]: pageName,
-      [Objects.DO_NOT_DISTURB]: dndModeActive ? "on" : "off" },
+      [Objects.DO_NOT_DISTURB]: dndModeActive ? 'on' : 'off',
+    },
   })
 }
 
@@ -305,22 +309,65 @@ export const trackMaxVisibleCardsChange = (maxVisibleCards: number) => {
   trackEvent({
     object: Objects.CARD,
     verb: Verbs.CHANGE,
-    attributes: {[Attributes.MAX_VISIBLE_CARDS]: maxVisibleCards}
+    attributes: { [Attributes.MAX_VISIBLE_CARDS]: maxVisibleCards },
   })
 }
 
-export const trackDNDEnable = (duration: number | "always") => {
+export const trackDNDEnable = (duration: number | 'always') => {
   trackEvent({
     object: Objects.DO_NOT_DISTURB,
     verb: Verbs.ENABLE,
-    attributes: {[Attributes.DURATION]: duration}
+    attributes: { [Attributes.DURATION]: duration },
   })
 }
 
 export const trackDNDDisable = () => {
   trackEvent({
     object: Objects.DO_NOT_DISTURB,
-    verb: Verbs.DISABLE
+    verb: Verbs.DISABLE,
+  })
+}
+
+export const trackLinkShare = ({
+  title,
+  source,
+  link,
+  provider,
+}: {
+  title: string
+  source: string
+  link: string
+  provider: string
+}) => {
+  trackEvent({
+    object: Objects.LINK,
+    verb: Verbs.SHARE,
+    attributes: {
+      [Attributes.LINK]: link,
+      [Attributes.TITLE]: title,
+      [Attributes.SOURCE]: source,
+      [Attributes.PROVIDER]: provider,
+    },
+  })
+}
+
+export const trackLinkCopy = ({
+  title,
+  source,
+  link,
+}: {
+  title: string
+  source: string
+  link: string
+}) => {
+  trackEvent({
+    object: Objects.LINK,
+    verb: Verbs.COPY,
+    attributes: {
+      [Attributes.LINK]: link,
+      [Attributes.TITLE]: title,
+      [Attributes.SOURCE]: source,
+    },
   })
 }
 
@@ -406,7 +453,7 @@ const identifyUserProperty = (attributes: Attributes, value: string | number | s
     if (Array.isArray(value)) {
       formatedValue = value.filter(Boolean).map((item) => item.toLowerCase())
     } else {
-      formatedValue = typeof value === "string" ? value.toLowerCase() : value.toString()
+      formatedValue = typeof value === 'string' ? value.toLowerCase() : value.toString()
     }
 
     if (isDevelopment()) {
