@@ -104,7 +104,6 @@ jobs:
 
       - name: Build and zip the extension
         run: yarn build:firefox
-
       - name: Upload the package to Firefox web store
         if: ${{ github.event.inputs.testMode == 'false' }}
         uses: yayuyokitano/firefox-addon@v0.0.6-alpha
