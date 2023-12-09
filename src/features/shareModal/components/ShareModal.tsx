@@ -17,6 +17,7 @@ import {
   WhatsappShareButton,
 } from 'react-share'
 import toast from 'react-simple-toasts'
+import { twitterHandle } from 'src/config'
 import { trackLinkCopy, trackLinkShare } from 'src/lib/analytics'
 import { ShareModalData } from '../types'
 import './share.css'
@@ -30,7 +31,12 @@ type ShareModalProps = {
 const sharingButtons = [
   { component: EmailShareButton, icon: EmailIcon, name: 'email' },
   { component: FacebookShareButton, icon: FacebookIcon, name: 'facebook' },
-  { component: TwitterShareButton, icon: TwitterIcon, name: 'twitter' },
+  {
+    component: TwitterShareButton,
+    icon: TwitterIcon,
+    name: 'twitter',
+    body: `via ${twitterHandle}`,
+  },
   { component: RedditShareButton, icon: RedditIcon, name: 'reddit' },
   { component: LinkedinShareButton, icon: LinkedinIcon, name: 'linkedin' },
   { component: TelegramShareButton, icon: TelegramIcon, name: 'telegram' },
@@ -94,11 +100,11 @@ export const ShareModal = ({ showModal, closeModal, shareData }: ShareModalProps
       <div className="shareOptions">
         <h3>Share via</h3>
         <div className="shareButtons">
-          {sharingButtons.map(({ component: ShareButton, icon: Icon, name }, index) => (
+          {sharingButtons.map(({ component: ShareButton, body, icon: Icon, name }, index) => (
             <ShareButton
               key={index}
               url={link}
-              title={title}
+              title={!body ? title : `${title} ${body}`}
               onClick={() => onSocialMediaClicked(name)}>
               <Icon size={38} round />
             </ShareButton>
