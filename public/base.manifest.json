@@ -1,7 +1,7 @@
 {
   "name": "Hackertab.dev - developer news",
   "description": "All developer news in one tab",
-  "version": "1.18.3",
+  "version": "1.18.4",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
