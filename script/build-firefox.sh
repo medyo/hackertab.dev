@@ -23,12 +23,7 @@ jq -s '.[0] * .[1]' ./public/base.manifest.json ./public/firefox.manifest.json >
 
 # Install dependencies
 echo 'Install dependencies'
-yarn build
-
-# Copy generated build to distrubution folder
-echo 'Copy generated build to distrubution folder'
-mkdir -p dist
-cp -r build/* dist
+yarn build:ext
 
 # Zip the distribution folder
 echo 'Zip the extension'
@@ -36,4 +31,4 @@ cd dist/ && zip -r ../firefox_extension.zip * -x "*.DS_Store" && cd ..
 
 #
 echo 'Zip the source code'
-zip -r source_code.zip 'public/' 'script/' 'src' 'LICENSE' 'package.json' 'yarn.lock' 'README.md' 'craco.config.js' '.env' 'tsconfig.json' -x "*.DS_Store"
+zip -r source_code.zip 'public/' 'script/' 'src' 'LICENSE' 'package.json' 'yarn.lock' 'README.md' 'vite.config.js' '.env' 'tsconfig.json' -x "*.DS_Store"

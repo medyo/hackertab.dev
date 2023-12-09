@@ -1,23 +1,23 @@
 export const isProduction = (): boolean => {
-  return process.env.NODE_ENV === "production";
+  return import.meta.env.PROD
 }
 
 export const isDevelopment = (): boolean => {
-  return !isProduction()
+  return import.meta.env.DEV
 }
 
 export const isWebOrExtensionVersion = (): string => {
-  const buildTarget = process.env.REACT_APP_BUILD_TARGET as "web" | "extension" | undefined;
-  return buildTarget || "web";
+  const buildTarget = import.meta.env.VITE_BUILD_TARGET as 'web' | 'extension' | undefined
+  return buildTarget || 'web'
 }
 
 export const getBrowserName = (): string => {
-  let userAgent = navigator.userAgent;
+  let userAgent = navigator.userAgent
   if (userAgent.match(/chrome|chromium|crios/i)) {
-    return "chrome";
+    return 'chrome'
   } else if (userAgent.match(/firefox|fxios/i)) {
-    return "firefox";
+    return 'firefox'
   } else {
-    return "other"
+    return 'other'
   }
 }

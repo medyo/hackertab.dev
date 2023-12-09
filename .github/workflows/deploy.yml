@@ -1,22 +1,40 @@
-name: Deploy to production
+name: Deploy Web Version to hackertab.dev
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ master ]
-jobs:
-  deploy:
+    branches:
+      - feat/cp-build
+env:
+  VITE_BUILD_TARGET: 'web'
+  VITE_AMPLITUDE_KEY: ${{ secrets.REACT_APP_AMPLITUDE_KEY }}
+  VITE_AMPLITUDE_URL: ${{ secrets.REACT_APP_AMPLITUDE_URL }}
+  VITE_API_URL: ${{ secrets.API_URL }}
 
+jobs:
+  build_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: SSH and deploy node app
-      uses: fifsky/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        user: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        command: |
-          cd ~/hackertab.dev
-          git pull origin master
-          yarn
-          yarn build-web
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build project
+        run: yarn build:web
+
+      - name: Copy build to remote host
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.DEPLOY_SSH_HOST }}
+          username: ${{ secrets.DEPLOY_SSH_USERNAME }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          source: 'dist/'
+          target: '~/hackertab.dev'

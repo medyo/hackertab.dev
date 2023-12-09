@@ -1,6 +1,6 @@
 import { AiOutlineMenu } from 'react-icons/ai'
 import { BsRssFill } from 'react-icons/bs'
-import { SUPPORTED_CARDS } from 'src/config'
+import { SUPPORTED_CARDS } from 'src/config/supportedCards'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SelectedCard } from 'src/types'
 

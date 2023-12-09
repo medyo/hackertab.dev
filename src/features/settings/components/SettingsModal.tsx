@@ -6,7 +6,8 @@ import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
 import { ChipsSet } from 'src/components/Elements'
 import { Footer } from 'src/components/Layout'
-import { SUPPORTED_CARDS, SUPPORTED_SEARCH_ENGINES, supportLink } from 'src/config'
+import { SUPPORTED_SEARCH_ENGINES, supportLink } from 'src/config'
+import { SUPPORTED_CARDS } from 'src/config/supportedCards'
 import { Tag, useRemoteConfigStore } from 'src/features/remoteConfig'
 import {
   identifyUserCards,
