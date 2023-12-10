@@ -76,17 +76,14 @@ jobs:
       - name: Build and zip the extension
         run: yarn build:chrome
 
-      - name: Install chrome dependencies
-        run: yarn global add chrome-webstore-upload-cli
-
       - name: Upload the package to Chrome web store
         if: ${{ github.event.inputs.testMode == 'false' }}
+        run: npx chrome-webstore-upload-cli@2 upload --source chrome_extension.zip --extension-id $EXTENSION_ID --auto-publish
         env:
           EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
           CLIENT_ID: ${{secrets.CHROME_EXTENSION_CLIENT_ID}}
           REFRESH_TOKEN: ${{secrets.CHROME_EXTENSION_REFRESH_TOKEN}}
           CLIENT_SECRET: ${{secrets.CHROME_EXTENSION_CLIENT_SECRET}}
-        run: chrome-webstore-upload upload --source chrome_extension.zip --extension-id $EXTENSION_ID --auto-publish
 
   firefox-deploy:
     if: ${{ (github.event.inputs.targetStore == 'firefox') || (github.event.inputs.targetStore == 'all') }}
