@@ -16,11 +16,7 @@ const DNDDurations: DndOption[] = [
   { value: 'always', label: 'Until you turn it off' },
 ]
 
-type DNDSettingsProps = {
-  setShowSettings: (show: boolean) => void
-}
-
-export const DNDSettings = ({ setShowSettings }: DNDSettingsProps) => {
+export const DNDSettings = () => {
   const [selectedDNDDuration, setSelectedDNDDuration] = useState<DndOption['value']>()
 
   const { DNDDuration, setDNDDuration } = useUserPreferences()
@@ -43,7 +39,7 @@ export const DNDSettings = ({ setShowSettings }: DNDSettingsProps) => {
     }
 
     trackDNDEnable(selectedDNDDuration)
-    setShowSettings(false)
+    //setShowSettings(false)
   }
 
   const onPeriodSelect = (selectedOption: SingleValue<DndOption>) => {

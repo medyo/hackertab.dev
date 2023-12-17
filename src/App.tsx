@@ -1,9 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
-import 'react-contexify/dist/ReactContexify.css'
-import 'src/assets/App.css'
-import { DNDLayout, Header } from 'src/components/Layout'
+import { DNDLayout } from 'src/components/Layout'
 import { MarketingBanner } from 'src/features/MarketingBanner'
-import { BookmarksSidebar } from 'src/features/bookmarks'
 import { setupAnalytics, setupIdentification, trackPageView } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { AppContentLayout } from './components/Layout'
@@ -22,8 +19,6 @@ const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
 }
 
 export const App = () => {
-  const [showSideBar, setShowSideBar] = useState(false)
-  const [showSettings, setShowSettings] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(true)
   const { onboardingCompleted, maxVisibleCards, isDNDModeActive, DNDDuration, setDNDDuration } =
     useUserPreferences()
@@ -65,23 +60,13 @@ export const App = () => {
   return (
     <>
       <MarketingBanner />
+      {!onboardingCompleted && isWebOrExtensionVersion() === 'extension' && (
+        <OnboardingModal showOnboarding={showOnboarding} setShowOnboarding={setShowOnboarding} />
+      )}
 
-      <div className="App">
-        {!onboardingCompleted && isWebOrExtensionVersion() === 'extension' && (
-          <OnboardingModal showOnboarding={showOnboarding} setShowOnboarding={setShowOnboarding} />
-        )}
-        <Header
-          setShowSideBar={setShowSideBar}
-          showSideBar={showSideBar}
-          showSettings={showSettings}
-          setShowSettings={setShowSettings}
-        />
-
-        <div className="layoutLayers hideScrollBar">
-          {isDNDModeActive() && <DNDLayout />}
-          <AppContentLayout setShowSettings={setShowSettings} />
-        </div>
-        <BookmarksSidebar showSidebar={showSideBar} onClose={() => setShowSideBar(false)} />
+      <div className="layoutLayers hideScrollBar">
+        {isDNDModeActive() && <DNDLayout />}
+        <AppContentLayout />
       </div>
     </>
   )

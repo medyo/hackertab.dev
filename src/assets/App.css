@@ -976,6 +976,10 @@ Producthunt item
   .blockHeader {
     display: none;
   }
+
+  .tags {
+    display: none;
+  }
 }
 
 @keyframes cardPlaceholderPulse {

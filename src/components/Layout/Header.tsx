@@ -3,31 +3,20 @@ import { BsFillBookmarksFill, BsFillGearFill, BsMoonFill } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
 import { IoMdSunny } from 'react-icons/io'
 import { MdDoDisturbOff } from 'react-icons/md'
+import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
 import { SearchBar } from 'src/components/Elements/SearchBar'
 import { UserTags } from 'src/components/Elements/UserTags'
 import { Changelog } from 'src/features/changelog'
-import { SettingsModal } from 'src/features/settings'
 import { identifyUserTheme, trackDNDDisable, trackThemeSelect } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
 import { useUserPreferences } from 'src/stores/preferences'
 
-type HeaderProps = {
-  showSideBar: boolean
-  setShowSideBar: (show: boolean) => void
-  showSettings: boolean
-  setShowSettings: (show: boolean) => void
-}
-
-export const Header = ({
-  showSideBar,
-  setShowSideBar,
-  showSettings,
-  setShowSettings,
-}: HeaderProps) => {
+export const Header = () => {
   const [themeIcon, setThemeIcon] = useState(<BsMoonFill />)
   const { theme, setTheme, setDNDDuration, isDNDModeActive } = useUserPreferences()
   const { userBookmarks } = useBookmarks()
+  const navigate = useNavigate()
 
   useEffect(() => {
     document.documentElement.classList.add(theme)
@@ -52,7 +41,7 @@ export const Header = ({
   }
 
   const onSettingsClick = () => {
-    setShowSettings(true)
+    navigate('/settings/general')
   }
 
   const BookmarksBadgeCount = () => {
@@ -72,14 +61,14 @@ export const Header = ({
 
   return (
     <>
-      <SettingsModal showSettings={showSettings} setShowSettings={setShowSettings} />
-
       <header className="AppHeader">
         <span className="AppName">
           <i className="logo">
             <CgTab />
           </i>{' '}
-          <HackertabLogo aria-label="hackertab.dev" className="logoText" />
+          <Link to="/">
+            <HackertabLogo aria-label="hackertab.dev" className="logoText" />
+          </Link>
           <Changelog />
         </span>
         <SearchBar />
@@ -99,15 +88,14 @@ export const Header = ({
             onClick={onThemeChange}>
             {themeIcon}
           </button>
-          <button
-            aria-label="Open bookmarks"
-            className="extraBtn"
-            onClick={() => setShowSideBar(!showSideBar)}>
-            <BsFillBookmarksFill />
-            <BookmarksBadgeCount />
-          </button>
+          <Link to="/settings/bookmarks" className="extraBtn" aria-label="Open bookmarks">
+            <>
+              <BsFillBookmarksFill />
+              <BookmarksBadgeCount />
+            </>
+          </Link>
         </div>
-        <UserTags onAddClicked={onSettingsClick} />
+        <UserTags />
       </header>
     </>
   )

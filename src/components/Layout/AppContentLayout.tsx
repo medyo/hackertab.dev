@@ -6,11 +6,7 @@ import { ScrollCardsNavigator } from './'
 import { DesktopCards } from './DesktopCards'
 import { MobileCards } from './MobileCards'
 
-export const AppContentLayout = ({
-  setShowSettings,
-}: {
-  setShowSettings: (value: boolean | ((prevVar: boolean) => boolean)) => void
-}) => {
+export const AppContentLayout = () => {
   const { cards, userCustomCards } = useUserPreferences()
   const [selectedCard, setSelectedCard] = useState(cards[0])
 
@@ -26,11 +22,7 @@ export const AppContentLayout = ({
           </div>
         )}
       </main>
-      <BottomNavigation
-        selectedCard={selectedCard}
-        setSelectedCard={setSelectedCard}
-        setShowSettings={setShowSettings}
-      />
+      <BottomNavigation selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
     </>
   )
 }

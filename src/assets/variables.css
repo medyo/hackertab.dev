@@ -94,6 +94,9 @@ html.dark {
   --settings-input-border-focus-color: #6b7b90;
   --settings-input-placeholder-color: #42474e;
   --settings-input-text-color: #fff;
+
+  --horizontal-tabs-layout-active-color: white;
+  --horizontal-tabs-layout-text-color: #798595;
 }
 
 html.light {
@@ -176,4 +179,7 @@ html.light {
   --settings-input-border-focus-color: #c4d6df;
   --settings-input-placeholder-color: #97a6ad;
   --settings-input-text-color: #253b53;
+
+  --horizontal-tabs-layout-active-color: #0366d6;
+  --horizontal-tabs-layout-text-color: #3c5065;
 }
