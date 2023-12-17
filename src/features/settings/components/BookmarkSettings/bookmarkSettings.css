@@ -1,0 +1,55 @@
+.bookmarks {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+}
+
+.bookmarks .bookmarkItem {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid var(--card-content-divider);
+  padding-bottom: 12px;
+  padding-right: 12px;
+}
+.bookmarks .body {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+.bookmarks .actions {
+  margin-left: auto;
+}
+.bookmarks .title {
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--primary-text-color);
+}
+
+.bookmarks .source {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 4px;
+  color: var(--secondary-text-color);
+  font-size: 14px;
+}
+.bookmarks .source svg,
+.bookmarks .source img.icon {
+  width: 16px;
+  height: 16px;
+}
+.bookmarks .btn {
+  width: 40px;
+  height: 40px;
+  background-color: var(--button-background-color);
+  color: var(--button-text-color);
+  font-size: 20px;
+  text-align: center;
+  border: 0;
+  border-radius: 20px;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

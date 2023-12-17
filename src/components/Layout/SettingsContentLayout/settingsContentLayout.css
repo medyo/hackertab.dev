@@ -1,0 +1,43 @@
+.settingsContent {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+  height: 100%;
+}
+.settingsBody {
+  overflow-y: auto;
+  height: calc(100% - 100px);
+  padding-right: 24px;
+  max-width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.settingsContent header {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+.settingsContent header .title {
+  font-size: 24px;
+  margin: 0;
+  padding: 0;
+  color: var(--primary-text-color);
+}
+.settingsContent header .description {
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  color: var(--secondary-text-color);
+}
+
+@media only screen and (max-width: 768px) {
+  .settingsContent {
+    padding: 16px;
+  }
+  .settingsBody {
+    max-width: 100%;
+    padding: 0;
+  }
+}

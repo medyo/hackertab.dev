@@ -1,0 +1,58 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.horizontalTabsLayout {
+  display: flex;
+  flex-direction: row;
+  min-height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.horizontalTabsLayout .content {
+  background-color: var(--card-background-color);
+  border-radius: 10px;
+  box-shadow: 0 0 12px var(--card-border-color);
+  width: 100%;
+  height: auto;
+}
+
+.horizontalTabsLayout .navigation {
+  list-style: none;
+  padding: 24px 0 40px 24px;
+  display: flex;
+  width: 200px;
+  flex-direction: column;
+  gap: 10px;
+}
+.horizontalTabsLayout .navigation .link {
+  padding: 10px;
+  height: 24px;
+  font-size: 18px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--horizontal-tabs-layout-text-color);
+}
+.horizontalTabsLayout .navigation .link.active {
+  color: var(--horizontal-tabs-layout-active-color);
+  border-right: 4px solid var(--horizontal-tabs-layout-active-color);
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 768px) {
+  .horizontalTabsLayout {
+    flex-direction: column;
+    padding: 0;
+  }
+  .horizontalTabsLayout .navigation {
+    flex-direction: row;
+    height: 48px;
+    padding: 0;
+  }
+  .horizontalTabsLayout .navigation .link.active {
+    border-right: none;
+    border-bottom: 4px solid var(--horizontal-tabs-layout-active-color);
+  }
+}

@@ -2,20 +2,14 @@ import { useState } from 'react'
 import BeatLoader from 'react-spinners/BeatLoader'
 import { getRssUrlFeed } from 'src/features/cards'
 import { identifyUserCards, trackRssSourceAdd } from 'src/lib/analytics'
-import { SelectedCard } from 'src/types'
 import { isValidURL } from 'src/utils/UrlUtils'
 
 import { BsRssFill } from 'react-icons/bs'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SupportedCardType } from 'src/types'
 
-type RssSettingProps = {
-  setSelectedCards: (cards: SelectedCard[]) => void
-}
-
-export const RssSetting = ({ setSelectedCards }: RssSettingProps) => {
+export const RssSetting = () => {
   const { cards, setCards, userCustomCards, setUserCustomCards } = useUserPreferences()
-
   const [rssUrl, setRssUrl] = useState<string | undefined>()
   const [RssInputFeedback, setRssInputFeedback] = useState<string | undefined>()
   const [isRssInputLoading, setIsRssInputLoading] = useState<boolean>(false)
@@ -57,7 +51,7 @@ export const RssSetting = ({ setSelectedCards }: RssSettingProps) => {
         { id: cards.length, name: customCard.value, type: customCard.type },
       ]
       setCards(newCards)
-      setSelectedCards(newCards)
+      //setSelectedCards(newCards)
       identifyUserCards(newCards.map((card) => card.name))
       trackRssSourceAdd(customCard.value)
       setRssUrl('')
@@ -71,11 +65,7 @@ export const RssSetting = ({ setSelectedCards }: RssSettingProps) => {
 
   return (
     <div className="settingRow">
-      <p className="settingTitle">
-        Add New Source
-        <br />
-        <span className="settingHint">(RSS Feed)</span>
-      </p>
+      <p className="settingTitle">RSS Feed URL</p>
       <div className="settingContent">
         <div className="form">
           <input
