@@ -27,7 +27,7 @@
     "react-icons": "^4.4.0",
     "react-markdown": "^7.0.1",
     "react-modal": "^3.12.1",
-    "react-pro-sidebar": "^0.6.0",
+    "react-router-dom": "^6.21.0",
     "react-select": "^5.0.1",
     "react-share": "^4.4.1",
     "react-simple-toasts": "^5.10.0",
