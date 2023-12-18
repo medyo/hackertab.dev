@@ -38,16 +38,17 @@ jobs:
 
       - name: Bump version and push tag
         id: tag_version
-        uses: mathieudutour/github-tag-action@v6.1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          dry_run: ${{ github.event.inputs.autoTag == 'false' }}
-          custom_release_rules: |
-            "fix:patch:Bug Fixes,hotfix:patch:Bug Fixes,minor:minor:Fixes,patch:patch:Quick fixes,refactor:minor:Refactoring,implement:minor:Features,change:minor:Changes,breaking:major:Changes,major:major:Changes"
+        uses: anothrNick/github-tag-action@1.67.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DRY_RUN: ${{ github.event.inputs.autoTag == 'false' }}
 
       - name: Update manifest.json
         if: github.event.inputs.autoTag == 'true'
-        run: jq --arg version "${{ steps.tag_version.outputs.new_version }}" '.version=$version' public/base.manifest.json > tmp.json && mv tmp.json public/base.manifest.json
+        run: |
+          new_version=$(echo "${{ steps.tag_version.outputs.new_tag }}" | sed 's/^v//')
+          jq --arg version "$new_version" '.version = $version' public/base.manifest.json > public/base.manifest.json.tmp && mv public/base.manifest.json.tmp public/base.manifest.json
 
       - name: Commit changes
         if: github.event.inputs.autoTag == 'true'
