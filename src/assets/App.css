@@ -834,6 +834,10 @@ Producthunt item
   width: 100%;
 }
 
+.dark .themeAdaptiveFillColor {
+  fill: white;
+}
+
 .searchBarIcon {
   position: absolute;
   height: 40px;

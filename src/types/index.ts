@@ -29,6 +29,7 @@ export type SearchEngine = {
   url: string
   label: string
   logo: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
+  className?: string
 }
 
 export type Theme = 'dark' | 'light'
@@ -110,7 +111,10 @@ export type Option = {
   icon?: React.ReactNode
 }
 
-export type DNDDuration = {
-  value: number
-  countdown: number
-} | "always" | "never"
+export type DNDDuration =
+  | {
+      value: number
+      countdown: number
+    }
+  | 'always'
+  | 'never'

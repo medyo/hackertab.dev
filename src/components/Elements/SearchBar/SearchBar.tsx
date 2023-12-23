@@ -28,7 +28,7 @@ export const SearchBar = () => {
 
   return (
     <form className="searchBar" onSubmit={handleSubmit}>
-      <usedSearchEngine.logo className="searchBarIcon" />
+      <usedSearchEngine.logo className={'searchBarIcon ' + usedSearchEngine.className} />
       <input
         ref={keywordsInputRef}
         type="text"
