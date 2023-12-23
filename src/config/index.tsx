@@ -25,6 +25,7 @@ export const termsAndConditionsLink = 'https://www.hackertab.dev/terms-and-condi
 export const dataSourcesLink = 'https://www.hackertab.dev/data-sources'
 export const changeLogLink = 'https://api.github.com/repos/medyo/hackertab.dev/releases'
 export const twitterHandle = '@hackertabdev'
+export const reportLink = 'https://www.hackertab.dev/report'
 // Cfgs
 export const SUPPORTED_SEARCH_ENGINES = [
   {

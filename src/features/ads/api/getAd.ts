@@ -3,9 +3,6 @@ import { axios } from 'src/lib/axios'
 import { ExtractFnReturnType, QueryConfig } from 'src/lib/react-query'
 import { Ad } from '../types'
 
-
-
-
 const getAd = async (
   keywords: string[],
   aditionalAdQueries: { [key: string]: string } | undefined
@@ -27,7 +24,7 @@ type UseGetAdOptions = {
 export const useGetAd = ({ keywords, config, aditionalAdQueries }: UseGetAdOptions) => {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
     ...config,
-    queryKey: ['ad'],
+    queryKey: ['ad', keywords.join(',')],
     queryFn: () => getAd(keywords, aditionalAdQueries),
   })
 }

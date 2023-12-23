@@ -25,6 +25,7 @@ export type ListComponentPropsType<T extends BaseEntry> = {
   renderItem: (item: T, index: number) => React.ReactNode
   withAds: boolean
   placeholder?: React.ReactNode
+  header?: React.ReactNode
   refresh?: boolean
   error?: any
   limit?: number
@@ -37,6 +38,7 @@ export function ListComponent<T extends BaseEntry>(props: ListComponentPropsType
     error,
     renderItem,
     withAds,
+    header,
     placeholder = <Placeholder />,
     limit = MAX_ITEMS_PER_CARD,
   } = props
@@ -75,9 +77,14 @@ export function ListComponent<T extends BaseEntry>(props: ListComponentPropsType
 
     return items.slice(0, limit).map((item, index) => {
       let content: ReactNode[] = [renderItem(item, index)]
+      if (header && index === 0) {
+        content.unshift(header)
+      }
+
       if (canAdsLoad && adsConfig.enabled && withAds && index === adsConfig.rowPosition) {
         content.unshift(<BannerAd key={'banner-ad'} />)
       }
+
       return content
     })
   }

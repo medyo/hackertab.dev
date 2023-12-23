@@ -1,0 +1,41 @@
+.panel {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scroll-snap-align: start;
+  padding: 16px 18px;
+}
+.panel .title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  gap: 6px;
+}
+.panel .body {
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.dark .panel.information {
+  background-color: #3b424b;
+  color: white;
+}
+.light .panel.information {
+  background-color: #cce6ff;
+  color: black;
+}
+.panel .closeBtn {
+  background: none;
+  margin-left: auto;
+  border: 0;
+  cursor: pointer;
+  color: var(--primary-text-color);
+}
+.panel .closeBtn :hover {
+  opacity: 0.7;
+}

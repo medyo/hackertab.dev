@@ -16,7 +16,7 @@ type CardProps = {
 
 export const Card = ({ card, titleComponent, children, fullBlock = false }: CardProps) => {
   const { openLinksNewTab } = useUserPreferences()
-  const { link, icon, label } = card
+  const { link, icon, label, badge } = card
   const handleHeaderLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     let url = `${link}?${ref}`
@@ -39,6 +39,7 @@ export const Card = ({ card, titleComponent, children, fullBlock = false }: Card
             <BsBoxArrowInUpRight />
           </a>
         )}
+        {badge && <span className="blockHeaderBadge">{badge}</span>}
       </div>
 
       <div className="blockContent scrollable">{children}</div>

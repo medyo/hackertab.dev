@@ -74,6 +74,11 @@ export enum Attributes {
 const _SEP_ = ' '
 
 export const setupAnalytics = () => {
+  if (!ANALYTICS_SDK_KEY) {
+    console.warn('Analytics SDK key not found')
+    return
+  }
+
   init(ANALYTICS_SDK_KEY, getRandomUserId(), {
     disableCookies: true,
     serverUrl: ANALYTICS_ENDPOINT,

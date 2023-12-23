@@ -81,11 +81,12 @@ export type SupportedCardType = {
   value: string
   analyticsTag: string
   label: string
-  link: string
+  link?: string
   type: 'rss' | 'supported'
   component?: React.FunctionComponent<CardPropsType>
   feedUrl?: string
   icon?: React.ReactNode | string
+  badge?: string
 }
 
 export type CardPropsType = {

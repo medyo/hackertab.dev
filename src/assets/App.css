@@ -329,7 +329,20 @@ a {
   height: 16px;
   width: 16px;
 }
-
+.blockHeaderBadge {
+  width: auto;
+  font-size: 12px;
+  height: 20px;
+  background-color: var(--tooltip-accent-color);
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: inline-flex;
+  padding: 0 6px;
+  text-transform: lowercase;
+  color: white;
+}
 .blockHeaderIcon img {
   display: block;
 }
@@ -348,7 +361,7 @@ a {
   position: absolute;
   right: 0;
   top: 0;
-  width: 26%;
+  width: 30%;
 }
 
 .blockActions.active {
@@ -408,14 +421,23 @@ a {
 .blockRow:not(:last-child) {
   border-bottom: 1px solid var(--card-content-divider);
 }
-
+.rowCover {
+  border-radius: 4px;
+  display: block;
+  width: 100%;
+  min-height: auto;
+  object-fit: cover;
+  aspect-ratio: 16/9;
+  background-color: var(--placeholder-background-color);
+  margin-bottom: 12px;
+}
 .rowTitle {
   color: var(--primary-text-color);
   margin: 0;
   padding: 0;
   font-size: 16px;
   text-decoration: none;
-  display: flex;
+  display: block;
   flex-direction: row;
 }
 
@@ -1278,4 +1300,7 @@ Producthunt item
   padding: 10px 20px;
   color: var(--primary-text-color);
   border-radius: 10px;
+}
+.capitalize {
+  text-transform: capitalize;
 }
