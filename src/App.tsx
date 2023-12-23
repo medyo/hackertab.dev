@@ -1,6 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { DNDLayout } from 'src/components/Layout'
-import { MarketingBanner } from 'src/features/MarketingBanner'
 import { setupAnalytics, setupIdentification, trackPageView } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { AppContentLayout } from './components/Layout'
@@ -59,7 +58,6 @@ export const App = () => {
 
   return (
     <>
-      <MarketingBanner />
       {!onboardingCompleted && isWebOrExtensionVersion() === 'extension' && (
         <OnboardingModal showOnboarding={showOnboarding} setShowOnboarding={setShowOnboarding} />
       )}
