@@ -15,7 +15,6 @@
     "dompurify": "^2.2.7",
     "htmlparser2": "^8.0.1",
     "jsonpath": "^1.1.1",
-    "localforage": "^1.9.0",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.0.0-0",
     "react": "^17.0.1",
@@ -35,8 +34,6 @@
     "react-spring-bottom-sheet": "^3.4.1",
     "react-toggle": "^4.1.1",
     "react-tooltip": "^4.2.21",
-    "rss-to-json": "^2.1.1",
-    "styled-components": "2",
     "timeago.js": "^4.0.2",
     "type-fest": "^1.2.0",
     "vite-plugin-ejs": "^1.6.4",
@@ -47,8 +44,8 @@
     "start": "vite",
     "build:web": "VITE_BUILD_TARGET=web ./script/build.sh",
     "build:ext": "VITE_BUILD_TARGET=extension ./script/build.sh",
-    "build:firefox": "./script/build-firefox.sh",
-    "build:chrome": "./script/build-chrome.sh"
+    "build:firefox": "VITE_BUILD_PLATFORM=firefox ./script/build-firefox.sh",
+    "build:chrome": "VITE_BUILD_PLATFORM=chrome ./script/build-chrome.sh"
   },
   "eslintConfig": {
     "extends": [
