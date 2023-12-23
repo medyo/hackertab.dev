@@ -16,13 +16,16 @@ const Chip = ({ option, onSelect, active = false }: ChipProps) => {
     </button>
   )
 }
-type ChangeAction = 'ADD' | 'REMOVE'
+type ChangeAction = {
+  option: Option
+  action: 'ADD' | 'REMOVE'
+}
 type ChipsSetProps = {
   options: Option[]
   className?: string
   defaultValues?: string[]
   canSelectMultiple?: boolean
-  onChange?: (action: ChangeAction, options: Option[]) => void
+  onChange?: (changes: ChangeAction, options: Option[]) => void
 }
 
 export const ChipsSet = ({
@@ -43,7 +46,10 @@ export const ChipsSet = ({
       setSelectedChips(newVal)
       onChange &&
         onChange(
-          'REMOVE',
+          {
+            option,
+            action: 'REMOVE',
+          },
           options.filter((opt) => newVal.some((selectedVal) => selectedVal === opt.value))
         )
     } else {
@@ -57,7 +63,10 @@ export const ChipsSet = ({
       setSelectedChips(newVal)
       onChange &&
         onChange(
-          'ADD',
+          {
+            option,
+            action: 'ADD',
+          },
           options.filter((opt) => newVal.some((selectedVal) => selectedVal === opt.value))
         )
     }

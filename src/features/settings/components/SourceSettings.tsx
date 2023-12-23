@@ -1,13 +1,14 @@
 import { ChipsSet } from 'src/components/Elements'
 import { SettingsContentLayout } from 'src/components/Layout/SettingsContentLayout/SettingsContentLayout'
 import { SUPPORTED_CARDS } from 'src/config/supportedCards'
+import { trackSourceAdd, trackSourceRemove } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SelectedCard } from 'src/types'
 import { RssSetting } from './RssSetting'
 
 export const SourceSettings = () => {
   const { cards, setCards, userCustomCards } = useUserPreferences()
-  console.log('new cards', cards)
+
   const mergedSources = [
     ...SUPPORTED_CARDS.map((source) => {
       return {
@@ -41,7 +42,7 @@ export const SourceSettings = () => {
           canSelectMultiple={true}
           options={mergedSources}
           defaultValues={defaultValues}
-          onChange={(_, selectedChips) => {
+          onChange={(changes, selectedChips) => {
             const selectedValues = selectedChips.map((chip) => chip.value)
 
             const cards = (selectedValues
@@ -56,6 +57,12 @@ export const SourceSettings = () => {
               }) || []) as SelectedCard[]
 
             setCards(cards)
+
+            if (changes.action == 'ADD') {
+              trackSourceAdd(changes.option.value)
+            } else {
+              trackSourceRemove(changes.option.value)
+            }
           }}
         />
         <hr />

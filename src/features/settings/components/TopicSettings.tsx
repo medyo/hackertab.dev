@@ -1,6 +1,7 @@
 import { ChipsSet } from 'src/components/Elements'
 import { SettingsContentLayout } from 'src/components/Layout/SettingsContentLayout/SettingsContentLayout'
 import { Tag, useRemoteConfigStore } from 'src/features/remoteConfig'
+import { trackLanguageAdd, trackLanguageRemove } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 
 export const TopicSettings = () => {
@@ -25,12 +26,18 @@ export const TopicSettings = () => {
         canSelectMultiple={true}
         options={tags}
         defaultValues={userSelectedTags.map((tag) => tag.value)}
-        onChange={(_, selectedChips) => {
+        onChange={(changes, selectedChips) => {
           const selectedTags =
             (selectedChips
               .map((tag) => supportedTags.find((st) => st.value === tag.value))
               .filter(Boolean) as Tag[]) || []
           setTags(selectedTags)
+
+          if (changes.action == 'ADD') {
+            trackLanguageAdd(changes.option.value)
+          } else {
+            trackLanguageRemove(changes.option.value)
+          }
         }}
       />
     </SettingsContentLayout>
