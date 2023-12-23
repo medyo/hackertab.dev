@@ -35,32 +35,42 @@ export default defineConfig(({ mode }) => {
     build: {
       emptyOutDir: true,
       rollupOptions: {
-        ...(buildTarget === 'extension' && buildPlatform === 'firefox'
-          ? {
-              output: {
-                manualChunks: () => 'main.js',
-                entryFileNames: `assets/[name].js`,
-                chunkFileNames: `assets/[name].js`,
-                assetFileNames: `assets/[name].[ext]`,
-              },
-            }
-          : {
-              output: {
-                manualChunks: {
-                  settings: [
-                    'react-contexify',
-                    'react-modal',
-                    'react-select',
-                    'react-share',
-                    'react-simple-toasts',
-                    'react-spinners',
-                    'react-toggle',
-                    'react-tooltip',
-                  ],
-                  react: ['react', 'react-dom', 'react-router-dom', 'react-device-detect'],
-                },
-              },
-            }),
+        output: {
+          entryFileNames: `assets/[name].js`,
+          chunkFileNames: `assets/[name].js`,
+          assetFileNames: `assets/[name].[ext]`,
+          manualChunks: {
+            core: [
+              'react',
+              'react-dom',
+              'react-router-dom',
+              'zustand',
+              '@tanstack/react-query',
+              '@tanstack/react-query-persist-client',
+              'axios',
+              'react-error-boundary',
+            ],
+            ui: [
+              'react-contexify',
+              'react-select',
+              'react-share',
+              'react-simple-toasts',
+              'react-toggle',
+              'react-tooltip',
+              'react-icons',
+              'react-markdown',
+              'react-spring-bottom-sheet',
+            ],
+            utils: [
+              '@amplitude/analytics-browser',
+              'axios-cache-adapter',
+              'country-emoji',
+              'htmlparser2',
+              'dompurify',
+              'timeago.js',
+            ],
+          },
+        },
       },
     },
     server: {
