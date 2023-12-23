@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 import { AppLayout } from 'src/components/Layout/AppLayout'
 import { SettingsLayout } from 'src/components/Layout/SettingsLayout'
 import { lazyImport } from 'src/utils/lazyImport'
@@ -11,7 +11,7 @@ const { TopicSettings } = lazyImport(() => import('src/features/settings'), 'Top
 
 export const AppRoutes = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/settings" element={<SettingsLayout />}>
@@ -23,6 +23,6 @@ export const AppRoutes = () => {
           <Route path="*" index element={<App />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
