@@ -14,13 +14,13 @@ export const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<AppLayout />}>
-          <Route path="/" element={<App />} />
           <Route path="/settings" element={<SettingsLayout />}>
             <Route path="bookmarks" element={<BookmarkSettings />} />
             <Route path="topics" element={<TopicSettings />} />
             <Route path="sources" element={<SourceSettings />} />
             <Route path="general" element={<GeneralSettings />} />
           </Route>
+          <Route path="*" index element={<App />} />
         </Route>
       </Routes>
     </BrowserRouter>
