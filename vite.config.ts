@@ -9,6 +9,10 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const buildTarget = env.VITE_BUILD_TARGET || 'web'
 
+  if (!env.VITE_API_URL) {
+    throw new Error('VITE_API_URL is not defined, create an .env file with this variable')
+  }
+
   return {
     plugins: [
       ViteEjsPlugin((viteConfig) => {
