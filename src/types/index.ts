@@ -28,6 +28,7 @@ export type UserPreferences = {
 export type SearchEngine = {
   url: string
   label: string
+  logo: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
 }
 
 export type Theme = 'dark' | 'light'

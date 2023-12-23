@@ -838,6 +838,7 @@ Producthunt item
   position: absolute;
   height: 40px;
   margin: 0 16px;
+  width: 24px;
 }
 
 .searchBarInput {
