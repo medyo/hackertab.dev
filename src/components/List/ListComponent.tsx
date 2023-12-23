@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect } from 'react'
 import { Placeholder } from 'src/components/placeholders'
 import { MAX_ITEMS_PER_CARD } from 'src/config'
-import { BannerAd } from 'src/features/ads'
+import { AdvBanner } from 'src/features/adv'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
 import { BaseEntry } from 'src/types'
 
@@ -82,7 +82,7 @@ export function ListComponent<T extends BaseEntry>(props: ListComponentPropsType
       }
 
       if (canAdsLoad && adsConfig.enabled && withAds && index === adsConfig.rowPosition) {
-        content.unshift(<BannerAd key={'banner-ad'} />)
+        content.unshift(<AdvBanner key={'hello-word'} />)
       }
 
       return content

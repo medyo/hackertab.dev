@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { AdPlaceholder } from 'src/components/placeholders'
 import { useUserPreferences } from 'src/stores/preferences'
 import { useGetAd } from '../api/getAd'
-import './BannerAd.css'
+import './AdvBanner.css'
 
-export const BannerAd = () => {
+export const AdvBanner = () => {
+  console.log('Hello')
   const { userSelectedTags } = useUserPreferences()
 
   const [aditionalAdQueries, setAditionalAdQueries] = useState<
@@ -20,6 +21,7 @@ export const BannerAd = () => {
     config: {
       cacheTime: 0,
       staleTime: 0,
+      useErrorBoundary: false,
       refetchInterval(data) {
         if (data?.nextAd) {
           setAditionalAdQueries(data.nextAd.queries)
