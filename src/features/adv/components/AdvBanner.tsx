@@ -5,7 +5,6 @@ import { useGetAd } from '../api/getAd'
 import './AdvBanner.css'
 
 export const AdvBanner = () => {
-  console.log('Hello')
   const { userSelectedTags } = useUserPreferences()
 
   const [aditionalAdQueries, setAditionalAdQueries] = useState<
