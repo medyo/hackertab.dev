@@ -26,13 +26,6 @@ export const SourceSettings = () => {
     }),
   ].sort((a, b) => (a.label > b.label ? 1 : -1))
 
-  const defaultValues = [
-    ...cards
-      .map((source) => SUPPORTED_CARDS.find((sc) => sc.value === source.name))
-      .map((v) => v?.value),
-    ...userCustomCards.map((source) => source.value),
-  ].filter(Boolean) as string[]
-
   return (
     <SettingsContentLayout
       title="Sources"
@@ -41,20 +34,28 @@ export const SourceSettings = () => {
         <ChipsSet
           canSelectMultiple={true}
           options={mergedSources}
-          defaultValues={defaultValues}
+          defaultValues={cards.map((source) => source.name)}
           onChange={(changes, selectedChips) => {
             const selectedValues = selectedChips.map((chip) => chip.value)
 
-            const cards = (selectedValues
-              .map((source) => SUPPORTED_CARDS.find((sc) => sc.value === source))
-              .filter(Boolean)
+            const cards = selectedValues
               .map((source, index) => {
-                return {
-                  id: index,
-                  name: source?.value || '',
-                  type: 'supported',
+                if (SUPPORTED_CARDS.find((sc) => sc.value === source)) {
+                  return {
+                    id: index,
+                    name: source,
+                    type: 'supported',
+                  }
+                } else if (userCustomCards.find((ucc) => ucc.value === source)) {
+                  return {
+                    id: index,
+                    name: source,
+                    type: 'rss',
+                  }
                 }
-              }) || []) as SelectedCard[]
+                return null
+              })
+              .filter(Boolean) as SelectedCard[]
 
             setCards(cards)
 
