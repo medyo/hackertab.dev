@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect } from 'react'
 import { Placeholder } from 'src/components/placeholders'
 import { MAX_ITEMS_PER_CARD } from 'src/config'
-import { BannerAd } from 'src/features/ads'
+import { AdvBanner } from 'src/features/adv'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
 import { BaseEntry } from 'src/types'
 
@@ -25,6 +25,7 @@ export type ListComponentPropsType<T extends BaseEntry> = {
   renderItem: (item: T, index: number) => React.ReactNode
   withAds: boolean
   placeholder?: React.ReactNode
+  header?: React.ReactNode
   refresh?: boolean
   error?: any
   limit?: number
@@ -37,6 +38,7 @@ export function ListComponent<T extends BaseEntry>(props: ListComponentPropsType
     error,
     renderItem,
     withAds,
+    header,
     placeholder = <Placeholder />,
     limit = MAX_ITEMS_PER_CARD,
   } = props
@@ -75,9 +77,14 @@ export function ListComponent<T extends BaseEntry>(props: ListComponentPropsType
 
     return items.slice(0, limit).map((item, index) => {
       let content: ReactNode[] = [renderItem(item, index)]
-      if (canAdsLoad && adsConfig.enabled && withAds && index === adsConfig.rowPosition) {
-        content.unshift(<BannerAd key={'banner-ad'} />)
+      if (header && index === 0) {
+        content.unshift(header)
       }
+
+      if (canAdsLoad && adsConfig.enabled && withAds && index === adsConfig.rowPosition) {
+        content.unshift(<AdvBanner key={'hello-word'} />)
+      }
+
       return content
     })
   }

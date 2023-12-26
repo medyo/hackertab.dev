@@ -1,11 +1,8 @@
 import { TiPlus } from 'react-icons/ti'
+import { Link } from 'react-router-dom'
 import { useUserPreferences } from 'src/stores/preferences'
 
-type UserTagsProps = {
-  onAddClicked: () => void
-}
-
-export const UserTags = ({ onAddClicked }: UserTagsProps) => {
+export const UserTags = () => {
   const { userSelectedTags } = useUserPreferences()
 
   return (
@@ -15,9 +12,9 @@ export const UserTags = ({ onAddClicked }: UserTagsProps) => {
           {tag.value}
         </span>
       ))}
-      <button aria-label="Open settings" className="tag tagHoverable" onClick={onAddClicked}>
+      <Link to="/settings/topics" className="tag tagHoverable" aria-label="Open settings">
         <TiPlus className="tagIcon" />
-      </button>
+      </Link>
     </div>
   )
 }

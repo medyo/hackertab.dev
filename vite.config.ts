@@ -8,6 +8,15 @@ import viteTsconfigPaths from 'vite-tsconfig-paths'
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const buildTarget = env.VITE_BUILD_TARGET || 'web'
+  const buildPlatform = env.VITE_BUILD_PLATFORM
+
+  if (!env.VITE_API_URL) {
+    throw new Error('VITE_API_URL is not defined, create an .env file with this variable')
+  }
+
+  if (buildTarget == 'extension' && !buildPlatform) {
+    throw new Error('VITE_BUILD_PLATFORM is not defined, create an .env file with this variable')
+  }
 
   return {
     plugins: [
@@ -25,23 +34,43 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       emptyOutDir: true,
-      minify: 'terser',
-      terserOptions: {
-        format: {
-          beautify: true,
-        },
-      },
       rollupOptions: {
-        ...(buildTarget === 'extension'
-          ? {
-              output: {
-                manualChunks: () => 'main.js',
-                entryFileNames: `assets/[name].js`,
-                chunkFileNames: `assets/[name].js`,
-                assetFileNames: `assets/[name].[ext]`,
-              },
-            }
-          : {}),
+        output: {
+          entryFileNames: `assets/[name].js`,
+          chunkFileNames: `assets/[name].js`,
+          assetFileNames: `assets/[name].[ext]`,
+          manualChunks: {
+            core: [
+              'react',
+              'react-dom',
+              'react-router-dom',
+              'zustand',
+              '@tanstack/react-query',
+              '@tanstack/react-query-persist-client',
+              'axios',
+              'react-error-boundary',
+            ],
+            ui: [
+              'react-contexify',
+              'react-select',
+              'react-share',
+              'react-simple-toasts',
+              'react-toggle',
+              'react-tooltip',
+              'react-icons',
+              'react-markdown',
+              'react-spring-bottom-sheet',
+            ],
+            utils: [
+              '@amplitude/analytics-browser',
+              'axios-cache-adapter',
+              'country-emoji',
+              'htmlparser2',
+              'dompurify',
+              'timeago.js',
+            ],
+          },
+        },
       },
     },
     server: {

@@ -1,15 +1,10 @@
 import React, { useEffect, useRef } from 'react'
-import { GoSearch } from 'react-icons/go'
 import { SUPPORTED_SEARCH_ENGINES } from 'src/config'
 import { trackSearchEngineUse } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SearchEngine } from 'src/types'
 
-type SearchBarProps = {
-  withLogo?: boolean
-}
-
-export const SearchBar = ({ withLogo }: SearchBarProps) => {
+export const SearchBar = () => {
   const { searchEngine } = useUserPreferences()
 
   const keywordsInputRef = useRef<HTMLInputElement | null>(null)
@@ -33,7 +28,7 @@ export const SearchBar = ({ withLogo }: SearchBarProps) => {
 
   return (
     <form className="searchBar" onSubmit={handleSubmit}>
-      <GoSearch className="searchBarIcon" size={20} />
+      <usedSearchEngine.logo className={'searchBarIcon ' + usedSearchEngine.className} />
       <input
         ref={keywordsInputRef}
         type="text"

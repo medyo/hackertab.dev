@@ -1,2 +1,2 @@
-export * from "./components/BookmarksSidebar"
-export * from "./types"
+export * from './routes'
+export * from './types'

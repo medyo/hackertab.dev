@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Select, { SingleValue } from 'react-select'
 import { trackDNDEnable } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
@@ -16,13 +17,9 @@ const DNDDurations: DndOption[] = [
   { value: 'always', label: 'Until you turn it off' },
 ]
 
-type DNDSettingsProps = {
-  setShowSettings: (show: boolean) => void
-}
-
-export const DNDSettings = ({ setShowSettings }: DNDSettingsProps) => {
+export const DNDSettings = () => {
   const [selectedDNDDuration, setSelectedDNDDuration] = useState<DndOption['value']>()
-
+  const navigate = useNavigate()
   const { DNDDuration, setDNDDuration } = useUserPreferences()
 
   const onApplyClicked = () => {
@@ -43,7 +40,7 @@ export const DNDSettings = ({ setShowSettings }: DNDSettingsProps) => {
     }
 
     trackDNDEnable(selectedDNDDuration)
-    setShowSettings(false)
+    navigate('/')
   }
 
   const onPeriodSelect = (selectedOption: SingleValue<DndOption>) => {

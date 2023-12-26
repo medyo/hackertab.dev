@@ -1,13 +1,13 @@
 import { BiCommentDetail } from 'react-icons/bi'
-import { VscTriangleUp } from 'react-icons/vsc'
-import { CardLink, CardItemWithActions } from 'src/components/Elements'
-import { Attributes } from 'src/lib/analytics'
-import { BaseItemPropsType, Article } from 'src/types'
-import { useUserPreferences } from 'src/stores/preferences'
-import { format } from 'timeago.js'
-import { MdAccessTime } from 'react-icons/md'
-import { GoPrimitiveDot } from 'react-icons/go'
 import { BsArrowReturnRight } from 'react-icons/bs'
+import { GoDotFill } from 'react-icons/go'
+import { MdAccessTime } from 'react-icons/md'
+import { VscTriangleUp } from 'react-icons/vsc'
+import { CardItemWithActions, CardLink } from 'src/components/Elements'
+import { Attributes } from 'src/lib/analytics'
+import { useUserPreferences } from 'src/stores/preferences'
+import { Article, BaseItemPropsType } from 'src/types'
+import { format } from 'timeago.js'
 
 type PostFlairPropsType = {
   text: string
@@ -67,7 +67,7 @@ const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) 
             {listingMode === 'normal' && (
               <>
                 <span className="rowItem redditRowItem">
-                  <GoPrimitiveDot className="rowItemIcon" /> {item.reactions} points
+                  <GoDotFill className="rowItemIcon" /> {item.reactions} points
                 </span>
                 <span className="rowItem">
                   <MdAccessTime className="rowItemIcon" /> {format(new Date(item.published_at))}

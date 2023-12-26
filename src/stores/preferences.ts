@@ -98,7 +98,19 @@ const defaultStorage: StateStorage = {
 export const useUserPreferences = create(
   persist<UserPreferencesState & UserPreferencesStoreActions>(
     (set, get) => ({
-      userSelectedTags: [],
+      userSelectedTags: [
+        {
+          value: 'javascript',
+          label: 'Javascript',
+          githubValues: ['javascript'],
+          confsValues: ['javascript'],
+          devtoValues: ['javascript'],
+          hashnodeValues: ['javascript'],
+          mediumValues: ['javascript'],
+          redditValues: ['javascript'],
+          freecodecampValues: ['javascript'],
+        },
+      ],
       cardsSettings: {},
       maxVisibleCards: 4,
       theme: 'dark',
@@ -111,7 +123,7 @@ export const useUserPreferences = create(
       cards: [
         { id: 0, name: 'github', type: 'supported' },
         { id: 1, name: 'hackernews', type: 'supported' },
-        { id: 2, name: 'devto', type: 'supported' },
+        { id: 2, name: 'ai', type: 'supported' },
         { id: 3, name: 'producthunt', type: 'supported' },
       ],
       userCustomCards: [],

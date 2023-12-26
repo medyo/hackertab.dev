@@ -27,10 +27,6 @@ Modal
   backdrop-filter: blur(2px);
 }
 
-.settings {
-  display: flex;
-  flex-direction: column;
-}
 .settingTitle {
   width: 300px;
   margin: 0;
