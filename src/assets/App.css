@@ -456,6 +456,7 @@ a {
 }
 .titleWithCover {
   display: block;
+  width: 100%;
 }
 .dark .blockHeaderWhite {
   color: white;
