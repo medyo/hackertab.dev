@@ -7,7 +7,7 @@ const getAIArticles = async (userTopics: string[]): Promise<Article[]> => {
   return axios.get('/engine/feed/get', {
     params: {
       tags: userTopics.join(','),
-      limit: 10,
+      limit: 50,
     },
   })
 }
