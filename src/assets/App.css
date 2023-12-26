@@ -531,6 +531,25 @@ a {
   color: #99a2ac;
 }
 
+.backToHome {
+  display: flex;
+  order: 4;
+  width: 100%;
+}
+
+.backToHome a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  vertical-align: middle;
+  text-decoration: none;
+}
+
+.backToHome a:hover {
+  opacity: 0.7;
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;

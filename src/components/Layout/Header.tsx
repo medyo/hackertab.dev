@@ -3,7 +3,8 @@ import { BsFillBookmarksFill, BsFillGearFill, BsMoonFill } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
 import { IoMdSunny } from 'react-icons/io'
 import { MdDoDisturbOff } from 'react-icons/md'
-import { Link, useNavigate } from 'react-router-dom'
+import { RxArrowLeft } from 'react-icons/rx'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
 import { SearchBar } from 'src/components/Elements/SearchBar'
 import { UserTags } from 'src/components/Elements/UserTags'
@@ -17,6 +18,7 @@ export const Header = () => {
   const { theme, setTheme, setDNDDuration, isDNDModeActive } = useUserPreferences()
   const { userBookmarks } = useBookmarks()
   const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     document.documentElement.classList.add(theme)
@@ -59,6 +61,8 @@ export const Header = () => {
     setDNDDuration('never')
   }
 
+  console.log('location', location)
+
   return (
     <>
       <header className="AppHeader">
@@ -95,7 +99,15 @@ export const Header = () => {
             </>
           </Link>
         </div>
-        <UserTags />
+        {location.pathname === '/' ? (
+          <UserTags />
+        ) : (
+          <div className="backToHome">
+            <Link to="/">
+              <RxArrowLeft size={20} /> Back
+            </Link>
+          </div>
+        )}
       </header>
     </>
   )
