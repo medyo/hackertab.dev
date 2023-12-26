@@ -20,6 +20,11 @@ export function AICard({ meta, withAds }: CardPropsType) {
     error,
   } = useGetAIArticles({
     userTopics: userSelectedTags.map((tag) => tag.label.toLocaleLowerCase()),
+    config: {
+      cacheTime: 0,
+      staleTime: 0,
+      useErrorBoundary: false,
+    },
   })
 
   const renderItem = (item: Article, index: number) => (

@@ -20,7 +20,7 @@ export const CardLink = ({
   return (
     <ClickableItem
       link={link}
-      className={'rowTitle' + (className ? ` ${className}` : '')}
+      className={'rowLink' + (className ? ` ${className}` : '')}
       analyticsAttributes={analyticsAttributes}
       appendRef={appendRef}>
       {children}

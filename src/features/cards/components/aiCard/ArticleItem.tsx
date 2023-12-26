@@ -1,7 +1,6 @@
 import { BiCommentDetail } from 'react-icons/bi'
 import { GoDotFill } from 'react-icons/go'
 import { MdAccessTime } from 'react-icons/md'
-import { VscTriangleUp } from 'react-icons/vsc'
 import { CardItemWithActions, CardLink, ClickableItem } from 'src/components/Elements'
 import { Attributes } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
@@ -23,6 +22,7 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
           <p className="rowTitle">
             <CardLink
               link={item.url}
+              className="titleWithCover"
               analyticsAttributes={{
                 [Attributes.POINTS]: item.reactions,
                 [Attributes.TRIGERED_FROM]: 'card',
@@ -33,13 +33,6 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
               {item.image_url && listingMode === 'normal' && (
                 <img src={item.image_url} className="rowCover" alt="" />
               )}
-              {listingMode === 'compact' && (
-                <span className="counterWrapper">
-                  <VscTriangleUp />
-                  <span className="value">{item.reactions}</span>
-                </span>
-              )}
-
               <span className="subTitle">{item.title}</span>
             </CardLink>
           </p>

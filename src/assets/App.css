@@ -431,20 +431,32 @@ a {
   background-color: var(--placeholder-background-color);
   margin-bottom: 12px;
 }
+
 .rowTitle {
   color: var(--primary-text-color);
   margin: 0;
   padding: 0;
   font-size: 16px;
   text-decoration: none;
-  display: block;
+  display: flex;
+  flex-direction: row;
+}
+.rowLink {
+  color: var(--primary-text-color);
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  text-decoration: none;
+  display: flex;
   flex-direction: row;
 }
 
 .rowTitle:hover {
   color: var(--primary-hover-text-color);
 }
-
+.titleWithCover {
+  display: block;
+}
 .dark .blockHeaderWhite {
   color: white;
 }
