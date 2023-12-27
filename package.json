@@ -42,6 +42,7 @@
   },
   "scripts": {
     "start": "vite",
+    "preview": "vite preview",
     "build:web": "VITE_BUILD_TARGET=web ./script/build.sh",
     "build:ext": "VITE_BUILD_TARGET=extension ./script/build.sh",
     "build:firefox": "VITE_BUILD_PLATFORM=firefox ./script/build-firefox.sh",
