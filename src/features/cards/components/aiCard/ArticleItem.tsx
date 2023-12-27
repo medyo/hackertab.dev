@@ -36,6 +36,13 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
               <span className="subTitle">{item.title}</span>
             </CardLink>
           </p>
+          {listingMode === 'compact' && (
+            <div className="rowDetails">
+              <span className="rowItem capitalize">
+                <GoDotFill className="rowItemIcon" /> {item.source}
+              </span>
+            </div>
+          )}
           {listingMode === 'normal' && (
             <div className="rowDetails">
               <span className="rowItem capitalize">
