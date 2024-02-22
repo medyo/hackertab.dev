@@ -1,9 +1,7 @@
 import { useState } from 'react'
-import { isDesktop } from 'react-device-detect'
 import { useUserPreferences } from 'src/stores/preferences'
 import { BottomNavigation } from '../Elements'
 import { ScrollCardsNavigator } from './'
-import { DesktopCards } from './DesktopCards'
 import { MobileCards } from './MobileCards'
 
 export const AppContentLayout = () => {
@@ -14,13 +12,9 @@ export const AppContentLayout = () => {
     <>
       <main className="AppContent">
         <ScrollCardsNavigator />
-        {isDesktop ? (
-          <DesktopCards cards={cards} userCustomCards={userCustomCards} />
-        ) : (
-          <div className="Cards HorizontalScroll">
-            <MobileCards selectedCard={selectedCard} />
-          </div>
-        )}
+        <div className="Cards HorizontalScroll">
+          <MobileCards selectedCard={selectedCard} />
+        </div>
       </main>
       <BottomNavigation selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
     </>
