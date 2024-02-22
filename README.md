@@ -12,9 +12,9 @@
 
 As a developer, it can be difficult to stay on top of everything happening in the field. Hackertab makes it easy by allowing you to customize your default tab page to include news, tools and events from top sources such as GitHub Trendings, Hacker News, DevTo, Medium, and Product Hunt. No matter what type of developer you are, you'll find valuable and relevant information with Hackertab. Don't miss out - give it a try today!
 
-#### Demo
+## 👉 Demo
 
-👉 [now.hackertab.dev](https://now.hackertab.dev)
+[now.hackertab.dev](https://now.hackertab.dev)
 
 ## 👩‍💻 How to use it
 
@@ -56,7 +56,7 @@ Please do not hesitate to ask a question, report a bug or add a suggestion. or s
 
 ## Development
 
-Please use the develop branch. Create an .env file with the necessary
+Please use the develop branch. Create an .env file with the necessary (see `env.example`).
 
 ```bash
 $ git clone --branch develop git@github.com:medyo/hackertab.dev.git
@@ -70,7 +70,7 @@ $ # Then visit http://localhost:3000
 
 - [medyo](https://github.com/medyo)
 
-## Licencing
+## Licensing
 
 Hackertab is licensed under the Apache License, Version 2.0.
 See [LICENSE](/LICENSE) for the full license text.
