@@ -8,10 +8,9 @@ type CardProps = {
   children: React.ReactNode
   card: SupportedCardType
   titleComponent?: React.ReactNode
-  fullBlock?: boolean
 }
 
-export const Card = ({ card, titleComponent, children, fullBlock = false }: CardProps) => {
+export const Card = ({ card, titleComponent, children }: CardProps) => {
   const { openLinksNewTab } = useUserPreferences()
   const { link, icon, label, badge } = card
   const handleHeaderLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -21,7 +20,7 @@ export const Card = ({ card, titleComponent, children, fullBlock = false }: Card
   }
 
   return (
-    <div className={'block' + (fullBlock ? ' fullBlock' : '')}>
+    <div className="block">
       <div className="blockHeader">
         <span className="blockHeaderIcon">{icon}</span> {titleComponent || label}{' '}
         {link && (

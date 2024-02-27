@@ -117,7 +117,7 @@ html.light {
   --button-background-color: #d2deeb;
   --button-text-color: #3c5065;
 
-  /**Card **/
+  /* Card */
   --card-background-color: #ffffff;
   --card-header-text-color: #3c5065;
   --card-header-background-color: #f9fafe;
@@ -125,21 +125,21 @@ html.light {
   --card-content-divider: #e9ebec;
   --card-background-focus-color: #f5f8fb;
 
-  /*Card Action button*/
+  /* Card Action button */
   --card-actions-background-shadow: #edf5ff;
   --card-action-button-background: #d2deeb;
   --card-action-button-color: #3c5065;
   --card-active-action-button-background: #253b53;
   --card-active-action-button-color: #fff;
 
-  /*Tag*/
+  /* Tag */
   --tag-background-color: #243b53;
   --tag-border-color: #e9ebec;
   --tag-text-color: #ffffff;
   --tag-secondary-color: #e9ebec;
   --tag-input-background: #243b53;
 
-  /*Tooltip */
+  /* Tooltip */
   --tooltip-background-color: #ffffff;
   --tooltip-divider-color: #e9ebec;
   --tooltip-text-color: #3c5065;
@@ -165,7 +165,7 @@ html.light {
   --step-active-border-color: none;
   --step-active-text-color: white;
 
-  /*Tab*/
+  /* Tab */
   --tab-title-color: #253b53;
   --tab-description-color: #798595;
   --tab-border-color: #e0e3e8;
@@ -182,4 +182,8 @@ html.light {
 
   --horizontal-tabs-layout-active-color: #0366d6;
   --horizontal-tabs-layout-text-color: #3c5065;
+
+  /* Misc */
+  --block-header-size: 54px;
+  --side-menu-size: 54px;
 }

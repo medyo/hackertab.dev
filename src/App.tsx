@@ -62,10 +62,8 @@ export const App = () => {
         <OnboardingModal showOnboarding={showOnboarding} setShowOnboarding={setShowOnboarding} />
       )}
 
-      <div className="layoutLayers hideScrollBar">
-        {isDNDModeActive() && <DNDLayout />}
-        <AppContentLayout />
-      </div>
+      {isDNDModeActive() && <DNDLayout />}
+      <AppContentLayout />
     </>
   )
 }

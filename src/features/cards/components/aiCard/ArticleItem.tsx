@@ -30,9 +30,6 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
                 [Attributes.LINK]: item.url,
                 [Attributes.SOURCE]: analyticsTag,
               }}>
-              {item.image_url && listingMode === 'normal' && (
-                <img src={item.image_url} className="rowCover" alt="" />
-              )}
               <span className="subTitle">{item.title}</span>
             </CardLink>
           </p>

@@ -1,10 +1,10 @@
-import { CardLink, CardItemWithActions } from 'src/components/Elements'
+import { CardItemWithActions, CardLink } from 'src/components/Elements'
 
-import { Attributes } from 'src/lib/analytics'
-import { ColoredLanguagesBadge } from 'src/components/Elements'
 import { VscRepo, VscRepoForked, VscStarFull } from 'react-icons/vsc'
-import { BaseItemPropsType, Repository } from 'src/types'
+import { ColoredLanguagesBadge } from 'src/components/Elements'
+import { Attributes } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
+import { BaseItemPropsType, Repository } from 'src/types'
 
 function numberWithCommas(x: number | string) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')

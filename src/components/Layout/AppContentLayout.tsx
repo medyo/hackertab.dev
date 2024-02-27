@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useUserPreferences } from 'src/stores/preferences'
 import { BottomNavigation } from '../Elements'
-import { ScrollCardsNavigator } from './'
 import { MobileCards } from './MobileCards'
 
 export const AppContentLayout = () => {
@@ -11,12 +10,9 @@ export const AppContentLayout = () => {
   return (
     <>
       <main className="AppContent">
-        <ScrollCardsNavigator />
-        <div className="Cards HorizontalScroll">
-          <MobileCards selectedCard={selectedCard} />
-        </div>
+        <MobileCards selectedCard={selectedCard} />
+        <BottomNavigation selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
       </main>
-      <BottomNavigation selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
     </>
   )
 }

@@ -73,7 +73,7 @@ export const CardItemWithActions = ({
   }
 
   return (
-    <div key={`${source}-${index}`} className="blockRow">
+    <div key={`${source}-${index}`} className={`blockRow br-${source}`}>
       <ShareModal
         showModal={setShareModalData !== undefined}
         closeModal={() => setShareModalData(undefined)}

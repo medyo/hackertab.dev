@@ -1,12 +1,11 @@
-import { BiCommentDetail } from 'react-icons/bi'
-import { CardLink, CardItemWithActions } from 'src/components/Elements'
-import { Attributes } from 'src/lib/analytics'
-import { BaseItemPropsType, Article } from 'src/types'
-import { useUserPreferences } from 'src/stores/preferences'
-import { format } from 'timeago.js'
-import { MdAccessTime } from 'react-icons/md'
 import { AiOutlineLike } from 'react-icons/ai'
-import { ColoredLanguagesBadge } from 'src/components/Elements'
+import { BiCommentDetail } from 'react-icons/bi'
+import { MdAccessTime } from 'react-icons/md'
+import { CardItemWithActions, CardLink, ColoredLanguagesBadge } from 'src/components/Elements'
+import { Attributes } from 'src/lib/analytics'
+import { useUserPreferences } from 'src/stores/preferences'
+import { Article, BaseItemPropsType } from 'src/types'
+import { format } from 'timeago.js'
 
 const ArticleItem = (props: BaseItemPropsType<Article>) => {
   const { item, index, selectedTag, analyticsTag } = props
