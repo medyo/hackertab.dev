@@ -9,7 +9,6 @@
 #bannerads {
   display: flex;
   max-width: 330px;
-  z-index: 100;
   margin: 0 auto;
 }
 #bannerads a {

@@ -14,7 +14,6 @@ export const API_ENDPOINT = import.meta.env.VITE_API_URL as string
 export const LS_ANALYTICS_ID_KEY = 'hackerTabAnalyticsId'
 // Meta
 export const name = 'Hackertab.dev'
-export const slogan = '— Stay updated with the new technology and trends'
 export const repository = 'https://github.com/medyo/hackertab.dev'
 export const ref = 'ref=hackertab.dev'
 export const contactEmail = 'hello@hackertab.dev'
