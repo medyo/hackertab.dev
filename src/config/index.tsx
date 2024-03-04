@@ -73,7 +73,7 @@ export const SUPPORTED_SEARCH_ENGINES = [
   },
   {
     label: 'Kagi',
-    url: 'https://kagi.com/search?q=%s',
+    url: 'https://kagi.com/search?q=',
     logo: KagiLogo,
   },
 ]
