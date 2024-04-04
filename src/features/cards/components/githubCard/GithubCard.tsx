@@ -97,14 +97,13 @@ export function GithubCard({ meta, withAds }: CardPropsType) {
     }
   }
   return (
-    <Card fullBlock={true} card={meta} titleComponent={<HeaderTitle />}>
+    <Card fullBlock={true} card={meta} titleComponent={<HeaderTitle />} withAds={withAds}>
       <FloatingFilter card={meta} filters={['datesRange', 'language']} />
       <ListComponent
         items={getData()}
         error={getError()}
         isLoading={getIsLoading()}
         renderItem={renderItem}
-        withAds={withAds}
       />
     </Card>
   )

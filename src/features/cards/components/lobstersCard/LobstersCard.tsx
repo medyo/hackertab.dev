@@ -1,7 +1,7 @@
 import { Card } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
-import { useGetLobstersArticles } from '../../api/getLobstersArticles'
 import { Article, CardPropsType } from 'src/types'
+import { useGetLobstersArticles } from '../../api/getLobstersArticles'
 import ArticleItem from './ArticleItem'
 
 export function LobstersCard({ withAds, meta }: CardPropsType) {
@@ -12,14 +12,8 @@ export function LobstersCard({ withAds, meta }: CardPropsType) {
   )
 
   return (
-    <Card card={meta}>
-      <ListComponent
-        items={articles}
-        error={error}
-        isLoading={isLoading}
-        renderItem={renderItem}
-        withAds={withAds}
-      />
+    <Card card={meta} withAds={withAds}>
+      <ListComponent items={articles} error={error} isLoading={isLoading} renderItem={renderItem} />
     </Card>
   )
 }

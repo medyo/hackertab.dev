@@ -23,8 +23,9 @@ export function CustomRssCard({ meta, withAds }: CardPropsType) {
   return (
     <Card
       card={{ ...meta, icon: <CardIcon url={meta.icon as string} /> }}
-      titleComponent={<HeaderTitle />}>
-      <ListComponent items={data} isLoading={isLoading} renderItem={renderItem} withAds={withAds} />
+      titleComponent={<HeaderTitle />}
+      withAds={withAds}>
+      <ListComponent items={data} isLoading={isLoading} renderItem={renderItem} />
     </Card>
   )
 }
