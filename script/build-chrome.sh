@@ -22,4 +22,4 @@ yarn build:ext
 
 # Zip the distribution folder
 echo 'Zip the extension'
-cd dist/ && zip -r ../chrome_extension.zip * -x "*.DS_Store" "web_manifest.json" "screenshots/*" "images/*" "favicon.ico" "robots.txt" "base.manifest.json" "chrome.manifest.json" "firefox.manifest.json" && cd ..
+cd dist/ && zip -r ../chrome_extension.zip * -x "*.DS_Store" "web_manifest.json" "screenshots/*" "images/*" "robots.txt" "base.manifest.json" "chrome.manifest.json" "firefox.manifest.json" && cd ..

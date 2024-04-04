@@ -1,7 +1,7 @@
 import { BiCommentDetail } from 'react-icons/bi'
 import { GoDotFill } from 'react-icons/go'
 import { MdAccessTime } from 'react-icons/md'
-import { CardItemWithActions, CardLink, ClickableItem } from 'src/components/Elements'
+import { CardItemWithActions, CardLink } from 'src/components/Elements'
 import { Attributes } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Article, BaseItemPropsType } from 'src/types'
@@ -51,18 +51,10 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
               <span className="rowItem" title={new Date(item.published_at).toUTCString()}>
                 <MdAccessTime className="rowItemIcon" /> {format(new Date(item.published_at))}
               </span>
-              <ClickableItem
-                link={`https://news.ycombinator.com/item?id=${item.id}`}
-                className="rowItem rowItemClickable"
-                analyticsAttributes={{
-                  [Attributes.POINTS]: item.reactions,
-                  [Attributes.TRIGERED_FROM]: 'card',
-                  [Attributes.TITLE]: `${item.title} comments`,
-                  [Attributes.LINK]: `https://news.ycombinator.com/item?id=${item.id}`,
-                  [Attributes.SOURCE]: analyticsTag,
-                }}>
-                <BiCommentDetail className="rowItemIcon" /> {item.comments} comments
-              </ClickableItem>
+              <span className="rowItem">
+                <BiCommentDetail className={'rowTitleIcon'} />
+                {item.comments} comments
+              </span>
             </div>
           )}
         </>

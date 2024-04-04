@@ -71,14 +71,9 @@ export function FreecodecampCard({ meta, withAds }: CardPropsType) {
   }
 
   return (
-    <Card card={meta} titleComponent={<HeaderTitle />}>
+    <Card card={meta} titleComponent={<HeaderTitle />} withAds={withAds}>
       <FloatingFilter card={meta} filters={['language']} />
-      <ListComponent
-        items={getData()}
-        isLoading={getIsLoading()}
-        renderItem={renderItem}
-        withAds={withAds}
-      />
+      <ListComponent items={getData()} isLoading={getIsLoading()} renderItem={renderItem} />
     </Card>
   )
 }
