@@ -1,8 +1,8 @@
 import { Card } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
-import { useGeProductHuntProducts } from '../../api/getProductHuntProducts'
-import { Article, CardPropsType } from 'src/types'
 import { ProductHuntPlaceholder } from 'src/components/placeholders'
+import { Article, CardPropsType } from 'src/types'
+import { useGeProductHuntProducts } from '../../api/getProductHuntProducts'
 import ArticleItem from './ArticleItem'
 
 export function ProductHuntCard({ meta, withAds }: CardPropsType) {
@@ -22,13 +22,12 @@ export function ProductHuntCard({ meta, withAds }: CardPropsType) {
   )
 
   return (
-    <Card card={meta}>
+    <Card card={meta} withAds={withAds}>
       <ListComponent
         items={products}
         error={error}
         isLoading={isLoading}
         renderItem={renderItem}
-        withAds={withAds}
         placeholder={<ProductHuntPlaceholder />}
       />
     </Card>

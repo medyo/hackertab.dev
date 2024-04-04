@@ -1,11 +1,10 @@
 import { Card } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
-import { useGetConferences } from '../../api/getConferences'
-import { Conference, CardPropsType } from 'src/types'
 import { useUserPreferences } from 'src/stores/preferences'
-import { getCardTagsValue } from 'src/utils/DataEnhancement'
+import { CardPropsType, Conference } from 'src/types'
+import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement'
+import { useGetConferences } from '../../api/getConferences'
 import ConferenceItem from './ConferenceItem'
-import { filterUniqueEntries } from 'src/utils/DataEnhancement'
 
 export function ConferencesCard({ meta, withAds }: CardPropsType) {
   const { userSelectedTags } = useUserPreferences()
@@ -35,13 +34,8 @@ export function ConferencesCard({ meta, withAds }: CardPropsType) {
   )
 
   return (
-    <Card card={meta}>
-      <ListComponent
-        items={getData()}
-        isLoading={isLoading}
-        renderItem={renderItem}
-        withAds={withAds}
-      />
+    <Card card={meta} withAds={withAds}>
+      <ListComponent items={getData()} isLoading={isLoading} renderItem={renderItem} />
     </Card>
   )
 }

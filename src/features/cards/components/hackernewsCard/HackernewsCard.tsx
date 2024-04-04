@@ -1,7 +1,7 @@
 import { Card } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
-import { useGetHackertNewsArticles } from '../../api/getHackerNewsArticles'
 import { Article, CardPropsType } from 'src/types'
+import { useGetHackertNewsArticles } from '../../api/getHackerNewsArticles'
 import ArticleItem from './ArticleItem'
 
 export function HackernewsCard({ meta, withAds }: CardPropsType) {
@@ -12,14 +12,8 @@ export function HackernewsCard({ meta, withAds }: CardPropsType) {
   )
 
   return (
-    <Card card={meta}>
-      <ListComponent
-        items={articles}
-        error={error}
-        isLoading={isLoading}
-        renderItem={renderItem}
-        withAds={withAds}
-      />
+    <Card card={meta} withAds={withAds}>
+      <ListComponent items={articles} error={error} isLoading={isLoading} renderItem={renderItem} />
     </Card>
   )
 }

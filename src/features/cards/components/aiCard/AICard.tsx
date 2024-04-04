@@ -32,7 +32,7 @@ export function AICard({ meta, withAds }: CardPropsType) {
   )
 
   return (
-    <Card card={meta}>
+    <Card card={meta} withAds={withAds}>
       <ListComponent
         items={articles}
         error={error}
@@ -65,7 +65,6 @@ export function AICard({ meta, withAds }: CardPropsType) {
         }
         isLoading={isLoading}
         renderItem={renderItem}
-        withAds={withAds}
       />
     </Card>
   )
