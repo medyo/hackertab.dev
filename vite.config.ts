@@ -37,8 +37,8 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         output: {
           entryFileNames: `assets/[name].js`,
-          chunkFileNames: `assets/[name].js`,
-          assetFileNames: `assets/[name].[ext]`,
+          chunkFileNames: `assets/[name]-[hash].js`,
+          assetFileNames: `assets/[name]-[hash].[ext]`,
           manualChunks: {
             core: [
               'react',

@@ -61,8 +61,6 @@ export const Header = () => {
     setDNDDuration('never')
   }
 
-  console.log('location', location)
-
   return (
     <>
       <header className="AppHeader">
