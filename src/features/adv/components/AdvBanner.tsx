@@ -73,7 +73,10 @@ export const AdvBanner = () => {
           </a>
         </span>
       </div>
-      {ad.viewUrl && <img src={ad.viewUrl} key={ad.viewUrl} className="hidden" alt="" />}
+      {ad.viewUrl &&
+        ad.viewUrl
+          .split('||')
+          .map((viewUrl, i) => <img key={i} src={viewUrl} className="hidden" alt="" />)}
     </div>
   )
 }

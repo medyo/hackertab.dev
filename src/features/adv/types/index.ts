@@ -1,7 +1,7 @@
 type AdProvider = {
-  name: string,
-  title: string,
-  link?: string,
+  name: string
+  title: string
+  link?: string
 }
 
 type NextAdType = {
