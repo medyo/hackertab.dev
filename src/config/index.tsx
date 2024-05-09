@@ -7,7 +7,6 @@ import { ReactComponent as StartPageLogo } from 'src/assets/startpage_logo.svg'
 import { ReactComponent as YahooLogo } from 'src/assets/yahoo_logo.svg'
 import { ReactComponent as YandexLogo } from 'src/assets/yandex_logo.svg'
 import { ReactComponent as KagiLogo} from 'src/assets/kagi_logo.svg'
-import { ReactComponent as BraveLogo } from 'src/assets/brave_logo.svg'
 
 // Keys
 export const ANALYTICS_ENDPOINT = import.meta.env.VITE_AMPLITUDE_URL as string
@@ -76,11 +75,6 @@ export const SUPPORTED_SEARCH_ENGINES = [
     label: 'Kagi',
     url: 'https://kagi.com/search?q=',
     logo: KagiLogo,
-  },
-  {
-    label: 'Brave',
-    url: 'https://search.brave.com/search?q=',
-    logo: BraveLogo,
   },
 ]
 
