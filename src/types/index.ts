@@ -3,6 +3,9 @@ import { Tag } from 'src/features/remoteConfig'
 export type SearchEngineType = {
   url: string
   label: string
+  logo?: string
+  className?: string
+  default?: boolean
 }
 
 export type SelectedCard = {
@@ -110,6 +113,7 @@ export type Option = {
   label: string
   value: string
   icon?: React.ReactNode
+  removeable?: boolean
 }
 
 export type DNDDuration =

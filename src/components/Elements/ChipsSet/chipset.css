@@ -11,12 +11,27 @@
   padding: 6px 12px;
   border: transparent;
   font-family: 'nunito';
-  color: var(--chip-text);
   background-color: var(--chip-background);
+  display: flex;
+  align-items: center;
+  column-gap: 2px;
+  cursor: pointer;
+}
+.chip button {
+  color: var(--chip-text);
+  border: transparent;
+  background: none;
   display: flex;
   align-items: center;
   column-gap: 8px;
   cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+.chip .deleteButton .icon {
+  width: 20px;
+  height: 20px;
+  color: var(--chip-delete-button-color);
 }
 .chip:hover {
   filter: brightness(95%);
@@ -31,13 +46,17 @@
 .chip .chipIcon > svg {
   background-color: white;
   color: black;
-  border-radius: 50px;
   padding: 2px;
+  border-radius: 50%;
   width: 20px;
   height: 20px;
 }
 .chip.active {
   background-color: var(--chip-active-background);
+}
+
+.chip.active button,
+.chip.active .deleteButton .icon {
   color: var(--chip-active-text);
 }
 
@@ -46,5 +65,7 @@
 }
 .chipsSet.alternative-color .chip.active {
   background-color: var(--card-active-action-button-background);
+}
+.chipsSet.alternative-color .chip.active button {
   color: var(--card-active-action-button-color);
 }

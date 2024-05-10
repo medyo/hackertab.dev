@@ -17,7 +17,10 @@ export const SettingsLayout = () => {
       name: 'Bookmarks',
       path: '/settings/bookmarks',
     },
-
+    {
+      name: 'Search Engine',
+      path: '/settings/search-engine',
+    },
     {
       name: 'Settings',
       path: '/settings/general',

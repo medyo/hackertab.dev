@@ -886,10 +886,12 @@ Producthunt item
   order: 3;
   transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s ease-out;
   width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .dark .themeAdaptiveFillColor {
-  fill: white;
+  filter: invert(1);
 }
 
 .searchBarIcon {
@@ -897,8 +899,22 @@ Producthunt item
   height: 40px;
   margin: 0 16px;
   width: 24px;
+  text-align: center;
+  background: white;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  padding: 2px;
+  color: var(--tag-background-color);
 }
-
+/*.searchBarIcon > svg {
+  background-color: white;
+  color: black;
+  padding: 2px;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}*/
 .searchBarInput {
   border-radius: 50px;
   color: var(--primary-text-color);

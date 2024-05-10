@@ -70,6 +70,7 @@ html.dark {
   --chip-text: #fff;
   --chip-active-background: #0366d6;
   --chip-active-text: #fff;
+  --chip-delete-button-color: #fff;
 
   /* Step */
   --step-normal-background-color: none;
@@ -155,7 +156,7 @@ html.light {
   --chip-border-color: #e7eff7;
   --chip-active-background: #0366d6;
   --chip-active-text: #fff;
-
+  --chip-delete-button-color: #3c5065;
   /* Step */
   --step-normal-background-color: white;
   --step-normal-border-color: #cdd3db;
