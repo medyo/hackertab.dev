@@ -8,6 +8,7 @@ import {
   CardSettingsType,
   DNDDuration,
   ListingMode,
+  SearchEngineType,
   SelectedCard,
   SupportedCardType,
   Theme,
@@ -21,6 +22,7 @@ export type UserPreferencesState = {
   onboardingResult: Omit<Occupation, 'icon'> | null
   listingMode: ListingMode
   searchEngine: string
+  searchEngines: SearchEngineType[]
   maxVisibleCards: number
   cards: SelectedCard[]
   cardsSettings: Record<string, CardSettingsType>
@@ -44,6 +46,8 @@ type UserPreferencesStoreActions = {
   updateCardOrder: (prevIndex: number, newIndex: number) => void
   setDNDDuration: (value: DNDDuration) => void
   isDNDModeActive: () => boolean
+  addSearchEngine: (searchEngine: SearchEngineType) => void
+  removeSearchEngine: (searchEngineUrl: string) => void
 }
 
 const defaultStorage: StateStorage = {
@@ -116,7 +120,49 @@ export const useUserPreferences = create(
       theme: 'dark',
       onboardingCompleted: false,
       onboardingResult: null,
-      searchEngine: 'google',
+      searchEngine: 'chatgpt',
+      searchEngines: [
+        {
+          label: 'Google',
+          url: 'https://google.com/search?q=',
+        },
+        {
+          label: 'DuckDuckGo',
+          url: 'https://duckduckgo.com?q=',
+        },
+        {
+          label: 'Bing',
+          url: 'https://bing.com/search?q=',
+        },
+        {
+          label: 'Yahoo',
+          url: 'https://search.yahoo.com/search?p=',
+        },
+        {
+          label: 'Baidu',
+          url: 'https://baidu.com/s?wd=',
+        },
+        {
+          label: 'Yandex',
+          url: 'https://yandex.ru/search/?text=',
+        },
+        {
+          label: 'Startpage',
+          url: 'https://www.startpage.com/sp/search?query=',
+        },
+        {
+          label: 'Phind',
+          url: 'https://phind.com/search?q=',
+        },
+        {
+          label: 'Kagi',
+          url: 'https://kagi.com/search?q=',
+        },
+        {
+          label: 'Chatgpt',
+          url: 'https://chatgpt.com/?q=',
+        },
+      ],
       listingMode: 'normal',
       openLinksNewTab: true,
       firstSeenDate: Date.now(),
@@ -178,6 +224,16 @@ export const useUserPreferences = create(
           return false
         }
       },
+      addSearchEngine: (searchEngine: SearchEngineType) =>
+        set((state) => {
+          return { searchEngines: [...state.searchEngines, searchEngine] }
+        }),
+      removeSearchEngine: (searchEngineUrl: string) =>
+        set((state) => {
+          return {
+            searchEngines: state.searchEngines.filter((se) => se.url !== searchEngineUrl),
+          }
+        }),
     }),
     {
       name: 'preferences_storage',

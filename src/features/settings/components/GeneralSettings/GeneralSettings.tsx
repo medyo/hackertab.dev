@@ -1,25 +1,21 @@
 import React from 'react'
-import Select, { SingleValue } from 'react-select'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
 import { ChipsSet } from 'src/components/Elements'
 import { Footer } from 'src/components/Layout'
 import { SettingsContentLayout } from 'src/components/Layout/SettingsContentLayout'
-import { SUPPORTED_SEARCH_ENGINES, supportLink } from 'src/config'
 import {
   identifyUserLinksInNewTab,
   identifyUserListingMode,
   identifyUserMaxVisibleCards,
-  identifyUserSearchEngine,
   identifyUserTheme,
   trackListingModeSelect,
   trackMaxVisibleCardsChange,
-  trackSearchEngineSelect,
   trackTabTarget,
   trackThemeSelect,
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
-import { Option, SearchEngineType } from 'src/types'
+import { Option } from 'src/types'
 import { DNDSettings } from './DNDSettings'
 import './generalSettings.css'
 
@@ -33,18 +29,8 @@ export const GeneralSettings = () => {
     setTheme,
     setListingMode,
     setMaxVisibleCards,
-    setSearchEngine,
     setOpenLinksNewTab,
   } = useUserPreferences()
-  const onSearchEngineSelectChange = (value: SingleValue<SearchEngineType>) => {
-    if (!value) {
-      return
-    }
-
-    identifyUserSearchEngine(value.label)
-    trackSearchEngineSelect(value.label)
-    setSearchEngine(value.label)
-  }
 
   const onOpenLinksNewTabChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked
@@ -145,27 +131,8 @@ export const GeneralSettings = () => {
           </div>
         </div>
 
-        <div className="settingRow">
-          <p className="settingTitle">Favorite search engine</p>
-          <div className="settingContent">
-            <Select
-              options={SUPPORTED_SEARCH_ENGINES}
-              value={SUPPORTED_SEARCH_ENGINES.find((e) => e.label === searchEngine)}
-              isMulti={false}
-              isClearable={false}
-              isSearchable={false}
-              classNamePrefix={'hackertab'}
-              onChange={onSearchEngineSelectChange}
-            />
-            <p className="settingHint">
-              Missing a search engine? create an issue{' '}
-              <a href={supportLink} target="_blank" rel="noreferrer">
-                here
-              </a>
-            </p>
-          </div>
-        </div>
         <DNDSettings />
+
         <Footer />
       </div>
     </SettingsContentLayout>

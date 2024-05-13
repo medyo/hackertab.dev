@@ -1,19 +1,28 @@
 import clsx from 'clsx'
 import { useState } from 'react'
+import { IoIosClose } from 'react-icons/io'
 import { Option } from 'src/types'
 import './chipset.css'
 type ChipProps = {
   option: Option
   onSelect: (option: Option) => void
+  onRemove?: (option: Option) => void
   active: boolean
 }
 
-const Chip = ({ option, onSelect, active = false }: ChipProps) => {
+const Chip = ({ option, onSelect, onRemove, active = false }: ChipProps) => {
   return (
-    <button className={'chip ' + (active && 'active')} onClick={() => onSelect(option)}>
-      {option.icon && <span className="chipIcon">{option.icon}</span>}
-      {option.label}
-    </button>
+    <div className={'chip ' + (active && 'active')}>
+      <button onClick={() => onSelect(option)}>
+        {option.icon && <span className="chipIcon">{option.icon}</span>}
+        {option.label}
+      </button>
+      {option.removeable && onRemove && (
+        <button className="deleteButton" onClick={() => onRemove(option)}>
+          <IoIosClose className="icon" />
+        </button>
+      )}
+    </div>
   )
 }
 type ChangeAction = {
@@ -26,6 +35,7 @@ type ChipsSetProps = {
   defaultValues?: string[]
   canSelectMultiple?: boolean
   onChange?: (changes: ChangeAction, options: Option[]) => void
+  onRemove?: (option: Option) => void
 }
 
 export const ChipsSet = ({
@@ -33,6 +43,7 @@ export const ChipsSet = ({
   options,
   canSelectMultiple = false,
   onChange,
+  onRemove,
   defaultValues,
 }: ChipsSetProps) => {
   const [selectedChips, setSelectedChips] = useState<string[] | undefined>(defaultValues || [])
@@ -80,6 +91,7 @@ export const ChipsSet = ({
             key={option.value}
             option={option}
             onSelect={onSelect}
+            onRemove={onRemove}
             active={selectedChips?.some((chipValue) => chipValue === option.value) || false}
           />
         )
