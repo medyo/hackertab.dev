@@ -32,7 +32,7 @@ As a developer, it can be difficult to stay on top of everything happening in th
 - 🔖 Bookmark and read it later.
 - 🌙 Dark mode for when it gets late.
 - ✨ AI-powered recommendations exclusively tailored to your preferences.
-
+- 🧠 Chat GPT integration
 Even more features are going to come in the future!
 
 ## Data sources
