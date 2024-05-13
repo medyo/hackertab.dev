@@ -19,7 +19,7 @@ export const SearchBarWithLogo = () => {
       ) : (
         <img
           className={'searchEngineLogo ' + userSearchEngine.className}
-          src={`src/assets/${userSearchEngine.label.toLowerCase()}_logo.svg`}
+          src={`/searchengine_logos/${userSearchEngine.label.toLowerCase()}_logo.svg`}
         />
       )}
 

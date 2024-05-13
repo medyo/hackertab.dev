@@ -29,7 +29,7 @@ export const SearchEngineSettings = () => {
                 ) : (
                   <img
                     className="lang_icon"
-                    src={`src/assets/${engine.label.toLowerCase()}_logo.svg`}
+                    src={`/searchengine_logos/${engine.label.toLowerCase()}_logo.svg`}
                   />
                 ),
             }
