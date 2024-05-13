@@ -31,11 +31,7 @@ export const SearchBar = () => {
       ) : (
         <img
           className={'searchBarIcon'}
-          src={`src/assets/${usedSearchEngine.label.toLowerCase()}_logo.svg`}
-          onError={({ currentTarget }) => {
-            currentTarget.onerror = null
-            currentTarget.src = `src/assets/search_logo.svg`
-          }}
+          src={`/searchengine_logos/${usedSearchEngine.label.toLowerCase()}_logo.svg`}
         />
       )}
       <input
