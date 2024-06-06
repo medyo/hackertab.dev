@@ -49,10 +49,12 @@ export const SearchEngineSettings = () => {
         <hr />
         <>
           <header>
-            <h3 className="title">Add new Search Engine</h3>
-            <p className="description">
-              Can't find your favorite search engine? Add it here and it.
-            </p>
+            <div className="settingsHeader">
+              <h3 className="title">Add new Search Engine</h3>
+              <p className="description">
+                Can't find your favorite search engine? Add it here and it.
+              </p>
+            </div>
           </header>
           <AddSearchEngine />
         </>
