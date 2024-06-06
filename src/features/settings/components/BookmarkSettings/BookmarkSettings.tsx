@@ -1,5 +1,6 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { BiBookmarkMinus } from 'react-icons/bi'
+import { GrDocumentDownload, GrDocumentUpload } from 'react-icons/gr'
 import toast from 'react-simple-toasts'
 import { CardLink } from 'src/components/Elements'
 import { SettingsContentLayout } from 'src/components/Layout/SettingsContentLayout'
@@ -62,7 +63,7 @@ const BookmarkItem = ({ item, appendRef = false }: BookmarkItemProps) => {
 
 export const BookmarkSettings = () => {
   const inputFile = useRef<HTMLInputElement | null>(null)
-  const {initState, userBookmarks } = useBookmarks()
+  const { initState, userBookmarks } = useBookmarks()
 
   const importBookmarks = () => {
     inputFile.current?.click()
@@ -72,63 +73,66 @@ export const BookmarkSettings = () => {
     const blob = new Blob([JSON.stringify(userBookmarks, null, 2)], {
       type: 'application/json',
     })
-    const downloadURL = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = downloadURL;
-    link.download = "hackertabBookmarks";
-    link.click();
-    toast('Your bookmarks have been successfully exported', { theme: 'defaultToast' })
+    const downloadURL = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = downloadURL
+    link.download = 'hackertabBookmarks'
+    link.click()
   }
+
   const handleFileChange = (event: any) => {
-    const file = event.target.files?.[0];
+    const file = event.target.files?.[0]
     if (file) {
       const reader = new FileReader()
       reader.onload = () => {
-        const importData: BookmarkedPost[] = JSON.parse(reader.result as string);
-        const validatedData = importData.filter(
-          (data: BookmarkedPost) =>
-            data.title &&
-            data.url &&
-            !userBookmarks.some((bm) => bm.title === data.title && bm.url === data.url))
-        .map((data) => ({
+        const importData: BookmarkedPost[] = JSON.parse(reader.result as string)
+        const validatedData = importData
+          .filter(
+            (data: BookmarkedPost) =>
+              data.title &&
+              data.url &&
+              !userBookmarks.some((bm) => bm.title === data.title && bm.url === data.url)
+          )
+          .map((data) => ({
             title: data.title,
             url: data.url,
             source: data.source || '',
             sourceType: data.sourceType || '',
-        }));
+          }))
         initState({
           userBookmarks: [...userBookmarks, ...validatedData],
-        });
+        })
         toast('Your bookmarks have been successfully imported', { theme: 'defaultToast' })
       }
       reader.readAsText(file)
     }
   }
 
-
   return (
     <>
-      <div className="btn-group">
-        <div>
-          <input
-            type="file"
-            id="file"
-            ref={inputFile}
-            accept="application/json"
-            style={{ display: 'none' }}
-            onChange={handleFileChange}
-          />
-          <button className="notbtn btn" onClick={() => importBookmarks()}>
-            Import
-          </button>
-        </div>
-        <button className="notbtn btn" onClick={() => exportBookmarks()}>
-            Export
-        </button>
-      </div>
       <SettingsContentLayout
         title="Bookmarks"
-        description="Find all your bookmarks here. You can remove a bookmark by clicking on the remove icon.">
+        description="Find all your bookmarks here. You can remove a bookmark by clicking on the remove icon."
+        actions={
+          <>
+            <input
+              type="file"
+              id="file"
+              ref={inputFile}
+              accept="application/json"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+            <button className="extraBtn extraTextBtn" onClick={() => importBookmarks()}>
+              <GrDocumentUpload />
+              &nbsp;Import
+            </button>
+            <button className="extraBtn extraTextBtn" onClick={() => exportBookmarks()}>
+              <GrDocumentDownload />
+              &nbsp;Export
+            </button>
+          </>
+        }>
         <div className="bookmarks">
           {userBookmarks.map((bm) => (
             <BookmarkItem item={bm} key={bm.url} />
