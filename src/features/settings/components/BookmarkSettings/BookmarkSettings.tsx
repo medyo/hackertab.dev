@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { BiBookmarkMinus } from 'react-icons/bi'
-import { GrDocumentDownload, GrDocumentUpload } from 'react-icons/gr'
+import { RiFileDownloadFill, RiFileUploadFill } from 'react-icons/ri'
 import toast from 'react-simple-toasts'
 import { CardLink } from 'src/components/Elements'
 import { SettingsContentLayout } from 'src/components/Layout/SettingsContentLayout'
@@ -124,12 +124,11 @@ export const BookmarkSettings = () => {
               onChange={handleFileChange}
             />
             <button className="extraBtn extraTextBtn" onClick={() => importBookmarks()}>
-              <GrDocumentUpload />
+              <RiFileUploadFill />
               &nbsp;Import
             </button>
-            <button className="extraBtn extraTextBtn" onClick={() => exportBookmarks()}>
-              <GrDocumentDownload />
-              &nbsp;Export
+            <button className="extraBtn" onClick={() => exportBookmarks()}>
+              <RiFileDownloadFill />
             </button>
           </>
         }>
