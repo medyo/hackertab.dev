@@ -15,14 +15,41 @@ import { useUserPreferences } from 'src/stores/preferences'
 
 export const Header = () => {
   const [themeIcon, setThemeIcon] = useState(<BsMoonFill />)
-  const { theme, setTheme, setDNDDuration, isDNDModeActive } = useUserPreferences()
+  const { theme, setTheme, themePreferences, setThemePreferences, setDNDDuration, isDNDModeActive } = useUserPreferences()
   const { userBookmarks } = useBookmarks()
   const navigate = useNavigate()
   const location = useLocation()
 
+  // Check and update theme based on time
+  useEffect(() => {
+    const checkAutoTheme = () => {
+      if (themePreferences.mode === 'auto') {
+        const now = new Date()
+        const currentHour = now.getHours()
+        const { autoStartHour, autoEndHour } = themePreferences
+
+        // If start hour is less than end hour, dark mode is during the same day
+        // If start hour is greater than end hour, dark mode spans across midnight
+        const isDarkModeTime = autoStartHour <= autoEndHour
+          ? currentHour >= autoStartHour || currentHour < autoEndHour
+          : currentHour >= autoStartHour && currentHour < autoEndHour
+
+        const newTheme = isDarkModeTime ? 'dark' : 'light'
+        if (theme !== newTheme) {
+          setTheme(newTheme)
+          trackThemeSelect(newTheme)
+          identifyUserTheme(newTheme)
+        }
+      }
+    }
+
+    checkAutoTheme()
+    const interval = setInterval(checkAutoTheme, 60000) // Check every minute
+    return () => clearInterval(interval)
+  }, [themePreferences, theme, setTheme])
+
   useEffect(() => {
     document.documentElement.classList.add(theme)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -36,10 +63,20 @@ export const Header = () => {
   }, [theme])
 
   const onThemeChange = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark'
-    setTheme(newTheme)
-    trackThemeSelect(newTheme)
-    identifyUserTheme(newTheme)
+    if (themePreferences.mode === 'auto') {
+      // Switch to manual mode with toggled theme
+      setThemePreferences({ mode: 'manual' })
+      const newTheme = theme === 'dark' ? 'light' : 'dark'
+      setTheme(newTheme)
+      trackThemeSelect(newTheme)
+      identifyUserTheme(newTheme)
+    } else {
+      // Already in manual mode, just toggle theme
+      const newTheme = theme === 'dark' ? 'light' : 'dark'
+      setTheme(newTheme)
+      trackThemeSelect(newTheme)
+      identifyUserTheme(newTheme)
+    }
   }
 
   const onSettingsClick = () => {

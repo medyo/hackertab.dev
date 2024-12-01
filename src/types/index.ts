@@ -118,8 +118,15 @@ export type Option = {
 
 export type DNDDuration =
   | {
-      value: number
-      countdown: number
-    }
+    value: number
+    countdown: number
+  }
   | 'always'
   | 'never'
+
+export type ThemeMode = 'auto' | 'manual'
+export type ThemePreferences = {
+  mode: ThemeMode
+  autoStartHour: number // 24-hour format
+  autoEndHour: number // 24-hour format
+}

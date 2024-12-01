@@ -11,6 +11,7 @@ body {
   font-family: 'nunito';
   font-size: 100%;
 }
+
 .appError {
   justify-content: center;
   align-items: center;
@@ -329,6 +330,7 @@ a {
   height: 16px;
   width: 16px;
 }
+
 .blockHeaderBadge {
   width: auto;
   font-size: 12px;
@@ -343,6 +345,7 @@ a {
   text-transform: lowercase;
   color: white;
 }
+
 .blockHeaderIcon img {
   display: block;
 }
@@ -421,6 +424,7 @@ a {
 .blockRow:not(:last-child) {
   border-bottom: 1px solid var(--card-content-divider);
 }
+
 .rowCover {
   border-radius: 4px;
   display: block;
@@ -441,6 +445,7 @@ a {
   display: flex;
   flex-direction: row;
 }
+
 .rowLink {
   color: var(--primary-text-color);
   margin: 0;
@@ -454,10 +459,12 @@ a {
 .rowTitle:hover {
   color: var(--primary-hover-text-color);
 }
+
 .titleWithCover {
   display: block;
   width: 100%;
 }
+
 .dark .blockHeaderWhite {
   color: white;
 }
@@ -907,6 +914,7 @@ Producthunt item
   padding: 2px;
   color: var(--tag-background-color);
 }
+
 /*.searchBarIcon > svg {
   background-color: white;
   color: black;
@@ -926,9 +934,11 @@ Producthunt item
   width: 100%;
   background-color: var(--card-header-background-color);
 }
+
 .searchBarInput:focus {
   outline: none;
 }
+
 .tooltipLoading {
   display: flex;
   justify-content: center;
@@ -1012,6 +1022,63 @@ Producthunt item
 
 .scrollButton:hover {
   opacity: 1;
+}
+
+.settingsGroup {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: var(--bg-color-secondary);
+  border-radius: 8px;
+}
+
+.settingsGroupTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-color-primary);
+}
+
+.settingsGroupContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.settingItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.settingDescription {
+  font-size: 0.9rem;
+  color: var(--text-color-secondary);
+}
+
+.settingSelect {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color-primary);
+  color: var(--text-color-primary);
+  font-size: 0.9rem;
+  max-width: 300px;
+}
+
+.timeInputs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.timeInput {
+  width: 60px;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color-primary);
+  color: var(--text-color-primary);
+  font-size: 0.9rem;
 }
 
 /*****************
@@ -1274,9 +1341,7 @@ Producthunt item
   }
 
   .block {
-    width: calc(
-      (1800px - 20px * min(5, var(--max-visible-cards))) / min(5, var(--max-visible-cards))
-    );
+    width: calc((1800px - 20px * min(5, var(--max-visible-cards))) / min(5, var(--max-visible-cards)));
   }
 }
 
@@ -1314,7 +1379,7 @@ Producthunt item
   scroll-snap-type: y mandatory;
 }
 
-.layoutLayers > * {
+.layoutLayers>* {
   scroll-snap-align: end;
 }
 
@@ -1337,10 +1402,7 @@ Producthunt item
 }
 
 .preload * {
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
-  -ms-transition: none !important;
-  -o-transition: none !important;
+  transition: none !important;
 }
 
 .defaultToast {
@@ -1349,6 +1411,7 @@ Producthunt item
   color: var(--primary-text-color);
   border-radius: 10px;
 }
+
 .capitalize {
   text-transform: capitalize;
 }
