@@ -34,6 +34,7 @@ Modal
   align-self: flex-start;
   color: var(--primary-text-color);
 }
+
 .settingRow {
   padding: 10px 0;
   display: flex;
@@ -41,8 +42,13 @@ Modal
   align-items: center;
   justify-content: space-between;
 }
+
 .settingRow:not(:last-child) {
   border-bottom: 1px solid var(--card-content-divider);
+}
+
+.darkModeSettingRow>div:first-child {
+  width: 292px;
 }
 
 .settingContent .form {
@@ -86,30 +92,37 @@ Modal
   cursor: pointer;
   transition: opacity 0.2s linear;
 }
+
 .settingContent button:hover {
   opacity: 0.9;
 }
+
 .rssButton {
   background-color: #ee802f;
   color: white;
 }
+
 .rssButton:hover {
   opacity: 0.9;
 }
+
 .settingContent {
   width: 100%;
   flex: 1;
 }
+
 .settingHint {
   font-size: 12px;
   margin-top: 12px;
 }
+
 .settingHint a {
   text-decoration: underline;
   cursor: pointer;
   font-weight: 500;
   color: var(--primary-text-color);
 }
+
 .modalHeader {
   display: flex;
   flex-direction: row;
@@ -122,6 +135,7 @@ Modal
   padding: 0;
   color: var(--primary-text-color);
 }
+
 .modalCloseBtn {
   align-items: center;
   background-color: transparent;
@@ -137,8 +151,56 @@ Modal
   text-align: center;
   width: 40px;
 }
+
 .modalCloseBtn:hover {
   opacity: 0.7;
+}
+
+.timeInputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.timeInput {
+  width: 40px;
+  height: 28px;
+  padding: 2px 4px;
+  border: 1px solid var(--settings-input-border-color);
+  border-radius: 4px;
+  background: var(--settings-input-background-color);
+  color: var(--settings-input-text-color);
+  font-size: 13px;
+  text-align: center;
+}
+
+.timeInput:focus {
+  outline: none;
+  border-color: var(--settings-input-border-focus-color);
+}
+
+/* Style the spinners */
+.timeInput::-webkit-inner-spin-button {
+  opacity: 1;
+  background: transparent;
+  cursor: pointer;
+  height: 24px;
+}
+
+.timeInput::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.timeInput[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.timeInputs span {
+  color: var(--secondary-text-color);
+  font-size: 13px;
 }
 
 /**
@@ -148,27 +210,34 @@ Select styles
   background-color: var(--card-background-color) !important;
   border-color: var(--tag-border-color) !important;
 }
+
 .hackertab__indicator-separator {
   background-color: var(--tag-secondary-color) !important;
 }
+
 .hackertab__indicator {
   color: var(--tag-secondary-color) !important;
 }
+
 .hackertab__multi-value {
   background-color: var(--tag-background-color) !important;
   border-color: var(--tag-background-color) !important;
   border-radius: 20px !important;
 }
+
 .hackertab__multi-value__label {
   color: var(--tag-text-color) !important;
 }
+
 .hackertab__menu {
   background-color: var(--card-background-color) !important;
 }
+
 .hackertab__option {
   color: var(--tag-input-background) !important;
   background-color: var(--card-background-color) !important;
 }
+
 .hackertab__single-value {
   color: var(--primary-text-color) !important;
 }
@@ -177,9 +246,24 @@ Select styles
   background: var(--tag-background-color) !important;
   color: var(--tag-text-color) !important;
 }
+
 .hackertab__multi-value__remove {
   border-radius: 20px !important;
   color: var(--tag-secondary-color) !important;
+}
+
+.settingsGroup {
+  padding: 16px;
+  background-color: var(--card-background-color);
+  border: 1px solid var(--card-border-color);
+  border-radius: 8px;
+}
+
+.settingsGroupTitle {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--primary-text-color);
+  margin-bottom: 16px;
 }
 
 @media (max-width: 768px) {
@@ -195,9 +279,11 @@ Select styles
     box-shadow: none;
     width: auto;
   }
+
   .settingContent {
     margin-top: 6px;
   }
+
   .settingRow {
     flex-direction: column;
     align-items: flex-start;

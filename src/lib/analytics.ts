@@ -51,6 +51,7 @@ export enum Attributes {
   DIRECTION = 'Direction',
   SEARCH_ENGINE = 'Search Engine',
   THEME = 'Theme',
+  THEME_MODE = 'Theme Mode',
   LANGUAGE = 'Language',
   LANGUAGES = 'Languages',
   DATE_RANGE = 'Date Range',
@@ -152,6 +153,14 @@ export const trackThemeSelect = (theme: 'dark' | 'light') => {
     object: Objects.THEME,
     verb: Verbs.SELECT,
     attributes: { [Attributes.THEME]: theme },
+  })
+}
+
+export const trackThemeModeSelect = (mode: 'auto' | 'manual') => {
+  trackEvent({
+    object: Objects.THEME,
+    verb: Verbs.SELECT,
+    attributes: { [Attributes.THEME_MODE]: mode },
   })
 }
 

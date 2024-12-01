@@ -12,11 +12,13 @@ import {
   SelectedCard,
   SupportedCardType,
   Theme,
+  ThemePreferences
 } from '../types'
 
 export type UserPreferencesState = {
   userSelectedTags: Tag[]
   theme: Theme
+  themePreferences: ThemePreferences
   openLinksNewTab: boolean
   onboardingCompleted: boolean
   onboardingResult: Omit<Occupation, 'icon'> | null
@@ -48,6 +50,7 @@ type UserPreferencesStoreActions = {
   isDNDModeActive: () => boolean
   addSearchEngine: (searchEngine: SearchEngineType) => void
   removeSearchEngine: (searchEngineUrl: string) => void
+  setThemePreferences: (prefs: Partial<ThemePreferences>) => void
 }
 
 const defaultStorage: StateStorage = {
@@ -118,6 +121,11 @@ export const useUserPreferences = create(
       cardsSettings: {},
       maxVisibleCards: 4,
       theme: 'dark',
+      themePreferences: {
+        mode: 'manual',
+        autoStartHour: 19, // 7 PM
+        autoEndHour: 6, // 6 AM
+      },
       onboardingCompleted: false,
       onboardingResult: null,
       searchEngine: 'chatgpt',
@@ -176,7 +184,11 @@ export const useUserPreferences = create(
       DNDDuration: 'never',
       setSearchEngine: (searchEngine: string) => set({ searchEngine: searchEngine }),
       setListingMode: (listingMode: ListingMode) => set({ listingMode: listingMode }),
-      setTheme: (theme: Theme) => set({ theme: theme }),
+      setTheme: (theme: Theme) => set({ theme }),
+      setThemePreferences: (prefs: Partial<ThemePreferences>) =>
+        set((state) => ({
+          themePreferences: { ...state.themePreferences, ...prefs },
+        })),
       setOpenLinksNewTab: (openLinksNewTab: boolean) => set({ openLinksNewTab: openLinksNewTab }),
       setCards: (selectedCards: SelectedCard[]) => set({ cards: selectedCards }),
       setTags: (selectedTags: Tag[]) => set({ userSelectedTags: selectedTags }),
