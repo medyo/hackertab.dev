@@ -13,6 +13,7 @@ import {
   trackListingModeSelect,
   trackMaxVisibleCardsChange,
   trackTabTarget,
+  trackThemeModeSelect,
   trackThemeSelect,
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
@@ -58,6 +59,7 @@ export const GeneralSettings = () => {
 
   const onThemeModeChange = (mode: ThemeMode) => {
     setThemePreferences({ mode })
+    trackThemeModeSelect(mode)
     if (mode === 'auto') {
       // Immediately check and apply the correct theme based on time
       const now = new Date()
