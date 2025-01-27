@@ -40,6 +40,32 @@
   border-right: 4px solid var(--horizontal-tabs-layout-active-color);
   font-weight: bold;
 }
+.userCard {
+  width: auto;
+  background-color: var(--placeholder-background-color);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+}
+.userImage {
+  width: 60px;
+  height: 60px;
+  border-radius: 20%;
+}
+.userInfos {
+  width: auto;
+  margin-left: 10px;
+}
+.userName {
+  font-size: larger;
+  font-weight: 600;
+}
+.userEmail {
+  font-size: medium;
+  margin-top: 6px;
+}
 
 @media only screen and (max-width: 768px) {
   .horizontalTabsLayout {

@@ -1,7 +1,21 @@
 import React from 'react'
 import 'react-contexify/dist/ReactContexify.css'
 import { NavLink, Outlet } from 'react-router-dom'
+import { auth } from '../../../features/auth/api/Config'
 import './settings.css'
+
+const UserInfo = () => {
+  const userInfo = auth.currentUser
+  return (
+    <div className="userCard">
+      {userInfo?.photoURL && <img src={userInfo.photoURL} className="userImage"></img>}
+      <div className="userInfos">
+        <div className="userName">{userInfo?.displayName}</div>
+        <div className="userEmail">{userInfo?.email}</div>
+      </div>
+    </div>
+  )
+}
 
 export const SettingsLayout = () => {
   const navigation = [
@@ -28,6 +42,7 @@ export const SettingsLayout = () => {
   ]
   return (
     <div className="settings">
+      <UserInfo />
       <div className="horizontalTabsLayout">
         <nav className="navigation">
           {navigation.map((item) => {
