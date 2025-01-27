@@ -13,6 +13,7 @@
     "axios-cache-adapter": "^2.7.3",
     "country-emoji": "^1.5.4",
     "dompurify": "^2.2.7",
+    "firebase": "^11.2.0",
     "htmlparser2": "^8.0.1",
     "jsonpath": "^1.1.1",
     "normalize.css": "^8.0.1",

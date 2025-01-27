@@ -1,5 +1,8 @@
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { FaGithub, FaGoogle } from 'react-icons/fa'
 import ReactModal from 'react-modal'
+import toast from 'react-simple-toasts'
+import { auth, provider } from '../api/Config'
 
 type AuthModalProps = {
   showAuth: boolean
@@ -7,6 +10,20 @@ type AuthModalProps = {
 }
 
 export const AuthModal = ({ showAuth, setShowAuth }: AuthModalProps) => {
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result)
+        // TODO save this token in user settings maybe!
+        const token = credential.accessToken
+        // The signed-in user info.
+        const user = result.user
+        console.log(user)
+      })
+      .catch((error) => {
+        toast("We couldn't login to you Google account!!", { theme: 'failure' })
+      })
+  }
   return (
     <ReactModal
       isOpen={showAuth}
@@ -37,7 +54,11 @@ export const AuthModal = ({ showAuth, setShowAuth }: AuthModalProps) => {
             <FaGithub />
             Sign in with Github
           </button>
-          <button type="button" className="extraTextWithIconBtn" style={{ marginLeft: 10 }}>
+          <button
+            type="button"
+            className="extraTextWithIconBtn"
+            style={{ marginLeft: 10 }}
+            onClick={signInWithGoogle}>
             <FaGoogle />
             Sign in with Google
           </button>
