@@ -162,6 +162,24 @@ a {
   color: var(--dark-mode-text-color);
 }
 
+.extraTextWithIconBtn {
+  background-color: var(--button-background-color);
+  color: var(--button-text-color);
+  height: 40px;
+  width: auto;
+  padding: 0 16px;
+  min-width: 40px;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  border: 0;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
 .badgeCount {
   width: 20px;
   height: 20px;

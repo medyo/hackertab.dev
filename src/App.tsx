@@ -3,6 +3,7 @@ import { DNDLayout } from 'src/components/Layout'
 import { setupAnalytics, setupIdentification, trackPageView } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { AppContentLayout } from './components/Layout'
+import { AuthModal } from './features/auth'
 import { isWebOrExtensionVersion } from './utils/Environment'
 import { lazyImport } from './utils/lazyImport'
 const { OnboardingModal } = lazyImport(() => import('src/features/onboarding'), 'OnboardingModal')
@@ -19,6 +20,7 @@ const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
 
 export const App = () => {
   const [showOnboarding, setShowOnboarding] = useState(true)
+  const [showAuth, setshowAuth] = useState(true)
   const { onboardingCompleted, maxVisibleCards, isDNDModeActive, DNDDuration, setDNDDuration } =
     useUserPreferences()
 
@@ -61,6 +63,8 @@ export const App = () => {
       {!onboardingCompleted && isWebOrExtensionVersion() === 'extension' && (
         <OnboardingModal showOnboarding={showOnboarding} setShowOnboarding={setShowOnboarding} />
       )}
+
+      {<AuthModal showAuth={showAuth} setShowAuth={setshowAuth} />}
 
       <div className="layoutLayers hideScrollBar">
         {isDNDModeActive() && <DNDLayout />}
