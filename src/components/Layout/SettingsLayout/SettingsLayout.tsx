@@ -1,7 +1,7 @@
 import React from 'react'
 import 'react-contexify/dist/ReactContexify.css'
 import { NavLink, Outlet } from 'react-router-dom'
-import { auth } from '../../../features/auth/api/Config'
+import { auth } from 'src/features/auth'
 import './settings.css'
 
 const UserInfo = () => {
