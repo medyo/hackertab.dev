@@ -1,11 +1,26 @@
-import React from 'react'
+import { User } from 'firebase/auth'
+import React, { useEffect, useState } from 'react'
 import 'react-contexify/dist/ReactContexify.css'
 import { NavLink, Outlet } from 'react-router-dom'
+import toast from 'react-simple-toasts'
 import { auth } from 'src/features/auth'
 import './settings.css'
 
-const UserInfo = () => {
-  const userInfo = auth.currentUser
+interface UserInfoProps {
+  userInfo: User // Define the type of userInfo
+}
+
+const UserInfo = ({ userInfo }: UserInfoProps) => {
+  const logout = () => {
+    auth
+      .signOut()
+      .then((result) => {
+        toast('Account logged out successfuly', { theme: 'defaultToast' })
+      })
+      .catch((error) => {
+        toast('Failed to logged out, please try later !!', { theme: 'failure' })
+      })
+  }
   return (
     <div className="userCard">
       {userInfo?.photoURL && <img src={userInfo.photoURL} className="userImage"></img>}
@@ -13,11 +28,21 @@ const UserInfo = () => {
         <div className="userName">{userInfo?.displayName}</div>
         <div className="userEmail">{userInfo?.email}</div>
       </div>
+      <button className="logoutBtn" onClick={logout}>
+        Logout
+      </button>
     </div>
   )
 }
 
 export const SettingsLayout = () => {
+  const [user, setUser] = useState<User | null>(null)
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user)
+    })
+    return () => unsubscribe()
+  })
   const navigation = [
     {
       name: 'Topics',
@@ -42,7 +67,7 @@ export const SettingsLayout = () => {
   ]
   return (
     <div className="settings">
-      <UserInfo />
+      {user != null && <UserInfo userInfo={user} />}
       <div className="horizontalTabsLayout">
         <nav className="navigation">
           {navigation.map((item) => {
