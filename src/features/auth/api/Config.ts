@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth, GoogleAuthProvider } from 'firebase/auth'
+import { getAuth, GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth'
 
 // TODO This is a temporary firebase project config, to be changed later.
 const firebaseConfig = {
@@ -15,6 +15,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
-const provider = new GoogleAuthProvider()
+const googleProvider = new GoogleAuthProvider()
+const githubProvider = new GithubAuthProvider()
 
-export { auth, provider }
+export { auth, githubProvider, googleProvider }
