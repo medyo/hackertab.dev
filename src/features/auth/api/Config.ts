@@ -1,15 +1,14 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth, GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth'
 
-// TODO This is a temporary firebase project config, to be changed later.
 const firebaseConfig = {
-  apiKey: 'AIzaSyCpD2SbQnCCDjmAPasQ8q5jPcxf5lQLwYI',
-  authDomain: 'hackertab-418813.firebaseapp.com',
-  projectId: 'hackertab-418813',
-  storageBucket: 'hackertab-418813.firebasestorage.app',
-  messagingSenderId: '249160525821',
-  appId: '1:249160525821:web:e729de3eadc14d2242db94',
-  measurementId: 'G-NTMXFLMF00',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || '',
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || '',
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || '',
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || '',
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '',
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || '',
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || '',
 }
 
 // Initialize Firebase
