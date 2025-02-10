@@ -1,32 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import 'react-contexify/dist/ReactContexify.css'
 import { NavLink, Outlet } from 'react-router-dom'
-import toast from 'react-simple-toasts'
-import { auth } from 'src/features/auth'
-import { CurrentUser } from 'src/types'
+import { User } from 'src/features/auth/types'
+import { useAuth } from 'src/stores/user'
 import './settings.css'
 
 interface UserInfoProps {
-  userInfo: CurrentUser
+  user: User
 }
 
-const UserInfo = ({ userInfo }: UserInfoProps) => {
-  const logout = () => {
-    auth
-      .signOut()
-      .then((result) => {
-        toast('Account logged out successfuly', { theme: 'defaultToast' })
-      })
-      .catch((error) => {
-        toast('Failed to logged out, please try later !!', { theme: 'failure' })
-      })
-  }
+const UserInfo = ({ user }: UserInfoProps) => {
+  const { logout } = useAuth()
+
   return (
     <div className="userCard">
-      {userInfo?.imageURL && <img src={userInfo.imageURL} className="userImage"></img>}
+      {user?.imageURL && <img src={user.imageURL} className="userImage"></img>}
       <div className="userInfos">
-        <div className="userName">{userInfo?.name}</div>
-        <div className="userEmail">{userInfo?.email}</div>
+        <div className="userName">{user.name}</div>
+        <div className="userEmail">{user?.email}</div>
       </div>
       <button className="logoutBtn" onClick={logout}>
         Logout
@@ -36,22 +27,7 @@ const UserInfo = ({ userInfo }: UserInfoProps) => {
 }
 
 export const SettingsLayout = () => {
-  const [user, setUser] = useState<CurrentUser | null>(null)
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        const currentUser = {
-          name: user?.displayName || '',
-          email: user?.email || '',
-          imageUrl: user?.photoURL || '',
-        }
-        setUser(currentUser)
-      } else {
-        setUser(null)
-      }
-    })
-    return () => unsubscribe()
-  })
+  const { user } = useAuth()
   const navigation = [
     {
       name: 'Topics',
@@ -76,7 +52,7 @@ export const SettingsLayout = () => {
   ]
   return (
     <div className="settings">
-      {user != null && <UserInfo userInfo={user} />}
+      {user != null && <UserInfo user={user} />}
       <div className="horizontalTabsLayout">
         <nav className="navigation">
           {navigation.map((item) => {

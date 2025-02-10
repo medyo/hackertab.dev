@@ -123,9 +123,3 @@ export type DNDDuration =
     }
   | 'always'
   | 'never'
-
-export type CurrentUser = {
-  name: string
-  email: string
-  imageURL?: string
-}

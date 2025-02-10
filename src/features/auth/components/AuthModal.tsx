@@ -1,7 +1,8 @@
-import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { AuthProvider, OAuthProvider, signInWithPopup } from 'firebase/auth'
 import { FaGithub, FaGoogle } from 'react-icons/fa'
 import ReactModal from 'react-modal'
 import toast from 'react-simple-toasts'
+import { useAuth } from 'src/stores/user'
 import { auth, githubProvider, googleProvider } from '../api/Config'
 
 type AuthModalProps = {
@@ -10,33 +11,30 @@ type AuthModalProps = {
 }
 
 export const AuthModal = ({ showAuth, setShowAuth }: AuthModalProps) => {
-  const signInWithGoogle = () => {
-    signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result)
-        // TODO save this token in user settings maybe!
-        const token = credential.accessToken
-        // The signed-in user info.
-        const user = result.user
-        console.log(user)
-      })
-      .catch((error) => {
-        toast("We couldn't login to you Google account!!", { theme: 'failure' })
-      })
-  }
+  const { initState } = useAuth()
 
-  const signInWithGithub = () => {
-    signInWithPopup(auth, githubProvider)
+  const signIn = (provider: AuthProvider, providerName: string) => {
+    signInWithPopup(auth, provider)
       .then((result) => {
-        const credential = GithubAuthProvider.credentialFromResult(result)
-        // TODO save this token in user settings maybe!
-        const token = credential.accessToken
-        // The signed-in user info.
-        const user = result.user
-        console.log(user)
+        const credential = OAuthProvider.credentialFromResult(result)
+        const accessToken = credential?.accessToken
+        const email = result.user.displayName
+        const name = result.user.displayName
+        const imageURL = result.user.photoURL
+        if (accessToken && name && email && imageURL) {
+          initState({
+            accessToken: accessToken,
+            user: {
+              name: name,
+              email: email,
+              imageURL: imageURL,
+            },
+          })
+        }
       })
       .catch((error) => {
-        toast("We couldn't login to you Github account!!", { theme: 'failure' })
+        console.log(error)
+        toast(`We couldn't login to your ${providerName} account!!`, { theme: 'failure' })
       })
   }
 
@@ -66,14 +64,14 @@ export const AuthModal = ({ showAuth, setShowAuth }: AuthModalProps) => {
           </p>
         </div>
         <div>
-          <button className="extraTextWithIconBtn" onClick={signInWithGithub}>
+          <button className="extraTextWithIconBtn" onClick={() => signIn(githubProvider, 'Github')}>
             <FaGithub />
             Sign in with Github
           </button>
           <button
             className="extraTextWithIconBtn"
             style={{ marginLeft: 10 }}
-            onClick={signInWithGoogle}>
+            onClick={() => signIn(googleProvider, 'Google')}>
             <FaGoogle />
             Sign in with Google
           </button>
