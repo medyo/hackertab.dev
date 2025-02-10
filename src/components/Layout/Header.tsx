@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { BsFillBookmarksFill, BsFillGearFill, BsMoonFill } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
+import { FaUserLarge } from 'react-icons/fa6'
 import { IoMdSunny } from 'react-icons/io'
 import { MdDoDisturbOff } from 'react-icons/md'
 import { RxArrowLeft } from 'react-icons/rx'
@@ -8,12 +9,22 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
 import { SearchBar } from 'src/components/Elements/SearchBar'
 import { UserTags } from 'src/components/Elements/UserTags'
+import { AuthModal } from 'src/features/auth'
 import { Changelog } from 'src/features/changelog'
 import { identifyUserTheme, trackDNDDisable, trackThemeSelect } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
 import { useUserPreferences } from 'src/stores/preferences'
+import { useAuth } from 'src/stores/user'
 
 export const Header = () => {
+  const { user } = useAuth()
+  const [showAuth, setshowAuth] = useState(false)
+  useEffect(() => {
+    if (user != null) {
+      setshowAuth(false)
+    }
+  })
+
   const [themeIcon, setThemeIcon] = useState(<BsMoonFill />)
   const { theme, setTheme, setDNDDuration, isDNDModeActive } = useUserPreferences()
   const { userBookmarks } = useBookmarks()
@@ -63,6 +74,8 @@ export const Header = () => {
 
   return (
     <>
+      {<AuthModal showAuth={showAuth} setShowAuth={setshowAuth} />}
+
       <header className="AppHeader">
         <span className="AppName">
           <i className="logo">
@@ -96,6 +109,20 @@ export const Header = () => {
               <BookmarksBadgeCount />
             </>
           </Link>
+          {user != null ? (
+            <Link to="/settings/profile" className="extraBtn" aria-label="Open profile">
+              <img className="profileImage" src={user.imageURL} />
+            </Link>
+          ) : (
+            <button
+              aria-label="open login"
+              className="extraBtn"
+              onClick={() => {
+                setshowAuth(true)
+              }}>
+              <FaUserLarge />
+            </button>
+          )}
         </div>
         {location.pathname === '/' ? (
           <UserTags />

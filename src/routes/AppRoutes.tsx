@@ -12,6 +12,7 @@ const { SearchEngineSettings } = lazyImport(
 )
 const { BookmarkSettings } = lazyImport(() => import('src/features/settings'), 'BookmarkSettings')
 const { TopicSettings } = lazyImport(() => import('src/features/settings'), 'TopicSettings')
+const { ProfileSettings } = lazyImport(() => import('src/features/settings'), 'ProfileSettings')
 
 export const AppRoutes = () => {
   return (
@@ -19,6 +20,7 @@ export const AppRoutes = () => {
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/settings" element={<SettingsLayout />}>
+            <Route path="profile" element={<ProfileSettings />} />
             <Route path="bookmarks" element={<BookmarkSettings />} />
             <Route path="topics" element={<TopicSettings />} />
             <Route path="sources" element={<SourceSettings />} />

@@ -122,7 +122,7 @@ a {
 }
 
 .extras {
-  display: none;
+  display: flex;
   flex-direction: row;
   align-content: center;
   order: 2;
@@ -178,6 +178,12 @@ a {
   align-items: center;
   justify-content: center;
   gap: 6px;
+}
+
+.profileImage {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
 }
 
 .badgeCount {
@@ -1214,10 +1220,6 @@ Producthunt item
     flex-grow: 1;
     margin: 0 auto;
     position: relative;
-  }
-
-  .extras {
-    display: block;
   }
 
   .scrollButton {

@@ -1,68 +1,43 @@
 import { useRef } from 'react'
-import { BiBookmarkMinus } from 'react-icons/bi'
 import { RiFileDownloadFill, RiFileUploadFill } from 'react-icons/ri'
 import toast from 'react-simple-toasts'
-import { CardLink } from 'src/components/Elements'
 import { SettingsContentLayout } from 'src/components/Layout/SettingsContentLayout'
-import { SUPPORTED_CARDS } from 'src/config/supportedCards'
+import { User } from 'src/features/auth'
 import { BookmarkedPost } from 'src/features/bookmarks'
-import { Attributes, trackLinkUnBookmark } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
-import { useUserPreferences } from 'src/stores/preferences'
-import './bookmarkSettings.css'
+import { useAuth } from 'src/stores/user'
+import { BookmarkItem } from './BookmarkSettings'
+import './bookmarkSettings/bookmarkSettings.css'
 
-type BookmarkItemProps = {
-  item: BookmarkedPost
-  appendRef?: boolean
+interface UserInfoProps {
+  user: User
 }
 
-export const BookmarkItem = ({ item, appendRef = false }: BookmarkItemProps) => {
-  const { unbookmarkPost } = useBookmarks()
-  const { userCustomCards } = useUserPreferences()
+const UserInfo = ({ user }: UserInfoProps) => {
+  const { logout } = useAuth()
 
-  const AVAILABLE_CARDS = [...SUPPORTED_CARDS, ...userCustomCards]
-  const source = AVAILABLE_CARDS.find((card) => card.value === item.source)
-
-  const analyticsAttrs = {
-    [Attributes.TRIGERED_FROM]: 'bookmarks',
-    [Attributes.TITLE]: item.title,
-    [Attributes.LINK]: item.url,
-    [Attributes.SOURCE]: item.source,
-  }
-  const unBookmark = () => {
-    unbookmarkPost(item)
-    trackLinkUnBookmark(analyticsAttrs)
-    toast('Link removed from the bookmarks', { theme: 'defaultToast' })
-  }
   return (
-    <div className="bookmarkItem">
-      <CardLink
-        className="body"
-        link={item.url}
-        appendRef={appendRef}
-        analyticsAttributes={analyticsAttrs}>
-        <div className="title">{item.title}</div>
-        {source && (
-          <div className="source">
-            {source.type === 'supported' ? (
-              <span className="icon">{source.icon}</span>
-            ) : (
-              <img className="icon" src={source.icon as string} alt="" />
-            )}
-            <span>{source.label}</span>
-          </div>
-        )}
-      </CardLink>
+    <div className="userCard">
+      {user?.imageURL && <img src={user.imageURL} className="userImage"></img>}
+      <div className="userInfos">
+        <div className="userName">{user.name}</div>
+        <div className="userEmail">{user?.email}</div>
+      </div>
       <div className="actions">
-        <button className="btn" aria-label="Remove from bookmarks" onClick={unBookmark}>
-          <BiBookmarkMinus />
+        <button className="logoutBtn" onClick={logout}>
+          Logout
+        </button>
+        <button className="logoutBtn" onClick={() => {}}>
+          Delete account
         </button>
       </div>
     </div>
   )
 }
 
-export const BookmarkSettings = () => {
+export const ProfileSettings = () => {
+  const { user } = useAuth()
+
   const inputFile = useRef<HTMLInputElement | null>(null)
   const { initState, userBookmarks } = useBookmarks()
 
@@ -110,7 +85,8 @@ export const BookmarkSettings = () => {
   }
 
   return (
-    <>
+    <div className="container">
+      {user != null && <UserInfo user={user} />}
       <SettingsContentLayout
         title="Bookmarks"
         description="Find all your bookmarks here. You can remove a bookmark by clicking on the remove icon."
@@ -139,6 +115,6 @@ export const BookmarkSettings = () => {
           ))}
         </div>
       </SettingsContentLayout>
-    </>
+    </div>
   )
 }

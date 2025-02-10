@@ -9,13 +9,12 @@ type AuthState = {
 
 type AuthActions = {
   initState: (state: AuthState) => void
-  isLogged: () => boolean
   logout: () => void
 }
 
 export const useAuth = create(
   persist<AuthState & AuthActions>(
-    (set, get) => ({
+    (set) => ({
       accessToken: null,
       user: null,
       initState: (newState: AuthState) =>
@@ -23,7 +22,6 @@ export const useAuth = create(
           accessToken: newState.accessToken,
           user: newState.user,
         }),
-      isLogged: () => !!get().user,
       logout: () => set({ user: null }),
     }),
     {
