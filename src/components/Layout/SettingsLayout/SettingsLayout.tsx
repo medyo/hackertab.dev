@@ -1,13 +1,13 @@
-import { User } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
 import 'react-contexify/dist/ReactContexify.css'
 import { NavLink, Outlet } from 'react-router-dom'
 import toast from 'react-simple-toasts'
 import { auth } from 'src/features/auth'
+import { CurrentUser } from 'src/types'
 import './settings.css'
 
 interface UserInfoProps {
-  userInfo: User // Define the type of userInfo
+  userInfo: CurrentUser
 }
 
 const UserInfo = ({ userInfo }: UserInfoProps) => {
@@ -23,9 +23,9 @@ const UserInfo = ({ userInfo }: UserInfoProps) => {
   }
   return (
     <div className="userCard">
-      {userInfo?.photoURL && <img src={userInfo.photoURL} className="userImage"></img>}
+      {userInfo?.imageURL && <img src={userInfo.imageURL} className="userImage"></img>}
       <div className="userInfos">
-        <div className="userName">{userInfo?.displayName}</div>
+        <div className="userName">{userInfo?.name}</div>
         <div className="userEmail">{userInfo?.email}</div>
       </div>
       <button className="logoutBtn" onClick={logout}>
@@ -36,10 +36,19 @@ const UserInfo = ({ userInfo }: UserInfoProps) => {
 }
 
 export const SettingsLayout = () => {
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState<CurrentUser | null>(null)
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user)
+      if (user) {
+        const currentUser = {
+          name: user?.displayName || '',
+          email: user?.email || '',
+          imageUrl: user?.photoURL || '',
+        }
+        setUser(currentUser)
+      } else {
+        setUser(null)
+      }
     })
     return () => unsubscribe()
   })
