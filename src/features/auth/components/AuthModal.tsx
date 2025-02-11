@@ -2,7 +2,7 @@ import { AuthProvider, OAuthProvider, signInWithPopup } from 'firebase/auth'
 import { FaGithub, FaGoogle } from 'react-icons/fa'
 import ReactModal from 'react-modal'
 import toast from 'react-simple-toasts'
-import { useAuth } from 'src/stores/user'
+import { useAuth } from 'src/features/auth'
 import { auth, githubProvider, googleProvider } from '../api/Config'
 
 type AuthModalProps = {

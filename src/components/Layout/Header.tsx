@@ -9,12 +9,11 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
 import { SearchBar } from 'src/components/Elements/SearchBar'
 import { UserTags } from 'src/components/Elements/UserTags'
-import { AuthModal } from 'src/features/auth'
+import { AuthModal, useAuth } from 'src/features/auth'
 import { Changelog } from 'src/features/changelog'
 import { identifyUserTheme, trackDNDDisable, trackThemeSelect } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
 import { useUserPreferences } from 'src/stores/preferences'
-import { useAuth } from 'src/stores/user'
 
 export const Header = () => {
   const { user } = useAuth()

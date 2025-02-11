@@ -9,10 +9,10 @@ type AuthState = {
 
 type AuthActions = {
   initState: (state: AuthState) => void
-  logout: () => void
+  clear: () => void
 }
 
-export const useAuth = create(
+export const AuthStore = create(
   persist<AuthState & AuthActions>(
     (set) => ({
       accessToken: null,
@@ -22,7 +22,7 @@ export const useAuth = create(
           accessToken: newState.accessToken,
           user: newState.user,
         }),
-      logout: () => set({ user: null }),
+      clear: () => set({ user: null }),
     }),
     {
       name: 'auth-storage', // key in localStorage
