@@ -4,11 +4,12 @@ import { useBookmarks } from 'src/stores/bookmarks'
 export const useAuth = () => {
   const authStore = AuthStore()
   const bookmarksStore = useBookmarks()
-  const { initState, accessToken, user } = authStore
+  const { isAuthShowing, accessToken, user, setIsAuthShowing, initState } = authStore
+  const isConnected = () => user != null
   const logout = () => {
     bookmarksStore.clear()
     authStore.clear()
   }
 
-  return { initState, logout, accessToken, user }
+  return { setIsAuthShowing, initState, isConnected, logout, isAuthShowing, accessToken, user }
 }

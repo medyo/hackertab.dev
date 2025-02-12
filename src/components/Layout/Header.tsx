@@ -9,20 +9,14 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
 import { SearchBar } from 'src/components/Elements/SearchBar'
 import { UserTags } from 'src/components/Elements/UserTags'
-import { AuthModal, useAuth } from 'src/features/auth'
+import { useAuth } from 'src/features/auth'
 import { Changelog } from 'src/features/changelog'
 import { identifyUserTheme, trackDNDDisable, trackThemeSelect } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
 import { useUserPreferences } from 'src/stores/preferences'
 
 export const Header = () => {
-  const { user } = useAuth()
-  const [showAuth, setshowAuth] = useState(false)
-  useEffect(() => {
-    if (user != null) {
-      setshowAuth(false)
-    }
-  })
+  const { setIsAuthShowing, user, isConnected } = useAuth()
 
   const [themeIcon, setThemeIcon] = useState(<BsMoonFill />)
   const { theme, setTheme, setDNDDuration, isDNDModeActive } = useUserPreferences()
@@ -73,8 +67,6 @@ export const Header = () => {
 
   return (
     <>
-      {<AuthModal showAuth={showAuth} setShowAuth={setshowAuth} />}
-
       <header className="AppHeader">
         <span className="AppName">
           <i className="logo">
@@ -108,16 +100,16 @@ export const Header = () => {
               <BookmarksBadgeCount />
             </>
           </Link>
-          {user != null ? (
-            <Link to="/settings/profile" className="extraBtn" aria-label="Open profile">
-              <img className="profileImage" src={user.imageURL} />
+          {isConnected() ? (
+            <Link to="/settings/profile" aria-label="Open profile">
+              <img className="profileImage" src={user?.imageURL} />
             </Link>
           ) : (
             <button
               aria-label="open login"
               className="extraBtn"
               onClick={() => {
-                setshowAuth(true)
+                setIsAuthShowing(true)
               }}>
               <FaUserLarge />
             </button>
