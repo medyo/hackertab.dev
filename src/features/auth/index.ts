@@ -1,4 +1,3 @@
-export * from './api/FirebaseConfig'
 export * from './components/AuthModal'
 export * from './hooks/useAuth'
 export * from './stores/authStore'

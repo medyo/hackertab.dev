@@ -3,7 +3,7 @@ import { FaGithub, FaGoogle } from 'react-icons/fa'
 import ReactModal from 'react-modal'
 import toast from 'react-simple-toasts'
 import { useAuth } from 'src/features/auth'
-import { auth, githubProvider, googleProvider } from '../api/FirebaseConfig'
+import { firebaseAuth, githubAuthProvider, googleAuthProvider } from 'src/lib/firebase'
 
 type AuthModalProps = {
   showAuth: boolean
@@ -14,17 +14,17 @@ export const AuthModal = ({ showAuth, closeModal }: AuthModalProps) => {
   const { closeAuthModal, initState } = useAuth()
 
   const signIn = (provider: AuthProvider, providerName: string) => {
-    signInWithPopup(auth, provider)
+    signInWithPopup(firebaseAuth, provider)
       .then((result) => {
         const credential = OAuthProvider.credentialFromResult(result)
-        const accessToken = credential?.accessToken
+        const idToken = credential?.idToken
         const email = result.user.displayName
         const name = result.user.displayName
         const imageURL = result.user.photoURL
-        if (accessToken && name && email && imageURL) {
+        if (idToken && name && email && imageURL) {
           closeAuthModal()
           initState({
-            accessToken: accessToken,
+            idToken: idToken,
             user: {
               name: name,
               email: email,
@@ -65,14 +65,16 @@ export const AuthModal = ({ showAuth, closeModal }: AuthModalProps) => {
           </p>
         </div>
         <div>
-          <button className="extraTextWithIconBtn" onClick={() => signIn(githubProvider, 'Github')}>
+          <button
+            className="extraTextWithIconBtn"
+            onClick={() => signIn(githubAuthProvider, 'Github')}>
             <FaGithub />
             Sign in with Github
           </button>
           <button
             className="extraTextWithIconBtn"
             style={{ marginLeft: 10 }}
-            onClick={() => signIn(googleProvider, 'Google')}>
+            onClick={() => signIn(googleAuthProvider, 'Google')}>
             <FaGoogle />
             Sign in with Google
           </button>

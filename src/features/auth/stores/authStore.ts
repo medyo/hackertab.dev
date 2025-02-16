@@ -9,7 +9,7 @@ interface AuthModalState {
 }
 
 type AuthState = {
-  accessToken: string | null
+  idToken: string | null
   user: User | null
 }
 
@@ -27,11 +27,11 @@ export const AuthModalStore = create<AuthModalState>((set) => ({
 export const AuthStore = create(
   persist<AuthState & AuthActions>(
     (set) => ({
-      accessToken: null,
+      idToken: null,
       user: null,
       initState: (newState: AuthState) =>
         set({
-          accessToken: newState.accessToken,
+          idToken: newState.idToken,
           user: newState.user,
         }),
       clear: () => set({ user: null }),
