@@ -7,11 +7,11 @@ import { auth, githubProvider, googleProvider } from '../api/Config'
 
 type AuthModalProps = {
   showAuth: boolean
-  setShowAuth: (show: boolean) => void
+  closeModal: () => void
 }
 
-export const AuthModal = ({ showAuth, setShowAuth }: AuthModalProps) => {
-  const { initState } = useAuth()
+export const AuthModal = ({ showAuth, closeModal }: AuthModalProps) => {
+  const { closeAuthModal, initState } = useAuth()
 
   const signIn = (provider: AuthProvider, providerName: string) => {
     signInWithPopup(auth, provider)
@@ -22,6 +22,7 @@ export const AuthModal = ({ showAuth, setShowAuth }: AuthModalProps) => {
         const name = result.user.displayName
         const imageURL = result.user.photoURL
         if (accessToken && name && email && imageURL) {
+          closeAuthModal()
           initState({
             accessToken: accessToken,
             user: {
@@ -45,7 +46,7 @@ export const AuthModal = ({ showAuth, setShowAuth }: AuthModalProps) => {
       shouldCloseOnEsc={true}
       shouldCloseOnOverlayClick={true}
       shouldFocusAfterRender={false}
-      onRequestClose={() => setShowAuth(false)}
+      onRequestClose={closeModal}
       contentLabel="Auth"
       className="Modal scrollable"
       style={{

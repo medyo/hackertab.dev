@@ -22,7 +22,7 @@ export const App = () => {
   const [showOnboarding, setShowOnboarding] = useState(true)
   const { onboardingCompleted, maxVisibleCards, isDNDModeActive, DNDDuration, setDNDDuration } =
     useUserPreferences()
-  const { isAuthShowing, setIsAuthShowing, isConnected } = useAuth()
+  const { isAuthModalOpen, closeAuthModal } = useAuth()
 
   useLayoutEffect(() => {
     document.documentElement.style.setProperty('--max-visible-cards', maxVisibleCards.toString())
@@ -64,7 +64,7 @@ export const App = () => {
         <OnboardingModal showOnboarding={showOnboarding} setShowOnboarding={setShowOnboarding} />
       )}
 
-      {!isConnected() && <AuthModal showAuth={isAuthShowing} setShowAuth={setIsAuthShowing} />}
+      {<AuthModal showAuth={isAuthModalOpen} closeModal={closeAuthModal} />}
 
       <div className="layoutLayers hideScrollBar">
         {isDNDModeActive() && <DNDLayout />}

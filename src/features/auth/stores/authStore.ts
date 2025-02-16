@@ -2,25 +2,33 @@ import { User } from 'src/features/auth/types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
+interface AuthModalState {
+  isAuthModalOpen: boolean
+  openAuthModal: () => void
+  closeAuthModal: () => void
+}
+
 type AuthState = {
-  isAuthShowing: boolean
   accessToken: string | null
   user: User | null
 }
 
 type AuthActions = {
-  setIsAuthShowing: (showing: boolean) => void
   initState: (state: AuthState) => void
   clear: () => void
 }
 
+export const AuthModalStore = create<AuthModalState>((set) => ({
+  isAuthModalOpen: false,
+  openAuthModal: () => set({ isAuthModalOpen: true }),
+  closeAuthModal: () => set({ isAuthModalOpen: false }),
+}))
+
 export const AuthStore = create(
   persist<AuthState & AuthActions>(
     (set) => ({
-      isAuthShowing: true,
       accessToken: null,
       user: null,
-      setIsAuthShowing: (showing: boolean) => set({ isAuthShowing: showing }),
       initState: (newState: AuthState) =>
         set({
           accessToken: newState.accessToken,

@@ -16,7 +16,7 @@ import { useBookmarks } from 'src/stores/bookmarks'
 import { useUserPreferences } from 'src/stores/preferences'
 
 export const Header = () => {
-  const { setIsAuthShowing, user, isConnected } = useAuth()
+  const { openAuthModal, user, isConnected } = useAuth()
 
   const [themeIcon, setThemeIcon] = useState(<BsMoonFill />)
   const { theme, setTheme, setDNDDuration, isDNDModeActive } = useUserPreferences()
@@ -105,12 +105,7 @@ export const Header = () => {
               <img className="profileImage" src={user?.imageURL} />
             </Link>
           ) : (
-            <button
-              aria-label="open login"
-              className="extraBtn"
-              onClick={() => {
-                setIsAuthShowing(true)
-              }}>
+            <button aria-label="open login" className="extraBtn" onClick={openAuthModal}>
               <FaUserLarge />
             </button>
           )}
