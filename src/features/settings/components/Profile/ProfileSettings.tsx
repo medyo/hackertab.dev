@@ -5,8 +5,8 @@ import { SettingsContentLayout } from 'src/components/Layout/SettingsContentLayo
 import { useAuth, User } from 'src/features/auth'
 import { BookmarkedPost } from 'src/features/bookmarks'
 import { useBookmarks } from 'src/stores/bookmarks'
-import { BookmarkItem } from './BookmarkSettings'
-import './bookmarkSettings/bookmarkSettings.css'
+import { BookmarkItem } from '../BookmarkSettings'
+import './profileSettings.css'
 
 interface UserInfoProps {
   user: User
@@ -84,7 +84,7 @@ export const ProfileSettings = () => {
   }
 
   return (
-    <div className="container">
+    <div className="profile">
       {user != null && <UserInfo user={user} />}
       <SettingsContentLayout
         title="Bookmarks"

@@ -1,6 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { DNDLayout } from 'src/components/Layout'
-import { AuthModal, useAuth } from 'src/features/auth'
 import { setupAnalytics, setupIdentification, trackPageView } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { AppContentLayout } from './components/Layout'
@@ -22,7 +21,6 @@ export const App = () => {
   const [showOnboarding, setShowOnboarding] = useState(true)
   const { onboardingCompleted, maxVisibleCards, isDNDModeActive, DNDDuration, setDNDDuration } =
     useUserPreferences()
-  const { isAuthModalOpen, closeAuthModal } = useAuth()
 
   useLayoutEffect(() => {
     document.documentElement.style.setProperty('--max-visible-cards', maxVisibleCards.toString())
@@ -63,8 +61,6 @@ export const App = () => {
       {!onboardingCompleted && isWebOrExtensionVersion() === 'extension' && (
         <OnboardingModal showOnboarding={showOnboarding} setShowOnboarding={setShowOnboarding} />
       )}
-
-      {<AuthModal showAuth={isAuthModalOpen} closeModal={closeAuthModal} />}
 
       <div className="layoutLayers hideScrollBar">
         {isDNDModeActive() && <DNDLayout />}
