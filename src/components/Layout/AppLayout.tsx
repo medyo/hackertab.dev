@@ -16,7 +16,7 @@ export const AppLayout = () => {
 
       <div className="App">
         <Header />
-        <AuthModal showAuth={isAuthModalOpen} closeModal={closeAuthModal} />
+        <AuthModal showAuth={isAuthModalOpen} />
         <React.Suspense
           fallback={
             <div className="appLoading">

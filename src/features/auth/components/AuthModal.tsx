@@ -1,16 +1,18 @@
 import { AuthProvider, OAuthProvider, signInWithPopup } from 'firebase/auth'
-import { FaGithub, FaGoogle } from 'react-icons/fa'
+import { FaGithub, FaHeart } from 'react-icons/fa'
+import { FcGoogle } from 'react-icons/fc'
+import { IoMdClose } from 'react-icons/io'
 import ReactModal from 'react-modal'
 import toast from 'react-simple-toasts'
 import { useAuth } from 'src/features/auth'
 import { firebaseAuth, githubAuthProvider, googleAuthProvider } from 'src/lib/firebase'
+import './authModal.css'
 
 type AuthModalProps = {
   showAuth: boolean
-  closeModal: () => void
 }
 
-export const AuthModal = ({ showAuth, closeModal }: AuthModalProps) => {
+export const AuthModal = ({ showAuth }: AuthModalProps) => {
   const { closeAuthModal, initState } = useAuth()
 
   const signIn = (provider: AuthProvider, providerName: string) => {
@@ -46,40 +48,41 @@ export const AuthModal = ({ showAuth, closeModal }: AuthModalProps) => {
       shouldCloseOnEsc={true}
       shouldCloseOnOverlayClick={true}
       shouldFocusAfterRender={false}
-      onRequestClose={closeModal}
+      onRequestClose={closeAuthModal}
       contentLabel="Auth"
-      className="Modal scrollable"
+      className="Modal authModal"
       style={{
         overlay: {
           zIndex: 3,
         },
       }}
       overlayClassName="Overlay">
-      <div>
-        <div>
-          <h1>Welcome to Hackertab</h1>
-          <p>
-            To enhance your experience and unlock our new rewards system, we’ve introduced a simple
-            and secure way to sign in. Connect your account with GitHub or Google to start earning
-            rewards, save your progress, and enjoy personalized features.
-          </p>
-        </div>
-        <div>
-          <button
-            className="extraTextWithIconBtn"
-            onClick={() => signIn(githubAuthProvider, 'Github')}>
-            <FaGithub />
-            Sign in with Github
-          </button>
-          <button
-            className="extraTextWithIconBtn"
-            style={{ marginLeft: 10 }}
-            onClick={() => signIn(googleAuthProvider, 'Google')}>
-            <FaGoogle />
-            Sign in with Google
-          </button>
-        </div>
+      <div className="titleAndCloseBtn">
+        <h3>
+          <FaHeart /> Join the community
+        </h3>
+        <button className="extraBtn" onClick={closeAuthModal}>
+          <IoMdClose />
+        </button>
       </div>
+      <div className="buttons">
+        <button
+          className="extraTextWithIconBtn"
+          onClick={() => signIn(githubAuthProvider, 'Github')}>
+          <FaGithub />
+          Connect with Github
+        </button>
+        <button
+          className="extraTextWithIconBtn"
+          onClick={() => signIn(googleAuthProvider, 'Google')}>
+          <FcGoogle />
+          Connect with Google
+        </button>
+      </div>
+      <p className="description">
+        We use your account to save your settings and track streaks for rowards 🎁 ... or risk
+        losing them like unusaved code!
+      </p>
     </ReactModal>
   )
 }

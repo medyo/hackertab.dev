@@ -1,0 +1,25 @@
+.authModal {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  overflow-y: hidden;
+}
+
+.authModal .titleAndCloseBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.authModal .buttons {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  margin: auto;
+}
+
+.authModal .description {
+  margin: 20px 100px;
+  text-align: center;
+}
