@@ -5,6 +5,7 @@ import { IoMdClose } from 'react-icons/io'
 import ReactModal from 'react-modal'
 import toast from 'react-simple-toasts'
 import { useAuth } from 'src/features/auth'
+import { trackUserConnect } from 'src/lib/analytics'
 import { firebaseAuth, githubAuthProvider, googleAuthProvider } from 'src/lib/firebase'
 import './authModal.css'
 
@@ -24,6 +25,7 @@ export const AuthModal = ({ showAuth }: AuthModalProps) => {
         const name = result.user.displayName
         const imageURL = result.user.photoURL
         if (idToken && name && email && imageURL) {
+          trackUserConnect(providerName)
           closeAuthModal()
           initState({
             idToken: idToken,

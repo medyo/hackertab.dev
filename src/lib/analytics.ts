@@ -44,6 +44,8 @@ enum Verbs {
   DISABLE = 'Disable',
   SHARE = 'Share',
   COPY = 'Copy',
+  CONNECT = 'Connect',
+  DISCONNECT = 'Disconnect',
 }
 
 export enum Attributes {
@@ -373,6 +375,21 @@ export const trackLinkCopy = ({
       [Attributes.TITLE]: title,
       [Attributes.SOURCE]: source,
     },
+  })
+}
+
+export const trackUserConnect = (provider: string) => {
+  trackEvent({
+    object: Objects.USER,
+    verb: Verbs.CONNECT,
+    attributes: { [Attributes.PROVIDER]: provider },
+  })
+}
+
+export const trackUserDisconnect = () => {
+  trackEvent({
+    object: Objects.USER,
+    verb: Verbs.DISCONNECT,
   })
 }
 
