@@ -1,7 +1,8 @@
-.authModal {
-  width: 400px;
+@media (min-width: 768px) {
+  .authModal {
+    width: 400px;
+  }
 }
-
 .authModal .header {
   text-align: center;
   justify-content: center;
