@@ -1406,29 +1406,37 @@ Modal
 .modalHeader {
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 16px;
+  position: relative;
 }
 
 .modalTitle {
   margin: 0;
   padding: 0;
   color: var(--primary-text-color);
+  font-size: 1.3em;
+  display: inline-flex;
+  width: 100%;
+  column-gap: 8px;
+  align-items: center;
 }
 .modalCloseBtn {
   align-items: center;
+  position: absolute;
   background-color: transparent;
   border-radius: 50%;
+  top: 0;
+  right: 0;
   border: none;
   color: var(--primary-text-color);
   cursor: pointer;
   display: flex;
-  height: 40px;
   justify-content: center;
   margin: 0;
   padding: 0;
   text-align: center;
-  width: 40px;
 }
 .modalCloseBtn:hover {
   opacity: 0.7;

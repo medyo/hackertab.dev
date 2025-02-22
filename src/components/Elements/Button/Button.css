@@ -22,8 +22,8 @@ button.small {
   font-size: 0.875rem;
 }
 button.medium {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
+  padding: 0.75rem 1.2rem;
+  font-size: 1.1rem;
 }
 button.large {
   padding: 1rem 2rem;

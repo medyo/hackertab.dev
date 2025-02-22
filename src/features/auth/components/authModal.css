@@ -1,25 +1,23 @@
 .authModal {
-  display: flex;
-  flex-direction: column;
-  row-gap: 30px;
-  overflow-y: hidden;
+  width: 400px;
 }
 
-.authModal .titleAndCloseBtn {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+.authModal .header {
+  text-align: center;
+  justify-content: center;
 }
-
 .authModal .buttons {
-  display: flex;
+  display: inline-flex;
+  align-items: center;
+  justify-items: center;
   flex-direction: column;
   row-gap: 16px;
-  margin: auto;
+  width: 100%;
+  margin: 0 0 20px 0;
 }
 
 .authModal .description {
-  margin: 20px 100px;
+  padding: 20px;
   text-align: center;
+  font-size: 1em;
 }

@@ -1,10 +1,9 @@
 import { AuthProvider, OAuthProvider, signInWithPopup } from 'firebase/auth'
-import { FaGithub, FaHeart } from 'react-icons/fa'
+import { FaGithub } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
-import { IoMdClose } from 'react-icons/io'
-import ReactModal from 'react-modal'
+import { IoHeartCircle } from 'react-icons/io5'
 import toast from 'react-simple-toasts'
-import { Button } from 'src/components/Elements'
+import { Button, Modal } from 'src/components/Elements'
 import { useAuth } from 'src/features/auth'
 import { trackUserConnect } from 'src/lib/analytics'
 import { firebaseAuth, githubAuthProvider, googleAuthProvider } from 'src/lib/firebase'
@@ -45,51 +44,32 @@ export const AuthModal = ({ showAuth }: AuthModalProps) => {
   }
 
   return (
-    <ReactModal
-      isOpen={showAuth}
-      ariaHideApp={false}
-      shouldCloseOnEsc={true}
-      shouldCloseOnOverlayClick={true}
-      shouldFocusAfterRender={false}
-      onRequestClose={closeAuthModal}
-      contentLabel="Auth"
-      className="Modal authModal"
-      style={{
-        overlay: {
-          zIndex: 3,
-        },
+    <Modal
+      showModal={showAuth}
+      onClose={closeAuthModal}
+      header={{
+        className: 'header',
+        title: 'Join Hackertab',
+        icon: <IoHeartCircle style={{ fontSize: '1.2em' }} />,
       }}
-      overlayClassName="Overlay">
-      <div className="authModal">
-        <div className="titleAndCloseBtn">
-          <h3>
-            <FaHeart /> Join the community
-          </h3>
-          <button className="extraBtn" onClick={closeAuthModal}>
-            <IoMdClose />
-          </button>
-        </div>
+      className="authModal">
+      <div>
+        <p className="description">Create an account to sync, save bookmarks, and earn rewards.</p>
         <div className="buttons">
           <Button
-            startIcon={<FaGithub style={{ fontSize: '1.6em' }} />}
+            startIcon={<FaGithub className="blockHeaderWhite" style={{ fontSize: '1.5em' }} />}
             onClick={() => signIn(githubAuthProvider)}
-            className="blockHeaderWhite"
             size="medium">
             Connect with Github
           </Button>
-
           <Button
-            startIcon={<FcGoogle style={{ fontSize: '1.6em' }} />}
+            startIcon={<FcGoogle style={{ fontSize: '1.5em' }} />}
             onClick={() => signIn(googleAuthProvider)}
             size="medium">
             Connect with Google
           </Button>
         </div>
-        <p className="description">
-          We use your account to save your settings and track streaks for rowards 🎁 ... or risk
-          losing them like unusaved code!
-        </p>
       </div>
-    </ReactModal>
+    </Modal>
   )
 }
