@@ -17,7 +17,7 @@ type AuthModalProps = {
 export const AuthModal = ({ showAuth }: AuthModalProps) => {
   const { closeAuthModal, initState } = useAuth()
 
-  const signIn = (provider: AuthProvider, providerName: string) => {
+  const signIn = (provider: AuthProvider) => {
     signInWithPopup(firebaseAuth, provider)
       .then((result) => {
         const credential = OAuthProvider.credentialFromResult(result)
@@ -26,7 +26,7 @@ export const AuthModal = ({ showAuth }: AuthModalProps) => {
         const name = result.user.displayName
         const imageURL = result.user.photoURL
         if (idToken && name && email && imageURL) {
-          trackUserConnect(providerName)
+          trackUserConnect(provider.providerId)
           closeAuthModal()
           initState({
             idToken: idToken,
@@ -40,7 +40,7 @@ export const AuthModal = ({ showAuth }: AuthModalProps) => {
       })
       .catch((error) => {
         console.log(error)
-        toast(`We couldn't login to your ${providerName} account!!`, { theme: 'failure' })
+        toast(`We couldn't login to your ${provider.providerId} account!!`, { theme: 'failure' })
       })
   }
 
@@ -70,17 +70,11 @@ export const AuthModal = ({ showAuth }: AuthModalProps) => {
           </button>
         </div>
         <div className="buttons">
-          <Button
-            startIcon={<FaGithub />}
-            onClick={() => signIn(githubAuthProvider, 'Github')}
-            size="large">
+          <Button startIcon={<FaGithub />} onClick={() => signIn(githubAuthProvider)} size="large">
             Connect with Github
           </Button>
 
-          <Button
-            startIcon={<FcGoogle />}
-            onClick={() => signIn(googleAuthProvider, 'Google')}
-            size="large">
+          <Button startIcon={<FcGoogle />} onClick={() => signIn(googleAuthProvider)} size="large">
             Connect with Google
           </Button>
         </div>
