@@ -4,6 +4,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { IoMdClose } from 'react-icons/io'
 import ReactModal from 'react-modal'
 import toast from 'react-simple-toasts'
+import { Button } from 'src/components/Elements'
 import { useAuth } from 'src/features/auth'
 import { trackUserConnect } from 'src/lib/analytics'
 import { firebaseAuth, githubAuthProvider, googleAuthProvider } from 'src/lib/firebase'
@@ -59,32 +60,35 @@ export const AuthModal = ({ showAuth }: AuthModalProps) => {
         },
       }}
       overlayClassName="Overlay">
-      <div className="titleAndCloseBtn">
-        <h3>
-          <FaHeart /> Join the community
-        </h3>
-        <button className="extraBtn" onClick={closeAuthModal}>
-          <IoMdClose />
-        </button>
+      <div className="authModal">
+        <div className="titleAndCloseBtn">
+          <h3>
+            <FaHeart /> Join the community
+          </h3>
+          <button className="extraBtn" onClick={closeAuthModal}>
+            <IoMdClose />
+          </button>
+        </div>
+        <div className="buttons">
+          <Button
+            startIcon={<FaGithub />}
+            onClick={() => signIn(githubAuthProvider, 'Github')}
+            size="large">
+            Connect with Github
+          </Button>
+
+          <Button
+            startIcon={<FcGoogle />}
+            onClick={() => signIn(googleAuthProvider, 'Google')}
+            size="large">
+            Connect with Google
+          </Button>
+        </div>
+        <p className="description">
+          We use your account to save your settings and track streaks for rowards 🎁 ... or risk
+          losing them like unusaved code!
+        </p>
       </div>
-      <div className="buttons">
-        <button
-          className="extraTextWithIconBtn"
-          onClick={() => signIn(githubAuthProvider, 'Github')}>
-          <FaGithub />
-          Connect with Github
-        </button>
-        <button
-          className="extraTextWithIconBtn"
-          onClick={() => signIn(googleAuthProvider, 'Google')}>
-          <FcGoogle />
-          Connect with Google
-        </button>
-      </div>
-      <p className="description">
-        We use your account to save your settings and track streaks for rowards 🎁 ... or risk
-        losing them like unusaved code!
-      </p>
     </ReactModal>
   )
 }

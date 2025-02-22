@@ -1,4 +1,5 @@
 export * from './BottomNavigation'
+export * from './Button'
 export * from './Card'
 export * from './CardLink'
 export * from './CardWithActions'

@@ -1,0 +1,31 @@
+.button {
+  background-color: var(--button-background-color);
+  color: var(--button-text-color);
+  font-size: 18px;
+  text-align: center;
+  border: 0;
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  &:hover {
+    background-color: var(--button-hover-background-color);
+    color: var(--button-hover-text-color);
+  }
+}
+
+button.small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+button.medium {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+button.large {
+  padding: 1rem 2rem;
+  font-size: 1.25rem;
+}
