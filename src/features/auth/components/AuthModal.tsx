@@ -70,11 +70,18 @@ export const AuthModal = ({ showAuth }: AuthModalProps) => {
           </button>
         </div>
         <div className="buttons">
-          <Button startIcon={<FaGithub />} onClick={() => signIn(githubAuthProvider)} size="large">
+          <Button
+            startIcon={<FaGithub style={{ fontSize: '1.6em' }} />}
+            onClick={() => signIn(githubAuthProvider)}
+            className="blockHeaderWhite"
+            size="medium">
             Connect with Github
           </Button>
 
-          <Button startIcon={<FcGoogle />} onClick={() => signIn(googleAuthProvider)} size="large">
+          <Button
+            startIcon={<FcGoogle style={{ fontSize: '1.6em' }} />}
+            onClick={() => signIn(googleAuthProvider)}
+            size="medium">
             Connect with Google
           </Button>
         </div>
