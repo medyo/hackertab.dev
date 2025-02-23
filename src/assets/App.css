@@ -1156,6 +1156,41 @@ Producthunt item
   font-size: 24px;
 }
 
+/* User */
+.profileImageContainer {
+  position: relative;
+
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--tooltip-accent-color);
+  }
+
+  .streak {
+    position: absolute;
+    display: inline-block;
+    bottom: -12px;
+    left: 0;
+    right: 0;
+    color: white;
+
+    .content {
+      background-color: var(--tooltip-accent-color);
+      font-size: 10px;
+      border-radius: 12px;
+      font-weight: bold;
+      padding: 2px 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .icon {
+      font-size: 12px;
+    }
+  }
+}
+
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   .floatingFilter {

@@ -3,7 +3,7 @@ import { BsFillBookmarksFill, BsFillGearFill, BsMoonFill } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
 import { FaUser } from 'react-icons/fa'
 import { IoMdSunny } from 'react-icons/io'
-import { MdDoDisturbOff } from 'react-icons/md'
+import { MdDoDisturbOff, MdFlashOn } from 'react-icons/md'
 import { RxArrowLeft } from 'react-icons/rx'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
@@ -97,6 +97,7 @@ export const Header = () => {
             <BsFillBookmarksFill />
           </CircleButton>
           <CircleButton
+            className="profileImageContainer"
             onClick={() => {
               if (isConnected()) {
                 navigate('/settings/profile')
@@ -105,7 +106,14 @@ export const Header = () => {
               }
             }}>
             {isConnected() ? (
-              <img className="profileImage" src={user?.imageURL} />
+              <>
+                <img className="profileImage s" src={user?.imageURL} />
+                <div className="streak">
+                  <span className="content">
+                    <MdFlashOn className="icon" /> {user?.streak || 1}
+                  </span>
+                </div>
+              </>
             ) : (
               <FaUser style={{ fontSize: '1.2em' }} />
             )}
