@@ -122,68 +122,24 @@ a {
 }
 
 .extras {
-  display: nore;
-  flex-direction: row;
-  align-content: center;
   order: 2;
 }
 
-.extraBtn {
-  background-color: var(--button-background-color);
-  color: var(--button-text-color);
-  margin-left: 8px;
-  height: 40px;
-  width: 40px;
-  line-height: 44px;
-  font-size: 18px;
-  text-align: center;
-  border: 0;
-  border-radius: 20px;
-  cursor: pointer;
-  position: relative;
+.buttonsFlex {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  align-content: center;
+  column-gap: 8px;
+  row-gap: 8px;
 }
 
-.extraBtn:first-child {
-  margin-left: 0;
-}
-
-.extraTextBtn {
-  padding: 0 16px;
-  width: auto;
-  min-width: 40px;
+.dndButton {
   font-weight: bold;
-}
-
-.darkModeBtn {
-  background-color: var(--dark-mode-background-color);
-  color: var(--dark-mode-text-color);
-}
-
-.extraTextWithIconBtn {
-  background-color: var(--button-background-color);
-  color: var(--button-text-color);
-  height: 40px;
-  width: auto;
-  padding: 0 16px;
-  min-width: 40px;
-  font-weight: bold;
-  font-size: 18px;
-  text-align: center;
-  border: 0;
-  border-radius: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
 }
 
 .profileImage {
   height: 40px;
   width: 40px;
-  margin-left: 8px;
   border-radius: 20px;
 }
 
