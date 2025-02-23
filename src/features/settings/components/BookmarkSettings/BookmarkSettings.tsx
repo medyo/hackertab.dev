@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { BiBookmarkMinus } from 'react-icons/bi'
 import { RiFileDownloadFill, RiFileUploadFill } from 'react-icons/ri'
 import toast from 'react-simple-toasts'
-import { CardLink } from 'src/components/Elements'
+import { Button, CardLink, CircleButton } from 'src/components/Elements'
 import { SettingsContentLayout } from 'src/components/Layout/SettingsContentLayout'
 import { SUPPORTED_CARDS } from 'src/config/supportedCards'
 import { BookmarkedPost } from 'src/features/bookmarks'
@@ -115,7 +115,7 @@ export const BookmarkSettings = () => {
         title="Bookmarks"
         description="Find all your bookmarks here. You can remove a bookmark by clicking on the remove icon."
         actions={
-          <>
+          <div className="buttonsFlex">
             <input
               type="file"
               id="file"
@@ -124,14 +124,14 @@ export const BookmarkSettings = () => {
               className="hidden"
               onChange={handleFileChange}
             />
-            <button className="extraBtn extraTextBtn" onClick={() => importBookmarks()}>
+            <Button onClick={importBookmarks} className="dndButton">
               <RiFileUploadFill />
-              &nbsp;Import
-            </button>
-            <button className="extraBtn" onClick={() => exportBookmarks()}>
+              Import
+            </Button>
+            <CircleButton onClick={() => exportBookmarks()}>
               <RiFileDownloadFill />
-            </button>
-          </>
+            </CircleButton>
+          </div>
         }>
         <div className="bookmarks">
           {userBookmarks.map((bm) => (
