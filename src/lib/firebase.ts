@@ -20,6 +20,17 @@ const firebaseConfig = {
   measurementId: FIREBASE_MEASUREMENT_ID,
 }
 
+if (
+  !FIREBASE_API_KEY ||
+  !FIREBASE_APP_ID ||
+  !FIREBASE_AUTH_DOMAIN ||
+  !FIREBASE_MEASUREMENT_ID ||
+  !FIREBASE_MESSAGING_SENDER_ID ||
+  !FIREBASE_PROJECT_ID ||
+  !FIREBASE_STORAGE_BUCKET
+) {
+  console.warn('Missing Firebase configuration')
+}
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
 const firebaseAuth = getAuth(app)
