@@ -124,7 +124,7 @@ export const BookmarkSettings = () => {
               className="hidden"
               onChange={handleFileChange}
             />
-            <Button onClick={importBookmarks} className="dndButton">
+            <Button onClick={importBookmarks}>
               <RiFileUploadFill />
               Import
             </Button>
