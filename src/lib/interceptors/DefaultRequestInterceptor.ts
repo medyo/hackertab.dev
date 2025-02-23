@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from 'axios'
 import { API_ENDPOINT } from 'src/config'
+import { getUserToken } from 'src/features/auth'
 import { isProduction } from 'src/utils/Environment'
-import { firebaseAuth } from '../firebase'
 
 export async function DefaultRequestInterceptor(config: AxiosRequestConfig) {
   if (config) {
@@ -10,10 +10,9 @@ export async function DefaultRequestInterceptor(config: AxiosRequestConfig) {
       config.headers.Accept = 'application/json'
     }
 
-    const user = firebaseAuth.currentUser
-    if (user) {
-      const token = await user.getIdToken()
-      config.headers.Authorization = `Bearer ${token}`
+    const token = await getUserToken()
+    if (token) {
+      config.headers.authorization = `Bearer ${token}`
     }
   }
 
