@@ -34,7 +34,7 @@
   }
 }
 
-.round-icon-button {
+.circle-button {
   border-radius: 50px;
   cursor: pointer;
   display: inline-flex;
@@ -44,7 +44,7 @@
   border: none;
   padding: 0;
   padding: 0;
-
+  font-size: 1.1em;
   &.small {
     min-width: 30px;
     height: 30px;

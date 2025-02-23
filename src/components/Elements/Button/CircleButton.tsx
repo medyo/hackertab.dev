@@ -28,7 +28,7 @@ export const CircleButton = ({
 }: CircleButtonProps) => {
   return (
     <button
-      className={clsx('round-icon-button', sizes[size], variants[variant], className)}
+      className={clsx('circle-button', sizes[size], variants[variant], className)}
       onClick={onClick}>
       {children}
     </button>
