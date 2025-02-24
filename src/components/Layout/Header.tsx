@@ -99,7 +99,7 @@ export const Header = () => {
           <CircleButton
             onClick={() => {
               if (isConnected()) {
-                navigate('/settings/profile')
+                navigate('/settings/general')
               } else {
                 openAuthModal()
               }

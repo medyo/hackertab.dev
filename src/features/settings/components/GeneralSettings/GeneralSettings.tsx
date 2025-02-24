@@ -1,9 +1,10 @@
 import React from 'react'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
-import { ChipsSet } from 'src/components/Elements'
+import { Button, ChipsSet } from 'src/components/Elements'
 import { Footer } from 'src/components/Layout'
 import { SettingsContentLayout } from 'src/components/Layout/SettingsContentLayout'
+import { useAuth, User } from 'src/features/auth'
 import {
   identifyUserLinksInNewTab,
   identifyUserListingMode,
@@ -18,6 +19,27 @@ import { useUserPreferences } from 'src/stores/preferences'
 import { Option } from 'src/types'
 import { DNDSettings } from './DNDSettings'
 import './generalSettings.css'
+
+interface UserInfoProps {
+  user: User
+}
+
+const UserInfo = ({ user }: UserInfoProps) => {
+  const { logout, providerId } = useAuth()
+
+  return (
+    <div className="userContent">
+      {user?.imageURL && <img src={user.imageURL} className="userImage"></img>}
+      <div className="userInfos">
+        <div className="userName">{user.name}</div>
+        <div className="providerId">Logged using {providerId}</div>
+      </div>
+      <Button className="logoutBtn" onClick={logout}>
+        Logout
+      </Button>
+    </div>
+  )
+}
 
 export const GeneralSettings = () => {
   const {
@@ -62,6 +84,8 @@ export const GeneralSettings = () => {
     }
   }
 
+  const { user } = useAuth()
+
   return (
     <SettingsContentLayout
       title="General Settings"
@@ -69,6 +93,7 @@ export const GeneralSettings = () => {
         'Customize your experience by selecting the number of cards you want to see, the search engine you want to use and more.'
       }>
       <div>
+        {user != null && <UserInfo user={user} />}
         <div className="settingRow">
           <p className="settingTitle">Max number of cards to display</p>
           <div className="settingContent">

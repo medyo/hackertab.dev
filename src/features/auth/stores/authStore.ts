@@ -4,6 +4,7 @@ import { persist } from 'zustand/middleware'
 
 type AuthState = {
   user: User | null
+  providerId: string | null
 }
 
 type AuthActions = {
@@ -14,11 +15,12 @@ type AuthActions = {
 export const AuthStore = create(
   persist<AuthState & AuthActions>(
     (set) => ({
-      idToken: null,
       user: null,
+      providerId: null,
       initState: (newState: AuthState) =>
         set({
           user: newState.user,
+          providerId: newState.providerId,
         }),
       clear: () => set({ user: null }),
     }),

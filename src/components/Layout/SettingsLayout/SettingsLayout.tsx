@@ -6,10 +6,6 @@ import './settings.css'
 export const SettingsLayout = () => {
   const navigation = [
     {
-      name: 'Profile',
-      path: '/settings/profile',
-    },
-    {
       name: 'Topics',
       path: '/settings/topics',
     },
