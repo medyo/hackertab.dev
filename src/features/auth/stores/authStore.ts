@@ -3,7 +3,6 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 type AuthState = {
-  idToken: string | null
   user: User | null
 }
 
@@ -19,7 +18,6 @@ export const AuthStore = create(
       user: null,
       initState: (newState: AuthState) =>
         set({
-          idToken: newState.idToken,
           user: newState.user,
         }),
       clear: () => set({ user: null }),

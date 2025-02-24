@@ -1,4 +1,4 @@
-import { AuthProvider, OAuthProvider, signInWithPopup } from 'firebase/auth'
+import { AuthProvider, signInWithPopup } from 'firebase/auth'
 import { FaGithub } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { IoHeartCircle } from 'react-icons/io5'
@@ -19,19 +19,14 @@ export const AuthModal = ({ showAuth }: AuthModalProps) => {
   const signIn = (provider: AuthProvider) => {
     signInWithPopup(firebaseAuth, provider)
       .then((result) => {
-        const credential = OAuthProvider.credentialFromResult(result)
-        const idToken = credential?.idToken
-        const email = result.user.displayName
         const name = result.user.displayName
         const imageURL = result.user.photoURL
-        if (idToken && name && email && imageURL) {
+        if (name && imageURL) {
           trackUserConnect(provider.providerId)
           closeAuthModal()
           initState({
-            idToken: idToken,
             user: {
               name: name,
-              email: email,
               imageURL: imageURL,
             },
           })
