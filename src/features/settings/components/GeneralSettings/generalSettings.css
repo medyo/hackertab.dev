@@ -109,6 +109,7 @@ Select styles
   border-radius: 100%;
 }
 .userContent .userInfos {
+  flex: 1;
   width: auto;
   margin-left: 10px;
 }

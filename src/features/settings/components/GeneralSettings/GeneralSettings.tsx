@@ -34,7 +34,7 @@ const UserInfo = ({ user }: UserInfoProps) => {
         <div className="userName">{user.name}</div>
         <div className="providerId">Logged using {providerId}</div>
       </div>
-      <Button className="logoutBtn" onClick={logout}>
+      <Button onClick={logout} size="small">
         Logout
       </Button>
     </div>
