@@ -1,4 +1,6 @@
 import React from 'react'
+import { FaGithub } from 'react-icons/fa'
+import { FcGoogle } from 'react-icons/fc'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
 import { Button, ChipsSet } from 'src/components/Elements'
@@ -34,6 +36,11 @@ const UserInfo = ({ user }: UserInfoProps) => {
       <div className="userInfos">
         <div className="userName">{user.name}</div>
         <div className="sub providerId">
+          {providerId == 'github.com' ? (
+            <FaGithub />
+          ) : providerId == 'google.com' ? (
+            <FcGoogle />
+          ) : null}
           Connected with <span className="capitalize">{providerName}</span>
         </div>
       </div>
