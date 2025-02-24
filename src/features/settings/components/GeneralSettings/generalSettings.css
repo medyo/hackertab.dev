@@ -35,10 +35,12 @@
 .rssButton {
   background-color: #ee802f;
   color: white;
+  &:hover {
+    background-color: #f99147;
+    color: white;
+  }
 }
-.rssButton:hover {
-  opacity: 0.9;
-}
+
 .settingContent {
   width: 100%;
   flex: 1;
