@@ -26,13 +26,16 @@ interface UserInfoProps {
 
 const UserInfo = ({ user }: UserInfoProps) => {
   const { logout, providerId } = useAuth()
+  const providerName = providerId?.split('.')[0] || 'Unknown'
 
   return (
     <div className="userContent">
       {user?.imageURL && <img src={user.imageURL} className="userImage"></img>}
       <div className="userInfos">
         <div className="userName">{user.name}</div>
-        <div className="providerId">Logged using {providerId}</div>
+        <div className="sub providerId">
+          Connected with <span className="capitalize">{providerName}</span>
+        </div>
       </div>
       <Button onClick={logout} size="small">
         Logout
