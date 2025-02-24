@@ -35,10 +35,12 @@
 .rssButton {
   background-color: #ee802f;
   color: white;
+  &:hover {
+    background-color: #f99147;
+    color: white;
+  }
 }
-.rssButton:hover {
-  opacity: 0.9;
-}
+
 .settingContent {
   width: 100%;
   flex: 1;
@@ -92,4 +94,33 @@ Select styles
 .hackertab__multi-value__remove {
   border-radius: 20px !important;
   color: var(--tag-secondary-color) !important;
+}
+
+.userContent {
+  width: auto;
+  padding: 20px 10px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--card-content-divider);
+}
+.userContent .userImage {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+}
+.userContent .userInfos {
+  flex: 1;
+  width: auto;
+  margin-left: 10px;
+}
+.userContent .userName {
+  font-size: larger;
+  font-weight: 600;
+}
+.userContent .userEmail {
+  font-size: medium;
+  margin-top: 6px;
+}
+.userContent .logoutBtn {
+  margin-left: auto;
 }

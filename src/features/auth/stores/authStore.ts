@@ -3,8 +3,8 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 type AuthState = {
-  idToken: string | null
   user: User | null
+  providerId: string | null
 }
 
 type AuthActions = {
@@ -16,13 +16,12 @@ type AuthActions = {
 export const AuthStore = create(
   persist<AuthState & AuthActions>(
     (set) => ({
-      idToken: null,
       user: null,
-
+      providerId: null,
       initState: (newState: AuthState) =>
         set({
-          idToken: newState.idToken,
           user: newState.user,
+          providerId: newState.providerId,
         }),
       setStreak: (streak: number) =>
         set((state) => ({

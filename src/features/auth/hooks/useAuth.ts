@@ -4,7 +4,7 @@ import { trackUserDisconnect } from 'src/lib/analytics'
 export const useAuth = () => {
   const { isAuthModalOpen, openAuthModal, closeAuthModal } = AuthModalStore()
   const authStore = AuthStore()
-  const { idToken, user, initState, clear } = authStore
+  const { user, providerId, initState, clear } = authStore
 
   const isConnected = () => user != null
 
@@ -20,7 +20,7 @@ export const useAuth = () => {
     isConnected,
     logout,
     isAuthModalOpen,
-    idToken,
     user,
+    providerId,
   }
 }

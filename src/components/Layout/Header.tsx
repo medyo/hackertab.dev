@@ -4,7 +4,6 @@ import { CgTab } from 'react-icons/cg'
 import { FaUser } from 'react-icons/fa'
 import { IoMdSunny } from 'react-icons/io'
 import { MdDoDisturbOff, MdFlashOn } from 'react-icons/md'
-import { RxArrowLeft } from 'react-icons/rx'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
 import { SearchBar } from 'src/components/Elements/SearchBar'
@@ -51,16 +50,6 @@ export const Header = () => {
     navigate('/settings/general')
   }
 
-  const BookmarksBadgeCount = () => {
-    return userBookmarks.length > 0 ? (
-      userBookmarks.length < 10 ? (
-        <span className="badgeCount">{userBookmarks.length}</span>
-      ) : (
-        <span className="badgeCount">+9</span>
-      )
-    ) : null
-  }
-
   const onUnpauseClicked = () => {
     trackDNDDisable()
     setDNDDuration('never')
@@ -100,7 +89,7 @@ export const Header = () => {
             className="profileImageContainer"
             onClick={() => {
               if (isConnected()) {
-                navigate('/settings/profile')
+                navigate('/settings/general')
               } else {
                 openAuthModal()
               }
@@ -119,15 +108,7 @@ export const Header = () => {
             )}
           </CircleButton>
         </div>
-        {location.pathname === '/' ? (
-          <UserTags />
-        ) : (
-          <div className="backToHome">
-            <Link to="/">
-              <RxArrowLeft size={20} /> Back
-            </Link>
-          </div>
-        )}
+        {location.pathname === '/' && <UserTags />}
       </header>
     </>
   )
