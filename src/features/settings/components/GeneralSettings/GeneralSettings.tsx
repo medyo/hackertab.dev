@@ -29,11 +29,8 @@ interface UserInfoProps {
 
 const UserInfo = ({ user }: UserInfoProps) => {
   const { logout, providerId } = useAuth()
-<<<<<<< HEAD
   const providerName = providerId?.split('.')[0] || 'Unknown'
-=======
   const [showLogout, setShowLogout] = useState(false)
->>>>>>> 0314c56 (feat: Add logout confirm modal.)
 
   return (
     <div className="userContent">
@@ -56,11 +53,7 @@ const UserInfo = ({ user }: UserInfoProps) => {
           Connected with <span className="capitalize">{providerName}</span>
         </div>
       </div>
-<<<<<<< HEAD
-      <Button onClick={logout} size="small">
-=======
       <Button className="logoutBtn" onClick={() => setShowLogout(true)}>
->>>>>>> 0314c56 (feat: Add logout confirm modal.)
         Logout
       </Button>
     </div>
