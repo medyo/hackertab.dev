@@ -1,3 +1,4 @@
+import { signOut } from 'firebase/auth'
 import { AuthModalStore, AuthStore } from 'src/features/auth'
 import { trackUserDisconnect } from 'src/lib/analytics'
 import { firebaseAuth } from 'src/lib/firebase'
@@ -11,6 +12,7 @@ export const useAuth = () => {
 
   const logout = async () => {
     trackUserDisconnect()
+    signOut(firebaseAuth)
     clear()
     return await firebaseAuth.signOut()
   }
