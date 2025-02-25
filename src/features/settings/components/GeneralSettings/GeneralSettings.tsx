@@ -22,6 +22,7 @@ import { Option } from 'src/types'
 import { DNDSettings } from './DNDSettings'
 import './generalSettings.css'
 
+// TODO Maybe we should create a separate folder in components for UserInfo ?
 interface UserInfoProps {
   user: User
 }
