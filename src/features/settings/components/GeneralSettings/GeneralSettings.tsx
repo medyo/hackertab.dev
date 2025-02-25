@@ -44,18 +44,20 @@ const UserInfo = ({ user }: UserInfoProps) => {
       {user?.imageURL && <img src={user.imageURL} className="userImage"></img>}
       <div className="userInfos">
         <div className="userName">{user.name}</div>
-        <div className="sub providerId">
+        <div className="sub">
           {providerId == 'github.com' ? (
-            <FaGithub />
+            <FaGithub size={18} />
           ) : providerId == 'google.com' ? (
-            <FcGoogle />
+            <FcGoogle size={18} />
           ) : null}
           Connected with <span className="capitalize">{providerName}</span>
         </div>
+        <div>
+          <Button className="logoutBtn" onClick={() => setShowLogout(true)} size="small">
+            Logout
+          </Button>
+        </div>
       </div>
-      <Button className="logoutBtn" onClick={() => setShowLogout(true)}>
-        Logout
-      </Button>
     </div>
   )
 }
