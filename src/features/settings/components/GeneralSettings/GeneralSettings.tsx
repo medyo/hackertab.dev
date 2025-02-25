@@ -67,7 +67,6 @@ export const GeneralSettings = () => {
     openLinksNewTab,
     listingMode,
     theme,
-    searchEngine,
     maxVisibleCards,
     setTheme,
     setListingMode,
