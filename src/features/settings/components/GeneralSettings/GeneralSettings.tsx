@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
-import { Button, ChipsSet } from 'src/components/Elements'
+import { Button, ChipsSet, ConfirmModal } from 'src/components/Elements'
 import { Footer } from 'src/components/Layout'
 import { SettingsContentLayout } from 'src/components/Layout/SettingsContentLayout'
 import { useAuth, User } from 'src/features/auth'
@@ -28,10 +28,21 @@ interface UserInfoProps {
 
 const UserInfo = ({ user }: UserInfoProps) => {
   const { logout, providerId } = useAuth()
+<<<<<<< HEAD
   const providerName = providerId?.split('.')[0] || 'Unknown'
+=======
+  const [showLogout, setShowLogout] = useState(false)
+>>>>>>> 0314c56 (feat: Add logout confirm modal.)
 
   return (
     <div className="userContent">
+      <ConfirmModal
+        showModal={showLogout}
+        title="Logout !"
+        description="Are you sure you want to logout ?"
+        onClose={() => setShowLogout(false)}
+        onConfirm={logout}
+      />
       {user?.imageURL && <img src={user.imageURL} className="userImage"></img>}
       <div className="userInfos">
         <div className="userName">{user.name}</div>
@@ -44,7 +55,11 @@ const UserInfo = ({ user }: UserInfoProps) => {
           Connected with <span className="capitalize">{providerName}</span>
         </div>
       </div>
+<<<<<<< HEAD
       <Button onClick={logout} size="small">
+=======
+      <Button className="logoutBtn" onClick={() => setShowLogout(true)}>
+>>>>>>> 0314c56 (feat: Add logout confirm modal.)
         Logout
       </Button>
     </div>
