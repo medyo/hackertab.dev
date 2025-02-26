@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { FaGithub } from 'react-icons/fa'
+import { FaFire, FaGithub } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
+import { IoCheckmarkOutline } from 'react-icons/io5'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
 import { Button, ChipsSet, ConfirmModal } from 'src/components/Elements'
@@ -56,6 +57,32 @@ const UserInfo = ({ user }: UserInfoProps) => {
           <Button className="logoutBtn" onClick={() => setShowLogout(true)} size="small">
             Logout
           </Button>
+        </div>
+      </div>
+
+      <div className="streaks">
+        <p className="title">
+          You're on{' '}
+          <span>
+            {' '}
+            <FaFire color="orange" size={18} /> <b>{user.streak || 1} days streak</b>
+          </span>
+        </p>
+        <div>
+          <ul className="streaksWeek">
+            {Array.from({ length: 5 }, (_, i) => {
+              const streak = user.streak || 1
+              if (i < streak) {
+                return (
+                  <li className="day checked">
+                    <IoCheckmarkOutline />
+                  </li>
+                )
+              } else {
+                return <li className="day"></li>
+              }
+            })}
+          </ul>
         </div>
       </div>
     </div>
