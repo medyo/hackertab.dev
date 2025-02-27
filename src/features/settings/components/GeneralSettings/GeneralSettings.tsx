@@ -74,12 +74,18 @@ const UserInfo = ({ user }: UserInfoProps) => {
               const streak = user.streak || 1
               if (i < streak) {
                 return (
-                  <li className="day checked">
-                    <IoCheckmarkOutline />
+                  <li className="dayWrapper checked">
+                    <span className="day">
+                      <IoCheckmarkOutline />
+                    </span>
                   </li>
                 )
               } else {
-                return <li className="day"></li>
+                return (
+                  <li className="dayWrapper">
+                    <span className="day"></span>
+                  </li>
+                )
               }
             })}
           </ul>

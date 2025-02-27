@@ -158,25 +158,45 @@ Select styles
   padding: 0;
   display: flex;
   flex-direction: row;
-  gap: 20px;
   list-style-type: none;
   overflow: hidden;
 }
 
-.streaks .day {
+.streaks .dayWrapper {
   color: white;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  border-radius: 20px;
+  justify-content: flex-start;
+  z-index: 2;
+  width: 48px;
+  position: relative;
+}
+.streaks .dayWrapper:last-child {
+  width: auto;
+}
+.streaks .dayWrapper .day {
   border: 1px solid var(--card-content-divider);
   background-color: var(--card-content-divider);
-  z-index: 2;
+  border-radius: 20px;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  z-index: 5;
+}
+.streaks .dayWrapper::before {
+  content: '';
+  display: block;
+  width: 100%;
+  background-color: var(--card-content-divider);
+  z-index: -1;
+  height: 2px;
+  position: absolute;
 }
 
-.streaks .day.checked {
+.streaks .dayWrapper.checked .day {
   border: 2px solid #18bc2d;
+  background-color: #18bc2d;
+}
+.streaks .checked:is(:has(+ .checked))::before {
   background-color: #18bc2d;
 }
