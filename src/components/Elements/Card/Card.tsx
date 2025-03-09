@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { isDesktop } from 'react-device-detect'
 import { SortableKnob } from 'react-easy-sort'
 import { BsBoxArrowInUpRight } from 'react-icons/bs'
 import { MdOutlineDragIndicator } from 'react-icons/md'
 import { ref } from 'src/config'
 import { AdvBanner } from 'src/features/adv'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
+import { DesktopBreakpoint } from 'src/providers/DesktopBreakpoint'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SupportedCardType } from 'src/types'
 
@@ -59,13 +59,13 @@ export const Card = ({
   return (
     <div className={'block' + (fullBlock ? ' fullBlock' : '')}>
       <div className="blockHeader">
-        {isDesktop && (
+        <DesktopBreakpoint>
           <SortableKnob>
             <button className="blockHeaderDragButton">
               <MdOutlineDragIndicator />
             </button>
           </SortableKnob>
-        )}
+        </DesktopBreakpoint>
         <span className="blockHeaderIcon">{icon}</span> {titleComponent || label}{' '}
         {link && (
           <a className="blockHeaderLink" href={link} onClick={handleHeaderLinkClick}>

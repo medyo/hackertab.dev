@@ -1018,7 +1018,7 @@ Producthunt item
 *** BREAKPOINTS
 *******************/
 /* Extra small devices (phones, 600px and down) */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .bottomNavigation {
     display: flex;
   }
@@ -1176,7 +1176,7 @@ Producthunt item
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 768px) {
   .floatingFilter {
     display: none;
   }
