@@ -23,6 +23,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     return signInWithCredential(firebaseAuth, authProvider).then((userCredential) => {
       const user = userCredential.user
+
       initState({
         user: {
           name: user.displayName || 'Anonymous',
@@ -30,6 +31,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         },
         providerId: authProvider.providerId,
       })
+      if (user.displayName) {
+        toast(`Welcome, ${user.displayName}`, { theme: 'successToast' })
+      }
       closeAuthModal()
       navigate(window.location.pathname, { replace: true })
     })

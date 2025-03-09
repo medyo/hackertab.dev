@@ -1333,7 +1333,12 @@ Producthunt item
   padding: 10px 20px;
   border-radius: 10px;
 }
-
+.successToast {
+  background-color: #52c41a;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
 .capitalize {
   text-transform: capitalize;
 }
