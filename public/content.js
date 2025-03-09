@@ -1,6 +1,6 @@
 const script = document.createElement('script')
 script.src = chrome.runtime.getURL('auth.js')
-document.body.appendChild(script)
+document.documentElement.appendChild(script)
 
 // Listen for messages from the injected script
 window.addEventListener('message', (event) => {
