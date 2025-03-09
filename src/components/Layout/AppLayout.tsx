@@ -5,13 +5,14 @@ import { BeatLoader } from 'react-spinners'
 import 'src/assets/App.css'
 import { AuthModal, useAuth } from 'src/features/auth'
 import { MarketingBanner } from 'src/features/MarketingBanner'
+import { AuthProvider } from 'src/providers/AuthProvider'
 import { Header } from './Header'
 
 export const AppLayout = () => {
-  const { isAuthModalOpen, closeAuthModal } = useAuth()
+  const { isAuthModalOpen } = useAuth()
 
   return (
-    <>
+    <AuthProvider>
       <MarketingBanner />
 
       <div className="App">
@@ -26,6 +27,6 @@ export const AppLayout = () => {
           <Outlet />
         </React.Suspense>
       </div>
-    </>
+    </AuthProvider>
   )
 }
