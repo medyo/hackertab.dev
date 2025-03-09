@@ -1,13 +1,11 @@
-//import { AuthProvider, signInWithPopup } from 'firebase/auth'
-import { AuthProvider } from 'firebase/auth'
+import { AuthProvider, GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth'
 import { useCallback, useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { IoHeartCircle } from 'react-icons/io5'
 import { Button, Modal } from 'src/components/Elements'
-import { BUILD_TARGET } from 'src/config'
+import { BUILD_TARGET, privacyPolicyLink, termsAndConditionsLink } from 'src/config'
 import { useAuth } from 'src/features/auth'
-import { githubAuthProvider, googleAuthProvider } from 'src/lib/firebase'
 import { getBrowserName } from 'src/utils/Environment'
 import { checkHostPermissions, requestHostPermissions } from 'src/utils/Permissions'
 import { useGetOauthLink } from '../api/getOauthLink'
@@ -16,6 +14,9 @@ import './authModal.css'
 type AuthModalProps = {
   showAuth: boolean
 }
+
+const googleAuthProvider = new GoogleAuthProvider()
+const githubAuthProvider = new GithubAuthProvider()
 
 export const AuthModal = ({ showAuth }: AuthModalProps) => {
   const { closeAuthModal, authError, setAuthError } = useAuth()
@@ -113,11 +114,11 @@ export const AuthModal = ({ showAuth }: AuthModalProps) => {
         <div className="footer">
           <p>
             By signing in, you agree to our{' '}
-            <a href="https://hackertab.dev/terms-and-conditions" target="_blank" rel="noreferrer">
+            <a href={termsAndConditionsLink} target="_blank" rel="noreferrer">
               Terms of Service
             </a>{' '}
             and{' '}
-            <a href="https://hackertab.dev/privacy-policy" target="_blank" rel="noreferrer">
+            <a href={privacyPolicyLink} target="_blank" rel="noreferrer">
               Privacy Policy
             </a>
             .
