@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth, GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth'
+import { getAuth } from 'firebase/auth'
 import { FIREBASE_API_KEY } from 'src/config'
 
 const firebaseConfig = {
@@ -12,7 +12,4 @@ if (!FIREBASE_API_KEY) {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
 const firebaseAuth = getAuth(app)
-const googleAuthProvider = new GoogleAuthProvider()
-const githubAuthProvider = new GithubAuthProvider()
-
-export { firebaseAuth, githubAuthProvider, googleAuthProvider }
+export { firebaseAuth }
