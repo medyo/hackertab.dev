@@ -9,7 +9,7 @@ export type GetOauthLinkDTO = {
   }
 }
 const getOauthLink = ({ data }: GetOauthLinkDTO): Promise<{ authLink: string }> => {
-  return axios.post('/engine/auth/auth_link', data)
+  return axios.post('/engine/auth/oauth-link', data)
 }
 
 type QueryFnType = typeof getOauthLink
