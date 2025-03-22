@@ -25,16 +25,16 @@ export const AuthModal = ({ showAuth }: AuthModalProps) => {
 
   const requestOauthLink = useCallback(
     async (provider: AuthProvider) => {
-      const getOauthLinkResponse = await getOauthLink.mutateAsync({
-        data: {
-          provider: provider.providerId as 'google.com' | 'github.com',
-          state: BUILD_TARGET === 'web' ? window.location.origin : getBrowserName(),
-        },
-      })
-
-      if (getOauthLinkResponse.authLink) {
-        window.open(getOauthLinkResponse.authLink, BUILD_TARGET === 'web' ? '_self' : '_blank')
-      }
+      getOauthLink
+        .mutateAsync({
+          data: {
+            provider: provider.providerId,
+            state: BUILD_TARGET === 'web' ? window.location.origin : getBrowserName(),
+          },
+        })
+        .then(({ authLink }) => {
+          window.open(authLink, BUILD_TARGET === 'web' ? '_self' : '_blank')
+        })
     },
     [getOauthLink]
   )

@@ -2,11 +2,9 @@ import { useMutation } from '@tanstack/react-query'
 import { axios } from 'src/lib/axios'
 import { MutationConfig } from 'src/lib/react-query'
 
-type Provider = 'google.com' | 'github.com'
-
 export type GetOauthLinkDTO = {
   data: {
-    provider: Provider
+    provider: string
     state: string
   }
 }
