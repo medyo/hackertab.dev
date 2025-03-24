@@ -31,7 +31,9 @@ html.dark {
 
   /** Buttons **/
   --button-background-color: #1c2026;
+  --button-hover-background-color: #181c21;
   --button-text-color: #fff;
+  --button-hover-text-color: #d0d0d0;
 
   /**Card **/
   --card-background-color: #0d1116;
@@ -117,6 +119,8 @@ html.light {
 
   --button-background-color: #d2deeb;
   --button-text-color: #3c5065;
+  --button-hover-background-color: #b9cadc;
+  --button-hover-text-color: #3c5065;
 
   /**Card **/
   --card-background-color: #ffffff;

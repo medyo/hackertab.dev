@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { FaGithub } from 'react-icons/fa'
+import { FcGoogle } from 'react-icons/fc'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
-import { ChipsSet } from 'src/components/Elements'
+import { Button, ChipsSet, ConfirmModal } from 'src/components/Elements'
 import { Footer } from 'src/components/Layout'
 import { SettingsContentLayout } from 'src/components/Layout/SettingsContentLayout'
+import { useAuth, User } from 'src/features/auth'
 import {
   identifyUserLinksInNewTab,
   identifyUserListingMode,
@@ -19,12 +22,51 @@ import { Option } from 'src/types'
 import { DNDSettings } from './DNDSettings'
 import './generalSettings.css'
 
+// TODO Maybe we should create a separate folder in components for UserInfo ?
+interface UserInfoProps {
+  user: User
+}
+
+const UserInfo = ({ user }: UserInfoProps) => {
+  const { logout, providerId } = useAuth()
+  const providerName = providerId?.split('.')[0] || 'Unknown'
+  const [showLogout, setShowLogout] = useState(false)
+
+  return (
+    <div className="userContent">
+      <ConfirmModal
+        showModal={showLogout}
+        title="Logout !"
+        description="Are you sure you want to logout ?"
+        onClose={() => setShowLogout(false)}
+        onConfirm={logout}
+      />
+      {user?.imageURL && <img src={user.imageURL} className="userImage"></img>}
+      <div className="userInfos">
+        <div className="userName">{user.name}</div>
+        <div className="sub">
+          {providerId == 'github.com' ? (
+            <FaGithub size={18} />
+          ) : providerId == 'google.com' ? (
+            <FcGoogle size={18} />
+          ) : null}
+          Connected with <span className="capitalize">{providerName}</span>
+        </div>
+        <div>
+          <Button className="logoutBtn" onClick={() => setShowLogout(true)} size="small">
+            Logout
+          </Button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export const GeneralSettings = () => {
   const {
     openLinksNewTab,
     listingMode,
     theme,
-    searchEngine,
     maxVisibleCards,
     setTheme,
     setListingMode,
@@ -62,6 +104,8 @@ export const GeneralSettings = () => {
     }
   }
 
+  const { user } = useAuth()
+
   return (
     <SettingsContentLayout
       title="General Settings"
@@ -69,6 +113,7 @@ export const GeneralSettings = () => {
         'Customize your experience by selecting the number of cards you want to see, the search engine you want to use and more.'
       }>
       <div>
+        {user != null && <UserInfo user={user} />}
         <div className="settingRow">
           <p className="settingTitle">Max number of cards to display</p>
           <div className="settingContent">
