@@ -9,10 +9,10 @@
     "@tanstack/react-query-persist-client": "^5.8.4",
     "@types/dompurify": "^2.3.4",
     "@types/jspath": "^0.4.0",
-    "axios": "^0.21.2",
+    "axios": "^1.8.4",
     "axios-cache-adapter": "^2.7.3",
     "country-emoji": "^1.5.4",
-    "dompurify": "^2.2.7",
+    "dompurify": "^3.2.4",
     "firebase": "^11.2.0",
     "htmlparser2": "^8.0.1",
     "jsonpath": "^1.1.1",
@@ -40,6 +40,9 @@
     "vite-plugin-ejs": "^1.6.4",
     "web-vitals": "^0.2.4",
     "zustand": "^4.3.3"
+  },
+  "engines": {
+    "node": "18"
   },
   "scripts": {
     "start": "vite",
@@ -92,7 +95,7 @@
     "prettier": "^2.7.1",
     "terser": "^5.19.2",
     "typescript": "^5.1.6",
-    "vite": "^4.4.5",
+    "vite": "^6.2.3",
     "vite-plugin-svgr": "^3.2.0",
     "vite-tsconfig-paths": "^4.2.0"
   }
