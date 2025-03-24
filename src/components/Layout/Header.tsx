@@ -3,7 +3,7 @@ import { BsFillBookmarksFill, BsFillGearFill, BsMoonFill } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
 import { FaUser } from 'react-icons/fa'
 import { IoMdSunny } from 'react-icons/io'
-import { MdDoDisturbOff } from 'react-icons/md'
+import { MdDoDisturbOff, MdFlashOn } from 'react-icons/md'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
 import { SearchBar } from 'src/components/Elements/SearchBar'
@@ -11,7 +11,6 @@ import { UserTags } from 'src/components/Elements/UserTags'
 import { useAuth } from 'src/features/auth'
 import { Changelog } from 'src/features/changelog'
 import { identifyUserTheme, trackDNDDisable, trackThemeSelect } from 'src/lib/analytics'
-import { useBookmarks } from 'src/stores/bookmarks'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Button, CircleButton } from '../Elements'
 
@@ -20,7 +19,6 @@ export const Header = () => {
 
   const [themeIcon, setThemeIcon] = useState(<BsMoonFill />)
   const { theme, setTheme, setDNDDuration, isDNDModeActive } = useUserPreferences()
-  const { userBookmarks } = useBookmarks()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -48,16 +46,6 @@ export const Header = () => {
 
   const onSettingsClick = () => {
     navigate('/settings/general')
-  }
-
-  const BookmarksBadgeCount = () => {
-    return userBookmarks.length > 0 ? (
-      userBookmarks.length < 10 ? (
-        <span className="badgeCount">{userBookmarks.length}</span>
-      ) : (
-        <span className="badgeCount">+9</span>
-      )
-    ) : null
   }
 
   const onUnpauseClicked = () => {
@@ -96,6 +84,7 @@ export const Header = () => {
             <BsFillBookmarksFill />
           </CircleButton>
           <CircleButton
+            className="profileImageContainer"
             onClick={() => {
               if (isConnected) {
                 navigate('/settings/general')
@@ -104,7 +93,14 @@ export const Header = () => {
               }
             }}>
             {isConnected ? (
-              <img className="profileImage" src={user?.imageURL} />
+              <>
+                <img className="profileImage s" src={user?.imageURL} />
+                <div className="streak">
+                  <span className="content">
+                    <MdFlashOn className="icon" /> {user?.streak || 1}
+                  </span>
+                </div>
+              </>
             ) : (
               <FaUser style={{ fontSize: '1.2em' }} />
             )}

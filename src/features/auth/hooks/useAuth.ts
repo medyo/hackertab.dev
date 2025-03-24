@@ -6,23 +6,20 @@ import { firebaseAuth } from 'src/lib/firebase'
 export const useAuth = () => {
   const authModalStore = AuthModalStore()
   const authStore = AuthStore()
-  const { user, providerId, initState, clear } = authStore
 
-  const isConnected = user != null
+  const isConnected = authStore.user != null
 
   const logout = async () => {
     trackUserDisconnect()
     signOut(firebaseAuth)
-    clear()
+    authStore.clear()
     return await firebaseAuth.signOut()
   }
 
   return {
     ...authModalStore,
-    initState,
+    ...authStore,
     isConnected,
     logout,
-    user,
-    providerId,
   }
 }

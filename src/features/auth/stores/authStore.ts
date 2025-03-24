@@ -9,6 +9,7 @@ type AuthState = {
 
 type AuthActions = {
   initState: (state: AuthState) => void
+  setStreak: (streak: number) => void
   clear: () => void
 }
 
@@ -22,6 +23,13 @@ export const AuthStore = create(
           user: newState.user,
           providerId: newState.providerId,
         }),
+      setStreak: (streak: number) =>
+        set((state) => ({
+          user: {
+            ...state.user!,
+            streak,
+          },
+        })),
       clear: () => set({ user: null }),
     }),
     {
