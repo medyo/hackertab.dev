@@ -7,7 +7,7 @@ export const useAuth = () => {
   const authModalStore = AuthModalStore()
   const authStore = AuthStore()
 
-  const isConnected = () => authStore.user != null
+  const isConnected = authStore.user != null
 
   const logout = async () => {
     trackUserDisconnect()

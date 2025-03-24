@@ -11,7 +11,6 @@ import { UserTags } from 'src/components/Elements/UserTags'
 import { useAuth } from 'src/features/auth'
 import { Changelog } from 'src/features/changelog'
 import { identifyUserTheme, trackDNDDisable, trackThemeSelect } from 'src/lib/analytics'
-import { useBookmarks } from 'src/stores/bookmarks'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Button, CircleButton } from '../Elements'
 
@@ -20,7 +19,6 @@ export const Header = () => {
 
   const [themeIcon, setThemeIcon] = useState(<BsMoonFill />)
   const { theme, setTheme, setDNDDuration, isDNDModeActive } = useUserPreferences()
-  const { userBookmarks } = useBookmarks()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -88,13 +86,13 @@ export const Header = () => {
           <CircleButton
             className="profileImageContainer"
             onClick={() => {
-              if (isConnected()) {
+              if (isConnected) {
                 navigate('/settings/general')
               } else {
                 openAuthModal()
               }
             }}>
-            {isConnected() ? (
+            {isConnected ? (
               <>
                 <img className="profileImage s" src={user?.imageURL} />
                 <div className="streak">
