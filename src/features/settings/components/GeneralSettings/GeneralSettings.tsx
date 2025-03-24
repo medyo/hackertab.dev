@@ -20,6 +20,7 @@ import {
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Option } from 'src/types'
+import { pluralize } from 'src/utils/String'
 import { DNDSettings } from './DNDSettings'
 import './generalSettings.css'
 
@@ -65,7 +66,7 @@ const UserInfo = ({ user }: UserInfoProps) => {
           You're on{' '}
           <span>
             {' '}
-            <FaFire color="orange" size={18} /> <b>{user.streak || 1} days streak</b>
+            <FaFire color="orange" size={18} /> <b>{pluralize(user.streak || 1, 'day')} streak</b>
           </span>
         </p>
         <div>
