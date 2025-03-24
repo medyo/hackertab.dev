@@ -3,24 +3,26 @@ import 'react-contexify/dist/ReactContexify.css'
 import { Outlet } from 'react-router-dom'
 import { BeatLoader } from 'react-spinners'
 import 'src/assets/App.css'
-import { AuthModal, AuthStore, useAuth } from 'src/features/auth'
-import { usePostHit } from 'src/features/hits'
+import { AuthModal, useAuth } from 'src/features/auth'
+import { usePostStreak } from 'src/features/hits'
 import { MarketingBanner } from 'src/features/MarketingBanner'
+import { AuthProvider } from 'src/providers/AuthProvider'
 import { Header } from './Header'
 
 export const AppLayout = () => {
-  const { isAuthModalOpen } = useAuth()
-  const { setStreak } = AuthStore()
-  const postHitMutation = usePostHit()
+  const { isAuthModalOpen, setStreak, isConnected } = useAuth()
+  const postStreakMutation = usePostStreak()
 
   useEffect(() => {
-    postHitMutation.mutateAsync({ data: { type: 'visit' } }).then((data) => {
-      setStreak(data.streak)
-    })
+    if (isConnected()) {
+      postStreakMutation.mutateAsync(undefined).then((data) => {
+        setStreak(data.streak)
+      })
+    }
   }, [])
 
   return (
-    <>
+    <AuthProvider>
       <MarketingBanner />
 
       <div className="App">
@@ -35,6 +37,6 @@ export const AppLayout = () => {
           <Outlet />
         </React.Suspense>
       </div>
-    </>
+    </AuthProvider>
   )
 }

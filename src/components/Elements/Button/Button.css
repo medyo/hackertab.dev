@@ -32,6 +32,12 @@
     padding: 1rem 2rem;
     font-size: 1.25rem;
   }
+
+  &.loading {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
 }
 
 .circle-button {

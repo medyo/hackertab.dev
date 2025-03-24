@@ -4,27 +4,22 @@ import { trackUserDisconnect } from 'src/lib/analytics'
 import { firebaseAuth } from 'src/lib/firebase'
 
 export const useAuth = () => {
-  const { isAuthModalOpen, openAuthModal, closeAuthModal } = AuthModalStore()
+  const authModalStore = AuthModalStore()
   const authStore = AuthStore()
-  const { user, providerId, initState, clear } = authStore
 
-  const isConnected = () => user != null
+  const isConnected = () => authStore.user != null
 
   const logout = async () => {
     trackUserDisconnect()
     signOut(firebaseAuth)
-    clear()
+    authStore.clear()
     return await firebaseAuth.signOut()
   }
 
   return {
-    openAuthModal,
-    closeAuthModal,
-    initState,
+    ...authModalStore,
+    ...authStore,
     isConnected,
     logout,
-    isAuthModalOpen,
-    user,
-    providerId,
   }
 }

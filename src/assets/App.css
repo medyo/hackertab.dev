@@ -1361,6 +1361,19 @@ Producthunt item
   color: var(--primary-text-color);
   border-radius: 10px;
 }
+
+.dangerToast {
+  background-color: #ff4d4f;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+.successToast {
+  background-color: #52c41a;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
 .capitalize {
   text-transform: capitalize;
 }
@@ -1381,7 +1394,7 @@ Modal
   box-shadow: 0 0 20px #00000052;
   z-index: 3;
   max-height: 80vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .Overlay {
