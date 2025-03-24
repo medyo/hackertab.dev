@@ -3338,6 +3338,11 @@ crypt@0.0.2:
   resolved "https://registry.yarnpkg.com/crypt/-/crypt-0.0.2.tgz#88d7ff7ec0dfb86f713dc87bbb42d044d3e6c41b"
   integrity sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==
 
+css-mediaquery@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/css-mediaquery/-/css-mediaquery-0.1.2.tgz#6a2c37344928618631c54bd33cedd301da18bea0"
+  integrity sha512-COtn4EROW5dBGlE/4PiKnh6rZpAPxDeFLaEEwt4i10jpDMFt2EhQGS79QmmrO+iKCHv0PU/HrOWEhijFd1x99Q==
+
 css.escape@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/css.escape/-/css.escape-1.5.1.tgz#42e27d4fa04ae32f931a4b4d4191fa9cddee97cb"
@@ -4319,6 +4324,10 @@ htmlparser2@^8.0.1:
     domutils "^3.0.1"
     entities "^4.4.0"
 
+hyphenate-style-name@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.1.0.tgz#1797bf50369588b47b72ca6d5e65374607cf4436"
+  integrity sha512-WDC/ui2VVRrz3jOVi+XtjqkDjiVjTtFaAGiW37k6b+ohyQ5wYDOGkvCZa8+H0nx3gyvv0+BST9xuOgIyGQ00gw==
 http-parser-js@>=0.5.1:
   version "0.5.9"
   resolved "https://registry.yarnpkg.com/http-parser-js/-/http-parser-js-0.5.9.tgz#b817b3ca0edea6236225000d795378707c169cec"
@@ -4771,6 +4780,12 @@ lz-string@^1.4.4:
   resolved "https://registry.yarnpkg.com/lz-string/-/lz-string-1.5.0.tgz#c1ab50f77887b712621201ba9fd4e3a6ed099941"
   integrity sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==
 
+matchmediaquery@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/matchmediaquery/-/matchmediaquery-0.4.2.tgz#22582bd4ae63ad9f54c53001bba80cbed0f7eafa"
+  integrity sha512-wrZpoT50ehYOudhDjt/YvUJc6eUzcdFPdmbizfgvswCKNHD1/OBOHYJpHie+HXpu6bSkEGieFMYk6VuutaiRfA==
+  dependencies:
+    css-mediaquery "^0.1.2"
 math-intrinsics@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/math-intrinsics/-/math-intrinsics-1.1.0.tgz#a0dd74be81e2aa5c2f27e65ce283605ee4e2b7f9"
@@ -5304,7 +5319,7 @@ pretty-format@^29.0.0, pretty-format@^29.7.0:
     ansi-styles "^5.0.0"
     react-is "^18.0.0"
 
-prop-types@^15.0.0, prop-types@^15.0.0-0, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@^15.0.0, prop-types@^15.0.0-0, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -5352,13 +5367,6 @@ react-contexify@^5.0.0:
   integrity sha512-2FIp7lxJ6dtfGr8EZ4uVV5p5TQjd0n2h/JU7PrejNIMiCeZWvSVPFh4lj1ZvjXosglBvP7q5JQQ8yUCdSaMSaw==
   dependencies:
     clsx "^1.1.1"
-
-react-device-detect@^1.17.0:
-  version "1.17.0"
-  resolved "https://registry.yarnpkg.com/react-device-detect/-/react-device-detect-1.17.0.tgz#a00b4fd6880cebfab3fd8a42a79dc0290cdddca9"
-  integrity sha512-bBblIStwpHmoS281JFIVqeimcN3LhpoP5YKDWzxQdBIUP8S2xPvHDgizLDhUq2ScguLfVPmwfF5y268EEQR60w==
-  dependencies:
-    ua-parser-js "^0.7.24"
 
 react-dom@^17.0.1:
   version "17.0.2"
@@ -5448,6 +5456,16 @@ react-refresh@^0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.14.0.tgz#4e02825378a5f227079554d4284889354e5f553e"
   integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
+
+react-responsive@^10.0.1:
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/react-responsive/-/react-responsive-10.0.1.tgz#293d4d2562da93409861216f0110d146c5676eb3"
+  integrity sha512-OM5/cRvbtUWEX8le8RCT8scA8y2OPtb0Q/IViEyCEM5FBN8lRrkUOZnu87I88A6njxDldvxG+rLBxWiA7/UM9g==
+  dependencies:
+    hyphenate-style-name "^1.0.0"
+    matchmediaquery "^0.4.2"
+    prop-types "^15.6.1"
+    shallow-equal "^3.1.0"
 
 react-router-dom@^6.21.0:
   version "6.21.0"
@@ -5789,6 +5807,11 @@ set-function-name@^2.0.0, set-function-name@^2.0.1:
     functions-have-names "^1.2.3"
     has-property-descriptors "^1.0.0"
 
+shallow-equal@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/shallow-equal/-/shallow-equal-3.1.0.tgz#e7a54bac629c7f248eff6c2f5b63122ba4320bec"
+  integrity sha512-pfVOw8QZIXpMbhBWvzBISicvToTiM5WBF1EeAUZDDSb5Dt29yl4AYbyywbJFSEsRUMr7gJaxqCdr4L3tQf9wVg==
+
 side-channel@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/side-channel/-/side-channel-1.0.4.tgz#efce5c8fdc104ee751b25c58d4290011fa5ea2cf"
@@ -6093,11 +6116,6 @@ typescript@^5.1.6:
   version "5.3.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.3.3.tgz#b3ce6ba258e72e6305ba66f5c9b452aaee3ffe37"
   integrity sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==
-
-ua-parser-js@^0.7.24:
-  version "0.7.37"
-  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.37.tgz#e464e66dac2d33a7a1251d7d7a99d6157ec27832"
-  integrity sha512-xV8kqRKM+jhMvcHWUKthV9fNebIzrNy//2O9ZwWcfiBFR5f25XVZPLlEajk/sf3Ra15V92isyQqnIEXRDaZWEA==
 
 unbox-primitive@^1.0.2:
   version "1.0.2"

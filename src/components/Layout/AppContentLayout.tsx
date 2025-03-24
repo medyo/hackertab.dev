@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { isDesktop } from 'react-device-detect'
+import { DesktopBreakpoint } from 'src/providers/DesktopBreakpoint'
+import { MobileBreakpoint } from 'src/providers/MobileBreakpoint'
 import { useUserPreferences } from 'src/stores/preferences'
 import { BottomNavigation } from '../Elements'
 import { ScrollCardsNavigator } from './'
@@ -14,13 +15,14 @@ export const AppContentLayout = () => {
     <>
       <main className="AppContent">
         <ScrollCardsNavigator />
-        {isDesktop ? (
+        <DesktopBreakpoint>
           <DesktopCards cards={cards} userCustomCards={userCustomCards} />
-        ) : (
+        </DesktopBreakpoint>
+        <MobileBreakpoint>
           <div className="Cards HorizontalScroll">
             <MobileCards selectedCard={selectedCard} />
           </div>
-        )}
+        </MobileBreakpoint>
       </main>
       <BottomNavigation selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
     </>
