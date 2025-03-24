@@ -1,8 +1,14 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { DNDLayout } from 'src/components/Layout'
-import { setupAnalytics, setupIdentification, trackPageView } from 'src/lib/analytics'
+import {
+  identifyAdvBlocked,
+  setupAnalytics,
+  setupIdentification,
+  trackPageView,
+} from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { AppContentLayout } from './components/Layout'
+import { verifyAdvStatus } from './features/adv/utils/status'
 import { isWebOrExtensionVersion } from './utils/Environment'
 import { lazyImport } from './utils/lazyImport'
 const { OnboardingModal } = lazyImport(() => import('src/features/onboarding'), 'OnboardingModal')
@@ -30,6 +36,11 @@ export const App = () => {
     document.body.classList.remove('preload')
     setupAnalytics()
     setupIdentification()
+    const adVerifier = async () => {
+      const status = await verifyAdvStatus()
+      identifyAdvBlocked(status)
+    }
+    adVerifier()
   }, [])
 
   useEffect(() => {

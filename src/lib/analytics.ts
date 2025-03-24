@@ -69,6 +69,7 @@ export enum Attributes {
   MAX_VISIBLE_CARDS = 'Max Visible Cards',
   DURATION = 'Duration',
   PROVIDER = 'Provider',
+  ADV = 'ADV',
 }
 
 const _SEP_ = ' '
@@ -405,6 +406,9 @@ export const identifyUserOccupation = (occupation: string) => {
 export const identifyUserMaxVisibleCards = (maxVisibleCards: number) => {
   identifyUserProperty(Attributes.MAX_VISIBLE_CARDS, maxVisibleCards)
 }
+export const identifyAdvBlocked = (blocked: boolean) => {
+  identifyUserProperty(Attributes.ADV, blocked)
+}
 
 // Private functions
 type trackEventProps = {
@@ -452,7 +456,10 @@ const trackEvent = ({ object, verb, attributes }: trackEventProps) => {
   }
 }
 
-const identifyUserProperty = (attributes: Attributes, value: string | number | string[]) => {
+const identifyUserProperty = (
+  attributes: Attributes,
+  value: string | number | string[] | boolean
+) => {
   try {
     let formatedValue
     if (Array.isArray(value)) {
