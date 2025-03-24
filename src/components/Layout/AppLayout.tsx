@@ -14,7 +14,7 @@ export const AppLayout = () => {
   const postStreakMutation = usePostStreak()
 
   useEffect(() => {
-    if (isConnected()) {
+    if (isConnected) {
       postStreakMutation.mutateAsync(undefined).then((data) => {
         setStreak(data.streak)
       })
