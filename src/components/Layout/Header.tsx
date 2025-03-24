@@ -97,13 +97,13 @@ export const Header = () => {
           </CircleButton>
           <CircleButton
             onClick={() => {
-              if (isConnected()) {
+              if (isConnected) {
                 navigate('/settings/general')
               } else {
                 openAuthModal()
               }
             }}>
-            {isConnected() ? (
+            {isConnected ? (
               <img className="profileImage" src={user?.imageURL} />
             ) : (
               <FaUser style={{ fontSize: '1.2em' }} />

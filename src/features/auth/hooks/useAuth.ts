@@ -8,7 +8,7 @@ export const useAuth = () => {
   const authStore = AuthStore()
   const { user, providerId, initState, clear } = authStore
 
-  const isConnected = () => user != null
+  const isConnected = user != null
 
   const logout = async () => {
     trackUserDisconnect()
