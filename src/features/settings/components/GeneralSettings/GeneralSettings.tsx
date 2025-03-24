@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { FaFire, FaGithub } from 'react-icons/fa'
+import { FcGoogle } from 'react-icons/fc'
+import { IoCheckmarkOutline } from 'react-icons/io5'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
-import { ChipsSet } from 'src/components/Elements'
+import { Button, ChipsSet, ConfirmModal } from 'src/components/Elements'
 import { Footer } from 'src/components/Layout'
 import { SettingsContentLayout } from 'src/components/Layout/SettingsContentLayout'
+import { useAuth, User } from 'src/features/auth'
 import {
   identifyUserLinksInNewTab,
   identifyUserListingMode,
@@ -16,15 +20,87 @@ import {
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Option } from 'src/types'
+import { pluralize } from 'src/utils/String'
 import { DNDSettings } from './DNDSettings'
 import './generalSettings.css'
+
+// TODO Maybe we should create a separate folder in components for UserInfo ?
+interface UserInfoProps {
+  user: User
+}
+
+const UserInfo = ({ user }: UserInfoProps) => {
+  const { logout, providerId } = useAuth()
+  const providerName = providerId?.split('.')[0] || 'Unknown'
+  const [showLogout, setShowLogout] = useState(false)
+
+  return (
+    <div className="userContent">
+      <ConfirmModal
+        showModal={showLogout}
+        title="Logout !"
+        description="Are you sure you want to logout ?"
+        onClose={() => setShowLogout(false)}
+        onConfirm={logout}
+      />
+      {user?.imageURL && <img src={user.imageURL} className="userImage"></img>}
+      <div className="userInfos">
+        <div className="userName">{user.name}</div>
+        <div className="sub">
+          {providerId == 'github.com' ? (
+            <FaGithub size={18} />
+          ) : providerId == 'google.com' ? (
+            <FcGoogle size={18} />
+          ) : null}
+          Connected with <span className="capitalize">{providerName}</span>
+        </div>
+        <div>
+          <Button className="logoutBtn" onClick={() => setShowLogout(true)} size="small">
+            Logout
+          </Button>
+        </div>
+      </div>
+
+      <div className="streaks">
+        <p className="title">
+          You're on{' '}
+          <span>
+            {' '}
+            <FaFire color="orange" size={18} /> <b>{pluralize(user.streak || 1, 'day')} streak</b>
+          </span>
+        </p>
+        <div>
+          <ul className="streaksWeek">
+            {Array.from({ length: 5 }, (_, i) => {
+              const streak = user.streak || 1
+              if (i < streak) {
+                return (
+                  <li className="dayWrapper checked">
+                    <span className="day">
+                      <IoCheckmarkOutline />
+                    </span>
+                  </li>
+                )
+              } else {
+                return (
+                  <li className="dayWrapper">
+                    <span className="day"></span>
+                  </li>
+                )
+              }
+            })}
+          </ul>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export const GeneralSettings = () => {
   const {
     openLinksNewTab,
     listingMode,
     theme,
-    searchEngine,
     maxVisibleCards,
     setTheme,
     setListingMode,
@@ -62,6 +138,8 @@ export const GeneralSettings = () => {
     }
   }
 
+  const { user } = useAuth()
+
   return (
     <SettingsContentLayout
       title="General Settings"
@@ -69,6 +147,7 @@ export const GeneralSettings = () => {
         'Customize your experience by selecting the number of cards you want to see, the search engine you want to use and more.'
       }>
       <div>
+        {user != null && <UserInfo user={user} />}
         <div className="settingRow">
           <p className="settingTitle">Max number of cards to display</p>
           <div className="settingContent">

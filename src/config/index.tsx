@@ -3,6 +3,9 @@ export const ANALYTICS_ENDPOINT = import.meta.env.VITE_AMPLITUDE_URL as string
 export const ANALYTICS_SDK_KEY = import.meta.env.VITE_AMPLITUDE_KEY as string
 export const API_ENDPOINT = import.meta.env.VITE_API_URL as string
 export const LS_ANALYTICS_ID_KEY = 'hackerTabAnalyticsId'
+export const FIREBASE_API_KEY = import.meta.env.VITE_FIREBASE_API_KEY as string
+export const BUILD_TARGET = (import.meta.env.VITE_BUILD_TARGET as 'web' | 'extension') || 'web'
+
 // Meta
 export const name = 'Hackertab.dev'
 export const slogan = '— Stay updated with the new technology and trends'

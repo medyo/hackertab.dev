@@ -5,6 +5,7 @@ import { identifyUserCards, trackRssSourceAdd } from 'src/lib/analytics'
 import { isValidURL } from 'src/utils/UrlUtils'
 
 import { BsRssFill } from 'react-icons/bs'
+import { Button } from 'src/components/Elements'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SupportedCardType } from 'src/types'
 
@@ -78,9 +79,13 @@ export const RssSetting = () => {
             <BeatLoader color={'#A9B2BD'} loading={isRssInputLoading} size={6} />
           ) : (
             <div>
-              <button className="rssButton" onClick={onRssAddClick}>
-                <BsRssFill /> Add
-              </button>
+              <Button
+                startIcon={<BsRssFill />}
+                size="small"
+                className="rssButton"
+                onClick={onRssAddClick}>
+                Add
+              </Button>
             </div>
           )}
         </div>

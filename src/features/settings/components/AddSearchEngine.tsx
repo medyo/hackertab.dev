@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { isValidURL } from 'src/utils/UrlUtils'
 
 import { TiPlus } from 'react-icons/ti'
+import { Button } from 'src/components/Elements'
 import { useUserPreferences } from 'src/stores/preferences'
 
 export const AddSearchEngine = () => {
@@ -45,9 +46,9 @@ export const AddSearchEngine = () => {
             placeholder="https://google.com?q="
           />
           <div>
-            <button onClick={onAddSearchEngine}>
-              <TiPlus /> Add
-            </button>
+            <Button startIcon={<TiPlus />} size="small" onClick={onAddSearchEngine}>
+              Add
+            </Button>
           </div>
         </div>
         {RssInputFeedback && (
