@@ -8,7 +8,7 @@ import { firebaseAuth } from 'src/lib/firebase'
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const { closeAuthModal, initState, setAuthError } = useAuth()
+  const { closeAuthModal, initState, setAuthError, openAuthModal } = useAuth()
 
   const connectTheUser = useCallback((token?: string | null, provider?: string | null) => {
     const allowedProviders = ['google', 'github']
@@ -78,16 +78,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const token = searchParams.get('access_token')
     const provider = searchParams.get('provider')
     connectTheUser(token, provider).catch((error) => {
+      openAuthModal()
       if (error && error.code === 'auth/account-exists-with-different-credential') {
-        toast(
-          'You have an account with a different provider. Please sign in with that provider to continue.',
-          {
-            theme: 'dangerToast',
-          }
-        )
+        setAuthError({
+          message:
+            'You have an account with a different provider. Please sign in with that provider to continue.',
+        })
       } else {
-        console.log(error)
-        toast('Error signing in, Please try again', { theme: 'dangerToast' })
+        setAuthError({
+          message: 'Error signing in, Please try again',
+        })
       }
     })
   }, [searchParams])
