@@ -38,8 +38,8 @@ const UserInfo = ({ user }: UserInfoProps) => {
     <div className="userContent">
       <ConfirmModal
         showModal={showLogout}
-        title="Logout !"
-        description="Are you sure you want to logout ?"
+        title="Confirm logout"
+        description="Are you sure you want to logout?"
         onClose={() => setShowLogout(false)}
         onConfirm={logout}
       />
