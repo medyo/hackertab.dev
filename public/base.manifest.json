@@ -9,7 +9,7 @@
   "host_permissions": ["https://*.hackertab.dev/*"],
   "content_scripts": [
     {
-      "matches": ["http://127.0.0.1:5173/*", "http://localhost:5173/*", "https://hackertab.dev/*"],
+      "matches": ["https://hackertab.dev/*"],
       "run_at": "document_start",
       "js": ["content.js"]
     }
