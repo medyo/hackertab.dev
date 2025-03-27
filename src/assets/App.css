@@ -1164,29 +1164,34 @@ Producthunt item
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 1px solid var(--tooltip-accent-color);
+    border: 2px solid #ff8f1f;
   }
 
   .streak {
     position: absolute;
     display: inline-block;
-    bottom: -12px;
+    bottom: -8px;
     left: 0;
     right: 0;
     color: white;
 
     .content {
-      background-color: var(--tooltip-accent-color);
-      font-size: 10px;
+      background-color: #995826;
+      font-size: 11px;
       border-radius: 12px;
       font-weight: bold;
-      padding: 2px 8px;
+      border: 2px solid black;
+      padding: 1px 6px 1px 22px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      color: white;
     }
     .icon {
-      font-size: 12px;
+      width: 2.2em;
+      position: absolute;
+      left: 0;
+      top: -2px;
     }
   }
 }

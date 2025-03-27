@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { FaFire, FaGithub } from 'react-icons/fa'
+import { FaGithub } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { IoCheckmarkOutline } from 'react-icons/io5'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
+import { ReactComponent as StreakIcon } from 'src/assets/icons/fire_icon.svg'
 import { Button, ChipsSet, ConfirmModal } from 'src/components/Elements'
 import { Footer } from 'src/components/Layout'
 import { SettingsContentLayout } from 'src/components/Layout/SettingsContentLayout'
@@ -64,9 +65,9 @@ const UserInfo = ({ user }: UserInfoProps) => {
       <div className="streaks">
         <p className="title">
           You're on{' '}
-          <span>
-            {' '}
-            <FaFire color="orange" size={18} /> <b>{pluralize(user.streak || 1, 'day')} streak</b>
+          <span className="highlight">
+            <StreakIcon className="icon" />
+            {pluralize(user.streak || 1, 'day')} streak
           </span>
         </p>
         <div>

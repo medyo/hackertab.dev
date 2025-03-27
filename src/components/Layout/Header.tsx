@@ -3,8 +3,9 @@ import { BsFillBookmarksFill, BsFillGearFill, BsMoonFill } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
 import { FaUser } from 'react-icons/fa'
 import { IoMdSunny } from 'react-icons/io'
-import { MdDoDisturbOff, MdFlashOn } from 'react-icons/md'
+import { MdDoDisturbOff } from 'react-icons/md'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { ReactComponent as StreakIcon } from 'src/assets/icons/fire_icon.svg'
 import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
 import { SearchBar } from 'src/components/Elements/SearchBar'
 import { UserTags } from 'src/components/Elements/UserTags'
@@ -13,7 +14,6 @@ import { Changelog } from 'src/features/changelog'
 import { identifyUserTheme, trackDNDDisable, trackThemeSelect } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Button, CircleButton } from '../Elements'
-
 export const Header = () => {
   const { openAuthModal, user, isConnected } = useAuth()
 
@@ -97,7 +97,7 @@ export const Header = () => {
                 <img className="profileImage s" src={user?.imageURL} />
                 <div className="streak">
                   <span className="content">
-                    <MdFlashOn className="icon" /> {user?.streak || 1}
+                    <StreakIcon className="icon" /> {user?.streak || 1}
                   </span>
                 </div>
               </>

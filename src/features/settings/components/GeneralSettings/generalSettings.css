@@ -135,11 +135,22 @@ Select styles
   flex-direction: column;
   row-gap: 16px;
   align-self: flex-start;
-}
-.streaks .title {
-  margin: 0;
-  padding: 0;
-  font-size: 0.9em;
+
+  .title {
+    margin: 0;
+    padding: 0;
+    font-size: 0.9em;
+  }
+  .icon {
+    width: 1.6em;
+    vertical-align: bottom;
+    position: relative;
+    top: 2px;
+  }
+  .highlight {
+    font-weight: 900;
+    color: #ff8f1f;
+  }
 }
 
 .streaks ul.streaksWeek::before {
