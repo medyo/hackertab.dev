@@ -1176,11 +1176,11 @@ Producthunt item
     color: white;
 
     .content {
-      background: linear-gradient(to right, #59320c 20%, #f88e0c);
+      background: #f88e0c;
       font-size: 11px;
       border-radius: 12px;
       font-weight: bold;
-      border: 2px solid black;
+      border: 2px solid var(--background-color);
       padding: 1px 6px 1px 22px;
       display: inline-flex;
       align-items: center;
@@ -1192,6 +1192,7 @@ Producthunt item
       position: absolute;
       left: 0;
       top: -2px;
+      filter: drop-shadow(0 -4px 4px rgb(0 0 0 / 0.4));
     }
   }
 }
