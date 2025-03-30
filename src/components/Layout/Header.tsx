@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { BsFillBookmarksFill, BsFillGearFill, BsMoonFill } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
-import { FaUser } from 'react-icons/fa'
 import { IoMdSunny } from 'react-icons/io'
 import { MdDoDisturbOff } from 'react-icons/md'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { ReactComponent as AvatarPlaceholder } from 'src/assets/icons/avatar.svg'
 import { ReactComponent as StreakIcon } from 'src/assets/icons/fire_icon.svg'
 import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
+
 import { SearchBar } from 'src/components/Elements/SearchBar'
 import { UserTags } from 'src/components/Elements/UserTags'
 import { useAuth } from 'src/features/auth'
@@ -94,7 +95,7 @@ export const Header = () => {
             }}>
             {isConnected ? (
               <>
-                <img className="profileImage s" src={user?.imageURL} />
+                <img className="profileImage" src={user?.imageURL} />
                 <div className="streak">
                   <span className="content">
                     <StreakIcon className="icon" /> {user?.streak || 1}
@@ -102,7 +103,7 @@ export const Header = () => {
                 </div>
               </>
             ) : (
-              <FaUser style={{ fontSize: '1.2em' }} />
+              <AvatarPlaceholder className="profileImage" />
             )}
           </CircleButton>
         </div>

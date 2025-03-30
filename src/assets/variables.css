@@ -22,6 +22,7 @@ html.dark {
   --secondary-text-color: #a2a7ad;
   --overlay-background-color: #7985958a;
   --language-dot-background-color: #424d5a;
+  --icons-accent-color: #ffffff;
 
   --dark-mode-background-color: #1c2026;
   --dark-mode-text-color: #f0c73d;
@@ -110,6 +111,7 @@ html.light {
   --overlay-background-color: #0000005c;
   --primary-hover-text-color: #495a6b;
   --language-dot-background-color: #cfddec;
+  --icons-accent-color: #3c5065;
 
   --scrollbar-background-color: #eff6ff;
   --scrollbar-accent-color: #b9cadc;
