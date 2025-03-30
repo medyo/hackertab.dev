@@ -115,11 +115,11 @@ export const AuthModal = ({ showAuth }: AuthModalProps) => {
           <p>
             By signing in, you agree to our{' '}
             <a href={termsAndConditionsLink} target="_blank" rel="noreferrer">
-              Terms of Service
+              terms of Service
             </a>{' '}
             and{' '}
             <a href={privacyPolicyLink} target="_blank" rel="noreferrer">
-              Privacy Policy
+              privacy Policy
             </a>
             .
           </p>
