@@ -1162,11 +1162,12 @@ Producthunt item
   color: white;
   font-size: 24px;
 }
-
+.overflowHidden {
+  overflow: hidden;
+}
 /* User */
 .profileImageContainer {
   position: relative;
-  overflow: hidden;
 
   img {
     width: 40px;

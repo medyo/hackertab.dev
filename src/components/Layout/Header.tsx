@@ -1,3 +1,4 @@
+import { clsx } from 'clsx'
 import { useEffect, useState } from 'react'
 import { BsFillBookmarksFill, BsFillGearFill, BsMoonFill } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
@@ -7,7 +8,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ReactComponent as AvatarPlaceholder } from 'src/assets/icons/avatar.svg'
 import { ReactComponent as StreakIcon } from 'src/assets/icons/fire_icon.svg'
 import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
-
 import { SearchBar } from 'src/components/Elements/SearchBar'
 import { UserTags } from 'src/components/Elements/UserTags'
 import { useAuth } from 'src/features/auth'
@@ -16,7 +16,7 @@ import { identifyUserTheme, trackDNDDisable, trackThemeSelect } from 'src/lib/an
 import { useUserPreferences } from 'src/stores/preferences'
 import { Button, CircleButton } from '../Elements'
 export const Header = () => {
-  const { openAuthModal, user, isConnected } = useAuth()
+  const { openAuthModal, user, isConnected, isConnecting } = useAuth()
 
   const [themeIcon, setThemeIcon] = useState(<BsMoonFill />)
   const { theme, setTheme, setDNDDuration, isDNDModeActive } = useUserPreferences()
@@ -85,7 +85,8 @@ export const Header = () => {
             <BsFillBookmarksFill />
           </CircleButton>
           <CircleButton
-            className="profileImageContainer"
+            isLoading={isConnecting}
+            className={clsx('profileImageContainer', !isConnected && 'overflowHidden')}
             onClick={() => {
               if (isConnected) {
                 navigate('/settings/general')
