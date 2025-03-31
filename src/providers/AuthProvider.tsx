@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       initState({
         user: {
+          id: user.uid,
           name: user.displayName || 'Anonymous',
           imageURL: user.photoURL || '',
         },
