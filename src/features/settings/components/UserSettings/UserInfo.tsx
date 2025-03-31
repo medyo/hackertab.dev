@@ -4,17 +4,18 @@ import { FcGoogle } from 'react-icons/fc'
 import { IoCheckmarkOutline } from 'react-icons/io5'
 import { ReactComponent as StreakIcon } from 'src/assets/icons/fire_icon.svg'
 import { Button, ConfirmModal } from 'src/components/Elements'
-import { useAuth, User } from 'src/features/auth'
+import { useAuth } from 'src/features/auth'
 import { pluralize } from 'src/utils/String'
 
-interface UserInfoProps {
-  user: User
-}
-
-export const UserInfo = ({ user }: UserInfoProps) => {
+export const UserInfo = () => {
+  const { user } = useAuth()
   const { logout, providerId } = useAuth()
   const providerName = providerId?.split('.')[0] || 'Unknown'
   const [showLogout, setShowLogout] = useState(false)
+
+  if (!user) {
+    return null
+  }
 
   return (
     <div className="userContent">

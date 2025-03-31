@@ -4,7 +4,6 @@ import 'react-toggle/style.css'
 import { ChipsSet } from 'src/components/Elements'
 import { Footer } from 'src/components/Layout'
 import { SettingsContentLayout } from 'src/components/Layout/SettingsContentLayout'
-import { useAuth } from 'src/features/auth'
 import {
   identifyUserLinksInNewTab,
   identifyUserListingMode,
@@ -17,6 +16,7 @@ import {
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Option } from 'src/types'
+import { DeleteAccount } from '../UserSettings/DeleteAccount'
 import { UserInfo } from '../UserSettings/UserInfo'
 import { DNDSettings } from './DNDSettings'
 import './generalSettings.css'
@@ -63,8 +63,6 @@ export const GeneralSettings = () => {
     }
   }
 
-  const { user } = useAuth()
-
   return (
     <SettingsContentLayout
       title="General Settings"
@@ -72,7 +70,7 @@ export const GeneralSettings = () => {
         'Customize your experience by selecting the number of cards you want to see, the search engine you want to use and more.'
       }>
       <div>
-        {user != null && <UserInfo user={user} />}
+        <UserInfo />
         <div className="settingRow">
           <p className="settingTitle">Max number of cards to display</p>
           <div className="settingContent">
@@ -136,6 +134,8 @@ export const GeneralSettings = () => {
         </div>
 
         <DNDSettings />
+
+        <DeleteAccount />
 
         <Footer />
       </div>
