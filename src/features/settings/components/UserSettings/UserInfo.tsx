@@ -24,7 +24,6 @@ export const UserInfo = () => {
           </div>
           <div className="sub">
             Create a free account on <b>Hackertab</b> to sync, save bookmarks, and earn rewards.
-            settings.
           </div>
           <div className="actions">
             <Button className="logoutBtn" onClick={() => openAuthModal()} size="small">
