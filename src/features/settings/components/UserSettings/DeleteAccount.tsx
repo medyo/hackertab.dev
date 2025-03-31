@@ -3,6 +3,7 @@ import toast from 'react-simple-toasts'
 import { Button, ConfirmModal } from 'src/components/Elements'
 import { useAuth } from 'src/features/auth'
 import { useDeleteAccount } from 'src/features/auth/api/deleteAccount'
+import { trackUserDelete } from 'src/lib/analytics'
 
 export const DeleteAccount = () => {
   const deleteAccountMutation = useDeleteAccount()
@@ -20,6 +21,7 @@ export const DeleteAccount = () => {
       })
       .then(() => {
         logout()
+        trackUserDelete()
         toast('Account deleted successfully', { theme: 'successToast' })
       })
       .catch(() => {

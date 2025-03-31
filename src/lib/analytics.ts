@@ -46,6 +46,7 @@ enum Verbs {
   COPY = 'Copy',
   CONNECT = 'Connect',
   DISCONNECT = 'Disconnect',
+  DELETE = 'Delete',
 }
 
 export enum Attributes {
@@ -391,6 +392,13 @@ export const trackUserDisconnect = () => {
   trackEvent({
     object: Objects.USER,
     verb: Verbs.DISCONNECT,
+  })
+}
+
+export const trackUserDelete = () => {
+  trackEvent({
+    object: Objects.USER,
+    verb: Verbs.DELETE,
   })
 }
 
