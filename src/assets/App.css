@@ -143,6 +143,13 @@ a {
   border-radius: 20px;
 }
 
+.avatarPlaceholder {
+  height: 34px;
+  width: 34px;
+  margin-top: 10px;
+  border-radius: 20px;
+}
+
 .badgeCount {
   width: 20px;
   height: 20px;
@@ -1159,6 +1166,7 @@ Producthunt item
 /* User */
 .profileImageContainer {
   position: relative;
+  overflow: hidden;
 
   img {
     width: 40px;

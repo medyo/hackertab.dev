@@ -103,7 +103,7 @@ export const Header = () => {
                 </div>
               </>
             ) : (
-              <AvatarPlaceholder className="profileImage" />
+              <AvatarPlaceholder className="avatarPlaceholder" />
             )}
           </CircleButton>
         </div>
