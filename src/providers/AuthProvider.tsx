@@ -83,7 +83,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (error && error.code === 'auth/account-exists-with-different-credential') {
         setAuthError({
           message:
-            'You have an account with a different provider. Please sign in with that provider to continue.',
+            'This account is already connected with a different provider. Please sign in with that provider to continue.',
         })
       } else {
         setAuthError({
