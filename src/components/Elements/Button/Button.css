@@ -17,6 +17,10 @@
     color: var(--button-hover-text-color);
   }
 
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
   &.small {
     padding: 0.3rem 0.75rem;
     font-size: 0.875rem;
@@ -51,6 +55,12 @@
   padding: 0;
   padding: 0;
   font-size: 1.1em;
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
+
   &.small {
     min-width: 30px;
     height: 30px;

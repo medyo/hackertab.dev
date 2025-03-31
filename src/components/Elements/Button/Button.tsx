@@ -27,7 +27,13 @@ export const Button = ({
 }: ButtonProps) => {
   return (
     <button
-      className={clsx('button', isLoading && 'loading', sizes[size], className)}
+      className={clsx(
+        'button',
+        isLoading && 'loading',
+        sizes[size],
+        className,
+        isLoading && 'disabled'
+      )}
       onClick={onClick}
       disabled={isLoading}>
       {isLoading ? <Spinner size="small" /> : startIcon}

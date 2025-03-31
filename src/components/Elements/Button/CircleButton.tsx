@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { Spinner } from '../Spinner'
 
 const sizes = {
   small: 'small',
@@ -13,6 +14,7 @@ const variants = {
 
 type CircleButtonProps = {
   className?: string
+  isLoading?: boolean
   onClick: () => void
   size?: keyof typeof sizes
   variant?: keyof typeof variants
@@ -23,14 +25,22 @@ export const CircleButton = ({
   size = 'medium',
   variant = 'primary',
   onClick,
+  isLoading,
   className,
   children,
 }: CircleButtonProps) => {
   return (
     <button
-      className={clsx('circle-button', sizes[size], variants[variant], className)}
+      disabled={isLoading}
+      className={clsx(
+        'circle-button',
+        sizes[size],
+        variants[variant],
+        className,
+        isLoading && 'disabled'
+      )}
       onClick={onClick}>
-      {children}
+      {isLoading ? <Spinner size="small" /> : children}
     </button>
   )
 }
