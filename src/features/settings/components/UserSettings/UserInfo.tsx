@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { IoCheckmarkOutline } from 'react-icons/io5'
+import { ReactComponent as AvatarPlaceholder } from 'src/assets/icons/avatar.svg'
 import { ReactComponent as StreakIcon } from 'src/assets/icons/fire_icon.svg'
 import { Button, ConfirmModal } from 'src/components/Elements'
 import { useAuth } from 'src/features/auth'
@@ -9,12 +10,30 @@ import { pluralize } from 'src/utils/String'
 
 export const UserInfo = () => {
   const { user } = useAuth()
-  const { logout, providerId } = useAuth()
+  const { logout, providerId, openAuthModal } = useAuth()
   const providerName = providerId?.split('.')[0] || 'Unknown'
   const [showLogout, setShowLogout] = useState(false)
 
   if (!user) {
-    return null
+    return (
+      <div className="userContent">
+        <AvatarPlaceholder className="userImage" />
+        <div className="userInfos">
+          <div className="userName">
+            Join <b>Hackertab</b>
+          </div>
+          <div className="sub">
+            Create a free account on <b>Hackertab</b> to sync, save bookmarks, and earn rewards.
+            settings.
+          </div>
+          <div className="actions">
+            <Button className="logoutBtn" onClick={() => openAuthModal()} size="small">
+              Connect
+            </Button>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -37,7 +56,7 @@ export const UserInfo = () => {
           ) : null}
           Connected with <span className="capitalize">{providerName}</span>
         </div>
-        <div>
+        <div className="actions">
           <Button className="logoutBtn" onClick={() => setShowLogout(true)} size="small">
             Logout
           </Button>

@@ -121,6 +121,9 @@ Select styles
   font-weight: 600;
 }
 
+.userContent .actions {
+  margin-top: 6px;
+}
 .userContent .sub {
   font-size: 0.9em;
   opacity: 0.9;
