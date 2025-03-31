@@ -8,7 +8,7 @@ import { firebaseAuth } from 'src/lib/firebase'
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const { closeAuthModal, initState, setAuthError, openAuthModal } = useAuth()
+  const { closeAuthModal, initState, setAuthError, openAuthModal, setConnecting } = useAuth()
 
   const connectTheUser = useCallback((token?: string | null, provider?: string | null) => {
     const allowedProviders = ['google', 'github']
@@ -16,28 +16,33 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return Promise.resolve()
     }
 
+    setConnecting(true)
     const authProvider =
       provider === 'google'
         ? GoogleAuthProvider.credential(null, token)
         : GithubAuthProvider.credential(token)
 
-    return signInWithCredential(firebaseAuth, authProvider).then((userCredential) => {
-      const user = userCredential.user
+    return signInWithCredential(firebaseAuth, authProvider)
+      .then((userCredential) => {
+        const user = userCredential.user
 
-      initState({
-        user: {
-          id: user.uid,
-          name: user.displayName || 'Anonymous',
-          imageURL: user.photoURL || '',
-        },
-        providerId: authProvider.providerId,
+        initState({
+          user: {
+            id: user.uid,
+            name: user.displayName || 'Anonymous',
+            imageURL: user.photoURL || '',
+          },
+          providerId: authProvider.providerId,
+        })
+        if (user.displayName) {
+          toast(`Welcome, ${user.displayName}`, { theme: 'successToast' })
+        }
+        closeAuthModal()
+        navigate(window.location.pathname, { replace: true })
       })
-      if (user.displayName) {
-        toast(`Welcome, ${user.displayName}`, { theme: 'successToast' })
-      }
-      closeAuthModal()
-      navigate(window.location.pathname, { replace: true })
-    })
+      .finally(() => {
+        setConnecting(false)
+      })
   }, [])
 
   /**
