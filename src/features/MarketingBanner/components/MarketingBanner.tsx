@@ -2,6 +2,7 @@ import DOMPurify from 'dompurify'
 import jsonPath from 'jsonpath'
 import { useEffect, useMemo, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
+import { useAuth } from 'src/features/auth'
 import {
   trackMarketingCampaignClose,
   trackMarketingCampaignOpen,
@@ -17,6 +18,7 @@ import { Campaign, MarketingConfig } from '../types'
 
 export const MarketingBanner = () => {
   const { setCampaignClosed, closedCampaigns } = useMarketingConfigStore()
+  const { isConnected } = useAuth()
   const { userSelectedTags, cards, firstSeenDate } = useUserPreferences()
   const [availableCampaigns, setAvailableCampaigns] = useState<Campaign[]>([])
   const { data: marketingConfig } = useGetMarketingConfig({
@@ -36,6 +38,7 @@ export const MarketingBanner = () => {
       userTags: userSelectedTags.map((tag) => tag.label),
       cards: cards.map((card) => card.name),
       firstSeenDate,
+      isConnected,
       usageInDays: diffBetweenTwoDatesInDays(firstSeenDate, Date.now()),
     }
   }, [userSelectedTags, firstSeenDate, cards])
