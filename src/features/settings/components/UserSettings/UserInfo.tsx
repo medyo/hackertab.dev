@@ -44,21 +44,24 @@ export const UserInfo = () => {
         onClose={() => setShowLogout(false)}
         onConfirm={logout}
       />
-      {user?.imageURL && <img src={user.imageURL} className="userImage"></img>}
-      <div className="userInfos">
-        <div className="userName">{user.name}</div>
-        <div className="sub">
-          {providerId == 'github.com' ? (
-            <FaGithub size={18} />
-          ) : providerId == 'google.com' ? (
-            <FcGoogle size={18} />
-          ) : null}
-          Connected with <span className="capitalize">{providerName}</span>
-        </div>
-        <div className="actions">
-          <Button className="logoutBtn" onClick={() => setShowLogout(true)} size="small">
-            Logout
-          </Button>
+
+      <div className="userDetails">
+        {user?.imageURL && <img src={user.imageURL} className="userImage"></img>}
+        <div className="userInfo">
+          <div className="userName">{user.name}</div>
+          <div className="sub">
+            {providerId == 'github.com' ? (
+              <FaGithub size={18} />
+            ) : providerId == 'google.com' ? (
+              <FcGoogle size={18} />
+            ) : null}
+            Connected with <span className="capitalize">{providerName}</span>
+          </div>
+          <div className="actions">
+            <Button className="logoutBtn" onClick={() => setShowLogout(true)} size="small">
+              Logout
+            </Button>
+          </div>
         </div>
       </div>
 

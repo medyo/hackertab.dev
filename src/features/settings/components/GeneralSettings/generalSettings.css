@@ -101,6 +101,7 @@ Select styles
   padding: 20px 0px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid var(--card-content-divider);
 
   .userImage {
@@ -108,6 +109,16 @@ Select styles
     height: 50px;
     border-radius: 100%;
     align-self: flex-start;
+  }
+  .userDetails {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
   .userInfos {
     flex: 1;
@@ -213,4 +224,19 @@ Select styles
 }
 .streaks .checked:is(:has(+ .checked))::before {
   background-color: #18bc2d;
+}
+
+@media (max-width: 768px) {
+  .settingContent {
+    margin-top: 6px;
+  }
+  .settingRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .userContent {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
 }
