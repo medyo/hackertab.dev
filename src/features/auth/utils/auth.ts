@@ -7,7 +7,6 @@ export const getUserToken = async () => {
         const token = await user.getIdToken()
         resolve(token)
       } else {
-        console.log('User not logged in')
         resolve(null)
       }
       unsub()
