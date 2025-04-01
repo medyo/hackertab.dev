@@ -122,44 +122,32 @@ a {
 }
 
 .extras {
-  display: none;
-  flex-direction: row;
-  align-content: center;
   order: 2;
 }
 
-.extraBtn {
-  background-color: var(--button-background-color);
-  color: var(--button-text-color);
-  margin-left: 8px;
-  height: 40px;
-  width: 40px;
-  line-height: 44px;
-  font-size: 18px;
-  text-align: center;
-  border: 0;
-  border-radius: 20px;
-  cursor: pointer;
-  position: relative;
+.buttonsFlex {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  align-content: center;
+  column-gap: 8px;
+  row-gap: 8px;
 }
 
-.extraBtn:first-child {
-  margin-left: 0;
-}
-
-.extraTextBtn {
-  padding: 0 16px;
-  width: auto;
-  min-width: 40px;
+.dndButton {
   font-weight: bold;
 }
 
-.darkModeBtn {
-  background-color: var(--dark-mode-background-color);
-  color: var(--dark-mode-text-color);
+.profileImage {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+}
+
+.avatarPlaceholder {
+  height: 34px;
+  width: 34px;
+  margin-top: 10px;
+  border-radius: 20px;
 }
 
 .badgeCount {
@@ -1018,7 +1006,7 @@ Producthunt item
 *** BREAKPOINTS
 *******************/
 /* Extra small devices (phones, 600px and down) */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .bottomNavigation {
     display: flex;
   }
@@ -1174,9 +1162,52 @@ Producthunt item
   color: white;
   font-size: 24px;
 }
+.overflowHidden {
+  overflow: hidden;
+}
+/* User */
+.profileImageContainer {
+  position: relative;
+
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ff8f1f;
+  }
+
+  .streak {
+    position: absolute;
+    display: inline-block;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    color: white;
+
+    .content {
+      background: #f88e0c;
+      font-size: 11px;
+      border-radius: 12px;
+      font-weight: bold;
+      border: 2px solid var(--background-color);
+      padding: 1px 6px 1px 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    .icon {
+      width: 2.2em;
+      position: absolute;
+      left: 0;
+      top: -2px;
+      filter: drop-shadow(0 -4px 4px rgb(0 0 0 / 0.4));
+    }
+  }
+}
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 768px) {
   .floatingFilter {
     display: none;
   }
@@ -1196,10 +1227,6 @@ Producthunt item
     flex-grow: 1;
     margin: 0 auto;
     position: relative;
-  }
-
-  .extras {
-    display: block;
   }
 
   .scrollButton {
@@ -1349,6 +1376,135 @@ Producthunt item
   color: var(--primary-text-color);
   border-radius: 10px;
 }
+
+.dangerToast {
+  background-color: #ff4d4f;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+.successToast {
+  background-color: #52c41a;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
 .capitalize {
   text-transform: capitalize;
+}
+
+/**
+Modal
+**/
+
+.Modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 650px;
+  background-color: var(--card-background-color);
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #00000052;
+  z-index: 3;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--overlay-background-color);
+  backdrop-filter: blur(2px);
+}
+
+.modalHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.modalTitle {
+  margin: 0;
+  padding: 0;
+  color: var(--primary-text-color);
+  font-size: 1.3em;
+  display: inline-flex;
+  width: 100%;
+  column-gap: 8px;
+  align-items: center;
+}
+.modalCloseBtn {
+  align-items: center;
+  position: absolute;
+  background-color: transparent;
+  border-radius: 50%;
+  top: 0;
+  right: 0;
+  border: none;
+  color: var(--primary-text-color);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.modalCloseBtn:hover {
+  opacity: 0.7;
+}
+.settingContent .form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.settingContent input[type='text'] {
+  flex: 1;
+  background-color: var(--settings-input-background-color);
+  border: 1px solid var(--settings-input-border-color);
+  border-radius: 50px;
+  padding: 6px 18px;
+  color: var(--settings-input-text-color);
+  font-size: 14px;
+}
+
+.settingContent input[type='text']::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--settings-input-placeholder-color);
+  opacity: 1;
+  font-size: 14px;
+}
+
+.settingContent input[type='text']:focus {
+  border-color: var(--settings-input-border-focus-color);
+}
+@media (max-width: 768px) {
+  .Modal {
+    left: 0;
+    top: 0;
+    margin: 0;
+    height: 100vh;
+    max-height: 100vh;
+    transform: translate(0, 0);
+    border-radius: 0;
+    position: relative;
+    box-shadow: none;
+    width: auto;
+  }
+  .settingContent {
+    margin-top: 6px;
+  }
+  .settingRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

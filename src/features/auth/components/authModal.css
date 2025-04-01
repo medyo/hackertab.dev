@@ -1,0 +1,48 @@
+@media (min-width: 768px) {
+  .authModal {
+    width: 400px;
+  }
+}
+.authModal .header {
+  text-align: center;
+  justify-content: center;
+}
+.authModal .buttons {
+  display: inline-flex;
+  align-items: center;
+  justify-items: center;
+  flex-direction: column;
+  row-gap: 16px;
+  width: 100%;
+  margin: 0 0 20px 0;
+}
+
+.authModal .description {
+  padding: 20px;
+  text-align: center;
+  font-size: 1em;
+}
+.authModal .errors {
+  background-color: rgba(255, 0, 0, 0.064);
+  border: 1px solid rgba(255, 0, 0, 0.363);
+  border-radius: 6px;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  p {
+    padding: 0;
+    margin: 0;
+    font-size: 0.8em;
+    color: red;
+    text-align: center;
+  }
+  .cta {
+    flex: 1;
+  }
+}
+
+.authModal .footer {
+  font-size: 0.7em;
+  text-align: center;
+}

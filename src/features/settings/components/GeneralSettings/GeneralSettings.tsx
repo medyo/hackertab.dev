@@ -16,6 +16,8 @@ import {
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Option } from 'src/types'
+import { DeleteAccount } from '../UserSettings/DeleteAccount'
+import { UserInfo } from '../UserSettings/UserInfo'
 import { DNDSettings } from './DNDSettings'
 import './generalSettings.css'
 
@@ -24,7 +26,6 @@ export const GeneralSettings = () => {
     openLinksNewTab,
     listingMode,
     theme,
-    searchEngine,
     maxVisibleCards,
     setTheme,
     setListingMode,
@@ -69,6 +70,7 @@ export const GeneralSettings = () => {
         'Customize your experience by selecting the number of cards you want to see, the search engine you want to use and more.'
       }>
       <div>
+        <UserInfo />
         <div className="settingRow">
           <p className="settingTitle">Max number of cards to display</p>
           <div className="settingContent">
@@ -132,6 +134,8 @@ export const GeneralSettings = () => {
         </div>
 
         <DNDSettings />
+
+        <DeleteAccount />
 
         <Footer />
       </div>

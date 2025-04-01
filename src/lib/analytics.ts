@@ -44,6 +44,9 @@ enum Verbs {
   DISABLE = 'Disable',
   SHARE = 'Share',
   COPY = 'Copy',
+  CONNECT = 'Connect',
+  DISCONNECT = 'Disconnect',
+  DELETE = 'Delete',
 }
 
 export enum Attributes {
@@ -69,6 +72,7 @@ export enum Attributes {
   MAX_VISIBLE_CARDS = 'Max Visible Cards',
   DURATION = 'Duration',
   PROVIDER = 'Provider',
+  ADV = 'ADV',
 }
 
 const _SEP_ = ' '
@@ -376,6 +380,28 @@ export const trackLinkCopy = ({
   })
 }
 
+export const trackUserConnect = (provider: string) => {
+  trackEvent({
+    object: Objects.USER,
+    verb: Verbs.CONNECT,
+    attributes: { [Attributes.PROVIDER]: provider },
+  })
+}
+
+export const trackUserDisconnect = () => {
+  trackEvent({
+    object: Objects.USER,
+    verb: Verbs.DISCONNECT,
+  })
+}
+
+export const trackUserDelete = () => {
+  trackEvent({
+    object: Objects.USER,
+    verb: Verbs.DELETE,
+  })
+}
+
 // Identification
 
 export const identifyUserLanguages = (languages: string[]) => {
@@ -404,6 +430,9 @@ export const identifyUserOccupation = (occupation: string) => {
 }
 export const identifyUserMaxVisibleCards = (maxVisibleCards: number) => {
   identifyUserProperty(Attributes.MAX_VISIBLE_CARDS, maxVisibleCards)
+}
+export const identifyAdvBlocked = (blocked: boolean) => {
+  identifyUserProperty(Attributes.ADV, blocked)
 }
 
 // Private functions
@@ -452,7 +481,10 @@ const trackEvent = ({ object, verb, attributes }: trackEventProps) => {
   }
 }
 
-const identifyUserProperty = (attributes: Attributes, value: string | number | string[]) => {
+const identifyUserProperty = (
+  attributes: Attributes,
+  value: string | number | string[] | boolean
+) => {
   try {
     let formatedValue
     if (Array.isArray(value)) {

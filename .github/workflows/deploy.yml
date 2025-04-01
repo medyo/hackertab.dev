@@ -10,6 +10,7 @@ env:
   VITE_AMPLITUDE_KEY: ${{ secrets.REACT_APP_AMPLITUDE_KEY }}
   VITE_AMPLITUDE_URL: ${{ secrets.REACT_APP_AMPLITUDE_URL }}
   VITE_API_URL: ${{ secrets.API_URL }}
+  VITE_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
 
 jobs:
   build_and_deploy:
@@ -17,12 +18,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: 18
 
       - name: Install dependencies
         run: yarn

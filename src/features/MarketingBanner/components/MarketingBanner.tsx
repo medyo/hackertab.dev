@@ -1,7 +1,7 @@
 import DOMPurify from 'dompurify'
 import jsonPath from 'jsonpath'
 import { useEffect, useMemo, useState } from 'react'
-import { isMobile } from 'react-device-detect'
+import { useMediaQuery } from 'react-responsive'
 import {
   trackMarketingCampaignClose,
   trackMarketingCampaignOpen,
@@ -25,7 +25,7 @@ export const MarketingBanner = () => {
       cacheTime: 600000,
     },
   })
-
+  const isMobile = useMediaQuery({ maxWidth: 767 })
   const userAtttributes = useMemo(() => {
     return {
       platform: isWebOrExtensionVersion(),

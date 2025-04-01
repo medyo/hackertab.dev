@@ -69,11 +69,13 @@ export const SourceSettings = () => {
         <hr />
         <>
           <header>
-            <h3 className="title">Add new Source</h3>
-            <p className="description">
-              Can't find your favorite source? Add its RSS feed URL here and it will be available in
-              your feed.
-            </p>
+            <div className="settingsHeader">
+              <h3 className="title">Add new Source</h3>
+              <p className="description">
+                Can't find your favorite source? Add its RSS feed URL here and it will be available
+                in your feed.
+              </p>
+            </div>
           </header>
           <RssSetting />
         </>

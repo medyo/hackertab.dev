@@ -16,22 +16,32 @@
 }
 .settingsContent header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settingsContent .settingsHeader {
+  display: flex;
   flex-direction: column;
   row-gap: 8px;
 }
-.settingsContent header .title {
+.settingsContent .settingsHeader .title {
   font-size: 24px;
   margin: 0;
   padding: 0;
   color: var(--primary-text-color);
 }
-.settingsContent header .description {
+.settingsContent .settingsHeader .description {
   font-size: 14px;
   margin: 0;
   padding: 0;
   color: var(--secondary-text-color);
 }
-
+.settingsContent .actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 @media only screen and (max-width: 768px) {
   .settingsContent {
     padding: 16px;

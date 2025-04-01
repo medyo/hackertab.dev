@@ -1,22 +1,25 @@
+import { clsx } from 'clsx'
 import { useEffect, useState } from 'react'
 import { BsFillBookmarksFill, BsFillGearFill, BsMoonFill } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
 import { IoMdSunny } from 'react-icons/io'
 import { MdDoDisturbOff } from 'react-icons/md'
-import { RxArrowLeft } from 'react-icons/rx'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { ReactComponent as HackertabLogo } from 'src/assets/logo.svg'
+import AvatarPlaceholder from 'src/assets/icons/avatar.svg?react'
+import StreakIcon from 'src/assets/icons/fire_icon.svg?react'
+import HackertabLogo from 'src/assets/logo.svg?react'
 import { SearchBar } from 'src/components/Elements/SearchBar'
 import { UserTags } from 'src/components/Elements/UserTags'
+import { useAuth } from 'src/features/auth'
 import { Changelog } from 'src/features/changelog'
 import { identifyUserTheme, trackDNDDisable, trackThemeSelect } from 'src/lib/analytics'
-import { useBookmarks } from 'src/stores/bookmarks'
 import { useUserPreferences } from 'src/stores/preferences'
-
+import { Button, CircleButton } from '../Elements'
 export const Header = () => {
+  const { openAuthModal, user, isConnected, isConnecting } = useAuth()
+
   const [themeIcon, setThemeIcon] = useState(<BsMoonFill />)
   const { theme, setTheme, setDNDDuration, isDNDModeActive } = useUserPreferences()
-  const { userBookmarks } = useBookmarks()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -46,16 +49,6 @@ export const Header = () => {
     navigate('/settings/general')
   }
 
-  const BookmarksBadgeCount = () => {
-    return userBookmarks.length > 0 ? (
-      userBookmarks.length < 10 ? (
-        <span className="badgeCount">{userBookmarks.length}</span>
-      ) : (
-        <span className="badgeCount">+9</span>
-      )
-    ) : null
-  }
-
   const onUnpauseClicked = () => {
     trackDNDDisable()
     setDNDDuration('never')
@@ -74,38 +67,48 @@ export const Header = () => {
           <Changelog />
         </span>
         <SearchBar />
-        <div className="extras">
+        <div className="buttonsFlex extras">
           {isDNDModeActive() && (
-            <button className="extraBtn extraTextBtn" onClick={() => onUnpauseClicked()}>
+            <Button onClick={onUnpauseClicked} className="dndButton">
               <MdDoDisturbOff />
-              &nbsp;Unpause
-            </button>
+              Unpause
+            </Button>
           )}
-          <button aria-label="Open settings" className="extraBtn" onClick={onSettingsClick}>
+
+          <CircleButton onClick={onSettingsClick}>
             <BsFillGearFill />
-          </button>
-          <button
-            aria-label="Toggle theme"
-            className="extraBtn darkModeBtn"
-            onClick={onThemeChange}>
+          </CircleButton>
+          <CircleButton onClick={onThemeChange} variant="darkfocus">
             {themeIcon}
-          </button>
-          <Link to="/settings/bookmarks" className="extraBtn" aria-label="Open bookmarks">
-            <>
-              <BsFillBookmarksFill />
-              <BookmarksBadgeCount />
-            </>
-          </Link>
+          </CircleButton>
+          <CircleButton onClick={() => navigate('/settings/bookmarks')}>
+            <BsFillBookmarksFill />
+          </CircleButton>
+          <CircleButton
+            isLoading={isConnecting}
+            className={clsx('profileImageContainer', !isConnected && 'overflowHidden')}
+            onClick={() => {
+              if (isConnected) {
+                navigate('/settings/general')
+              } else {
+                openAuthModal()
+              }
+            }}>
+            {isConnected ? (
+              <>
+                <img className="profileImage" src={user?.imageURL} />
+                <div className="streak">
+                  <span className="content">
+                    <StreakIcon className="icon" /> {user?.streak || 1}
+                  </span>
+                </div>
+              </>
+            ) : (
+              <AvatarPlaceholder className="avatarPlaceholder" />
+            )}
+          </CircleButton>
         </div>
-        {location.pathname === '/' ? (
-          <UserTags />
-        ) : (
-          <div className="backToHome">
-            <Link to="/">
-              <RxArrowLeft size={20} /> Back
-            </Link>
-          </div>
-        )}
+        {location.pathname === '/' && <UserTags />}
       </header>
     </>
   )
