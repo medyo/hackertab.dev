@@ -64,9 +64,6 @@
     "react-error-overlay": "6.0.9"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
     "@types/chrome": "^0.0.241",
     "@types/jest": "^29.1.2",
     "@types/jsonpath": "^0.2.0",
@@ -93,7 +90,7 @@
     "prettier": "^2.7.1",
     "terser": "^5.19.2",
     "typescript": "^5.1.6",
-    "vite": "^6.2.3",
+    "vite": "^6.2.4",
     "vite-plugin-svgr": "^4.3.0",
     "vite-tsconfig-paths": "^4.2.0"
   }
