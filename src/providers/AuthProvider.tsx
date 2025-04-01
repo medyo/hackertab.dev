@@ -69,10 +69,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     }
 
-    chrome?.runtime?.onMessage.addListener(messageListener)
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage) {
+      chrome.runtime.onMessage.addListener(messageListener)
+    }
 
     return () => {
-      chrome?.runtime?.onMessage.removeListener(messageListener)
+      if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage) {
+        chrome.runtime.onMessage.removeListener(messageListener)
+      }
     }
   }, [])
 
@@ -85,6 +89,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const provider = searchParams.get('provider')
     connectTheUser(token, provider).catch((error) => {
       openAuthModal()
+      console.log('error', error)
       if (error && error.code === 'auth/account-exists-with-different-credential') {
         setAuthError({
           message:
