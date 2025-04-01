@@ -10,6 +10,7 @@ env:
   VITE_AMPLITUDE_KEY: ${{ secrets.REACT_APP_AMPLITUDE_KEY }}
   VITE_AMPLITUDE_URL: ${{ secrets.REACT_APP_AMPLITUDE_URL }}
   VITE_API_URL: ${{ secrets.API_URL }}
+  VITE_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
 
 jobs:
   build_and_deploy:
