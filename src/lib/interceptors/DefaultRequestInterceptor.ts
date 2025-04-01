@@ -12,7 +12,7 @@ export async function DefaultRequestInterceptor(config: InternalAxiosRequestConf
 
     const token = await getUserToken()
     if (token) {
-      config.headers.authorization = `Bearer ${token}`
+      config.headers.Authorization = `Bearer ${token}`
     }
   }
 
