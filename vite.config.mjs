@@ -34,6 +34,7 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       emptyOutDir: true,
+      cssCodeSplit: false,
       rollupOptions: {
         output: {
           entryFileNames: `assets/[name].js`,
