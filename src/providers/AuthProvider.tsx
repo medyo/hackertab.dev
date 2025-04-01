@@ -69,10 +69,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     }
 
-    chrome.runtime?.onMessage.addListener(messageListener)
+    chrome?.runtime?.onMessage.addListener(messageListener)
 
     return () => {
-      chrome.runtime?.onMessage.removeListener(messageListener)
+      chrome?.runtime?.onMessage.removeListener(messageListener)
     }
   }, [])
 
