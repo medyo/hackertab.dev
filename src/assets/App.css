@@ -1488,6 +1488,9 @@ Modal
   border-color: var(--settings-input-border-focus-color);
 }
 @media (max-width: 768px) {
+  .extras {
+    display: none;
+  }
   .Modal {
     left: 0;
     top: 0;
@@ -1499,12 +1502,5 @@ Modal
     position: relative;
     box-shadow: none;
     width: auto;
-  }
-  .settingContent {
-    margin-top: 6px;
-  }
-  .settingRow {
-    flex-direction: column;
-    align-items: flex-start;
   }
 }
