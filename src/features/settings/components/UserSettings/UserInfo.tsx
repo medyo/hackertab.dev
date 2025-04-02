@@ -17,18 +17,20 @@ export const UserInfo = () => {
   if (!user) {
     return (
       <div className="userContent">
-        <AvatarPlaceholder className="userImage" />
-        <div className="userInfos">
-          <div className="userName">
-            Join <b>Hackertab</b>
-          </div>
-          <div className="sub">
-            Create a free account on <b>Hackertab</b> to sync, save bookmarks, and earn rewards.
-          </div>
-          <div className="actions">
-            <Button className="logoutBtn" onClick={() => openAuthModal()} size="small">
-              Connect
-            </Button>
+        <div className="userDetails">
+          <AvatarPlaceholder className="userImage" />
+          <div className="userInfo">
+            <div className="userName">
+              Join <b>Hackertab</b>
+            </div>
+            <div className="description">
+              Create a free account on <b>Hackertab</b> to sync, save bookmarks, and earn rewards.
+            </div>
+            <div className="actions">
+              <Button className="logoutBtn" onClick={() => openAuthModal()} size="small">
+                Connect
+              </Button>
+            </div>
           </div>
         </div>
       </div>
