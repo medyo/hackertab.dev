@@ -35,6 +35,11 @@ export const AuthModal = ({ showAuth }: AuthModalProps) => {
         .then(({ authLink }) => {
           window.open(authLink, BUILD_TARGET === 'web' ? '_self' : '_blank')
         })
+        .catch(() => {
+          setAuthError({
+            message: 'Something went wrong, Please try again',
+          })
+        })
     },
     [getOauthLink]
   )
