@@ -119,9 +119,7 @@ Select styles
     display: flex;
     flex-direction: column;
     gap: 8px;
-    flex: 1;
   }
-
   .userName {
     font-weight: 600;
   }
