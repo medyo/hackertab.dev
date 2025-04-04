@@ -87,13 +87,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const token = searchParams.get('access_token')
     const provider = searchParams.get('provider')
+    const oppositeProvider = provider === 'google' ? 'Github' : 'Google'
     connectTheUser(token, provider).catch((error) => {
       openAuthModal()
       console.log('error', error)
       if (error && error.code === 'auth/account-exists-with-different-credential') {
         setAuthError({
-          message:
-            'This account is already connected with a different provider. Please sign in with that provider to continue.',
+          message: `You've previously signed up using ${oppositeProvider}. To continue, please sign in with ${oppositeProvider}.`,
         })
       } else {
         setAuthError({
