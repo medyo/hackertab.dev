@@ -28,6 +28,7 @@ export type UserPreferencesState = {
   cardsSettings: Record<string, CardSettingsType>
   firstSeenDate: number
   userCustomCards: SupportedCardType[]
+  advStatus: boolean
   DNDDuration: DNDDuration
 }
 
@@ -48,6 +49,7 @@ type UserPreferencesStoreActions = {
   isDNDModeActive: () => boolean
   addSearchEngine: (searchEngine: SearchEngineType) => void
   removeSearchEngine: (searchEngineUrl: string) => void
+  setAdvStatus: (status: boolean) => void
 }
 
 const defaultStorage: StateStorage = {
@@ -174,6 +176,7 @@ export const useUserPreferences = create(
       ],
       userCustomCards: [],
       DNDDuration: 'never',
+      advStatus: false,
       setSearchEngine: (searchEngine: string) => set({ searchEngine: searchEngine }),
       setListingMode: (listingMode: ListingMode) => set({ listingMode: listingMode }),
       setTheme: (theme: Theme) => set({ theme: theme }),
@@ -234,6 +237,7 @@ export const useUserPreferences = create(
             searchEngines: state.searchEngines.filter((se) => se.url !== searchEngineUrl),
           }
         }),
+      setAdvStatus: (status) => set({ advStatus: status }),
     }),
     {
       name: 'preferences_storage',

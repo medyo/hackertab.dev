@@ -10,9 +10,11 @@ export async function DefaultRequestInterceptor(config: InternalAxiosRequestConf
       config.headers.Accept = 'application/json'
     }
 
-    const token = await getUserToken()
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+    if (config.url?.startsWith('/engine/')) {
+      const token = await getUserToken()
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
     }
   }
 

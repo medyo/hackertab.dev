@@ -25,8 +25,14 @@ const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
 
 export const App = () => {
   const [showOnboarding, setShowOnboarding] = useState(true)
-  const { onboardingCompleted, maxVisibleCards, isDNDModeActive, DNDDuration, setDNDDuration } =
-    useUserPreferences()
+  const {
+    onboardingCompleted,
+    maxVisibleCards,
+    setAdvStatus,
+    isDNDModeActive,
+    DNDDuration,
+    setDNDDuration,
+  } = useUserPreferences()
 
   useLayoutEffect(() => {
     document.documentElement.style.setProperty('--max-visible-cards', maxVisibleCards.toString())
@@ -38,6 +44,7 @@ export const App = () => {
     setupIdentification()
     const adVerifier = async () => {
       const status = await verifyAdvStatus()
+      setAdvStatus(status)
       identifyAdvBlocked(status)
     }
     adVerifier()
