@@ -19,7 +19,7 @@ import { Campaign, MarketingConfig } from '../types'
 export const MarketingBanner = () => {
   const { setCampaignClosed, closedCampaigns } = useMarketingConfigStore()
   const { isConnected } = useAuth()
-  const { userSelectedTags, cards, firstSeenDate } = useUserPreferences()
+  const { userSelectedTags, cards, firstSeenDate, advStatus } = useUserPreferences()
   const [availableCampaigns, setAvailableCampaigns] = useState<Campaign[]>([])
   const { data: marketingConfig } = useGetMarketingConfig({
     config: {
@@ -28,6 +28,7 @@ export const MarketingBanner = () => {
     },
   })
   const isMobile = useMediaQuery({ maxWidth: 767 })
+
   const userAtttributes = useMemo(() => {
     return {
       platform: isWebOrExtensionVersion(),
@@ -38,10 +39,11 @@ export const MarketingBanner = () => {
       userTags: userSelectedTags.map((tag) => tag.label),
       cards: cards.map((card) => card.name),
       firstSeenDate,
+      adv: advStatus,
       isConnected,
       usageInDays: diffBetweenTwoDatesInDays(firstSeenDate, Date.now()),
     }
-  }, [userSelectedTags, firstSeenDate, cards])
+  }, [userSelectedTags, firstSeenDate, cards, advStatus])
 
   useEffect(() => {
     if (marketingConfig && marketingConfig.version === 1) {
