@@ -41,7 +41,7 @@ export const AdvBanner = () => {
 
   return (
     <div className="ad-wrapper blockRow">
-      <div id="bannerads">
+      <div id="banneradv">
         <span>
           <span className="wrap">
             <a
