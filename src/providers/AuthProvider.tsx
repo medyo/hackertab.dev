@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         connectTheUser(token, provider).catch((error) => {
           if (error && error.code === 'auth/account-exists-with-different-credential') {
             setAuthError({
-              message: `You've previously signed up using ${oppositeProvider}. To continue, please sign in with ${oppositeProvider}.`,
+              message: `This email is already linked to your ${oppositeProvider} account. To continue, please sign in with ${oppositeProvider}.`,
             })
           } else if (error) {
             setAuthError({
@@ -115,7 +115,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     connectTheUser(token, provider).catch((error) => {
       if (error && error.code === 'auth/account-exists-with-different-credential') {
         setAuthError({
-          message: `You've previously signed up using ${oppositeProvider}. To continue, please sign in with ${oppositeProvider}.`,
+          message: `This email is already linked to your ${oppositeProvider} account. To continue, please sign in with ${oppositeProvider}.`,
         })
       } else if (error) {
         setAuthError({
