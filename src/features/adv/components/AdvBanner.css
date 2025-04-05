@@ -1,48 +1,48 @@
-#bannerads * {
+#banneradv * {
   margin: initial;
   padding: initial;
 }
-#bannerads {
+#banneradv {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell,
     'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-#bannerads {
+#banneradv {
   display: flex;
   max-width: 330px;
   z-index: 100;
   margin: 0 auto;
 }
-#bannerads a {
+#banneradv a {
   color: inherit;
   text-decoration: none;
 }
-#bannerads a:hover {
+#banneradv a:hover {
   color: inherit;
 }
-#bannerads span {
+#banneradv span {
   position: relative;
   display: block;
   overflow: hidden;
 }
-#bannerads .wrap {
+#banneradv .wrap {
   display: flex;
 }
-#bannerads .img {
+#banneradv .img {
   display: block;
   margin: 0;
   line-height: 1;
 }
-#bannerads .img img {
+#banneradv .img img {
   display: block;
 }
-#bannerads .text {
+#banneradv .text {
   font-size: 13px;
   padding: 10px;
   margin-bottom: 16px;
   line-height: 1.5;
   text-align: left;
 }
-#bannerads .poweredby {
+#banneradv .poweredby {
   display: block;
   padding: 6px 8px;
   background: inherit;
