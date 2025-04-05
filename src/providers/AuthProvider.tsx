@@ -3,6 +3,7 @@ import { useCallback, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import toast from 'react-simple-toasts'
 import { useAuth } from 'src/features/auth'
+import { OAUTH_ERRORS } from 'src/features/auth/constants'
 import { firebaseAuth } from 'src/lib/firebase'
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -53,19 +54,32 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const messageListener = (message: {
       action: string
       type?: string
+      error: string
       access_token?: string
       provider?: string
     }) => {
       if (message.type === 'TOKEN_RECEIVED') {
         const { access_token: token, provider } = message
+        const oppositeProvider = provider === 'google' ? 'Github' : 'Google'
+
         connectTheUser(token, provider).catch((error) => {
           if (error && error.code === 'auth/account-exists-with-different-credential') {
             setAuthError({
-              message:
-                'You have an account with a different provider. Please sign in with that provider to continue.',
+              message: `You've previously signed up using ${oppositeProvider}. To continue, please sign in with ${oppositeProvider}.`,
+            })
+          } else if (error) {
+            setAuthError({
+              message: OAUTH_ERRORS[error] || OAUTH_ERRORS['default'],
             })
           }
         })
+      } else if (message.type === 'ERROR_RECEIVED') {
+        const { error } = message
+        setAuthError({
+          message: OAUTH_ERRORS[error] || OAUTH_ERRORS['default'],
+        })
+        openAuthModal()
+        navigate(window.location.pathname, { replace: true })
       }
     }
 
@@ -87,19 +101,29 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const token = searchParams.get('access_token')
     const provider = searchParams.get('provider')
+    const error = searchParams.get('error')
+
+    if (error) {
+      setAuthError({
+        message: OAUTH_ERRORS[error] || OAUTH_ERRORS['default'],
+      })
+      openAuthModal()
+      navigate(window.location.pathname, { replace: true })
+      return
+    }
     const oppositeProvider = provider === 'google' ? 'Github' : 'Google'
     connectTheUser(token, provider).catch((error) => {
-      openAuthModal()
-      console.log('error', error)
       if (error && error.code === 'auth/account-exists-with-different-credential') {
         setAuthError({
           message: `You've previously signed up using ${oppositeProvider}. To continue, please sign in with ${oppositeProvider}.`,
         })
-      } else {
+      } else if (error) {
         setAuthError({
-          message: 'Error signing in, Please try again',
+          message: OAUTH_ERRORS[error] || OAUTH_ERRORS['default'],
         })
       }
+      openAuthModal()
+      navigate(window.location.pathname, { replace: true })
     })
   }, [searchParams])
   return <>{children}</>

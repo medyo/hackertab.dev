@@ -4,7 +4,12 @@ document.documentElement.appendChild(script)
 
 // Listen for messages from the injected script
 window.addEventListener('message', (event) => {
-  if (event.source !== window || !event.data || event.data.type !== 'TOKEN_RECEIVED') {
+  if (
+    event.source !== window ||
+    !event.data ||
+    event.data.type !== 'TOKEN_RECEIVED' ||
+    event.data.type !== 'ERROR_RECEIVED'
+  ) {
     return
   }
 
