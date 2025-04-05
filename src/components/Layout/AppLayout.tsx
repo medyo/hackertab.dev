@@ -19,7 +19,7 @@ export const AppLayout = () => {
         setStreak(data.streak)
       })
     }
-  }, [])
+  }, [isConnected])
 
   return (
     <AuthProvider>
