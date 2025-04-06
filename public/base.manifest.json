@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Hackertab.dev - developer news",
   "description": "All developer news in one tab",
-  "version": "1.23.0",
+  "version": "1.23.1",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
