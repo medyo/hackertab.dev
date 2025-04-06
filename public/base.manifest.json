@@ -2,16 +2,22 @@
   "manifest_version": 3,
   "name": "Hackertab.dev - developer news",
   "description": "All developer news in one tab",
-  "version": "1.20.1",
+  "version": "1.23.0",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
-  "host_permissions": ["https://*.hackertab.dev/*"],
+  "host_permissions": [
+    "https://*.hackertab.dev/*"
+  ],
   "content_scripts": [
     {
-      "matches": ["https://hackertab.dev/*"],
+      "matches": [
+        "https://hackertab.dev/*"
+      ],
       "run_at": "document_start",
-      "js": ["content.js"]
+      "js": [
+        "content.js"
+      ]
     }
   ],
   "icons": {
