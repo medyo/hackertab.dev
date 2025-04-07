@@ -6,6 +6,7 @@ import 'src/assets/App.css'
 import { AuthModal, useAuth } from 'src/features/auth'
 import { usePostStreak } from 'src/features/hits'
 import { MarketingBanner } from 'src/features/MarketingBanner'
+import { identifyUserStreak } from 'src/lib/analytics'
 import { AuthProvider } from 'src/providers/AuthProvider'
 import { Header } from './Header'
 
@@ -17,6 +18,7 @@ export const AppLayout = () => {
     if (isConnected) {
       postStreakMutation.mutateAsync(undefined).then((data) => {
         setStreak(data.streak)
+        identifyUserStreak(data.streak)
       })
     }
   }, [isConnected])
