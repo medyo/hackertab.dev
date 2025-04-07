@@ -73,6 +73,7 @@ export enum Attributes {
   DURATION = 'Duration',
   PROVIDER = 'Provider',
   ADV = 'ADV',
+  STREAK = 'Streak',
 }
 
 const _SEP_ = ' '
@@ -434,7 +435,9 @@ export const identifyUserMaxVisibleCards = (maxVisibleCards: number) => {
 export const identifyAdvBlocked = (blocked: boolean) => {
   identifyUserProperty(Attributes.ADV, blocked)
 }
-
+export const identifyUserStreak = (value: number) => {
+  identifyUserProperty(Attributes.STREAK, value)
+}
 // Private functions
 type trackEventProps = {
   object: Exclude<Objects, null | undefined>

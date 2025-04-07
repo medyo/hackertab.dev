@@ -32,6 +32,5 @@ const getUserToken = async () => {
       }
       unsub()
     })
-    resolve('abc')
   })
 }
