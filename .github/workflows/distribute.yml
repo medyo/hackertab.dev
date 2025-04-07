@@ -110,10 +110,10 @@ jobs:
         run: yarn build:firefox
       - name: Upload the package to Firefox web store
         if: ${{ github.event.inputs.testMode == 'false' }}
-        uses: yayuyokitano/firefox-addon@v0.0.6-alpha
+        uses: wdzeng/firefox-addon@v1
         with:
-          api_key: ${{ secrets.WEB_EXT_API_KEY }}
-          api_secret: ${{ secrets.WEB_EXT_API_SECRET }}
-          guid: '{f8793186-e9da-4332-aa1e-dc3d9f7bb04c}'
-          xpi_path: firefox_extension.zip
-          src_path: source_code.zip
+          jwt-issuer: ${{ secrets.WEB_EXT_API_KEY }}
+          jwt-secret: ${{ secrets.WEB_EXT_API_SECRET }}
+          addon-guid: '{f8793186-e9da-4332-aa1e-dc3d9f7bb04c}'
+          xpi-path: firefox_extension.zip
+          source-file-path: source_code.zip
