@@ -21,7 +21,6 @@ export type TagValuesFieldType =
 
 export type RemoteConfig = {
   supportedTags: Tag[]
-  refresh_rate: number | false
   marketingBannerConfig?: any
   adsConfig: {
     rowPosition: number
