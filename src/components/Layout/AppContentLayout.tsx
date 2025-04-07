@@ -3,9 +3,9 @@ import { DesktopBreakpoint } from 'src/providers/DesktopBreakpoint'
 import { MobileBreakpoint } from 'src/providers/MobileBreakpoint'
 import { useUserPreferences } from 'src/stores/preferences'
 import { BottomNavigation } from '../Elements'
-import { ScrollCardsNavigator } from './'
 import { DesktopCards } from './DesktopCards'
 import { MobileCards } from './MobileCards'
+import { ScrollCardsNavigator } from './ScrollCardsNavigator'
 
 export const AppContentLayout = () => {
   const { cards, userCustomCards } = useUserPreferences()

@@ -1,7 +1,7 @@
 import { InternalAxiosRequestConfig } from 'axios'
 import { API_ENDPOINT } from 'src/config'
-import { getUserToken } from 'src/features/auth'
 import { isProduction } from 'src/utils/Environment'
+import { firebaseAuth } from '../firebase'
 
 export async function DefaultRequestInterceptor(config: InternalAxiosRequestConfig) {
   if (config) {
@@ -19,4 +19,19 @@ export async function DefaultRequestInterceptor(config: InternalAxiosRequestConf
   }
 
   return config
+}
+
+const getUserToken = async () => {
+  return new Promise((resolve, _) => {
+    const unsub = firebaseAuth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const token = await user.getIdToken()
+        resolve(token)
+      } else {
+        resolve(null)
+      }
+      unsub()
+    })
+    resolve('abc')
+  })
 }

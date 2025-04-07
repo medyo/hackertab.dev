@@ -93,7 +93,7 @@ export const HelloTab = ({
         <p className="tabBody">Let's customize your Hackertab experience!</p>
       </div>
       <div className="occupations">
-        {OCCUPATIONS.map((occ, index) => {
+        {OCCUPATIONS.map((occ) => {
           return (
             <button
               key={occ.title}

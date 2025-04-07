@@ -1,6 +1,6 @@
 import arrayMove from 'array-move'
 import { Occupation } from 'src/features/onboarding/types'
-import { Tag } from 'src/features/remoteConfig'
+import { Tag, useRemoteConfigStore } from 'src/features/remoteConfig'
 import { enhanceTags } from 'src/utils/DataEnhancement'
 import { create } from 'zustand'
 import { StateStorage, createJSONStorage, persist } from 'zustand/middleware'
@@ -33,7 +33,6 @@ export type UserPreferencesState = {
 }
 
 type UserPreferencesStoreActions = {
-  initState: (newState: UserPreferencesState) => void
   setTheme: (theme: Theme) => void
   setSearchEngine: (theme: string) => void
   setOpenLinksNewTab: (openLinksNewTab: boolean) => void
@@ -55,8 +54,11 @@ type UserPreferencesStoreActions = {
 const defaultStorage: StateStorage = {
   getItem: (name: string) => {
     const item = window.localStorage.getItem(name)
+    if (!item) {
+      return null
+    }
 
-    if (item) {
+    try {
       let {
         version,
         state,
@@ -65,14 +67,20 @@ const defaultStorage: StateStorage = {
         state: UserPreferencesState
       } = JSON.parse(item)
 
+      const remoteConfigStore = useRemoteConfigStore.getState()
+
       const newState = {
         ...state,
-        userSelectedTags: enhanceTags(state.userSelectedTags as unknown as string[]),
+        userSelectedTags: enhanceTags(
+          remoteConfigStore,
+          state.userSelectedTags as unknown as string[]
+        ),
       }
-      return JSON.stringify({ state: newState, version })
-    }
 
-    return null
+      return JSON.stringify({ state: newState, version })
+    } catch (e) {
+      return null
+    }
   },
   setItem: (name: string, value: string) => {
     try {
@@ -92,7 +100,6 @@ const defaultStorage: StateStorage = {
       const newValue = JSON.stringify({ state: newState, version })
       window.localStorage.setItem(name, newValue)
     } catch (e) {
-      console.log('Prefs, SetItem', e)
       window.localStorage.setItem(name, '')
     }
   },

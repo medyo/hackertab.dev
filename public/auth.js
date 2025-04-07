@@ -1,6 +1,7 @@
+const acceptedTypes = ['TOKEN_RECEIVED', 'ERROR_RECEIVED']
 window.addEventListener('message', (event) => {
-  if (event.data.type === 'TOKEN_RECEIVED' || event.data.type === 'ERROR_RECEIVED') {
-    // Forward to content script
+  if (acceptedTypes.includes(event.data.type)) {
+    // Forward to content scripte
     window.postMessage(event.data, '*')
   }
 })
