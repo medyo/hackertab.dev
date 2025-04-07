@@ -103,6 +103,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const provider = searchParams.get('provider')
     const error = searchParams.get('error')
 
+    if (!token && !provider && !error) {
+      return
+    }
+
     if (error) {
       setAuthError({
         message: OAUTH_ERRORS[error] || OAUTH_ERRORS['default'],
