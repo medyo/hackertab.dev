@@ -29,11 +29,6 @@ export const SourcesTab = ({
           options={sources}
           defaultValues={tabsData.sources}
           onChange={(_, selectedChips) => {
-            console.log(
-              'sources',
-              selectedChips.map((chip) => chip.value)
-            )
-
             setTabsData({ ...tabsData, sources: selectedChips.map((chip) => chip.value) })
           }}
         />
