@@ -1,14 +1,13 @@
-import { Tag, useRemoteConfigStore, TagValuesFieldType } from 'src/features/remoteConfig'
+import { RemoteConfig, Tag, TagValuesFieldType } from 'src/features/remoteConfig'
 import { BaseEntry } from 'src/types'
 
-export const enhanceTags = (tags: string[]): Tag[] => {
-  const savedTags = useRemoteConfigStore.getState().supportedTags
-
+export const enhanceTags = (remoteConfigStore: RemoteConfig, tags: string[]): Tag[] => {
   return tags
-    .map((tag) => savedTags.find((st) => st.value.toLowerCase() === tag.toLocaleString()))
+    .map((tag) =>
+      remoteConfigStore.supportedTags.find((st) => st.value.toLowerCase() === tag.toLocaleString())
+    )
     .filter(Boolean) as Tag[]
 }
-
 
 export const getCardTagsValue = (tags: Tag[], valuesField: TagValuesFieldType): string[] => {
   return tags.reduce((acc: string[], curr) => {
@@ -17,7 +16,6 @@ export const getCardTagsValue = (tags: Tag[], valuesField: TagValuesFieldType): 
     return acc
   }, [])
 }
-
 
 export const filterUniqueEntries = (entries: BaseEntry[]) => {
   const uniqueResults = new Map()
