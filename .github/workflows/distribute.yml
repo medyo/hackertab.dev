@@ -80,7 +80,7 @@ jobs:
 
       - name: Upload the package to Chrome web store
         if: ${{ github.event.inputs.testMode == 'false' }}
-        run: npx chrome-webstore-upload-cli@2 upload --source chrome_extension.zip --extension-id $EXTENSION_ID --auto-publish
+        run: npx chrome-webstore-upload-cli@3 upload --source chrome_extension.zip --extension-id $EXTENSION_ID --auto-publish
         env:
           EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
           CLIENT_ID: ${{secrets.CHROME_EXTENSION_CLIENT_ID}}
