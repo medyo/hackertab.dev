@@ -129,7 +129,7 @@ export const useUserPreferences = create(
       theme: 'dark',
       onboardingCompleted: false,
       onboardingResult: null,
-      searchEngine: 'chatgpt',
+      searchEngine: 'google',
       searchEngines: [
         {
           label: 'Google',
