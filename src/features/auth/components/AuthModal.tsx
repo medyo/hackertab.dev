@@ -1,4 +1,4 @@
-import { AuthProvider, GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth'
+import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth/web-extension'
 import { useCallback, useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
@@ -18,6 +18,7 @@ type AuthModalProps = {
 const googleAuthProvider = new GoogleAuthProvider()
 const githubAuthProvider = new GithubAuthProvider()
 
+type AuthProvider = GoogleAuthProvider | GithubAuthProvider
 export const AuthModal = ({ showAuth }: AuthModalProps) => {
   const { closeAuthModal, authError, setAuthError } = useAuth()
   const [selectedProvider, setSelectedProvider] = useState<AuthProvider>(googleAuthProvider)

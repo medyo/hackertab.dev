@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
+import { getAuth } from 'firebase/auth/web-extension'
 import { FIREBASE_API_KEY } from 'src/config'
 
 const firebaseConfig = {
