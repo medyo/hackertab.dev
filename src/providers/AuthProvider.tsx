@@ -1,4 +1,8 @@
-import { GithubAuthProvider, GoogleAuthProvider, signInWithCredential } from 'firebase/auth'
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  signInWithCredential,
+} from 'firebase/auth/web-extension'
 import { useCallback, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import toast from 'react-simple-toasts'

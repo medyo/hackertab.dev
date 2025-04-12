@@ -1,4 +1,4 @@
-import { signOut } from 'firebase/auth'
+import { signOut } from 'firebase/auth/web-extension'
 import { AuthModalStore, AuthStore } from 'src/features/auth'
 import { trackUserDisconnect } from 'src/lib/analytics'
 import { firebaseAuth } from 'src/lib/firebase'
