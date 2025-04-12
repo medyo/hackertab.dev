@@ -8,7 +8,8 @@ export const SearchBar = () => {
 
   const keywordsInputRef = useRef<HTMLInputElement | null>(null)
   const usedSearchEngine =
-    searchEngines.find((engine) => engine.label === searchEngine) || searchEngines[0]
+    searchEngines.find((engine) => engine.label.toLowerCase() === searchEngine.toLowerCase()) ||
+    searchEngines[0]
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
