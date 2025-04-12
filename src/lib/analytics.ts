@@ -99,7 +99,7 @@ export const setupIdentification = () => {
     cards,
     listingMode,
     openLinksNewTab,
-    searchEngine,
+    promptEngine,
     maxVisibleCards,
   } = useUserPreferences.getState()
 
@@ -108,7 +108,7 @@ export const setupIdentification = () => {
   identifyUserTheme(theme)
   identifyUserCards(cards.map((card: any) => card.name))
   identifyUserListingMode(listingMode)
-  identifyUserSearchEngine(searchEngine)
+  identifyUserSearchEngine(promptEngine)
   identifyUserLinksInNewTab(openLinksNewTab)
   identifyUserMaxVisibleCards(maxVisibleCards)
   if (onboardingResult?.title) {

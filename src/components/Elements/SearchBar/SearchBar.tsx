@@ -1,15 +1,17 @@
 import React, { useEffect, useRef } from 'react'
-import { IoSearchCircleSharp } from 'react-icons/io5'
+import { HiSparkles } from 'react-icons/hi'
+import { AI_PROMPT_ENGINES } from 'src/config/SearchEngines'
 import { trackSearchEngineUse } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 
 export const SearchBar = () => {
-  const { searchEngine, searchEngines } = useUserPreferences()
+  const { promptEngine, promptEngines } = useUserPreferences()
+  const mergedEngines = [...AI_PROMPT_ENGINES, ...promptEngines]
 
   const keywordsInputRef = useRef<HTMLInputElement | null>(null)
   const usedSearchEngine =
-    searchEngines.find((engine) => engine.label.toLowerCase() === searchEngine.toLowerCase()) ||
-    searchEngines[0]
+    mergedEngines.find((engine) => engine.label.toLowerCase() === promptEngine.toLowerCase()) ||
+    promptEngines[0]
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -27,8 +29,8 @@ export const SearchBar = () => {
 
   return (
     <form className="searchBar" onSubmit={handleSubmit}>
-      {usedSearchEngine.default === false ? (
-        <IoSearchCircleSharp className="searchBarIcon" />
+      {usedSearchEngine?.default === false ? (
+        <HiSparkles className="searchBarIcon" />
       ) : (
         <img
           className={'searchBarIcon'}
@@ -40,7 +42,7 @@ export const SearchBar = () => {
         type="text"
         name="keyword"
         className="searchBarInput"
-        placeholder={`Search on ${usedSearchEngine.label}`}
+        placeholder={`Ask ${usedSearchEngine.label}`}
       />
     </form>
   )

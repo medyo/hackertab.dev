@@ -1,20 +1,22 @@
-import { IoIosSearch } from 'react-icons/io'
+import { HiSparkles } from 'react-icons/hi'
+import { AI_PROMPT_ENGINES } from 'src/config/SearchEngines'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SearchBar } from '../SearchBar/SearchBar'
 import './SearchBarWithLogo.css'
 
 export const SearchBarWithLogo = () => {
-  const { searchEngine, searchEngines } = useUserPreferences()
+  const { promptEngine, promptEngines } = useUserPreferences()
+  const mergedSearchEngines = [...AI_PROMPT_ENGINES, ...promptEngines]
   const userSearchEngine =
-    searchEngines.find(
-      (srchEngn) => srchEngn.label.toLocaleLowerCase() === searchEngine.toLocaleLowerCase()
-    ) || searchEngines[0]
+    mergedSearchEngines.find(
+      (srchEngn) => srchEngn.label.toLocaleLowerCase() === promptEngine.toLocaleLowerCase()
+    ) || mergedSearchEngines[0]
 
   return (
     <div className="searchBarWithLogo">
       {userSearchEngine.default === false ? (
         <div className="searchEngineLogo">
-          <IoIosSearch />
+          <HiSparkles />
         </div>
       ) : (
         <img

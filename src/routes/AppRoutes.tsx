@@ -22,7 +22,7 @@ export const AppRoutes = () => {
             <Route path="bookmarks" element={<BookmarkSettings />} />
             <Route path="topics" element={<TopicSettings />} />
             <Route path="sources" element={<SourceSettings />} />
-            <Route path="search-engine" element={<SearchEngineSettings />} />
+            <Route path="ai-engine" element={<SearchEngineSettings />} />
             <Route path="general" element={<GeneralSettings />} />
           </Route>
           <Route path="*" index element={<App />} />

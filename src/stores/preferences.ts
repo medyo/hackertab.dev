@@ -21,8 +21,8 @@ export type UserPreferencesState = {
   onboardingCompleted: boolean
   onboardingResult: Omit<Occupation, 'icon'> | null
   listingMode: ListingMode
-  searchEngine: string
-  searchEngines: SearchEngineType[]
+  promptEngine: string
+  promptEngines: SearchEngineType[]
   maxVisibleCards: number
   cards: SelectedCard[]
   cardsSettings: Record<string, CardSettingsType>
@@ -34,7 +34,7 @@ export type UserPreferencesState = {
 
 type UserPreferencesStoreActions = {
   setTheme: (theme: Theme) => void
-  setSearchEngine: (theme: string) => void
+  setPromptEngine: (engine: string) => void
   setOpenLinksNewTab: (openLinksNewTab: boolean) => void
   setListingMode: (listingMode: ListingMode) => void
   setCards: (selectedCards: SelectedCard[]) => void
@@ -129,49 +129,8 @@ export const useUserPreferences = create(
       theme: 'dark',
       onboardingCompleted: false,
       onboardingResult: null,
-      searchEngine: 'chatgpt',
-      searchEngines: [
-        {
-          label: 'Google',
-          url: 'https://google.com/search?q=',
-        },
-        {
-          label: 'DuckDuckGo',
-          url: 'https://duckduckgo.com?q=',
-        },
-        {
-          label: 'Bing',
-          url: 'https://bing.com/search?q=',
-        },
-        {
-          label: 'Yahoo',
-          url: 'https://search.yahoo.com/search?p=',
-        },
-        {
-          label: 'Baidu',
-          url: 'https://baidu.com/s?wd=',
-        },
-        {
-          label: 'Yandex',
-          url: 'https://yandex.ru/search/?text=',
-        },
-        {
-          label: 'Startpage',
-          url: 'https://www.startpage.com/sp/search?query=',
-        },
-        {
-          label: 'Phind',
-          url: 'https://phind.com/search?q=',
-        },
-        {
-          label: 'Kagi',
-          url: 'https://kagi.com/search?q=',
-        },
-        {
-          label: 'Chatgpt',
-          url: 'https://chatgpt.com/?q=',
-        },
-      ],
+      promptEngine: 'chatgpt',
+      promptEngines: [],
       listingMode: 'normal',
       openLinksNewTab: true,
       firstSeenDate: Date.now(),
@@ -184,7 +143,7 @@ export const useUserPreferences = create(
       userCustomCards: [],
       DNDDuration: 'never',
       advStatus: false,
-      setSearchEngine: (searchEngine: string) => set({ searchEngine: searchEngine }),
+      setPromptEngine: (promptEngine: string) => set({ promptEngine: promptEngine }),
       setListingMode: (listingMode: ListingMode) => set({ listingMode: listingMode }),
       setTheme: (theme: Theme) => set({ theme: theme }),
       setOpenLinksNewTab: (openLinksNewTab: boolean) => set({ openLinksNewTab: openLinksNewTab }),
@@ -234,14 +193,14 @@ export const useUserPreferences = create(
           return false
         }
       },
-      addSearchEngine: (searchEngine: SearchEngineType) =>
+      addSearchEngine: (engine: SearchEngineType) =>
         set((state) => {
-          return { searchEngines: [...state.searchEngines, searchEngine] }
+          return { promptEngines: [...state.promptEngines, engine] }
         }),
-      removeSearchEngine: (searchEngineUrl: string) =>
+      removeSearchEngine: (engine: string) =>
         set((state) => {
           return {
-            searchEngines: state.searchEngines.filter((se) => se.url !== searchEngineUrl),
+            promptEngines: state.promptEngines.filter((se) => se.url !== engine),
           }
         }),
       setAdvStatus: (status) => set({ advStatus: status }),
