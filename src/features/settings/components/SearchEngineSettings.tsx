@@ -15,7 +15,7 @@ export const SearchEngineSettings = () => {
       title="AI Prompt Engine"
       description={`
      Select from top AI models, input your prompt, and get quick responses. 
-      You can also add a new ai model engine by providing the right URL.
+      You can also add a new ai model engine by providing its URL.
     `}>
       <>
         <ChipsSet
