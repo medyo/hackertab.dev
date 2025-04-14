@@ -55,7 +55,7 @@ jobs:
         if: github.event.inputs.autoTag == 'true'
         uses: EndBug/add-and-commit@v5
         with:
-          branch: master
+          branch: ${{ github.ref_name }}
           author_name: Github bot
           author_email: elmehdi.sakout@gmail.com
           message: 'Bump manifest version'
@@ -66,8 +66,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: master
       - uses: actions/cache@v4
         with:
           path: '**/node_modules'
@@ -97,8 +95,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: master
       - uses: actions/cache@v4
         with:
           path: '**/node_modules'

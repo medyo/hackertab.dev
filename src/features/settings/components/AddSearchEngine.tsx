@@ -3,26 +3,28 @@ import { isValidURL } from 'src/utils/UrlUtils'
 
 import { TiPlus } from 'react-icons/ti'
 import { Button } from 'src/components/Elements'
+import { AI_PROMPT_ENGINES } from 'src/config/SearchEngines'
 import { useUserPreferences } from 'src/stores/preferences'
 
 export const AddSearchEngine = () => {
-  const { addSearchEngine, searchEngines } = useUserPreferences()
+  const { addSearchEngine, promptEngines } = useUserPreferences()
   const [searchEngineUrl, setSearchEngineUrl] = useState<string | undefined>()
-  const [RssInputFeedback, setRssInputFeedback] = useState<string | undefined>()
+  const [inputFeedback, setInputFeedback] = useState<string | undefined>()
+  const mergedEngines = [...AI_PROMPT_ENGINES, ...promptEngines]
 
   const onAddSearchEngine = async () => {
     if (!searchEngineUrl) {
-      setRssInputFeedback('Please provide a valid Search engine URL')
+      setInputFeedback('Please provide a valid Prompt engine URL')
       return
     }
 
     if (!isValidURL(searchEngineUrl)) {
-      setRssInputFeedback('Invalid Search Engine URL. Please check and try again')
+      setInputFeedback('Invalid AI prompt Engine URL. Please check and try again')
       return
     }
 
-    if (searchEngines.some((se) => se.url === searchEngineUrl)) {
-      setRssInputFeedback('Search Engine already exists')
+    if (mergedEngines.some((se) => se.url === searchEngineUrl)) {
+      setInputFeedback('AI Prompt Engine already exists')
       return
     }
 
@@ -31,19 +33,19 @@ export const AddSearchEngine = () => {
     const label = url.hostname.replace('www.', '').split('.')[0]
 
     addSearchEngine({ label: label, url: searchEngineUrl, default: false })
-    setRssInputFeedback('Search Engine added successfully')
+    setInputFeedback('AI Prompt Engine added successfully')
   }
 
   return (
     <div className="settingRow">
-      <p className="settingTitle">Search Engine URL</p>
+      <p className="settingTitle">AI prompt Engine URL</p>
       <div className="settingContent">
         <div className="form">
           <input
             type="text"
             value={searchEngineUrl || ''}
             onChange={(e) => setSearchEngineUrl(e.target.value)}
-            placeholder="https://google.com?q="
+            placeholder="https://chatgpt.com?q="
           />
           <div>
             <Button startIcon={<TiPlus />} size="small" onClick={onAddSearchEngine}>
@@ -51,9 +53,9 @@ export const AddSearchEngine = () => {
             </Button>
           </div>
         </div>
-        {RssInputFeedback && (
+        {inputFeedback && (
           <div className="settingHint">
-            <p>{RssInputFeedback}</p>
+            <p>{inputFeedback}</p>
           </div>
         )}
       </div>

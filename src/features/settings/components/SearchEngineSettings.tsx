@@ -1,31 +1,33 @@
-import { IoSearchCircleSharp } from 'react-icons/io5'
+import { HiSparkles } from 'react-icons/hi'
 import { ChipsSet } from 'src/components/Elements'
 import { SettingsContentLayout } from 'src/components/Layout/SettingsContentLayout/SettingsContentLayout'
+import { AI_PROMPT_ENGINES } from 'src/config/SearchEngines'
 import { identifyUserSearchEngine, trackSearchEngineSelect } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { AddSearchEngine } from './AddSearchEngine'
 
 export const SearchEngineSettings = () => {
-  const { searchEngine, searchEngines, removeSearchEngine, setSearchEngine } = useUserPreferences()
+  const { promptEngines, promptEngine, removeSearchEngine, setPromptEngine } = useUserPreferences()
+  const mergedSearchEngines = [...AI_PROMPT_ENGINES, ...promptEngines]
 
   return (
     <SettingsContentLayout
-      title="Search Engine"
+      title="AI Prompt Engine"
       description={`
-      Choose your favorite search engine to use in the search bar. 
-      You can also add a new search engine by providing the search engine URL.
+     Select from top AI models, input your prompt, and get quick responses. 
+      You can also add a new ai model engine by providing its URL.
     `}>
       <>
         <ChipsSet
           canSelectMultiple={false}
-          options={searchEngines.map((engine) => {
+          options={mergedSearchEngines.map((engine) => {
             return {
               label: engine.label,
               value: engine.url,
               removeable: engine.default === false,
               icon:
-                engine.default === false ? (
-                  <IoSearchCircleSharp />
+                engine?.default === false ? (
+                  <HiSparkles />
                 ) : (
                   <img
                     className="lang_icon"
@@ -34,7 +36,7 @@ export const SearchEngineSettings = () => {
                 ),
             }
           })}
-          defaultValues={[searchEngines.find((se) => se.label === searchEngine)?.url || '']}
+          defaultValues={[mergedSearchEngines.find((se) => se.label === promptEngine)?.url || '']}
           onRemove={(option) => {
             removeSearchEngine(option.value)
           }}
@@ -43,16 +45,16 @@ export const SearchEngineSettings = () => {
 
             identifyUserSearchEngine(value.label)
             trackSearchEngineSelect(value.label)
-            setSearchEngine(value.label)
+            setPromptEngine(value.label)
           }}
         />
         <hr />
         <>
           <header>
             <div className="settingsHeader">
-              <h3 className="title">Add new Search Engine</h3>
+              <h3 className="title">Add new AI prompt Engine</h3>
               <p className="description">
-                Can't find your favorite search engine? Add it here and it.
+                Can't find your favorite AI prompt engine? Add it here and it.
               </p>
             </div>
           </header>
