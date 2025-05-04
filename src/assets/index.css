@@ -1,4 +1,5 @@
-@import 'variables.css';
+@import 'tailwindcss';
+@import './variables.css';
 
 body {
   margin: 0;
@@ -18,4 +19,13 @@ code {
   height: 100vh;
   width: 100vw;
   display: flex;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-btn-background-color: var(--button-background-color);
+  --color-btn-hover-background-color: var(--button-hover-background-color);
+  --color-btn-text-color: var(--button-text-color);
+  --color-btn-hover-text-color: var(--button-hover-text-color);
 }

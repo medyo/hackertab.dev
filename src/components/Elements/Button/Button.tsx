@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import React from 'react'
 import { Spinner } from '../Spinner'
 import './Button.css'
@@ -26,14 +25,8 @@ export const Button = ({
   isLoading = false,
 }: ButtonProps) => {
   return (
-    <button
-      className={clsx(
-        'button',
-        isLoading && 'loading',
-        sizes[size],
-        className,
-        isLoading && 'disabled'
-      )}
+    <button 
+  className="gap-2 px-4 bg-btn-background-color py-2 rounded-full hover:bg-btn-hover-background-color text-btn-text-color hover:text-btn-hover-text-color cursor-pointer justify-center items-center"
       onClick={onClick}
       disabled={isLoading}>
       {isLoading ? <Spinner size="small" /> : startIcon}

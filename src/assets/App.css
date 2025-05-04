@@ -1,4 +1,4 @@
-@import 'variables.css';
+@import './variables.css';
 
 html {
   background: var(--background-color);
