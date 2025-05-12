@@ -2,14 +2,15 @@ import clsx from 'clsx'
 import { Spinner } from '../Spinner'
 
 const sizes = {
-  small: 'small',
-  medium: 'medium',
-  large: 'large',
+  small: 'size-[30px]',
+  medium: 'size-[40px]',
+  large: 'size-[50px]',
 }
 
 const variants = {
-  primary: 'primary',
-  darkfocus: 'dark-focus',
+  primary:
+    'bg-bg-secondary text-on-secondary hover:bg-bg-secondary-hover hover:text-on-secondary-hover',
+  darkfocus: 'bg-[#1c2026] text-[#f0c73d] hover:opacity-80',
 }
 
 type CircleButtonProps = {
@@ -33,11 +34,11 @@ export const CircleButton = ({
     <button
       disabled={isLoading}
       className={clsx(
-        'circle-button',
+        'inline-flex items-center justify-center rounded-full text-center',
         sizes[size],
         variants[variant],
         className,
-        isLoading && 'disabled'
+        isLoading ? 'pointer-events-none cursor-not-allowed' : 'cursor-pointer'
       )}
       onClick={onClick}>
       {isLoading ? <Spinner size="small" /> : children}
