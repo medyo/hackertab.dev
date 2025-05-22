@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { VscClose } from 'react-icons/vsc'
 import ReactModal from 'react-modal'
+import { CircleButton } from '../Button'
 type ModalProps = {
   showModal: boolean
   onClose: () => void
@@ -34,12 +35,9 @@ export const Modal = ({ showModal, className, header, onClose, children }: Modal
             {header.icon}
             {header.title}
           </h1>
-          <button
-            className="modalCloseBtn"
-            onClick={() => onClose()}
-            aria-label="Close share modal">
+          <CircleButton variant="outlined" onClick={() => onClose()} aria-label="Close share modal">
             <VscClose size="24" />
-          </button>
+          </CircleButton>
         </header>
 
         {children}

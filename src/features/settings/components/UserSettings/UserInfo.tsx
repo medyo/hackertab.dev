@@ -27,7 +27,7 @@ export const UserInfo = () => {
               Create a free account on <b>Hackertab</b> to sync, save bookmarks, and earn rewards.
             </div>
             <div className="actions">
-              <Button onClick={() => openAuthModal()} size="small">
+              <Button onClick={() => openAuthModal()} size="sm">
                 Connect
               </Button>
             </div>
@@ -60,7 +60,7 @@ export const UserInfo = () => {
             Connected with <span className="capitalize">{providerName}</span>
           </div>
           <div className="actions">
-            <Button onClick={() => setShowLogout(true)} size="small">
+            <Button onClick={() => setShowLogout(true)} size="sm">
               Logout
             </Button>
           </div>

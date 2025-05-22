@@ -95,15 +95,13 @@ export const AuthModal = ({ showAuth }: AuthModalProps) => {
             isLoading={getOauthLink.isLoading && getOauthLink.data?.['provider'] === 'github.com'}
             onClick={() => {
               signIn(githubAuthProvider)
-            }}
-            size="medium">
+            }}>
             Connect with Github
           </Button>
           <Button
             isLoading={getOauthLink.isLoading && getOauthLink.data?.['provider'] === 'google.com'}
             startIcon={<FcGoogle style={{ fontSize: '1.5em' }} />}
-            onClick={() => signIn(googleAuthProvider)}
-            size="medium">
+            onClick={() => signIn(googleAuthProvider)}>
             Connect with Google
           </Button>
         </div>
@@ -111,7 +109,7 @@ export const AuthModal = ({ showAuth }: AuthModalProps) => {
           <div className="errors">
             <p>{authError.message}</p>
             {authError.retry && (
-              <Button onClick={() => requestMissingPermission()} size="small" className="cta">
+              <Button onClick={() => requestMissingPermission()} size="sm" className="cta">
                 {authError.retry.label}
               </Button>
             )}

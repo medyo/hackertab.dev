@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import { useState } from 'react'
 import { IoIosClose } from 'react-icons/io'
 import { Option } from 'src/types'
+import { Button } from '../Button'
 import './chipset.css'
 type ChipProps = {
   option: Option
@@ -12,17 +13,28 @@ type ChipProps = {
 
 const Chip = ({ option, onSelect, onRemove, active = false }: ChipProps) => {
   return (
-    <div className={'chip ' + (active && 'active')}>
-      <button onClick={() => onSelect(option)}>
-        {option.icon && <span className="chipIcon">{option.icon}</span>}
-        {option.label}
-      </button>
-      {option.removeable && onRemove && (
-        <button className="deleteButton" onClick={() => onRemove(option)}>
-          <IoIosClose className="icon" />
-        </button>
-      )}
-    </div>
+    <Button
+      onClick={() => onSelect(option)}
+      type={`${active ? 'primary' : 'secondary'}`}
+      size="md"
+      startIcon={
+        // TODO we should search find svg icons for sources.
+        option.icon && (
+          <span className="h-[20px] w-[20px] rounded-full bg-white p-[2px] text-black dark:bg-transparent">
+            {option.icon}
+          </span>
+        )
+      }
+      endIcon={
+        option.removeable &&
+        onRemove && (
+          <button onClick={() => onRemove(option)}>
+            <IoIosClose size={24} />
+          </button>
+        )
+      }>
+      {option.label}
+    </Button>
   )
 }
 type ChangeAction = {

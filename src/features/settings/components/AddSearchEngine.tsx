@@ -48,7 +48,7 @@ export const AddSearchEngine = () => {
             placeholder="https://chatgpt.com?q="
           />
           <div>
-            <Button startIcon={<TiPlus />} size="small" onClick={onAddSearchEngine}>
+            <Button startIcon={<TiPlus />} size="sm" onClick={onAddSearchEngine}>
               Add
             </Button>
           </div>

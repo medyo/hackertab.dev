@@ -8,6 +8,7 @@ import { Attributes, trackLinkBookmark, trackLinkUnBookmark } from 'src/lib/anal
 import { useBookmarks } from 'src/stores/bookmarks'
 import { useUserPreferences } from 'src/stores/preferences'
 import { BaseEntry } from 'src/types'
+import { CircleButton } from '../Button'
 
 type CardItemWithActionsProps = {
   item: BaseEntry
@@ -80,27 +81,31 @@ export const CardItemWithActions = ({
         shareData={shareModalData}
       />
       {cardItem}
-      <div className={`blockActions ${isBookmarked ? 'active' : ''} `}>
+      <div className={`flex items-end justify-end gap-1 ${isBookmarked ? 'active' : ''}`}>
         {source === 'ai' && (
-          <button
-            className={`blockActionButton `}
+          <CircleButton
+            size="sm"
+            className={`blockActionButton`}
             onClick={onReportClicked}
             aria-label="Report item">
             <MdBugReport />
-          </button>
+          </CircleButton>
         )}
-        <button
-          className={`blockActionButton `}
+        <CircleButton
+          size="sm"
+          className={`blockActionButton`}
           onClick={onShareModalClicked}
           aria-label="Open share modal">
           <BiShareAlt />
-        </button>
-        <button
+        </CircleButton>
+        <CircleButton
+          size="sm"
+          variant={isBookmarked ? 'darkfocus' : 'secondary'}
           className={`blockActionButton ${isBookmarked ? 'active' : ''}`}
           onClick={onBookmarkClick}
           aria-label="Bookmark item">
           {!isBookmarked ? <BiBookmarkPlus /> : <BiBookmarkMinus />}
-        </button>
+        </CircleButton>
       </div>
     </div>
   )

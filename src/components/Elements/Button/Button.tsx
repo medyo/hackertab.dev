@@ -3,39 +3,42 @@ import React from 'react'
 import { Spinner } from '../Spinner'
 
 const sizes = {
-  small: 'py-1 px-2 text-xs',
-  medium: 'py-3 px-4 text-base',
-  large: 'py-4 px-8 text-xl',
+  sm: 'py-1 px-2 text-xs',
+  md: 'py-3 px-4 text-base',
+  lg: 'py-4 px-8 text-xl',
 }
 
 const types = {
-  primary: 'bg-bg-primary text-on-primary ',
+  primary: 'bg-primary text-on-primary ',
   secondary:
-    'bg-bg-secondary text-on-secondary hover:bg-bg-secondary-hover hover:text-on-secondary-hover',
-  danger: 'bg-bg-danger text-on-danger ',
-  success: 'bg-bg-success text-on-success ',
-  warning: 'bg-bg-warning text-on-warning ',
+    'bg-secondary text-on-secondary hover:bg-secondary-hover hover:text-on-secondary-hover',
+  danger: 'bg-danger text-on-danger ',
+  success: 'bg-success text-on-success ',
+  warning: 'bg-warning text-on-warning ',
+  text: 'bg-transparent text-on-background',
 }
 
 interface ButtonProps {
   children: React.ReactNode
-  onClick: () => void
+  onClick: (e: React.MouseEvent<HTMLSpanElement>) => void
   className?: string
   type?: keyof typeof types
   size?: keyof typeof sizes
   startIcon?: React.ReactNode
   endIcon?: React.ReactNode
   isLoading?: boolean
+  tagId?: string
 }
 export const Button = ({
   onClick,
   type = 'secondary',
   className,
-  size = 'medium',
+  size = 'md',
   startIcon,
   endIcon,
   children,
   isLoading = false,
+  tagId,
 }: ButtonProps) => {
   return (
     <button
@@ -47,7 +50,8 @@ export const Button = ({
         isLoading ? 'pointer-events-none cursor-not-allowed' : 'cursor-pointer'
       )}
       onClick={onClick}
-      disabled={isLoading}>
+      disabled={isLoading}
+      data-target-id={tagId}>
       {isLoading ? <Spinner size="small" /> : startIcon}
       {children}
       {endIcon}

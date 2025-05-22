@@ -79,11 +79,7 @@ export const RssSetting = () => {
             <BeatLoader color={'#A9B2BD'} loading={isRssInputLoading} size={6} />
           ) : (
             <div>
-              <Button
-                startIcon={<BsRssFill />}
-                size="small"
-                className="rssButton"
-                onClick={onRssAddClick}>
+              <Button startIcon={<BsRssFill />} size="sm" type="warning" onClick={onRssAddClick}>
                 Add
               </Button>
             </div>

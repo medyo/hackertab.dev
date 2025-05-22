@@ -5,7 +5,7 @@ import { BsArrowRight, BsFillGearFill } from 'react-icons/bs'
 import { FaDatabase, FaPaintBrush, FaRobot, FaServer } from 'react-icons/fa'
 import { RiDeviceFill } from 'react-icons/ri'
 import { TbDots } from 'react-icons/tb'
-import { StepProps } from 'src/components/Elements'
+import { Button, StepProps } from 'src/components/Elements'
 import { Occupation } from '../../types'
 
 const OCCUPATIONS: Occupation[] = [
@@ -107,11 +107,13 @@ export const HelloTab = ({
           )
         })}
       </div>
-      <div className="tabFooter">
-        <button onClick={() => moveToPrevious && moveToPrevious()}>Skip</button>
-        <button className="positiveButton" onClick={() => onClickNext()}>
-          <BsArrowRight /> Next
-        </button>
+      <div className="mt-8 flex flex-row justify-end gap-2 align-middle">
+        <Button type="secondary" onClick={() => moveToPrevious && moveToPrevious()}>
+          Skip
+        </Button>
+        <Button type="primary" endIcon={<BsArrowRight />} onClick={() => onClickNext()}>
+          Next
+        </Button>
       </div>
     </div>
   )

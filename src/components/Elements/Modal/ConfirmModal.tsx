@@ -29,12 +29,8 @@ export const ConfirmModal = ({
       <div className="content">
         <p className="description">{description}</p>
         <div className="buttons">
-          <Button onClick={onClose} size="medium">
-            Cancel
-          </Button>
-          <Button onClick={onConfirm} size="medium">
-            Confirm
-          </Button>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button onClick={onConfirm}>Confirm</Button>
         </div>
       </div>
     </Modal>

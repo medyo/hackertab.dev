@@ -25,13 +25,12 @@ code {
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-mint-500: oklch(0.72 0.11 178);
-  --color-bg-primary: oklch(0.53 0.1896 257.41);
-  --color-bg-secondary: oklch(0.9 0.0221 250.23);
-  --color-bg-secondary-hover: oklch(0.83 0.0314 249.73);
-  --color-bg-danger: oklch(0.67 0.2143 24.47);
-  --color-bg-success: oklch(0.73 0.2182 138.49);
-  --color-bg-warning: oklch(0.85 0.1452 85.83);
+  --color-primary: oklch(0.53 0.1896 257.41);
+  --color-secondary: oklch(0.9 0.0221 250.23);
+  --color-secondary-hover: oklch(0.83 0.0314 249.73);
+  --color-danger: oklch(0.67 0.2143 24.47);
+  --color-success: oklch(0.73 0.2182 138.49);
+  --color-warning: oklch(0.85 0.1452 85.83);
 
   --color-on-primary: oklch(1 0 0);
   --color-on-secondary: oklch(0.42 0.0431 250.1);
@@ -39,17 +38,17 @@ code {
   --color-on-danger: oklch(1 0 0);
   --color-on-success: oklch(1 0 0);
   --color-on-warning: oklch(1 0 0);
-  --color-on-background: oklch(1 0 0);
+  --color-on-background: oklch(0.42 0.0431 250.1);
 }
 
 @layer base {
   @variant dark {
-    --color-bg-primary: oklch(0.53 0.1896 257.41);
-    --color-bg-secondary: oklch(0.24 0.0129 258.37);
-    --color-bg-secondary-hover: oklch(0.22 0.0115 254.07);
-    --color-bg-danger: oklch(0.67 0.2143 24.47);
-    --color-bg-success: oklch(0.73 0.2182 138.49);
-    --color-bg-warning: oklch(0.85 0.1452 85.83);
+    --color-primary: oklch(0.53 0.1896 257.41);
+    --color-secondary: oklch(0.24 0.0129 258.37);
+    --color-secondary-hover: oklch(0.22 0.0115 254.07);
+    --color-danger: oklch(0.67 0.2143 24.47);
+    --color-success: oklch(0.73 0.2182 138.49);
+    --color-warning: oklch(0.85 0.1452 85.83);
 
     --color-on-primary: oklch(1 0 0);
     --color-on-secondary: oklch(1 0 0);

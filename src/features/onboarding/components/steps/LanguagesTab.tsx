@@ -1,4 +1,4 @@
-import { ChipsSet, StepProps } from 'src/components/Elements'
+import { Button, ChipsSet, StepProps } from 'src/components/Elements'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
 import { Occupation } from '../../types'
 
@@ -35,11 +35,11 @@ export const LanguagesTab = ({
           }}
         />
       </div>
-      <div className="tabFooter">
-        <button onClick={() => moveToPrevious && moveToPrevious()}>Back</button>
-        <button className="positiveButton" onClick={() => moveToNext && moveToNext()}>
+      <div className="mt-8 flex flex-row justify-end gap-2 align-middle">
+        <Button onClick={() => moveToPrevious && moveToPrevious()}>Back</Button>
+        <Button type="primary" onClick={() => moveToNext && moveToNext()}>
           Finish
-        </button>
+        </Button>
       </div>
     </div>
   )

@@ -1,4 +1,5 @@
 import { createElement, useState } from 'react'
+import { CircleButton } from '../Button'
 import './steps.css'
 
 type StepStatus = {
@@ -68,8 +69,7 @@ export const Steps = <T extends any>({
     }
   }
 
-  const onStepClicked = (e: React.MouseEvent, index: number) => {
-    e.preventDefault()
+  const onStepClicked = (index: number) => {
     setCurrentStep(index)
   }
 
@@ -93,34 +93,36 @@ export const Steps = <T extends any>({
             return (
               <li key={index} className="wrapper">
                 {stepsStatuses[index] === 'completed' || stepsStatuses[index] === 'current' ? (
-                  <button onClick={(e) => onStepClicked(e, index)} className="step active">
-                    <span className="stepBadge">{index + 1}</span>
-
+                  <div className="step active">
+                    <CircleButton variant="primary" onClick={() => onStepClicked(index)}>
+                      {index + 1}
+                    </CircleButton>
                     <div className="stepLine">
                       {index !== steps.length - 1 && <div className="progressLine" />}
                     </div>
-                  </button>
+                  </div>
                 ) : (
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault()
-                      if (skipSteps) {
-                        onStepClicked(e, index)
-                      }
-                    }}
-                    className="step">
-                    <span className="stepBadge">{index + 1}</span>
+                  <div className="step">
+                    <CircleButton
+                      variant="outlined"
+                      onClick={() => {
+                        if (skipSteps) {
+                          onStepClicked(index)
+                        }
+                      }}>
+                      {index + 1}
+                    </CircleButton>
                     <div className="stepLine">
                       {index !== steps.length - 1 && <div className="progressLine" />}
                     </div>
-                  </button>
+                  </div>
                 )}
               </li>
             )
           })}
         </ol>
       </nav>
-      <div className="bg-white shadow overflow-hidden sm:rounded-lg px-8 py-4">{renderStep()}</div>
+      <div className="overflow-hidden px-8 py-4 shadow sm:rounded-lg">{renderStep()}</div>
     </div>
   )
 }
