@@ -7,6 +7,7 @@ import {
 } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { localStorageAdapter } from 'src/adapters/LocalStorageAdapter'
+import { isDevelopment } from 'src/utils/Environment'
 import { PromiseValue } from 'type-fest'
 
 const queryConfig: DefaultOptions = {
@@ -14,8 +15,9 @@ const queryConfig: DefaultOptions = {
     useErrorBoundary: false,
     refetchOnWindowFocus: false,
     retry: false,
-    staleTime: 900000, //15 minutes
-    cacheTime: 3600000, // 1 hour
+    // Disable cache on dev mode
+    staleTime: isDevelopment() ? 0 : 900000, //15 minutes
+    cacheTime: isDevelopment() ? 0 : 3600000, // 1 hour
   },
 }
 
