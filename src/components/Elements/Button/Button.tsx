@@ -9,13 +9,12 @@ const sizes = {
 }
 
 const types = {
-  primary: 'bg-primary text-on-primary ',
-  secondary:
-    'bg-secondary text-on-secondary hover:bg-secondary-hover hover:text-on-secondary-hover',
+  primary: 'bg-blue-500 text-white hover:bg-blue-600',
+  secondary: 'bg-ht-100 text-ht-300 hover:bg-ht-200',
   danger: 'bg-danger text-on-danger ',
-  success: 'bg-success text-on-success ',
-  warning: 'bg-warning text-on-warning ',
-  text: 'bg-transparent text-on-background',
+  success: 'bg-green-500 text-white hover:bg-green-600',
+  warning: 'bg-yellow-400 text-white hover:bg-yellow-500',
+  text: 'bg-transparent text-ht-300',
 }
 
 interface ButtonProps {

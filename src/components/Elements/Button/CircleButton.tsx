@@ -8,12 +8,10 @@ const sizes = {
 }
 
 const variants = {
-  primary: 'bg-primary text-on-primary hover:bg-primary-hover hover:text-on-primary-hover',
-  secondary:
-    'bg-secondary text-on-secondary hover:bg-secondary-hover hover:text-on-secondary-hover',
-  outlined:
-    'bg-transparent text-on-secondary border-1 dark:border-2 border-secondary hover:bg-secondary-hover hover:text-on-secondary-hover',
-  text: 'bg-transparent text-on-secondary',
+  primary: 'bg-blue-500 text-white hover:bg-blue-600',
+  secondary: 'bg-ht-100 text-ht-300 hover:bg-ht-200',
+  outlined: 'bg-ht-100 text-ht-300 hover:bg-ht-100',
+  text: 'bg-transparent ttext-ht-300',
   darkfocus: 'bg-blue-900 text-yellow-400 hover:opacity-80',
 }
 
