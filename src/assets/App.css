@@ -286,6 +286,23 @@ a {
   opacity: 1;
 }
 
+.blockHeaderDragButton {
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: #96a2ae;
+  cursor: grab;
+  display: none;
+  font-size: 24px;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  width: 50px;
+}
+
 .blockHeader:hover .blockHeaderDragButton {
   display: flex;
 }
@@ -340,9 +357,31 @@ a {
 }
 
 .blockActionButton {
+  background-color: var(--card-action-button-background);
+  border-radius: 40px;
+  border: none;
+  box-shadow: 0 0 15px 2px var(--card-actions-background-shadow);
+  color: var(--card-action-button-color);
+  cursor: pointer;
+  display: block;
+  font-size: 18px;
+  height: 28px;
+  line-height: 12px;
+  opacity: 1;
+  padding: 0;
+  pointer-events: all;
+  text-align: center;
   transition:
     opacity 0.3s ease,
     right 0.3s ease;
+  width: 28px;
+  margin-bottom: 6px;
+  margin-right: 6px;
+}
+
+.blockActionButton.active {
+  background-color: var(--card-active-action-button-background);
+  color: var(--card-active-action-button-color);
 }
 
 @media (hover: hover) {
@@ -659,6 +698,21 @@ Github languages colors
 
 .gh-language-dart::before {
   background-color: #045797;
+}
+
+.headerSelect {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 2px solid var(--app-name-text-color);
+  color: inherit;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0;
+}
+
+.headerSelectIcon {
+  position: relative;
+  top: 2px;
 }
 
 /**
@@ -1393,6 +1447,25 @@ Modal
   width: 100%;
   column-gap: 8px;
   align-items: center;
+}
+.modalCloseBtn {
+  align-items: center;
+  position: absolute;
+  background-color: transparent;
+  border-radius: 50%;
+  top: 0;
+  right: 0;
+  border: none;
+  color: var(--primary-text-color);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.modalCloseBtn:hover {
+  opacity: 0.7;
 }
 .settingContent .form {
   display: flex;
