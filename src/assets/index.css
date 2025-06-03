@@ -27,13 +27,13 @@ code {
 @theme {
   --color-ht-100: oklch(0.9 0.0221 250.23);
   --color-ht-200: oklch(0.83 0.0314 249.73);
-  --color-ht-300: oklch(0.453 0.0179 251.34);
+  --color-ht-900: oklch(0.453 0.0179 251.34);
 }
 
 @layer base {
   @variant dark {
     --color-ht-100: oklch(0.2421 0.0129 258.37);
     --color-ht-200: oklch(0.2245 0.0115 254.07);
-    --color-ht-300: oklch(1 0 0);
+    --color-ht-900: oklch(1 0 0);
   }
 }

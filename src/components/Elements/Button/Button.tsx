@@ -10,11 +10,11 @@ const sizes = {
 
 const types = {
   primary: 'bg-blue-500 text-white hover:bg-blue-600',
-  secondary: 'bg-ht-100 text-ht-300 hover:bg-ht-200',
+  secondary: 'bg-ht-100 text-ht-900 hover:bg-ht-200',
   danger: 'bg-danger text-on-danger ',
   success: 'bg-green-500 text-white hover:bg-green-600',
   warning: 'bg-yellow-400 text-white hover:bg-yellow-500',
-  text: 'bg-transparent text-ht-300',
+  text: 'bg-transparent text-ht-900',
 }
 
 interface ButtonProps {

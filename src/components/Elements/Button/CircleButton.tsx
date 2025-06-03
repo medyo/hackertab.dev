@@ -9,9 +9,9 @@ const sizes = {
 
 const variants = {
   primary: 'bg-blue-500 text-white hover:bg-blue-600',
-  secondary: 'bg-ht-100 text-ht-300 hover:bg-ht-200',
-  outlined: 'bg-ht-100 text-ht-300 hover:bg-ht-100',
-  text: 'bg-transparent ttext-ht-300',
+  secondary: 'bg-ht-100 text-ht-900 hover:bg-ht-200',
+  outlined: 'bg-ht-100 text-ht-900 hover:bg-ht-100',
+  text: 'bg-transparent ttext-ht-900',
   darkfocus: 'bg-blue-900 text-yellow-400 hover:opacity-80',
 }
 
