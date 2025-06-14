@@ -56,20 +56,20 @@ export const Header = () => {
 
   return (
     <>
-      <header className="AppHeader">
-        <span className="AppName">
-          <i className="logo">
-            <CgTab />
+      <header className="sticky top-0 z-[1] mx-[1%] mt-[10px] mb-0 flex flex-row flex-wrap content-center items-center gap-[10px] md:h-auto">
+        <span className="flex items-center pt-[4px] md:w-auto md:grow-0">
+          <i className="me-[8px]">
+            <CgTab size={24} />
           </i>{' '}
           <Link to="/">
-            <HackertabLogo aria-label="hackertab.dev" className="logoText" />
+            <HackertabLogo aria-label="hackertab.dev" className="h-[16px] w-auto fill-ht-900" />
           </Link>
           <Changelog />
         </span>
         <SearchBar />
-        <div className="buttonsFlex extras">
+        <div className="inline-flex flex-row items-center gap-[8px]">
           {isDNDModeActive() && (
-            <Button onClick={onUnpauseClicked} className="dndButton">
+            <Button onClick={onUnpauseClicked} className="font-bold">
               <MdDoDisturbOff />
               Unpause
             </Button>
@@ -86,7 +86,7 @@ export const Header = () => {
           </CircleButton>
           <CircleButton
             isLoading={isConnecting}
-            className={clsx('profileImageContainer', !isConnected && 'overflowHidden')}
+            className={clsx('relative', !isConnected && 'overflow-hidden')}
             onClick={() => {
               if (isConnected) {
                 navigate('/settings/general')
@@ -96,15 +96,19 @@ export const Header = () => {
             }}>
             {isConnected ? (
               <>
-                <img className="profileImage" src={user?.imageURL} />
-                <div className="streak">
-                  <span className="content">
-                    <StreakIcon className="icon" /> {user?.streak || 1}
-                  </span>
+                <img
+                  className="size-[40px] rounded-full outline-2 outline-amber-600"
+                  src={user?.imageURL}
+                />
+                <div className="absolute mr-0 -mb-12 ml-0 inline-block">
+                  <div className="flex items-center justify-end rounded-[12px] border-2 border-ht-100 bg-amber-600 text-[11px] font-bold text-white">
+                    <StreakIcon className="-mt-[2px] ml-0 w-[2.2em]" />{' '}
+                    <span className="me-2 justify-self-end">{user?.streak || 1}</span>
+                  </div>
                 </div>
               </>
             ) : (
-              <AvatarPlaceholder className="avatarPlaceholder" />
+              <AvatarPlaceholder className="mt-[10px] size-[34px] rounded-[20px]" />
             )}
           </CircleButton>
         </div>

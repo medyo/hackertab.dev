@@ -28,12 +28,14 @@ export const SearchBar = () => {
   }, [])
 
   return (
-    <form className="searchBar" onSubmit={handleSubmit}>
+    <form
+      className="z-[1] inline-flex flex-1 items-center rounded-full bg-white py-2 sm:relative sm:mx-0 sm:my-auto sm:flex-grow-1 dark:bg-ht-100"
+      onSubmit={handleSubmit}>
       {usedSearchEngine?.default === false ? (
-        <HiSparkles className="searchBarIcon" />
+        <HiSparkles className="mx-[16px] size-[22px] rounded-full" />
       ) : (
         <img
-          className={'searchBarIcon'}
+          className={'mx-[16px] size-[24px] rounded-full bg-white p-[2px]'}
           src={`/searchengine_logos/${usedSearchEngine.label.toLowerCase()}_logo.svg`}
         />
       )}
@@ -41,7 +43,7 @@ export const SearchBar = () => {
         ref={keywordsInputRef}
         type="text"
         name="keyword"
-        className="searchBarInput"
+        className="box-border w-full text-ht-900 focus:outline-none"
         placeholder={`Ask ${usedSearchEngine.label}`}
       />
     </form>

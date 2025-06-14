@@ -27,7 +27,7 @@ code {
 @theme {
   --color-ht-100: oklch(0.9 0.0221 250.23);
   --color-ht-200: oklch(0.83 0.0314 249.73);
-  --color-ht-900: oklch(0.453 0.0179 251.34);
+  --color-ht-900: oklch(0.3455 0.0507 251.49);
 }
 
 @layer base {
