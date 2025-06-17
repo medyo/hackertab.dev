@@ -12,7 +12,7 @@ const variants = {
   secondary: 'bg-ht-100 text-ht-900 hover:bg-ht-200',
   outlined: 'bg-ht-100 text-ht-900 hover:bg-ht-100',
   text: 'bg-transparent ttext-ht-900',
-  darkfocus: 'bg-blue-900 text-yellow-400 hover:opacity-80',
+  darkfocus: 'bg-blue-900 text-yellow-400 hover:opacity-80 dark:bg-ht-100 dark:hover:bg-ht-200',
 }
 
 type CircleButtonProps = {

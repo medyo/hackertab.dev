@@ -56,18 +56,18 @@ export const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-[1] mx-[1%] mt-[10px] mb-0 flex flex-row flex-wrap content-center items-center gap-[10px] md:h-auto">
-        <span className="flex items-center pt-[4px] md:w-auto md:grow-0">
-          <i className="me-[8px]">
+      <header className="sticky z-[1] mx-[1%] mt-3 mb-0 flex flex-row flex-wrap content-center items-center gap-2.5">
+        <span className="order-1 flex items-center text-ht-900">
+          <i className="relative me-2">
             <CgTab size={24} />
           </i>{' '}
           <Link to="/">
-            <HackertabLogo aria-label="hackertab.dev" className="h-[16px] w-auto fill-ht-900" />
+            <HackertabLogo aria-label="hackertab.dev" className="h-4 w-auto fill-ht-900" />
           </Link>
           <Changelog />
         </span>
         <SearchBar />
-        <div className="inline-flex flex-row items-center gap-[8px]">
+        <div className="order-3 inline-flex flex-row content-center gap-2 gap-y-2">
           {isDNDModeActive() && (
             <Button onClick={onUnpauseClicked} className="font-bold">
               <MdDoDisturbOff />
@@ -97,18 +97,17 @@ export const Header = () => {
             {isConnected ? (
               <>
                 <img
-                  className="size-[40px] rounded-full outline-2 outline-amber-600"
+                  className="size-full rounded-full outline-2 outline-amber-600"
                   src={user?.imageURL}
                 />
-                <div className="absolute mr-0 -mb-12 ml-0 inline-block">
-                  <div className="flex items-center justify-end rounded-[12px] border-2 border-ht-100 bg-amber-600 text-[11px] font-bold text-white">
-                    <StreakIcon className="-mt-[2px] ml-0 w-[2.2em]" />{' '}
-                    <span className="me-2 justify-self-end">{user?.streak || 1}</span>
-                  </div>
+                <div className="absolute right-0 -bottom-2 left-0 inline-block">
+                  <span className="inline-flex items-center justify-center rounded-xl bg-amber-500 py-px ps-6 pe-1.5 text-xs outline-2 outline-ht-100">
+                    <StreakIcon className="absolute -top-0.5 left-0 w-6" /> {user?.streak || 1}
+                  </span>
                 </div>
               </>
             ) : (
-              <AvatarPlaceholder className="mt-[10px] size-[34px] rounded-[20px]" />
+              <AvatarPlaceholder className="mt-10 size-34 rounded-xl" />
             )}
           </CircleButton>
         </div>

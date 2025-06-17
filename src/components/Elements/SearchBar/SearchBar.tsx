@@ -29,13 +29,13 @@ export const SearchBar = () => {
 
   return (
     <form
-      className="z-[1] inline-flex flex-1 items-center rounded-full bg-white py-2 sm:relative sm:mx-0 sm:my-auto sm:flex-grow-1 dark:bg-ht-100"
+      className="order-2 flex grow items-center gap-2 rounded-full bg-white px-4 py-2 dark:bg-ht-100"
       onSubmit={handleSubmit}>
       {usedSearchEngine?.default === false ? (
-        <HiSparkles className="mx-[16px] size-[22px] rounded-full" />
+        <HiSparkles className="mx-4 size-6 rounded-full" />
       ) : (
         <img
-          className={'mx-[16px] size-[24px] rounded-full bg-white p-[2px]'}
+          className={'size-6 rounded-full bg-white p-0.5'}
           src={`/searchengine_logos/${usedSearchEngine.label.toLowerCase()}_logo.svg`}
         />
       )}
