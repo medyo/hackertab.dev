@@ -411,10 +411,13 @@ a {
 }
 .rowCover {
   border-radius: 4px;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   min-height: auto;
   object-fit: cover;
+
   aspect-ratio: 16/9;
   background-color: var(--placeholder-background-color);
   margin-bottom: 12px;
@@ -1235,9 +1238,16 @@ Producthunt item
     justify-content: center;
   }
 
-  .layoutLayers {
+  .layoutLayers.cardsLayout {
     margin-left: 1%;
     margin-right: 1%;
+  }
+
+  .layoutLayers.gridLayout {
+    margin-left: 1%;
+    padding-right: 1%;
+    margin-top: 1%;
+    box-shadow: 0px -10px 20px -15px var(--card-border-color);
   }
 
   .Cards {
