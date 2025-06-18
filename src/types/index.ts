@@ -24,6 +24,7 @@ export type SearchEngine = {
   className?: string
 }
 
+export type Layout = 'grid' | 'cards'
 export type Theme = 'dark' | 'light'
 export type ListingMode = 'normal' | 'compact'
 
@@ -47,6 +48,16 @@ export type Article = BaseEntry & {
   flair_text?: string
   flair_background_color?: string
   flair_text_color?: string
+}
+
+export type FeedItem = BaseEntry & {
+  date: Date
+  image: string
+  type: 'post' | 'github'
+  source: string
+  stars?: number
+  forks?: number
+  description?: string
 }
 
 export type Repository = BaseEntry & {
