@@ -1,0 +1,94 @@
+.light .feedItem {
+  box-shadow: 0 0 12px var(--card-border-color);
+}
+.feed {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  scroll-margin-top: 12px;
+  gap: 16px;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .feedItem {
+    display: flex;
+    background-color: var(--card-background-color);
+    border: 1px solid var(--card-border-color);
+    border-radius: 10px;
+    min-height: 300px;
+  }
+  .feedItem .repo {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: white;
+    border-bottom: 12px solid green;
+  }
+  .feedItem .repo .title {
+    font-size: 24px;
+    color: black;
+    margin: 0;
+    padding: 0;
+  }
+  .feedItem .repo .description {
+    font-size: 24px;
+    color: black;
+    margin: 0;
+    padding: 0;
+  }
+  .loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    grid-column: span 3;
+    padding: 16px 0;
+    margin-bottom: 20px;
+  }
+  .blockRow {
+    padding: 16px;
+    width: 100%;
+  }
+  #banneradv .wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.feed .placeholder {
+  animation-duration: 1.5s;
+  animation-name: cardPlaceholderPulse;
+  animation-iteration-count: infinite;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+  .image {
+    background-color: var(--placeholder-background-color);
+    border: 1px solid var(--placeholder-border-color);
+    height: 70%;
+    width: 100%;
+  }
+  .line {
+    background: var(--placeholder-background-color);
+    display: block;
+    height: 17px;
+    width: 100%;
+    border-radius: 4px;
+    margin: 0;
+  }
+  .smallLine {
+    margin-top: 8px;
+    background: var(--placeholder-background-color);
+    display: block;
+    height: 12px;
+    width: 100%;
+    border-radius: 4px;
+    margin: 0;
+  }
+}

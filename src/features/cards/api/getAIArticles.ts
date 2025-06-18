@@ -1,13 +1,31 @@
-import { useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import { axios } from 'src/lib/axios'
-import { ExtractFnReturnType, QueryConfig } from 'src/lib/react-query'
-import { Article } from 'src/types'
+import { InfiniteQueryConfig } from 'src/lib/react-query'
+import { FeedItem } from 'src/types'
 
-const getAIArticles = async (userTopics: string[]): Promise<Article[]> => {
-  return axios.get('/engine/feed/get', {
+type Response = {
+  data: FeedItem[]
+  metadata: {
+    next: string | null
+    hasNextPage: boolean
+  }
+}
+const getAIArticles = async ({
+  tags,
+  next,
+}: {
+  tags: string[]
+  next?: string | null
+}): Promise<Response> => {
+  return axios.get('/TO_ADD', {
+    auth: {
+      username: 'hidden',
+      password: 'hidden',
+    },
     params: {
-      tags: userTopics.join(','),
-      limit: 50,
+      tags: [...tags].sort().join(','),
+      limit: 21,
+      next,
     },
   })
 }
@@ -15,14 +33,17 @@ const getAIArticles = async (userTopics: string[]): Promise<Article[]> => {
 type QueryFnType = typeof getAIArticles
 
 type UseGetArticlesOptions = {
-  userTopics: string[]
-  config?: QueryConfig<QueryFnType>
+  tags: string[]
+  config?: InfiniteQueryConfig<QueryFnType>
 }
 
-export const useGetAIArticles = ({ userTopics, config }: UseGetArticlesOptions) => {
-  return useQuery<ExtractFnReturnType<QueryFnType>>({
+export const useGetAIArticles = ({ tags, config }: UseGetArticlesOptions) => {
+  return useInfiniteQuery<Response>({
     ...config,
-    queryKey: ['ai', userTopics.join(',')],
-    queryFn: () => getAIArticles(userTopics),
+    queryKey: ['feed', 'v2', tags.join(',')],
+    queryFn: ({ pageParam }) => getAIArticles({ tags, next: pageParam }),
+    getNextPageParam: (lastPage) => {
+      return lastPage.metadata.hasNextPage ? JSON.stringify(lastPage.metadata.next) : undefined
+    },
   })
 }
