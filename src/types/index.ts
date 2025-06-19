@@ -58,6 +58,7 @@ export type FeedItem = BaseEntry & {
   stars?: number
   forks?: number
   description?: string
+  tags: Array<string>
 }
 
 export type Repository = BaseEntry & {

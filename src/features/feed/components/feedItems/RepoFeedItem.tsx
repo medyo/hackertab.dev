@@ -1,6 +1,6 @@
 import { SiGithub } from 'react-icons/si'
 import { VscRepoForked, VscStarFull } from 'react-icons/vsc'
-import { CardItemWithActions } from 'src/components/Elements'
+import { CardItemWithActions, ColoredLanguagesBadge } from 'src/components/Elements'
 import { useUserPreferences } from 'src/stores/preferences'
 import { BaseItemPropsType, FeedItem as FeedItemType } from 'src/types'
 import { FeedItemHeader } from '../FeedItemHeader'
@@ -49,6 +49,9 @@ export const RepoFeedItem = (props: BaseItemPropsType<FeedItemType>) => {
               )}
               <span className="rowItem">
                 <VscRepoForked className="rowItemIcon" /> {numberWithCommas(item?.forks || 0)} forks
+              </span>
+              <span className="rowItem">
+                <ColoredLanguagesBadge languages={item.tags} />
               </span>
             </div>
           )}
