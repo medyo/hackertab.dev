@@ -25,24 +25,26 @@ export const RepoFeedItem = (props: BaseItemPropsType<FeedItemType>) => {
             item={item}
             fallbackImage={
               <div className="rowCover repo">
-                <SiGithub size={40} color="#000" />
+                <SiGithub size={40} />
                 <p className="title">{item.title}</p>
-                <p
-                  style={{
-                    textAlign: 'center',
-                    color: 'gray',
-                    margin: 0,
-                    padding: 0,
-                  }}>
-                  {item.description}
-                </p>
+                <p className="description">{item.description}</p>
+                <div className="details">
+                  <p>
+                    <VscStarFull className="rowItemIcon" /> {numberWithCommas(item.stars || 0)}{' '}
+                    stars
+                  </p>
+                  <p>
+                    <VscRepoForked className="rowItemIcon" /> {numberWithCommas(item?.forks || 0)}{' '}
+                    forks
+                  </p>
+                </div>
               </div>
             }
           />
 
           {listingMode === 'normal' && (
             <div className="rowDetails">
-              {numberWithCommas(item.stars || 0) && (
+              {item.stars && (
                 <span className="rowItem">
                   <VscStarFull className="rowItemIcon" /> {numberWithCommas(item.stars || 0)} stars
                 </span>

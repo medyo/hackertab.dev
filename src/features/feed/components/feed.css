@@ -23,18 +23,29 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    background: white;
+    background: var(--card-background-color);
     border-bottom: 12px solid green;
   }
   .feedItem .repo .title {
     font-size: 24px;
-    color: black;
+    color: var(--card-header-text-color);
     margin: 0;
     padding: 0;
   }
   .feedItem .repo .description {
-    font-size: 24px;
-    color: black;
+    font-size: 16px;
+    color: var(--primary-text-color);
+    margin: 0;
+    padding: 0 12px;
+    text-align: center;
+  }
+  .feedItem .repo .details {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    font-size: 14px;
+  }
+  .feedItem .repo .details p {
     margin: 0;
     padding: 0;
   }
