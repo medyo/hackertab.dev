@@ -29,7 +29,7 @@ export const SearchBar = () => {
 
   return (
     <form
-      className="order-2 flex grow items-center gap-2 rounded-full bg-white px-4 py-2 dark:bg-ht-100"
+      className="order-none flex grow items-center gap-2 rounded-full bg-white px-4 py-2 md:order-2 dark:bg-ht-100"
       onSubmit={handleSubmit}>
       {usedSearchEngine?.default === false ? (
         <HiSparkles className="mx-4 size-6 rounded-full" />

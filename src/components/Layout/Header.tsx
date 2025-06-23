@@ -57,7 +57,7 @@ export const Header = () => {
   return (
     <>
       <header className="sticky z-[1] mx-[1%] mt-3 mb-0 flex flex-row flex-wrap content-center items-center gap-2.5">
-        <span className="order-1 flex items-center text-ht-900">
+        <span className="order-none flex items-center text-ht-900 md:order-1">
           <i className="relative me-2">
             <CgTab size={24} />
           </i>{' '}
@@ -67,7 +67,7 @@ export const Header = () => {
           <Changelog />
         </span>
         <SearchBar />
-        <div className="order-3 inline-flex flex-row content-center gap-2 gap-y-2">
+        <div className="order-none hidden flex-row content-center gap-2 gap-y-2 md:order-3 md:inline-flex">
           {isDNDModeActive() && (
             <Button onClick={onUnpauseClicked} className="font-bold">
               <MdDoDisturbOff />
@@ -107,7 +107,7 @@ export const Header = () => {
                 </div>
               </>
             ) : (
-              <AvatarPlaceholder className="mt-10 size-34 rounded-xl" />
+              <AvatarPlaceholder className="size-full scale-85 rounded-full" />
             )}
           </CircleButton>
         </div>

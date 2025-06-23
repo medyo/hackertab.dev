@@ -6,7 +6,7 @@ export const UserTags = () => {
   const { userSelectedTags } = useUserPreferences()
 
   return (
-    <div className="order-4 flex w-full flex-wrap items-center gap-2">
+    <div className="order-none hidden w-full flex-wrap items-center gap-2 md:order-4 md:flex">
       {userSelectedTags.map((tag, index) => (
         <span
           key={index}
