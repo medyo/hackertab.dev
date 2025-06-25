@@ -50,16 +50,36 @@ export type Article = BaseEntry & {
   flair_text_color?: string
 }
 
-export type FeedItem = BaseEntry & {
+export type FeedItem = {
+  title: string
+  id: string
+  url: string
   date: Date
   image: string
-  type: 'post' | 'github'
-  source: string
-  stars?: number
-  forks?: number
-  description?: string
   tags: Array<string>
 }
+
+export type ArticleFeedItemData = FeedItem & {
+  type: 'post'
+  source: string
+}
+
+export type ProductHuntFeedItemData = FeedItem & {
+  type: 'producthunt'
+  tagline: string
+  votes: number
+  comments: number
+}
+
+export type GithubFeedItemData = FeedItem & {
+  type: 'repo'
+  stars: number
+  forks: number
+  programmingLanguage: string
+  description?: string
+}
+
+export type FeedItemData = ArticleFeedItemData | GithubFeedItemData | ProductHuntFeedItemData
 
 export type Repository = BaseEntry & {
   programmingLanguage: string

@@ -2,14 +2,14 @@ import { SiGithub } from 'react-icons/si'
 import { VscRepoForked, VscStarFull } from 'react-icons/vsc'
 import { CardItemWithActions, ColoredLanguagesBadge } from 'src/components/Elements'
 import { useUserPreferences } from 'src/stores/preferences'
-import { BaseItemPropsType, FeedItem as FeedItemType } from 'src/types'
+import { BaseItemPropsType, GithubFeedItemData } from 'src/types'
 import { FeedItemHeader } from '../FeedItemHeader'
 
 function numberWithCommas(x: number | string) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
-export const RepoFeedItem = (props: BaseItemPropsType<FeedItemType>) => {
+export const RepoFeedItem = (props: BaseItemPropsType<GithubFeedItemData>) => {
   const { item, index, analyticsTag } = props
   const { listingMode } = useUserPreferences()
 
