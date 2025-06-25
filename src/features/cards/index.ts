@@ -1,4 +1,4 @@
-export * from './api/getAIArticles'
+export * from '../feed/api/getFeed'
 export * from './api/getRssFeed'
 export * from './components/aiCard'
 export * from './components/conferencesCard'

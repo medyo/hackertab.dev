@@ -1,10 +1,10 @@
 import useInfiniteScroll from 'react-infinite-scroll-hook'
 import { PropagateLoader } from 'react-spinners'
-import { useGetAIArticles } from 'src/features/cards'
+import { useGetFeed } from 'src/features/cards'
 import { useUserPreferences } from 'src/stores/preferences'
 import './feed.css'
-import { FeedItem } from './FeedItem'
 import { AdvFeedItem } from './feedItems/AdvFeedItem'
+import { FeedItem } from './feedItems/FeedItem'
 
 export const Feed = () => {
   const { userSelectedTags } = useUserPreferences()
@@ -17,7 +17,7 @@ export const Feed = () => {
     error,
     isFetchingNextPage,
     fetchNextPage,
-  } = useGetAIArticles({
+  } = useGetFeed({
     tags: userSelectedTags.map((tag) => tag.label.toLocaleLowerCase()),
   })
 
