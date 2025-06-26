@@ -1244,8 +1244,6 @@ Producthunt item
   }
 
   .layoutLayers.gridLayout {
-    margin-left: 1%;
-    padding-right: 1%;
     margin-top: 1%;
     box-shadow: 0px -10px 20px -15px var(--card-border-color);
   }

@@ -6,6 +6,8 @@
   grid-template-columns: repeat(3, 1fr);
   scroll-margin-top: 12px;
   gap: 16px;
+  margin-left: 1%;
+  padding-right: 1%;
 
   @media (max-width: 768px) {
     display: flex;
