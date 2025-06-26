@@ -21,12 +21,12 @@ export const Feed = () => {
     tags: userSelectedTags.map((tag) => tag.label.toLocaleLowerCase()),
   })
 
-  const [infiniteRef] = useInfiniteScroll({
+  const [infiniteRef, {rootRef}] = useInfiniteScroll({
     loading: isLoading,
     hasNextPage: Boolean(hasNextPage),
     onLoadMore: fetchNextPage,
     disabled: Boolean(error),
-    rootMargin: '0px 0px 400px 0px',
+    rootMargin: '0px 0px 100% 0px',
   })
 
   if (isInitialLoading) {
@@ -46,7 +46,8 @@ export const Feed = () => {
   }
 
   return (
-    <div className="feed">
+    <div ref={rootRef} className="feed scrollable" style={{ overflow: 'auto', maxHeight: '100vh' }}>
+      
       <div key={`adv`} className="feedItem">
         <AdvFeedItem />
       </div>
