@@ -28,10 +28,11 @@ export const AppContentLayout = () => {
                 <MobileCards selectedCard={selectedCard} />
               </div>
             </MobileBreakpoint>
+            <BottomNavigation selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
           </>
         )}
       </main>
-      <BottomNavigation selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
+      
     </>
   )
 }
