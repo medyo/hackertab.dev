@@ -21,36 +21,7 @@
     border-radius: 10px;
     min-height: 300px;
   }
-  .feedItem .repo {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    background: var(--card-background-color);
-    border-bottom: 12px solid green;
-  }
-  .feedItem .repo .title {
-    font-size: 24px;
-    color: var(--card-header-text-color);
-    margin: 0;
-    padding: 0;
-  }
-  .feedItem .repo .description {
-    font-size: 16px;
-    color: var(--primary-text-color);
-    margin: 0;
-    padding: 0 12px;
-    text-align: center;
-  }
-  .feedItem .repo .details {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    font-size: 14px;
-  }
-  .feedItem .repo .details p {
-    margin: 0;
-    padding: 0;
-  }
+
   .loading {
     display: flex;
     flex-direction: column;
@@ -104,4 +75,38 @@
     border-radius: 4px;
     margin: 0;
   }
+}
+
+.repo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--card-background-color);
+  border-bottom: 12px solid green;
+}
+.repo .title {
+  font-size: 1.4rem;
+  color: var(--card-header-text-color);
+  margin: 0;
+  padding: 0;
+}
+.repo .description {
+  font-size: 0.9rem;
+  color: var(--primary-text-color);
+  margin: 0;
+  padding: 0 12px;
+  text-align: center;
+  line-height: 1.5em;
+  max-height: 3em;
+  overflow: hidden;
+}
+.repo .details {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  font-size: 14px;
+}
+.repo .details p {
+  margin: 0;
+  padding: 0;
 }
