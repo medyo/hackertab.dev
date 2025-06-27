@@ -22,6 +22,7 @@ enum Objects {
   RSS = 'Rss',
   DO_NOT_DISTURB = 'DND',
   DISPLAY_LAYOUT = 'Display Layout',
+  FEED = 'Feed',
 }
 
 enum Verbs {
@@ -417,6 +418,12 @@ export const trackDisplayTypeChange = (value: "grid" | "cards") => {
   })
 }
 
+export const trackFeedScroll = () => {
+  trackEvent({
+    object: Objects.FEED,
+    verb: Verbs.SCROLL
+  })
+}
 // Identification
 
 export const identifyUserLanguages = (languages: string[]) => {

@@ -84,8 +84,8 @@ export const App = () => {
 
       <div
         className={clsx(
-          'layoutLayers',
-          layout === 'cards' ? 'cardsLayout hideScrollBar' : 'gridLayout'
+          'layoutLayers hideScrollBar',
+          layout === 'cards' ? 'cardsLayout' : 'gridLayout'
         )}>
         {isDNDModeActive() && <DNDLayout />}
         <AppContentLayout />

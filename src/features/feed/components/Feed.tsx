@@ -1,6 +1,7 @@
 import useInfiniteScroll from 'react-infinite-scroll-hook'
 import { PropagateLoader } from 'react-spinners'
 import { useGetFeed } from 'src/features/cards'
+import { trackFeedScroll } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import './feed.css'
 import { AdvFeedItem } from './feedItems/AdvFeedItem'
@@ -24,7 +25,10 @@ export const Feed = () => {
   const [infiniteRef, {rootRef}] = useInfiniteScroll({
     loading: isLoading,
     hasNextPage: Boolean(hasNextPage),
-    onLoadMore: fetchNextPage,
+    onLoadMore: () => {
+      fetchNextPage()
+      trackFeedScroll()
+    },
     disabled: Boolean(error),
     rootMargin: '0px 0px 100% 0px',
   })
@@ -46,7 +50,7 @@ export const Feed = () => {
   }
 
   return (
-    <div ref={rootRef} className="feed scrollable" style={{ overflow: 'auto', maxHeight: '100vh' }}>
+    <div ref={rootRef} className="feed scrollable" style={{ overflow: 'auto', maxHeight: '100%' }}>
       
       <div key={`adv`} className="feedItem">
         <AdvFeedItem />
