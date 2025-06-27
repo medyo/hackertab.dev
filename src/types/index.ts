@@ -72,7 +72,7 @@ export type ProductHuntFeedItemData = FeedItem & {
 }
 
 export type GithubFeedItemData = FeedItem & {
-  type: 'repo'
+  type: 'github'
   stars: number
   forks: number
   programmingLanguage: string

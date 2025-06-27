@@ -6,7 +6,7 @@ import { RepoFeedItem } from './RepoFeedItem'
 export const FeedItem = (props: BaseItemPropsType<FeedItemData>) => {
   const { item, index, analyticsTag } = props
 
-  if (item.type === 'repo') {
+  if (item.type === 'github') {
     return <RepoFeedItem item={item} index={index} analyticsTag={analyticsTag} />
   }
 
