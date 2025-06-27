@@ -44,6 +44,9 @@ export const RepoFeedItem = (props: BaseItemPropsType<GithubFeedItemData>) => {
 
           {listingMode === 'normal' && (
             <div className="rowDetails">
+              <span className="rowItem verticalAligned">
+                <SiGithub className="blockHeaderWhite" /> Github 
+              </span>
               {item.stars && (
                 <span className="rowItem">
                   <VscStarFull className="rowItemIcon" /> {numberWithCommas(item.stars || 0)} stars
