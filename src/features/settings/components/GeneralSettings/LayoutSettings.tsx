@@ -7,6 +7,7 @@ import Select, {
   SingleValueProps,
   components,
 } from 'react-select'
+import { identifyDisplayLayout, trackDisplayTypeChange } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Layout } from 'src/types'
 
@@ -50,6 +51,8 @@ export const LayoutSettings = () => {
     }
 
     setLayout(selectedOption.value)
+    identifyDisplayLayout(selectedOption.value)
+    trackDisplayTypeChange(selectedOption.value)
   }
 
   const getDefaultValue = (): LayoutOption | undefined => {
