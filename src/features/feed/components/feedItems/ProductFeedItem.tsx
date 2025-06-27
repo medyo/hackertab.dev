@@ -1,4 +1,4 @@
-import { GoDotFill } from 'react-icons/go'
+import { SiProducthunt } from 'react-icons/si'
 import { CardItemWithActions } from 'src/components/Elements'
 import { useUserPreferences } from 'src/stores/preferences'
 import { BaseItemPropsType, ProductHuntFeedItemData } from 'src/types'
@@ -22,15 +22,15 @@ export const ProductFeedItem = (props: BaseItemPropsType<ProductHuntFeedItemData
           </div>
           {listingMode === 'compact' && (
             <div className="rowDetails">
-              <span className="rowItem capitalize">
-                <GoDotFill className="rowItemIcon" /> Product Hunt
+              <span className="rowItem verticalAligned">
+                <SiProducthunt color="#D65736" /> Product Hunt 
               </span>
             </div>
           )}
           {listingMode === 'normal' && (
             <div className="rowDetails">
-              <span className="rowItem capitalize">
-                <GoDotFill className="rowItemIcon" /> Product Hunt
+              <span className="rowItem verticalAligned">
+                <SiProducthunt color="#D65736" /> Product Hunt 
               </span>
             </div>
           )}
