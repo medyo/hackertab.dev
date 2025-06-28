@@ -79,7 +79,16 @@ export type GithubFeedItemData = FeedItem & {
   description?: string
 }
 
-export type FeedItemData = ArticleFeedItemData | GithubFeedItemData | ProductHuntFeedItemData
+export type AdFeedItemData = {
+  id: string
+  type: 'ad'
+}
+
+export type FeedItemData =
+  | ArticleFeedItemData
+  | GithubFeedItemData
+  | ProductHuntFeedItemData
+  | AdFeedItemData
 
 export type Repository = BaseEntry & {
   programmingLanguage: string
@@ -118,7 +127,11 @@ export type CardPropsType = {
   withAds: boolean
 }
 
-export type BaseItemPropsType<T extends BaseEntry> = {
+export type BaseItemPropsType<
+  T extends {
+    id: string
+  }
+> = {
   index: number
   item: T
   analyticsTag: string

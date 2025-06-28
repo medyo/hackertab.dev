@@ -3,8 +3,8 @@ import { PropagateLoader } from 'react-spinners'
 import { useGetFeed } from 'src/features/cards'
 import { trackFeedScroll } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
+import { FeedItemData } from 'src/types'
 import './feed.css'
-import { AdvFeedItem } from './feedItems/AdvFeedItem'
 import { FeedItem } from './feedItems/FeedItem'
 
 export const Feed = () => {
@@ -20,9 +20,31 @@ export const Feed = () => {
     fetchNextPage,
   } = useGetFeed({
     tags: userSelectedTags.map((tag) => tag.label.toLocaleLowerCase()),
+    config: {
+      select: (data) => {
+        return {
+          ...data,
+          pages: data.pages.map((page, pageIndex) => {
+            const items = page.data
+            const result: FeedItemData[] = []
+            items.forEach((item, index) => {
+              result.push(item)
+              if (pageIndex == 0 && index === 2) {
+                result.push({ type: 'ad', id: `ad-${pageIndex}-${index}` })
+              }
+            })
+
+            return {
+              ...page,
+              data: result,
+            }
+          }),
+        }
+      },
+    },
   })
 
-  const [infiniteRef, {rootRef}] = useInfiniteScroll({
+  const [infiniteRef, { rootRef }] = useInfiniteScroll({
     loading: isLoading,
     hasNextPage: Boolean(hasNextPage),
     onLoadMore: () => {
@@ -51,10 +73,6 @@ export const Feed = () => {
 
   return (
     <div ref={rootRef} className="feed scrollable" style={{ overflow: 'auto', maxHeight: '100%' }}>
-      
-      <div key={`adv`} className="feedItem">
-        <AdvFeedItem />
-      </div>
       {(feed?.pages.flatMap((page) => page.data) || []).map((article, index) => {
         return (
           <div key={article.id} className="feedItem">
