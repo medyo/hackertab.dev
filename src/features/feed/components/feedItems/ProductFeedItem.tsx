@@ -1,4 +1,5 @@
 import { SiProducthunt } from 'react-icons/si'
+import { VscTriangleUp } from 'react-icons/vsc'
 import { CardItemWithActions } from 'src/components/Elements'
 import { useUserPreferences } from 'src/stores/preferences'
 import { BaseItemPropsType, ProductHuntFeedItemData } from 'src/types'
@@ -23,14 +24,17 @@ export const ProductFeedItem = (props: BaseItemPropsType<ProductHuntFeedItemData
           {listingMode === 'compact' && (
             <div className="rowDetails">
               <span className="rowItem verticalAligned">
-                <SiProducthunt color="#D65736" /> Product Hunt 
+                <SiProducthunt color="#D65736" /> Product Hunt
               </span>
             </div>
           )}
           {listingMode === 'normal' && (
             <div className="rowDetails">
               <span className="rowItem verticalAligned">
-                <SiProducthunt color="#D65736" /> Product Hunt 
+                <SiProducthunt color="#D65736" /> Product Hunt
+              </span>
+              <span className="rowItem verticalAligned">
+                <VscTriangleUp className="rowItemIcon" /> {item.votes_count || 0} upvotes
               </span>
             </div>
           )}

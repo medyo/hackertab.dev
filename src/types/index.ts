@@ -67,7 +67,7 @@ export type ArticleFeedItemData = FeedItem & {
 export type ProductHuntFeedItemData = FeedItem & {
   type: 'producthunt'
   tagline: string
-  votes: number
+  votes_count: number
   comments: number
 }
 
