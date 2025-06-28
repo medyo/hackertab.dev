@@ -5,22 +5,22 @@ import { ProductFeedItem } from './ProductFeedItem'
 import { RepoFeedItem } from './RepoFeedItem'
 
 export const FeedItem = (props: BaseItemPropsType<FeedItemData>) => {
-  const { item, index, analyticsTag } = props
+  const { item } = props
 
   if (item.type === 'github') {
-    return <RepoFeedItem item={item} index={index} analyticsTag={analyticsTag} />
+    return <RepoFeedItem {...props} item={item} />
   }
 
   if (item.type === 'producthunt') {
-    return <ProductFeedItem item={item} index={index} analyticsTag={analyticsTag} />
+    return <ProductFeedItem {...props} item={item} />
   }
 
   if (item.type === 'post') {
-    return <ArticleFeedItem item={item} index={index} analyticsTag={analyticsTag} />
+    return <ArticleFeedItem {...props} item={item} />
   }
 
   if (item.type === 'ad') {
-    return <AdvFeedItem />
+    return <AdvFeedItem {...props} />
   }
 
   return null

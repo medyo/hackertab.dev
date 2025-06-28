@@ -74,11 +74,17 @@ export const Feed = () => {
   return (
     <div ref={rootRef} className="feed scrollable" style={{ overflow: 'auto', maxHeight: '100%' }}>
       {(feed?.pages.flatMap((page) => page.data) || []).map((article, index) => {
+        {
+          /* TODO: fix analytics tag */
+        }
         return (
-          <div key={article.id} className="feedItem">
-            {/* TODO: fix analytics tag */}
-            <FeedItem item={article} key={article.id} index={index} analyticsTag={'test'} />
-          </div>
+          <FeedItem
+            item={article}
+            key={article.id}
+            index={index}
+            analyticsTag={'test'}
+            className="feedItem"
+          />
         )
       })}
       {hasNextPage && (

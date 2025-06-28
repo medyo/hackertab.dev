@@ -10,58 +10,62 @@ function numberWithCommas(x: number | string) {
 }
 
 export const RepoFeedItem = (props: BaseItemPropsType<GithubFeedItemData>) => {
-  const { item, index, analyticsTag } = props
+  const { item, index, analyticsTag, className } = props
   const { listingMode } = useUserPreferences()
 
   return (
-    <CardItemWithActions
-      source={analyticsTag}
-      index={index}
-      item={item}
-      key={index}
-      cardItem={
-        <>
-          <FeedItemHeader
-            item={item}
-            fallbackImage={
-              <div className="rowCover repo">
-                <SiGithub size={40} />
-                <p className="title">{item.title}</p>
-                <p className="description">{item.description}</p>
-                <div className="details">
-                  <p>
+    <div className={className}>
+      <CardItemWithActions
+        source={analyticsTag}
+        index={index}
+        item={item}
+        key={index}
+        cardItem={
+          <>
+            <FeedItemHeader
+              item={item}
+              fallbackImage={
+                <div className="rowCover repo">
+                  <SiGithub size={40} />
+                  <p className="title">{item.title}</p>
+                  <p className="description">{item.description}</p>
+                  <div className="details">
+                    <p>
+                      <VscStarFull className="rowItemIcon" /> {numberWithCommas(item.stars || 0)}{' '}
+                      stars
+                    </p>
+                    <p>
+                      <VscRepoForked className="rowItemIcon" /> {numberWithCommas(item?.forks || 0)}{' '}
+                      forks
+                    </p>
+                  </div>
+                </div>
+              }
+            />
+
+            {listingMode === 'normal' && (
+              <div className="rowDetails">
+                <span className="rowItem verticalAligned">
+                  <SiGithub className="blockHeaderWhite" /> Github
+                </span>
+                {item.stars && (
+                  <span className="rowItem">
                     <VscStarFull className="rowItemIcon" /> {numberWithCommas(item.stars || 0)}{' '}
                     stars
-                  </p>
-                  <p>
-                    <VscRepoForked className="rowItemIcon" /> {numberWithCommas(item?.forks || 0)}{' '}
-                    forks
-                  </p>
-                </div>
-              </div>
-            }
-          />
-
-          {listingMode === 'normal' && (
-            <div className="rowDetails">
-              <span className="rowItem verticalAligned">
-                <SiGithub className="blockHeaderWhite" /> Github 
-              </span>
-              {item.stars && (
+                  </span>
+                )}
                 <span className="rowItem">
-                  <VscStarFull className="rowItemIcon" /> {numberWithCommas(item.stars || 0)} stars
+                  <VscRepoForked className="rowItemIcon" /> {numberWithCommas(item?.forks || 0)}{' '}
+                  forks
                 </span>
-              )}
-              <span className="rowItem">
-                <VscRepoForked className="rowItemIcon" /> {numberWithCommas(item?.forks || 0)} forks
-              </span>
-              <span className="rowItem">
-                <ColoredLanguagesBadge languages={item.tags} />
-              </span>
-            </div>
-          )}
-        </>
-      }
-    />
+                <span className="rowItem">
+                  <ColoredLanguagesBadge languages={item.tags} />
+                </span>
+              </div>
+            )}
+          </>
+        }
+      />
+    </div>
   )
 }

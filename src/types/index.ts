@@ -134,6 +134,7 @@ export type BaseItemPropsType<
 > = {
   index: number
   item: T
+  className?: string
   analyticsTag: string
   selectedTag?: SelectedTag
 }
