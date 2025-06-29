@@ -23,7 +23,8 @@ export const RepoFeedItem = (props: BaseItemPropsType<GithubFeedItemData>) => {
         cardItem={
           <>
             <FeedItemHeader
-              item={item}
+              {...item}
+              source="github"
               fallbackImage={
                 <div className="rowCover repo">
                   <SiGithub size={40} />

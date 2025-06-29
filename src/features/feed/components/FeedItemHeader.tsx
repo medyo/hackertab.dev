@@ -1,27 +1,35 @@
 import { CardLink } from 'src/components/Elements'
 import { Attributes } from 'src/lib/analytics'
-import { FeedItem as FeedItemType } from 'src/types'
 import { FeedItemImage } from './FeedItemImage'
 
 type FeedItemHeaderProps = {
-  item: FeedItemType
+  title: string
+  image: string
+  url: string
+  source: string
   fallbackImage?: string | React.ReactNode
 }
 
-export const FeedItemHeader = ({ item, fallbackImage }: FeedItemHeaderProps) => {
+export const FeedItemHeader = ({
+  title,
+  url,
+  source,
+  image,
+  fallbackImage,
+}: FeedItemHeaderProps) => {
   return (
     <div className="rowTitle">
       <CardLink
-        link={item.url}
+        link={url}
         className="titleWithCover"
         analyticsAttributes={{
           [Attributes.TRIGERED_FROM]: 'card',
-          [Attributes.TITLE]: item.title,
-          [Attributes.LINK]: item.url,
-          [Attributes.SOURCE]: item.source,
+          [Attributes.TITLE]: title,
+          [Attributes.LINK]: url,
+          [Attributes.SOURCE]: source,
         }}>
-        <FeedItemImage imageUrl={item.image} fallbackImage={fallbackImage} />
-        <span className="subTitle">{item.title}</span>
+        <FeedItemImage imageUrl={image} fallbackImage={fallbackImage} />
+        <span className="subTitle">{title}</span>
       </CardLink>
     </div>
   )

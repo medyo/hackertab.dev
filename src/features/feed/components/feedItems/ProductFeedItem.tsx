@@ -18,7 +18,7 @@ export const ProductFeedItem = (props: BaseItemPropsType<ProductHuntFeedItemData
         key={index}
         cardItem={
           <>
-            <FeedItemHeader item={item} />
+            <FeedItemHeader {...item} source="producthunt" />
             <div className="rowDetails">
               <span className="rowItem">{item.tagline}</span>
             </div>

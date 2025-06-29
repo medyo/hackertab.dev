@@ -19,7 +19,7 @@ export const ArticleFeedItem = (props: BaseItemPropsType<ArticleFeedItemData>) =
         key={index}
         cardItem={
           <>
-            <FeedItemHeader item={item} />
+            <FeedItemHeader {...item} />
             {listingMode === 'compact' && (
               <div className="rowDetails">
                 <span className="rowItem capitalize">
