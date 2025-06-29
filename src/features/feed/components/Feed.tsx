@@ -28,10 +28,10 @@ export const Feed = () => {
             const items = page.data
             const result: FeedItemData[] = []
             items.forEach((item, index) => {
-              result.push(item)
-              if (pageIndex == 0 && index === 2) {
+              if (pageIndex == 0 && index === 3) {
                 result.push({ type: 'ad', id: `ad-${pageIndex}-${index}` })
               }
+              result.push(item)
             })
 
             return {
