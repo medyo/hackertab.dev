@@ -20,7 +20,7 @@ export const FeedItem = (props: BaseItemPropsType<FeedItemData>) => {
   }
 
   if (item.type === 'ad') {
-    return <AdvFeedItem {...props} />
+    return <AdvFeedItem {...props} item={item} />
   }
 
   return null
