@@ -524,14 +524,15 @@ a {
 
 .rowItemIcon {
   position: relative;
-  top: 1px;
+  margin-right: 2px;
+  display: inline-block;
 }
 
 .rowTitleIcon {
   position: relative;
-  top: 3px;
-  margin-right: 6px;
+  margin-right: 2px;
   color: #99a2ac;
+  display: inline-block;
 }
 
 .backToHome {
