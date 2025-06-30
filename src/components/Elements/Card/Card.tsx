@@ -8,6 +8,7 @@ import { useRemoteConfigStore } from 'src/features/remoteConfig'
 import { DesktopBreakpoint } from 'src/providers/DesktopBreakpoint'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SupportedCardType } from 'src/types'
+import { CircleButton } from '../Button'
 
 type CardProps = {
   children: React.ReactNode
@@ -61,9 +62,9 @@ export const Card = ({
       <div className="blockHeader">
         <DesktopBreakpoint>
           <SortableKnob>
-            <button className="blockHeaderDragButton">
-              <MdOutlineDragIndicator />
-            </button>
+            <CircleButton onClick={() => {}} variant="text">
+              <MdOutlineDragIndicator size={24} />
+            </CircleButton>
           </SortableKnob>
         </DesktopBreakpoint>
         <span className="blockHeaderIcon">{icon}</span> {titleComponent || label}{' '}

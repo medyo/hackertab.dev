@@ -1,5 +1,5 @@
 import { BsArrowRight } from 'react-icons/bs'
-import { ChipsSet, StepProps } from 'src/components/Elements'
+import { Button, ChipsSet, StepProps } from 'src/components/Elements'
 import { SUPPORTED_CARDS } from '../../../../config/supportedCards'
 import { Occupation } from '../../types'
 
@@ -33,11 +33,14 @@ export const SourcesTab = ({
           }}
         />
       </div>
-      <div className="tabFooter">
-        <button onClick={() => moveToPrevious && moveToPrevious()}>Back</button>
-        <button className="positiveButton" onClick={() => moveToNext && moveToNext()}>
-          <BsArrowRight /> Next
-        </button>
+      <div className="mt-8 flex flex-row justify-end gap-2 align-middle">
+        <Button onClick={() => moveToPrevious && moveToPrevious()}>Back</Button>
+        <Button
+          type="primary"
+          endIcon={<BsArrowRight />}
+          onClick={() => moveToNext && moveToNext()}>
+          Next
+        </Button>
       </div>
     </div>
   )

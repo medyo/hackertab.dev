@@ -1,4 +1,4 @@
-@import 'variables.css';
+@import './variables.css';
 
 html {
   background: var(--background-color);
@@ -371,7 +371,9 @@ a {
   padding: 0;
   pointer-events: all;
   text-align: center;
-  transition: opacity 0.3s ease, right 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    right 0.3s ease;
   width: 28px;
   margin-bottom: 6px;
   margin-right: 6px;
@@ -522,14 +524,15 @@ a {
 
 .rowItemIcon {
   position: relative;
-  top: 1px;
+  margin-right: 2px;
+  display: inline-block;
 }
 
 .rowTitleIcon {
   position: relative;
-  top: 3px;
-  margin-right: 6px;
+  margin-right: 2px;
   color: #99a2ac;
+  display: inline-block;
 }
 
 .backToHome {
@@ -556,7 +559,9 @@ a {
   flex-wrap: wrap;
   gap: 8px;
   order: 4;
-  transition: opacity 0.3s ease-out 0.1s, transform 0.3s ease-out 0.1s,
+  transition:
+    opacity 0.3s ease-out 0.1s,
+    transform 0.3s ease-out 0.1s,
     visibility 0.3s ease-out 0.1s;
   width: 100%;
 }
@@ -872,7 +877,10 @@ Producthunt item
 
 .searchBar {
   order: 3;
-  transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s ease-out;
+  transition:
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out,
+    visibility 0.3s ease-out;
   width: 100%;
   display: flex;
   align-items: center;

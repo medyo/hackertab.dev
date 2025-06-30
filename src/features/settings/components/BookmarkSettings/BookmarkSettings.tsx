@@ -54,9 +54,9 @@ export const BookmarkItem = ({ item, appendRef = false }: BookmarkItemProps) => 
         )}
       </CardLink>
       <div className="actions">
-        <button className="btn" aria-label="Remove from bookmarks" onClick={unBookmark}>
+        <CircleButton aria-label="Remove from bookmarks" onClick={unBookmark}>
           <BiBookmarkMinus />
-        </button>
+        </CircleButton>
       </div>
     </div>
   )

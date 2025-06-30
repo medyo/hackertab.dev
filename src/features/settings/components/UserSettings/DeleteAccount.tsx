@@ -48,7 +48,8 @@ export const DeleteAccount = () => {
         />
 
         <Button
-          size="small"
+          size="sm"
+          type="danger"
           onClick={() => setConfirmDelete(true)}
           isLoading={deleteAccountMutation.isLoading}>
           Delete account

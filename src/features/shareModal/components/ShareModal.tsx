@@ -17,7 +17,7 @@ import {
   WhatsappShareButton,
 } from 'react-share'
 import toast from 'react-simple-toasts'
-import { Button } from 'src/components/Elements'
+import { Button, CircleButton } from 'src/components/Elements'
 import { twitterHandle } from 'src/config'
 import { trackLinkCopy, trackLinkShare } from 'src/lib/analytics'
 import { ShareModalData } from '../types'
@@ -82,12 +82,12 @@ export const ShareModal = ({ showModal, closeModal, shareData }: ShareModalProps
       overlayClassName="Overlay">
       <div className="modalHeader">
         <h1 className="modalTitle">Share</h1>
-        <button
-          className="modalCloseBtn"
+        <CircleButton
+          variant="outlined"
           onClick={() => closeModal()}
           aria-label="Close share modal">
           <VscClose size="24" />
-        </button>
+        </CircleButton>
       </div>
 
       <div className="shareBody">
@@ -124,7 +124,7 @@ export const ShareModal = ({ showModal, closeModal, shareData }: ShareModalProps
                 aria-label="Copy url to clipboard"
                 startIcon={<VscCopy />}
                 onClick={onCopyClicked}
-                size="small">
+                size="sm">
                 Copy
               </Button>
             </div>

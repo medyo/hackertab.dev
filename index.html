@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -10,16 +10,15 @@
     <script src="/startup.js"></script>
 
     <% if (isWebBuild) { %>
-      <title>Hackertab</title>
-      <link rel="manifest" href="/web_manifest.json" />
+    <title>Hackertab</title>
+    <link rel="manifest" href="/web_manifest.json" />
     <% } else { %>
-      <title>New Tab</title>
+    <title>New Tab</title>
     <%}%>
   </head>
   <body class="preload">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/index.tsx"></script>
-
   </body>
 </html>

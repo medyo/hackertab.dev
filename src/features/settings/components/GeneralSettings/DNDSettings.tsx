@@ -102,7 +102,7 @@ export const DNDSettings = () => {
             />
           </div>
 
-          <Button size="small" onClick={onApplyClicked}>
+          <Button size="sm" onClick={onApplyClicked}>
             Apply
           </Button>
         </div>

@@ -37,13 +37,13 @@
   filter: brightness(95%);
 }
 
-.chip .chipIcon {
+.chipIcon {
   margin: 0;
   padding: 0;
   line-height: 14px;
 }
-.chip .chipIcon > img,
-.chip .chipIcon > svg {
+.chipIcon > img,
+.chipIcon > svg {
   background-color: white;
   color: black;
   padding: 2px;

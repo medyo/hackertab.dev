@@ -1,9 +1,11 @@
-@import 'variables.css';
+@import 'tailwindcss';
+@import './variables.css';
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -18,4 +20,20 @@ code {
   height: 100vh;
   width: 100vw;
   display: flex;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-ht-100: oklch(0.9 0.0221 250.23);
+  --color-ht-200: oklch(0.83 0.0314 249.73);
+  --color-ht-900: oklch(0.3455 0.0507 251.49);
+}
+
+@layer base {
+  @variant dark {
+    --color-ht-100: oklch(0.2421 0.0129 258.37);
+    --color-ht-200: oklch(0.2245 0.0115 254.07);
+    --color-ht-900: oklch(1 0 0);
+  }
 }
