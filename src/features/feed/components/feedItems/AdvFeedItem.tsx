@@ -10,7 +10,7 @@ export const AdvFeedItem = ({ className }: BaseItemPropsType<AdFeedItemData>) =>
   return (
     <div className={clsx('blockRow advFeed', className)}>
       <AdvBanner
-        hideAttribution={true}
+        feedDisplay={true}
         onAdLoaded={setAdMeta}
         loadingState={
           <div className="placeholder">
@@ -22,14 +22,16 @@ export const AdvFeedItem = ({ className }: BaseItemPropsType<AdFeedItemData>) =>
       />
       {adMeta && (
         <>
-          <div className="rowTitle">
-            <span className="subTitle">
-              {[adMeta.company, adMeta.companyTagline].filter(Boolean).join(' - ')}
-            </span>
-          </div>
+          {adMeta.company && adMeta.companyTagline && (
+            <div className="rowTitle">
+              <span className="subTitle">
+                {[adMeta.company, adMeta.companyTagline].filter(Boolean).join(' - ')}
+              </span>
+            </div>
+          )}
           <div className="rowDetails">
             <span className="rowItem verticalAligned">
-              <RiAdvertisementFill color="orange" size={16} /> Powered by {adMeta.provider.title}
+              <RiAdvertisementFill color="orange" size={16} /> {adMeta.provider.title}
             </span>
           </div>
         </>

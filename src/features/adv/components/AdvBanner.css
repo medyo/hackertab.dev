@@ -1,48 +1,46 @@
-#banneradv * {
+.banneradv * {
   margin: initial;
   padding: initial;
 }
-#banneradv {
+.banneradv {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell,
     'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-#banneradv {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   max-width: 330px;
   z-index: 100;
   margin: 0 auto;
 }
-#banneradv a {
+.banneradv a {
   color: inherit;
   text-decoration: none;
 }
-#banneradv a:hover {
+.banneradv a:hover {
   color: inherit;
 }
-#banneradv span {
+.banneradv span {
   position: relative;
   display: block;
   overflow: hidden;
 }
-#banneradv .wrap {
-  display: flex;
-}
-#banneradv .img {
+.banneradv .img {
   display: block;
   margin: 0;
   line-height: 1;
 }
-#banneradv .img img {
+.banneradv .img img {
   display: block;
 }
-#banneradv .text {
+.banneradv .text {
   font-size: 13px;
   padding: 10px;
   margin-bottom: 16px;
   line-height: 1.5;
   text-align: left;
 }
-#banneradv .poweredby {
+.banneradv .poweredby {
   display: block;
   padding: 6px 8px;
   background: inherit;
@@ -62,4 +60,224 @@
   width: 0;
   height: 0;
   display: none;
+}
+
+/* Carbon Cover */
+.carbonCoverTarget {
+  max-width: 420px;
+}
+
+.carbonCoverTarget a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.carbonCover {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 1em 1em;
+  overflow: hidden;
+  box-sizing: border-box;
+  height: 180px;
+  border-radius: 8px;
+  gap: 1em;
+  font-size: 14px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --gradient-direction: 135deg;
+}
+
+.carbonCover:before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--ad-dynamic-bg-image);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px);
+  z-index: -1;
+}
+
+.carbonCover:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    var(--gradient-direction),
+    color-mix(in srgb, var(--ad-gradient-color) 90%, transparent) 0%,
+    color-mix(in srgb, var(--ad-gradient-color) 60%, transparent) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Ensure child elements appear above background layers */
+
+.carbonCover > * {
+  position: relative;
+  z-index: 1;
+}
+
+.carbonCoverImage {
+  width: 80px;
+  height: 80px;
+  z-index: 2;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.carbonCoverMain {
+  display: flex;
+  gap: 0.5em;
+  color: #fff;
+  flex-grow: 1;
+  flex-direction: column;
+  text-shadow: 0 1px hsla(0, 0%, 0%, 0.2);
+  min-width: 0;
+}
+
+.carbonCoverLogo {
+  max-width: 125px;
+}
+
+.carbonCoverButton {
+  background-color: #fff;
+  white-space: nowrap;
+  max-width: fit-content;
+  position: absolute;
+  bottom: 0;
+  color: #111;
+  border-radius: 4px;
+  font-size: 0.875em;
+  font-weight: 600;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  text-shadow: initial;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.carbonCoverTagline {
+  font-weight: 500;
+  width: 12em;
+  line-height: 1.35;
+}
+
+.carbonCoverDescription {
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-8px);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  width: 18em;
+  line-height: 1.35;
+  font-size: 0.875em;
+}
+
+/* Hover and Focus States - Kansai & Flow Motion */
+.carbonCover:hover .carbonCoverDescription,
+.carbonCover:focus-within .carbonCoverDescription {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+
+.carbonCover:hover,
+.carbonCover:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.carbonCover:hover .carbonCoverImage,
+.carbonCover:focus-within .carbonCoverImage {
+  width: 90px;
+  height: 90px;
+  filter: brightness(1.05);
+}
+
+.carbonCoverTarget .carbonAttribution {
+  margin-block-start: 0.5em;
+  display: block;
+  text-align: right;
+  color: hsla(0, 0%, 7%, 0.85);
+  font-size: 12px;
+  letter-spacing: 0.015ch;
+}
+
+/* Apped flow-direction for small container width */
+
+.carbonCoverTarget[flow-direction='column'] .carbonCover {
+  flex-direction: column;
+  min-height: 0;
+}
+
+.carbonCoverTarget[flow-direction='column'] .carbonCoverImage {
+  height: initial;
+  width: initial;
+}
+
+.carbonCoverTarget[flow-direction='column'] .carbonCover:hover .carbonCoverImage,
+.carbonCoverTarget[flow-direction='column'] .carbonCover:focus-within .carbonCoverImage {
+  width: initial;
+  height: initial;
+  filter: brightness(1.05);
+}
+
+.carbonCoverTarget[flow-direction='column'] .carbonCoverDescription {
+  transform: translateY(0);
+}
+
+.carbonCoverTarget[flow-direction='column'] .carbonCoverImage {
+  width: 100%;
+  max-width: 100%;
+}
+
+.carbonCoverTarget[flow-direction='column'] .carbonCoverMain {
+  gap: 0.5em;
+}
+
+.carbonCoverTarget[flow-direction='column'] .carbonCoverButton {
+  position: initial;
+}
+
+.carbonCoverTarget[flow-direction='column'] .carbonCoverTagline,
+.carbonCoverTarget[flow-direction='column'] .carbonCoverDescription {
+  width: 100%;
+  max-width: 100%;
+}
+
+.carbonCoverTarget[flow-direction='column'] .carbonCoverDescription {
+  opacity: 1;
+}
+
+.advFeed {
+  display: flex;
+  flex-direction: column;
+}
+.advFeed .carbonCoverTarget {
+  width: 100%;
+  max-width: none;
+}
+.advFeed .carbonCover {
+  height: 255px;
+  margin-bottom: 12px;
+}
+.advFeed .carbonCoverImage {
+  width: 180px;
+  height: 180px;
+}
+.advFeed .placeholder {
+  padding: 0;
+  height: 100%;
+}
+.advFeed .banneradv {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.advFeed:has(.banneradv) .rowDetails {
+  margin-left: auto;
 }
