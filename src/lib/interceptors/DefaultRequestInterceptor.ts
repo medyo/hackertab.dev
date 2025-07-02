@@ -3,6 +3,8 @@ import { API_ENDPOINT } from 'src/config'
 import { isProduction } from 'src/utils/Environment'
 import { firebaseAuth } from '../firebase'
 
+const protectedEndpoints = ['/user']
+
 export async function DefaultRequestInterceptor(config: InternalAxiosRequestConfig) {
   if (config) {
     config.baseURL = isProduction() ? API_ENDPOINT : '/api'
@@ -10,7 +12,7 @@ export async function DefaultRequestInterceptor(config: InternalAxiosRequestConf
       config.headers.Accept = 'application/json'
     }
 
-    if (config.url?.startsWith('/engine/')) {
+    if (protectedEndpoints.some((endpoint) => config.url?.includes(endpoint))) {
       const token = await getUserToken()
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
