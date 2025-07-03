@@ -24,6 +24,7 @@ export const AdvBanner = ({ feedDisplay = false, loadingState, onAdLoaded }: Adv
     isError,
   } = useGetAd({
     keywords: userSelectedTags.map((tag) => tag.label.toLocaleLowerCase()),
+    feed: feedDisplay,
     aditionalAdQueries: aditionalAdQueries,
     config: {
       cacheTime: 0,
