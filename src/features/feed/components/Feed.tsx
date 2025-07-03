@@ -74,15 +74,12 @@ export const Feed = () => {
   return (
     <div ref={rootRef} className="feed scrollable" style={{ overflow: 'auto', maxHeight: '100%' }}>
       {(feed?.pages.flatMap((page) => page.data) || []).map((article, index) => {
-        {
-          /* TODO: fix analytics tag */
-        }
         return (
           <FeedItem
             item={article}
             key={article.id}
             index={index}
-            analyticsTag={'test'}
+            analyticsTag={'feed'}
             className="feedItem"
           />
         )
