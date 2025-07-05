@@ -19,7 +19,6 @@
     background-color: var(--card-background-color);
     border: 1px solid var(--card-border-color);
     border-radius: 10px;
-    min-height: 300px;
   }
 
   .loading {
