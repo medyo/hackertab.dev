@@ -17,11 +17,7 @@ const getFeed = async ({
   tags: string[]
   next?: string | null
 }): Promise<Response> => {
-  return axios.get('', {
-    auth: {
-      username: '',
-      password: '',
-    },
+  return axios.get('/engine/v2/feed', {
     params: {
       tags: [...tags].sort().join(','),
       limit: 21,
