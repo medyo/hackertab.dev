@@ -3,7 +3,7 @@
 }
 .feed {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 33%);
   scroll-margin-top: 12px;
   gap: 16px;
   margin-left: 1%;
@@ -35,12 +35,6 @@
     padding: 16px;
     width: 100%;
     box-sizing: border-box;
-  }
-  #banneradv .wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
   }
 }
 
