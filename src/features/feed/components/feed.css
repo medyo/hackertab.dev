@@ -44,7 +44,7 @@
   padding: 12px;
   display: flex;
   flex-direction: column;
-
+  min-height: 360px;
   gap: 16px;
   .image {
     background-color: var(--placeholder-background-color);
