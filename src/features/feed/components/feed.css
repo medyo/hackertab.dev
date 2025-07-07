@@ -30,9 +30,10 @@
     height: 12px;
   }
 
-  .blockRow:hover {
+  .blockRow:not(.advFeed):hover {
     background-color: transparent;
   }
+
   .loading {
     display: flex;
     flex-direction: column;
