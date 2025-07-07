@@ -4,6 +4,7 @@ import { CardItemWithActions, ColoredLanguagesBadge } from 'src/components/Eleme
 import { useUserPreferences } from 'src/stores/preferences'
 import { BaseItemPropsType, GithubFeedItemData } from 'src/types'
 import { FeedItemHeader } from '../FeedItemHeader'
+import { FeedItemSource } from '../FeedItemSource'
 
 function numberWithCommas(x: number | string) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -47,7 +48,7 @@ export const RepoFeedItem = (props: BaseItemPropsType<GithubFeedItemData>) => {
             {listingMode === 'normal' && (
               <div className="rowDetails">
                 <span className="rowItem verticalAligned">
-                  <SiGithub className="blockHeaderWhite" /> Github
+                  <FeedItemSource source={'github'} />
                 </span>
                 {item.stars && (
                   <span className="rowItem">

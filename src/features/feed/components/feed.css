@@ -20,6 +20,10 @@
     border: 1px solid var(--card-border-color);
     border-radius: 10px;
   }
+  .feedItemSource {
+    width: 12px;
+    height: 12px;
+  }
 
   .loading {
     display: flex;
