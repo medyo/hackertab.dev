@@ -25,10 +25,6 @@
       transform: scale(1.01);
     }
   }
-  .feedItemSource {
-    width: 12px;
-    height: 12px;
-  }
 
   .blockRow:not(.advFeed):hover {
     background-color: transparent;
@@ -82,6 +78,11 @@
     border-radius: 4px;
     margin: 0;
   }
+}
+
+.feedItemSource {
+  width: 12px;
+  height: 12px;
 }
 
 .repo {
