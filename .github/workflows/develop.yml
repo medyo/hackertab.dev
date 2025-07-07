@@ -1,9 +1,7 @@
 name: Deploy Develop branch to the web version
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - feat/cp-build
+
 env:
   VITE_BUILD_TARGET: 'web'
   VITE_AMPLITUDE_KEY: ${{ secrets.REACT_APP_AMPLITUDE_KEY }}
