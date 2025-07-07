@@ -24,7 +24,7 @@ export const AdvBanner = ({ feedDisplay = false, loadingState, onAdLoaded }: Adv
     isError,
   } = useGetAd({
     keywords: userSelectedTags.map((tag) => tag.label.toLocaleLowerCase()),
-    feed: feedDisplay,
+    feed: true,
     aditionalAdQueries: aditionalAdQueries,
     config: {
       cacheTime: 0,
@@ -74,11 +74,6 @@ export const AdvBanner = ({ feedDisplay = false, loadingState, onAdLoaded }: Adv
               <div className="carbonCoverButton">{ad.callToAction}</div>
             </div>
           </a>
-          {!feedDisplay && (
-            <a className="carbonAttribution" href="#">
-              {ad.provider.title}
-            </a>
-          )}
         </div>
       </>
     )

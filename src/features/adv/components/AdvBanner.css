@@ -78,7 +78,7 @@
   padding: 1em 1em;
   overflow: hidden;
   box-sizing: border-box;
-  height: 180px;
+  height: 190px;
   border-radius: 8px;
   gap: 1em;
   font-size: 14px;
@@ -120,8 +120,8 @@
 }
 
 .carbonCoverImage {
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
   z-index: 2;
   object-fit: cover;
   border-radius: 10px;
@@ -131,7 +131,7 @@
 
 .carbonCoverMain {
   display: flex;
-  gap: 0.5em;
+  gap: 0.2em;
   color: #fff;
   flex-grow: 1;
   flex-direction: column;
@@ -140,7 +140,7 @@
 }
 
 .carbonCoverLogo {
-  max-width: 125px;
+  max-width: 100px;
 }
 
 .carbonCoverButton {
@@ -191,8 +191,8 @@
 
 .carbonCover:hover .carbonCoverImage,
 .carbonCover:focus-within .carbonCoverImage {
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
   filter: brightness(1.05);
 }
 
@@ -259,7 +259,11 @@
   width: 100%;
   max-width: none;
 }
+.advFeed .carbonCoverLogo {
+  max-width: 125px;
+}
 .advFeed .carbonCover {
+  font-size: 16px;
   aspect-ratio: 16 / 9;
   height: auto;
   margin-bottom: 12px;
@@ -268,6 +272,10 @@
   width: 180px;
   height: 180px;
 }
+.advFeed .carbonCoverMain {
+  gap: 0.5em;
+}
+
 .advFeed .placeholder {
   padding: 0;
   height: 100%;
