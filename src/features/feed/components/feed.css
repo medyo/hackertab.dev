@@ -19,12 +19,20 @@
     background-color: var(--card-background-color);
     border: 1px solid var(--card-border-color);
     border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      opacity: 0.9;
+      transform: scale(1.01);
+    }
   }
   .feedItemSource {
     width: 12px;
     height: 12px;
   }
 
+  .blockRow:hover {
+    background-color: transparent;
+  }
   .loading {
     display: flex;
     flex-direction: column;
