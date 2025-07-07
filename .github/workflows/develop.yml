@@ -1,0 +1,40 @@
+name: Deploy Develop branch to the web version
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feat/cp-build
+env:
+  VITE_BUILD_TARGET: 'web'
+  VITE_AMPLITUDE_KEY: ${{ secrets.REACT_APP_AMPLITUDE_KEY }}
+  VITE_AMPLITUDE_URL: ${{ secrets.REACT_APP_AMPLITUDE_URL }}
+  VITE_API_URL: ${{ secrets.API_URL }}
+  VITE_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build project
+        run: yarn build:web
+
+      - name: Copy build to remote host
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.DEPLOY_SSH_HOST }}
+          username: ${{ secrets.DEPLOY_SSH_USERNAME }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          source: 'dist/'
+          target: '~/hackertab.dev-develop'
