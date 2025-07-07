@@ -1,6 +1,6 @@
-export const AdPlaceholder = ({ className = '' }: { className?: string }) => {
+export const AdPlaceholder = () => {
   return (
-    <div className={'cardPlaceholder adCardPlaceholder'}>
+    <div className="cardPlaceholder adCardPlaceholder">
       <span className="image" />
       <div className="cardContent">
         <span className="line" />
