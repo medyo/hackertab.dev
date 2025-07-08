@@ -3,7 +3,7 @@
 }
 .feed {
   display: grid;
-  grid-template-columns: repeat(3, 33%);
+  grid-template-columns: repeat(3, 32%);
   scroll-margin-top: 12px;
   gap: 16px;
   margin-left: 1%;
