@@ -1,12 +1,13 @@
 import { useState } from 'react'
-import { Feed } from 'src/features/feed'
 import { DesktopBreakpoint } from 'src/providers/DesktopBreakpoint'
 import { MobileBreakpoint } from 'src/providers/MobileBreakpoint'
 import { useUserPreferences } from 'src/stores/preferences'
+import { lazyImport } from 'src/utils/lazyImport'
 import { BottomNavigation } from '../Elements'
 import { DesktopCards } from './DesktopCards'
 import { MobileCards } from './MobileCards'
 import { ScrollCardsNavigator } from './ScrollCardsNavigator'
+const { Feed } = lazyImport(() => import('src/features/feed'), 'Feed')
 
 export const AppContentLayout = () => {
   const { cards, userCustomCards, layout } = useUserPreferences()
@@ -32,7 +33,6 @@ export const AppContentLayout = () => {
           </>
         )}
       </main>
-      
     </>
   )
 }
