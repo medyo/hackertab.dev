@@ -1,6 +1,6 @@
 import { FaDev, FaMediumM, FaReddit } from 'react-icons/fa'
 import { GoDotFill } from 'react-icons/go'
-import { SiProducthunt } from 'react-icons/si'
+import { SiGithub, SiProducthunt } from 'react-icons/si'
 import HashNodeIcon from 'src/assets/icon_hashnode.png'
 const FeedItemKV: {
   [key: string]: React.ReactNode
@@ -8,6 +8,11 @@ const FeedItemKV: {
   producthunt: (
     <>
       <SiProducthunt color="#D65736" /> Product hunt
+    </>
+  ),
+  github: (
+    <>
+      <SiGithub className="blockHeaderWhite" /> Github
     </>
   ),
   reddit: (
