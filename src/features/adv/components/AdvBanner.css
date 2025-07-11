@@ -83,7 +83,11 @@
   gap: 1em;
   font-size: 14px;
   position: relative;
+  background-image: var(--ad-dynamic-bg-image);
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   --gradient-direction: 135deg;
 }
 
@@ -91,10 +95,6 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-image: var(--ad-dynamic-bg-image);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
   filter: blur(10px);
   z-index: -1;
 }
