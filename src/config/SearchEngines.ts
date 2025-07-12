@@ -17,4 +17,8 @@ export const AI_PROMPT_ENGINES: SearchEngineType[] = [
     label: 'Perplexity',
     url: 'https://www.perplexity.ai/search?q=',
   },
+  {
+    label: 'Grok',
+    url: 'https://grok.com/?q=',
+  },
 ]

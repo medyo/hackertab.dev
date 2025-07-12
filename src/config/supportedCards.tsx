@@ -126,6 +126,6 @@ export const SUPPORTED_CARDS: SupportedCardType[] = [
     label: 'Powered by AI',
     component: AICard,
     type: 'supported',
-    badge: 'ALPHA',
+    badge: 'BETA',
   },
 ]

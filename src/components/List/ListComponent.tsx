@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react'
 import { Placeholder } from 'src/components/placeholders'
 import { MAX_ITEMS_PER_CARD } from 'src/config'
-import { BaseEntry } from 'src/types'
 
 type PlaceholdersProps = {
   placeholder: ReactNode
@@ -17,7 +16,7 @@ const Placeholders = React.memo<PlaceholdersProps>(({ placeholder }) => {
   )
 })
 
-export type ListComponentPropsType<T extends BaseEntry> = {
+export type ListComponentPropsType<T extends unknown> = {
   items: T[]
   isLoading: boolean
   renderItem: (item: T, index: number) => React.ReactNode
@@ -28,7 +27,7 @@ export type ListComponentPropsType<T extends BaseEntry> = {
   limit?: number
 }
 
-export function ListComponent<T extends BaseEntry>(props: ListComponentPropsType<T>) {
+export function ListComponent<T extends unknown>(props: ListComponentPropsType<T>) {
   const {
     items,
     isLoading,

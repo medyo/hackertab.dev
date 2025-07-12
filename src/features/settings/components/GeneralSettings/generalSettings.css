@@ -12,6 +12,11 @@
   align-items: center;
   justify-content: space-between;
 }
+.settingRow .optionIcon {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
 .settingRow:not(:last-child) {
   border-bottom: 1px solid var(--card-content-divider);
 }

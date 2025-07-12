@@ -1,25 +1,23 @@
 import React from 'react'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
-import { ChipsSet } from 'src/components/Elements'
 import { Footer } from 'src/components/Layout'
 import { SettingsContentLayout } from 'src/components/Layout/SettingsContentLayout'
 import {
   identifyUserLinksInNewTab,
   identifyUserListingMode,
-  identifyUserMaxVisibleCards,
   identifyUserTheme,
   trackListingModeSelect,
-  trackMaxVisibleCardsChange,
   trackTabTarget,
   trackThemeSelect,
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
-import { Option } from 'src/types'
 import { DeleteAccount } from '../UserSettings/DeleteAccount'
 import { UserInfo } from '../UserSettings/UserInfo'
+import { CardsNumberSettings } from './CardsNumberSettings'
 import { DNDSettings } from './DNDSettings'
 import './generalSettings.css'
+import { LayoutSettings } from './LayoutSettings'
 
 export const GeneralSettings = () => {
   const {
@@ -54,15 +52,6 @@ export const GeneralSettings = () => {
     identifyUserTheme(newTheme)
   }
 
-  const onMaxVisibleCardsChange = (selectedChips: Option[]) => {
-    if (selectedChips.length) {
-      const maxVisibleCards = parseInt(selectedChips[0].value)
-      setMaxVisibleCards(maxVisibleCards)
-      identifyUserMaxVisibleCards(maxVisibleCards)
-      trackMaxVisibleCardsChange(maxVisibleCards)
-    }
-  }
-
   return (
     <SettingsContentLayout
       title="General Settings"
@@ -71,42 +60,8 @@ export const GeneralSettings = () => {
       }>
       <div>
         <UserInfo />
-        <div className="settingRow">
-          <p className="settingTitle">Max number of cards to display</p>
-          <div className="settingContent">
-            <ChipsSet
-              className={'noMargin alternative-color'}
-              canSelectMultiple={false}
-              options={[
-                {
-                  label: '3 cards',
-                  value: '3',
-                },
-                {
-                  label: '4 cards',
-                  value: '4',
-                },
-                {
-                  label: '5 cards',
-                  value: '5',
-                },
-                {
-                  label: '6 cards',
-                  value: '6',
-                },
-              ]}
-              defaultValues={[maxVisibleCards.toString()]}
-              onChange={(_, selectedChips) => {
-                onMaxVisibleCardsChange(selectedChips)
-              }}
-            />
-
-            <p className="settingHint">
-              To ensure a seamless experience, we may adjust the selected number to align with the
-              resolution of your screen.
-            </p>
-          </div>
-        </div>
+        <LayoutSettings />
+        <CardsNumberSettings />
 
         <div className="settingRow">
           <p className="settingTitle">Dark Mode</p>

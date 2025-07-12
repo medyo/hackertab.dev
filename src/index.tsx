@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import 'normalize.css'
 import 'react-simple-toasts/dist/style.css'
@@ -8,17 +9,23 @@ import { AppErrorBoundary } from 'src/providers/AppErrorBoundary'
 import { AppRoutes } from './routes/AppRoutes'
 
 import { createRoot } from 'react-dom/client'
+import { initSentry } from './lib/sentry'
 const container = document.getElementById('root')
 if (!container) {
   throw new Error('Failed to find the root element')
 }
+
+initSentry()
 const root = createRoot(container)
 root.render(
-  <AppErrorBoundary>
+  <Sentry.ErrorBoundary
+    fallback={({ error, resetError }) => (
+      <AppErrorBoundary error={error} resetError={resetError} />
+    )}>
     <PersistQueryClientProvider client={queryClient} persistOptions={{ persister: persister }}>
       <ConfigurationWrapper>
         <AppRoutes />
       </ConfigurationWrapper>
     </PersistQueryClientProvider>
-  </AppErrorBoundary>
+  </Sentry.ErrorBoundary>
 )

@@ -24,6 +24,7 @@ export type SearchEngine = {
   className?: string
 }
 
+export type Layout = 'grid' | 'cards'
 export type Theme = 'dark' | 'light'
 export type ListingMode = 'normal' | 'compact'
 
@@ -48,6 +49,46 @@ export type Article = BaseEntry & {
   flair_background_color?: string
   flair_text_color?: string
 }
+
+export type FeedItem = {
+  title: string
+  id: string
+  url: string
+  date: Date
+  image: string
+  tags: Array<string>
+}
+
+export type ArticleFeedItemData = FeedItem & {
+  type: 'post'
+  source: string
+}
+
+export type ProductHuntFeedItemData = FeedItem & {
+  type: 'producthunt'
+  tagline: string
+  votes_count: number
+  comments: number
+}
+
+export type GithubFeedItemData = FeedItem & {
+  type: 'github'
+  stars: number
+  forks: number
+  programmingLanguage: string
+  description?: string
+}
+
+export type AdFeedItemData = {
+  id: string
+  type: 'ad'
+}
+
+export type FeedItemData =
+  | ArticleFeedItemData
+  | GithubFeedItemData
+  | ProductHuntFeedItemData
+  | AdFeedItemData
 
 export type Repository = BaseEntry & {
   programmingLanguage: string
@@ -86,9 +127,14 @@ export type CardPropsType = {
   withAds: boolean
 }
 
-export type BaseItemPropsType<T extends BaseEntry> = {
+export type BaseItemPropsType<
+  T extends {
+    id: string
+  }
+> = {
   index: number
   item: T
+  className?: string
   analyticsTag: string
   selectedTag?: SelectedTag
 }
