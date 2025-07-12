@@ -51,6 +51,8 @@
     flex-direction: row;
     height: 48px;
     padding: 0;
+    width: auto;
+    overflow-x: auto;
   }
   .horizontalTabsLayout .navigation .link.active {
     border-right: none;
