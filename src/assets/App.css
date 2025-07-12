@@ -1517,3 +1517,12 @@ Modal
     width: auto;
   }
 }
+
+.mobileOnly {
+  display: none;
+}
+@media (max-width: 768px) {
+  .mobileOnly {
+    display: block;
+  }
+}
