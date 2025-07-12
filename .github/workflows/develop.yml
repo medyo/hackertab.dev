@@ -40,3 +40,4 @@ jobs:
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           source: 'dist/'
           target: '~/hackertab.dev-develop'
+          rm: true
