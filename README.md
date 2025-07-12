@@ -57,7 +57,7 @@ Please do not hesitate to ask a question, report a bug or add a suggestion. or s
 
 ## Development
 
-Please use the develop branch. Create an .env file with the necessary
+Please use the develop branch. Create an .env file with the necessary env variables
 
 ```bash
 $ git clone --branch develop git@github.com:medyo/hackertab.dev.git
