@@ -5,6 +5,7 @@ export const API_ENDPOINT = import.meta.env.VITE_API_URL as string
 export const LS_ANALYTICS_ID_KEY = 'hackerTabAnalyticsId'
 export const FIREBASE_API_KEY = import.meta.env.VITE_FIREBASE_API_KEY as string
 export const BUILD_TARGET = (import.meta.env.VITE_BUILD_TARGET as 'web' | 'extension') || 'web'
+export const SENTRY_DSN = import.meta.env.VITE_SENTRY_DSN
 
 // Meta
 export const name = 'Hackertab.dev'
