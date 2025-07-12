@@ -1,4 +1,4 @@
-name: Deploy Develop branch to the web version
+name: '👨‍💻 [DEV] Deploy develop to web environment'
 on:
   workflow_dispatch:
 

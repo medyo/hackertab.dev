@@ -1,10 +1,7 @@
-name: Deploy Web Version to hackertab.dev
-
+name: '✅ [PROD] Deploy main to web environment'
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - feat/cp-build
+
 env:
   VITE_BUILD_TARGET: 'web'
   VITE_AMPLITUDE_KEY: ${{ secrets.REACT_APP_AMPLITUDE_KEY }}
@@ -41,3 +38,4 @@ jobs:
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           source: 'dist/'
           target: '~/hackertab.dev'
+          rm: true
