@@ -28,6 +28,7 @@ export const FeedItemImage = ({ imageUrl, fallbackImage }: FeedItemImageProps) =
     <img
       src={imageUrl}
       className="rowCover"
+      loading="lazy"
       alt=""
       onError={(e) => {
         e.currentTarget.onerror = null
