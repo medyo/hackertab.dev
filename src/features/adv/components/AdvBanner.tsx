@@ -56,26 +56,24 @@ export const AdvBanner = ({ feedDisplay = false, loadingState, onAdLoaded }: Adv
 
   if (ad.largeImage) {
     return (
-      <>
-        <div
-          className="carbonCoverTarget"
-          style={
-            {
-              '--ad-dynamic-bg-image': `url(${ad.largeImage})`,
-              '--ad-gradient-color': ad.backgroundColor,
-            } as React.CSSProperties
-          }>
-          <a href={ad.link} className="carbonCover ">
-            <img className="carbonCoverImage" src={ad.largeImage} />
-            <div className="carbonCoverMain">
-              <img className="carbonCoverLogo" src={ad.logo} />
-              <div className="carbonCoverTagline">{ad.companyTagline}</div>
-              <div className="carbonCoverDescription">{ad.description}</div>
-              <div className="carbonCoverButton">{ad.callToAction}</div>
-            </div>
-          </a>
-        </div>
-      </>
+      <div
+        className="carbonCoverTarget"
+        style={
+          {
+            '--ad-dynamic-bg-image': `url(${ad.largeImage})`,
+            '--ad-gradient-color': ad.backgroundColor,
+          } as React.CSSProperties
+        }>
+        <a href={ad.link} className="carbonCover">
+          <img className="carbonCoverImage" src={ad.largeImage} />
+          <div className="carbonCoverMain">
+            <img className="carbonCoverLogo" src={ad.logo} />
+            <div className="carbonCoverTagline">{ad.companyTagline}</div>
+            <div className="carbonCoverDescription">{ad.description}</div>
+            <div className="carbonCoverButton">{ad.callToAction + ' ↗'}</div>
+          </div>
+        </a>
+      </div>
     )
   }
 
