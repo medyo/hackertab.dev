@@ -119,8 +119,9 @@
 }
 
 .carbonCoverImage {
-  width: 120px;
-  height: 120px;
+  aspect-ratio: 1 / 1;
+  width: auto;
+  height: 85%;
   z-index: 2;
   object-fit: cover;
   border-radius: 10px;
@@ -160,7 +161,6 @@
 
 .carbonCoverTagline {
   font-weight: 500;
-  width: 12em;
   line-height: 1.35;
 }
 
@@ -190,8 +190,7 @@
 
 .carbonCover:hover .carbonCoverImage,
 .carbonCover:focus-within .carbonCoverImage {
-  width: 80px;
-  height: 80px;
+  height: 50%;
   filter: brightness(1.05);
 }
 
@@ -256,21 +255,18 @@
 }
 .advFeed .carbonCoverTarget {
   width: 100%;
-  max-width: none;
+  min-width: 100%;
+  aspect-ratio: 16/9;
+  margin-bottom: 12px;
 }
 .advFeed .carbonCoverLogo {
   max-width: 125px;
 }
 .advFeed .carbonCover {
   font-size: 16px;
-  aspect-ratio: 16 / 9;
-  height: auto;
-  margin-bottom: 12px;
+  height: 100%;
 }
-.advFeed .carbonCoverImage {
-  width: 180px;
-  height: 180px;
-}
+
 .advFeed .carbonCoverMain {
   gap: 0.5em;
 }
