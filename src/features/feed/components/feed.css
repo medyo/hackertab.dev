@@ -33,12 +33,12 @@
     background-color: transparent;
   }
 
-  .loading {
+  .feedLoading {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    grid-column: span 3;
+    grid-column: 1/-1;
     padding: 16px 0;
     margin-bottom: 20px;
   }

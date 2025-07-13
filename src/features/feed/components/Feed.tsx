@@ -85,7 +85,7 @@ export const Feed = () => {
         )
       })}
       {hasNextPage && (
-        <div className="loading" ref={infiniteRef}>
+        <div className="feedLoading" ref={infiniteRef}>
           <PropagateLoader color={'#A9B2BD'} loading={true} size={8} />
         </div>
       )}
