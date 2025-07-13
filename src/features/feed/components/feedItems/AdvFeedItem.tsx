@@ -23,11 +23,9 @@ export const AdvFeedItem = ({ className }: BaseItemPropsType<AdFeedItemData>) =>
       {adMeta && (
         <>
           {adMeta.company && adMeta.companyTagline && (
-            <div className="rowTitle">
-              <span className="subTitle">
-                {[adMeta.company, adMeta.companyTagline].filter(Boolean).join(' - ')}
-              </span>
-            </div>
+            <a className="rowTitle" href={adMeta.callToAction}>
+              {[adMeta.company, adMeta.companyTagline].filter(Boolean).join(' - ')}
+            </a>
           )}
           <div className="rowDetails">
             <span className="rowItem verticalAligned">
