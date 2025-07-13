@@ -67,6 +67,11 @@ export const Header = () => {
           <Changelog />
         </span>
         <SearchBar />
+        <div className="buttonsFlex extras mobileOnly">
+          <CircleButton onClick={onSettingsClick}>
+            <BsFillGearFill />
+          </CircleButton>
+        </div>
         <div className="buttonsFlex extras">
           {isDNDModeActive() && (
             <Button onClick={onUnpauseClicked} className="dndButton">

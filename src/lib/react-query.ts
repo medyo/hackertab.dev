@@ -2,11 +2,13 @@ import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persi
 import {
   DefaultOptions,
   QueryClient,
+  UseInfiniteQueryOptions,
   UseMutationOptions,
   UseQueryOptions,
 } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { localStorageAdapter } from 'src/adapters/LocalStorageAdapter'
+import { isDevelopment } from 'src/utils/Environment'
 import { PromiseValue } from 'type-fest'
 
 const queryConfig: DefaultOptions = {
@@ -14,8 +16,9 @@ const queryConfig: DefaultOptions = {
     useErrorBoundary: false,
     refetchOnWindowFocus: false,
     retry: false,
-    staleTime: 3600000, //1 Hour
-    cacheTime: 3600000, // 1 Day
+    // Disable cache on dev mode
+    staleTime: isDevelopment() ? 0 : 900000, //15 minutes
+    cacheTime: isDevelopment() ? 0 : 3600000, // 1 hour
   },
 }
 
@@ -32,6 +35,11 @@ export type ExtractFnReturnType<FnType extends (...args: any) => any> = PromiseV
 export type QueryConfig<QueryFnType extends (...args: any) => any> = Omit<
   UseQueryOptions<ExtractFnReturnType<QueryFnType>>,
   'queryKey' | 'queryFn'
+>
+
+export type InfiniteQueryConfig<QueryFnType extends (...args: any) => any> = Omit<
+  UseInfiniteQueryOptions<ExtractFnReturnType<QueryFnType>>,
+  'queryKey' | 'queryFn' | 'getNextPageParam'
 >
 
 export type MutationConfig<MutationFnType extends (...args: any) => any> = UseMutationOptions<

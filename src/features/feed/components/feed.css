@@ -1,0 +1,124 @@
+.light .feedItem {
+  box-shadow: 0 0 12px var(--card-border-color);
+}
+.feed {
+  display: grid;
+  grid-template-columns: repeat(3, 32%);
+  scroll-margin-top: 12px;
+  gap: 16px;
+  margin-left: 1%;
+  padding-right: 1%;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
+  .feedItem {
+    display: flex;
+    background-color: var(--card-background-color);
+    border: 1px solid var(--card-border-color);
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      opacity: 0.9;
+      transform: scale(1.01);
+    }
+  }
+
+  .blockRow:not(.advFeed):hover {
+    background-color: transparent;
+  }
+
+  .feedLoading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    grid-column: 1/-1;
+    padding: 16px 0;
+    margin-bottom: 20px;
+  }
+  .blockRow {
+    padding: 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.feed .placeholder {
+  animation-duration: 1.5s;
+  animation-name: cardPlaceholderPulse;
+  animation-iteration-count: infinite;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  min-height: 360px;
+  gap: 16px;
+  .image {
+    background-color: var(--placeholder-background-color);
+    border: 1px solid var(--placeholder-border-color);
+    height: 70%;
+    width: 100%;
+  }
+  .line {
+    background: var(--placeholder-background-color);
+    display: block;
+    height: 17px;
+    width: 100%;
+    border-radius: 4px;
+    margin: 0;
+  }
+  .smallLine {
+    margin-top: 8px;
+    background: var(--placeholder-background-color);
+    display: block;
+    height: 12px;
+    width: 100%;
+    border-radius: 4px;
+    margin: 0;
+  }
+}
+
+.feedItemSource {
+  width: 12px;
+  height: 12px;
+}
+
+.repo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--card-background-color);
+  border-bottom: 12px solid green;
+}
+.repo .title {
+  font-size: 1.4rem;
+  color: var(--card-header-text-color);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.repo .description {
+  font-size: 0.9rem;
+  color: var(--primary-text-color);
+  margin: 0;
+  padding: 0 12px;
+  text-align: center;
+  line-height: 1.5em;
+  max-height: 3em;
+  overflow: hidden;
+}
+.repo .details {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  font-size: 14px;
+}
+.repo .details p {
+  margin: 0;
+  padding: 0;
+}

@@ -13,7 +13,15 @@ import { firebaseAuth } from 'src/lib/firebase'
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const { closeAuthModal, initState, setAuthError, openAuthModal, setConnecting } = useAuth()
+  const {
+    closeAuthModal,
+    initState,
+    setAuthError,
+    openAuthModal,
+    setConnecting,
+    logout,
+    isConnected,
+  } = useAuth()
 
   const connectTheUser = useCallback((token?: string | null, provider?: string | null) => {
     const allowedProviders = ['google', 'github']
@@ -134,5 +142,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       navigate(window.location.pathname, { replace: true })
     })
   }, [searchParams])
+
+  /**
+   * This effect is used to check if the user is still connected on Firebase Auth
+   * and logout the user if the session has expired
+   */
+  useEffect(() => {
+    const unsubscribe = firebaseAuth.onAuthStateChanged(async (user) => {
+      if (!user) {
+        if (isConnected) {
+          toast('Session expired, please reconnect', { theme: 'dangerToast' })
+        }
+
+        await logout()
+      }
+    })
+    return () => unsubscribe()
+  }, [isConnected])
+
   return <>{children}</>
 }

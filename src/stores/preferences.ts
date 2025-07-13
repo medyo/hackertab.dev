@@ -7,6 +7,7 @@ import { StateStorage, createJSONStorage, persist } from 'zustand/middleware'
 import {
   CardSettingsType,
   DNDDuration,
+  Layout,
   ListingMode,
   SearchEngineType,
   SelectedCard,
@@ -16,6 +17,7 @@ import {
 
 export type UserPreferencesState = {
   userSelectedTags: Tag[]
+  layout: Layout
   theme: Theme
   openLinksNewTab: boolean
   onboardingCompleted: boolean
@@ -33,6 +35,7 @@ export type UserPreferencesState = {
 }
 
 type UserPreferencesStoreActions = {
+  setLayout: (layout: Layout) => void
   setTheme: (theme: Theme) => void
   setPromptEngine: (engine: string) => void
   setOpenLinksNewTab: (openLinksNewTab: boolean) => void
@@ -124,6 +127,7 @@ export const useUserPreferences = create(
           freecodecampValues: ['javascript'],
         },
       ],
+      layout: 'cards',
       cardsSettings: {},
       maxVisibleCards: 4,
       theme: 'dark',
@@ -143,6 +147,7 @@ export const useUserPreferences = create(
       userCustomCards: [],
       DNDDuration: 'never',
       advStatus: false,
+      setLayout: (layout) => set({ layout: layout }),
       setPromptEngine: (promptEngine: string) => set({ promptEngine: promptEngine }),
       setListingMode: (listingMode: ListingMode) => set({ listingMode: listingMode }),
       setTheme: (theme: Theme) => set({ theme: theme }),

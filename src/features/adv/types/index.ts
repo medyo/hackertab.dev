@@ -18,4 +18,10 @@ export type Ad = {
   backgroundColor?: string
   provider: AdProvider
   nextAd?: NextAdType
+
+  largeImage?: string
+  logo?: string
+  companyTagline?: string
+  callToAction?: string
+  company?: string
 }

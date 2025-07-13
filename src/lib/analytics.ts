@@ -4,6 +4,7 @@ import { useUserPreferences } from 'src/stores/preferences'
 import { isDevelopment } from 'src/utils/Environment'
 import { getAppVersion } from 'src/utils/Os'
 import AppStorage from './localStorage'
+import { identifySentryUser } from './sentry'
 
 enum Objects {
   PAGE = 'Page',
@@ -21,6 +22,8 @@ enum Objects {
   ONBOARDING = 'Onboarding',
   RSS = 'Rss',
   DO_NOT_DISTURB = 'DND',
+  DISPLAY_LAYOUT = 'Display Layout',
+  FEED = 'Feed',
 }
 
 enum Verbs {
@@ -74,6 +77,7 @@ export enum Attributes {
   PROVIDER = 'Provider',
   ADV = 'ADV',
   STREAK = 'Streak',
+  DISPLAY_LAYOUT = 'Display Layout',
 }
 
 const _SEP_ = ' '
@@ -102,6 +106,7 @@ export const setupIdentification = () => {
     openLinksNewTab,
     promptEngine,
     maxVisibleCards,
+    layout,
   } = useUserPreferences.getState()
 
   identifyUserProperty(Attributes.RESOLUTION, getScreenResolution())
@@ -112,9 +117,14 @@ export const setupIdentification = () => {
   identifyUserSearchEngine(promptEngine)
   identifyUserLinksInNewTab(openLinksNewTab)
   identifyUserMaxVisibleCards(maxVisibleCards)
+  identifyDisplayLayout(layout)
   if (onboardingResult?.title) {
     identifyUserOccupation(onboardingResult.title)
   }
+  identifySentryUser({
+    [Attributes.LANGUAGES]: userSelectedTags.map((tag: any) => tag.value),
+    [Attributes.DISPLAY_LAYOUT]: layout,
+  })
 }
 
 export const trackPageView = (pageName: string, dndModeActive: boolean = false) => {
@@ -403,6 +413,22 @@ export const trackUserDelete = () => {
   })
 }
 
+export const trackDisplayTypeChange = (value: 'grid' | 'cards') => {
+  trackEvent({
+    object: Objects.DISPLAY_LAYOUT,
+    verb: Verbs.CHANGE,
+    attributes: {
+      [Attributes.DISPLAY_LAYOUT]: value,
+    },
+  })
+}
+
+export const trackFeedScroll = () => {
+  trackEvent({
+    object: Objects.FEED,
+    verb: Verbs.SCROLL,
+  })
+}
 // Identification
 
 export const identifyUserLanguages = (languages: string[]) => {
@@ -437,6 +463,9 @@ export const identifyAdvBlocked = (blocked: boolean) => {
 }
 export const identifyUserStreak = (value: number) => {
   identifyUserProperty(Attributes.STREAK, value)
+}
+export const identifyDisplayLayout = (value: 'grid' | 'cards') => {
+  identifyUserProperty(Attributes.DISPLAY_LAYOUT, value)
 }
 // Private functions
 type trackEventProps = {
