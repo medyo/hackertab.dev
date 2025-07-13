@@ -3,6 +3,13 @@
   flex-direction: column;
   height: 100vh;
 }
+
+.settings .hidden {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
 .horizontalTabsLayout {
   display: flex;
   flex-direction: row;
