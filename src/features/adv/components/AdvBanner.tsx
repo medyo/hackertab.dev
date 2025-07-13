@@ -56,24 +56,37 @@ export const AdvBanner = ({ feedDisplay = false, loadingState, onAdLoaded }: Adv
 
   if (ad.largeImage) {
     return (
-      <div
-        className="carbonCoverTarget"
-        style={
-          {
-            '--ad-dynamic-bg-image': `url(${ad.largeImage})`,
-            '--ad-gradient-color': ad.backgroundColor,
-          } as React.CSSProperties
-        }>
-        <a href={ad.link} className="carbonCover">
-          <img className="carbonCoverImage" src={ad.largeImage} />
-          <div className="carbonCoverMain">
-            <img className="carbonCoverLogo" src={ad.logo} />
-            <div className="carbonCoverTagline">{ad.companyTagline}</div>
-            <div className="carbonCoverDescription">{ad.description}</div>
-            <div className="carbonCoverButton">{ad.callToAction + ' ↗'}</div>
-          </div>
-        </a>
-      </div>
+      <>
+        <div
+          className="carbonCoverTarget"
+          style={
+            {
+              '--ad-dynamic-bg-image': `url(${ad.largeImage})`,
+              '--ad-gradient-color': ad.backgroundColor,
+            } as React.CSSProperties
+          }>
+          <a href={ad.link} className="carbonCover">
+            <img className="carbonCoverImage" src={ad.largeImage} />
+            <div className="carbonCoverMain">
+              <img className="carbonCoverLogo" src={ad.logo} />
+              <div className="carbonCoverTagline">{ad.companyTagline}</div>
+              <div className="carbonCoverDescription">{ad.description}</div>
+              <div className="carbonCoverButton">{ad.callToAction + ' ↗'}</div>
+            </div>
+          </a>
+        </div>
+        {ad.viewUrl &&
+          ad.viewUrl
+            .split('||')
+            .map((viewUrl, i) => (
+              <img
+                key={i}
+                src={viewUrl.replace('[timestamp]', `${Math.round(Date.now() / 10000) | 0}`)}
+                className="hidden"
+                alt=""
+              />
+            ))}
+      </>
     )
   }
 
@@ -112,7 +125,14 @@ export const AdvBanner = ({ feedDisplay = false, loadingState, onAdLoaded }: Adv
       {ad.viewUrl &&
         ad.viewUrl
           .split('||')
-          .map((viewUrl, i) => <img key={i} src={viewUrl} className="hidden" alt="" />)}
+          .map((viewUrl, i) => (
+            <img
+              key={i}
+              src={viewUrl.replace('[timestamp]', `${Math.round(Date.now() / 10000) | 0}`)}
+              className="hidden"
+              alt=""
+            />
+          ))}
     </>
   )
 }
