@@ -119,9 +119,9 @@
 }
 
 .carbonCoverImage {
-  aspect-ratio: 1 / 1;
-  width: auto;
-  height: 85%;
+  aspect-ratio: 1;
+  height: fit-content;
+  width: 45%;
   z-index: 2;
   object-fit: cover;
   border-radius: 10px;
@@ -190,7 +190,7 @@
 
 .carbonCover:hover .carbonCoverImage,
 .carbonCover:focus-within .carbonCoverImage {
-  height: 50%;
+  width: 25%;
   filter: brightness(1.05);
 }
 
