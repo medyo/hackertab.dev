@@ -1,7 +1,7 @@
 import React from 'react'
+import BeatLoader from 'react-spinners/BeatLoader'
 import { useAsyncError } from 'src/hooks/useAsyncError'
 import { useGetRemoteConfig } from '../api/getRemoteConfig'
-import BeatLoader from 'react-spinners/BeatLoader'
 
 type ConfigurationWrapperProps = {
   children: React.ReactNode
@@ -11,6 +11,7 @@ export const ConfigurationWrapper = ({ children }: ConfigurationWrapperProps) =>
   const {
     isLoading,
     isError,
+    error,
     data: remoteConfig,
   } = useGetRemoteConfig({
     config: {
@@ -29,7 +30,9 @@ export const ConfigurationWrapper = ({ children }: ConfigurationWrapperProps) =>
   }
 
   if (isError || !remoteConfig) {
-    throwError('Could not fetch configuration data, Make sure you are connected to the internet')
+    throwError(
+      error ?? 'Could not fetch configuration data, Make sure you are connected to the internet.'
+    )
   }
 
   return <>{children}</>
