@@ -7,6 +7,14 @@ export const initSentry = () => {
     dsn: SENTRY_DSN,
     sendDefaultPii: true,
     enabled: !isDevelopment(),
+    integrations: [
+      Sentry.replayIntegration({
+        maskAllText: false,
+        blockAllMedia: false,
+      }),
+    ],
+    replaysSessionSampleRate: 0.01,
+    replaysOnErrorSampleRate: 1.0,
   })
 }
 
