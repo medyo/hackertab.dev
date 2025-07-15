@@ -61,8 +61,8 @@ export const SourceSettings = () => {
               (card) => card.value !== confirmDelete.option?.value
             )
             const newCards = cards.filter((card) => card.name !== confirmDelete.option?.value)
-            setUserCustomCards(newUserCards)
             setCards(newCards)
+            setUserCustomCards(newUserCards)
             setConfirmDelete({ showModal: false, option: undefined })
           }}
         />
