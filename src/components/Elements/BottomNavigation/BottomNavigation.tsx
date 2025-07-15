@@ -1,3 +1,4 @@
+import React from 'react'
 import { BsRssFill } from 'react-icons/bs'
 import { SUPPORTED_CARDS } from 'src/config/supportedCards'
 import { useUserPreferences } from 'src/stores/preferences'
@@ -23,9 +24,13 @@ export const BottomNavigation = ({ selectedCard, setSelectedCard }: BottomNaviga
               'navigationItem ' + (selectedCard && selectedCard.name === card.name ? 'active' : '')
             }
             onClick={() => setSelectedCard(card)}>
-            {card.type === 'supported'
-              ? constantCard?.icon
-              : <img src={constantCard?.icon} alt="" /> || <BsRssFill className="rss" />}
+            {React.isValidElement(constantCard?.icon) ? (
+              constantCard.icon
+            ) : typeof constantCard?.icon === 'string' ? (
+              <img src={constantCard.icon} alt="" />
+            ) : (
+              <BsRssFill className="rss" />
+            )}
           </button>
         )
       })}
