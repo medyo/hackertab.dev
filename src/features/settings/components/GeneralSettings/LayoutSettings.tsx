@@ -1,4 +1,4 @@
-import { IoGridSharp } from 'react-icons/io5'
+import { RiSparkling2Fill } from 'react-icons/ri'
 import { TfiLayoutColumn4Alt } from 'react-icons/tfi'
 import Select, {
   GroupBase,
@@ -18,7 +18,7 @@ type LayoutOption = {
 }
 
 const Layouts: LayoutOption[] = [
-  { value: 'grid', label: 'Grid', icon: <IoGridSharp /> },
+  { value: 'grid', label: 'AI Feed (Beta)', icon: <RiSparkling2Fill color="#F1D247" /> },
   { value: 'cards', label: 'Cards', icon: <TfiLayoutColumn4Alt /> },
 ]
 
