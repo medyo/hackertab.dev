@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import SortableList, { SortableItem } from 'react-easy-sort'
 import { SUPPORTED_CARDS } from 'src/config/supportedCards'
 import { CustomRssCard } from 'src/features/cards'
@@ -27,7 +27,7 @@ export const DesktopCards = ({
     }
   }
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     scrollHolderRef.current = document.querySelector('.Cards')
   }, [])
 
@@ -36,10 +36,9 @@ export const DesktopCards = ({
       as="div"
       onSortEnd={onSortEnd}
       lockAxis="x"
-      customHolderRef={scrollHolderRef}
       className="Cards HorizontalScroll"
       draggedItemClassName="draggedBlock">
-      {cards
+      {[...cards]
         .sort((a, b) => a.id - b.id)
         .map((card, index) => {
           const constantCard = AVAILABLE_CARDS.find((c) => c.value === card.name)
@@ -52,11 +51,7 @@ export const DesktopCards = ({
           return (
             <SortableItem key={card.name}>
               <div>
-                <Component
-                  key={card.name}
-                  meta={constantCard}
-                  withAds={index === adsConfig.columnPosition}
-                />
+                <Component meta={constantCard} withAds={index === adsConfig.columnPosition} />
               </div>
             </SortableItem>
           )

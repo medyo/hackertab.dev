@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { HiSparkles } from 'react-icons/hi'
 import ReactMarkdown from 'react-markdown'
 import BeatLoader from 'react-spinners/BeatLoader'
@@ -67,26 +68,30 @@ export const Changelog = () => {
   }, [versions])
   return (
     <>
-      <ReactTooltip
-        id={tooltipId}
-        event="click"
-        scrollHide={false}
-        afterShow={() => {
-          setTooltipShown(true)
-        }}
-        place="bottom"
-        className="changelogTooltip scrollable"
-        globalEventOff="click">
-        {isLoading ? (
-          <div className="tooltipLoading">
-            <BeatLoader color={'#A9B2BD'} loading={isLoading} size={15} />
-          </div>
-        ) : isError || !versions.length ? (
-          <p className="tooltipErrorMsg">Failed to load the changelog</p>
-        ) : (
-          versionsMemo
-        )}
-      </ReactTooltip>
+      {createPortal(
+        <ReactTooltip
+          id={tooltipId}
+          event="click"
+          scrollHide={false}
+          afterShow={() => {
+            setTooltipShown(true)
+          }}
+          place="bottom"
+          className="changelogTooltip scrollable"
+          globalEventOff="click">
+          {isLoading ? (
+            <div className="tooltipLoading">
+              <BeatLoader color={'#A9B2BD'} loading={isLoading} size={15} />
+            </div>
+          ) : isError || !versions.length ? (
+            <p className="tooltipErrorMsg">Failed to load the changelog</p>
+          ) : (
+            versionsMemo
+          )}
+        </ReactTooltip>,
+        document.body
+      )}
+
       <button
         aria-label="Open changelog"
         className={'changelogButton' + (!isChangelogRead() ? ' active' : '')}
