@@ -5760,7 +5760,7 @@ react-dom@^19.1.0:
   dependencies:
     scheduler "^0.26.0"
 
-react-easy-sort@^1.5.1:
+react-easy-sort@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/react-easy-sort/-/react-easy-sort-1.6.0.tgz#b40cce827913f0640c1b2e5438dd4d007e26db32"
   integrity sha512-zd9Nn90wVlZPEwJrpqElN87sf9GZnFR1StfjgNQVbSpR5QTSzCHjEYK6REuwq49Ip+76KOMSln9tg/ST2KLelg==
