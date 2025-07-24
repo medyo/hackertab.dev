@@ -125,6 +125,8 @@ export type SupportedCardType = {
 export type CardPropsType = {
   meta: Omit<SupportedCardType, 'component'>
   withAds: boolean
+  knob?: React.ReactNode
+  className?: string
 }
 
 export type BaseItemPropsType<

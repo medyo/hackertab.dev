@@ -1,11 +1,65 @@
-import { useEffect, useRef } from 'react'
-import SortableList, { SortableItem } from 'react-easy-sort'
+import { useMemo, useRef } from 'react'
+//import SortableList, { SortableItem } from 'react-easy-sort'
+import {
+  DndContext,
+  DragEndEvent,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
+import {
+  horizontalListSortingStrategy,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+} from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
+import { clsx } from 'clsx'
+import { MdOutlineDragIndicator } from 'react-icons/md'
 import { SUPPORTED_CARDS } from 'src/config/supportedCards'
 import { CustomRssCard } from 'src/features/cards'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
 import { trackPageDrag } from 'src/lib/analytics'
+import { DesktopBreakpoint } from 'src/providers/DesktopBreakpoint'
 import { useUserPreferences } from 'src/stores/preferences'
 import { SelectedCard, SupportedCardType } from 'src/types'
+
+type SortableItemProps = {
+  id: string
+  card: SupportedCardType
+  withAds: boolean
+}
+
+const SortableItem = ({ id, card, withAds }: SortableItemProps) => {
+  const { attributes, listeners, setNodeRef, isDragging, transform, transition } = useSortable({
+    id,
+  })
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  }
+
+  const Component = card.component || CustomRssCard
+
+  return (
+    <div ref={setNodeRef} style={style}>
+      <Component
+        meta={card}
+        className={clsx(isDragging && 'draggedBlock')}
+        withAds={withAds}
+        knob={
+          <DesktopBreakpoint>
+            <button className="blockHeaderDragButton" {...attributes} {...listeners}>
+              <MdOutlineDragIndicator />
+            </button>
+          </DesktopBreakpoint>
+        }
+      />
+    </div>
+  )
+}
 
 export const DesktopCards = ({
   cards,
@@ -16,46 +70,78 @@ export const DesktopCards = ({
 }) => {
   const AVAILABLE_CARDS = [...SUPPORTED_CARDS, ...userCustomCards]
   const { updateCardOrder } = useUserPreferences()
-  const scrollHolderRef = useRef<HTMLElement | null>(null)
+  const cardsWrapperRef = useRef<HTMLDivElement>(null)
   const { adsConfig } = useRemoteConfigStore()
 
-  const onSortEnd = (oldIndex: number, newIndex: number) => {
-    updateCardOrder(oldIndex, newIndex)
-    trackPageDrag()
-    if (newIndex === 0 || (oldIndex > 3 && newIndex < 3)) {
-      scrollHolderRef.current?.scrollTo(0, 0)
-    }
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  )
+
+  const handleDragStart = () => {
+    cardsWrapperRef.current?.classList.add('snapDisabled')
   }
 
-  useEffect(() => {
-    scrollHolderRef.current = document.querySelector('.Cards')
-  }, [])
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event
+
+    if (active.id !== over?.id) {
+      const previousCard = cards.find((card) => card.name === active.id)
+      const newCard = cards.find((card) => card.name === over?.id)
+      if (!previousCard || !newCard) {
+        return
+      }
+
+      const oldIndex = previousCard.id
+      const newIndex = newCard.id
+
+      updateCardOrder(oldIndex, newIndex)
+      trackPageDrag()
+    }
+
+    cardsWrapperRef.current?.classList.remove('snapDisabled')
+  }
+
+  const memoCards = useMemo(() => {
+    return cards
+      .map((card) => {
+        const constantCard = AVAILABLE_CARDS.find((c) => c.value === card.name)
+        if (!constantCard) {
+          return null
+        }
+
+        return {
+          card: constantCard,
+          id: card.name,
+        }
+      })
+      .filter(Boolean) as { id: string; card: SupportedCardType }[]
+  }, [cards])
 
   return (
-    <SortableList
-      as="div"
-      onSortEnd={onSortEnd}
-      lockAxis="x"
-      className="Cards HorizontalScroll"
-      draggedItemClassName="draggedBlock">
-      {[...cards]
-        .sort((a, b) => a.id - b.id)
-        .map((card, index) => {
-          const constantCard = AVAILABLE_CARDS.find((c) => c.value === card.name)
-          if (!constantCard) {
-            return null
-          }
-
-          const Component = constantCard?.component || CustomRssCard
-
-          return (
-            <SortableItem key={card.name}>
-              <div>
-                <Component meta={constantCard} withAds={index === adsConfig.columnPosition} />
-              </div>
-            </SortableItem>
-          )
-        })}
-    </SortableList>
+    <div ref={cardsWrapperRef} className="Cards HorizontalScroll">
+      <DndContext
+        sensors={sensors}
+        autoScroll={false}
+        onDragEnd={handleDragEnd}
+        onDragStart={handleDragStart}>
+        <SortableContext
+          items={memoCards.map(({ id }) => id)}
+          strategy={horizontalListSortingStrategy}>
+          {memoCards.map(({ id, card }, index) => {
+            return (
+              <SortableItem
+                key={id}
+                id={id}
+                card={card}
+                withAds={index === adsConfig.columnPosition}
+              />
+            )
+          })}
+        </SortableContext>
+      </DndContext>
+    </div>
   )
 }

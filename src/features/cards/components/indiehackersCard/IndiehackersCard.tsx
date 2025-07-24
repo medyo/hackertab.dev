@@ -4,7 +4,8 @@ import { Article, CardPropsType } from 'src/types'
 import { useGetIndieHackersArticles } from '../../api/getIndieHackersArticles'
 import { ArticleItem } from './ArticleItem'
 
-export function IndiehackersCard({ meta, withAds }: CardPropsType) {
+export function IndiehackersCard(props: CardPropsType) {
+  const { meta } = props
   const { data: articles = [], isLoading, error } = useGetIndieHackersArticles()
 
   const renderItem = (item: Article, index: number) => (
@@ -12,7 +13,7 @@ export function IndiehackersCard({ meta, withAds }: CardPropsType) {
   )
 
   return (
-    <Card card={meta} withAds={withAds}>
+    <Card {...props}>
       <ListComponent items={articles} error={error} isLoading={isLoading} renderItem={renderItem} />
     </Card>
   )

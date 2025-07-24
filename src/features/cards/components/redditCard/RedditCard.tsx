@@ -8,7 +8,8 @@ import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement
 import { useGetRedditArticles } from '../../api/getRedditArticles'
 import ArticleItem from './ArticleItem'
 
-export function RedditCard({ withAds, meta }: CardPropsType) {
+export function RedditCard(props: CardPropsType) {
+  const { meta } = props
   const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
   const selectedTag =
     [GLOBAL_TAG, MY_LANGUAGES_TAG, ...userSelectedTags].find(
@@ -71,7 +72,7 @@ export function RedditCard({ withAds, meta }: CardPropsType) {
   }
 
   return (
-    <Card card={meta} titleComponent={<HeaderTitle />} withAds={withAds}>
+    <Card titleComponent={<HeaderTitle />} {...props}>
       <FloatingFilter card={meta} filters={['language']} />
       <ListComponent items={getData()} isLoading={getIsLoading()} renderItem={renderItem} />
     </Card>

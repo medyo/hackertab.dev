@@ -8,7 +8,8 @@ import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement
 import { useGetDevtoArticles } from '../../api/getDevtoArticles'
 import ArticleItem from './ArticleItem'
 
-export function DevtoCard({ withAds, meta }: CardPropsType) {
+export function DevtoCard(props: CardPropsType) {
+  const { meta } = props
   const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
 
   const selectedTag =
@@ -70,7 +71,7 @@ export function DevtoCard({ withAds, meta }: CardPropsType) {
   }
 
   return (
-    <Card card={meta} titleComponent={<HeaderTitle />} withAds={withAds}>
+    <Card titleComponent={<HeaderTitle />} {...props}>
       <FloatingFilter card={meta} filters={['language']} />
       <ListComponent items={getData()} isLoading={getIsLoading()} renderItem={renderItem} />
     </Card>

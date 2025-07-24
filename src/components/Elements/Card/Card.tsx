@@ -1,31 +1,29 @@
+import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
-import { SortableKnob } from 'react-easy-sort'
 import { BsBoxArrowInUpRight } from 'react-icons/bs'
-import { MdOutlineDragIndicator } from 'react-icons/md'
 import { ref } from 'src/config'
 import { AdvBanner } from 'src/features/adv'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
-import { DesktopBreakpoint } from 'src/providers/DesktopBreakpoint'
 import { useUserPreferences } from 'src/stores/preferences'
-import { SupportedCardType } from 'src/types'
+import { CardPropsType } from 'src/types'
 
-type CardProps = {
+type RootCardProps = CardPropsType & {
   children: React.ReactNode
-  card: SupportedCardType
-  withAds?: boolean
   titleComponent?: React.ReactNode
   fullBlock?: boolean
 }
 
 export const Card = ({
-  card,
+  meta,
   titleComponent,
+  className,
   withAds = false,
   children,
   fullBlock = false,
-}: CardProps) => {
+  knob,
+}: RootCardProps) => {
   const { openLinksNewTab } = useUserPreferences()
-  const { link, icon, label, badge } = card
+  const { link, icon, label, badge } = meta
   const [canAdsLoad, setCanAdsLoad] = useState(true)
   const { adsConfig } = useRemoteConfigStore()
 
@@ -57,15 +55,9 @@ export const Card = ({
   }
 
   return (
-    <div className={'block' + (fullBlock ? ' fullBlock' : '')}>
+    <div className={clsx('block', fullBlock && 'fullBlock', className)}>
       <div className="blockHeader">
-        <DesktopBreakpoint>
-          <SortableKnob>
-            <button className="blockHeaderDragButton">
-              <MdOutlineDragIndicator />
-            </button>
-          </SortableKnob>
-        </DesktopBreakpoint>
+        {knob}
         <span className="blockHeaderIcon">{icon}</span> {titleComponent || label}{' '}
         {link && (
           <a className="blockHeaderLink" href={link} onClick={handleHeaderLinkClick}>
