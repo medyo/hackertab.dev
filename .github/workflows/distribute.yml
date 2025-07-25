@@ -1,10 +1,10 @@
-name: '🚀 Deploy to Chrome 🌐 & Firefox 🦊'
+name: '🚀 Deploy browser extension'
 
 on:
   workflow_dispatch:
     inputs:
-      targetStore:
-        description: 'Store target'
+      target:
+        description: 'Which store to deploy to?'
         required: true
         default: 'all'
         type: choice
@@ -12,13 +12,8 @@ on:
           - chrome
           - firefox
           - all
-      autoTag:
-        description: 'Auto Create a new tag'
-        required: true
-        default: true
-        type: boolean
       testMode:
-        description: 'Test Mode'
+        description: 'Run in test mode without publishing?'
         required: true
         default: false
         type: boolean
@@ -32,90 +27,43 @@ env:
   VITE_SENTRY_TOKEN: ${{ secrets.VITE_SENTRY_TOKEN }}
 
 jobs:
-  tag_version:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chrome, firefox]
+
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Bump version and push tag
-        id: tag_version
-        uses: anothrNick/github-tag-action@1.67.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
-          DRY_RUN: ${{ github.event.inputs.autoTag == 'false' }}
-
-      - name: Update manifest.json
-        if: github.event.inputs.autoTag == 'true'
-        run: |
-          new_version=$(echo "${{ steps.tag_version.outputs.new_tag }}" | sed 's/^v//')
-          jq --arg version "$new_version" '.version = $version' public/base.manifest.json > public/base.manifest.json.tmp && mv public/base.manifest.json.tmp public/base.manifest.json
-
-      - name: Commit changes
-        if: github.event.inputs.autoTag == 'true'
-        uses: EndBug/add-and-commit@v5
-        with:
-          branch: ${{ github.ref_name }}
-          author_name: Github bot
-          author_email: elmehdi.sakout@gmail.com
-          message: 'Bump manifest version'
-
-  chrome-deploy:
-    if: ${{ (github.event.inputs.targetStore == 'chrome') || (github.event.inputs.targetStore == 'all') }}
-    needs: tag_version
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref_name }}
-      - uses: actions/cache@v4
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
-      - name: Install yarn dependencies
-        run: yarn
+          cache: 'yarn'
 
-      - name: Build and zip the extension
-        run: yarn build:chrome
+      - run: yarn install --frozen-lockfile
 
-      - name: Upload the package to Chrome web store
-        if: ${{ github.event.inputs.testMode == 'false' }}
-        run: npx chrome-webstore-upload-cli@3 upload --source chrome_extension.zip --extension-id $EXTENSION_ID --auto-publish
+      - name: 'Build Extension'
+        if: ${{ github.event.inputs.target == 'all' || github.event.inputs.target == matrix.browser }}
+        run: yarn build:${{ matrix.browser }}
+
+      - name: '⬆️ Upload to Chrome Web Store'
+        if: ${{ (github.event.inputs.target == 'all' || github.event.inputs.target == 'chrome') && matrix.browser == 'chrome' && github.event.inputs.testMode == 'false' }}
+        run: >
+          npx chrome-webstore-upload-cli@3 upload 
+          --source chrome_extension.zip 
+          --extension-id ${{ secrets.CHROME_EXTENSION_ID }} 
+          --auto-publish
         env:
           EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
-          CLIENT_ID: ${{secrets.CHROME_EXTENSION_CLIENT_ID}}
-          REFRESH_TOKEN: ${{secrets.CHROME_EXTENSION_REFRESH_TOKEN}}
-          CLIENT_SECRET: ${{secrets.CHROME_EXTENSION_CLIENT_SECRET}}
+          CLIENT_ID: ${{ secrets.CHROME_EXTENSION_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CHROME_EXTENSION_CLIENT_SECRET }}
+          REFRESH_TOKEN: ${{ secrets.CHROME_EXTENSION_REFRESH_TOKEN }}
 
-  firefox-deploy:
-    if: ${{ (github.event.inputs.targetStore == 'firefox') || (github.event.inputs.targetStore == 'all') }}
-    needs: tag_version
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref_name }}
-      - uses: actions/cache@v4
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-      - name: Install yarn dependencies
-        run: yarn
-
-      - name: Build and zip the extension
-        run: yarn build:firefox
-      - name: Upload the package to Firefox web store
-        if: ${{ github.event.inputs.testMode == 'false' }}
+      - name: '⬆️ Upload to Firefox Add-on Store'
+        if: ${{ (github.event.inputs.target == 'all' || github.event.inputs.target == 'firefox') && matrix.browser == 'firefox' && github.event.inputs.testMode == 'false' }}
         uses: wdzeng/firefox-addon@v1
         with:
           jwt-issuer: ${{ secrets.WEB_EXT_API_KEY }}
