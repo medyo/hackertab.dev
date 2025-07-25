@@ -80,6 +80,8 @@ export default defineConfig(({ mode }) => {
               'react-icons',
               'react-markdown',
               'react-spring-bottom-sheet',
+              '@dnd-kit/core',
+              '@dnd-kit/sortable',
             ],
             utils: [
               '@amplitude/analytics-browser',
