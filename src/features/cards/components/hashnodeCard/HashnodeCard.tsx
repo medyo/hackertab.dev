@@ -8,7 +8,8 @@ import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement
 import { useGetHashnodeArticles } from '../../api/getHashnodeArticles'
 import ArticleItem from './ArticleItem'
 
-export function HashnodeCard({ withAds, meta }: CardPropsType) {
+export function HashnodeCard(props: CardPropsType) {
+  const { meta } = props
   const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
   const selectedTag =
     [GLOBAL_TAG, MY_LANGUAGES_TAG, ...userSelectedTags].find(
@@ -71,7 +72,7 @@ export function HashnodeCard({ withAds, meta }: CardPropsType) {
   }
 
   return (
-    <Card card={meta} titleComponent={<HeaderTitle />} withAds={withAds}>
+    <Card titleComponent={<HeaderTitle />} {...props}>
       <FloatingFilter card={meta} filters={['language']} />
       <ListComponent items={getData()} isLoading={getIsLoading()} renderItem={renderItem} />
     </Card>

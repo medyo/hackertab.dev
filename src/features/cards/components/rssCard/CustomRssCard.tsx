@@ -5,7 +5,8 @@ import { useRssFeed } from '../../api/getRssFeed'
 import ArticleItem from './ArticleItem'
 import CardIcon from './CardIcon'
 
-export function CustomRssCard({ meta, withAds }: CardPropsType) {
+export function CustomRssCard(props: CardPropsType) {
+  const { meta } = props
   const { data = [], isLoading } = useRssFeed({ feedUrl: meta.feedUrl || '' })
 
   const renderItem = (item: Article, index: number) => (
@@ -22,9 +23,9 @@ export function CustomRssCard({ meta, withAds }: CardPropsType) {
 
   return (
     <Card
-      card={{ ...meta, icon: <CardIcon url={meta.icon as string} /> }}
       titleComponent={<HeaderTitle />}
-      withAds={withAds}>
+      {...props}
+      meta={{ ...meta, icon: <CardIcon url={meta.icon as string} /> }}>
       <ListComponent items={data} isLoading={isLoading} renderItem={renderItem} />
     </Card>
   )

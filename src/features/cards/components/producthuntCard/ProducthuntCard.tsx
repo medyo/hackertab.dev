@@ -5,7 +5,8 @@ import { Article, CardPropsType } from 'src/types'
 import { useGeProductHuntProducts } from '../../api/getProductHuntProducts'
 import ArticleItem from './ArticleItem'
 
-export function ProductHuntCard({ meta, withAds }: CardPropsType) {
+export function ProductHuntCard(props: CardPropsType) {
+  const { meta } = props
   const {
     data: products = [],
     isLoading,
@@ -22,7 +23,7 @@ export function ProductHuntCard({ meta, withAds }: CardPropsType) {
   )
 
   return (
-    <Card card={meta} withAds={withAds}>
+    <Card {...props}>
       <ListComponent
         items={products}
         error={error}

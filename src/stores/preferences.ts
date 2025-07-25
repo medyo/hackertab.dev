@@ -1,4 +1,3 @@
-import arrayMove from 'array-move'
 import { Occupation } from 'src/features/onboarding/types'
 import { Tag, useRemoteConfigStore } from 'src/features/remoteConfig'
 import { enhanceTags } from 'src/utils/DataEnhancement'
@@ -174,7 +173,11 @@ export const useUserPreferences = create(
       setUserCustomCards: (cards: SupportedCardType[]) => set({ userCustomCards: cards }),
       updateCardOrder: (prevIndex: number, newIndex: number) =>
         set((state) => {
-          const newState = arrayMove(state.cards, prevIndex, newIndex).map((card, index) => {
+          const updated = [...state.cards]
+          const [movedItem] = updated.splice(prevIndex, 1)
+          updated.splice(newIndex, 0, movedItem)
+
+          const newState = updated.map((card, index) => {
             return {
               ...card,
               id: index,

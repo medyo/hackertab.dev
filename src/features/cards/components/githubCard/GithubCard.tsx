@@ -8,7 +8,8 @@ import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement
 import { useGetGithubRepos } from '../../api/getGithubRepos'
 import RepoItem from './RepoItem'
 
-export function GithubCard({ meta, withAds }: CardPropsType) {
+export function GithubCard(props: CardPropsType) {
+  const { meta, withAds, knob } = props
   const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
 
   const selectedTag =
@@ -97,7 +98,7 @@ export function GithubCard({ meta, withAds }: CardPropsType) {
     }
   }
   return (
-    <Card fullBlock={true} card={meta} titleComponent={<HeaderTitle />} withAds={withAds}>
+    <Card fullBlock={true} titleComponent={<HeaderTitle />} {...props}>
       <FloatingFilter card={meta} filters={['datesRange', 'language']} />
       <ListComponent
         items={getData()}

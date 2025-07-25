@@ -6,7 +6,8 @@ import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement
 import { useGetConferences } from '../../api/getConferences'
 import ConferenceItem from './ConferenceItem'
 
-export function ConferencesCard({ meta, withAds }: CardPropsType) {
+export function ConferencesCard(props: CardPropsType) {
+  const { meta } = props
   const { userSelectedTags } = useUserPreferences()
 
   const results = useGetConferences({ tags: getCardTagsValue(userSelectedTags, 'confsValues') })
@@ -34,7 +35,7 @@ export function ConferencesCard({ meta, withAds }: CardPropsType) {
   )
 
   return (
-    <Card card={meta} withAds={withAds}>
+    <Card {...props}>
       <ListComponent items={getData()} isLoading={isLoading} renderItem={renderItem} />
     </Card>
   )

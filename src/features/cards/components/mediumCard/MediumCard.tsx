@@ -8,7 +8,8 @@ import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement
 import { useGetMediumArticles } from '../../api/getMediumArticles'
 import ArticleItem from './ArticleItem'
 
-export function MediumCard({ meta, withAds }: CardPropsType) {
+export function MediumCard(props: CardPropsType) {
+  const { meta, withAds } = props
   const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
   const selectedTag =
     [GLOBAL_TAG, MY_LANGUAGES_TAG, ...userSelectedTags].find(
@@ -69,7 +70,7 @@ export function MediumCard({ meta, withAds }: CardPropsType) {
   }
 
   return (
-    <Card card={meta} titleComponent={<HeaderTitle />} withAds={withAds}>
+    <Card titleComponent={<HeaderTitle />} {...props}>
       <FloatingFilter card={meta} filters={['language']} />
       <ListComponent items={getData()} isLoading={getIsLoading()} renderItem={renderItem} />
     </Card>

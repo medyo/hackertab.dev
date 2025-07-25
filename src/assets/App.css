@@ -307,7 +307,7 @@ a {
   display: flex;
 }
 
-.draggedBlock .block {
+.draggedBlock {
   transform: rotate(3deg);
   opacity: 0.5;
 }
@@ -1405,7 +1405,9 @@ Producthunt item
 .capitalize {
   text-transform: capitalize;
 }
-
+.snapDisabled {
+  scroll-snap-type: none;
+}
 /**
 Modal
 **/

@@ -4,7 +4,8 @@ import { Article, CardPropsType } from 'src/types'
 import { useGetLobstersArticles } from '../../api/getLobstersArticles'
 import ArticleItem from './ArticleItem'
 
-export function LobstersCard({ withAds, meta }: CardPropsType) {
+export function LobstersCard(props: CardPropsType) {
+  const { meta } = props
   const { data: articles = [], isLoading, error } = useGetLobstersArticles()
 
   const renderItem = (item: Article, index: number) => (
@@ -12,7 +13,7 @@ export function LobstersCard({ withAds, meta }: CardPropsType) {
   )
 
   return (
-    <Card card={meta} withAds={withAds}>
+    <Card {...props}>
       <ListComponent items={articles} error={error} isLoading={isLoading} renderItem={renderItem} />
     </Card>
   )
