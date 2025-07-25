@@ -35,11 +35,13 @@ jobs:
           RELEASE_BRANCHES: ^(master|main)$
           DEFAULT_BUMP: patch
 
-      - name: Update manifest.json
+      - name: Update manifest version
         run: |
           new_version=$(echo "${{ steps.tag_version.outputs.new_tag }}" | sed 's/^v//')
           jq --arg version "$new_version" '.version = $version' public/base.manifest.json > public/base.manifest.json.tmp && mv public/base.manifest.json.tmp public/base.manifest.json
-          git config --global user.name 'Hackertab CI bot'
-          git config --global user.email '2389584+medyo@users.noreply.github.com'
-          git commit -am "Bump manifest version to $new_version" || echo "No changes"
-          git push
+
+      - name: Commit manifest changes
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: "ci: Bump manifest version to ${{ steps.tag_version.outputs.new_tag }}"
+          file_pattern: public/base.manifest.json
