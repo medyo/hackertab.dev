@@ -1,4 +1,4 @@
-name: '👨‍💻 [DEV] Deploy develop to web environment'
+name: '👨‍💻 [DEV] Deploy web version'
 on:
   workflow_dispatch:
 

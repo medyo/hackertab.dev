@@ -1,4 +1,4 @@
-name: '✅ [PROD] Deploy main to web environment'
+name: '✅ [PROD] Deploy web version'
 on:
   workflow_dispatch:
 
