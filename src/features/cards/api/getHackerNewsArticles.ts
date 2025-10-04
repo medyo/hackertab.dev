@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
+import { axios } from 'src/lib/axios'
 import { ExtractFnReturnType, QueryConfig } from 'src/lib/react-query'
 import { Article } from 'src/types'
-import { axios } from 'src/lib/axios'
 
 const getArticles = async (): Promise<Article[]> => {
-  return axios.get('/data/v2/hackernews.json')
+  return axios.get(`https://api-dev.hackertab.dev/engine/card?source=hackernews`, {})
 }
 
 type QueryFnType = typeof getArticles
