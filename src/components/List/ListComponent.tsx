@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useMemo } from 'react'
 import { Placeholder } from 'src/components/placeholders'
 import { MAX_ITEMS_PER_CARD } from 'src/config'
 
@@ -9,7 +9,7 @@ type PlaceholdersProps = {
 const Placeholders = React.memo<PlaceholdersProps>(({ placeholder }) => {
   return (
     <>
-      {[...Array(7)].map((x, i) => (
+      {[...Array(7)].map((_, i) => (
         <span key={i}>{placeholder}</span>
       ))}
     </>
@@ -17,7 +17,9 @@ const Placeholders = React.memo<PlaceholdersProps>(({ placeholder }) => {
 })
 
 export type ListComponentPropsType<T extends unknown> = {
-  items: T[]
+  items?: T[]
+  sortBy?: keyof T
+  sortFn?: (a: T, b: T) => number
   isLoading: boolean
   renderItem: (item: T, index: number) => React.ReactNode
   placeholder?: React.ReactNode
@@ -27,11 +29,13 @@ export type ListComponentPropsType<T extends unknown> = {
   limit?: number
 }
 
-export function ListComponent<T extends unknown>(props: ListComponentPropsType<T>) {
+export function ListComponent<T extends any>(props: ListComponentPropsType<T>) {
   const {
     items,
+    sortBy,
     isLoading,
     error,
+    sortFn,
     renderItem,
     header,
     placeholder = <Placeholder />,
@@ -42,20 +46,49 @@ export function ListComponent<T extends unknown>(props: ListComponentPropsType<T
     return <p className="errorMsg">{error?.message || error}</p>
   }
 
-  const renderItems = () => {
-    if (!items) {
-      return
-    }
-
-    return items.slice(0, limit).map((item, index) => {
-      let content: ReactNode[] = [renderItem(item, index)]
-      if (header && index === 0) {
-        content.unshift(header)
-      }
-
-      return content
-    })
+  if (items && items.length == 0) {
+    return (
+      <p className="errorMsg">
+        No items found, try adjusting your filter or choosing a different tag.
+      </p>
+    )
   }
 
-  return <>{isLoading ? <Placeholders placeholder={placeholder} /> : renderItems()}</>
+  const sortedData = useMemo(() => {
+    if (!items || items.length == 0) return []
+    if (!sortBy) return items
+
+    const result = sortFn
+      ? [...items].sort(sortFn)
+      : [...items].sort((a, b) => {
+          const aVal = a[sortBy]
+          const bVal = b[sortBy]
+          if (typeof aVal === 'number' && typeof bVal === 'number') return bVal - aVal
+          if (typeof aVal === 'string' && typeof bVal === 'string') return bVal.localeCompare(aVal)
+          return 0
+        })
+
+    return result
+  }, [sortBy, sortFn, items])
+
+  const enrichedItems = useMemo(() => {
+    if (!sortedData || sortedData.length === 0) {
+      return []
+    }
+
+    try {
+      return sortedData.slice(0, limit).map((item, index) => {
+        let content: ReactNode[] = [renderItem(item, index)]
+        if (header && index === 0) {
+          content.unshift(header)
+        }
+
+        return content
+      })
+    } catch (e) {
+      return []
+    }
+  }, [sortedData])
+
+  return <>{isLoading ? <Placeholders placeholder={placeholder} /> : enrichedItems}</>
 }
