@@ -40,6 +40,7 @@ type UserPreferencesStoreActions = {
   setOpenLinksNewTab: (openLinksNewTab: boolean) => void
   setListingMode: (listingMode: ListingMode) => void
   setCards: (selectedCards: SelectedCard[]) => void
+  removeCard: (cardName: string) => void
   setTags: (selectedTags: Tag[]) => void
   setMaxVisibleCards: (maxVisibleCards: number) => void
   setCardSettings: (card: string, settings: CardSettingsType) => void
@@ -117,13 +118,6 @@ export const useUserPreferences = create(
         {
           value: 'javascript',
           label: 'Javascript',
-          githubValues: ['javascript'],
-          confsValues: ['javascript'],
-          devtoValues: ['javascript'],
-          hashnodeValues: ['javascript'],
-          mediumValues: ['javascript'],
-          redditValues: ['javascript'],
-          freecodecampValues: ['javascript'],
         },
       ],
       layout: 'cards',
@@ -212,6 +206,12 @@ export const useUserPreferences = create(
           }
         }),
       setAdvStatus: (status) => set({ advStatus: status }),
+      removeCard: (cardName: string) =>
+        set((state) => {
+          return {
+            cards: state.cards.filter((card) => card.name !== cardName),
+          }
+        }),
     }),
     {
       name: 'preferences_storage',

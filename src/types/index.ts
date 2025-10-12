@@ -37,9 +37,11 @@ export type BaseEntry = {
 export type Article = BaseEntry & {
   published_at: number
   tags: Array<string>
-  reactions: number
-  comments: number
+  points_count: number
+  comments_count: number
+  votes_count: number
   image_url: string
+  tagline?: string
   source: string
   original_url?: string
   comments_url?: string
@@ -91,12 +93,12 @@ export type FeedItemData =
   | AdFeedItemData
 
 export type Repository = BaseEntry & {
-  programmingLanguage: string
-  stars: number
+  technology: string
+  stars_count: number
   source: string
   description: string
   owner: string
-  forks: number
+  forks_count: number
   starsInDateRange?: number
   name: string
 }
@@ -143,6 +145,7 @@ export type BaseItemPropsType<
 
 export type CardSettingsType = {
   language: string
+  sortBy: string
   dateRange?: string
 }
 

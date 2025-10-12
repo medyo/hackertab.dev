@@ -27,13 +27,6 @@ export const useRemoteConfigStore = create(
         {
           value: 'javascript',
           label: 'Javascript',
-          githubValues: ['javascript'],
-          confsValues: ['javascript'],
-          devtoValues: ['javascript'],
-          hashnodeValues: ['javascript'],
-          mediumValues: ['javascript'],
-          redditValues: ['javascript'],
-          freecodecampValues: ['javascript'],
         },
       ],
       setRemoteConfig: (remoteConfig: RemoteConfig) =>
