@@ -8,13 +8,13 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import AvatarPlaceholder from 'src/assets/icons/avatar.svg?react'
 import StreakIcon from 'src/assets/icons/fire_icon.svg?react'
 import HackertabLogo from 'src/assets/logo.svg?react'
-import { SearchBar } from 'src/components/Elements/SearchBar'
 import { UserTags } from 'src/components/Elements/UserTags'
 import { useAuth } from 'src/features/auth'
 import { Changelog } from 'src/features/changelog'
 import { identifyUserTheme, trackDNDDisable, trackThemeSelect } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Button, CircleButton } from '../Elements'
+import { SearchEngineBar } from '../Elements/SearchBar/SearchEngineBar'
 export const Header = () => {
   const { openAuthModal, user, isConnected, isConnecting } = useAuth()
 
@@ -66,7 +66,7 @@ export const Header = () => {
           </Link>
           <Changelog />
         </span>
-        <SearchBar />
+        <SearchEngineBar />
         <div className="buttonsFlex extras mobileOnly">
           <CircleButton onClick={onSettingsClick}>
             <BsFillGearFill />
