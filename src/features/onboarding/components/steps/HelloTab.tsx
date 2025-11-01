@@ -1,11 +1,11 @@
 import clsx from 'clsx'
-import { useState } from 'react'
 import { AiFillMobile, AiFillSecurityScan } from 'react-icons/ai'
 import { BsArrowRight, BsFillGearFill } from 'react-icons/bs'
 import { FaDatabase, FaPaintBrush, FaRobot, FaServer } from 'react-icons/fa'
 import { RiDeviceFill } from 'react-icons/ri'
 import { TbDots } from 'react-icons/tb'
-import { StepProps } from 'src/components/Elements'
+import { Tag, useRemoteConfigStore } from 'src/features/remoteConfig'
+import { useUserPreferences } from 'src/stores/preferences'
 import { Occupation } from '../../types'
 
 const OCCUPATIONS: Occupation[] = [
@@ -13,13 +13,13 @@ const OCCUPATIONS: Occupation[] = [
     title: 'Front-End Engineer',
     icon: FaPaintBrush,
     sources: ['devto', 'github', 'medium', 'hashnode'],
-    tags: ['javascript', 'typescript'],
+    tags: ['frontend', 'javascript', 'typescript', 'css', 'react', 'vue', 'angular'],
   },
   {
     title: 'Back-End Engineer',
     icon: BsFillGearFill,
     sources: ['devto', 'github', 'medium', 'hashnode'],
-    tags: ['go', 'php', 'ruby', 'rust', 'r'],
+    tags: ['backend', 'go', 'php', 'ruby', 'rust', 'r'],
   },
   {
     title: 'Full Stack Engineer',
@@ -31,74 +31,92 @@ const OCCUPATIONS: Occupation[] = [
     title: 'Mobile',
     icon: AiFillMobile,
     sources: ['reddit', 'github', 'medium', 'hashnode'],
-    tags: ['android', 'kotlin', 'java', 'swift', 'objective-c'],
+    tags: [
+      'android',
+      'mobile',
+      'kotlin',
+      'java',
+      'ios',
+      'swift',
+      'objectivec',
+      'react native',
+      'flutter',
+    ],
   },
   {
     title: 'Devops Engineer',
     icon: FaServer,
     sources: ['freecodecamp', 'github', 'reddit', 'devto'],
-    tags: ['devops', 'bash'],
+    tags: ['devops', 'kubernetes', 'docker', 'bash'],
   },
   {
     title: 'Data Engineer',
     icon: FaDatabase,
     sources: ['freecodecamp', 'github', 'reddit', 'devto'],
-    tags: ['data-science', 'python', 'artificial-intelligence', 'machine-learning'],
+    tags: ['data science', 'python', 'artificial intelligence', 'machine learning'],
   },
   {
     title: 'Security Engineer',
     icon: AiFillSecurityScan,
     sources: ['freecodecamp', 'github', 'reddit', 'devto'],
-    tags: ['c++', 'bash', 'python'],
+    tags: ['security', 'cpp', 'bash', 'python'],
   },
   {
     title: 'ML Engineer',
     icon: FaRobot,
     sources: ['github', 'freecodecamp', 'hackernews', 'devto'],
-    tags: ['machine-learning', 'artificial-intelligence', 'python'],
+    tags: ['machine learning', 'artificial intelligence', 'python'],
   },
   {
     title: 'Other',
     icon: TbDots,
     sources: ['hackernews', 'github', 'producthunt', 'devto'],
-    tags: [],
+    tags: ['webdev', 'mobile'],
   },
 ]
 
-export const HelloTab = ({
-  moveToNext,
-  moveToPrevious,
-  setTabsData,
-  tabsData,
-}: StepProps<Occupation>) => {
-  const [selectedOccupation, setSelectedOccupation] = useState<Occupation | undefined>(
-    tabsData || OCCUPATIONS[0]
-  )
-  const onOccupationClicked = (occupation: Occupation) => {
-    setSelectedOccupation(occupation)
-  }
+export const HelloTab = () => {
+  const { markOnboardingAsCompleted, setCards, setTags, setOccupation, occupation } =
+    useUserPreferences()
 
-  const onClickNext = () => {
-    if (selectedOccupation === undefined) {
-      return
+  const { tags } = useRemoteConfigStore()
+
+  const onStartClicked = () => {
+    const selectedOccupation = OCCUPATIONS.find((occ) => occ.title === occupation)
+    if (selectedOccupation) {
+      setOccupation(selectedOccupation.title)
+      setCards(
+        selectedOccupation.sources.map((source, index) => ({
+          id: index,
+          name: source,
+          type: 'supported',
+        }))
+      )
+      const userTags = selectedOccupation.tags
+        .map((tag) => {
+          return tags.find((t) => t.value === tag)
+        })
+        .filter(Boolean) as Array<Tag>
+
+      setTags(userTags)
     }
 
-    setTabsData(selectedOccupation)
-    moveToNext && moveToNext()
+    markOnboardingAsCompleted()
   }
+
   return (
     <div>
       <div className="tabHeader">
-        <h1 className="tabTitle">Hi, 👋 Welcome to Hackertab</h1>
-        <p className="tabBody">Let's customize your Hackertab experience!</p>
+        <h1 className="tabTitle">👋 Let’s set up your Hackertab</h1>
+        <p className="tabBody">Select your developer role 👨🏻‍💻 to personalize your Hackertab.</p>
       </div>
       <div className="occupations">
         {OCCUPATIONS.map((occ) => {
           return (
             <button
               key={occ.title}
-              onClick={() => onOccupationClicked(occ)}
-              className={clsx('occupation', selectedOccupation?.title === occ.title && 'active')}>
+              onClick={() => setOccupation(occ.title)}
+              className={clsx('occupation', occupation === occ.title && 'active')}>
               <span>
                 <occ.icon className="occupationIcon" />
               </span>
@@ -108,10 +126,11 @@ export const HelloTab = ({
         })}
       </div>
       <div className="tabFooter">
-        <button onClick={() => moveToPrevious && moveToPrevious()}>Skip</button>
-        <button className="positiveButton" onClick={() => onClickNext()}>
-          <BsArrowRight /> Next
-        </button>
+        {occupation && (
+          <button className="positiveButton" onClick={onStartClicked}>
+            <BsArrowRight /> Start now
+          </button>
+        )}
       </div>
     </div>
   )

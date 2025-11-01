@@ -1,4 +1,3 @@
-import { Occupation } from 'src/features/onboarding/types'
 import { Tag, useRemoteConfigStore } from 'src/features/remoteConfig'
 import { enhanceTags } from 'src/utils/DataEnhancement'
 import { create } from 'zustand'
@@ -20,7 +19,7 @@ export type UserPreferencesState = {
   theme: Theme
   openLinksNewTab: boolean
   onboardingCompleted: boolean
-  onboardingResult: Omit<Occupation, 'icon'> | null
+  occupation: string | null
   listingMode: ListingMode
   promptEngine: string
   promptEngines: SearchEngineType[]
@@ -42,9 +41,12 @@ type UserPreferencesStoreActions = {
   setCards: (selectedCards: SelectedCard[]) => void
   removeCard: (cardName: string) => void
   setTags: (selectedTags: Tag[]) => void
+  followTag: (tag: Tag) => void
+  unfollowTag: (tag: Tag) => void
   setMaxVisibleCards: (maxVisibleCards: number) => void
   setCardSettings: (card: string, settings: CardSettingsType) => void
-  markOnboardingAsCompleted: (occupation: Omit<Occupation, 'icon'> | null) => void
+  setOccupation: (occupation: string | null) => void
+  markOnboardingAsCompleted: () => void
   setUserCustomCards: (cards: SupportedCardType[]) => void
   updateCardOrder: (prevIndex: number, newIndex: number) => void
   setDNDDuration: (value: DNDDuration) => void
@@ -120,12 +122,12 @@ export const useUserPreferences = create(
           label: 'Javascript',
         },
       ],
+      occupation: null,
       layout: 'cards',
       cardsSettings: {},
       maxVisibleCards: 4,
       theme: 'dark',
       onboardingCompleted: false,
-      onboardingResult: null,
       promptEngine: 'chatgpt',
       promptEngines: [],
       listingMode: 'normal',
@@ -159,10 +161,13 @@ export const useUserPreferences = create(
             [card]: { ...state.cardsSettings[card], ...settings },
           },
         })),
-      markOnboardingAsCompleted: (occupation: Omit<Occupation, 'icon'> | null) =>
+      markOnboardingAsCompleted: () =>
         set(() => ({
           onboardingCompleted: true,
-          onboardingResult: occupation,
+        })),
+      setOccupation: (occupation: string | null) =>
+        set(() => ({
+          occupation: occupation,
         })),
       setUserCustomCards: (cards: SupportedCardType[]) => set({ userCustomCards: cards }),
       updateCardOrder: (prevIndex: number, newIndex: number) =>
@@ -210,6 +215,22 @@ export const useUserPreferences = create(
         set((state) => {
           return {
             cards: state.cards.filter((card) => card.name !== cardName),
+          }
+        }),
+      followTag: (tag: Tag) =>
+        set((state) => {
+          const exists = state.userSelectedTags.find((t) => t.value === tag.value)
+          if (exists) {
+            return state // No change if tag already followed
+          }
+          return {
+            userSelectedTags: [...state.userSelectedTags, tag],
+          }
+        }),
+      unfollowTag: (tag: Tag) =>
+        set((state) => {
+          return {
+            userSelectedTags: state.userSelectedTags.filter((t) => t.value !== tag.value),
           }
         }),
     }),

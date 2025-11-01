@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import { DNDLayout } from 'src/components/Layout'
 import {
   identifyAdvBlocked,
@@ -10,7 +10,6 @@ import {
 import { useUserPreferences } from 'src/stores/preferences'
 import { AppContentLayout } from './components/Layout'
 import { verifyAdvStatus } from './features/adv/utils/status'
-import { isWebOrExtensionVersion } from './utils/Environment'
 import { lazyImport } from './utils/lazyImport'
 const { OnboardingModal } = lazyImport(() => import('src/features/onboarding'), 'OnboardingModal')
 
@@ -25,16 +24,8 @@ const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
 }
 
 export const App = () => {
-  const [showOnboarding, setShowOnboarding] = useState(true)
-  const {
-    onboardingCompleted,
-    maxVisibleCards,
-    setAdvStatus,
-    isDNDModeActive,
-    layout,
-    DNDDuration,
-    setDNDDuration,
-  } = useUserPreferences()
+  const { maxVisibleCards, setAdvStatus, isDNDModeActive, layout, DNDDuration, setDNDDuration } =
+    useUserPreferences()
 
   useLayoutEffect(() => {
     document.documentElement.style.setProperty('--max-visible-cards', maxVisibleCards.toString())
@@ -78,10 +69,7 @@ export const App = () => {
 
   return (
     <>
-      {!onboardingCompleted && isWebOrExtensionVersion() === 'extension' && (
-        <OnboardingModal showOnboarding={showOnboarding} setShowOnboarding={setShowOnboarding} />
-      )}
-
+      <OnboardingModal />
       <div
         className={clsx(
           'layoutLayers hideScrollBar',
