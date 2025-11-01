@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IoIosClose } from 'react-icons/io'
 import { Option } from 'src/types'
 import './chipset.css'
@@ -47,6 +47,10 @@ export const ChipsSet = ({
   defaultValues,
 }: ChipsSetProps) => {
   const [selectedChips, setSelectedChips] = useState<string[] | undefined>(defaultValues || [])
+
+  useEffect(() => {
+    setSelectedChips(defaultValues || [])
+  }, [defaultValues])
 
   const onSelect = (option: Option) => {
     if (selectedChips?.some((chipValue) => chipValue === option.value)) {
