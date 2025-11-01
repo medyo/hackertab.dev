@@ -83,8 +83,10 @@ const ConferencesItem = ({ item, index, analyticsTag }: BaseItemPropsType<Confer
               [Attributes.LINK]: item.url,
               [Attributes.SOURCE]: analyticsTag,
             }}>
-            <span className="rowTitleIcon">{conferenceLocation?.icon}</span>
-            {item.title}
+            <div className="subTitle">
+              {differenceInDays < 0 && <span className="blockHeaderBadge past">Ended</span>}{' '}
+              <span className="rowTitleIcon">{conferenceLocation?.icon}</span> {item.title}
+            </div>
           </CardLink>
           {listingMode === 'normal' ? (
             <>
@@ -98,7 +100,7 @@ const ConferencesItem = ({ item, index, analyticsTag }: BaseItemPropsType<Confer
                     ? `In ${differenceInDays} days, ${conferenceDate}`
                     : differenceInDays === 0
                     ? `Ongoing, ${conferenceDate}`
-                    : `${conferenceDate} (ended)`}
+                    : `${conferenceDate}`}
                 </span>
               </div>
               <div className="rowDetails">

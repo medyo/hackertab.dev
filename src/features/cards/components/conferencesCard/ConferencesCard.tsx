@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Card } from 'src/components/Elements'
 import { ListConferenceComponent } from 'src/components/List/ListConferenceComponent'
 import { useUserPreferences } from 'src/stores/preferences'
@@ -10,8 +11,13 @@ export function ConferencesCard(props: CardPropsType) {
   const { meta } = props
   const cardSettings = useUserPreferences((state) => state.cardsSettings?.[meta.value])
   const { userSelectedTags } = useUserPreferences()
+
+  const selectedTag = useMemo(() => {
+    return userSelectedTags.find((lang) => lang.value === cardSettings?.language)
+  }, [userSelectedTags, cardSettings])
+
   const { isLoading, data: results } = useGetConferences({
-    tags: userSelectedTags.map((tag) => tag.value),
+    tags: selectedTag ? [selectedTag.value] : userSelectedTags.map((tag) => tag.value),
   })
 
   const renderItem = (item: Conference, index: number) => (
