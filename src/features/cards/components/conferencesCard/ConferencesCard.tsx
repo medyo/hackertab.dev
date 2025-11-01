@@ -1,42 +1,46 @@
 import { Card } from 'src/components/Elements'
-import { ListComponent } from 'src/components/List'
+import { ListConferenceComponent } from 'src/components/List/ListConferenceComponent'
 import { useUserPreferences } from 'src/stores/preferences'
 import { CardPropsType, Conference } from 'src/types'
-import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement'
 import { useGetConferences } from '../../api/getConferences'
+import { CardSettings } from '../CardSettings'
 import ConferenceItem from './ConferenceItem'
 
 export function ConferencesCard(props: CardPropsType) {
   const { meta } = props
+  const cardSettings = useUserPreferences((state) => state.cardsSettings?.[meta.value])
   const { userSelectedTags } = useUserPreferences()
-
-  const results = useGetConferences({ tags: getCardTagsValue(userSelectedTags, 'confsValues') })
-
-  const isLoading = results.some((result) => result.isLoading)
-
-  const getData = () => {
-    return filterUniqueEntries(
-      results
-        .reduce((acc: Conference[], curr) => {
-          if (!curr.data) return acc
-          return [...acc, ...curr.data]
-        }, [])
-        .sort((a, b) => a.start_date - b.start_date)
-    )
-  }
+  const { isLoading, data: results } = useGetConferences({
+    tags: userSelectedTags.map((tag) => tag.value),
+  })
 
   const renderItem = (item: Conference, index: number) => (
-    <ConferenceItem
-      item={item}
-      key={`cf-${index}`}
-      index={index}
-      analyticsTag={meta.analyticsTag}
-    />
+    <ConferenceItem item={item} key={item.id} index={index} analyticsTag={meta.analyticsTag} />
   )
 
   return (
-    <Card {...props}>
-      <ListComponent items={getData()} isLoading={isLoading} renderItem={renderItem} />
+    <Card
+      {...props}
+      settingsComponent={
+        <CardSettings
+          url={meta.link}
+          id={meta.value}
+          sortBy={cardSettings?.sortBy}
+          language={cardSettings?.language}
+          sortOptions={[
+            {
+              label: 'Upcoming',
+              value: 'start_date',
+            },
+          ]}
+        />
+      }>
+      <ListConferenceComponent
+        sortBy={cardSettings?.sortBy as keyof Conference}
+        items={results}
+        isLoading={isLoading}
+        renderItem={renderItem}
+      />
     </Card>
   )
 }

@@ -3,9 +3,10 @@ import { ListComponent } from 'src/components/List'
 import { FeedItem, useGetFeed } from 'src/features/feed'
 import { useUserPreferences } from 'src/stores/preferences'
 import { CardPropsType, FeedItemData } from 'src/types'
+import { CardSettings } from '../CardSettings'
 
 export function AICard(props: CardPropsType) {
-  const { meta, withAds, knob } = props
+  const { meta } = props
   const { userSelectedTags } = useUserPreferences()
   const {
     data: articles,
@@ -25,7 +26,7 @@ export function AICard(props: CardPropsType) {
   )
 
   return (
-    <Card {...props}>
+    <Card settingsComponent={<CardSettings url={meta.link} id={meta.value} />} {...props}>
       <ListComponent<FeedItemData>
         items={articles?.pages.flatMap((page) => page.data) || []}
         error={error}

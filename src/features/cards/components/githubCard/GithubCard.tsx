@@ -1,55 +1,40 @@
-import { Card, FloatingFilter, InlineTextFilter } from 'src/components/Elements'
-import { ListComponent } from 'src/components/List'
-import { GLOBAL_TAG, MY_LANGUAGES_TAG, dateRanges } from 'src/config'
-import { trackCardDateRangeSelect, trackCardLanguageSelect } from 'src/lib/analytics'
+import { MenuDivider, MenuItem } from '@szhsin/react-menu'
+import { useMemo } from 'react'
+import { VscRepoForked, VscStarFull } from 'react-icons/vsc'
+import { Card, FloatingFilter } from 'src/components/Elements'
+import { ListRepoComponent } from 'src/components/List/ListRepoComponent'
+import { dateRanges } from 'src/config'
 import { useUserPreferences } from 'src/stores/preferences'
 import { CardPropsType, Repository } from 'src/types'
-import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement'
 import { useGetGithubRepos } from '../../api/getGithubRepos'
+import { CardSettings } from '../CardSettings'
 import RepoItem from './RepoItem'
 
+const GLOBAL_TAG = { label: 'Global', value: 'global' }
+
 export function GithubCard(props: CardPropsType) {
-  const { meta, withAds, knob } = props
-  const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
+  const { meta } = props
+  const userSelectedTags = useUserPreferences((state) => state.userSelectedTags)
+  const setCardSettings = useUserPreferences((state) => state.setCardSettings)
+  const cardSettings = useUserPreferences((state) => state.cardsSettings?.[meta.value])
 
-  const selectedTag =
-    [GLOBAL_TAG, MY_LANGUAGES_TAG, ...userSelectedTags].find(
-      (lang) => lang.value === cardsSettings?.[meta.value]?.language
-    ) || GLOBAL_TAG
+  const selectedTag = useMemo(
+    () => userSelectedTags.find((lang) => lang.value === cardSettings?.language) || GLOBAL_TAG,
+    [userSelectedTags, cardSettings]
+  )
 
-  const selectedDateRange =
-    dateRanges.find((date) => date.value === cardsSettings?.[meta.value]?.dateRange) ||
-    dateRanges[0]
+  const selectedDateRange = useMemo(
+    () => dateRanges.find((date) => date.value === cardSettings?.dateRange) || dateRanges[0],
+    [cardSettings]
+  )
 
-  const getQueryTags = () => {
-    if (!selectedTag?.githubValues) {
-      return []
-    }
-
-    if (selectedTag.value === MY_LANGUAGES_TAG.githubValues[0]) {
-      return getCardTagsValue(userSelectedTags, 'githubValues')
-    }
-    return selectedTag.githubValues
-  }
-
-  const results = useGetGithubRepos({
-    tags: getQueryTags(),
+  const { data, error, isLoading } = useGetGithubRepos({
+    tag: selectedTag.value,
     dateRange: selectedDateRange.value,
     config: {
-      enabled: !!selectedTag?.githubValues,
+      enabled: !!selectedTag?.value,
     },
   })
-
-  const getIsLoading = () => results.some((result) => result.isLoading)
-
-  const getData = () => {
-    return filterUniqueEntries(
-      results.reduce((acc: Repository[], curr) => {
-        if (!curr.data) return acc
-        return [...acc, ...curr.data]
-      }, [])
-    )
-  }
 
   const renderItem = (item: Repository, index: number) => (
     <RepoItem
@@ -63,47 +48,61 @@ export function GithubCard(props: CardPropsType) {
 
   const HeaderTitle = () => {
     return (
-      <>
-        <InlineTextFilter
-          options={[GLOBAL_TAG, ...userSelectedTags, MY_LANGUAGES_TAG].map((tag) => ({
-            label: tag.label,
-            value: tag.value,
-          }))}
-          onChange={(item) => {
-            setCardSettings(meta.value, { ...cardsSettings[meta.value], language: item.value })
-            trackCardLanguageSelect(meta.analyticsTag, item.value)
-          }}
-          value={cardsSettings?.[meta.value]?.language}
-        />
-        Repos of
-        <InlineTextFilter
-          options={dateRanges}
-          onChange={(item) => {
-            setCardSettings(meta.value, { ...cardsSettings[meta.value], dateRange: item.value })
-            trackCardDateRangeSelect(meta.analyticsTag, item.value)
-          }}
-          value={cardsSettings?.[meta.value]?.dateRange}
-        />
-      </>
+      <div>
+        Github <span className="blockHeaderHighlight">{selectedTag.label}</span>{' '}
+        <span className="blockHeaderHighlight">{selectedDateRange.label.toLowerCase()}</span>
+      </div>
     )
   }
 
-  const getError = () => {
-    if (!selectedTag?.githubValues) {
-      return `Github Trending does not support ${selectedTag?.label || 'the selected tag'}.`
-    } else if (results.every((result) => result.isError)) {
-      return 'Failed to load Github trending repositories'
-    } else {
-      return undefined
-    }
-  }
   return (
-    <Card fullBlock={true} titleComponent={<HeaderTitle />} {...props}>
+    <Card
+      fullBlock={true}
+      titleComponent={<HeaderTitle />}
+      settingsComponent={
+        <CardSettings
+          url={meta.link}
+          id={meta.value}
+          globalTag={GLOBAL_TAG}
+          sortBy={cardSettings?.sortBy}
+          language={cardSettings?.language || GLOBAL_TAG.value}
+          customStartMenuItems={
+            <>
+              {dateRanges.map((date) => (
+                <MenuItem
+                  className={`menuItem`}
+                  value={date.value}
+                  disabled={selectedDateRange.value === date.value}
+                  onClick={() => {
+                    setCardSettings(meta.value, { ...cardSettings, dateRange: date.value })
+                  }}>
+                  {date.label}
+                </MenuItem>
+              ))}
+              <MenuDivider />
+            </>
+          }
+          sortOptions={[
+            {
+              label: 'Stars',
+              value: 'stars_count',
+              icon: <VscStarFull />,
+            },
+            {
+              label: 'Forks',
+              value: 'forks_count',
+              icon: <VscRepoForked />,
+            },
+          ]}
+        />
+      }
+      {...props}>
       <FloatingFilter card={meta} filters={['datesRange', 'language']} />
-      <ListComponent
-        items={getData()}
-        error={getError()}
-        isLoading={getIsLoading()}
+      <ListRepoComponent
+        sortBy={cardSettings?.sortBy as keyof Repository}
+        items={data}
+        error={error}
+        isLoading={isLoading}
         renderItem={renderItem}
       />
     </Card>

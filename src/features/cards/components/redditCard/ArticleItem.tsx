@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { BiCommentDetail } from 'react-icons/bi'
 import { BsArrowReturnRight } from 'react-icons/bs'
 import { GoDotFill } from 'react-icons/go'
@@ -27,6 +28,16 @@ const PostFlair = ({ text, bgColor, textColor }: PostFlairPropsType) => {
 
 const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) => {
   const { listingMode } = useUserPreferences()
+
+  const subReddit = useMemo(() => {
+    const parts = item.url.split('/')
+    const rIndex = parts.findIndex((part) => part.toLowerCase() === 'r')
+    if (rIndex !== -1 && parts.length > rIndex + 1) {
+      return parts[rIndex + 1]
+    }
+    return null
+  }, [item.url])
+
   return (
     <CardItemWithActions
       source={analyticsTag}
@@ -38,7 +49,7 @@ const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) 
           <CardLink
             link={item.url}
             analyticsAttributes={{
-              [Attributes.POINTS]: item.reactions,
+              [Attributes.POINTS]: item.points_count,
               [Attributes.TRIGERED_FROM]: 'card',
               [Attributes.TITLE]: item.title,
               [Attributes.LINK]: item.url,
@@ -47,7 +58,7 @@ const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) 
             {listingMode === 'compact' && (
               <div className="counterWrapper">
                 <VscTriangleUp />
-                <span className="value">{item.reactions}</span>
+                <span className="value">{item.points_count}</span>
               </div>
             )}
 
@@ -67,17 +78,19 @@ const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) 
             {listingMode === 'normal' && (
               <>
                 <span className="rowItem redditRowItem">
-                  <GoDotFill className="rowItemIcon" /> {item.reactions} points
+                  <GoDotFill className="rowItemIcon" /> {item.points_count} upvotes
                 </span>
                 <span className="rowItem">
                   <MdAccessTime className="rowItemIcon" /> {format(new Date(item.published_at))}
                 </span>
                 <span className="rowItem">
-                  <BiCommentDetail className="rowItemIcon" /> {item.comments} comments
+                  <BiCommentDetail className="rowItemIcon" /> {item.comments_count} comments
                 </span>
-                <span className="rowItem">
-                  <BsArrowReturnRight className="rowItemIcon" /> {`r/${item.subreddit}`}
-                </span>
+                {subReddit && (
+                  <span className="rowItem">
+                    <BsArrowReturnRight className="rowItemIcon" /> {`r/${subReddit}`}
+                  </span>
+                )}
               </>
             )}
           </div>

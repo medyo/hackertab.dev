@@ -131,14 +131,7 @@ export const DesktopCards = ({
           items={memoCards.map(({ id }) => id)}
           strategy={horizontalListSortingStrategy}>
           {memoCards.map(({ id, card }, index) => {
-            return (
-              <SortableItem
-                key={id}
-                id={id}
-                card={card}
-                withAds={index === adsConfig.columnPosition}
-              />
-            )
+            return <SortableItem key={id} id={id} card={card} withAds={index === 0} />
           })}
         </SortableContext>
       </DndContext>

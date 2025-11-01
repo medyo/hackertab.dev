@@ -1,7 +1,8 @@
 import { Card } from 'src/components/Elements'
-import { ListComponent } from 'src/components/List'
+import { ListPostComponent } from 'src/components/List/ListPostComponent'
 import { Article, CardPropsType } from 'src/types'
 import { useRssFeed } from '../../api/getRssFeed'
+import { CardSettings } from '../CardSettings'
 import ArticleItem from './ArticleItem'
 import CardIcon from './CardIcon'
 
@@ -25,8 +26,16 @@ export function CustomRssCard(props: CardPropsType) {
     <Card
       titleComponent={<HeaderTitle />}
       {...props}
-      meta={{ ...meta, icon: <CardIcon url={meta.icon as string} /> }}>
-      <ListComponent items={data} isLoading={isLoading} renderItem={renderItem} />
+      meta={{ ...meta, icon: <CardIcon url={meta.icon as string} /> }}
+      settingsComponent={
+        <CardSettings
+          url={meta.link}
+          id={meta.value}
+          showDateRangeFilter={false}
+          showLanguageFilter={false}
+        />
+      }>
+      <ListPostComponent items={data} isLoading={isLoading} renderItem={renderItem} />
     </Card>
   )
 }

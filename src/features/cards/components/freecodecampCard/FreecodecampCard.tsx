@@ -1,46 +1,28 @@
-import { Card, FloatingFilter, InlineTextFilter } from 'src/components/Elements'
-import { ListComponent } from 'src/components/List'
-import { GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/config'
-import { trackCardLanguageSelect } from 'src/lib/analytics'
+import { useMemo } from 'react'
+import { Card, FloatingFilter } from 'src/components/Elements'
+import { ListPostComponent } from 'src/components/List/ListPostComponent'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Article, CardPropsType } from 'src/types'
-import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement'
-import { useGetFreeCodeCampArticles } from '../../api/getFreeCodeCampArticles'
+import { useGetSourceArticles } from '../../api/getSourceArticles'
+import { CardSettings } from '../CardSettings'
 import ArticleItem from './ArticleItem'
+
+const GLOBAL_TAG = { label: 'Global', value: 'programming' }
 
 export function FreecodecampCard(props: CardPropsType) {
   const { meta } = props
-  const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
-  const selectedTag =
-    [GLOBAL_TAG, MY_LANGUAGES_TAG, ...userSelectedTags].find(
-      (lang) => lang.value === cardsSettings?.[meta.value]?.language
-    ) || GLOBAL_TAG
+  const { userSelectedTags } = useUserPreferences()
+  const cardSettings = useUserPreferences((state) => state.cardsSettings?.[meta.value])
 
-  const getQueryTags = () => {
-    if (!selectedTag) {
-      return []
-    }
+  const selectedTag = useMemo(
+    () => userSelectedTags.find((lang) => lang.value === cardSettings?.language) || GLOBAL_TAG,
+    [userSelectedTags, cardSettings]
+  )
 
-    if (selectedTag.value === MY_LANGUAGES_TAG.freecodecampValues[0]) {
-      return getCardTagsValue(userSelectedTags, 'freecodecampValues')
-    }
-    return selectedTag.freecodecampValues
-  }
-
-  const results = useGetFreeCodeCampArticles({ tags: getQueryTags() })
-
-  const getIsLoading = () => results.some((result) => result.isLoading)
-
-  const getData = () => {
-    return filterUniqueEntries(
-      results
-        .reduce((acc: Article[], curr) => {
-          if (!curr.data) return acc
-          return [...acc, ...curr.data]
-        }, [])
-        .sort((a, b) => b.published_at - a.published_at)
-    )
-  }
+  const { data, isLoading } = useGetSourceArticles({
+    source: 'freecodecamp',
+    tags: [selectedTag.value],
+  })
 
   const renderItem = (item: Article, index: number) => (
     <ArticleItem
@@ -56,25 +38,32 @@ export function FreecodecampCard(props: CardPropsType) {
     return (
       <>
         {meta.label}
-        <InlineTextFilter
-          options={[GLOBAL_TAG, ...userSelectedTags, MY_LANGUAGES_TAG].map((tag) => ({
-            label: tag.label,
-            value: tag.value,
-          }))}
-          onChange={(item) => {
-            setCardSettings(meta.value, { ...cardsSettings[meta.value], language: item.value })
-            trackCardLanguageSelect(meta.analyticsTag, item.value)
-          }}
-          value={cardsSettings?.[meta.value]?.language}
-        />
+        <span className="blockHeaderHighlight">{selectedTag.label}</span>
       </>
     )
   }
 
   return (
-    <Card titleComponent={<HeaderTitle />} {...props}>
+    <Card
+      titleComponent={<HeaderTitle />}
+      settingsComponent={
+        <CardSettings
+          url={meta.link}
+          id={meta.value}
+          globalTag={GLOBAL_TAG}
+          sortBy={cardSettings?.sortBy}
+          language={cardSettings?.language || GLOBAL_TAG.value}
+          showDateRangeFilter={false}
+        />
+      }
+      {...props}>
       <FloatingFilter card={meta} filters={['language']} />
-      <ListComponent items={getData()} isLoading={getIsLoading()} renderItem={renderItem} />
+      <ListPostComponent
+        sortBy={cardSettings?.sortBy as keyof Article}
+        items={data}
+        isLoading={isLoading}
+        renderItem={renderItem}
+      />
     </Card>
   )
 }

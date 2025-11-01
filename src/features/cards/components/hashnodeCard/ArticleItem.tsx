@@ -1,11 +1,11 @@
 import { BiCommentDetail } from 'react-icons/bi'
-import { CardLink, CardItemWithActions } from 'src/components/Elements'
+import { CardItemWithActions, CardLink } from 'src/components/Elements'
 
-import { BaseItemPropsType, Article } from 'src/types'
-import { format } from 'timeago.js'
 import { MdAccessTime } from 'react-icons/md'
 import { ColoredLanguagesBadge } from 'src/components/Elements'
 import { useUserPreferences } from 'src/stores/preferences'
+import { Article, BaseItemPropsType } from 'src/types'
+import { format } from 'timeago.js'
 
 import { AiTwotoneHeart } from 'react-icons/ai'
 import { Attributes } from 'src/lib/analytics'
@@ -25,7 +25,7 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
           <CardLink
             link={item.url}
             analyticsAttributes={{
-              [Attributes.POINTS]: item.reactions,
+              [Attributes.POINTS]: item.points_count,
               [Attributes.TRIGERED_FROM]: 'card',
               [Attributes.TITLE]: item.title,
               [Attributes.LINK]: item.url,
@@ -35,7 +35,7 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
             {listingMode === 'compact' && (
               <div className="counterWrapper">
                 <AiTwotoneHeart />
-                <span className="value">{item.reactions || 0}</span>
+                <span className="value">{item.points_count || 0}</span>
               </div>
             )}
             <div className="subTitle">{item.title}</div>
@@ -50,11 +50,11 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
                 </span>
                 <span className="rowItem">
                   <BiCommentDetail className={'rowTitleIcon'} />
-                  {item.comments || 0} comments
+                  {item.comments_count || 0} comments
                 </span>
                 <span className="rowItem">
                   <AiTwotoneHeart className={'rowTitleIcon'} />
-                  {item.reactions || 0} reactions
+                  {item.points_count || 0} reactions
                 </span>
               </p>
               <p className="rowDetails">

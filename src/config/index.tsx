@@ -23,11 +23,6 @@ export const twitterHandle = '@hackertabdev'
 export const reportLink = 'https://www.hackertab.dev/report'
 
 export const LS_PREFERENCES_KEY = 'hackerTabPrefs'
-export const GLOBAL_TAG = {
-  value: '',
-  label: 'Trending',
-}
-
 export const MAX_ITEMS_PER_CARD = 50
 
 export type DateRangeType = {

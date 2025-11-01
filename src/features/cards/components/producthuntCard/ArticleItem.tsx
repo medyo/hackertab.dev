@@ -1,9 +1,9 @@
 import { BiCommentDetail } from 'react-icons/bi'
 import { VscTriangleUp } from 'react-icons/vsc'
-import { CardLink, CardItemWithActions } from 'src/components/Elements'
+import { CardItemWithActions, CardLink } from 'src/components/Elements'
 import { Attributes } from 'src/lib/analytics'
-import { BaseItemPropsType, Article } from 'src/types'
 import { useUserPreferences } from 'src/stores/preferences'
+import { Article, BaseItemPropsType } from 'src/types'
 
 const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) => {
   const { listingMode } = useUserPreferences()
@@ -22,7 +22,7 @@ const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) 
               link={item.url}
               appendRef={false}
               analyticsAttributes={{
-                [Attributes.POINTS]: item.reactions,
+                [Attributes.POINTS]: item.votes_count,
                 [Attributes.TRIGERED_FROM]: 'card',
                 [Attributes.TITLE]: item.title,
                 [Attributes.LINK]: item.url,
@@ -30,12 +30,12 @@ const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) 
               }}>
               {item.title}
             </CardLink>
-            <p className="rowDescription">{item.description}</p>
+            <p className="rowDescription">{item.tagline}</p>
 
             {listingMode === 'normal' && (
               <p className="rowDetails">
                 <span className="rowItem">
-                  <BiCommentDetail className="rowItemIcon" /> {item.comments || 0} comments
+                  <BiCommentDetail className="rowItemIcon" /> {item.comments_count || 0} comments
                 </span>
                 {item.tags && item.tags.length > 0 ? (
                   <span className="rowItem">{item.tags[0]}</span>
@@ -45,7 +45,7 @@ const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) 
           </div>
           <div className="phVote">
             <VscTriangleUp className="rowItemIcon" />
-            <span className="phVotesCount">{item.reactions}</span>
+            <span className="phVotesCount">{item.votes_count}</span>
           </div>
         </div>
       }

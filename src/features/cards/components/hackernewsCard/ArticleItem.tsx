@@ -24,7 +24,7 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
             <CardLink
               link={item.url}
               analyticsAttributes={{
-                [Attributes.POINTS]: item.reactions,
+                [Attributes.POINTS]: item.points_count,
                 [Attributes.TRIGERED_FROM]: 'card',
                 [Attributes.TITLE]: item.title,
                 [Attributes.LINK]: item.url,
@@ -33,7 +33,7 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
               {listingMode === 'compact' && (
                 <span className="counterWrapper">
                   <VscTriangleUp />
-                  <span className="value">{item.reactions}</span>
+                  <span className="value">{item.points_count}</span>
                 </span>
               )}
 
@@ -43,7 +43,7 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
           {listingMode === 'normal' && (
             <div className="rowDetails">
               <span className="rowItem hnRowItem">
-                <GoDotFill className="rowItemIcon" /> {item.reactions} points
+                <GoDotFill className="rowItemIcon" /> {item.points_count} points
               </span>
               <span className="rowItem" title={new Date(item.published_at).toUTCString()}>
                 <MdAccessTime className="rowItemIcon" /> {format(new Date(item.published_at))}
@@ -52,13 +52,13 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
                 link={`https://news.ycombinator.com/item?id=${item.id}`}
                 className="rowItem rowItemClickable"
                 analyticsAttributes={{
-                  [Attributes.POINTS]: item.reactions,
+                  [Attributes.POINTS]: item.comments_count,
                   [Attributes.TRIGERED_FROM]: 'card',
                   [Attributes.TITLE]: `${item.title} comments`,
                   [Attributes.LINK]: `https://news.ycombinator.com/item?id=${item.id}`,
                   [Attributes.SOURCE]: analyticsTag,
                 }}>
-                <BiCommentDetail className="rowItemIcon" /> {item.comments} comments
+                <BiCommentDetail className="rowItemIcon" /> {item.comments_count} comments
               </ClickableItem>
             </div>
           )}
