@@ -16,7 +16,19 @@
   width: 100%;
   margin: 0 0 20px 0;
 }
-
+.authModal .relative {
+  position: relative;
+}
+.authModal .lastFlag {
+  position: absolute;
+  right: -6px;
+  top: -6px;
+  background: var(--tooltip-accent-color);
+  font-size: 0.7em;
+  color: white;
+  border-radius: 12px;
+  padding: 0 4px;
+}
 .authModal .description {
   padding: 20px;
   text-align: center;
