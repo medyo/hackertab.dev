@@ -1,19 +1,17 @@
 import { useEffect } from 'react'
 import ReactModal from 'react-modal'
 import { trackOnboardingStart } from 'src/lib/analytics'
-import { useUserPreferences } from 'src/stores/preferences'
 import { HelloTab } from './steps/HelloTab'
 import './steps/tabs.css'
 
 export const OnboardingModal = () => {
-  const { onboardingCompleted } = useUserPreferences()
-
   useEffect(() => {
     trackOnboardingStart()
   }, [])
+
   return (
     <ReactModal
-      isOpen={!onboardingCompleted}
+      isOpen={true}
       ariaHideApp={false}
       shouldCloseOnEsc={false}
       shouldCloseOnOverlayClick={false}

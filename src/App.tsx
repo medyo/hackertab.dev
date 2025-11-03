@@ -24,8 +24,15 @@ const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
 }
 
 export const App = () => {
-  const { maxVisibleCards, setAdvStatus, isDNDModeActive, layout, DNDDuration, setDNDDuration } =
-    useUserPreferences()
+  const {
+    maxVisibleCards,
+    onboardingCompleted,
+    setAdvStatus,
+    isDNDModeActive,
+    layout,
+    DNDDuration,
+    setDNDDuration,
+  } = useUserPreferences()
 
   useLayoutEffect(() => {
     document.documentElement.style.setProperty('--max-visible-cards', maxVisibleCards.toString())
@@ -69,7 +76,7 @@ export const App = () => {
 
   return (
     <>
-      <OnboardingModal />
+      {!onboardingCompleted && <OnboardingModal />}
       <div
         className={clsx(
           'layoutLayers hideScrollBar',
