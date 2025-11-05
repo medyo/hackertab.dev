@@ -6,6 +6,14 @@ import { CardSettings } from '../CardSettings'
 import ArticleItem from './ArticleItem'
 import CardIcon from './CardIcon'
 
+const HeaderTitle = ({ title }: { title: string }) => {
+  return (
+    <>
+      <p className="maxTitle"> {title} </p>
+    </>
+  )
+}
+
 export function CustomRssCard(props: CardPropsType) {
   const { meta } = props
   const { data = [], isLoading } = useRssFeed({ feedUrl: meta.feedUrl || '' })
@@ -14,17 +22,9 @@ export function CustomRssCard(props: CardPropsType) {
     <ArticleItem item={item} key={`rcc-${index}`} index={index} analyticsTag={meta.analyticsTag} />
   )
 
-  const HeaderTitle = () => {
-    return (
-      <>
-        <p className="maxTitle"> {meta.label} </p>
-      </>
-    )
-  }
-
   return (
     <Card
-      titleComponent={<HeaderTitle />}
+      titleComponent={<HeaderTitle title={meta.label} />}
       {...props}
       meta={{ ...meta, icon: <CardIcon url={meta.icon as string} /> }}
       settingsComponent={

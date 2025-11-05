@@ -7,6 +7,8 @@ import { dateRanges } from 'src/config'
 import { useUserPreferences } from 'src/stores/preferences'
 import { CardPropsType, Repository } from 'src/types'
 import { useGetGithubRepos } from '../../api/getGithubRepos'
+import { useSelectedTags } from '../../hooks/useSelectedTags'
+import { CardHeader } from '../CardHeader'
 import { CardSettings } from '../CardSettings'
 import RepoItem from './RepoItem'
 
@@ -14,14 +16,12 @@ const GLOBAL_TAG = { label: 'Global', value: 'global' }
 
 export function GithubCard(props: CardPropsType) {
   const { meta } = props
-  const userSelectedTags = useUserPreferences((state) => state.userSelectedTags)
-  const setCardSettings = useUserPreferences((state) => state.setCardSettings)
-  const cardSettings = useUserPreferences((state) => state.cardsSettings?.[meta.value])
 
-  const selectedTag = useMemo(
-    () => userSelectedTags.find((lang) => lang.value === cardSettings?.language) || GLOBAL_TAG,
-    [userSelectedTags, cardSettings]
-  )
+  const setCardSettings = useUserPreferences((state) => state.setCardSettings)
+  const { queryTags, selectedTag, cardSettings } = useSelectedTags({
+    source: meta.value,
+    fallbackTag: GLOBAL_TAG,
+  })
 
   const selectedDateRange = useMemo(
     () => dateRanges.find((date) => date.value === cardSettings?.dateRange) || dateRanges[0],
@@ -29,11 +29,8 @@ export function GithubCard(props: CardPropsType) {
   )
 
   const { data, error, isLoading } = useGetGithubRepos({
-    tag: selectedTag.value,
+    tags: queryTags.map((tag) => tag.value),
     dateRange: selectedDateRange.value,
-    config: {
-      enabled: !!selectedTag?.value,
-    },
   })
 
   const renderItem = (item: Repository, index: number) => (
@@ -46,19 +43,17 @@ export function GithubCard(props: CardPropsType) {
     />
   )
 
-  const HeaderTitle = () => {
-    return (
-      <div>
-        Github <span className="blockHeaderHighlight">{selectedTag.label}</span>{' '}
-        <span className="blockHeaderHighlight">{selectedDateRange.label.toLowerCase()}</span>
-      </div>
-    )
-  }
-
   return (
     <Card
       fullBlock={true}
-      titleComponent={<HeaderTitle />}
+      titleComponent={
+        <CardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag}>
+          <div>
+            Github <span className="blockHeaderHighlight">{selectedTag.label}</span>{' '}
+            <span className="blockHeaderHighlight">{selectedDateRange.label.toLowerCase()}</span>
+          </div>
+        </CardHeader>
+      }
       settingsComponent={
         <CardSettings
           url={meta.link}

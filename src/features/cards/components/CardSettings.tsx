@@ -8,6 +8,7 @@ import { LiaSortSolid } from 'react-icons/lia'
 import { MdDateRange } from 'react-icons/md'
 import { ref } from 'src/config'
 import { useUserPreferences } from 'src/stores/preferences'
+import { MY_LANGUAGES_OPTION } from '../config'
 
 type SortOption = { label: string; value: string; icon?: React.ReactNode }
 
@@ -24,7 +25,6 @@ type CardSettingsProps = {
 }
 
 const DEFAULT_SORT_OPTIONS = [{ label: 'Newest', value: 'published_at', icon: <MdDateRange /> }]
-
 export const CardSettings = ({
   id,
   url,
@@ -44,10 +44,13 @@ export const CardSettings = ({
 
   const userTagsMemo = useMemo(() => {
     const newTags = userSelectedTags.sort((a, b) => a.label.localeCompare(b.label))
+    let tags = [...newTags]
     if (globalTag) {
-      return [globalTag, ...newTags]
+      tags = [globalTag, ...tags]
     }
-    return newTags
+
+    tags = [MY_LANGUAGES_OPTION, ...tags]
+    return tags
   }, [userSelectedTags, globalTag])
 
   const resolvedSortOptions =
@@ -78,17 +81,20 @@ export const CardSettings = ({
             </span>
           }>
           {userTagsMemo.map((tag) => (
-            <MenuItem
-              className={`menuItem`}
-              type="radio"
-              value={tag.value}
-              key={tag.value}
-              disabled={language === tag.value}
-              onClick={() => {
-                setCardSettings(id, { ...cardSettings, language: tag.value })
-              }}>
-              {tag.label}
-            </MenuItem>
+            <>
+              <MenuItem
+                className={`menuItem`}
+                type="radio"
+                value={tag.value}
+                key={tag.value}
+                disabled={language === tag.value}
+                onClick={() => {
+                  setCardSettings(id, { ...cardSettings, language: tag.value })
+                }}>
+                {tag.label}
+              </MenuItem>
+              {tag.label.toLowerCase() === 'global' && <MenuDivider />}
+            </>
           ))}
         </SubMenu>
       )}

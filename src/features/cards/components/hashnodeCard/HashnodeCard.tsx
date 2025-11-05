@@ -2,9 +2,10 @@ import { AiTwotoneHeart } from 'react-icons/ai'
 import { BiCommentDetail } from 'react-icons/bi'
 import { Card, FloatingFilter } from 'src/components/Elements'
 import { ListPostComponent } from 'src/components/List/ListPostComponent'
-import { useUserPreferences } from 'src/stores/preferences'
 import { Article, CardPropsType } from 'src/types'
 import { useGetSourceArticles } from '../../api/getSourceArticles'
+import { useSelectedTags } from '../../hooks/useSelectedTags'
+import { CardHeader } from '../CardHeader'
 import { CardSettings } from '../CardSettings'
 import ArticleItem from './ArticleItem'
 
@@ -12,14 +13,13 @@ const GLOBAL_TAG = { label: 'Global', value: 'programming' }
 
 export function HashnodeCard(props: CardPropsType) {
   const { meta } = props
-  const cardSettings = useUserPreferences((state) => state.cardsSettings?.[meta.value])
-  const { userSelectedTags } = useUserPreferences()
-  const selectedTag =
-    userSelectedTags.find((lang) => lang.value === cardSettings?.language) || GLOBAL_TAG
-
+  const { queryTags, selectedTag, cardSettings } = useSelectedTags({
+    source: meta.value,
+    fallbackTag: GLOBAL_TAG,
+  })
   const { data, isLoading } = useGetSourceArticles({
     source: 'hashnode',
-    tags: [selectedTag.value],
+    tags: queryTags.map((tag) => tag.value),
   })
 
   const renderItem = (item: Article, index: number) => (
@@ -32,20 +32,11 @@ export function HashnodeCard(props: CardPropsType) {
     />
   )
 
-  const HeaderTitle = () => {
-    return (
-      <>
-        {meta.label}
-        {selectedTag.value != GLOBAL_TAG.value && (
-          <span className="blockHeaderHighlight">{selectedTag.label}</span>
-        )}
-      </>
-    )
-  }
-
   return (
     <Card
-      titleComponent={<HeaderTitle />}
+      titleComponent={
+        <CardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag} />
+      }
       settingsComponent={
         <CardSettings
           url={meta.link}

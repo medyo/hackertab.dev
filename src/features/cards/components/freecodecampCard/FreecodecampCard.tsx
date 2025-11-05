@@ -1,9 +1,9 @@
-import { useMemo } from 'react'
 import { Card, FloatingFilter } from 'src/components/Elements'
 import { ListPostComponent } from 'src/components/List/ListPostComponent'
-import { useUserPreferences } from 'src/stores/preferences'
 import { Article, CardPropsType } from 'src/types'
 import { useGetSourceArticles } from '../../api/getSourceArticles'
+import { useSelectedTags } from '../../hooks/useSelectedTags'
+import { CardHeader } from '../CardHeader'
 import { CardSettings } from '../CardSettings'
 import ArticleItem from './ArticleItem'
 
@@ -11,41 +11,25 @@ const GLOBAL_TAG = { label: 'Global', value: 'programming' }
 
 export function FreecodecampCard(props: CardPropsType) {
   const { meta } = props
-  const { userSelectedTags } = useUserPreferences()
-  const cardSettings = useUserPreferences((state) => state.cardsSettings?.[meta.value])
-
-  const selectedTag = useMemo(
-    () => userSelectedTags.find((lang) => lang.value === cardSettings?.language) || GLOBAL_TAG,
-    [userSelectedTags, cardSettings]
-  )
+  const { queryTags, selectedTag, cardSettings } = useSelectedTags({
+    source: meta.value,
+    fallbackTag: GLOBAL_TAG,
+  })
 
   const { data, isLoading } = useGetSourceArticles({
     source: 'freecodecamp',
-    tags: [selectedTag.value],
+    tags: queryTags.map((tag) => tag.value),
   })
 
   const renderItem = (item: Article, index: number) => (
-    <ArticleItem
-      item={item}
-      key={`fcc-${index}`}
-      index={index}
-      selectedTag={selectedTag}
-      analyticsTag={meta.analyticsTag}
-    />
+    <ArticleItem item={item} key={`fcc-${index}`} index={index} analyticsTag={meta.analyticsTag} />
   )
-
-  const HeaderTitle = () => {
-    return (
-      <>
-        {meta.label}
-        <span className="blockHeaderHighlight">{selectedTag.label}</span>
-      </>
-    )
-  }
 
   return (
     <Card
-      titleComponent={<HeaderTitle />}
+      titleComponent={
+        <CardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag} />
+      }
       settingsComponent={
         <CardSettings
           url={meta.link}

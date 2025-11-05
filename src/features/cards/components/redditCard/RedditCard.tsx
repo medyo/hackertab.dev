@@ -1,11 +1,11 @@
-import { useMemo } from 'react'
 import { VscTriangleUp } from 'react-icons/vsc'
 import { Card, FloatingFilter } from 'src/components/Elements'
 import { ListPostComponent } from 'src/components/List/ListPostComponent'
 
-import { useUserPreferences } from 'src/stores/preferences'
 import { Article, CardPropsType } from 'src/types'
 import { useGetSourceArticles } from '../../api/getSourceArticles'
+import { useSelectedTags } from '../../hooks/useSelectedTags'
+import { CardHeader } from '../CardHeader'
 import { CardSettings } from '../CardSettings'
 import ArticleItem from './ArticleItem'
 
@@ -13,16 +13,13 @@ const GLOBAL_TAG = { label: 'Global', value: 'global' }
 
 export function RedditCard(props: CardPropsType) {
   const { meta } = props
-  const cardSettings = useUserPreferences((state) => state.cardsSettings[meta.value])
-  const { userSelectedTags } = useUserPreferences()
-  const selectedTag = useMemo(
-    () => userSelectedTags.find((lang) => lang.value === cardSettings?.language) || GLOBAL_TAG,
-    [userSelectedTags, cardSettings]
-  )
-
+  const { queryTags, selectedTag, cardSettings } = useSelectedTags({
+    source: meta.value,
+    fallbackTag: GLOBAL_TAG,
+  })
   const { isLoading, data: results } = useGetSourceArticles({
     source: 'reddit',
-    tags: [selectedTag.value],
+    tags: queryTags.map((tag) => tag.value),
   })
 
   const renderItem = (item: Article, index: number) => (
@@ -35,20 +32,11 @@ export function RedditCard(props: CardPropsType) {
     />
   )
 
-  const HeaderTitle = () => {
-    return (
-      <div>
-        Reddit{' '}
-        {selectedTag.value != GLOBAL_TAG.value && (
-          <span className="blockHeaderHighlight">{selectedTag.label}</span>
-        )}
-      </div>
-    )
-  }
-
   return (
     <Card
-      titleComponent={<HeaderTitle />}
+      titleComponent={
+        <CardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag} />
+      }
       {...props}
       settingsComponent={
         <CardSettings
