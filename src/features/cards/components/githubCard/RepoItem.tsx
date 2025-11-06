@@ -10,14 +10,12 @@ function numberWithCommas(x: number | string) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
-const RepoItem = ({ item, index, selectedTag, analyticsTag }: BaseItemPropsType<Repository>) => {
+const RepoItem = ({ item, selectedTag, analyticsTag }: BaseItemPropsType<Repository>) => {
   const { listingMode } = useUserPreferences()
 
   return (
     <CardItemWithActions
       source={analyticsTag}
-      key={index}
-      index={index}
       item={item}
       cardItem={
         <>

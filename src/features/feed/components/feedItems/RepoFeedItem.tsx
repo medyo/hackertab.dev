@@ -11,16 +11,14 @@ function numberWithCommas(x: number | string) {
 }
 
 export const RepoFeedItem = (props: BaseItemPropsType<GithubFeedItemData>) => {
-  const { item, index, analyticsTag, className } = props
+  const { item, analyticsTag, className } = props
   const { listingMode } = useUserPreferences()
 
   return (
     <div className={className}>
       <CardItemWithActions
         source={analyticsTag}
-        index={index}
         item={item}
-        key={index}
         cardItem={
           <>
             <FeedItemHeader

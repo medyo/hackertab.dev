@@ -7,16 +7,14 @@ import { FeedItemHeader } from '../FeedItemHeader'
 import { FeedItemSource } from '../FeedItemSource'
 
 export const ArticleFeedItem = (props: BaseItemPropsType<ArticleFeedItemData>) => {
-  const { item, index, analyticsTag, className } = props
+  const { item, analyticsTag, className } = props
   const { listingMode } = useUserPreferences()
 
   return (
     <div className={className}>
       <CardItemWithActions
         source={analyticsTag}
-        index={index}
         item={item}
-        key={index}
         cardItem={
           <>
             <FeedItemHeader {...item} />

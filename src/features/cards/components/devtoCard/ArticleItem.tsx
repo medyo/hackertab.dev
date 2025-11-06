@@ -8,14 +8,12 @@ import { Article, BaseItemPropsType } from 'src/types'
 import { format } from 'timeago.js'
 
 const ArticleItem = (props: BaseItemPropsType<Article>) => {
-  const { item, index, selectedTag, analyticsTag } = props
+  const { item, analyticsTag } = props
   const { listingMode } = useUserPreferences()
 
   return (
     <CardItemWithActions
       source={analyticsTag}
-      index={index}
-      key={index}
       item={item}
       cardItem={
         <>
@@ -27,7 +25,6 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
               [Attributes.TITLE]: item.title,
               [Attributes.LINK]: item.url,
               [Attributes.SOURCE]: analyticsTag,
-              [Attributes.LANGUAGE]: selectedTag?.value,
             }}>
             {listingMode === 'compact' && (
               <div className="counterWrapper">

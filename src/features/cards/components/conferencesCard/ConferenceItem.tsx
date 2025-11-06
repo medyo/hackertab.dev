@@ -7,7 +7,7 @@ import { Attributes } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { BaseItemPropsType, Conference } from 'src/types'
 
-const ConferencesItem = ({ item, index, analyticsTag }: BaseItemPropsType<Conference>) => {
+const ConferencesItem = ({ item, analyticsTag }: BaseItemPropsType<Conference>) => {
   const { listingMode } = useUserPreferences()
 
   const conferenceLocation = useMemo(() => {
@@ -70,8 +70,6 @@ const ConferencesItem = ({ item, index, analyticsTag }: BaseItemPropsType<Confer
   return (
     <CardItemWithActions
       source={analyticsTag}
-      index={index}
-      key={index}
       item={item}
       cardItem={
         <>

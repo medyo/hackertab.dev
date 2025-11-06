@@ -11,14 +11,12 @@ import { AiTwotoneHeart } from 'react-icons/ai'
 import { Attributes } from 'src/lib/analytics'
 
 const ArticleItem = (props: BaseItemPropsType<Article>) => {
-  const { item, index, selectedTag, analyticsTag } = props
+  const { item, selectedTag, analyticsTag } = props
   const { listingMode } = useUserPreferences()
 
   return (
     <CardItemWithActions
       source={analyticsTag}
-      index={index}
-      key={index}
       item={item}
       cardItem={
         <>

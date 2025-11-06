@@ -1,17 +1,14 @@
-import { CardLink, CardItemWithActions } from 'src/components/Elements'
-import { Attributes } from 'src/lib/analytics'
-import { BaseItemPropsType, Article } from 'src/types'
-import { format } from 'timeago.js'
 import { MdAccessTime } from 'react-icons/md'
-import { ColoredLanguagesBadge } from 'src/components/Elements'
+import { CardItemWithActions, CardLink, ColoredLanguagesBadge } from 'src/components/Elements'
+import { Attributes } from 'src/lib/analytics'
+import { Article, BaseItemPropsType } from 'src/types'
+import { format } from 'timeago.js'
 
 const ArticleItem = (props: BaseItemPropsType<Article>) => {
-  const { item, index, selectedTag, analyticsTag } = props
+  const { item, selectedTag, analyticsTag } = props
   return (
     <CardItemWithActions
       source={analyticsTag}
-      index={index}
-      key={index}
       item={item}
       cardItem={
         <>

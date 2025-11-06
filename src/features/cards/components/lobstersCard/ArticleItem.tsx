@@ -8,15 +8,13 @@ import { useUserPreferences } from 'src/stores/preferences'
 import { Article, BaseItemPropsType } from 'src/types'
 import { format } from 'timeago.js'
 
-const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) => {
+const ArticleItem = ({ item, analyticsTag }: BaseItemPropsType<Article>) => {
   const { listingMode } = useUserPreferences()
 
   return (
     <CardItemWithActions
       source={analyticsTag}
-      index={index}
       item={item}
-      key={index}
       cardItem={
         <>
           <p className="rowTitle">

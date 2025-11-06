@@ -26,7 +26,7 @@ const PostFlair = ({ text, bgColor, textColor }: PostFlairPropsType) => {
   )
 }
 
-const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) => {
+const ArticleItem = ({ item, analyticsTag }: BaseItemPropsType<Article>) => {
   const { listingMode } = useUserPreferences()
 
   const subReddit = useMemo(() => {
@@ -41,8 +41,6 @@ const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) 
   return (
     <CardItemWithActions
       source={analyticsTag}
-      index={index}
-      key={index}
       item={item}
       cardItem={
         <>

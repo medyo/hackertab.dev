@@ -9,13 +9,12 @@ import { Article, BaseItemPropsType } from 'src/types'
 import { format } from 'timeago.js'
 
 export const ArticleItem = (props: BaseItemPropsType<Article>) => {
-  const { item, index, analyticsTag } = props
+  const { item, analyticsTag } = props
   const { listingMode } = useUserPreferences()
 
   return (
     <CardItemWithActions
       source={analyticsTag}
-      index={index}
       item={item}
       key={item.id}
       cardItem={
