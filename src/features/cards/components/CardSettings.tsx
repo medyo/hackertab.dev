@@ -25,6 +25,8 @@ type CardSettingsProps = {
 }
 
 const DEFAULT_SORT_OPTIONS = [{ label: 'Newest', value: 'published_at', icon: <MdDateRange /> }]
+const SPECIAL_LABELS = ['global', MY_LANGUAGES_OPTION.label.toLowerCase()]
+
 export const CardSettings = ({
   id,
   url,
@@ -46,10 +48,10 @@ export const CardSettings = ({
     const newTags = userSelectedTags.sort((a, b) => a.label.localeCompare(b.label))
     let tags = [...newTags]
     if (globalTag) {
-      tags = [globalTag, ...tags]
+      tags = [...tags, globalTag]
     }
 
-    tags = [MY_LANGUAGES_OPTION, ...tags]
+    tags = [...tags, MY_LANGUAGES_OPTION]
     return tags
   }, [userSelectedTags, globalTag])
 
@@ -62,6 +64,11 @@ export const CardSettings = ({
     let link = `${url}?${ref}`
     window.open(link, openLinksNewTab ? '_blank' : '_self')
   }, [url, openLinksNewTab])
+
+  const firstSpecialIndex = useMemo(
+    () => userTagsMemo.findIndex((tag) => SPECIAL_LABELS.includes(tag.label.toLowerCase())),
+    [userTagsMemo]
+  )
 
   return (
     <Menu
@@ -80,8 +87,9 @@ export const CardSettings = ({
               <AiOutlineCode /> Language
             </span>
           }>
-          {userTagsMemo.map((tag) => (
+          {userTagsMemo.map((tag, i) => (
             <>
+              {i === firstSpecialIndex && <MenuDivider />}
               <MenuItem
                 className={`menuItem`}
                 type="radio"
@@ -93,7 +101,6 @@ export const CardSettings = ({
                 }}>
                 {tag.label}
               </MenuItem>
-              {tag.label.toLowerCase() === 'global' && <MenuDivider />}
             </>
           ))}
         </SubMenu>
