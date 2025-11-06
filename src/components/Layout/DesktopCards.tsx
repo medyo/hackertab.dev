@@ -19,7 +19,6 @@ import { clsx } from 'clsx'
 import { MdOutlineDragIndicator } from 'react-icons/md'
 import { SUPPORTED_CARDS } from 'src/config/supportedCards'
 import { CustomRssCard } from 'src/features/cards'
-import { useRemoteConfigStore } from 'src/features/remoteConfig'
 import { trackPageDrag } from 'src/lib/analytics'
 import { DesktopBreakpoint } from 'src/providers/DesktopBreakpoint'
 import { useUserPreferences } from 'src/stores/preferences'
@@ -71,7 +70,6 @@ export const DesktopCards = ({
   const AVAILABLE_CARDS = [...SUPPORTED_CARDS, ...userCustomCards]
   const { updateCardOrder } = useUserPreferences()
   const cardsWrapperRef = useRef<HTMLDivElement>(null)
-  const { adsConfig } = useRemoteConfigStore()
 
   const sensors = useSensors(
     useSensor(PointerSensor),
