@@ -11,7 +11,7 @@ export const FeedItemImage = ({ imageUrl, fallbackImage }: FeedItemImageProps) =
 
   if (hasError || !imageUrl) {
     if (typeof fallbackImage === 'string') {
-      return <img src={fallbackImage} className="rowCover" alt="" />
+      return <img src={fallbackImage} loading="lazy" className="rowCover" alt="" />
     } else {
       return (
         fallbackImage || (

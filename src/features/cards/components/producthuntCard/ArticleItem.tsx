@@ -5,18 +5,16 @@ import { Attributes } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Article, BaseItemPropsType } from 'src/types'
 
-const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) => {
+const ArticleItem = ({ item, analyticsTag }: BaseItemPropsType<Article>) => {
   const { listingMode } = useUserPreferences()
 
   return (
     <CardItemWithActions
       source={analyticsTag}
-      index={index}
-      key={index}
       item={{ ...item, title: item.title }}
       cardItem={
         <div className="phItem">
-          <img className="phImage" src={item.image_url} alt={item.title} />
+          <img className="phImage" loading="lazy" src={item.image_url} alt={item.title} />
           <div className="phContent">
             <CardLink
               link={item.url}
