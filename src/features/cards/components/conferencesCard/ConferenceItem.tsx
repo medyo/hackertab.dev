@@ -102,9 +102,9 @@ const ConferencesItem = ({ item, index, analyticsTag }: BaseItemPropsType<Confer
                     ? `Ongoing, ${conferenceDate}`
                     : `${conferenceDate}`}
                 </span>
-              </div>
-              <div className="rowDetails">
-                <ColoredLanguagesBadge languages={[item.tag]} />
+                <span className="rowItem">
+                  <ColoredLanguagesBadge languages={item.tags} />
+                </span>
               </div>
             </>
           ) : (
