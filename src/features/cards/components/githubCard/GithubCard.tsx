@@ -8,7 +8,6 @@ import { useUserPreferences } from 'src/stores/preferences'
 import { CardPropsType, Repository } from 'src/types'
 import { useGetGithubRepos } from '../../api/getGithubRepos'
 import { useSelectedTags } from '../../hooks/useSelectedTags'
-import { CardHeader } from '../CardHeader'
 import { CardSettings } from '../CardSettings'
 import RepoItem from './RepoItem'
 
@@ -47,12 +46,10 @@ export function GithubCard(props: CardPropsType) {
     <Card
       fullBlock={true}
       titleComponent={
-        <CardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag}>
-          <div>
-            Github <span className="blockHeaderHighlight">{selectedTag.label}</span>{' '}
-            <span className="blockHeaderHighlight">{selectedDateRange.label.toLowerCase()}</span>
-          </div>
-        </CardHeader>
+        <div>
+          Github <span className="blockHeaderHighlight">{selectedTag.label}</span>{' '}
+          <span className="blockHeaderHighlight">{selectedDateRange.label.toLowerCase()}</span>
+        </div>
       }
       settingsComponent={
         <CardSettings
