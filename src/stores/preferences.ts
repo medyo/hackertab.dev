@@ -150,10 +150,7 @@ export const useUserPreferences = create(
       setCards: (selectedCards: SelectedCard[]) => set({ cards: selectedCards }),
       setTags: (selectedTags: Tag[]) => set({ userSelectedTags: selectedTags }),
       setMaxVisibleCards: (maxVisibleCards: number) => set({ maxVisibleCards: maxVisibleCards }),
-      initState: (newState: UserPreferencesState) =>
-        set(() => {
-          return { ...newState }
-        }),
+
       setCardSettings: (card: string, settings: CardSettingsType) =>
         set((state) => ({
           cardsSettings: {
