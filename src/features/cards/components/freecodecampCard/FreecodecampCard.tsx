@@ -1,49 +1,54 @@
-import { Card, FloatingFilter } from 'src/components/Elements'
+import { useCallback } from 'react'
+import { Card } from 'src/components/Elements'
 import { ListPostComponent } from 'src/components/List/ListPostComponent'
 import { Article, CardPropsType } from 'src/types'
 import { useGetSourceArticles } from '../../api/getSourceArticles'
 import { useSelectedTags } from '../../hooks/useSelectedTags'
-import { CardHeader } from '../CardHeader'
-import { CardSettings } from '../CardSettings'
+import { MemoizedCardHeader } from '../CardHeader'
+import { MemoizedCardSettings } from '../CardSettings'
 import ArticleItem from './ArticleItem'
 
-const GLOBAL_TAG = { label: 'Global', value: 'programming' }
+const GLOBAL_TAG = { label: 'Global', value: 'global' }
 
 export function FreecodecampCard(props: CardPropsType) {
   const { meta } = props
-  const { queryTags, selectedTag, cardSettings } = useSelectedTags({
+  const {
+    queryTags,
+    selectedTag,
+    cardSettings: { sortBy, language } = {},
+  } = useSelectedTags({
     source: meta.value,
     fallbackTag: GLOBAL_TAG,
   })
 
   const { data, isLoading } = useGetSourceArticles({
     source: 'freecodecamp',
-    tags: queryTags.map((tag) => tag.value),
+    tags: queryTags,
   })
 
-  const renderItem = (item: Article, index: number) => (
-    <ArticleItem item={item} key={`fcc-${index}`} index={index} analyticsTag={meta.analyticsTag} />
+  const renderItem = useCallback(
+    (item: Article) => <ArticleItem item={item} key={item.id} analyticsTag={meta.analyticsTag} />,
+    [meta.analyticsTag]
   )
 
   return (
     <Card
       titleComponent={
-        <CardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag} />
+        <MemoizedCardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag} />
       }
       settingsComponent={
-        <CardSettings
+        <MemoizedCardSettings
           url={meta.link}
           id={meta.value}
           globalTag={GLOBAL_TAG}
-          sortBy={cardSettings?.sortBy}
-          language={cardSettings?.language || GLOBAL_TAG.value}
+          sortBy={sortBy}
+          language={language || GLOBAL_TAG.value}
           showDateRangeFilter={false}
         />
       }
       {...props}>
-      <FloatingFilter card={meta} filters={['language']} />
       <ListPostComponent
-        sortBy={cardSettings?.sortBy as keyof Article}
+        sortBy={sortBy as keyof Article}
         items={data}
         isLoading={isLoading}
         renderItem={renderItem}
