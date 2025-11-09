@@ -57,7 +57,7 @@ export const Feed = () => {
 
   if (isInitialLoading) {
     return (
-      <div className="feed">
+      <div className="feed feedLoading">
         {Array.from({
           length: 10,
         }).map((_, index) => (

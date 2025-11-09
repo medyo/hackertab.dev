@@ -49,6 +49,14 @@
   }
 }
 
+.feed > * {
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+}
+.feedLoading .placeholder {
+  min-height: 360px;
+}
 .feed .placeholder {
   animation-duration: 1.5s;
   animation-name: cardPlaceholderPulse;
@@ -56,8 +64,8 @@
   padding: 12px;
   display: flex;
   flex-direction: column;
-  min-height: 360px;
   gap: 16px;
+  box-sizing: border-box;
   .image {
     background-color: var(--placeholder-background-color);
     border: 1px solid var(--placeholder-border-color);
