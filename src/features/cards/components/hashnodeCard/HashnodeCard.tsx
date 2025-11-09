@@ -1,68 +1,59 @@
-import { AiTwotoneHeart } from 'react-icons/ai'
-import { BiCommentDetail } from 'react-icons/bi'
-import { Card, FloatingFilter } from 'src/components/Elements'
-import { ListPostComponent } from 'src/components/List/ListPostComponent'
+import { useCallback } from 'react'
+import { Card } from 'src/components/Elements'
+import { ListComponent } from 'src/components/List'
 import { Article, CardPropsType } from 'src/types'
 import { useGetSourceArticles } from '../../api/getSourceArticles'
+import { useLazyListLoad } from '../../hooks/useLazyListLoad'
 import { useSelectedTags } from '../../hooks/useSelectedTags'
-import { CardHeader } from '../CardHeader'
-import { CardSettings } from '../CardSettings'
+import { MemoizedCardHeader } from '../CardHeader'
+import { MemoizedCardSettings } from '../CardSettings'
 import ArticleItem from './ArticleItem'
 
 const GLOBAL_TAG = { label: 'Global', value: 'programming' }
 
 export function HashnodeCard(props: CardPropsType) {
   const { meta } = props
-  const { queryTags, selectedTag, cardSettings } = useSelectedTags({
+  const { ref, isVisible } = useLazyListLoad()
+  const {
+    queryTags,
+    selectedTag,
+    cardSettings: { sortBy, language } = {},
+  } = useSelectedTags({
     source: meta.value,
     fallbackTag: GLOBAL_TAG,
   })
   const { data, isLoading } = useGetSourceArticles({
     source: 'hashnode',
-    tags: queryTags.map((tag) => tag.value),
+    tags: queryTags,
+    config: {
+      enabled: isVisible,
+    },
   })
 
-  const renderItem = (item: Article, index: number) => (
-    <ArticleItem
-      item={item}
-      key={`hno-${index}`}
-      index={index}
-      selectedTag={selectedTag}
-      analyticsTag={meta.analyticsTag}
-    />
+  const renderItem = useCallback(
+    (item: Article) => <ArticleItem item={item} key={item.id} analyticsTag={meta.analyticsTag} />,
+    [meta.analyticsTag]
   )
 
   return (
     <Card
+      ref={ref}
       titleComponent={
-        <CardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag} />
+        <MemoizedCardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag} />
       }
       settingsComponent={
-        <CardSettings
+        <MemoizedCardSettings
           url={meta.link}
           id={meta.value}
-          sortBy={cardSettings?.sortBy}
-          language={cardSettings?.language || GLOBAL_TAG.value}
+          sortBy={sortBy}
+          language={language || GLOBAL_TAG.value}
           globalTag={GLOBAL_TAG}
-          sortOptions={(defaults) => [
-            ...defaults,
-            {
-              label: 'Reactions',
-              value: 'points_count',
-              icon: <AiTwotoneHeart />,
-            },
-            {
-              label: 'Comments',
-              value: 'comments_count',
-              icon: <BiCommentDetail />,
-            },
-          ]}
+          sortOptions={[]}
         />
       }
       {...props}>
-      <FloatingFilter card={meta} filters={['language']} />
-      <ListPostComponent
-        sortBy={cardSettings?.sortBy as keyof Article}
+      <ListComponent<Article>
+        sortBy={sortBy as keyof Article}
         items={data}
         isLoading={isLoading}
         renderItem={renderItem}

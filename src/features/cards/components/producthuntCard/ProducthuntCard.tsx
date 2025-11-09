@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import { BiCommentDetail } from 'react-icons/bi'
 import { VscTriangleUp } from 'react-icons/vsc'
 import { Card } from 'src/components/Elements'
@@ -5,13 +6,18 @@ import { ListComponent } from 'src/components/List'
 import { ProductHuntPlaceholder } from 'src/components/placeholders'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Article, CardPropsType } from 'src/types'
+import { useShallow } from 'zustand/shallow'
 import { useGeProductHuntProducts } from '../../api/getProductHuntProducts'
-import { CardSettings } from '../CardSettings'
+import { useLazyListLoad } from '../../hooks/useLazyListLoad'
+import { MemoizedCardSettings } from '../CardSettings'
 import ArticleItem from './ArticleItem'
 
 export function ProductHuntCard(props: CardPropsType) {
   const { meta } = props
-  const cardSettings = useUserPreferences((state) => state.cardsSettings?.[meta.value])
+  const { ref, isVisible } = useLazyListLoad()
+  const sortBy = useUserPreferences(
+    useShallow((state) => state.cardsSettings?.[meta.value]?.sortBy)
+  )
 
   const {
     data: products = [],
@@ -20,24 +26,25 @@ export function ProductHuntCard(props: CardPropsType) {
   } = useGeProductHuntProducts({
     date: new Date().toISOString().split('T')[0],
     config: {
-      staleTime: 900000, //15 minutes
-      cacheTime: 3600000, // 1 Day
+      enabled: isVisible,
     },
   })
 
-  const renderItem = (item: Article, index: number) => (
-    <ArticleItem item={item} key={item.id} index={index} analyticsTag={meta.analyticsTag} />
+  const renderItem = useCallback(
+    (item: Article) => <ArticleItem item={item} key={item.id} analyticsTag={meta.analyticsTag} />,
+    [meta.analyticsTag]
   )
 
   return (
     <Card
+      ref={ref}
       {...props}
       settingsComponent={
-        <CardSettings
+        <MemoizedCardSettings
           url={meta.link}
           id={meta.value}
           showLanguageFilter={false}
-          sortBy={cardSettings?.sortBy}
+          sortBy={sortBy}
           sortOptions={[
             {
               label: 'Upvotes',

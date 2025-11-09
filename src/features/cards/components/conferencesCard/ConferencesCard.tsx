@@ -1,39 +1,53 @@
+import { useCallback } from 'react'
 import { Card } from 'src/components/Elements'
 import { ListConferenceComponent } from 'src/components/List/ListConferenceComponent'
 import { CardPropsType, Conference } from 'src/types'
 import { useGetConferences } from '../../api/getConferences'
+import { useLazyListLoad } from '../../hooks/useLazyListLoad'
 import { useSelectedTags } from '../../hooks/useSelectedTags'
-import { CardHeader } from '../CardHeader'
-import { CardSettings } from '../CardSettings'
+import { MemoizedCardHeader } from '../CardHeader'
+import { MemoizedCardSettings } from '../CardSettings'
 import ConferenceItem from './ConferenceItem'
 
-const GLOBAL_TAG = { label: 'Global', value: 'tech' }
+const GLOBAL_TAG = { label: 'Global', value: 'general' }
 export function ConferencesCard(props: CardPropsType) {
   const { meta } = props
-  const { queryTags, selectedTag, cardSettings } = useSelectedTags({
+  const { ref, isVisible } = useLazyListLoad()
+  const {
+    queryTags,
+    selectedTag,
+    cardSettings: { sortBy, language } = {},
+  } = useSelectedTags({
     source: meta.value,
     fallbackTag: GLOBAL_TAG,
   })
   const { isLoading, data: results } = useGetConferences({
-    tags: queryTags.map((tag) => tag.value),
+    tags: queryTags,
+    config: {
+      enabled: isVisible,
+    },
   })
 
-  const renderItem = (item: Conference, index: number) => (
-    <ConferenceItem item={item} key={item.id} index={index} analyticsTag={meta.analyticsTag} />
+  const renderItem = useCallback(
+    (item: Conference) => (
+      <ConferenceItem item={item} key={item.id} analyticsTag={meta.analyticsTag} />
+    ),
+    [meta.analyticsTag]
   )
 
   return (
     <Card
+      ref={ref}
       {...props}
       titleComponent={
-        <CardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag} />
+        <MemoizedCardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag} />
       }
       settingsComponent={
-        <CardSettings
+        <MemoizedCardSettings
           url={meta.link}
           id={meta.value}
-          sortBy={cardSettings?.sortBy}
-          language={cardSettings?.language}
+          sortBy={sortBy}
+          language={language}
           sortOptions={[
             {
               label: 'Upcoming',
@@ -43,7 +57,7 @@ export function ConferencesCard(props: CardPropsType) {
         />
       }>
       <ListConferenceComponent
-        sortBy={cardSettings?.sortBy as keyof Conference}
+        sortBy={sortBy as keyof Conference}
         items={results}
         isLoading={isLoading}
         renderItem={renderItem}

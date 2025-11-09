@@ -11,64 +11,68 @@ type RootCardProps = CardPropsType & {
   settingsComponent?: React.ReactNode
   fullBlock?: boolean
 }
+export const Card = React.forwardRef<HTMLDivElement, RootCardProps>(
+  (
+    {
+      meta,
+      titleComponent,
+      settingsComponent,
+      className,
+      withAds = false,
+      children,
+      fullBlock = false,
+      knob,
+    },
+    ref
+  ) => {
+    const { icon, label, badge } = meta
+    const [canAdsLoad, setCanAdsLoad] = useState(true)
 
-export const Card = ({
-  meta,
-  titleComponent,
-  settingsComponent,
-  className,
-  withAds = false,
-  children,
-  fullBlock = false,
-  knob,
-}: RootCardProps) => {
-  const { icon, label, badge } = meta
-  const [canAdsLoad, setCanAdsLoad] = useState(true)
-
-  useEffect(() => {
-    if (!withAds) {
-      return
-    }
-
-    const handleClassChange = () => {
-      if (document.documentElement.classList.contains('dndState')) {
-        setCanAdsLoad(false)
-      } else {
-        setCanAdsLoad(true)
+    useEffect(() => {
+      if (!withAds) {
+        return
       }
-    }
 
-    const observer = new MutationObserver(handleClassChange)
-    observer.observe(document.documentElement, { attributes: true })
+      const handleClassChange = () => {
+        if (document.documentElement.classList.contains('dndState')) {
+          setCanAdsLoad(false)
+        } else {
+          setCanAdsLoad(true)
+        }
+      }
 
-    return () => {
-      observer.disconnect()
-    }
-  }, [withAds])
+      const observer = new MutationObserver(handleClassChange)
+      observer.observe(document.documentElement, { attributes: true })
 
-  return (
-    <div className={clsx('block', fullBlock && 'fullBlock', className)}>
-      <MobileBreakpoint>
-        {settingsComponent && <button className="floatingFilter">{settingsComponent}</button>}
-      </MobileBreakpoint>
-      <div className="blockHeader">
-        {knob}
-        <span className="blockHeaderIcon">{icon}</span> {titleComponent || label}{' '}
-        <DesktopBreakpoint>
-          {settingsComponent && (
-            <span className="blockHeaderSettingsButton">{settingsComponent}</span>
-          )}
-        </DesktopBreakpoint>
-        {badge && <span className="blockHeaderBadge">{badge}</span>}
-      </div>
+      return () => {
+        observer.disconnect()
+      }
+    }, [withAds])
 
-      {canAdsLoad && withAds && (
-        <div className="ad-wrapper blockRow">
-          <AdvBanner />
+    return (
+      <div ref={ref} className={clsx('block', fullBlock && 'fullBlock', className)}>
+        <MobileBreakpoint>
+          {settingsComponent && <button className="floatingFilter">{settingsComponent}</button>}
+        </MobileBreakpoint>
+        <div className="blockHeader">
+          {knob}
+          <span className="blockHeaderIcon">{icon}</span> {titleComponent || label}{' '}
+          <DesktopBreakpoint>
+            {settingsComponent && (
+              <span className="blockHeaderSettingsButton">{settingsComponent}</span>
+            )}
+          </DesktopBreakpoint>
+          {badge && <span className="blockHeaderBadge">{badge}</span>}
         </div>
-      )}
 
-      <div className="blockContent scrollable">{children}</div>
-    </div>
-  )
-}
+        {canAdsLoad && withAds && (
+          <div className="ad-wrapper blockRow">
+            <AdvBanner />
+          </div>
+        )}
+
+        <div className="blockContent scrollable">{children}</div>
+      </div>
+    )
+  }
+)

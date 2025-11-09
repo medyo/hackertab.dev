@@ -1,14 +1,15 @@
 import { MenuDivider, MenuItem } from '@szhsin/react-menu'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { VscRepoForked, VscStarFull } from 'react-icons/vsc'
-import { Card, FloatingFilter } from 'src/components/Elements'
+import { Card } from 'src/components/Elements'
 import { ListRepoComponent } from 'src/components/List/ListRepoComponent'
 import { dateRanges } from 'src/config'
 import { useUserPreferences } from 'src/stores/preferences'
 import { CardPropsType, Repository } from 'src/types'
 import { useGetGithubRepos } from '../../api/getGithubRepos'
+import { useLazyListLoad } from '../../hooks/useLazyListLoad'
 import { useSelectedTags } from '../../hooks/useSelectedTags'
-import { CardSettings } from '../CardSettings'
+import { MemoizedCardSettings } from '../CardSettings'
 import RepoItem from './RepoItem'
 
 const GLOBAL_TAG = { label: 'Global', value: 'global' }
@@ -16,48 +17,63 @@ const GLOBAL_TAG = { label: 'Global', value: 'global' }
 export function GithubCard(props: CardPropsType) {
   const { meta } = props
 
+  const { ref, isVisible } = useLazyListLoad()
   const setCardSettings = useUserPreferences((state) => state.setCardSettings)
-  const { queryTags, selectedTag, cardSettings } = useSelectedTags({
+  const {
+    queryTags,
+    selectedTag,
+    cardSettings: { dateRange, sortBy, language } = {},
+  } = useSelectedTags({
     source: meta.value,
     fallbackTag: GLOBAL_TAG,
   })
 
   const selectedDateRange = useMemo(
-    () => dateRanges.find((date) => date.value === cardSettings?.dateRange) || dateRanges[0],
-    [cardSettings]
+    () => dateRanges.find((date) => date.value === dateRange) || dateRanges[0],
+    [dateRange]
   )
 
   const { data, error, isLoading } = useGetGithubRepos({
-    tags: queryTags.map((tag) => tag.value),
+    tags: queryTags,
     dateRange: selectedDateRange.value,
+    config: {
+      enabled: isVisible,
+    },
   })
 
-  const renderItem = (item: Repository, index: number) => (
-    <RepoItem
-      item={item}
-      key={`rp-${index}`}
-      index={index}
-      selectedTag={selectedTag}
-      analyticsTag={meta.analyticsTag}
-    />
+  const renderItem = useCallback(
+    (item: Repository) => (
+      <RepoItem
+        item={item}
+        key={item.id}
+        selectedTag={selectedTag}
+        analyticsTag={meta.analyticsTag}
+      />
+    ),
+    [meta.analyticsTag, selectedTag]
   )
+
+  const headerTitle = useMemo(() => {
+    return (
+      <>
+        Github <span className="blockHeaderHighlight">{selectedTag.label}</span>{' '}
+        <span className="blockHeaderHighlight">{selectedDateRange.label.toLowerCase()}</span>
+      </>
+    )
+  }, [selectedTag, selectedDateRange])
 
   return (
     <Card
+      ref={ref}
       fullBlock={true}
-      titleComponent={
-        <div>
-          Github <span className="blockHeaderHighlight">{selectedTag.label}</span>{' '}
-          <span className="blockHeaderHighlight">{selectedDateRange.label.toLowerCase()}</span>
-        </div>
-      }
+      titleComponent={headerTitle}
       settingsComponent={
-        <CardSettings
+        <MemoizedCardSettings
           url={meta.link}
           id={meta.value}
           globalTag={GLOBAL_TAG}
-          sortBy={cardSettings?.sortBy}
-          language={cardSettings?.language || GLOBAL_TAG.value}
+          sortBy={sortBy}
+          language={language || GLOBAL_TAG.value}
           customStartMenuItems={
             <>
               {dateRanges.map((date) => (
@@ -66,7 +82,7 @@ export function GithubCard(props: CardPropsType) {
                   value={date.value}
                   disabled={selectedDateRange.value === date.value}
                   onClick={() => {
-                    setCardSettings(meta.value, { ...cardSettings, dateRange: date.value })
+                    setCardSettings(meta.value, { dateRange: date.value, language, sortBy })
                   }}>
                   {date.label}
                 </MenuItem>
@@ -89,9 +105,8 @@ export function GithubCard(props: CardPropsType) {
         />
       }
       {...props}>
-      <FloatingFilter card={meta} filters={['datesRange', 'language']} />
       <ListRepoComponent
-        sortBy={cardSettings?.sortBy as keyof Repository}
+        sortBy={sortBy as keyof Repository}
         items={data}
         error={error}
         isLoading={isLoading}

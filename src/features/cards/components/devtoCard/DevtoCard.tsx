@@ -5,6 +5,7 @@ import { Card } from 'src/components/Elements'
 import { ListPostComponent } from 'src/components/List/ListPostComponent'
 import { Article, CardPropsType } from 'src/types'
 import { useGetSourceArticles } from '../../api/getSourceArticles'
+import { useLazyListLoad } from '../../hooks/useLazyListLoad'
 import { useSelectedTags } from '../../hooks/useSelectedTags'
 import { MemoizedCardHeader } from '../CardHeader'
 import { MemoizedCardSettings } from '../CardSettings'
@@ -14,6 +15,7 @@ const GLOBAL_TAG = { label: 'Global', value: 'programming' }
 
 export function DevtoCard(props: CardPropsType) {
   const { meta } = props
+  const { ref, isVisible } = useLazyListLoad()
 
   const {
     queryTags,
@@ -31,6 +33,9 @@ export function DevtoCard(props: CardPropsType) {
   } = useGetSourceArticles({
     source: 'devto',
     tags: queryTags,
+    config: {
+      enabled: isVisible,
+    },
   })
 
   const renderItem = useCallback(
@@ -40,6 +45,7 @@ export function DevtoCard(props: CardPropsType) {
 
   return (
     <Card
+      ref={ref}
       titleComponent={
         <MemoizedCardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag} />
       }
