@@ -1,3 +1,4 @@
+import { memo, useMemo } from 'react'
 import { MY_LANGUAGES_OPTION } from '../config'
 
 type HeaderTitleProps = {
@@ -12,27 +13,23 @@ type HeaderTitleProps = {
   }
   children?: React.ReactNode
 }
-export const CardHeader = ({ label, fallbackTag, selectedTag, children }: HeaderTitleProps) => {
+const CardHeader = ({ label, fallbackTag, selectedTag, children }: HeaderTitleProps) => {
   if (children) {
     return <>{children}</>
   }
 
-  if (!selectedTag || selectedTag.value === fallbackTag.value) {
-    return <>{label}</>
-  }
-
-  if (selectedTag.value === MY_LANGUAGES_OPTION.value) {
-    return (
-      <>
-        {label} <span className="blockHeaderHighlight">{MY_LANGUAGES_OPTION.label}</span>
-      </>
-    )
-  }
+  const highlightLabel = useMemo(() => {
+    if (!selectedTag || selectedTag.value === fallbackTag.value) return null
+    if (selectedTag.value === MY_LANGUAGES_OPTION.value) return MY_LANGUAGES_OPTION.label
+    return selectedTag.label
+  }, [selectedTag, fallbackTag])
 
   return (
     <>
       {label}
-      <span className="blockHeaderHighlight">{selectedTag.label}</span>
+      {highlightLabel && <span className="blockHeaderHighlight">{highlightLabel}</span>}
     </>
   )
 }
+
+export const MemoizedCardHeader = memo(CardHeader)
