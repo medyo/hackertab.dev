@@ -11,12 +11,14 @@ import { Occupation } from '../../types'
 const OCCUPATIONS: Occupation[] = [
   {
     title: 'Front-End Engineer',
+    value: 'frontend',
     icon: FaPaintBrush,
     sources: ['devto', 'github', 'medium', 'hashnode'],
     tags: ['frontend', 'javascript', 'typescript', 'css', 'react', 'vue', 'angular'],
   },
   {
     title: 'Back-End Engineer',
+    value: 'backend',
     icon: BsFillGearFill,
     sources: ['devto', 'github', 'medium', 'hashnode'],
     tags: ['backend', 'go', 'php', 'ruby', 'rust', 'r'],
@@ -24,11 +26,13 @@ const OCCUPATIONS: Occupation[] = [
   {
     title: 'Full Stack Engineer',
     icon: RiDeviceFill,
+    value: 'fullstack',
     sources: ['devto', 'github', 'medium', 'hashnode'],
     tags: ['javascript', 'typescript', 'php', 'ruby', 'rust'],
   },
   {
     title: 'Mobile',
+    value: 'mobile',
     icon: AiFillMobile,
     sources: ['reddit', 'github', 'medium', 'hashnode'],
     tags: [
@@ -45,30 +49,35 @@ const OCCUPATIONS: Occupation[] = [
   },
   {
     title: 'Devops Engineer',
+    value: 'devops',
     icon: FaServer,
     sources: ['freecodecamp', 'github', 'reddit', 'devto'],
     tags: ['devops', 'kubernetes', 'docker', 'bash'],
   },
   {
     title: 'Data Engineer',
+    value: 'data',
     icon: FaDatabase,
     sources: ['freecodecamp', 'github', 'reddit', 'devto'],
     tags: ['data science', 'python', 'artificial intelligence', 'machine learning'],
   },
   {
     title: 'Security Engineer',
+    value: 'security',
     icon: AiFillSecurityScan,
     sources: ['freecodecamp', 'github', 'reddit', 'devto'],
     tags: ['security', 'cpp', 'bash', 'python'],
   },
   {
     title: 'ML Engineer',
+    value: 'ai',
     icon: FaRobot,
     sources: ['github', 'freecodecamp', 'hackernews', 'devto'],
     tags: ['machine learning', 'artificial intelligence', 'python'],
   },
   {
     title: 'Other',
+    value: 'other',
     icon: TbDots,
     sources: ['hackernews', 'github', 'producthunt', 'devto'],
     tags: ['webdev', 'mobile'],
@@ -84,7 +93,7 @@ export const HelloTab = () => {
   const onStartClicked = () => {
     const selectedOccupation = OCCUPATIONS.find((occ) => occ.title === occupation)
     if (selectedOccupation) {
-      setOccupation(selectedOccupation.title)
+      setOccupation(selectedOccupation.value)
       setCards(
         selectedOccupation.sources.map((source, index) => ({
           id: index,
