@@ -34,7 +34,7 @@ const ArticleItem = ({ item, analyticsTag }: BaseItemPropsType<Article>) => {
                 </div>
               )}
 
-              <div className="subTitle">{item.title}</div>
+              <span className="subTitle">{item.title}</span>
             </CardLink>
           </p>
           {listingMode === 'normal' && (
