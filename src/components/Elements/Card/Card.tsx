@@ -1,6 +1,8 @@
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 import { AdvBanner } from 'src/features/adv'
+import { DesktopBreakpoint } from 'src/providers/DesktopBreakpoint'
+import { MobileBreakpoint } from 'src/providers/MobileBreakpoint'
 import { CardPropsType } from 'src/types'
 
 type RootCardProps = CardPropsType & {
@@ -46,12 +48,17 @@ export const Card = ({
 
   return (
     <div className={clsx('block', fullBlock && 'fullBlock', className)}>
+      <MobileBreakpoint>
+        {settingsComponent && <button className="floatingFilter">{settingsComponent}</button>}
+      </MobileBreakpoint>
       <div className="blockHeader">
         {knob}
         <span className="blockHeaderIcon">{icon}</span> {titleComponent || label}{' '}
-        {settingsComponent && (
-          <span className="blockHeaderSettingsButton">{settingsComponent}</span>
-        )}
+        <DesktopBreakpoint>
+          {settingsComponent && (
+            <span className="blockHeaderSettingsButton">{settingsComponent}</span>
+          )}
+        </DesktopBreakpoint>
         {badge && <span className="blockHeaderBadge">{badge}</span>}
       </div>
 
