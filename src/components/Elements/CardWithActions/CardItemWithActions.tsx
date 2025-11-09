@@ -11,7 +11,6 @@ import { BaseEntry } from 'src/types'
 
 type CardItemWithActionsProps = {
   item: BaseEntry
-  index: number
   source: string
   cardItem: React.ReactNode
   sourceType?: 'rss' | 'supported'
@@ -20,7 +19,6 @@ type CardItemWithActionsProps = {
 export const CardItemWithActions = ({
   cardItem,
   item,
-  index,
   source,
   sourceType = 'supported',
 }: CardItemWithActionsProps) => {
@@ -73,7 +71,7 @@ export const CardItemWithActions = ({
   }
 
   return (
-    <div key={`${source}-${index}`} className="blockRow">
+    <div key={item.id} className="blockRow">
       <ShareModal
         showModal={setShareModalData !== undefined}
         closeModal={() => setShareModalData(undefined)}
