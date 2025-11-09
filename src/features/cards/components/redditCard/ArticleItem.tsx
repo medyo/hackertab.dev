@@ -60,16 +60,7 @@ const ArticleItem = ({ item, analyticsTag }: BaseItemPropsType<Article>) => {
               </div>
             )}
 
-            <div className="subTitle">
-              {item.flair_text && (
-                <PostFlair
-                  text={item.flair_text}
-                  bgColor={item.flair_background_color}
-                  textColor={item.flair_text_color}
-                />
-              )}
-              {item.title}
-            </div>
+            <div className="subTitle">{item.title}</div>
           </CardLink>
 
           <div className="rowDetails">
