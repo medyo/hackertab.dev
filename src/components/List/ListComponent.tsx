@@ -1,4 +1,4 @@
-import React, { ReactNode, useMemo } from 'react'
+import React, { memo, ReactNode, useMemo } from 'react'
 import { Placeholder } from 'src/components/placeholders'
 import { MAX_ITEMS_PER_CARD } from 'src/config'
 
@@ -6,7 +6,7 @@ type PlaceholdersProps = {
   placeholder: ReactNode
 }
 
-const Placeholders = React.memo<PlaceholdersProps>(({ placeholder }) => {
+const Placeholders = memo<PlaceholdersProps>(({ placeholder }) => {
   return (
     <>
       {[...Array(7)].map((_, i) => (
@@ -42,18 +42,6 @@ export function ListComponent<T extends any>(props: ListComponentPropsType<T>) {
     limit = MAX_ITEMS_PER_CARD,
   } = props
 
-  if (error) {
-    return <p className="errorMsg">{error?.message || error}</p>
-  }
-
-  if (items && items.length == 0) {
-    return (
-      <p className="errorMsg">
-        No items found, try adjusting your filter or choosing a different tag.
-      </p>
-    )
-  }
-
   const sortedData = useMemo(() => {
     if (!items || items.length == 0) return []
     if (!sortBy) return items
@@ -88,7 +76,19 @@ export function ListComponent<T extends any>(props: ListComponentPropsType<T>) {
     } catch (e) {
       return []
     }
-  }, [sortedData])
+  }, [sortedData, header, renderItem, limit])
+
+  if (error) {
+    return <p className="errorMsg">{error?.message || error}</p>
+  }
+
+  if (items && items.length == 0) {
+    return (
+      <p className="errorMsg">
+        No items found, try adjusting your filter or choosing a different tag.
+      </p>
+    )
+  }
 
   return <>{isLoading ? <Placeholders placeholder={placeholder} /> : enrichedItems}</>
 }
