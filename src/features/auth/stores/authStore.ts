@@ -4,20 +4,25 @@ import { persist } from 'zustand/middleware'
 
 type AuthState = {
   user: User | null
+  lastStreakUpdate?: number
   providerId: string | null
 }
 
 type AuthActions = {
   initState: (state: AuthState) => void
   setStreak: (streak: number) => void
+  setLastStreakUpdate: (timestamp: number) => void
   clear: () => void
 }
 
+type AuthStoreType = AuthState & AuthActions
 export const AuthStore = create(
-  persist<AuthState & AuthActions>(
+  persist<AuthStoreType>(
     (set) => ({
       user: null,
       providerId: null,
+      lastStreakUpdate: undefined,
+      setLastStreakUpdate: (timestamp: number) => set({ lastStreakUpdate: timestamp }),
       initState: (newState: AuthState) =>
         set({
           user: newState.user,
@@ -25,15 +30,27 @@ export const AuthStore = create(
         }),
       setStreak: (streak: number) =>
         set((state) => ({
+          lastStreakUpdate: Date.now(),
           user: {
             ...state.user!,
             streak,
           },
         })),
-      clear: () => set({ user: null }),
+      clear: () => set({ user: null, lastStreakUpdate: undefined }),
     }),
     {
-      name: 'auth-storage', // key in localStorage
+      version: 1,
+      name: 'auth-storage',
+      migrate: (persistedState, version) => {
+        const typedPersistedState = persistedState as unknown as AuthStoreType
+        if (version === 0) {
+          return {
+            ...typedPersistedState,
+            lastStreakUpdate: undefined,
+          }
+        }
+        return typedPersistedState
+      },
     }
   )
 )
