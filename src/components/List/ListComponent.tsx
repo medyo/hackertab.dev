@@ -78,6 +78,9 @@ export function ListComponent<T extends any>(props: ListComponentPropsType<T>) {
     }
   }, [sortedData, header, renderItem, limit])
 
+  if (isLoading) {
+    return <Placeholders placeholder={placeholder} />
+  }
   if (error) {
     return <p className="errorMsg">{error?.message || error}</p>
   }
@@ -90,5 +93,5 @@ export function ListComponent<T extends any>(props: ListComponentPropsType<T>) {
     )
   }
 
-  return <>{isLoading ? <Placeholders placeholder={placeholder} /> : enrichedItems}</>
+  return <>{enrichedItems}</>
 }
