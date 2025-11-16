@@ -12,7 +12,6 @@ const ArticleItem = ({ item, selectedTag, analyticsTag }: BaseItemPropsType<Arti
   return (
     <CardItemWithActions
       source={analyticsTag}
-      key={index}
       item={item}
       cardItem={
         <>
