@@ -1,4 +1,6 @@
 import { useCallback } from 'react'
+import { AiTwotoneHeart } from 'react-icons/ai'
+import { BiCommentDetail } from 'react-icons/bi'
 import { Card } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
 import { Article, CardPropsType } from 'src/types'
@@ -48,7 +50,19 @@ export function HashnodeCard(props: CardPropsType) {
           sortBy={sortBy}
           language={language || GLOBAL_TAG.value}
           globalTag={GLOBAL_TAG}
-          sortOptions={[]}
+          sortOptions={(defaults) => [
+            ...defaults,
+            {
+              label: 'Reactions',
+              value: 'points_count',
+              icon: <AiTwotoneHeart />,
+            },
+            {
+              label: 'Comments',
+              value: 'comments_count',
+              icon: <BiCommentDetail />,
+            },
+          ]}
         />
       }
       {...props}>
