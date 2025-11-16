@@ -1,11 +1,13 @@
 import { MdAccessTime } from 'react-icons/md'
 import { CardItemWithActions, CardLink, ColoredLanguagesBadge } from 'src/components/Elements'
 import { Attributes } from 'src/lib/analytics'
+import { useUserPreferences } from 'src/stores/preferences'
 import { Article, BaseItemPropsType } from 'src/types'
 import { format } from 'timeago.js'
 
 const ArticleItem = (props: BaseItemPropsType<Article>) => {
   const { item, selectedTag, analyticsTag } = props
+  const { listingMode } = useUserPreferences()
   return (
     <CardItemWithActions
       source={analyticsTag}
@@ -23,17 +25,19 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
             }}>
             <div className="subTitle">{item.title}</div>
           </CardLink>
-          <>
-            <p className="rowDescription">
-              <span className="rowItem">
-                <MdAccessTime className={'rowTitleIcon'} />
-                {format(new Date(item.published_at))}
-              </span>
-            </p>
-            <p className="rowDetails">
-              <ColoredLanguagesBadge languages={item.tags.slice(0, 4)} />
-            </p>
-          </>
+          {listingMode === 'normal' && (
+            <>
+              <p className="rowDescription">
+                <span className="rowItem">
+                  <MdAccessTime className={'rowTitleIcon'} />
+                  {format(new Date(item.published_at))}
+                </span>
+              </p>
+              <p className="rowDetails">
+                <ColoredLanguagesBadge languages={item.tags.slice(0, 4)} />
+              </p>
+            </>
+          )}
         </>
       }
     />
