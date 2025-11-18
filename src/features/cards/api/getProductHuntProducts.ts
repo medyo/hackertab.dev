@@ -1,22 +1,27 @@
 import { useQuery } from '@tanstack/react-query'
-import { ExtractFnReturnType, QueryConfig } from 'src/lib/react-query'
-import { Article } from 'src/types'
 import { axios } from 'src/lib/axios'
+import { ExtractFnReturnType, QueryConfig } from 'src/lib/react-query'
+import { Product } from 'src/types'
 
-const getArticles = async (): Promise<Article[]> => {
-  return axios.get('/data/v2/producthunt.json')
+const getArticles = async ({ date }: { date: string }): Promise<Product[]> => {
+  return axios.get(`/engine/products`, {
+    params: {
+      date,
+    },
+  })
 }
 
 type QueryFnType = typeof getArticles
 
 type UseGetArticlesOptions = {
   config?: QueryConfig<QueryFnType>
+  date: string
 }
 
-export const useGeProductHuntProducts = ({ config }: UseGetArticlesOptions = {}) => {
+export const useGeProductHuntProducts = ({ date, config }: UseGetArticlesOptions) => {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
     ...config,
-    queryKey: ['producthunt'],
-    queryFn: () => getArticles(),
+    queryKey: ['producthunt', date],
+    queryFn: () => getArticles({ date }),
   })
 }
