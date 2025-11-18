@@ -83,7 +83,8 @@ const ConferencesItem = ({ item, analyticsTag }: BaseItemPropsType<Conference>) 
             }}>
             <div className="subTitle">
               {differenceInDays < 0 && <span className="blockHeaderBadge past">Ended</span>}{' '}
-              <span className="rowTitleIcon">{conferenceLocation?.icon}</span> {item.title}
+              <span className="rowTitleIcon">{conferenceLocation?.icon}</span>
+              {item.title}
             </div>
           </CardLink>
           {listingMode === 'normal' ? (
