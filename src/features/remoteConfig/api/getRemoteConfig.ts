@@ -5,7 +5,7 @@ import { useRemoteConfigStore } from '../stores/remoteConfig'
 import { RemoteConfig } from '../types'
 
 const getRemoteConfig = async (): Promise<RemoteConfig> => {
-  return axios.get('/data/remoteConfiguration.json')
+  return axios.get('/data/config.json')
 }
 
 type QueryFnType = typeof getRemoteConfig
