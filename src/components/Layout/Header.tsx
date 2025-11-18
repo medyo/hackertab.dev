@@ -1,9 +1,11 @@
 import { clsx } from 'clsx'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { BsFillBookmarksFill, BsFillGearFill, BsMoonFill } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
 import { IoMdSunny } from 'react-icons/io'
 import { MdDoDisturbOff } from 'react-icons/md'
+import { RiDashboardHorizontalFill } from 'react-icons/ri'
+import { TfiLayoutColumn4Alt } from 'react-icons/tfi'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import AvatarPlaceholder from 'src/assets/icons/avatar.svg?react'
 import StreakIcon from 'src/assets/icons/fire_icon.svg?react'
@@ -11,7 +13,12 @@ import HackertabLogo from 'src/assets/logo.svg?react'
 import { UserTags } from 'src/components/Elements/UserTags'
 import { useAuth } from 'src/features/auth'
 import { Changelog } from 'src/features/changelog'
-import { identifyUserTheme, trackDNDDisable, trackThemeSelect } from 'src/lib/analytics'
+import {
+  identifyUserTheme,
+  trackDNDDisable,
+  trackDisplayTypeChange,
+  trackThemeSelect,
+} from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Button, CircleButton } from '../Elements'
 import { SearchEngineBar } from '../Elements/SearchBar/SearchEngineBar'
@@ -19,7 +26,8 @@ export const Header = () => {
   const { openAuthModal, user, isConnected, isConnecting } = useAuth()
 
   const [themeIcon, setThemeIcon] = useState(<BsMoonFill />)
-  const { theme, setTheme, setDNDDuration, isDNDModeActive } = useUserPreferences()
+  const { theme, setTheme, setDNDDuration, isDNDModeActive, layout, setLayout } =
+    useUserPreferences()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -38,21 +46,27 @@ export const Header = () => {
     }
   }, [theme])
 
-  const onThemeChange = () => {
+  const onThemeChange = useCallback(() => {
     const newTheme = theme === 'dark' ? 'light' : 'dark'
     setTheme(newTheme)
     trackThemeSelect(newTheme)
     identifyUserTheme(newTheme)
-  }
+  }, [theme, setTheme])
 
-  const onSettingsClick = () => {
+  const onLayoutChange = useCallback(() => {
+    const newLayout = layout === 'cards' ? 'grid' : 'cards'
+    trackDisplayTypeChange(newLayout)
+    setLayout(newLayout)
+  }, [layout, setLayout])
+
+  const onSettingsClick = useCallback(() => {
     navigate('/settings/general')
-  }
+  }, [navigate])
 
-  const onUnpauseClicked = () => {
+  const onUnpauseClicked = useCallback(() => {
     trackDNDDisable()
     setDNDDuration('never')
-  }
+  }, [setDNDDuration])
 
   return (
     <>
@@ -82,6 +96,9 @@ export const Header = () => {
 
           <CircleButton onClick={onSettingsClick}>
             <BsFillGearFill />
+          </CircleButton>
+          <CircleButton onClick={onLayoutChange}>
+            {layout === 'cards' ? <RiDashboardHorizontalFill /> : <TfiLayoutColumn4Alt />}
           </CircleButton>
           <CircleButton onClick={onThemeChange} variant="darkfocus">
             {themeIcon}
