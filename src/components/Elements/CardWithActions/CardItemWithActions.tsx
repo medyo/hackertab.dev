@@ -7,10 +7,13 @@ import { ShareModalData } from 'src/features/shareModal/types'
 import { Attributes, trackLinkBookmark, trackLinkUnBookmark } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
 import { useUserPreferences } from 'src/stores/preferences'
-import { BaseEntry } from 'src/types'
 
 type CardItemWithActionsProps = {
-  item: BaseEntry
+  item: {
+    title: string
+    url: string
+    id: string
+  }
   source: string
   cardItem: React.ReactNode
   sourceType?: 'rss' | 'supported'
