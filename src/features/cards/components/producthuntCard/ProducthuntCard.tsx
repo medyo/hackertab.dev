@@ -5,7 +5,7 @@ import { Card } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
 import { ProductHuntPlaceholder } from 'src/components/placeholders'
 import { useUserPreferences } from 'src/stores/preferences'
-import { Article, CardPropsType } from 'src/types'
+import { CardPropsType, Product } from 'src/types'
 import { useShallow } from 'zustand/shallow'
 import { useGeProductHuntProducts } from '../../api/getProductHuntProducts'
 import { useLazyListLoad } from '../../hooks/useLazyListLoad'
@@ -31,7 +31,7 @@ export function ProductHuntCard(props: CardPropsType) {
   })
 
   const renderItem = useCallback(
-    (item: Article) => <ArticleItem item={item} key={item.id} analyticsTag={meta.analyticsTag} />,
+    (item: Product) => <ArticleItem item={item} key={item.id} analyticsTag={meta.analyticsTag} />,
     [meta.analyticsTag]
   )
 
@@ -59,7 +59,7 @@ export function ProductHuntCard(props: CardPropsType) {
           ]}
         />
       }>
-      <ListComponent
+      <ListComponent<Product>
         items={products}
         error={error}
         isLoading={isLoading}
