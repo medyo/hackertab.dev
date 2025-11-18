@@ -72,14 +72,29 @@ const defaultStorage: StateStorage = {
         state: UserPreferencesState
       } = JSON.parse(item)
 
-      const remoteConfigStore = useRemoteConfigStore.getState()
-
       const newState = {
         ...state,
-        userSelectedTags: enhanceTags(
-          remoteConfigStore,
-          state.userSelectedTags as unknown as string[]
-        ),
+      }
+      if (version == 0) {
+        const MAP_OLD_TAGS: Record<string, string> = {
+          'artificial-intelligence': 'artificial intelligence',
+          'machine-learning': 'machine learning',
+          c: 'clang',
+          cpp: 'c++',
+          csharp: 'c#',
+          'data-science': 'data science',
+          go: 'golang',
+          'objective-c': 'objectivec',
+        }
+
+        const stateTags = state.userSelectedTags as unknown as string[]
+        const newTags = stateTags.map((tag) => {
+          if (MAP_OLD_TAGS[tag]) {
+            return MAP_OLD_TAGS[tag]
+          }
+          return tag
+        })
+        newState.userSelectedTags = enhanceTags(useRemoteConfigStore.getState(), newTags)
       }
 
       return JSON.stringify({ state: newState, version })
@@ -89,21 +104,7 @@ const defaultStorage: StateStorage = {
   },
   setItem: (name: string, value: string) => {
     try {
-      let {
-        state,
-        version,
-      }: {
-        version: number
-        state: UserPreferencesState
-      } = JSON.parse(value)
-
-      const newState = {
-        ...state,
-        userSelectedTags: state.userSelectedTags.map((tag) => tag.value),
-      }
-
-      const newValue = JSON.stringify({ state: newState, version })
-      window.localStorage.setItem(name, newValue)
+      window.localStorage.setItem(name, value)
     } catch (e) {
       window.localStorage.setItem(name, '')
     }
@@ -142,15 +143,14 @@ export const useUserPreferences = create(
       userCustomCards: [],
       DNDDuration: 'never',
       advStatus: false,
-      setLayout: (layout) => set({ layout: layout }),
-      setPromptEngine: (promptEngine: string) => set({ promptEngine: promptEngine }),
-      setListingMode: (listingMode: ListingMode) => set({ listingMode: listingMode }),
-      setTheme: (theme: Theme) => set({ theme: theme }),
-      setOpenLinksNewTab: (openLinksNewTab: boolean) => set({ openLinksNewTab: openLinksNewTab }),
+      setLayout: (layout) => set({ layout }),
+      setPromptEngine: (promptEngine: string) => set({ promptEngine }),
+      setListingMode: (listingMode: ListingMode) => set({ listingMode }),
+      setTheme: (theme: Theme) => set({ theme }),
+      setOpenLinksNewTab: (openLinksNewTab: boolean) => set({ openLinksNewTab }),
       setCards: (selectedCards: SelectedCard[]) => set({ cards: selectedCards }),
       setTags: (selectedTags: Tag[]) => set({ userSelectedTags: selectedTags }),
-      setMaxVisibleCards: (maxVisibleCards: number) => set({ maxVisibleCards: maxVisibleCards }),
-
+      setMaxVisibleCards: (maxVisibleCards: number) => set({ maxVisibleCards }),
       setCardSettings: (card: string, settings: CardSettingsType) =>
         set((state) => ({
           cardsSettings: {
@@ -218,7 +218,7 @@ export const useUserPreferences = create(
         set((state) => {
           const exists = state.userSelectedTags.find((t) => t.value === tag.value)
           if (exists) {
-            return state // No change if tag already followed
+            return state
           }
           return {
             userSelectedTags: [...state.userSelectedTags, tag],
@@ -233,7 +233,13 @@ export const useUserPreferences = create(
     }),
     {
       name: 'preferences_storage',
+      version: 1,
       storage: createJSONStorage(() => defaultStorage),
+      migrate: (persistedState) => {
+        const state = persistedState as unknown as UserPreferencesState &
+          UserPreferencesStoreActions
+        return state
+      },
     }
   )
 )
