@@ -3,9 +3,9 @@ import { VscTriangleUp } from 'react-icons/vsc'
 import { CardItemWithActions, CardLink } from 'src/components/Elements'
 import { Attributes } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
-import { Article, BaseItemPropsType } from 'src/types'
+import { BaseItemPropsType, Product } from 'src/types'
 
-const ArticleItem = ({ item, analyticsTag }: BaseItemPropsType<Article>) => {
+const ArticleItem = ({ item, analyticsTag }: BaseItemPropsType<Product>) => {
   const { listingMode } = useUserPreferences()
 
   return (
