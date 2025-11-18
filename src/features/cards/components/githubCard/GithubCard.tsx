@@ -19,14 +19,11 @@ export function GithubCard(props: CardPropsType) {
 
   const { ref, isVisible } = useLazyListLoad()
   const setCardSettings = useUserPreferences((state) => state.setCardSettings)
-  const {
-    queryTags,
-    selectedTag,
-    cardSettings: { dateRange, sortBy, language } = {},
-  } = useSelectedTags({
+  const { queryTags, selectedTag, cardSettings } = useSelectedTags({
     source: meta.value,
     fallbackTag: GLOBAL_TAG,
   })
+  const { dateRange, language, sortBy } = cardSettings
 
   const selectedDateRange = useMemo(
     () => dateRanges.find((date) => date.value === dateRange) || dateRanges[0],
@@ -82,7 +79,7 @@ export function GithubCard(props: CardPropsType) {
                   value={date.value}
                   disabled={selectedDateRange.value === date.value}
                   onClick={() => {
-                    setCardSettings(meta.value, { dateRange: date.value, language, sortBy })
+                    setCardSettings(meta.value, { ...cardSettings, dateRange: date.value })
                   }}>
                   {date.label}
                 </MenuItem>
