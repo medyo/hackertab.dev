@@ -57,7 +57,7 @@ export const Feed = () => {
 
   if (isInitialLoading) {
     return (
-      <div className="feed">
+      <div className="feed feedLoading">
         {Array.from({
           length: 10,
         }).map((_, index) => (
@@ -75,13 +75,7 @@ export const Feed = () => {
     <div ref={rootRef} className="feed scrollable" style={{ overflow: 'auto', maxHeight: '100%' }}>
       {(feed?.pages.flatMap((page) => page.data) || []).map((article, index) => {
         return (
-          <FeedItem
-            item={article}
-            key={article.id}
-            index={index}
-            analyticsTag={'feed'}
-            className="feedItem"
-          />
+          <FeedItem item={article} key={article.id} analyticsTag={'feed'} className="feedItem" />
         )
       })}
       {hasNextPage && (

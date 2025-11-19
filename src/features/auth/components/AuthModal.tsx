@@ -20,7 +20,7 @@ const githubAuthProvider = new GithubAuthProvider()
 
 type AuthProvider = GoogleAuthProvider | GithubAuthProvider
 export const AuthModal = ({ showAuth }: AuthModalProps) => {
-  const { closeAuthModal, authError, setAuthError } = useAuth()
+  const { closeAuthModal, authError, setAuthError, providerId } = useAuth()
   const [selectedProvider, setSelectedProvider] = useState<AuthProvider>(googleAuthProvider)
   const getOauthLink = useGetOauthLink()
 
@@ -96,14 +96,18 @@ export const AuthModal = ({ showAuth }: AuthModalProps) => {
             onClick={() => {
               signIn(githubAuthProvider)
             }}
+            className="relative"
             size="medium">
+            {providerId === 'github.com' && <span className="lastFlag">Last used</span>}
             Connect with Github
           </Button>
           <Button
             isLoading={getOauthLink.isLoading && getOauthLink.data?.['provider'] === 'google.com'}
             startIcon={<FcGoogle style={{ fontSize: '1.5em' }} />}
             onClick={() => signIn(googleAuthProvider)}
+            className="relative"
             size="medium">
+            {providerId === 'google.com' && <span className="lastFlag">Last used</span>}
             Connect with Google
           </Button>
         </div>

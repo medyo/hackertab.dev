@@ -1,27 +1,24 @@
 import { BiCommentDetail } from 'react-icons/bi'
-import { CardLink, CardItemWithActions } from 'src/components/Elements'
+import { MdAccessTime, MdWavingHand } from 'react-icons/md'
+import { CardItemWithActions, CardLink } from 'src/components/Elements'
 import { Attributes } from 'src/lib/analytics'
-import { BaseItemPropsType, Article } from 'src/types'
 import { useUserPreferences } from 'src/stores/preferences'
+import { Article, BaseItemPropsType } from 'src/types'
 import { format } from 'timeago.js'
-import { MdAccessTime } from 'react-icons/md'
-import { MdWavingHand } from 'react-icons/md'
 
-const ArticleItem = ({ item, index, selectedTag, analyticsTag }: BaseItemPropsType<Article>) => {
+const ArticleItem = ({ item, selectedTag, analyticsTag }: BaseItemPropsType<Article>) => {
   const { listingMode } = useUserPreferences()
 
   return (
     <CardItemWithActions
       source={analyticsTag}
-      index={index}
-      key={index}
       item={item}
       cardItem={
         <>
           <CardLink
             link={item.url}
             analyticsAttributes={{
-              [Attributes.POINTS]: item.reactions,
+              [Attributes.POINTS]: item.points_count,
               [Attributes.TRIGERED_FROM]: 'card',
               [Attributes.TITLE]: item.title,
               [Attributes.LINK]: item.url,
@@ -31,7 +28,7 @@ const ArticleItem = ({ item, index, selectedTag, analyticsTag }: BaseItemPropsTy
             {listingMode === 'compact' && (
               <div className="counterWrapper">
                 <MdWavingHand />
-                <span className="value">{item.reactions || 0}</span>
+                <span className="value">{item.points_count || 0}</span>
               </div>
             )}
             <div className="subTitle">{item.title}</div>
@@ -40,14 +37,13 @@ const ArticleItem = ({ item, index, selectedTag, analyticsTag }: BaseItemPropsTy
           {listingMode === 'normal' && (
             <p className="rowDetails">
               <span className="rowItem mediumRowItem">
-                <MdWavingHand className={'rowItemIcon'} /> {item.reactions || 0} claps
+                <MdWavingHand className={'rowItemIcon'} /> {item.points_count || 0} claps
               </span>
               <span className="rowItem">
-                <BiCommentDetail className={'rowItemIcon'} /> {item.comments || 0} comments
+                <BiCommentDetail className={'rowItemIcon'} /> {item.comments_count || 0} comments
               </span>
               <span className="rowItem">
-                <MdAccessTime className={'rowItemIcon'} />
-                {format(new Date(item.published_at))}
+                <MdAccessTime className={'rowItemIcon'} /> {format(new Date(item.published_at))}
               </span>
             </p>
           )}

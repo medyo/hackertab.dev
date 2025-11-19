@@ -1,80 +1,79 @@
-import { Card, FloatingFilter, InlineTextFilter } from 'src/components/Elements'
-import { ListComponent } from 'src/components/List'
-import { GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/config'
-import { trackCardLanguageSelect } from 'src/lib/analytics'
-import { useUserPreferences } from 'src/stores/preferences'
+import { VscTriangleUp } from 'react-icons/vsc'
+import { Card } from 'src/components/Elements'
+import { ListPostComponent } from 'src/components/List/ListPostComponent'
+
+import { useCallback } from 'react'
 import { Article, CardPropsType } from 'src/types'
-import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement'
-import { useGetRedditArticles } from '../../api/getRedditArticles'
+import { useGetSourceArticles } from '../../api/getSourceArticles'
+import { useLazyListLoad } from '../../hooks/useLazyListLoad'
+import { useSelectedTags } from '../../hooks/useSelectedTags'
+import { MemoizedCardHeader } from '../CardHeader'
+import { MemoizedCardSettings } from '../CardSettings'
 import ArticleItem from './ArticleItem'
+
+const GLOBAL_TAG = { label: 'Global', value: 'global' }
 
 export function RedditCard(props: CardPropsType) {
   const { meta } = props
-  const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
-  const selectedTag =
-    [GLOBAL_TAG, MY_LANGUAGES_TAG, ...userSelectedTags].find(
-      (lang) => lang.value === cardsSettings?.[meta.value]?.language
-    ) || GLOBAL_TAG
+  const { ref, isVisible } = useLazyListLoad()
+  const {
+    queryTags,
+    selectedTag,
+    cardSettings: { sortBy, language } = {},
+  } = useSelectedTags({
+    source: meta.value,
+    fallbackTag: GLOBAL_TAG,
+  })
+  const { isLoading, data: results } = useGetSourceArticles({
+    source: 'reddit',
+    tags: queryTags,
+    config: {
+      enabled: isVisible,
+    },
+  })
 
-  const getQueryTags = () => {
-    if (!selectedTag) {
-      return []
-    }
-
-    if (selectedTag.value === MY_LANGUAGES_TAG.redditValues[0]) {
-      return getCardTagsValue(userSelectedTags, 'redditValues') || []
-    }
-    return selectedTag.redditValues || []
-  }
-
-  const results = useGetRedditArticles({ tags: getQueryTags() })
-
-  const getIsLoading = () => results.some((result) => result.isLoading)
-
-  const getData = () => {
-    return filterUniqueEntries(
-      results
-        .reduce((acc: Article[], curr) => {
-          if (!curr.data) return acc
-          return [...acc, ...curr.data]
-        }, [])
-        .sort((a, b) => b.reactions - a.reactions)
-    )
-  }
-
-  const renderItem = (item: Article, index: number) => (
-    <ArticleItem
-      item={item}
-      key={`md-${index}`}
-      index={index}
-      selectedTag={selectedTag}
-      analyticsTag={meta.analyticsTag}
-    />
+  const renderItem = useCallback(
+    (item: Article) => (
+      <ArticleItem
+        item={item}
+        key={item.id}
+        selectedTag={selectedTag}
+        analyticsTag={meta.analyticsTag}
+      />
+    ),
+    [selectedTag, meta.analyticsTag]
   )
 
-  const HeaderTitle = () => {
-    return (
-      <>
-        {meta.label}
-        <InlineTextFilter
-          options={[GLOBAL_TAG, ...userSelectedTags, MY_LANGUAGES_TAG].map((tag) => ({
-            label: tag.label,
-            value: tag.value,
-          }))}
-          onChange={(item) => {
-            setCardSettings(meta.value, { ...cardsSettings[meta.value], language: item.value })
-            trackCardLanguageSelect(meta.analyticsTag, item.value)
-          }}
-          value={cardsSettings?.[meta.value]?.language}
-        />
-      </>
-    )
-  }
-
   return (
-    <Card titleComponent={<HeaderTitle />} {...props}>
-      <FloatingFilter card={meta} filters={['language']} />
-      <ListComponent items={getData()} isLoading={getIsLoading()} renderItem={renderItem} />
+    <Card
+      ref={ref}
+      titleComponent={
+        <MemoizedCardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag} />
+      }
+      {...props}
+      settingsComponent={
+        <MemoizedCardSettings
+          url={meta.link}
+          id={meta.value}
+          globalTag={GLOBAL_TAG}
+          sortBy={sortBy}
+          language={language || GLOBAL_TAG.value}
+          sortOptions={(defaults) => [
+            ...defaults,
+            {
+              label: 'Upvotes',
+              value: 'points_count',
+              icon: <VscTriangleUp />,
+            },
+          ]}
+        />
+      }>
+      <ListPostComponent
+        sortBy={sortBy as keyof Article}
+        items={results}
+        isLoading={isLoading}
+        renderItem={renderItem}
+      />
     </Card>
   )
 }

@@ -2631,6 +2631,13 @@
     "@svgr/hast-util-to-babel-ast" "8.0.0"
     svg-parser "^2.0.4"
 
+"@szhsin/react-menu@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@szhsin/react-menu/-/react-menu-4.5.0.tgz#c302b652b8de896ec80669b1fcc492210101e290"
+  integrity sha512-fblZBPxFGjg+QxSbdDsWk3H8brupuQG+ayYXElwg+FdCxwLQLvrHG9K6O9+4pE8qLyDy5REn/2HmffPXcBZviA==
+  dependencies:
+    react-transition-state "^2.3.1"
+
 "@tanstack/query-async-storage-persister@^5.8.3":
   version "5.14.1"
   resolved "https://registry.yarnpkg.com/@tanstack/query-async-storage-persister/-/query-async-storage-persister-5.14.1.tgz#71666d5be8eba5c09eaebed56918e6df2117a69e"
@@ -5977,6 +5984,11 @@ react-transition-group@^4.3.0:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-transition-state@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/react-transition-state/-/react-transition-state-2.3.1.tgz#53f5d33a95d1859d1ad2b1673c4466da1518e4ed"
+  integrity sha512-Z48el73x+7HUEM131dof9YpcQ5IlM4xB+pKWH/lX3FhxGfQaNTZa16zb7pWkC/y5btTZzXfCtglIJEGc57giOw==
 
 react-use-gesture@^8.0.1:
   version "8.0.1"

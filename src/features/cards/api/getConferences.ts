@@ -1,10 +1,14 @@
-import { useQueries, UseQueryOptions } from '@tanstack/react-query'
-import { QueryConfig } from 'src/lib/react-query'
-import { Conference } from 'src/types'
+import { useQuery } from '@tanstack/react-query'
 import { axios } from 'src/lib/axios'
+import { ExtractFnReturnType, QueryConfig } from 'src/lib/react-query'
+import { Conference } from 'src/types'
 
-const getConferences = async (tag: string): Promise<Conference[]> => {
-  return axios.get(`/data/v2/conferences/${tag}.json`)
+const getConferences = async (tags: string[]): Promise<Conference[]> => {
+  return axios.get(`/engine/conferences`, {
+    params: {
+      tags: tags?.join(','),
+    },
+  })
 }
 
 type QueryFnType = typeof getConferences
@@ -15,13 +19,9 @@ type UseGetConferencesOptions = {
 }
 
 export const useGetConferences = ({ config, tags }: UseGetConferencesOptions) => {
-  return useQueries({
-    queries: tags.map<UseQueryOptions<Conference[]>>((tag) => {
-      return {
-        ...config,
-        queryKey: ['conferences', tag],
-        queryFn: () => getConferences(tag),
-      }
-    })
+  return useQuery<ExtractFnReturnType<QueryFnType>>({
+    ...config,
+    queryKey: ['conferences', ...tags],
+    queryFn: () => getConferences(tags),
   })
 }

@@ -1,78 +1,84 @@
-import { Card, FloatingFilter, InlineTextFilter } from 'src/components/Elements'
-import { ListComponent } from 'src/components/List'
-import { GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/config'
-import { trackCardLanguageSelect } from 'src/lib/analytics'
-import { useUserPreferences } from 'src/stores/preferences'
+import { useCallback } from 'react'
+import { BiCommentDetail } from 'react-icons/bi'
+import { MdWavingHand } from 'react-icons/md'
+import { Card } from 'src/components/Elements'
+import { ListPostComponent } from 'src/components/List/ListPostComponent'
 import { Article, CardPropsType } from 'src/types'
-import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement'
-import { useGetMediumArticles } from '../../api/getMediumArticles'
+import { useGetSourceArticles } from '../../api/getSourceArticles'
+import { useLazyListLoad } from '../../hooks/useLazyListLoad'
+import { useSelectedTags } from '../../hooks/useSelectedTags'
+import { MemoizedCardHeader } from '../CardHeader'
+import { MemoizedCardSettings } from '../CardSettings'
 import ArticleItem from './ArticleItem'
 
+const GLOBAL_TAG = { label: 'Global', value: 'programming' }
+
 export function MediumCard(props: CardPropsType) {
-  const { meta, withAds } = props
-  const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
-  const selectedTag =
-    [GLOBAL_TAG, MY_LANGUAGES_TAG, ...userSelectedTags].find(
-      (lang) => lang.value === cardsSettings?.[meta.value]?.language
-    ) || GLOBAL_TAG
+  const { meta } = props
+  const { ref, isVisible } = useLazyListLoad()
+  const {
+    queryTags,
+    selectedTag,
+    cardSettings: { sortBy, language } = {},
+  } = useSelectedTags({
+    source: meta.value,
+    fallbackTag: GLOBAL_TAG,
+  })
+  const { data, isLoading } = useGetSourceArticles({
+    source: 'medium',
+    tags: queryTags,
+    config: {
+      enabled: isVisible,
+    },
+  })
 
-  const getQueryTags = () => {
-    if (!selectedTag) {
-      return []
-    }
-
-    if (selectedTag.value === MY_LANGUAGES_TAG.mediumValues[0]) {
-      return getCardTagsValue(userSelectedTags, 'mediumValues')
-    }
-    return selectedTag.mediumValues
-  }
-
-  const results = useGetMediumArticles({ tags: getQueryTags() })
-
-  const getIsLoading = () => results.some((result) => result.isLoading)
-
-  const getData = () => {
-    return filterUniqueEntries(
-      results.reduce((acc: Article[], curr) => {
-        if (!curr.data) return acc
-        return [...acc, ...curr.data]
-      }, [])
-    )
-  }
-
-  const renderItem = (item: Article, index: number) => (
-    <ArticleItem
-      item={item}
-      key={`md-${index}`}
-      index={index}
-      selectedTag={selectedTag}
-      analyticsTag={meta.analyticsTag}
-    />
+  const renderItem = useCallback(
+    (item: Article) => (
+      <ArticleItem
+        item={item}
+        key={item.id}
+        selectedTag={selectedTag}
+        analyticsTag={meta.analyticsTag}
+      />
+    ),
+    [selectedTag, meta.analyticsTag]
   )
 
-  const HeaderTitle = () => {
-    return (
-      <>
-        {meta.label}
-        <InlineTextFilter
-          options={[GLOBAL_TAG, ...userSelectedTags, MY_LANGUAGES_TAG].map((tag) => ({
-            label: tag.label,
-            value: tag.value,
-          }))}
-          onChange={(item) => {
-            setCardSettings(meta.value, { ...cardsSettings[meta.value], language: item.value })
-            trackCardLanguageSelect(meta.analyticsTag, item.value)
-          }}
-          value={cardsSettings?.[meta.value]?.language}
-        />
-      </>
-    )
-  }
-
   return (
-    <Card titleComponent={<HeaderTitle />} {...props}>
-      <FloatingFilter card={meta} filters={['language']} />
-      <ListComponent items={getData()} isLoading={getIsLoading()} renderItem={renderItem} />
+    <Card
+      ref={ref}
+      titleComponent={
+        <MemoizedCardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag} />
+      }
+      settingsComponent={
+        <MemoizedCardSettings
+          url={meta.link}
+          id={meta.value}
+          sortBy={sortBy}
+          globalTag={GLOBAL_TAG}
+          language={language || GLOBAL_TAG.value}
+          sortOptions={(defaults) => [
+            ...defaults,
+            {
+              label: 'Claps',
+              value: 'points_count',
+              icon: <MdWavingHand />,
+            },
+            {
+              label: 'Comments',
+              value: 'comments_count',
+              icon: <BiCommentDetail />,
+            },
+          ]}
+        />
+      }
+      {...props}>
+      <ListPostComponent
+        sortBy={sortBy as keyof Article}
+        items={data}
+        isLoading={isLoading}
+        renderItem={renderItem}
+      />
     </Card>
   )
 }

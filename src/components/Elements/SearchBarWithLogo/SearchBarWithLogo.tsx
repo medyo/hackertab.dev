@@ -1,7 +1,7 @@
 import { HiSparkles } from 'react-icons/hi'
 import { AI_PROMPT_ENGINES } from 'src/config/SearchEngines'
 import { useUserPreferences } from 'src/stores/preferences'
-import { SearchBar } from '../SearchBar/SearchBar'
+import { SearchEngineBar } from '../SearchBar/SearchEngineBar'
 import './SearchBarWithLogo.css'
 
 export const SearchBarWithLogo = () => {
@@ -25,7 +25,7 @@ export const SearchBarWithLogo = () => {
         />
       )}
 
-      <SearchBar />
+      <SearchEngineBar />
     </div>
   )
 }

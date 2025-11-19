@@ -1,4 +1,3 @@
-import { Occupation } from 'src/features/onboarding/types'
 import { Tag, useRemoteConfigStore } from 'src/features/remoteConfig'
 import { enhanceTags } from 'src/utils/DataEnhancement'
 import { create } from 'zustand'
@@ -20,7 +19,7 @@ export type UserPreferencesState = {
   theme: Theme
   openLinksNewTab: boolean
   onboardingCompleted: boolean
-  onboardingResult: Omit<Occupation, 'icon'> | null
+  occupation: string | null
   listingMode: ListingMode
   promptEngine: string
   promptEngines: SearchEngineType[]
@@ -40,10 +39,14 @@ type UserPreferencesStoreActions = {
   setOpenLinksNewTab: (openLinksNewTab: boolean) => void
   setListingMode: (listingMode: ListingMode) => void
   setCards: (selectedCards: SelectedCard[]) => void
+  removeCard: (cardName: string) => void
   setTags: (selectedTags: Tag[]) => void
+  followTag: (tag: Tag) => void
+  unfollowTag: (tag: Tag) => void
   setMaxVisibleCards: (maxVisibleCards: number) => void
   setCardSettings: (card: string, settings: CardSettingsType) => void
-  markOnboardingAsCompleted: (occupation: Omit<Occupation, 'icon'> | null) => void
+  setOccupation: (occupation: string | null) => void
+  markOnboardingAsCompleted: () => void
   setUserCustomCards: (cards: SupportedCardType[]) => void
   updateCardOrder: (prevIndex: number, newIndex: number) => void
   setDNDDuration: (value: DNDDuration) => void
@@ -69,14 +72,29 @@ const defaultStorage: StateStorage = {
         state: UserPreferencesState
       } = JSON.parse(item)
 
-      const remoteConfigStore = useRemoteConfigStore.getState()
-
       const newState = {
         ...state,
-        userSelectedTags: enhanceTags(
-          remoteConfigStore,
-          state.userSelectedTags as unknown as string[]
-        ),
+      }
+      if (version == 0) {
+        const MAP_OLD_TAGS: Record<string, string> = {
+          'artificial-intelligence': 'artificial intelligence',
+          'machine-learning': 'machine learning',
+          c: 'clang',
+          cpp: 'c++',
+          csharp: 'c#',
+          'data-science': 'data science',
+          go: 'golang',
+          'objective-c': 'objectivec',
+        }
+
+        const stateTags = state.userSelectedTags as unknown as string[]
+        const newTags = stateTags.map((tag) => {
+          if (MAP_OLD_TAGS[tag]) {
+            return MAP_OLD_TAGS[tag]
+          }
+          return tag
+        })
+        newState.userSelectedTags = enhanceTags(useRemoteConfigStore.getState(), newTags)
       }
 
       return JSON.stringify({ state: newState, version })
@@ -86,21 +104,7 @@ const defaultStorage: StateStorage = {
   },
   setItem: (name: string, value: string) => {
     try {
-      let {
-        state,
-        version,
-      }: {
-        version: number
-        state: UserPreferencesState
-      } = JSON.parse(value)
-
-      const newState = {
-        ...state,
-        userSelectedTags: state.userSelectedTags.map((tag) => tag.value),
-      }
-
-      const newValue = JSON.stringify({ state: newState, version })
-      window.localStorage.setItem(name, newValue)
+      window.localStorage.setItem(name, value)
     } catch (e) {
       window.localStorage.setItem(name, '')
     }
@@ -117,21 +121,14 @@ export const useUserPreferences = create(
         {
           value: 'javascript',
           label: 'Javascript',
-          githubValues: ['javascript'],
-          confsValues: ['javascript'],
-          devtoValues: ['javascript'],
-          hashnodeValues: ['javascript'],
-          mediumValues: ['javascript'],
-          redditValues: ['javascript'],
-          freecodecampValues: ['javascript'],
         },
       ],
+      occupation: null,
       layout: 'cards',
       cardsSettings: {},
       maxVisibleCards: 4,
       theme: 'dark',
       onboardingCompleted: false,
-      onboardingResult: null,
       promptEngine: 'chatgpt',
       promptEngines: [],
       listingMode: 'normal',
@@ -146,18 +143,14 @@ export const useUserPreferences = create(
       userCustomCards: [],
       DNDDuration: 'never',
       advStatus: false,
-      setLayout: (layout) => set({ layout: layout }),
-      setPromptEngine: (promptEngine: string) => set({ promptEngine: promptEngine }),
-      setListingMode: (listingMode: ListingMode) => set({ listingMode: listingMode }),
-      setTheme: (theme: Theme) => set({ theme: theme }),
-      setOpenLinksNewTab: (openLinksNewTab: boolean) => set({ openLinksNewTab: openLinksNewTab }),
+      setLayout: (layout) => set({ layout }),
+      setPromptEngine: (promptEngine: string) => set({ promptEngine }),
+      setListingMode: (listingMode: ListingMode) => set({ listingMode }),
+      setTheme: (theme: Theme) => set({ theme }),
+      setOpenLinksNewTab: (openLinksNewTab: boolean) => set({ openLinksNewTab }),
       setCards: (selectedCards: SelectedCard[]) => set({ cards: selectedCards }),
       setTags: (selectedTags: Tag[]) => set({ userSelectedTags: selectedTags }),
-      setMaxVisibleCards: (maxVisibleCards: number) => set({ maxVisibleCards: maxVisibleCards }),
-      initState: (newState: UserPreferencesState) =>
-        set(() => {
-          return { ...newState }
-        }),
+      setMaxVisibleCards: (maxVisibleCards: number) => set({ maxVisibleCards }),
       setCardSettings: (card: string, settings: CardSettingsType) =>
         set((state) => ({
           cardsSettings: {
@@ -165,10 +158,13 @@ export const useUserPreferences = create(
             [card]: { ...state.cardsSettings[card], ...settings },
           },
         })),
-      markOnboardingAsCompleted: (occupation: Omit<Occupation, 'icon'> | null) =>
+      markOnboardingAsCompleted: () =>
         set(() => ({
           onboardingCompleted: true,
-          onboardingResult: occupation,
+        })),
+      setOccupation: (occupation: string | null) =>
+        set(() => ({
+          occupation: occupation,
         })),
       setUserCustomCards: (cards: SupportedCardType[]) => set({ userCustomCards: cards }),
       updateCardOrder: (prevIndex: number, newIndex: number) =>
@@ -212,10 +208,38 @@ export const useUserPreferences = create(
           }
         }),
       setAdvStatus: (status) => set({ advStatus: status }),
+      removeCard: (cardName: string) =>
+        set((state) => {
+          return {
+            cards: state.cards.filter((card) => card.name !== cardName),
+          }
+        }),
+      followTag: (tag: Tag) =>
+        set((state) => {
+          const exists = state.userSelectedTags.find((t) => t.value === tag.value)
+          if (exists) {
+            return state
+          }
+          return {
+            userSelectedTags: [...state.userSelectedTags, tag],
+          }
+        }),
+      unfollowTag: (tag: Tag) =>
+        set((state) => {
+          return {
+            userSelectedTags: state.userSelectedTags.filter((t) => t.value !== tag.value),
+          }
+        }),
     }),
     {
       name: 'preferences_storage',
+      version: 1,
       storage: createJSONStorage(() => defaultStorage),
+      migrate: (persistedState) => {
+        const state = persistedState as unknown as UserPreferencesState &
+          UserPreferencesStoreActions
+        return state
+      },
     }
   )
 )
