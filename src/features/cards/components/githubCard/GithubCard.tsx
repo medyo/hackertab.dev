@@ -23,7 +23,7 @@ export function GithubCard(props: CardPropsType) {
     source: meta.value,
     fallbackTag: GLOBAL_TAG,
   })
-  const { dateRange, language, sortBy } = cardSettings
+  const { dateRange, language, sortBy } = cardSettings ?? {}
 
   const selectedDateRange = useMemo(
     () => dateRanges.find((date) => date.value === dateRange) || dateRanges[0],
