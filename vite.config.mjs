@@ -75,13 +75,17 @@ export default defineConfig(({ mode }) => {
               'react-select',
               'react-share',
               'react-simple-toasts',
+              'react-responsive',
               'react-toggle',
               'react-tooltip',
               'react-icons',
               'react-markdown',
+              'react-modal',
               'react-spring-bottom-sheet',
+              'react-infinite-scroll-hook',
               '@dnd-kit/core',
               '@dnd-kit/sortable',
+              '@szhsin/react-menu',
             ],
             utils: [
               '@amplitude/analytics-browser',
@@ -97,6 +101,7 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       open: true,
+      sourcemap: false,
       proxy: {
         '/api': {
           target: env.VITE_API_URL,
