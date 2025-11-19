@@ -33,6 +33,7 @@
     "react-select": "^5.0.1",
     "react-share": "^4.4.1",
     "react-simple-toasts": "^6.1.0",
+    "react-spinners": "^0.10.4",
     "react-toggle": "^4.1.1",
     "react-tooltip": "^4.2.21",
     "timeago.js": "^4.0.2",
