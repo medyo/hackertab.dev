@@ -10,14 +10,14 @@ export const useAuth = () => {
 
   const isConnected = authStore.user != null
 
-  const shouldCountStreak = useCallback(() => {
+  const shouldIcrementStreak = useCallback(() => {
     if (!isConnected) return false
 
     const last = authStore.lastStreakUpdate
     if (!last) return true
 
-    const today = new Date().toDateString()
-    const lastDay = new Date(last).toDateString()
+    const today = new Date().toISOString()
+    const lastDay = new Date(last).toISOString()
 
     return today !== lastDay
   }, [isConnected, authStore.lastStreakUpdate])
@@ -33,7 +33,7 @@ export const useAuth = () => {
     ...authModalStore,
     ...authStore,
     isConnected,
-    shouldCountStreak,
+    shouldIcrementStreak,
     logout,
   }
 }
