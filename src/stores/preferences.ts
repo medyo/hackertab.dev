@@ -235,9 +235,12 @@ export const useUserPreferences = create(
       name: 'preferences_storage',
       version: 1,
       storage: createJSONStorage(() => defaultStorage),
-      migrate: (persistedState) => {
+      migrate: (persistedState, version) => {
         const state = persistedState as unknown as UserPreferencesState &
           UserPreferencesStoreActions
+        if (version === 0) {
+          console.log('Migrating preferences_storage to version 1')
+        }
         return state
       },
     }
