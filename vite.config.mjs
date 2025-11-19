@@ -84,7 +84,6 @@ export default defineConfig(({ mode }) => {
               'react-icons',
               'react-markdown',
               'react-modal',
-              'react-spring-bottom-sheet',
               'react-infinite-scroll-hook',
               '@dnd-kit/core',
               '@dnd-kit/sortable',
