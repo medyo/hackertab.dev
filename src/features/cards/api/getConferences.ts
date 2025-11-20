@@ -21,7 +21,7 @@ type UseGetConferencesOptions = {
 export const useGetConferences = ({ config, tags }: UseGetConferencesOptions) => {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
     ...config,
-    queryKey: ['conferences', ...tags],
+    queryKey: ['conferences_v2', ...tags],
     queryFn: () => getConferences(tags),
   })
 }

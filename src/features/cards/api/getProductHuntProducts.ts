@@ -21,7 +21,7 @@ type UseGetArticlesOptions = {
 export const useGeProductHuntProducts = ({ date, config }: UseGetArticlesOptions) => {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
     ...config,
-    queryKey: ['producthunt', date],
+    queryKey: ['producthunt_v2', date],
     queryFn: () => getArticles({ date }),
   })
 }

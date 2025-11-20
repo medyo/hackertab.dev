@@ -29,7 +29,7 @@ type UseGetReposOptions = {
 export const useGetGithubRepos = ({ config, tags, dateRange }: UseGetReposOptions) => {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
     ...config,
-    queryKey: ['github', ...tags, dateRange],
+    queryKey: ['github_v2', ...tags, dateRange],
     queryFn: () => getRepos({ tags, dateRange }),
   })
 }
