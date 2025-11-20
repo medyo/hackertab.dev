@@ -239,7 +239,12 @@ export const useUserPreferences = create(
         const state = persistedState as unknown as UserPreferencesState &
           UserPreferencesStoreActions
         if (version === 0) {
-          console.log('Migrating preferences_storage to version 1')
+          console.log('Migrating preferences_storage to version 1', state)
+
+          return {
+            ...state,
+            onboardingCompleted: true,
+          }
         }
         return state
       },
