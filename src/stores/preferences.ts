@@ -19,6 +19,11 @@ export type UserPreferencesState = {
   theme: Theme
   openLinksNewTab: boolean
   onboardingCompleted: boolean
+  onboardingResult?: {
+    title: string
+    sources: string[]
+    tags: string[]
+  } | null
   occupation: string | null
   listingMode: ListingMode
   promptEngine: string
@@ -244,6 +249,7 @@ export const useUserPreferences = create(
           return {
             ...state,
             onboardingCompleted: true,
+            occupation: state.onboardingResult?.title || '',
           }
         }
         return state
