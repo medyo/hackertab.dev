@@ -10,22 +10,6 @@ import { useUserPreferences } from 'src/stores/preferences'
 import { Article, BaseItemPropsType } from 'src/types'
 import { format } from 'timeago.js'
 
-type PostFlairPropsType = {
-  text: string
-  textColor?: string
-  bgColor?: string
-}
-
-const PostFlair = ({ text, bgColor, textColor }: PostFlairPropsType) => {
-  const color = textColor === 'light' ? '#fff' : '#000'
-  const backgroundColor = bgColor ? bgColor : '#dadada'
-  return (
-    <div style={{ backgroundColor, color }} className="flair">
-      <span>{text}</span>
-    </div>
-  )
-}
-
 const ArticleItem = ({ item, analyticsTag }: BaseItemPropsType<Article>) => {
   const { listingMode } = useUserPreferences()
 
