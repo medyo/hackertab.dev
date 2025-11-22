@@ -20,14 +20,14 @@ export const ArticleFeedItem = (props: BaseItemPropsType<ArticleFeedItemData>) =
             <FeedItemHeader {...item} />
             {listingMode === 'compact' && (
               <div className="rowDetails">
-                <span className="rowItem capitalize verticalAligned">
+                <span className="rowItem feedSource verticalAligned">
                   <FeedItemSource source={item.source} />
                 </span>
               </div>
             )}
             {listingMode === 'normal' && (
               <div className="rowDetails">
-                <span className="rowItem capitalize verticalAligned">
+                <span className="rowItem feedSource verticalAligned">
                   <FeedItemSource source={item.source} />
                 </span>
                 <span className="rowItem" title={new Date(item.date).toUTCString()}>

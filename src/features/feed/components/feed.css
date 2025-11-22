@@ -130,3 +130,16 @@
   margin: 0;
   padding: 0;
 }
+
+.sourceName {
+  text-transform: none;
+
+  &::first-letter {
+    text-transform: capitalize;
+  }
+}
+
+.feedItemSourceFallback {
+  width: 12px;
+  height: 12px;
+}
