@@ -9,7 +9,7 @@ import { MemoizedCardHeader } from '../CardHeader'
 import { MemoizedCardSettings } from '../CardSettings'
 import ArticleItem from './ArticleItem'
 
-const GLOBAL_TAG = { label: 'Global', value: 'global' }
+const GLOBAL_TAG = { label: 'Global', value: '' }
 
 export function FreecodecampCard(props: CardPropsType) {
   const { meta } = props
