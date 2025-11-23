@@ -59,6 +59,7 @@ export const TopicSettings = () => {
 
   return (
     <SettingsContentLayout
+      bodyClassName="topicsBottomSpacer"
       title="Followed Topics"
       description={`Your feed will be tailored by following the technologies you are interested in.`}>
       {userSelectedTags.length > 0 ? (

@@ -63,6 +63,11 @@
     cursor: pointer;
   }
 }
+
+.topicsBottomSpacer {
+  margin-bottom: 80px;
+  padding-bottom: 24px;
+}
 .settingsContent header {
   display: flex;
   justify-content: space-between;

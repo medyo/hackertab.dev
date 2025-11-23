@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import './settingsContentLayout.css'
 
 type SettingsContentLayoutProps = {
@@ -5,6 +6,7 @@ type SettingsContentLayoutProps = {
   description: string
   children: React.ReactNode
   actions?: React.ReactNode
+  bodyClassName?: string
 }
 
 export const SettingsContentLayout = ({
@@ -12,6 +14,7 @@ export const SettingsContentLayout = ({
   description,
   actions,
   children,
+  bodyClassName,
 }: SettingsContentLayoutProps) => {
   return (
     <div className="settingsContent">
@@ -23,7 +26,7 @@ export const SettingsContentLayout = ({
 
         {actions && <div className="actions">{actions}</div>}
       </header>
-      <main className="settingsBody scrollable">{children}</main>
+      <main className={clsx('settingsBody scrollable', bodyClassName)}>{children}</main>
     </div>
   )
 }
