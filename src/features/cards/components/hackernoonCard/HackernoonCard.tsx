@@ -23,7 +23,7 @@ export function HackernoonCard(props: CardPropsType) {
     fallbackTag: GLOBAL_TAG,
   })
 
-  const { data, isLoading } = useGetSourceArticles({
+  const { data, error, isLoading } = useGetSourceArticles({
     source: 'hackernoon',
     tags: queryTags,
     config: {
@@ -55,6 +55,7 @@ export function HackernoonCard(props: CardPropsType) {
       {...props}>
       <ListPostComponent
         sortBy={sortBy as keyof Article}
+        error={error}
         items={data}
         isLoading={isLoading}
         renderItem={renderItem}

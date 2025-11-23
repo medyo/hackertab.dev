@@ -24,7 +24,7 @@ export function HashnodeCard(props: CardPropsType) {
     source: meta.value,
     fallbackTag: GLOBAL_TAG,
   })
-  const { data, isLoading } = useGetSourceArticles({
+  const { data, error, isLoading } = useGetSourceArticles({
     source: 'hashnode',
     tags: queryTags,
     config: {
@@ -68,6 +68,7 @@ export function HashnodeCard(props: CardPropsType) {
       {...props}>
       <ListComponent<Article>
         sortBy={sortBy as keyof Article}
+        error={error}
         items={data}
         isLoading={isLoading}
         renderItem={renderItem}

@@ -23,7 +23,7 @@ export function FreecodecampCard(props: CardPropsType) {
     fallbackTag: GLOBAL_TAG,
   })
 
-  const { data, isLoading } = useGetSourceArticles({
+  const { data, error, isLoading } = useGetSourceArticles({
     source: 'freecodecamp',
     tags: queryTags,
     config: {
@@ -56,6 +56,7 @@ export function FreecodecampCard(props: CardPropsType) {
       <ListPostComponent
         sortBy={sortBy as keyof Article}
         items={data}
+        error={error}
         isLoading={isLoading}
         renderItem={renderItem}
       />

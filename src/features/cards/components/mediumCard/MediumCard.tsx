@@ -24,7 +24,7 @@ export function MediumCard(props: CardPropsType) {
     source: meta.value,
     fallbackTag: GLOBAL_TAG,
   })
-  const { data, isLoading } = useGetSourceArticles({
+  const { data, isLoading, error } = useGetSourceArticles({
     source: 'medium',
     tags: queryTags,
     config: {
@@ -76,6 +76,7 @@ export function MediumCard(props: CardPropsType) {
       <ListPostComponent
         sortBy={sortBy as keyof Article}
         items={data}
+        error={error}
         isLoading={isLoading}
         renderItem={renderItem}
       />

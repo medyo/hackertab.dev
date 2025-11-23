@@ -21,7 +21,11 @@ export function ConferencesCard(props: CardPropsType) {
     source: meta.value,
     fallbackTag: GLOBAL_TAG,
   })
-  const { isLoading, data: results } = useGetConferences({
+  const {
+    isLoading,
+    error,
+    data: results,
+  } = useGetConferences({
     tags: queryTags,
     config: {
       enabled: isVisible,
@@ -59,6 +63,7 @@ export function ConferencesCard(props: CardPropsType) {
       <ListConferenceComponent
         sortBy={sortBy as keyof Conference}
         items={results}
+        error={error}
         isLoading={isLoading}
         renderItem={renderItem}
       />
