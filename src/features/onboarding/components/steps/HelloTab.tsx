@@ -28,7 +28,7 @@ const OCCUPATIONS: Occupation[] = [
     icon: RiDeviceFill,
     value: 'fullstack',
     sources: ['devto', 'github', 'medium', 'hashnode'],
-    tags: ['javascript', 'typescript', 'php', 'ruby', 'rust'],
+    tags: ['webdev', 'javascript', 'typescript', 'php', 'devops'],
   },
   {
     title: 'Mobile',
@@ -36,8 +36,8 @@ const OCCUPATIONS: Occupation[] = [
     icon: AiFillMobile,
     sources: ['reddit', 'github', 'medium', 'hashnode'],
     tags: [
-      'android',
       'mobile',
+      'android',
       'kotlin',
       'java',
       'ios',
@@ -73,7 +73,7 @@ const OCCUPATIONS: Occupation[] = [
     value: 'ai',
     icon: FaRobot,
     sources: ['github', 'hackernoon', 'hackernews', 'devto'],
-    tags: ['machine learning', 'artificial intelligence', 'python'],
+    tags: ['artificial intelligence', 'machine learning', 'python'],
   },
   {
     title: 'Other',
@@ -85,8 +85,14 @@ const OCCUPATIONS: Occupation[] = [
 ]
 
 export const HelloTab = () => {
-  const { markOnboardingAsCompleted, setCards, setTags, setOccupation, occupation } =
-    useUserPreferences()
+  const {
+    markOnboardingAsCompleted,
+    setCardSettings,
+    setCards,
+    setTags,
+    setOccupation,
+    occupation,
+  } = useUserPreferences()
 
   const { tags } = useRemoteConfigStore()
 
@@ -108,6 +114,12 @@ export const HelloTab = () => {
         .filter(Boolean) as Array<Tag>
 
       setTags(userTags)
+      for (const source of selectedOccupation.sources) {
+        setCardSettings(source, {
+          language: selectedOccupation.tags[0],
+          sortBy: 'published_at',
+        })
+      }
     }
 
     markOnboardingAsCompleted()
