@@ -94,6 +94,11 @@ export function GithubCard(props: CardPropsType) {
               icon: <VscStarFull />,
             },
             {
+              label: 'Stars today',
+              value: 'stars_in_range',
+              icon: <VscStarFull />,
+            },
+            {
               label: 'Forks',
               value: 'forks_count',
               icon: <VscRepoForked />,

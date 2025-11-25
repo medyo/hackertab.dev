@@ -54,6 +54,12 @@ export const RepoFeedItem = (props: BaseItemPropsType<GithubFeedItemData>) => {
                     stars
                   </span>
                 )}
+                {item.stars_in_range && (
+                  <span className="rowItem">
+                    <VscStarFull className="rowItemIcon" />{' '}
+                    {numberWithCommas(item.stars_in_range || 0)} stars today
+                  </span>
+                )}
                 <span className="rowItem">
                   <VscRepoForked className="rowItemIcon" /> {numberWithCommas(item?.forks || 0)}{' '}
                   forks

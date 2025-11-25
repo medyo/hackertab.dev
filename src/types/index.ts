@@ -75,6 +75,7 @@ export type ProductHuntFeedItemData = FeedItem & {
 export type GithubFeedItemData = FeedItem & {
   type: 'github'
   stars: number
+  stars_in_range: number
   forks: number
   programmingLanguage: string
   description?: string
@@ -98,7 +99,7 @@ export type Repository = BaseEntry & {
   description: string
   owner: string
   forks_count: number
-  starsInDateRange?: number
+  stars_in_range: number
   name: string
 }
 

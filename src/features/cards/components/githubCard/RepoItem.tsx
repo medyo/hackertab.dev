@@ -42,6 +42,12 @@ const RepoItem = ({ item, selectedTag, analyticsTag }: BaseItemPropsType<Reposit
                   <VscStarFull className="rowItemIcon" /> {numberWithCommas(item.stars_count)} stars
                 </span>
               )}
+              {item.stars_in_range && (
+                <span className="rowItem">
+                  <VscStarFull className="rowItemIcon" />{' '}
+                  {numberWithCommas(item.stars_in_range || 0)} stars today
+                </span>
+              )}
               {item.forks_count && (
                 <span className="rowItem">
                   <VscRepoForked className="rowItemIcon" /> {numberWithCommas(item.forks_count)}{' '}
