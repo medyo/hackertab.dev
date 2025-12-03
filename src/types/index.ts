@@ -32,24 +32,25 @@ export type BaseEntry = {
   id: string
   url: string
   title: string
+  tags: Array<string>
+  comments_count: number
+  points_count: number
+  image_url: string
+  published_at: number
+  description?: string
 }
 
 export type Article = BaseEntry & {
-  published_at: number
-  tags: Array<string>
-  reactions: number
-  comments: number
-  image_url: string
   source: string
   original_url?: string
   comments_url?: string
-  description?: string
-  subreddit?: string
-  flair_text?: string
-  flair_background_color?: string
-  flair_text_color?: string
 }
 
+export type Product = BaseEntry & {
+  tagline: string
+  votes_count: number
+  topics: Array<string>
+}
 export type FeedItem = {
   title: string
   id: string
@@ -74,6 +75,7 @@ export type ProductHuntFeedItemData = FeedItem & {
 export type GithubFeedItemData = FeedItem & {
   type: 'github'
   stars: number
+  stars_in_range: number
   forks: number
   programmingLanguage: string
   description?: string
@@ -91,20 +93,20 @@ export type FeedItemData =
   | AdFeedItemData
 
 export type Repository = BaseEntry & {
-  programmingLanguage: string
-  stars: number
+  technology: string
+  stars_count: number
   source: string
   description: string
   owner: string
-  forks: number
-  starsInDateRange?: number
+  forks_count: number
+  stars_in_range: number
   name: string
 }
 
 export type Conference = BaseEntry & {
   start_date: number
   end_date: number
-  tag: string
+  tags: string[]
   online: Boolean
   city?: string
   country?: string
@@ -134,7 +136,6 @@ export type BaseItemPropsType<
     id: string
   }
 > = {
-  index: number
   item: T
   className?: string
   analyticsTag: string
@@ -143,6 +144,7 @@ export type BaseItemPropsType<
 
 export type CardSettingsType = {
   language: string
+  sortBy: string
   dateRange?: string
 }
 

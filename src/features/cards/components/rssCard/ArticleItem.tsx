@@ -5,7 +5,7 @@ import { Article, BaseItemPropsType } from 'src/types'
 import { format } from 'timeago.js'
 
 const ArticleItem = (props: BaseItemPropsType<Article>) => {
-  const { item, index, selectedTag, analyticsTag } = props
+  const { item, selectedTag, analyticsTag } = props
   if (!item) {
     return null
   }
@@ -13,8 +13,6 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
     <CardItemWithActions
       source={analyticsTag}
       sourceType="rss"
-      index={index}
-      key={index}
       item={item}
       cardItem={
         <>

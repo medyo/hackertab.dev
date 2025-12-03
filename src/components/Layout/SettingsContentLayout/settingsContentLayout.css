@@ -13,6 +13,60 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  .categoryTitle {
+    text-transform: capitalize;
+    font-size: 16px;
+    margin-bottom: 16px;
+    color: var(--primary-text-color);
+
+    & .icon {
+      vertical-align: top;
+    }
+  }
+
+  .subTitleButton {
+    cursor: pointer;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  .subTitleIcon {
+    font-size: 12px;
+  }
+  .topicsFlex {
+    display: flex;
+    margin-top: 12px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .categoryContent {
+    margin-top: 12px;
+  }
+  .expandButton {
+    width: auto;
+    font-size: 12px;
+    height: 20px;
+    border: none;
+    background-color: var(--button-background-color);
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: inline-flex;
+    padding: 0 6px;
+    display: inline-flex;
+    column-gap: 4px;
+    text-transform: lowercase;
+    cursor: pointer;
+  }
+}
+
+.topicsBottomSpacer {
+  margin-bottom: 80px;
+  padding-bottom: 24px;
 }
 .settingsContent header {
   display: flex;

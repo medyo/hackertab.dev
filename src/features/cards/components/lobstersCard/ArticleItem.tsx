@@ -8,22 +8,20 @@ import { useUserPreferences } from 'src/stores/preferences'
 import { Article, BaseItemPropsType } from 'src/types'
 import { format } from 'timeago.js'
 
-const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) => {
+const ArticleItem = ({ item, analyticsTag }: BaseItemPropsType<Article>) => {
   const { listingMode } = useUserPreferences()
 
   return (
     <CardItemWithActions
       source={analyticsTag}
-      index={index}
       item={item}
-      key={index}
       cardItem={
         <>
           <p className="rowTitle">
             <CardLink
               link={item.url}
               analyticsAttributes={{
-                [Attributes.POINTS]: item.reactions,
+                [Attributes.POINTS]: item.points_count,
                 [Attributes.TRIGERED_FROM]: 'card',
                 [Attributes.TITLE]: item.title,
                 [Attributes.LINK]: item.url,
@@ -32,17 +30,17 @@ const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) 
               {listingMode === 'compact' && (
                 <div className="counterWrapper">
                   <VscTriangleUp />
-                  <span className="value">{item.reactions}</span>
+                  <span className="value">{item.points_count}</span>
                 </div>
               )}
 
-              <div className="subTitle">{item.title}</div>
+              <span className="subTitle">{item.title}</span>
             </CardLink>
           </p>
           {listingMode === 'normal' && (
             <div className="rowDetails">
               <span className="rowItem lobstersRowItem">
-                <GoDotFill className="rowItemIcon" /> {item.reactions} points
+                <GoDotFill className="rowItemIcon" /> {item.points_count} points
               </span>
               <span className="rowItem" title={new Date(item.published_at).toUTCString()}>
                 <MdAccessTime className="rowItemIcon" /> {format(new Date(item.published_at))}
@@ -51,13 +49,13 @@ const ArticleItem = ({ item, index, analyticsTag }: BaseItemPropsType<Article>) 
                 link={item.comments_url as string}
                 className="rowItem rowItemClickable"
                 analyticsAttributes={{
-                  [Attributes.POINTS]: item.reactions,
+                  [Attributes.POINTS]: item.points_count,
                   [Attributes.TRIGERED_FROM]: 'card',
                   [Attributes.TITLE]: `${item.title} comments`,
                   [Attributes.LINK]: item.comments_url,
                   [Attributes.SOURCE]: analyticsTag,
                 }}>
-                <BiCommentDetail className="rowItemIcon" /> {item.comments} comments
+                <BiCommentDetail className="rowItemIcon" /> {item.comments_count} comments
               </ClickableItem>
             </div>
           )}

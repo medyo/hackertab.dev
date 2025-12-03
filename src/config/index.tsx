@@ -23,26 +23,6 @@ export const twitterHandle = '@hackertabdev'
 export const reportLink = 'https://www.hackertab.dev/report'
 
 export const LS_PREFERENCES_KEY = 'hackerTabPrefs'
-export const GLOBAL_TAG = {
-  value: 'global',
-  label: 'Trending',
-  githubValues: ['global'],
-  devtoValues: ['programming'],
-  hashnodeValues: ['programming'],
-  mediumValues: ['programming'],
-  redditValues: ['programming'],
-  freecodecampValues: ['programming'],
-}
-export const MY_LANGUAGES_TAG = {
-  value: 'myLangs',
-  label: 'My Languages',
-  githubValues: ['myLangs'],
-  devtoValues: ['myLangs'],
-  hashnodeValues: ['myLangs'],
-  mediumValues: ['myLangs'],
-  redditValues: ['myLangs'],
-  freecodecampValues: ['myLangs'],
-}
 export const MAX_ITEMS_PER_CARD = 50
 
 export type DateRangeType = {
@@ -50,7 +30,7 @@ export type DateRangeType = {
   label: string
 }
 export const dateRanges: DateRangeType[] = [
-  { label: 'the day', value: 'daily' },
-  { label: 'the week', value: 'weekly' },
-  { label: 'the month', value: 'monthly' },
+  { label: 'Today', value: 'daily' },
+  { label: 'This week', value: 'weekly' },
+  { label: 'This month', value: 'monthly' },
 ]

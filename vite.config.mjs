@@ -9,6 +9,7 @@ import viteTsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
+  const isDev = mode === 'development'
   const buildTarget = env.VITE_BUILD_TARGET || 'web'
   const buildPlatform = env.VITE_BUILD_PLATFORM
   const manifestPath = path.resolve(__dirname, 'public', 'base.manifest.json')
@@ -38,13 +39,15 @@ export default defineConfig(({ mode }) => {
         org: 'hackertabdev',
         project: 'hackertab',
         authToken: env.VITE_SENTRY_TOKEN,
-        disable: mode === 'development',
+        disable: isDev,
         release: {
           name: `${appVersion}-${buildTarget == 'extension' ? buildPlatform : buildTarget}`,
         },
-        sourcemaps: {
-          filesToDeleteAfterUpload: ['./dist/assets/*.map', './assets/*.map'],
-        },
+        sourcemaps: !isDev
+          ? {
+              filesToDeleteAfterUpload: ['./dist/assets/*.map', './assets/*.map'],
+            }
+          : false,
       }),
     ],
     define: {
@@ -75,13 +78,16 @@ export default defineConfig(({ mode }) => {
               'react-select',
               'react-share',
               'react-simple-toasts',
+              'react-responsive',
               'react-toggle',
               'react-tooltip',
               'react-icons',
               'react-markdown',
-              'react-spring-bottom-sheet',
+              'react-modal',
+              'react-infinite-scroll-hook',
               '@dnd-kit/core',
               '@dnd-kit/sortable',
+              '@szhsin/react-menu',
             ],
             utils: [
               '@amplitude/analytics-browser',
@@ -97,6 +103,7 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       open: true,
+      sourcemap: false,
       proxy: {
         '/api': {
           target: env.VITE_API_URL,

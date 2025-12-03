@@ -30,7 +30,7 @@ jobs:
         run: yarn
 
       - name: Build project
-        run: yarn build:web
+        run: yarn build:web --mode development
 
       - name: Copy build to remote host
         uses: appleboy/scp-action@v0.1.4

@@ -4,7 +4,7 @@ build() {
     echo 'Building Hackertab...'
     rm -rf dist
     tsc
-    vite build
+    vite build "$@"
 }
 
-build
+build "$@"

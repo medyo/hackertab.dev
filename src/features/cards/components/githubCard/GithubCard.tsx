@@ -1,109 +1,117 @@
-import { Card, FloatingFilter, InlineTextFilter } from 'src/components/Elements'
-import { ListComponent } from 'src/components/List'
-import { GLOBAL_TAG, MY_LANGUAGES_TAG, dateRanges } from 'src/config'
-import { trackCardDateRangeSelect, trackCardLanguageSelect } from 'src/lib/analytics'
+import { MenuDivider, MenuItem } from '@szhsin/react-menu'
+import { useCallback, useMemo } from 'react'
+import { VscRepoForked, VscStarFull } from 'react-icons/vsc'
+import { Card } from 'src/components/Elements'
+import { ListRepoComponent } from 'src/components/List/ListRepoComponent'
+import { dateRanges } from 'src/config'
 import { useUserPreferences } from 'src/stores/preferences'
 import { CardPropsType, Repository } from 'src/types'
-import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement'
 import { useGetGithubRepos } from '../../api/getGithubRepos'
+import { useLazyListLoad } from '../../hooks/useLazyListLoad'
+import { useSelectedTags } from '../../hooks/useSelectedTags'
+import { MemoizedCardSettings } from '../CardSettings'
 import RepoItem from './RepoItem'
 
+const GLOBAL_TAG = { label: 'Global', value: 'global' }
+
 export function GithubCard(props: CardPropsType) {
-  const { meta, withAds, knob } = props
-  const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
+  const { meta } = props
 
-  const selectedTag =
-    [GLOBAL_TAG, MY_LANGUAGES_TAG, ...userSelectedTags].find(
-      (lang) => lang.value === cardsSettings?.[meta.value]?.language
-    ) || GLOBAL_TAG
+  const { ref, isVisible } = useLazyListLoad()
+  const setCardSettings = useUserPreferences((state) => state.setCardSettings)
+  const { queryTags, selectedTag, cardSettings } = useSelectedTags({
+    source: meta.value,
+    fallbackTag: GLOBAL_TAG,
+  })
+  const { dateRange, language, sortBy } = cardSettings ?? {}
 
-  const selectedDateRange =
-    dateRanges.find((date) => date.value === cardsSettings?.[meta.value]?.dateRange) ||
-    dateRanges[0]
+  const selectedDateRange = useMemo(
+    () => dateRanges.find((date) => date.value === dateRange) || dateRanges[0],
+    [dateRange]
+  )
 
-  const getQueryTags = () => {
-    if (!selectedTag?.githubValues) {
-      return []
-    }
-
-    if (selectedTag.value === MY_LANGUAGES_TAG.githubValues[0]) {
-      return getCardTagsValue(userSelectedTags, 'githubValues')
-    }
-    return selectedTag.githubValues
-  }
-
-  const results = useGetGithubRepos({
-    tags: getQueryTags(),
+  const { data, error, isLoading } = useGetGithubRepos({
+    tags: queryTags,
     dateRange: selectedDateRange.value,
     config: {
-      enabled: !!selectedTag?.githubValues,
+      enabled: isVisible,
     },
   })
 
-  const getIsLoading = () => results.some((result) => result.isLoading)
-
-  const getData = () => {
-    return filterUniqueEntries(
-      results.reduce((acc: Repository[], curr) => {
-        if (!curr.data) return acc
-        return [...acc, ...curr.data]
-      }, [])
-    )
-  }
-
-  const renderItem = (item: Repository, index: number) => (
-    <RepoItem
-      item={item}
-      key={`rp-${index}`}
-      index={index}
-      selectedTag={selectedTag}
-      analyticsTag={meta.analyticsTag}
-    />
+  const renderItem = useCallback(
+    (item: Repository) => (
+      <RepoItem
+        item={item}
+        key={item.id}
+        selectedTag={selectedTag}
+        analyticsTag={meta.analyticsTag}
+      />
+    ),
+    [meta.analyticsTag, selectedTag]
   )
 
-  const HeaderTitle = () => {
+  const headerTitle = useMemo(() => {
     return (
       <>
-        <InlineTextFilter
-          options={[GLOBAL_TAG, ...userSelectedTags, MY_LANGUAGES_TAG].map((tag) => ({
-            label: tag.label,
-            value: tag.value,
-          }))}
-          onChange={(item) => {
-            setCardSettings(meta.value, { ...cardsSettings[meta.value], language: item.value })
-            trackCardLanguageSelect(meta.analyticsTag, item.value)
-          }}
-          value={cardsSettings?.[meta.value]?.language}
-        />
-        Repos of
-        <InlineTextFilter
-          options={dateRanges}
-          onChange={(item) => {
-            setCardSettings(meta.value, { ...cardsSettings[meta.value], dateRange: item.value })
-            trackCardDateRangeSelect(meta.analyticsTag, item.value)
-          }}
-          value={cardsSettings?.[meta.value]?.dateRange}
-        />
+        Github <span className="blockHeaderHighlight">{selectedTag.label}</span>{' '}
+        <span className="blockHeaderHighlight">{selectedDateRange.label.toLowerCase()}</span>
       </>
     )
-  }
+  }, [selectedTag, selectedDateRange])
 
-  const getError = () => {
-    if (!selectedTag?.githubValues) {
-      return `Github Trending does not support ${selectedTag?.label || 'the selected tag'}.`
-    } else if (results.every((result) => result.isError)) {
-      return 'Failed to load Github trending repositories'
-    } else {
-      return undefined
-    }
-  }
   return (
-    <Card fullBlock={true} titleComponent={<HeaderTitle />} {...props}>
-      <FloatingFilter card={meta} filters={['datesRange', 'language']} />
-      <ListComponent
-        items={getData()}
-        error={getError()}
-        isLoading={getIsLoading()}
+    <Card
+      ref={ref}
+      fullBlock={true}
+      titleComponent={headerTitle}
+      settingsComponent={
+        <MemoizedCardSettings
+          url={meta.link}
+          id={meta.value}
+          globalTag={GLOBAL_TAG}
+          sortBy={sortBy}
+          language={language || GLOBAL_TAG.value}
+          customStartMenuItems={
+            <>
+              {dateRanges.map((date) => (
+                <MenuItem
+                  className={`menuItem`}
+                  value={date.value}
+                  disabled={selectedDateRange.value === date.value}
+                  onClick={() => {
+                    setCardSettings(meta.value, { ...cardSettings, dateRange: date.value })
+                  }}>
+                  {date.label}
+                </MenuItem>
+              ))}
+              <MenuDivider />
+            </>
+          }
+          sortOptions={[
+            {
+              label: 'Stars',
+              value: 'stars_count',
+              icon: <VscStarFull />,
+            },
+            {
+              label: 'Stars today',
+              value: 'stars_in_range',
+              icon: <VscStarFull />,
+            },
+            {
+              label: 'Forks',
+              value: 'forks_count',
+              icon: <VscRepoForked />,
+            },
+          ]}
+        />
+      }
+      {...props}>
+      <ListRepoComponent
+        sortBy={sortBy as keyof Repository}
+        items={data}
+        error={error}
+        isLoading={isLoading}
         renderItem={renderItem}
       />
     </Card>

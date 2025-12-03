@@ -2,6 +2,7 @@ import { CgIndieHackers } from 'react-icons/cg'
 import { FaDev, FaFreeCodeCamp, FaMediumM, FaReddit } from 'react-icons/fa'
 import { HiSparkles, HiTicket } from 'react-icons/hi'
 import { SiGithub, SiProducthunt, SiYcombinator } from 'react-icons/si'
+import HackernoonIcon from 'src/assets/icon_hackernoon.jpeg'
 import HashNodeIcon from 'src/assets/icon_hashnode.png'
 import LobstersIcon from 'src/assets/icon_lobsters.png'
 import { AICard } from 'src/features/cards/components/aiCard'
@@ -18,6 +19,7 @@ const { IndiehackersCard } = lazyImport(() => import('src/features/cards'), 'Ind
 const { LobstersCard } = lazyImport(() => import('src/features/cards'), 'LobstersCard')
 const { ProductHuntCard } = lazyImport(() => import('src/features/cards'), 'ProductHuntCard')
 const { RedditCard } = lazyImport(() => import('src/features/cards'), 'RedditCard')
+const { HackernoonCard } = lazyImport(() => import('src/features/cards'), 'HackernoonCard')
 
 export const SUPPORTED_CARDS: SupportedCardType[] = [
   {
@@ -126,6 +128,15 @@ export const SUPPORTED_CARDS: SupportedCardType[] = [
     label: 'Powered by AI',
     component: AICard,
     type: 'supported',
-    badge: 'BETA',
+    link: 'https://hackertab.dev/',
+  },
+  {
+    value: 'hackernoon',
+    analyticsTag: 'hackernoon',
+    label: 'Hackernoon',
+    component: HackernoonCard,
+    icon: <img alt="hackernoon" src={HackernoonIcon} />,
+    link: 'https://hackernoon.com/',
+    type: 'supported',
   },
 ]

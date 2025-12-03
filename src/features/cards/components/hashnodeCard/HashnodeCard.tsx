@@ -1,80 +1,78 @@
-import { Card, FloatingFilter, InlineTextFilter } from 'src/components/Elements'
+import { useCallback } from 'react'
+import { AiTwotoneHeart } from 'react-icons/ai'
+import { BiCommentDetail } from 'react-icons/bi'
+import { Card } from 'src/components/Elements'
 import { ListComponent } from 'src/components/List'
-import { GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/config'
-import { trackCardLanguageSelect } from 'src/lib/analytics'
-import { useUserPreferences } from 'src/stores/preferences'
 import { Article, CardPropsType } from 'src/types'
-import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement'
-import { useGetHashnodeArticles } from '../../api/getHashnodeArticles'
+import { useGetSourceArticles } from '../../api/getSourceArticles'
+import { useLazyListLoad } from '../../hooks/useLazyListLoad'
+import { useSelectedTags } from '../../hooks/useSelectedTags'
+import { MemoizedCardHeader } from '../CardHeader'
+import { MemoizedCardSettings } from '../CardSettings'
 import ArticleItem from './ArticleItem'
+
+const GLOBAL_TAG = { label: 'Global', value: '' }
 
 export function HashnodeCard(props: CardPropsType) {
   const { meta } = props
-  const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
-  const selectedTag =
-    [GLOBAL_TAG, MY_LANGUAGES_TAG, ...userSelectedTags].find(
-      (lang) => lang.value === cardsSettings?.[meta.value]?.language
-    ) || GLOBAL_TAG
+  const { ref, isVisible } = useLazyListLoad()
+  const {
+    queryTags,
+    selectedTag,
+    cardSettings: { sortBy, language } = {},
+  } = useSelectedTags({
+    source: meta.value,
+    fallbackTag: GLOBAL_TAG,
+  })
+  const { data, error, isLoading } = useGetSourceArticles({
+    source: 'hashnode',
+    tags: queryTags,
+    config: {
+      enabled: isVisible,
+    },
+  })
 
-  const getQueryTags = () => {
-    if (!selectedTag) {
-      return []
-    }
-
-    if (selectedTag.value === MY_LANGUAGES_TAG.hashnodeValues[0]) {
-      return getCardTagsValue(userSelectedTags, 'hashnodeValues')
-    }
-    return selectedTag.hashnodeValues
-  }
-
-  const results = useGetHashnodeArticles({ tags: getQueryTags() })
-
-  const getIsLoading = () => results.some((result) => result.isLoading)
-
-  const getData = () => {
-    return filterUniqueEntries(
-      results
-        .reduce((acc: Article[], curr) => {
-          if (!curr.data) return acc
-          return [...acc, ...curr.data]
-        }, [])
-        .sort((a, b) => b.published_at - a.published_at)
-    )
-  }
-
-  const renderItem = (item: Article, index: number) => (
-    <ArticleItem
-      item={item}
-      key={`hno-${index}`}
-      index={index}
-      selectedTag={selectedTag}
-      analyticsTag={meta.analyticsTag}
-    />
+  const renderItem = useCallback(
+    (item: Article) => <ArticleItem item={item} key={item.id} analyticsTag={meta.analyticsTag} />,
+    [meta.analyticsTag]
   )
 
-  const HeaderTitle = () => {
-    return (
-      <>
-        {meta.label}
-        <InlineTextFilter
-          options={[GLOBAL_TAG, ...userSelectedTags, MY_LANGUAGES_TAG].map((tag) => ({
-            label: tag.label,
-            value: tag.value,
-          }))}
-          onChange={(item) => {
-            setCardSettings(meta.value, { ...cardsSettings[meta.value], language: item.value })
-            trackCardLanguageSelect(meta.analyticsTag, item.value)
-          }}
-          value={cardsSettings?.[meta.value]?.language}
-        />
-      </>
-    )
-  }
-
   return (
-    <Card titleComponent={<HeaderTitle />} {...props}>
-      <FloatingFilter card={meta} filters={['language']} />
-      <ListComponent items={getData()} isLoading={getIsLoading()} renderItem={renderItem} />
+    <Card
+      ref={ref}
+      titleComponent={
+        <MemoizedCardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag} />
+      }
+      settingsComponent={
+        <MemoizedCardSettings
+          url={meta.link}
+          id={meta.value}
+          sortBy={sortBy}
+          language={language || GLOBAL_TAG.value}
+          globalTag={GLOBAL_TAG}
+          sortOptions={(defaults) => [
+            ...defaults,
+            {
+              label: 'Reactions',
+              value: 'points_count',
+              icon: <AiTwotoneHeart />,
+            },
+            {
+              label: 'Comments',
+              value: 'comments_count',
+              icon: <BiCommentDetail />,
+            },
+          ]}
+        />
+      }
+      {...props}>
+      <ListComponent<Article>
+        sortBy={sortBy as keyof Article}
+        error={error}
+        items={data}
+        isLoading={isLoading}
+        renderItem={renderItem}
+      />
     </Card>
   )
 }

@@ -35,6 +35,7 @@ a {
   text-align: center;
   margin: auto;
   font-size: 16px;
+  line-height: 24px;
   padding: 16px;
 }
 
@@ -269,8 +270,85 @@ a {
   max-width: 180px;
 }
 
-.blockHeader:hover .blockHeaderLink {
+.blockHeader:hover .blockHeaderLink,
+.blockHeader:hover .blockHeaderSettingsButton {
   opacity: 1;
+}
+
+.menuItem {
+  font-size: 1em;
+  display: flex;
+  flex-direction: row;
+  font-family: 'nunito';
+  column-gap: 8px;
+  svg {
+    font-size: 1.1em;
+  }
+}
+
+.szh-menu__header {
+  margin-bottom: 6px;
+}
+.light {
+  .menuItem {
+    color: var(--card-header-text-color);
+  }
+  .szh-menu__item--disabled {
+    color: var(--secondary-text-color);
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.dark {
+  .szh-menu {
+    background-color: var(--card-background-color);
+    border-radius: 12px;
+    border: 1px solid var(--card-border-color);
+    box-shadow: 0 0 20px var(--card-border-color);
+  }
+  .szh-menu__item {
+    color: var(--primary-text-color);
+  }
+
+  .szh-menu__divider {
+    background-color: var(--card-border-color);
+  }
+
+  .szh-menu__item--hover {
+    background-color: var(--app-name-text-color);
+    color: var(--background-color);
+  }
+  .szh-menu__item--hover {
+    background-color: var(--app-name-text-color);
+  }
+  .szh-menu__submenu {
+    background-color: var(--card-background-color);
+
+    .szh-menu__item--hover {
+      background-color: var(--app-name-text-color);
+      color: var(--background-color);
+    }
+  }
+  .szh-menu__item--disabled {
+    color: var(--secondary-text-color);
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.blockHeaderSettingsButton {
+  color: #96a2ae;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  font-size: 1.2em;
+  transition: opacity 0.2s linear;
+  cursor: pointer;
+  &:focus {
+    cursor: pointer;
+    opacity: 1;
+  }
 }
 
 .blockHeaderLink {
@@ -279,6 +357,7 @@ a {
   display: flex;
   justify-content: center;
   opacity: 0;
+  font-size: 1.2em;
   transition: opacity 0.2s linear;
 }
 
@@ -311,7 +390,13 @@ a {
   transform: rotate(3deg);
   opacity: 0.5;
 }
-
+.blockHeaderHighlight {
+  border-radius: 15px;
+  padding: 1px 6px;
+  border: 1px solid var(--chip-border-color);
+  background-color: var(--chip-background);
+  font-size: 0.9em;
+}
 .blockHeaderIcon {
   display: flex;
   height: 16px;
@@ -330,6 +415,11 @@ a {
   padding: 0 6px;
   text-transform: lowercase;
   color: white;
+
+  &.past {
+    background-color: #dd5353;
+    margin-right: 4px;
+  }
 }
 .blockHeaderIcon img {
   display: block;
@@ -567,6 +657,10 @@ a {
   transition: opacity 0.3s ease-out 0.1s, transform 0.3s ease-out 0.1s,
     visibility 0.3s ease-out 0.1s;
   width: 100%;
+
+  button.tag {
+    cursor: pointer;
+  }
 }
 
 .tag {
@@ -921,7 +1015,17 @@ Producthunt item
   padding: 0 32px 0 48px;
   width: 100%;
   background-color: var(--card-header-background-color);
+
+  &.noShadow {
+    box-shadow: none;
+  }
+  &::placeholder {
+    color: var(--primary-text-color);
+    font-size: 0.9em;
+    opacity: 0.5;
+  }
 }
+
 .searchBarInput:focus {
   outline: none;
 }
@@ -1159,6 +1263,11 @@ Producthunt item
   right: 16px;
   width: 48px;
   z-index: 2;
+
+  & svg {
+    color: white;
+    font-size: 24px;
+  }
 }
 
 .floatingFilterBottomSheet .title {

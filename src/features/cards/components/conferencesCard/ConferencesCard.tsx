@@ -1,42 +1,72 @@
+import { useCallback } from 'react'
 import { Card } from 'src/components/Elements'
-import { ListComponent } from 'src/components/List'
-import { useUserPreferences } from 'src/stores/preferences'
+import { ListConferenceComponent } from 'src/components/List/ListConferenceComponent'
 import { CardPropsType, Conference } from 'src/types'
-import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement'
 import { useGetConferences } from '../../api/getConferences'
+import { useLazyListLoad } from '../../hooks/useLazyListLoad'
+import { useSelectedTags } from '../../hooks/useSelectedTags'
+import { MemoizedCardHeader } from '../CardHeader'
+import { MemoizedCardSettings } from '../CardSettings'
 import ConferenceItem from './ConferenceItem'
 
+const GLOBAL_TAG = { label: 'Global', value: 'general' }
 export function ConferencesCard(props: CardPropsType) {
   const { meta } = props
-  const { userSelectedTags } = useUserPreferences()
+  const { ref, isVisible } = useLazyListLoad()
+  const {
+    queryTags,
+    selectedTag,
+    cardSettings: { sortBy, language } = {},
+  } = useSelectedTags({
+    source: meta.value,
+    fallbackTag: GLOBAL_TAG,
+  })
+  const {
+    isLoading,
+    error,
+    data: results,
+  } = useGetConferences({
+    tags: queryTags,
+    config: {
+      enabled: isVisible,
+    },
+  })
 
-  const results = useGetConferences({ tags: getCardTagsValue(userSelectedTags, 'confsValues') })
-
-  const isLoading = results.some((result) => result.isLoading)
-
-  const getData = () => {
-    return filterUniqueEntries(
-      results
-        .reduce((acc: Conference[], curr) => {
-          if (!curr.data) return acc
-          return [...acc, ...curr.data]
-        }, [])
-        .sort((a, b) => a.start_date - b.start_date)
-    )
-  }
-
-  const renderItem = (item: Conference, index: number) => (
-    <ConferenceItem
-      item={item}
-      key={`cf-${index}`}
-      index={index}
-      analyticsTag={meta.analyticsTag}
-    />
+  const renderItem = useCallback(
+    (item: Conference) => (
+      <ConferenceItem item={item} key={item.id} analyticsTag={meta.analyticsTag} />
+    ),
+    [meta.analyticsTag]
   )
 
   return (
-    <Card {...props}>
-      <ListComponent items={getData()} isLoading={isLoading} renderItem={renderItem} />
+    <Card
+      ref={ref}
+      {...props}
+      titleComponent={
+        <MemoizedCardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag} />
+      }
+      settingsComponent={
+        <MemoizedCardSettings
+          url={meta.link}
+          id={meta.value}
+          sortBy={sortBy}
+          language={language}
+          sortOptions={[
+            {
+              label: 'Upcoming',
+              value: 'start_date',
+            },
+          ]}
+        />
+      }>
+      <ListConferenceComponent
+        sortBy={sortBy as keyof Conference}
+        items={results}
+        error={error}
+        isLoading={isLoading}
+        renderItem={renderItem}
+      />
     </Card>
   )
 }

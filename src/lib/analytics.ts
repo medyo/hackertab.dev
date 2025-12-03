@@ -99,11 +99,11 @@ export const setupAnalytics = () => {
 export const setupIdentification = () => {
   const {
     userSelectedTags,
-    onboardingResult,
     theme,
     cards,
     listingMode,
     openLinksNewTab,
+    occupation,
     promptEngine,
     maxVisibleCards,
     layout,
@@ -118,8 +118,8 @@ export const setupIdentification = () => {
   identifyUserLinksInNewTab(openLinksNewTab)
   identifyUserMaxVisibleCards(maxVisibleCards)
   identifyDisplayLayout(layout)
-  if (onboardingResult?.title) {
-    identifyUserOccupation(onboardingResult.title)
+  if (occupation) {
+    identifyUserOccupation(occupation)
   }
   identifySentryUser({
     [Attributes.LANGUAGES]: userSelectedTags.map((tag: any) => tag.value),

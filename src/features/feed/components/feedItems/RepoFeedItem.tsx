@@ -11,16 +11,14 @@ function numberWithCommas(x: number | string) {
 }
 
 export const RepoFeedItem = (props: BaseItemPropsType<GithubFeedItemData>) => {
-  const { item, index, analyticsTag, className } = props
+  const { item, analyticsTag, className } = props
   const { listingMode } = useUserPreferences()
 
   return (
     <div className={className}>
       <CardItemWithActions
         source={analyticsTag}
-        index={index}
         item={item}
-        key={index}
         cardItem={
           <>
             <FeedItemHeader
@@ -54,6 +52,12 @@ export const RepoFeedItem = (props: BaseItemPropsType<GithubFeedItemData>) => {
                   <span className="rowItem">
                     <VscStarFull className="rowItemIcon" /> {numberWithCommas(item.stars || 0)}{' '}
                     stars
+                  </span>
+                )}
+                {item.stars_in_range && (
+                  <span className="rowItem">
+                    <VscStarFull className="rowItemIcon" />{' '}
+                    {numberWithCommas(item.stars_in_range || 0)} stars today
                   </span>
                 )}
                 <span className="rowItem">

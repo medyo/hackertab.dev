@@ -1,79 +1,84 @@
-import { Card, FloatingFilter, InlineTextFilter } from 'src/components/Elements'
-import { ListComponent } from 'src/components/List'
-import { GLOBAL_TAG, MY_LANGUAGES_TAG } from 'src/config'
-import { trackCardLanguageSelect } from 'src/lib/analytics'
-import { useUserPreferences } from 'src/stores/preferences'
+import { useCallback } from 'react'
+import { AiOutlineLike } from 'react-icons/ai'
+import { BiCommentDetail } from 'react-icons/bi'
+import { Card } from 'src/components/Elements'
+import { ListPostComponent } from 'src/components/List/ListPostComponent'
 import { Article, CardPropsType } from 'src/types'
-import { filterUniqueEntries, getCardTagsValue } from 'src/utils/DataEnhancement'
-import { useGetDevtoArticles } from '../../api/getDevtoArticles'
+import { useGetSourceArticles } from '../../api/getSourceArticles'
+import { useLazyListLoad } from '../../hooks/useLazyListLoad'
+import { useSelectedTags } from '../../hooks/useSelectedTags'
+import { MemoizedCardHeader } from '../CardHeader'
+import { MemoizedCardSettings } from '../CardSettings'
 import ArticleItem from './ArticleItem'
+
+const GLOBAL_TAG = { label: 'Global', value: 'programming' }
 
 export function DevtoCard(props: CardPropsType) {
   const { meta } = props
-  const { userSelectedTags, cardsSettings, setCardSettings } = useUserPreferences()
+  const { ref, isVisible } = useLazyListLoad()
 
-  const selectedTag =
-    [GLOBAL_TAG, MY_LANGUAGES_TAG, ...userSelectedTags].find(
-      (lang) => lang.value === cardsSettings?.[meta.value]?.language
-    ) || GLOBAL_TAG
+  const {
+    queryTags,
+    selectedTag,
+    cardSettings: { sortBy, language } = {},
+  } = useSelectedTags({
+    source: meta.value,
+    fallbackTag: GLOBAL_TAG,
+  })
 
-  const getQueryTags = () => {
-    if (!selectedTag) {
-      return []
-    }
+  const {
+    data: results,
+    error,
+    isLoading,
+  } = useGetSourceArticles({
+    source: 'devto',
+    tags: queryTags,
+    config: {
+      enabled: isVisible,
+    },
+  })
 
-    if (selectedTag.value === MY_LANGUAGES_TAG.devtoValues[0]) {
-      return getCardTagsValue(userSelectedTags, 'devtoValues')
-    }
-    return selectedTag.devtoValues
-  }
-
-  const results = useGetDevtoArticles({ tags: getQueryTags() })
-
-  const getIsLoading = () => results.some((result) => result.isLoading)
-
-  const getData = () => {
-    return filterUniqueEntries(
-      results.reduce((acc: Article[], curr) => {
-        if (!curr.data) return acc
-        return [...acc, ...curr.data]
-      }, [])
-    )
-  }
-
-  const renderItem = (item: Article, index: number) => (
-    <ArticleItem
-      item={item}
-      key={`at-${index}`}
-      index={index}
-      analyticsTag={meta.analyticsTag}
-      selectedTag={selectedTag}
-    />
+  const renderItem = useCallback(
+    (item: Article) => <ArticleItem item={item} key={item.id} analyticsTag={meta.analyticsTag} />,
+    [meta.analyticsTag]
   )
 
-  const HeaderTitle = () => {
-    return (
-      <>
-        {meta.label}
-        <InlineTextFilter
-          options={[GLOBAL_TAG, ...userSelectedTags, MY_LANGUAGES_TAG].map((tag) => ({
-            label: tag.label,
-            value: tag.value,
-          }))}
-          onChange={(item) => {
-            setCardSettings(meta.value, { ...cardsSettings[meta.value], language: item.value })
-            trackCardLanguageSelect(meta.analyticsTag, item.value)
-          }}
-          value={cardsSettings?.[meta.value]?.language}
-        />
-      </>
-    )
-  }
-
   return (
-    <Card titleComponent={<HeaderTitle />} {...props}>
-      <FloatingFilter card={meta} filters={['language']} />
-      <ListComponent items={getData()} isLoading={getIsLoading()} renderItem={renderItem} />
+    <Card
+      ref={ref}
+      titleComponent={
+        <MemoizedCardHeader label={meta.label} fallbackTag={GLOBAL_TAG} selectedTag={selectedTag} />
+      }
+      settingsComponent={
+        <MemoizedCardSettings
+          url={meta.link}
+          id={meta.value}
+          globalTag={GLOBAL_TAG}
+          sortBy={sortBy}
+          language={language || GLOBAL_TAG.value}
+          sortOptions={(defaults) => [
+            ...defaults,
+            {
+              label: 'Reactions',
+              value: 'points_count',
+              icon: <AiOutlineLike />,
+            },
+            {
+              label: 'Comments',
+              value: 'comments_count',
+              icon: <BiCommentDetail />,
+            },
+          ]}
+        />
+      }
+      {...props}>
+      <ListPostComponent
+        sortBy={sortBy as keyof Article}
+        items={results}
+        error={error}
+        isLoading={isLoading}
+        renderItem={renderItem}
+      />
     </Card>
   )
 }

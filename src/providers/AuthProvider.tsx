@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react'
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
@@ -17,6 +18,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     closeAuthModal,
     initState,
     setAuthError,
+    user,
     openAuthModal,
     setConnecting,
     logout,
@@ -42,6 +44,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         initState({
           user: {
             id: user.uid,
+            connectedAt: new Date(),
             name: user.displayName || 'Anonymous',
             imageURL: user.photoURL || '',
           },
@@ -148,10 +151,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
    * and logout the user if the session has expired
    */
   useEffect(() => {
-    const unsubscribe = firebaseAuth.onAuthStateChanged(async (user) => {
-      if (!user) {
+    const unsubscribe = firebaseAuth.onAuthStateChanged(async (fbUser) => {
+      if (!fbUser) {
         if (isConnected) {
           toast('Session expired, please reconnect', { theme: 'dangerToast' })
+
+          Sentry.captureMessage(`Session expired`, {
+            level: 'info',
+            extra: {
+              fbID: user?.id || 'anonymous',
+              connectedAt: user?.connectedAt?.toISOString(),
+            },
+          })
         }
 
         await logout()

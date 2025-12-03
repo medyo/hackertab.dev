@@ -11,17 +11,17 @@ import { AuthProvider } from 'src/providers/AuthProvider'
 import { Header } from './Header'
 
 export const AppLayout = () => {
-  const { isAuthModalOpen, setStreak, isConnected } = useAuth()
+  const { isAuthModalOpen, setStreak, shouldIcrementStreak } = useAuth()
   const postStreakMutation = usePostStreak()
 
   useEffect(() => {
-    if (isConnected) {
+    if (shouldIcrementStreak()) {
       postStreakMutation.mutateAsync(undefined).then((data) => {
         setStreak(data.streak)
         identifyUserStreak(data.streak)
       })
     }
-  }, [isConnected])
+  }, [])
 
   return (
     <AuthProvider>
