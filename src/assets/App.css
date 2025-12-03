@@ -1016,6 +1016,9 @@ Producthunt item
   width: 100%;
   background-color: var(--card-header-background-color);
 
+  &.noShadow {
+    box-shadow: none;
+  }
   &::placeholder {
     color: var(--primary-text-color);
     font-size: 0.9em;

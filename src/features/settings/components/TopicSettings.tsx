@@ -97,6 +97,7 @@ export const TopicSettings = () => {
         <SearchBar
           iconStart={<IoMdSearch className="searchBarIcon" />}
           placeholder="Search by programming language, framework, or topic"
+          inputClassName="noShadow"
           onChange={(keyword) => {
             setSearchKeyword(keyword)
           }}
