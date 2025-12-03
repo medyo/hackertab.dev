@@ -19,7 +19,7 @@ export const useGetRemoteConfig = ({ config }: UseGetRemoteConfigOptions = {}) =
       useRemoteConfigStore.getState().setRemoteConfig(remoteConfig)
     },
     ...config,
-    queryKey: ['remote-config'],
+    queryKey: ['remote-config', 'v2'],
     queryFn: () => getRemoteConfig(),
   })
 }
