@@ -1,4 +1,5 @@
 import { memo, useState } from 'react'
+import { CgIndieHackers } from 'react-icons/cg'
 import { FaDev, FaMediumM, FaReddit } from 'react-icons/fa'
 import { GoDotFill } from 'react-icons/go'
 import { SiGithub, SiProducthunt, SiYcombinator } from 'react-icons/si'
@@ -44,6 +45,11 @@ const SOURCE_MAP: Record<string, React.ReactNode> = {
   lobsters: (
     <>
       <img alt="lobsters" className="feedItemSource" src={LobstersIcon} /> Lobsters
+    </>
+  ),
+  indiehackers: (
+    <>
+      <CgIndieHackers className="blockHeaderWhite" /> Indiehackers
     </>
   ),
 }
