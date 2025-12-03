@@ -1,4 +1,5 @@
 name: '👨‍💻 [DEV] Deploy web version'
+run-name: Deploy Web app to Development ${{ github.ref_name }}
 on:
   workflow_dispatch:
 
@@ -18,8 +19,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          ref: develop
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
