@@ -84,11 +84,9 @@ const defaultStorage: StateStorage = {
         const MAP_OLD_TAGS: Record<string, string> = {
           'artificial-intelligence': 'artificial intelligence',
           'machine-learning': 'machine learning',
-          c: 'clang',
           cpp: 'c++',
           csharp: 'c#',
           'data-science': 'data science',
-          go: 'golang',
           'objective-c': 'objectivec',
         }
 
