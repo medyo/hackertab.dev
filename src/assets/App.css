@@ -396,6 +396,11 @@ a {
   border: 1px solid var(--chip-border-color);
   background-color: var(--chip-background);
   font-size: 0.9em;
+
+  max-width: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .blockHeaderIcon {
   display: flex;

@@ -27,7 +27,7 @@ export const UserTags = () => {
     <div className="tags">
       {userSelectedTags.map((tag, index) => (
         <button key={index} className="tag tagHoverable" onClick={() => onTagClicked(tag.value)}>
-          {tag.value}
+          {tag.label}
         </button>
       ))}
       <Link to="/settings/topics" className="tag tagHoverable" aria-label="Open settings">
