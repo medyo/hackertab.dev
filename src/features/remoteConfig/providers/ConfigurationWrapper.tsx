@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import BeatLoader from 'react-spinners/BeatLoader'
 import { useAsyncError } from 'src/hooks/useAsyncError'
 import { useGetRemoteConfig } from '../api/getRemoteConfig'
+import { useRemoteConfigStore } from '../stores/remoteConfig'
 
 type ConfigurationWrapperProps = {
   children: React.ReactNode
 }
 
 export const ConfigurationWrapper = ({ children }: ConfigurationWrapperProps) => {
+  const setRemoteConfig = useRemoteConfigStore((s) => s.setRemoteConfig)
+
   const {
     isLoading,
     isError,
@@ -20,6 +23,12 @@ export const ConfigurationWrapper = ({ children }: ConfigurationWrapperProps) =>
     },
   })
   const throwError = useAsyncError()
+
+  useEffect(() => {
+    if (remoteConfig) {
+      setRemoteConfig(remoteConfig)
+    }
+  }, [remoteConfig, setRemoteConfig])
 
   if (isLoading) {
     return (

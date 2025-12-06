@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { axios } from 'src/lib/axios'
 import { ExtractFnReturnType, QueryConfig } from 'src/lib/react-query'
-import { useRemoteConfigStore } from '../stores/remoteConfig'
 import { RemoteConfig } from '../types'
 
 const getRemoteConfig = async (): Promise<RemoteConfig> => {
@@ -15,8 +14,8 @@ type UseGetRemoteConfigOptions = {
 }
 export const useGetRemoteConfig = ({ config }: UseGetRemoteConfigOptions = {}) => {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
-    onSuccess(remoteConfig) {
-      useRemoteConfigStore.getState().setRemoteConfig(remoteConfig)
+    onError(error) {
+      console.error('Error fetching remote config', error)
     },
     ...config,
     queryKey: ['remote-config', 'v2'],

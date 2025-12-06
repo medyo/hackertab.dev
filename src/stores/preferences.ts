@@ -1,7 +1,8 @@
-import { Tag, useRemoteConfigStore } from 'src/features/remoteConfig'
-import { enhanceTags } from 'src/utils/DataEnhancement'
+import { Tag } from 'src/features/remoteConfig'
+import localStateStore from 'src/utils/LocalStateStorage'
+import { capitalize } from 'src/utils/String'
 import { create } from 'zustand'
-import { StateStorage, createJSONStorage, persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 import {
   CardSettingsType,
   DNDDuration,
@@ -59,62 +60,6 @@ type UserPreferencesStoreActions = {
   addSearchEngine: (searchEngine: SearchEngineType) => void
   removeSearchEngine: (searchEngineUrl: string) => void
   setAdvStatus: (status: boolean) => void
-}
-
-const defaultStorage: StateStorage = {
-  getItem: (name: string) => {
-    const item = window.localStorage.getItem(name)
-    if (!item) {
-      return null
-    }
-
-    try {
-      let {
-        version,
-        state,
-      }: {
-        version: number
-        state: UserPreferencesState
-      } = JSON.parse(item)
-
-      const newState = {
-        ...state,
-      }
-      if (version == 0) {
-        const MAP_OLD_TAGS: Record<string, string> = {
-          'artificial-intelligence': 'artificial intelligence',
-          'machine-learning': 'machine learning',
-          cpp: 'c++',
-          csharp: 'c#',
-          'data-science': 'data science',
-          'objective-c': 'objectivec',
-        }
-
-        const stateTags = state.userSelectedTags as unknown as string[]
-        const newTags = stateTags.map((tag) => {
-          if (MAP_OLD_TAGS[tag]) {
-            return MAP_OLD_TAGS[tag]
-          }
-          return tag
-        })
-        newState.userSelectedTags = enhanceTags(useRemoteConfigStore.getState(), newTags)
-      }
-
-      return JSON.stringify({ state: newState, version })
-    } catch (e) {
-      return null
-    }
-  },
-  setItem: (name: string, value: string) => {
-    try {
-      window.localStorage.setItem(name, value)
-    } catch (e) {
-      window.localStorage.setItem(name, '')
-    }
-  },
-  removeItem: (name: string) => {
-    window.localStorage.removeItem(name)
-  },
 }
 
 export const useUserPreferences = create(
@@ -237,16 +182,41 @@ export const useUserPreferences = create(
     {
       name: 'preferences_storage',
       version: 1,
-      storage: createJSONStorage(() => defaultStorage),
+      storage: createJSONStorage(() => localStateStore),
       migrate: (persistedState, version) => {
         const state = persistedState as unknown as UserPreferencesState &
           UserPreferencesStoreActions
+
         if (version === 0) {
-          console.log('Migrating preferences_storage to version 1', state)
+          const previousTags = state.userSelectedTags as unknown as string[]
+
+          const MAP_OLD_TAGS: Record<string, string> = {
+            'artificial-intelligence': 'artificial intelligence',
+            'machine-learning': 'machine learning',
+            cpp: 'c++',
+            csharp: 'c#',
+            'data-science': 'data science',
+            'objective-c': 'objectivec',
+          }
+
+          const newTags = previousTags
+            .map((tag) => {
+              if (MAP_OLD_TAGS[tag]) {
+                return MAP_OLD_TAGS[tag]
+              }
+              return tag
+            })
+            .map((tag) => {
+              return {
+                label: capitalize(tag),
+                value: tag,
+              }
+            })
 
           return {
             ...state,
             onboardingCompleted: true,
+            userSelectedTags: newTags,
             occupation: state.onboardingResult?.title || '',
           }
         }
