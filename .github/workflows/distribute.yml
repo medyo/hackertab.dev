@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       target:
-        description: 'Which store to deploy to?'
+        description: 'Select the store to deploy to'
         required: true
         default: 'all'
         type: choice
@@ -12,8 +12,8 @@ on:
           - chrome
           - firefox
           - all
-      testMode:
-        description: 'Run in test mode without publishing?'
+      dryrun:
+        description: 'Run in dry mode without publishing'
         required: true
         default: false
         type: boolean
@@ -29,14 +29,17 @@ env:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
+    if: ${{github.ref_type == 'tag' }}
     strategy:
       fail-fast: false
       matrix:
         browser: [chrome, firefox]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
 
       - uses: actions/setup-node@v4
         with:
@@ -50,7 +53,7 @@ jobs:
         run: yarn build:${{ matrix.browser }}
 
       - name: '⬆️ Upload to Chrome Web Store'
-        if: ${{ (github.event.inputs.target == 'all' || github.event.inputs.target == 'chrome') && matrix.browser == 'chrome' && github.event.inputs.testMode == 'false' }}
+        if: ${{ (github.event.inputs.target == 'all' || github.event.inputs.target == 'chrome') && matrix.browser == 'chrome' && github.event.inputs.dryrun == 'false' }}
         run: >
           npx chrome-webstore-upload-cli@3 upload 
           --source chrome_extension.zip 
@@ -63,7 +66,7 @@ jobs:
           REFRESH_TOKEN: ${{ secrets.CHROME_EXTENSION_REFRESH_TOKEN }}
 
       - name: '⬆️ Upload to Firefox Add-on Store'
-        if: ${{ (github.event.inputs.target == 'all' || github.event.inputs.target == 'firefox') && matrix.browser == 'firefox' && github.event.inputs.testMode == 'false' }}
+        if: ${{ (github.event.inputs.target == 'all' || github.event.inputs.target == 'firefox') && matrix.browser == 'firefox' && github.event.inputs.dryrun == 'false' }}
         uses: wdzeng/firefox-addon@v1
         with:
           jwt-issuer: ${{ secrets.WEB_EXT_API_KEY }}
