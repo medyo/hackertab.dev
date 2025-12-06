@@ -22,6 +22,9 @@ export const useRemoteConfigStore = create(
     {
       name: 'remote_config_storage',
       version: 2,
+      migrate: (state) => {
+        return state as RemoteConfigStore
+      },
     }
   )
 )

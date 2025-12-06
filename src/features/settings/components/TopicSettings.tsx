@@ -26,7 +26,8 @@ const CATEGORY_TO_ICON: Record<string, React.ReactNode> = {
 export const TopicSettings = () => {
   const { userSelectedTags, occupation, followTag, unfollowTag } = useUserPreferences()
 
-  const { tags } = useRemoteConfigStore()
+  const tags = useRemoteConfigStore((s) => s.tags)
+
   const [searchKeyword, setSearchKeyword] = useState<string>('')
   const filteredTags = useMemo(() => {
     if (searchKeyword.trim() === '') {
