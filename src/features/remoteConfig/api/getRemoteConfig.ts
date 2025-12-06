@@ -14,9 +14,6 @@ type UseGetRemoteConfigOptions = {
 }
 export const useGetRemoteConfig = ({ config }: UseGetRemoteConfigOptions = {}) => {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
-    onError(error) {
-      console.error('Error fetching remote config', error)
-    },
     ...config,
     queryKey: ['remote-config', 'v2'],
     queryFn: () => getRemoteConfig(),
