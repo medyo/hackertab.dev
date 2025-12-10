@@ -1,5 +1,5 @@
-name: '🚀 Deploy browser extension'
-
+name: '🚀 Distribute browser extension'
+run-name: Distribute Browser extension ${{ github.ref_name }}
 on:
   workflow_dispatch:
     inputs:
