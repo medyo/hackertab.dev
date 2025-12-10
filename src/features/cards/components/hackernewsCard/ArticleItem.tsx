@@ -47,13 +47,13 @@ const ArticleItem = (props: BaseItemPropsType<Article>) => {
                 <MdAccessTime className="rowItemIcon" /> {format(new Date(item.published_at))}
               </span>
               <ClickableItem
-                link={`https://news.ycombinator.com/item?id=${item.id}`}
+                link={item.canonical_url || 'https://news.ycombinator.com/'}
                 className="rowItem rowItemClickable"
                 analyticsAttributes={{
                   [Attributes.POINTS]: item.comments_count,
                   [Attributes.TRIGERED_FROM]: 'card',
                   [Attributes.TITLE]: `${item.title} comments`,
-                  [Attributes.LINK]: `https://news.ycombinator.com/item?id=${item.id}`,
+                  [Attributes.LINK]: item.canonical_url,
                   [Attributes.SOURCE]: analyticsTag,
                 }}>
                 <BiCommentDetail className="rowItemIcon" /> {item.comments_count} comments

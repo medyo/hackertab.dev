@@ -42,6 +42,7 @@ export type BaseEntry = {
 
 export type Article = BaseEntry & {
   source: string
+  canonical_url?: string
   original_url?: string
   comments_url?: string
 }
