@@ -48,6 +48,7 @@ Even more features are going to come in the future!
 - Freecodecamp
 - Medium
 - Indiehackers
+- Hackernoon
 - Custom RSS Feed
 - **or create an issue to ask for a new data source**
 
