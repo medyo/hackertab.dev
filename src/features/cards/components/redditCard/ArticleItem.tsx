@@ -4,7 +4,7 @@ import { BsArrowReturnRight } from 'react-icons/bs'
 import { GoDotFill } from 'react-icons/go'
 import { MdAccessTime } from 'react-icons/md'
 import { VscTriangleUp } from 'react-icons/vsc'
-import { CardItemWithActions, CardLink } from 'src/components/Elements'
+import { CardItemWithActions, CardLink, ClickableItem } from 'src/components/Elements'
 import { Attributes } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { Article, BaseItemPropsType } from 'src/types'
@@ -56,9 +56,18 @@ const ArticleItem = ({ item, analyticsTag }: BaseItemPropsType<Article>) => {
                 <span className="rowItem">
                   <MdAccessTime className="rowItemIcon" /> {format(new Date(item.published_at))}
                 </span>
-                <span className="rowItem">
+                <ClickableItem
+                  link={item.canonical_url || item.url}
+                  className="rowItem rowItemClickable"
+                  analyticsAttributes={{
+                    [Attributes.POINTS]: item.points_count,
+                    [Attributes.TRIGERED_FROM]: 'card',
+                    [Attributes.TITLE]: `${item.title} comments`,
+                    [Attributes.LINK]: item.canonical_url,
+                    [Attributes.SOURCE]: analyticsTag,
+                  }}>
                   <BiCommentDetail className="rowItemIcon" /> {item.comments_count} comments
-                </span>
+                </ClickableItem>
                 {subReddit && (
                   <span className="rowItem">
                     <BsArrowReturnRight className="rowItemIcon" /> {`r/${subReddit}`}
