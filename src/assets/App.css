@@ -396,6 +396,11 @@ a {
   border: 1px solid var(--chip-border-color);
   background-color: var(--chip-background);
   font-size: 0.9em;
+
+  max-width: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .blockHeaderIcon {
   display: flex;
@@ -628,6 +633,14 @@ a {
   top: 3px;
   margin-right: 6px;
   color: #99a2ac;
+}
+
+.rowTitleGithubIcon {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  vertical-align: sub;
+  margin-right: 6px;
 }
 
 .backToHome {

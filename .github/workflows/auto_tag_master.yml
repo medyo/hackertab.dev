@@ -1,0 +1,57 @@
+name: '📌 Auto Tag on Master'
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+      - '.gitignore'
+      - '.github/**'
+      - '*.md'
+      - '.vscode/**'
+      - 'public/base.manifest.json'
+  workflow_dispatch:
+
+jobs:
+  auto-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get manifest version
+        id: manifest_version
+        run: |
+          version=$(jq -r .version public/base.manifest.json)
+          echo "version=$version" >> $GITHUB_OUTPUT
+
+      - name: Bump version and push tag
+        id: tag_version
+        uses: anothrNick/github-tag-action@1.67.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DRY_RUN: true
+          INITIAL_VERSION: ${{ steps.manifest_version.outputs.version }}
+          RELEASE_BRANCHES: ^(master|main)$
+          DEFAULT_BUMP: patch
+
+      - name: Update manifest version
+        run: |
+          new_version=$(echo "${{ steps.tag_version.outputs.new_tag }}" | sed 's/^v//')
+          jq --arg version "$new_version" '.version = $version' public/base.manifest.json > public/base.manifest.json.tmp && mv public/base.manifest.json.tmp public/base.manifest.json
+
+      - name: Commit manifest changes
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: 'ci: Bump manifest version to ${{ steps.tag_version.outputs.new_tag }}'
+          file_pattern: public/base.manifest.json
+      - name: Tag branch
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a ${{ steps.tag_version.outputs.new_tag }} -m "Tag ${{ steps.tag_version.outputs.new_tag }}."
+          git push origin ${{ steps.tag_version.outputs.new_tag }}
