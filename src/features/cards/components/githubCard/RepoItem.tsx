@@ -1,6 +1,6 @@
 import { CardItemWithActions, CardLink } from 'src/components/Elements'
 
-import { VscRepo, VscRepoForked, VscStarFull } from 'react-icons/vsc'
+import { VscRepoForked, VscStarFull } from 'react-icons/vsc'
 import { ColoredLanguagesBadge } from 'src/components/Elements'
 import { Attributes } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
@@ -30,7 +30,10 @@ const RepoItem = ({ item, selectedTag, analyticsTag }: BaseItemPropsType<Reposit
               [Attributes.SOURCE]: analyticsTag,
               [Attributes.LANGUAGE]: selectedTag?.value,
             }}>
-            <VscRepo className={'rowTitleIcon'} />
+            <img
+              src={`https://github.com/${item.owner}.png?size=64`}
+              className="rowTitleGithubIcon"
+            />
             {item.owner}/{item.name}
           </CardLink>
           <p className="rowDescription">{item.description}</p>
