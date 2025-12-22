@@ -138,6 +138,7 @@ export type BaseItemPropsType<
   item: T
   className?: string
   analyticsTag: string
+  dateRange?: string
   selectedTag?: SelectedTag
 }
 
