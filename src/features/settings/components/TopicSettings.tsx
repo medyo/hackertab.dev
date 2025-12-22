@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { AiFillMobile } from 'react-icons/ai'
 import { BsChevronDown, BsChevronUp, BsFillGearFill, BsFillShieldLockFill } from 'react-icons/bs'
 import { FaDatabase, FaPaintBrush, FaRobot, FaServer } from 'react-icons/fa'
@@ -57,6 +57,13 @@ export const TopicSettings = () => {
   const [expandedCategories, setExpandedCategories] = useState<string[]>(
     occupation ? [occupation] : ['backend', 'frontend']
   )
+
+  useEffect(() => {
+    if (searchKeyword.trim() === '') {
+      return
+    }
+    setExpandedCategories(Object.keys(groupedTags))
+  }, [searchKeyword, groupedTags])
 
   return (
     <SettingsContentLayout
