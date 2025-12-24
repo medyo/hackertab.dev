@@ -103,6 +103,12 @@
   background: var(--card-background-color);
   border-bottom: 12px solid green;
 }
+.repo .logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 4px;
+  margin: 0 auto;
+}
 .repo .title {
   font-size: 1.4rem;
   color: var(--card-header-text-color);
