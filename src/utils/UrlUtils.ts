@@ -18,3 +18,4 @@ export const isValidURL = (str: string): boolean => {
   return !!pattern.test(str)
 }
 
+export const encode = (value: string) => encodeURIComponent(value)

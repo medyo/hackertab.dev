@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { BiBookmarkMinus, BiBookmarkPlus, BiShareAlt } from 'react-icons/bi'
 import { MdBugReport } from 'react-icons/md'
 import { reportLink } from 'src/config'
@@ -14,8 +14,13 @@ type CardItemWithActionsProps = {
     url: string
     id: string
   }
+  showBookmarkAction?: boolean
   source: string
   cardItem: React.ReactNode
+  customActions?: Array<{
+    label: string
+    Component: React.ReactNode
+  }>
   sourceType?: 'rss' | 'supported'
 }
 
@@ -23,6 +28,8 @@ export const CardItemWithActions = ({
   cardItem,
   item,
   source,
+  showBookmarkAction = true,
+  customActions,
   sourceType = 'supported',
 }: CardItemWithActionsProps) => {
   const [shareModalData, setShareModalData] = useState<ShareModalData>()
@@ -32,7 +39,7 @@ export const CardItemWithActions = ({
     userBookmarks.some((bm) => bm.source === source && bm.url === item.url)
   )
 
-  const onBookmarkClick = () => {
+  const onBookmarkClick = useCallback(() => {
     const itemToBookmark = {
       title: item.title,
       url: item.url,
@@ -56,22 +63,22 @@ export const CardItemWithActions = ({
     } else {
       trackLinkBookmark(analyticsAttrs)
     }
-  }
+  }, [isBookmarked, item, source, sourceType, bookmarkPost, unbookmarkPost])
 
   useEffect(() => {
     setIsBookmarked(userBookmarks.some((bm) => bm.source === source && bm.url === item.url))
   }, [userBookmarks, source, item])
 
-  const onShareModalClicked = () => {
+  const onShareModalClicked = useCallback(() => {
     setShareModalData({ title: item.title, link: item.url, source: source })
-  }
+  }, [item.title, item.url, source])
 
-  const onReportClicked = () => {
+  const onReportClicked = useCallback(() => {
     const tags = useUserPreferences
       .getState()
       .userSelectedTags.map((tag) => tag.label.toLocaleLowerCase())
     window.open(`${reportLink}?tags=${tags.join(',')}&url=${item.url}`, '_blank')
-  }
+  }, [item.url])
 
   return (
     <div key={item.id} className="blockRow">
@@ -96,12 +103,22 @@ export const CardItemWithActions = ({
           aria-label="Open share modal">
           <BiShareAlt />
         </button>
-        <button
-          className={`blockActionButton ${isBookmarked ? 'active' : ''}`}
-          onClick={onBookmarkClick}
-          aria-label="Bookmark item">
-          {!isBookmarked ? <BiBookmarkPlus /> : <BiBookmarkMinus />}
-        </button>
+
+        {customActions &&
+          customActions.map((action) => (
+            <div key={action.label} aria-label={action.label}>
+              {action.Component}
+            </div>
+          ))}
+
+        {showBookmarkAction && (
+          <button
+            className={`blockActionButton ${isBookmarked ? 'active' : ''}`}
+            onClick={onBookmarkClick}
+            aria-label="Bookmark item">
+            {!isBookmarked ? <BiBookmarkPlus /> : <BiBookmarkMinus />}
+          </button>
+        )}
       </div>
     </div>
   )

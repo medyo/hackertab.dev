@@ -46,13 +46,13 @@ const ArticleItem = ({ item, analyticsTag }: BaseItemPropsType<Article>) => {
                 <MdAccessTime className="rowItemIcon" /> {format(new Date(item.published_at))}
               </span>
               <ClickableItem
-                link={item.comments_url as string}
+                link={item.canonical_url || item.url}
                 className="rowItem rowItemClickable"
                 analyticsAttributes={{
                   [Attributes.POINTS]: item.points_count,
                   [Attributes.TRIGERED_FROM]: 'card',
                   [Attributes.TITLE]: `${item.title} comments`,
-                  [Attributes.LINK]: item.comments_url,
+                  [Attributes.LINK]: item.canonical_url,
                   [Attributes.SOURCE]: analyticsTag,
                 }}>
                 <BiCommentDetail className="rowItemIcon" /> {item.comments_count} comments

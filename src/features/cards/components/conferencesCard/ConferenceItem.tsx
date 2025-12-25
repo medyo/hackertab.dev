@@ -1,11 +1,14 @@
+import { Menu, MenuItem } from '@szhsin/react-menu'
 import { flag } from 'country-emoji'
 import { useMemo } from 'react'
 import { IoIosPin } from 'react-icons/io'
+import { LiaCalendarPlus } from 'react-icons/lia'
 import { MdAccessTime } from 'react-icons/md'
 import { CardItemWithActions, CardLink, ColoredLanguagesBadge } from 'src/components/Elements'
 import { Attributes } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { BaseItemPropsType, Conference } from 'src/types'
+import { CALENDAR_PROVIDERS } from '../../config'
 
 const ConferencesItem = ({ item, analyticsTag }: BaseItemPropsType<Conference>) => {
   const { listingMode } = useUserPreferences()
@@ -20,6 +23,7 @@ const ConferencesItem = ({ item, analyticsTag }: BaseItemPropsType<Conference>) 
     if (item.country) {
       return {
         icon: flag(item.country.replace(/[^a-zA-Z ]/g, '')) || '🏳️',
+        country: item.country,
         label: item.city,
       }
     }
@@ -67,10 +71,62 @@ const ConferencesItem = ({ item, analyticsTag }: BaseItemPropsType<Conference>) 
     const diffTime = startDate.getTime() - currentDate.getTime()
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24))
   }, [item.start_date])
+
+  const calendarProvidersMenu = useMemo(() => {
+    return Object.entries(CALENDAR_PROVIDERS).map(([key, { Logo, name, addToCalendar }]) => {
+      const startDate =
+        new Date(item.start_date).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+      const endDate = new Date(item.end_date).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+      const location = conferenceLocation
+        ? `${conferenceLocation.country ? `${conferenceLocation.country}-` : ''}${
+            conferenceLocation.label
+          }`
+        : ''
+      return (
+        <MenuItem
+          key={key}
+          className={`menuItem`}
+          onClick={() => {
+            addToCalendar({
+              title: `${item.title}, ${conferenceLocation?.label || ''}`,
+              startDate,
+              endDate,
+              description: `Find out more at ${item.url}.\nThis event was added via Hackertab.dev`,
+              location: location,
+            })
+          }}>
+          <Logo className="calendarProviderIcon" /> Add to {name}
+        </MenuItem>
+      )
+    })
+  }, [])
+
   return (
     <CardItemWithActions
       source={analyticsTag}
       item={item}
+      showBookmarkAction={false}
+      customActions={[
+        {
+          label: 'Add to Calendar',
+          Component: (
+            <Menu
+              menuButton={
+                <div className={`blockActionButton`}>
+                  <LiaCalendarPlus />
+                </div>
+              }
+              theming="dark"
+              portal={true}
+              transition
+              className={`menuItem`}
+              direction={'bottom'}
+              align="start">
+              {calendarProvidersMenu}
+            </Menu>
+          ),
+        },
+      ]}
       cardItem={
         <>
           <CardLink

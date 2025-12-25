@@ -1,7 +1,8 @@
 import { CardItemWithActions, CardLink } from 'src/components/Elements'
 
-import { VscRepo, VscRepoForked, VscStarFull } from 'react-icons/vsc'
+import { VscRepoForked, VscStarFull } from 'react-icons/vsc'
 import { ColoredLanguagesBadge } from 'src/components/Elements'
+import { dateRanges } from 'src/config'
 import { Attributes } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { BaseItemPropsType, Repository } from 'src/types'
@@ -10,7 +11,12 @@ function numberWithCommas(x: number | string) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
-const RepoItem = ({ item, selectedTag, analyticsTag }: BaseItemPropsType<Repository>) => {
+const RepoItem = ({
+  item,
+  selectedTag,
+  dateRange = '',
+  analyticsTag,
+}: BaseItemPropsType<Repository>) => {
   const { listingMode } = useUserPreferences()
 
   return (
@@ -30,7 +36,10 @@ const RepoItem = ({ item, selectedTag, analyticsTag }: BaseItemPropsType<Reposit
               [Attributes.SOURCE]: analyticsTag,
               [Attributes.LANGUAGE]: selectedTag?.value,
             }}>
-            <VscRepo className={'rowTitleIcon'} />
+            <img
+              src={`https://github.com/${item.owner}.png?size=64`}
+              className="rowTitleGithubIcon"
+            />
             {item.owner}/{item.name}
           </CardLink>
           <p className="rowDescription">{item.description}</p>
@@ -45,7 +54,10 @@ const RepoItem = ({ item, selectedTag, analyticsTag }: BaseItemPropsType<Reposit
               {item.stars_in_range && (
                 <span className="rowItem">
                   <VscStarFull className="rowItemIcon" />{' '}
-                  {numberWithCommas(item.stars_in_range || 0)} stars today
+                  {numberWithCommas(item.stars_in_range || 0)} stars{' '}
+                  {dateRange
+                    ? dateRanges.find((d) => d.value === dateRange)?.label.toLowerCase()
+                    : 'today'}
                 </span>
               )}
               {item.forks_count && (

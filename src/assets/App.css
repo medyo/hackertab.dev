@@ -458,7 +458,9 @@ a {
   box-shadow: 0 0 15px 2px var(--card-actions-background-shadow);
   color: var(--card-action-button-color);
   cursor: pointer;
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 18px;
   height: 28px;
   line-height: 12px;
@@ -633,6 +635,14 @@ a {
   top: 3px;
   margin-right: 6px;
   color: #99a2ac;
+}
+
+.rowTitleGithubIcon {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  vertical-align: sub;
+  margin-right: 6px;
 }
 
 .backToHome {
@@ -1119,6 +1129,13 @@ Producthunt item
   opacity: 1;
 }
 
+.calendarProviderIcon {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  vertical-align: sub;
+  margin-right: 6px;
+}
 /*****************
 *** BREAKPOINTS
 *******************/

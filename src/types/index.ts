@@ -43,8 +43,6 @@ export type BaseEntry = {
 export type Article = BaseEntry & {
   source: string
   canonical_url?: string
-  original_url?: string
-  comments_url?: string
 }
 
 export type Product = BaseEntry & {
@@ -140,6 +138,7 @@ export type BaseItemPropsType<
   item: T
   className?: string
   analyticsTag: string
+  dateRange?: string
   selectedTag?: SelectedTag
 }
 

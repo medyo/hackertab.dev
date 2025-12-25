@@ -45,9 +45,10 @@ export function GithubCard(props: CardPropsType) {
         key={item.id}
         selectedTag={selectedTag}
         analyticsTag={meta.analyticsTag}
+        dateRange={dateRange}
       />
     ),
-    [meta.analyticsTag, selectedTag]
+    [meta.analyticsTag, selectedTag, dateRange]
   )
 
   const headerTitle = useMemo(() => {

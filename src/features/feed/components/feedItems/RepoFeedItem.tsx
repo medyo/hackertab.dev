@@ -1,4 +1,3 @@
-import { SiGithub } from 'react-icons/si'
 import { VscRepoForked, VscStarFull } from 'react-icons/vsc'
 import { CardItemWithActions, ColoredLanguagesBadge } from 'src/components/Elements'
 import { useUserPreferences } from 'src/stores/preferences'
@@ -13,7 +12,7 @@ function numberWithCommas(x: number | string) {
 export const RepoFeedItem = (props: BaseItemPropsType<GithubFeedItemData>) => {
   const { item, analyticsTag, className } = props
   const { listingMode } = useUserPreferences()
-
+  const repoOwner = item.url.split('/')[3]
   return (
     <div className={className}>
       <CardItemWithActions
@@ -26,7 +25,7 @@ export const RepoFeedItem = (props: BaseItemPropsType<GithubFeedItemData>) => {
               source="github"
               fallbackImage={
                 <div className="rowCover repo">
-                  <SiGithub size={40} />
+                  <img src={`https://github.com/${repoOwner}.png?size=128`} className="logo" />
                   <p className="title">{item.title}</p>
                   <p className="description">{item.description}</p>
                   <div className="details">
