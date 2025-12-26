@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         initState({
           user: {
             id: user.uid,
-            connectedAt: new Date(),
+            connectedAt: new Date().toISOString(),
             name: user.displayName || 'Anonymous',
             imageURL: user.photoURL || '',
           },
@@ -156,12 +156,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         if (isConnected) {
           toast('Session expired, please reconnect', { theme: 'dangerToast' })
 
-          Sentry.captureMessage(`Session expired`, {
-            level: 'info',
-            extra: {
-              fbID: user?.id || 'anonymous',
-              connectedAt: user?.connectedAt?.toISOString(),
-            },
+          Sentry.withScope((scope) => {
+            scope.setContext('auth_debug', {
+              connectedAt: user?.connectedAt || 'unknown',
+              userId: user?.id || 'anonymous',
+            })
+
+            Sentry.captureMessage(`Session expired`)
           })
         }
 
