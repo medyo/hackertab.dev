@@ -51,7 +51,7 @@ const RepoItem = ({
                   <VscStarFull className="rowItemIcon" /> {numberWithCommas(item.stars_count)} stars
                 </span>
               )}
-              {item.stars_in_range && (
+              {item.stars_in_range !== undefined && (
                 <span className="rowItem">
                   <VscStarFull className="rowItemIcon" />{' '}
                   {numberWithCommas(item.stars_in_range || 0)} stars{' '}
@@ -60,7 +60,7 @@ const RepoItem = ({
                     : 'today'}
                 </span>
               )}
-              {item.forks_count && (
+              {item.forks_count !== undefined && (
                 <span className="rowItem">
                   <VscRepoForked className="rowItemIcon" /> {numberWithCommas(item.forks_count)}{' '}
                   forks
