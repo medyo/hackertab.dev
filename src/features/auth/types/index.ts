@@ -1,7 +1,7 @@
 export type User = {
   id: string
   name: string
-  connectedAt?: Date
+  connectedAt?: string
   imageURL?: string
   streak?: number
 }
