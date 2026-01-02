@@ -14,7 +14,7 @@ const OCCUPATIONS: Occupation[] = [
     value: 'frontend',
     icon: FaPaintBrush,
     sources: ['devto', 'github', 'medium', 'hashnode'],
-    tags: ['frontend', 'javascript', 'typescript', 'css', 'react', 'vue', 'angular'],
+    tags: ['frontend', 'javascript', 'typescript', 'css', 'react', 'vue.js', 'angularjs'],
   },
   {
     title: 'Back-End Engineer',
