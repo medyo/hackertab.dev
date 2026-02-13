@@ -65,6 +65,7 @@ export function ProductHuntCard(props: CardPropsType) {
         isLoading={isLoading}
         renderItem={renderItem}
         placeholder={<ProductHuntPlaceholder />}
+        source={meta.value}
       />
     </Card>
   )

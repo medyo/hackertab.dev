@@ -202,6 +202,7 @@ a {
   padding-bottom: 56px;
   scroll-snap-align: start;
   width: 100vw;
+  position: relative;
 }
 
 .blockContent {
@@ -468,7 +469,7 @@ a {
   padding: 0;
   pointer-events: all;
   text-align: center;
-  transition: opacity 0.3s ease, right 0.3s ease;
+  transition: opacity 0.3s ease, right 0.3s ease, transform 0.1s ease, background-color 0.15s ease, color 0.15s ease;
   width: 28px;
   margin-bottom: 6px;
   margin-right: 6px;
@@ -489,6 +490,59 @@ a {
   .blockActionButton.active {
     opacity: 1;
   }
+}
+
+.markAsReadAction {
+  position: relative;
+}
+
+.markAsReadTooltip {
+  position: absolute;
+  bottom: 100%;
+  right: 5px;
+  margin-bottom: 6px;
+  padding: 4px 8px;
+  background-color: var(--card-action-button-background);
+  color: var(--card-action-button-color);
+  font-size: 12px;
+  white-space: nowrap;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.markAsReadAction:hover .markAsReadTooltip {
+  opacity: 1;
+}
+
+.centerMessageWrapper.cardLoading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.centerMessageIcon {
+  display: block;
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.centerMessage p {
+  margin: 0;
+  color: var(--primary-text-color);
+}
+
+.centerMessage p:first-of-type {
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 6px;
+}
+
+.centerMessageSubtext {
+  font-size: 14px;
+  opacity: 0.7;
 }
 
 /* Card (element) */
