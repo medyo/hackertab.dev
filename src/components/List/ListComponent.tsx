@@ -1,6 +1,7 @@
 import React, { memo, ReactNode, useMemo } from 'react'
 import { Placeholder } from 'src/components/placeholders'
 import { MAX_ITEMS_PER_CARD } from 'src/config'
+import { useReadPosts } from 'src/stores/readPosts'
 
 type PlaceholdersProps = {
   placeholder: ReactNode
@@ -27,6 +28,7 @@ export type ListComponentPropsType<T extends unknown> = {
   refresh?: boolean
   error?: any
   limit?: number
+  source?: string
 }
 
 export function ListComponent<T extends any>(props: ListComponentPropsType<T>) {
@@ -40,15 +42,28 @@ export function ListComponent<T extends any>(props: ListComponentPropsType<T>) {
     header,
     placeholder = <Placeholder />,
     limit = MAX_ITEMS_PER_CARD,
+    source,
   } = props
 
+  const { readPosts } = useReadPosts()
+
+  const filteredItems = useMemo(() => {
+    if (!items || items.length === 0) return []
+    if (!source) return items
+
+    const readIds = readPosts[source] || []
+    const readIdsSet = new Set(readIds)
+
+    return items.filter((item: any) => !readIdsSet.has(item.id))
+  }, [items, source, readPosts])
+
   const sortedData = useMemo(() => {
-    if (!items || items.length == 0) return []
-    if (!sortBy) return items
+    if (!filteredItems || filteredItems.length == 0) return []
+    if (!sortBy) return filteredItems
 
     const result = sortFn
-      ? [...items].sort(sortFn)
-      : [...items].sort((a, b) => {
+      ? [...filteredItems].sort(sortFn)
+      : [...filteredItems].sort((a, b) => {
           const aVal = a[sortBy]
           const bVal = b[sortBy]
           if (typeof aVal === 'number' && typeof bVal === 'number') return bVal - aVal
@@ -57,7 +72,7 @@ export function ListComponent<T extends any>(props: ListComponentPropsType<T>) {
         })
 
     return result
-  }, [sortBy, sortFn, items])
+  }, [sortBy, sortFn, filteredItems])
 
   const enrichedItems = useMemo(() => {
     if (!sortedData || sortedData.length === 0) {
@@ -90,6 +105,18 @@ export function ListComponent<T extends any>(props: ListComponentPropsType<T>) {
       <p className="errorMsg">
         No items found, try adjusting your filter or choosing a different tag.
       </p>
+    )
+  }
+
+  if (items && items.length > 0 && filteredItems.length === 0) {
+    return (
+      <div className="centerMessageWrapper cardLoading">
+        <div className="centerMessage errorMsg">
+          <span className="centerMessageIcon">✨</span>
+          <p><b>You're all caught up!</b></p>
+          <p className="centerMessageSubtext">Check back later for fresh content.</p>
+        </div>
+      </div>
     )
   }
 

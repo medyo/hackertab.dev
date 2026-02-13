@@ -59,6 +59,7 @@ export function HackernoonCard(props: CardPropsType) {
         items={data}
         isLoading={isLoading}
         renderItem={renderItem}
+        source={meta.value}
       />
     </Card>
   )

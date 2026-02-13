@@ -79,6 +79,7 @@ export function MediumCard(props: CardPropsType) {
         error={error}
         isLoading={isLoading}
         renderItem={renderItem}
+        source={meta.value}
       />
     </Card>
   )

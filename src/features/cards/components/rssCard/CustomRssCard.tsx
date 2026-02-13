@@ -45,7 +45,7 @@ export function CustomRssCard(props: CardPropsType) {
           showLanguageFilter={false}
         />
       }>
-      <ListPostComponent items={data} isLoading={isLoading} renderItem={renderItem} />
+      <ListPostComponent items={data} isLoading={isLoading} renderItem={renderItem} source={meta.value} />
     </Card>
   )
 }
