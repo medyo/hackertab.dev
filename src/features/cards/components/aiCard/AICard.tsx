@@ -46,6 +46,7 @@ export function AICard(props: CardPropsType) {
         error={error}
         isLoading={isLoading}
         renderItem={renderItem}
+        source={meta.value}
       />
     </Card>
   )

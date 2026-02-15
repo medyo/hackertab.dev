@@ -73,6 +73,7 @@ export function RedditCard(props: CardPropsType) {
         items={results}
         isLoading={isLoading}
         renderItem={renderItem}
+        source={meta.value}
       />
     </Card>
   )

@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { BiBookmarkMinus, BiBookmarkPlus, BiShareAlt } from 'react-icons/bi'
+import { BiBookmarkMinus, BiBookmarkPlus, BiCheckCircle, BiShareAlt } from 'react-icons/bi'
 import { MdBugReport } from 'react-icons/md'
 import { reportLink } from 'src/config'
 import { ShareModal } from 'src/features/shareModal'
 import { ShareModalData } from 'src/features/shareModal/types'
 import { Attributes, trackLinkBookmark, trackLinkUnBookmark } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
+import { useReadPosts } from 'src/stores/readPosts'
 import { useUserPreferences } from 'src/stores/preferences'
 
 type CardItemWithActionsProps = {
@@ -35,9 +36,14 @@ export const CardItemWithActions = ({
   const [shareModalData, setShareModalData] = useState<ShareModalData>()
 
   const { bookmarkPost, unbookmarkPost, userBookmarks } = useBookmarks()
+  const { markAsRead } = useReadPosts()
   const [isBookmarked, setIsBookmarked] = useState(
     userBookmarks.some((bm) => bm.source === source && bm.url === item.url)
   )
+
+  const onMarkAsReadClick = useCallback(() => {
+    markAsRead(source, item.id)
+  }, [markAsRead, source, item.id])
 
   const onBookmarkClick = useCallback(() => {
     const itemToBookmark = {
@@ -88,7 +94,7 @@ export const CardItemWithActions = ({
         shareData={shareModalData}
       />
       {cardItem}
-      <div className={`blockActions ${isBookmarked ? 'active' : ''} `}>
+      <div className={`blockActions ${isBookmarked ? 'active' : ''}`}>
         {source === 'ai' && (
           <button
             className={`blockActionButton `}
@@ -119,6 +125,16 @@ export const CardItemWithActions = ({
             {!isBookmarked ? <BiBookmarkPlus /> : <BiBookmarkMinus />}
           </button>
         )}
+
+        <span className="markAsReadAction">
+          <span className="markAsReadTooltip">Mark as read</span>
+          <button
+            className="blockActionButton"
+            onClick={onMarkAsReadClick}
+            aria-label="Mark as read">
+            <BiCheckCircle />
+          </button>
+        </span>
       </div>
     </div>
   )

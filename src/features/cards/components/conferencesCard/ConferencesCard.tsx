@@ -66,6 +66,7 @@ export function ConferencesCard(props: CardPropsType) {
         error={error}
         isLoading={isLoading}
         renderItem={renderItem}
+        source={meta.value}
       />
     </Card>
   )
