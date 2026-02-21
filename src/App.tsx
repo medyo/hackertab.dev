@@ -35,7 +35,7 @@ export const App = () => {
   } = useUserPreferences()
 
   useLayoutEffect(() => {
-    document.documentElement.style.setProperty('--max-visible-cards', maxVisibleCards.toString())
+    document.documentElement.style.setProperty('--user-cards-count', maxVisibleCards.toString())
   }, [maxVisibleCards])
 
   useEffect(() => {
