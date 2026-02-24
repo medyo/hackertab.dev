@@ -1,12 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { BiBookmarkMinus, BiBookmarkPlus, BiShareAlt } from 'react-icons/bi'
-import { MdBugReport } from 'react-icons/md'
-import { reportLink } from 'src/config'
 import { ShareModal } from 'src/features/shareModal'
 import { ShareModalData } from 'src/features/shareModal/types'
 import { Attributes, trackLinkBookmark, trackLinkUnBookmark } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
-import { useUserPreferences } from 'src/stores/preferences'
 
 type CardItemWithActionsProps = {
   item: {
@@ -72,14 +69,6 @@ export const CardItemWithActions = ({
   const onShareModalClicked = useCallback(() => {
     setShareModalData({ title: item.title, link: item.url, source: source })
   }, [item.title, item.url, source])
-
-  const onReportClicked = useCallback(() => {
-    const tags = useUserPreferences
-      .getState()
-      .userSelectedTags.map((tag) => tag.label.toLocaleLowerCase())
-    window.open(`${reportLink}?tags=${tags.join(',')}&url=${item.url}`, '_blank')
-  }, [item.url])
-
   return (
     <div key={item.id} className="blockRow">
       <ShareModal
@@ -89,14 +78,6 @@ export const CardItemWithActions = ({
       />
       {cardItem}
       <div className={`blockActions ${isBookmarked ? 'active' : ''} `}>
-        {source === 'ai' && (
-          <button
-            className={`blockActionButton `}
-            onClick={onReportClicked}
-            aria-label="Report item">
-            <MdBugReport />
-          </button>
-        )}
         <button
           className={`blockActionButton `}
           onClick={onShareModalClicked}

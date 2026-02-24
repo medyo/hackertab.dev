@@ -34,7 +34,7 @@
   font-size: 14px;
 }
 .bookmarks .source svg,
-.bookmarks .source img.icon {
+.bookmarks .source .icon img {
   width: 16px;
   height: 16px;
 }

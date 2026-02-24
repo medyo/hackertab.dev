@@ -11,7 +11,10 @@
 }
 
 html {
-  --max-visible-cards: 4;
+  --user-cards-count: 4;
+  --max-layout-cards-count: 1;
+  --visible-cards: min(var(--max-layout-cards-count), var(--user-cards-count, 1));
+  --cards-gap: 12px;
 }
 
 html.dark {
