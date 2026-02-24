@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { AdPlaceholder } from 'src/components/placeholders'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
 import { useUserPreferences } from 'src/stores/preferences'
+import { isWebOrExtensionVersion } from 'src/utils/Environment'
 import { useGetAd } from '../api/getAd'
 import { useDelayedFlag } from '../hooks/useDelayedFlag'
 import { Ad } from '../types'
@@ -16,7 +17,8 @@ type AdvBannerProps = {
 export const AdvBanner = ({ feedDisplay = false, loadingState, onAdLoaded }: AdvBannerProps) => {
   const { userSelectedTags } = useUserPreferences()
   const adsFetchDelayMs = useRemoteConfigStore((s) => s.adsFetchDelayMs)
-  const isReady = useDelayedFlag(adsFetchDelayMs)
+  const delay = isWebOrExtensionVersion() === 'extension' ? adsFetchDelayMs : undefined
+  const isReady = useDelayedFlag(delay)
 
   const {
     isSuccess,
