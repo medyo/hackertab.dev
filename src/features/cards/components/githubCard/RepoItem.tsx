@@ -22,7 +22,11 @@ const RepoItem = ({
   return (
     <CardItemWithActions
       source={analyticsTag}
-      item={item}
+      item={{
+        title: `${item.owner}/${item.name}`,
+        url: item.url,
+        id: item.id.toString(),
+      }}
       cardItem={
         <>
           <CardLink
