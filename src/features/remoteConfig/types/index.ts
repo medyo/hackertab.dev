@@ -6,4 +6,5 @@ export type Tag = {
 
 export type RemoteConfig = {
   tags: Tag[]
+  ads_fetch_delay_ms?: number
 }

@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { AdPlaceholder } from 'src/components/placeholders'
+import { useRemoteConfigStore } from 'src/features/remoteConfig'
 import { useUserPreferences } from 'src/stores/preferences'
 import { useGetAd } from '../api/getAd'
+import { useDelayedFlag } from '../hooks/useDelayedFlag'
 import { Ad } from '../types'
 import './AdvBanner.css'
 
@@ -13,10 +15,9 @@ type AdvBannerProps = {
 
 export const AdvBanner = ({ feedDisplay = false, loadingState, onAdLoaded }: AdvBannerProps) => {
   const { userSelectedTags } = useUserPreferences()
+  const adsFetchDelayMs = useRemoteConfigStore((s) => s.adsFetchDelayMs)
+  const isReady = useDelayedFlag(adsFetchDelayMs)
 
-  const [aditionalAdQueries, setAditionalAdQueries] = useState<
-    { [key: string]: string } | undefined
-  >()
   const {
     isSuccess,
     data: ad,
@@ -25,18 +26,11 @@ export const AdvBanner = ({ feedDisplay = false, loadingState, onAdLoaded }: Adv
   } = useGetAd({
     keywords: userSelectedTags.map((tag) => tag.label.toLocaleLowerCase()),
     feed: true,
-    aditionalAdQueries: aditionalAdQueries,
     config: {
       cacheTime: 0,
       staleTime: 0,
+      enabled: isReady,
       useErrorBoundary: false,
-      refetchInterval(data) {
-        if (data?.nextAd) {
-          setAditionalAdQueries(data.nextAd.queries)
-          return data.nextAd.interval
-        }
-        return false
-      },
     },
   })
 
