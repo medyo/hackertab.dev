@@ -11,7 +11,7 @@ export const AI_PROMPT_ENGINES: SearchEngineType[] = [
   },
   {
     label: 'Mistral',
-    url: 'https://chat.mistral.ai/chat?q',
+    url: 'https://chat.mistral.ai/chat?q=',
   },
   {
     label: 'Perplexity',
