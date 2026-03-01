@@ -116,6 +116,7 @@ a {
 
 .Cards > * {
   flex: 0 0 calc((100% - ((var(--visible-cards)) * var(--cards-gap))) / var(--visible-cards));
+  min-width: 0;
 }
 
 .HorizontalScroll {
@@ -535,6 +536,8 @@ a {
   text-decoration: none;
   display: flex;
   flex-direction: row;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .rowTitle:hover {
