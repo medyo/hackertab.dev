@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 import { AdvBanner } from 'src/features/adv'
+import { useAuth } from 'src/features/auth'
 import { DesktopBreakpoint } from 'src/providers/DesktopBreakpoint'
 import { MobileBreakpoint } from 'src/providers/MobileBreakpoint'
 import { CardPropsType } from 'src/types'
@@ -27,6 +28,7 @@ export const Card = React.forwardRef<HTMLDivElement, RootCardProps>(
   ) => {
     const { icon, label, badge } = meta
     const [canAdsLoad, setCanAdsLoad] = useState(true)
+    const { user } = useAuth()
 
     useEffect(() => {
       if (!withAds) {
@@ -65,7 +67,7 @@ export const Card = React.forwardRef<HTMLDivElement, RootCardProps>(
           {badge && <span className="blockHeaderBadge">{badge}</span>}
         </div>
 
-        {canAdsLoad && withAds && (
+        {canAdsLoad && withAds && !user?.isSupporter && (
           <div className="ad-wrapper blockRow">
             <AdvBanner />
           </div>

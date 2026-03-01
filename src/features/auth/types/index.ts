@@ -4,4 +4,5 @@ export type User = {
   connectedAt?: string
   imageURL?: string
   streak?: number
+  isSupporter?: boolean
 }
