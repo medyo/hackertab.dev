@@ -41,8 +41,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       .then(async (userCredential) => {
         const user = userCredential.user
 
-        const idToken = await user.getIdTokenResult()
-        const isSupporter = Boolean(idToken.claims?.['supporter'])
+        let isSupporter = false
+        try {
+          const idToken = await user.getIdTokenResult()
+          isSupporter = Boolean(idToken.claims?.['supporter'])
+        } catch (e) {
+          console.error('Failed to fetch ID token', e)
+        }
 
         initState({
           user: {
