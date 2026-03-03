@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { IoCheckmarkOutline } from 'react-icons/io5'
+import { MdWorkspacePremium } from 'react-icons/md'
 import AvatarPlaceholder from 'src/assets/icons/avatar.svg?react'
 import StreakIcon from 'src/assets/icons/fire_icon.svg?react'
 import { Button, ConfirmModal } from 'src/components/Elements'
@@ -48,9 +49,11 @@ export const UserInfo = () => {
       />
 
       <div className="userDetails">
-        {user?.imageURL && <img src={user.imageURL} className="userImage"></img>}
+        {user?.imageURL && <img src={user.imageURL} className="userImage" />}
         <div className="userInfo">
-          <div className="userName">{user.name}</div>
+          <div className="userName">
+            {user.name} {user.isSupporter && <MdWorkspacePremium />}
+          </div>
           <div className="sub">
             {providerId == 'github.com' ? (
               <FaGithub size={18} />
