@@ -38,8 +38,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         : GithubAuthProvider.credential(token)
 
     return signInWithCredential(firebaseAuth, authProvider)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user
+
+        let isSupporter = false
+        try {
+          const idToken = await user.getIdTokenResult()
+          isSupporter = Boolean(idToken.claims?.['supporter'])
+        } catch (e) {
+          console.error('Failed to fetch ID token', e)
+        }
 
         initState({
           user: {
@@ -47,6 +55,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             connectedAt: new Date().toISOString(),
             name: user.displayName || 'Anonymous',
             imageURL: user.photoURL || '',
+            isSupporter: isSupporter,
           },
           providerId: authProvider.providerId,
         })
