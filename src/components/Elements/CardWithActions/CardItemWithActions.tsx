@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { BiBookmarkMinus, BiBookmarkPlus, BiShareAlt } from 'react-icons/bi'
+import { BiBookmarkMinus, BiBookmarkPlus, BiCheckCircle, BiShareAlt } from 'react-icons/bi'
 import { ShareModal } from 'src/features/shareModal'
 import { ShareModalData } from 'src/features/shareModal/types'
 import { Attributes, trackLinkBookmark, trackLinkUnBookmark } from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
+import { useReadPosts } from 'src/stores/readPosts'
 
 type CardItemWithActionsProps = {
   item: {
@@ -32,9 +33,19 @@ export const CardItemWithActions = ({
   const [shareModalData, setShareModalData] = useState<ShareModalData>()
 
   const { bookmarkPost, unbookmarkPost, userBookmarks } = useBookmarks()
+  const { readPostIds, markAsRead, markAsUnread } = useReadPosts()
+  const isRead = readPostIds.includes(item.id)
   const [isBookmarked, setIsBookmarked] = useState(
     userBookmarks.some((bm) => bm.source === source && bm.url === item.url)
   )
+
+  const onMarkAsReadClick = useCallback(() => {
+    if (isRead) {
+      markAsUnread(item.id)
+    } else {
+      markAsRead(item.id)
+    }
+  }, [isRead, markAsRead, markAsUnread, item.id])
 
   const onBookmarkClick = useCallback(() => {
     const itemToBookmark = {
@@ -100,6 +111,16 @@ export const CardItemWithActions = ({
             {!isBookmarked ? <BiBookmarkPlus /> : <BiBookmarkMinus />}
           </button>
         )}
+
+        <span className="markAsReadAction">
+          <span className="markAsReadTooltip">{isRead ? 'Mark as unread' : 'Mark as read'}</span>
+          <button
+            className="blockActionButton"
+            onClick={onMarkAsReadClick}
+            aria-label={isRead ? 'Mark as unread' : 'Mark as read'}>
+            <BiCheckCircle />
+          </button>
+        </span>
       </div>
     </div>
   )
