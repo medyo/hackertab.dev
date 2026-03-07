@@ -51,6 +51,7 @@ type UserPreferencesStoreActions = {
   unfollowTag: (tag: Tag) => void
   setMaxVisibleCards: (maxVisibleCards: number) => void
   setCardSettings: (card: string, settings: CardSettingsType) => void
+  clearCardSettingsLanguages: () => void
   setOccupation: (occupation: string | null) => void
   markOnboardingAsCompleted: () => void
   setUserCustomCards: (cards: SupportedCardType[]) => void
@@ -105,6 +106,15 @@ export const useUserPreferences = create(
             ...state.cardsSettings,
             [card]: { ...state.cardsSettings[card], ...settings },
           },
+        })),
+      clearCardSettingsLanguages: () =>
+        set((state) => ({
+          cardsSettings: Object.fromEntries(
+            Object.entries(state.cardsSettings).map(([card, settings]) => [
+              card,
+              { ...settings, language: undefined },
+            ])
+          ),
         })),
       markOnboardingAsCompleted: () =>
         set(() => ({
