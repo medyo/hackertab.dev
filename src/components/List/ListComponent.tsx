@@ -44,15 +44,20 @@ export function ListComponent<T extends any>(props: ListComponentPropsType<T>) {
     limit = MAX_ITEMS_PER_CARD,
   } = props
 
-  const { readPostIds } = useReadPosts()
   const { showReadPosts } = useUserPreferences()
+  const readPostIdSet = useReadPosts((state) => state.readPostIdSet)
 
   const filteredItems = useMemo(() => {
-    if (!items || items.length === 0) return []
-    if (showReadPosts) return items
-    const readSet = new Set(readPostIds)
-    return items.filter((item: any) => !readSet.has(item.id))
-  }, [items, readPostIds, showReadPosts])
+    if (!items || items.length === 0) {
+      return []
+    }
+
+    if (showReadPosts) {
+      return items
+    }
+
+    return items.filter((item: any) => !readPostIdSet.has(item.id))
+  }, [items, readPostIdSet, showReadPosts])
 
   const sortedData = useMemo(() => {
     if (!filteredItems || filteredItems.length == 0) return []
@@ -71,8 +76,6 @@ export function ListComponent<T extends any>(props: ListComponentPropsType<T>) {
     return result
   }, [sortBy, sortFn, filteredItems])
 
-  const readSet = useMemo(() => new Set(readPostIds), [readPostIds])
-
   const enrichedItems = useMemo(() => {
     if (!sortedData || sortedData.length === 0) {
       return []
@@ -80,14 +83,7 @@ export function ListComponent<T extends any>(props: ListComponentPropsType<T>) {
 
     try {
       return sortedData.slice(0, limit).map((item, index) => {
-        const isRead = readSet.has((item as any).id)
-        const itemNode = isRead ? (
-          <div key={(item as any).id} className="readPostWrapper" aria-label="Read">
-            {renderItem(item, index)}
-          </div>
-        ) : (
-          renderItem(item, index)
-        )
+        const itemNode = renderItem(item, index)
         let content: ReactNode[] = [itemNode]
         if (header && index === 0) {
           content.unshift(header)
@@ -98,7 +94,7 @@ export function ListComponent<T extends any>(props: ListComponentPropsType<T>) {
     } catch (e) {
       return []
     }
-  }, [sortedData, header, renderItem, limit, readSet])
+  }, [sortedData, header, renderItem, limit])
 
   if (isLoading) {
     return <Placeholders placeholder={placeholder} />
@@ -120,7 +116,9 @@ export function ListComponent<T extends any>(props: ListComponentPropsType<T>) {
       <div className="centerMessageWrapper cardLoading">
         <div className="centerMessage errorMsg">
           <span className="centerMessageIcon">✨</span>
-          <p><b>You're all caught up!</b></p>
+          <p>
+            <b>You're all caught up!</b>
+          </p>
           <p className="centerMessageSubtext">Check back later for fresh content.</p>
         </div>
       </div>
