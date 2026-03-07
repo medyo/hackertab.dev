@@ -94,7 +94,7 @@ export const useUserPreferences = create(
       userCustomCards: [],
       DNDDuration: 'never',
       advStatus: false,
-      showReadPosts: false,
+      showReadPosts: true,
       setLayout: (layout) => set({ layout }),
       setPromptEngine: (promptEngine: string) => set({ promptEngine }),
       setListingMode: (listingMode: ListingMode) => set({ listingMode }),
