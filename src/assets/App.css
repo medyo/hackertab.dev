@@ -51,16 +51,6 @@ a {
   align-items: center;
 }
 
-.readPostWrapper {
-  position: relative;
-}
-
-.readPostWrapper .subTitle::after {
-  content: ' \2705';
-  margin-left: 0.2em;
-  font-size: 0.85em;
-}
-
 .loadingIcon {
   color: var(--app-name-text-color);
 }
@@ -478,7 +468,8 @@ a {
   padding: 0;
   pointer-events: all;
   text-align: center;
-  transition: opacity 0.3s ease, right 0.3s ease, transform 0.1s ease, background-color 0.15s ease, color 0.15s ease;
+  transition: opacity 0.3s ease, right 0.3s ease, transform 0.1s ease, background-color 0.15s ease,
+    color 0.15s ease;
   width: 28px;
   margin-bottom: 6px;
   margin-right: 6px;
@@ -499,29 +490,6 @@ a {
   .blockActionButton.active {
     opacity: 1;
   }
-}
-
-.markAsReadAction {
-  position: relative;
-}
-
-.markAsReadTooltip {
-  position: absolute;
-  bottom: 100%;
-  right: 5px;
-  margin-bottom: 6px;
-  padding: 4px 8px;
-  background-color: var(--card-action-button-background);
-  color: var(--card-action-button-color);
-  font-size: 12px;
-  white-space: nowrap;
-  border-radius: 4px;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.markAsReadAction:hover .markAsReadTooltip {
-  opacity: 1;
 }
 
 .centerMessageWrapper.cardLoading {
@@ -606,6 +574,10 @@ a {
 
 .rowTitle:hover {
   color: var(--primary-hover-text-color);
+}
+
+.blockRow.isRead {
+  opacity: 0.3;
 }
 .titleWithCover {
   display: block;
