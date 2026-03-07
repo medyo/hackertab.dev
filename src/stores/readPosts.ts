@@ -43,6 +43,7 @@ export const useReadPosts = create<ReadPostsStore>()(
     }),
     {
       name: 'read_post_ids_storage',
+      version: 0,
       partialize: (state) => ({ readPostIds: state.readPostIds }),
       onRehydrateStorage: () => (state) => {
         if (state) {
