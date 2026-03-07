@@ -143,7 +143,7 @@ export type BaseItemPropsType<
 }
 
 export type CardSettingsType = {
-  language: string
+  language?: string
   sortBy: string
   dateRange?: string
 }
