@@ -25,10 +25,12 @@ export const GeneralSettings = () => {
     listingMode,
     theme,
     maxVisibleCards,
+    showReadPosts,
     setTheme,
     setListingMode,
     setMaxVisibleCards,
     setOpenLinksNewTab,
+    setShowReadPosts,
   } = useUserPreferences()
 
   const onOpenLinksNewTabChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,6 +52,10 @@ export const GeneralSettings = () => {
     setTheme(newTheme)
     trackThemeSelect(newTheme)
     identifyUserTheme(newTheme)
+  }
+
+  const onShowReadPostsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setShowReadPosts(e.target.checked)
   }
 
   return (
@@ -74,6 +80,13 @@ export const GeneralSettings = () => {
           <p className="settingTitle">Open links in a new tab</p>
           <div className="settingContent">
             <Toggle checked={openLinksNewTab} icons={false} onChange={onOpenLinksNewTabChange} />
+          </div>
+        </div>
+
+        <div className="settingRow">
+          <p className="settingTitle">Display read posts</p>
+          <div className="settingContent">
+            <Toggle checked={showReadPosts} icons={false} onChange={onShowReadPostsChange} />
           </div>
         </div>
 

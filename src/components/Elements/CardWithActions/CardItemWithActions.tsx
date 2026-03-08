@@ -1,9 +1,17 @@
+import clsx from 'clsx'
 import React, { useCallback, useEffect, useState } from 'react'
-import { BiBookmarkMinus, BiBookmarkPlus, BiShareAlt } from 'react-icons/bi'
+import { BiBookmarkMinus, BiBookmarkPlus, BiCheckDouble, BiShareAlt } from 'react-icons/bi'
 import { ShareModal } from 'src/features/shareModal'
 import { ShareModalData } from 'src/features/shareModal/types'
-import { Attributes, trackLinkBookmark, trackLinkUnBookmark } from 'src/lib/analytics'
+import {
+  Attributes,
+  trackLinkBookmark,
+  trackLinkUnBookmark,
+  trackMarkAsRead,
+} from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
+import { useReadPosts } from 'src/stores/readPosts'
+import { useShallow } from 'zustand/shallow'
 
 type CardItemWithActionsProps = {
   item: {
@@ -32,11 +40,36 @@ export const CardItemWithActions = ({
   const [shareModalData, setShareModalData] = useState<ShareModalData>()
 
   const { bookmarkPost, unbookmarkPost, userBookmarks } = useBookmarks()
+  const { isRead, markAsRead, markAsUnread } = useReadPosts(
+    useShallow((state) => ({
+      markAsRead: state.markAsRead,
+      markAsUnread: state.markAsUnread,
+      isRead: state.readPostIds.includes(item.id),
+    }))
+  )
   const [isBookmarked, setIsBookmarked] = useState(
     userBookmarks.some((bm) => bm.source === source && bm.url === item.url)
   )
 
-  const onBookmarkClick = useCallback(() => {
+  const onMarkAsReadClicked = useCallback(() => {
+    if (isRead) {
+      markAsUnread(item.id)
+    } else {
+      markAsRead(item.id)
+    }
+
+    if (isRead) {
+      const analyticsAttrs = {
+        [Attributes.TRIGERED_FROM]: 'card',
+        [Attributes.TITLE]: item.title,
+        [Attributes.LINK]: item.url,
+        [Attributes.SOURCE]: source,
+      }
+      trackMarkAsRead(analyticsAttrs)
+    }
+  }, [isRead, item.id])
+
+  const onBookmarkClicked = useCallback(() => {
     const itemToBookmark = {
       title: item.title,
       url: item.url,
@@ -70,7 +103,7 @@ export const CardItemWithActions = ({
     setShareModalData({ title: item.title, link: item.url, source: source })
   }, [item.title, item.url, source])
   return (
-    <div key={item.id} className="blockRow">
+    <div key={item.id} className={clsx('blockRow', { isRead })}>
       <ShareModal
         showModal={setShareModalData !== undefined}
         closeModal={() => setShareModalData(undefined)}
@@ -95,11 +128,18 @@ export const CardItemWithActions = ({
         {showBookmarkAction && (
           <button
             className={`blockActionButton ${isBookmarked ? 'active' : ''}`}
-            onClick={onBookmarkClick}
+            onClick={onBookmarkClicked}
             aria-label="Bookmark item">
             {!isBookmarked ? <BiBookmarkPlus /> : <BiBookmarkMinus />}
           </button>
         )}
+
+        <button
+          className={`blockActionButton ${isRead ? 'active' : ''}`}
+          onClick={onMarkAsReadClicked}
+          aria-label={isRead ? 'Mark as unread' : 'Mark as read'}>
+          <BiCheckDouble />
+        </button>
       </div>
     </div>
   )

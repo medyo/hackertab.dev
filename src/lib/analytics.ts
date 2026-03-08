@@ -37,6 +37,7 @@ enum Verbs {
   TARGET = 'Target',
   BOOKMARK = 'Bookmark',
   UNBOOKMARK = 'Unbookmark',
+  MARK_AS_READ = 'Mark as Read',
   REMOVE = 'Remove',
   START = 'Start',
   FINISH = 'Finish',
@@ -222,6 +223,14 @@ export const trackLinkUnBookmark = (attributes: { [P: string]: string }) => {
   trackEvent({
     object: Objects.LINK,
     verb: Verbs.UNBOOKMARK,
+    attributes,
+  })
+}
+
+export const trackMarkAsRead = (attributes: { [P: string]: string }) => {
+  trackEvent({
+    object: Objects.LINK,
+    verb: Verbs.MARK_AS_READ,
     attributes,
   })
 }

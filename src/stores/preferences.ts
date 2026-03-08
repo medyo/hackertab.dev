@@ -36,6 +36,7 @@ export type UserPreferencesState = {
   userCustomCards: SupportedCardType[]
   advStatus: boolean
   DNDDuration: DNDDuration
+  showReadPosts: boolean
 }
 
 type UserPreferencesStoreActions = {
@@ -61,6 +62,7 @@ type UserPreferencesStoreActions = {
   addSearchEngine: (searchEngine: SearchEngineType) => void
   removeSearchEngine: (searchEngineUrl: string) => void
   setAdvStatus: (status: boolean) => void
+  setShowReadPosts: (value: boolean) => void
 }
 
 export const useUserPreferences = create(
@@ -92,6 +94,7 @@ export const useUserPreferences = create(
       userCustomCards: [],
       DNDDuration: 'never',
       advStatus: false,
+      showReadPosts: true,
       setLayout: (layout) => set({ layout }),
       setPromptEngine: (promptEngine: string) => set({ promptEngine }),
       setListingMode: (listingMode: ListingMode) => set({ listingMode }),
@@ -166,6 +169,7 @@ export const useUserPreferences = create(
           }
         }),
       setAdvStatus: (status) => set({ advStatus: status }),
+      setShowReadPosts: (value) => set({ showReadPosts: value }),
       removeCard: (cardName: string) =>
         set((state) => {
           return {

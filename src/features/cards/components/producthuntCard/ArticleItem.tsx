@@ -18,7 +18,6 @@ const ArticleItem = ({ item, analyticsTag }: BaseItemPropsType<Product>) => {
           <div className="phContent">
             <CardLink
               link={item.url}
-              appendRef={false}
               analyticsAttributes={{
                 [Attributes.POINTS]: item.votes_count,
                 [Attributes.TRIGERED_FROM]: 'card',
