@@ -3,7 +3,12 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { BiBookmarkMinus, BiBookmarkPlus, BiCheckDouble, BiShareAlt } from 'react-icons/bi'
 import { ShareModal } from 'src/features/shareModal'
 import { ShareModalData } from 'src/features/shareModal/types'
-import { Attributes, trackLinkBookmark, trackLinkUnBookmark } from 'src/lib/analytics'
+import {
+  Attributes,
+  trackLinkBookmark,
+  trackLinkUnBookmark,
+  trackMarkAsRead,
+} from 'src/lib/analytics'
 import { useBookmarks } from 'src/stores/bookmarks'
 import { useReadPosts } from 'src/stores/readPosts'
 import { useShallow } from 'zustand/shallow'
@@ -46,15 +51,25 @@ export const CardItemWithActions = ({
     userBookmarks.some((bm) => bm.source === source && bm.url === item.url)
   )
 
-  const onMarkAsReadClick = useCallback(() => {
+  const onMarkAsReadClicked = useCallback(() => {
     if (isRead) {
       markAsUnread(item.id)
     } else {
       markAsRead(item.id)
     }
+
+    if (isRead) {
+      const analyticsAttrs = {
+        [Attributes.TRIGERED_FROM]: 'card',
+        [Attributes.TITLE]: item.title,
+        [Attributes.LINK]: item.url,
+        [Attributes.SOURCE]: source,
+      }
+      trackMarkAsRead(analyticsAttrs)
+    }
   }, [isRead, item.id])
 
-  const onBookmarkClick = useCallback(() => {
+  const onBookmarkClicked = useCallback(() => {
     const itemToBookmark = {
       title: item.title,
       url: item.url,
@@ -113,7 +128,7 @@ export const CardItemWithActions = ({
         {showBookmarkAction && (
           <button
             className={`blockActionButton ${isBookmarked ? 'active' : ''}`}
-            onClick={onBookmarkClick}
+            onClick={onBookmarkClicked}
             aria-label="Bookmark item">
             {!isBookmarked ? <BiBookmarkPlus /> : <BiBookmarkMinus />}
           </button>
@@ -121,7 +136,7 @@ export const CardItemWithActions = ({
 
         <button
           className={`blockActionButton ${isRead ? 'active' : ''}`}
-          onClick={onMarkAsReadClick}
+          onClick={onMarkAsReadClicked}
           aria-label={isRead ? 'Mark as unread' : 'Mark as read'}>
           <BiCheckDouble />
         </button>
