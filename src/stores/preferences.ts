@@ -36,6 +36,7 @@ export type UserPreferencesState = {
   userCustomCards: SupportedCardType[]
   advStatus: boolean
   DNDDuration: DNDDuration
+  showReadPosts: boolean
 }
 
 type UserPreferencesStoreActions = {
@@ -51,6 +52,7 @@ type UserPreferencesStoreActions = {
   unfollowTag: (tag: Tag) => void
   setMaxVisibleCards: (maxVisibleCards: number) => void
   setCardSettings: (card: string, settings: CardSettingsType) => void
+  clearCardSettingsLanguages: () => void
   setOccupation: (occupation: string | null) => void
   markOnboardingAsCompleted: () => void
   setUserCustomCards: (cards: SupportedCardType[]) => void
@@ -60,6 +62,7 @@ type UserPreferencesStoreActions = {
   addSearchEngine: (searchEngine: SearchEngineType) => void
   removeSearchEngine: (searchEngineUrl: string) => void
   setAdvStatus: (status: boolean) => void
+  setShowReadPosts: (value: boolean) => void
 }
 
 export const useUserPreferences = create(
@@ -91,6 +94,7 @@ export const useUserPreferences = create(
       userCustomCards: [],
       DNDDuration: 'never',
       advStatus: false,
+      showReadPosts: true,
       setLayout: (layout) => set({ layout }),
       setPromptEngine: (promptEngine: string) => set({ promptEngine }),
       setListingMode: (listingMode: ListingMode) => set({ listingMode }),
@@ -105,6 +109,15 @@ export const useUserPreferences = create(
             ...state.cardsSettings,
             [card]: { ...state.cardsSettings[card], ...settings },
           },
+        })),
+      clearCardSettingsLanguages: () =>
+        set((state) => ({
+          cardsSettings: Object.fromEntries(
+            Object.entries(state.cardsSettings).map(([card, settings]) => [
+              card,
+              { ...settings, language: undefined },
+            ])
+          ),
         })),
       markOnboardingAsCompleted: () =>
         set(() => ({
@@ -156,6 +169,7 @@ export const useUserPreferences = create(
           }
         }),
       setAdvStatus: (status) => set({ advStatus: status }),
+      setShowReadPosts: (value) => set({ showReadPosts: value }),
       removeCard: (cardName: string) =>
         set((state) => {
           return {

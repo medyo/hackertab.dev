@@ -14,7 +14,7 @@ export const CardLink = ({
   link,
   children,
   className = '',
-  appendRef = false,
+  appendRef = true,
   analyticsAttributes,
 }: CardLinkProps) => {
   return (
