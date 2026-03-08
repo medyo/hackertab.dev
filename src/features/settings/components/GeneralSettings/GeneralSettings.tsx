@@ -84,23 +84,19 @@ export const GeneralSettings = () => {
         </div>
 
         <div className="settingRow">
+          <p className="settingTitle">Display read posts</p>
+          <div className="settingContent">
+            <Toggle checked={showReadPosts} icons={false} onChange={onShowReadPostsChange} />
+          </div>
+        </div>
+
+        <div className="settingRow">
           <p className="settingTitle">Compact mode</p>
           <div className="settingContent">
             <Toggle
               checked={listingMode === 'compact'}
               icons={false}
               onChange={onlistingModeChange}
-            />
-          </div>
-        </div>
-
-        <div className="settingRow">
-          <p className="settingTitle">Display read posts</p>
-          <div className="settingContent">
-            <Toggle
-              checked={showReadPosts}
-              icons={false}
-              onChange={onShowReadPostsChange}
             />
           </div>
         </div>
