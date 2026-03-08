@@ -98,8 +98,8 @@ export const AdvBanner = ({ feedDisplay = false, loadingState, onAdLoaded }: Adv
           <img
             src={ad.imageUrl}
             alt={ad.title}
-            height={!feedDisplay ? '100' : '200'}
-            width={!feedDisplay ? '130' : '260'}
+            height={!feedDisplay ? '120' : '200'}
+            width={!feedDisplay ? '156' : '260'}
             style={{ border: 0 }}
           />
         </a>
