@@ -83,8 +83,7 @@ export function ListComponent<T extends any>(props: ListComponentPropsType<T>) {
 
     try {
       return sortedData.slice(0, limit).map((item, index) => {
-        const itemNode = renderItem(item, index)
-        let content: ReactNode[] = [itemNode]
+        let content: ReactNode[] = [renderItem(item, index)]
         if (header && index === 0) {
           content.unshift(header)
         }
@@ -113,14 +112,10 @@ export function ListComponent<T extends any>(props: ListComponentPropsType<T>) {
 
   if (items && items.length > 0 && filteredItems.length === 0) {
     return (
-      <div className="centerMessageWrapper cardLoading">
-        <div className="centerMessage errorMsg">
-          <span className="centerMessageIcon">✨</span>
-          <p>
-            <b>You're all caught up!</b>
-          </p>
-          <p className="centerMessageSubtext">Check back later for fresh content.</p>
-        </div>
+      <div className="errorMsg">
+        <span>✨</span>
+        <b>You're all caught up!</b>
+        <p>Check back later for fresh content.</p>
       </div>
     )
   }
