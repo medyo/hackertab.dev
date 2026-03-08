@@ -492,36 +492,6 @@ a {
   }
 }
 
-.centerMessageWrapper.cardLoading {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.centerMessageIcon {
-  display: block;
-  font-size: 36px;
-  margin-bottom: 12px;
-}
-
-.centerMessage p {
-  margin: 0;
-  color: var(--primary-text-color);
-}
-
-.centerMessage p:first-of-type {
-  font-size: 16px;
-  line-height: 24px;
-  margin-bottom: 6px;
-}
-
-.centerMessageSubtext {
-  font-size: 14px;
-  opacity: 0.7;
-}
-
 /* Card (element) */
 .blockRow {
   padding: 8px 16px;
