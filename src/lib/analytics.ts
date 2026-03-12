@@ -76,7 +76,6 @@ export enum Attributes {
   MAX_VISIBLE_CARDS = 'Max Visible Cards',
   DURATION = 'Duration',
   PROVIDER = 'Provider',
-  ADV = 'ADV',
   STREAK = 'Streak',
   DISPLAY_LAYOUT = 'Display Layout',
 }
@@ -466,9 +465,6 @@ export const identifyUserOccupation = (occupation: string) => {
 }
 export const identifyUserMaxVisibleCards = (maxVisibleCards: number) => {
   identifyUserProperty(Attributes.MAX_VISIBLE_CARDS, maxVisibleCards)
-}
-export const identifyAdvBlocked = (blocked: boolean) => {
-  identifyUserProperty(Attributes.ADV, blocked)
 }
 export const identifyUserStreak = (value: number) => {
   identifyUserProperty(Attributes.STREAK, value)

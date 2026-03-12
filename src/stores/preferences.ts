@@ -34,7 +34,6 @@ export type UserPreferencesState = {
   cardsSettings: Record<string, CardSettingsType>
   firstSeenDate: number
   userCustomCards: SupportedCardType[]
-  advStatus: boolean
   DNDDuration: DNDDuration
   showReadPosts: boolean
 }
@@ -61,7 +60,6 @@ type UserPreferencesStoreActions = {
   isDNDModeActive: () => boolean
   addSearchEngine: (searchEngine: SearchEngineType) => void
   removeSearchEngine: (searchEngineUrl: string) => void
-  setAdvStatus: (status: boolean) => void
   setShowReadPosts: (value: boolean) => void
 }
 
@@ -93,7 +91,6 @@ export const useUserPreferences = create(
       ],
       userCustomCards: [],
       DNDDuration: 'never',
-      advStatus: false,
       showReadPosts: true,
       setLayout: (layout) => set({ layout }),
       setPromptEngine: (promptEngine: string) => set({ promptEngine }),
@@ -168,7 +165,6 @@ export const useUserPreferences = create(
             promptEngines: state.promptEngines.filter((se) => se.url !== engine),
           }
         }),
-      setAdvStatus: (status) => set({ advStatus: status }),
       setShowReadPosts: (value) => set({ showReadPosts: value }),
       removeCard: (cardName: string) =>
         set((state) => {
