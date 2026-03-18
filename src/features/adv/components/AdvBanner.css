@@ -285,3 +285,21 @@
 .advFeed:has(.banneradv) .rowDetails {
   margin-left: auto;
 }
+
+.houseBanner {
+  max-width: none;
+  width: 100%;
+  img {
+    border-radius: 8px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+  a {
+    width: 100%;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

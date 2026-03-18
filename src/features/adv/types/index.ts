@@ -9,7 +9,11 @@ type NextAdType = {
   interval: number
 }
 
-export type Ad = {
+export type Ad = DefaultAd | HouseAdBanner
+
+export type DefaultAd = {
+  id?: string
+  type?: string
   title?: string
   description: string
   imageUrl: string
@@ -24,4 +28,12 @@ export type Ad = {
   companyTagline?: string
   callToAction?: string
   company?: string
+}
+export type HouseAdBanner = {
+  type: 'house-ad-banner'
+  id: string
+  title: string
+  description: string
+  link: string
+  imageUrl: string
 }

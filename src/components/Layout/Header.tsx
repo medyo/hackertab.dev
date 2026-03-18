@@ -2,6 +2,7 @@ import { clsx } from 'clsx'
 import { useCallback, useEffect, useState } from 'react'
 import { BsFillBookmarksFill, BsFillGearFill, BsMoonFill } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
+import { FaCrown } from 'react-icons/fa'
 import { IoMdSunny } from 'react-icons/io'
 import { MdDoDisturbOff } from 'react-icons/md'
 import { RiDashboardHorizontalFill } from 'react-icons/ri'
@@ -13,6 +14,7 @@ import HackertabLogo from 'src/assets/logo.svg?react'
 import { UserTags } from 'src/components/Elements/UserTags'
 import { useAuth } from 'src/features/auth'
 import { Changelog } from 'src/features/changelog'
+import { useRemoteConfigStore } from 'src/features/remoteConfig'
 import {
   identifyUserTheme,
   trackDNDDisable,
@@ -20,12 +22,17 @@ import {
   trackThemeSelect,
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
+import { lazyImport } from 'src/utils/lazyImport'
 import { Button, CircleButton } from '../Elements'
 import { SearchEngineBar } from '../Elements/SearchBar/SearchEngineBar'
+const { DonateModal } = lazyImport(() => import('src/features/donate'), 'DonateModal')
+
 export const Header = () => {
   const { openAuthModal, user, isConnected, isConnecting } = useAuth()
 
   const [themeIcon, setThemeIcon] = useState(<BsMoonFill />)
+  const [openDonateModal, setOpenDonateModal] = useState(false)
+  const { paywall } = useRemoteConfigStore()
   const { theme, setTheme, setDNDDuration, isDNDModeActive, layout, setLayout } =
     useUserPreferences()
   const navigate = useNavigate()
@@ -67,6 +74,10 @@ export const Header = () => {
     trackDNDDisable()
     setDNDDuration('never')
   }, [setDNDDuration])
+
+  const onUpgradeClicked = useCallback(() => {
+    setOpenDonateModal(true)
+  }, [])
 
   return (
     <>
@@ -129,7 +140,14 @@ export const Header = () => {
               <AvatarPlaceholder className="avatarPlaceholder" />
             )}
           </CircleButton>
+          {paywall?.enabled && (
+            <Button onClick={onUpgradeClicked} className="upgradeButton">
+              <FaCrown />
+              {paywall.headerCta}
+            </Button>
+          )}
         </div>
+        {openDonateModal && <DonateModal setModalOpen={setOpenDonateModal} />}
         {location.pathname === '/' && <UserTags />}
       </header>
     </>

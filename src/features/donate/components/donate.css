@@ -1,0 +1,112 @@
+.donateModal {
+  width: auto;
+}
+.donateView {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  width: auto;
+  border-radius: 8px;
+  border: 1px solid var(--button-background-color);
+  header {
+    display: flex;
+    flex-direction: column;
+
+    img {
+      width: 100%;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+  .body {
+    padding: 0 16px 16px 16px;
+  }
+  .leadDescription {
+    font-size: 16px;
+    color: var(--primary-text-color);
+    font-weight: bold;
+    line-height: 24px;
+    text-align: center;
+  }
+  .description {
+    font-size: 15px;
+    color: var(--secondary-text-color);
+    margin-top: 8px;
+  }
+  .features {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    list-style: none;
+    padding-left: 0;
+
+    .feature,
+    li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary-color);
+
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .checkIcon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        min-width: 18px;
+        border-radius: 50%;
+        background-color: var(--tab-positive-button-background);
+        color: #e1f5e8;
+        padding: 6px;
+      }
+
+      .icon {
+        font-size: 16px;
+        color: var(--primary-color);
+      }
+    }
+  }
+  .buttonsWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+    gap: 16px;
+
+    .upgradeButton {
+      width: auto;
+      font-size: 16px;
+      height: 40px;
+      border: none;
+      background-color: var(--tab-positive-button-background);
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 20px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      display: inline-flex;
+      padding: 0 16px;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+  .caption {
+    font-size: 12px;
+    color: var(--secondary-text-color);
+    margin-top: 8px;
+    text-align: center;
+    margin-top: 16px;
+  }
+}

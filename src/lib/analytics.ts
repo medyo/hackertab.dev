@@ -273,11 +273,14 @@ export const trackChangeLogOpen = () => {
   })
 }
 
-export const trackMarketingCampaignOpen = (campaignId: string) => {
+export const trackMarketingCampaignOpen = (
+  campaignId: string,
+  additionalParams?: { [key: string]: string }
+) => {
   trackEvent({
     object: Objects.MARKETING_CAMPAIGN,
     verb: Verbs.OPEN,
-    attributes: { [Attributes.CAMPAIGN_ID]: campaignId },
+    attributes: { [Attributes.CAMPAIGN_ID]: campaignId, ...additionalParams },
   })
 }
 
@@ -289,11 +292,14 @@ export const trackMarketingCampaignClose = (campaignId: string) => {
   })
 }
 
-export const trackMarketingCampaignView = (campaignId: string) => {
+export const trackMarketingCampaignView = (
+  campaignId: string,
+  additionalParams?: { [key: string]: string }
+) => {
   trackEvent({
     object: Objects.MARKETING_CAMPAIGN,
     verb: Verbs.VIEW,
-    attributes: { [Attributes.CAMPAIGN_ID]: campaignId },
+    attributes: { [Attributes.CAMPAIGN_ID]: campaignId, ...additionalParams },
   })
 }
 
