@@ -99,9 +99,13 @@
 @media only screen and (max-width: 768px) {
   .settingsContent {
     padding: 16px;
+    min-height: 100vh;
+    height: 100vh;
   }
   .settingsBody {
     max-width: 100%;
     padding: 0;
+    flex: 1 1 auto;
+    min-height: 0;
   }
 }
