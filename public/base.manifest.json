@@ -2,16 +2,22 @@
   "manifest_version": 3,
   "name": "Hackertab – Dev News & GitHub in New Tab",
   "description": "Developer news from GitHub Trending, Hacker News, and more, all in your new tab.",
-  "version": "1.26.9",
+  "version": "1.26.10",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
-  "host_permissions": ["https://*.hackertab.dev/*"],
+  "host_permissions": [
+    "https://*.hackertab.dev/*"
+  ],
   "content_scripts": [
     {
-      "matches": ["https://hackertab.dev/*"],
+      "matches": [
+        "https://hackertab.dev/*"
+      ],
       "run_at": "document_start",
-      "js": ["content.js"]
+      "js": [
+        "content.js"
+      ]
     }
   ],
   "icons": {
