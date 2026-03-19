@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Hackertab – Dev News & GitHub in New Tab",
   "description": "Developer news from GitHub Trending, Hacker News, and more, all in your new tab.",
-  "version": "1.26.2",
+  "version": "1.26.9",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
