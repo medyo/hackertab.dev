@@ -1,39 +1,63 @@
+// Removed CardItemWithActions for ad block
 import clsx from 'clsx'
-import { useState } from 'react'
-import { RiAdvertisementFill } from 'react-icons/ri'
-import { Ad, AdvBanner } from 'src/features/adv'
-import { AdFeedItemData, BaseItemPropsType } from 'src/types'
+import { useGetAd } from 'src/features/adv'
+import { trackMarketingCampaignOpen } from 'src/lib/analytics'
+import { useUserPreferences } from 'src/stores/preferences'
+import { BaseItemPropsType } from 'src/types'
+import { FeedItemHeader } from '../FeedItemHeader'
 
-export const AdvFeedItem = ({ className }: BaseItemPropsType<AdFeedItemData>) => {
-  const [adMeta, setAdMeta] = useState<Ad | null>()
+export const AdvFeedItem = ({ className }: BaseItemPropsType<any>) => {
+  const { userSelectedTags } = useUserPreferences()
+  const {
+    data: ad,
+    isLoading,
+    isError,
+  } = useGetAd({
+    keywords: userSelectedTags.map((tag) => tag.label.toLocaleLowerCase()),
+    feed: true,
+    config: {
+      cacheTime: 0,
+      staleTime: 0,
+      useErrorBoundary: false,
+    },
+  })
+
+  if (isLoading) {
+    return (
+      <div className="placeholder">
+        <div className="image"></div>
+        <div className="line"></div>
+        <div className="smallLine"></div>
+      </div>
+    )
+  }
+
+  if (isError || !ad) {
+    return null
+  }
+
+  const onAdClick = () => {
+    if (ad?.id) {
+      trackMarketingCampaignOpen(ad.id, {
+        source: 'feed',
+      })
+    }
+  }
+
+  if (ad.type !== 'house-ad-banner') {
+    return null
+  }
 
   return (
-    <div className={clsx('blockRow advFeed', className)}>
-      <AdvBanner
-        feedDisplay={true}
-        onAdLoaded={setAdMeta}
-        loadingState={
-          <div className="placeholder">
-            <div className="image"></div>
-            <div className="line"></div>
-            <div className="smallLine"></div>
-          </div>
-        }
-      />
-      {adMeta && (
-        <>
-          {adMeta.company && adMeta.companyTagline && (
-            <a className="rowTitle" href={adMeta.callToAction}>
-              {[adMeta.company, adMeta.companyTagline].filter(Boolean).join(' - ')}
-            </a>
-          )}
+    <div className={clsx(className, 'adv')}>
+      <div className="blockRow">
+        <div onClick={onAdClick}>
+          <FeedItemHeader title={ad.title || ''} image={ad.imageUrl} source="ad" url={ad.link} />
           <div className="rowDetails">
-            <span className="rowItem verticalAligned">
-              <RiAdvertisementFill color="orange" size={16} /> {adMeta.provider.title}
-            </span>
+            <span className="rowItem feedSource verticalAligned">{ad.description}</span>
           </div>
-        </>
-      )}
+        </div>
+      </div>
     </div>
   )
 }

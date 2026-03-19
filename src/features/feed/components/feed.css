@@ -27,6 +27,18 @@
       opacity: 0.9;
       transform: scale(1.01);
     }
+    &.adv {
+      background-color: rgb(34, 37, 59);
+      .rowCover {
+        object-fit: inherit;
+        border-radius: 20px;
+      }
+      .rowLink,
+      .rowItem {
+        font-weight: bold;
+        color: white;
+      }
+    }
   }
 
   .blockRow:not(.advFeed):hover {

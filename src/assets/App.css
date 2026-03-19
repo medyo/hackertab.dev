@@ -68,6 +68,15 @@ a {
   z-index: 1;
 }
 
+.AppHeader .upgradeButton {
+  font-weight: bold;
+  background-color: var(--tab-positive-button-background) !important;
+  color: white !important;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
 .AppFooter {
   display: flex;
   flex-direction: row;

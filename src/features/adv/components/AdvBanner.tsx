@@ -1,10 +1,8 @@
 import { useEffect } from 'react'
 import { AdPlaceholder } from 'src/components/placeholders'
-import { useRemoteConfigStore } from 'src/features/remoteConfig'
+import { trackMarketingCampaignOpen } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
-import { isWebOrExtensionVersion } from 'src/utils/Environment'
 import { useGetAd } from '../api/getAd'
-import { useDelayedFlag } from '../hooks/useDelayedFlag'
 import { Ad } from '../types'
 import './AdvBanner.css'
 
@@ -14,12 +12,8 @@ type AdvBannerProps = {
   loadingState?: React.ReactNode
 }
 
-export const AdvBanner = ({ feedDisplay = false, loadingState, onAdLoaded }: AdvBannerProps) => {
+export const AdvBanner = ({ loadingState, onAdLoaded }: AdvBannerProps) => {
   const { userSelectedTags } = useUserPreferences()
-  const adsFetchDelayMs = useRemoteConfigStore((s) => s.adsFetchDelayMs)
-  const delay = isWebOrExtensionVersion() === 'extension' ? adsFetchDelayMs : undefined
-  const isReady = useDelayedFlag(delay)
-
   const {
     isSuccess,
     data: ad,
@@ -31,7 +25,6 @@ export const AdvBanner = ({ feedDisplay = false, loadingState, onAdLoaded }: Adv
     config: {
       cacheTime: 0,
       staleTime: 0,
-      enabled: isReady,
       useErrorBoundary: false,
     },
   })
@@ -50,85 +43,22 @@ export const AdvBanner = ({ feedDisplay = false, loadingState, onAdLoaded }: Adv
     return null
   }
 
-  if (ad.largeImage) {
+  const onAdClick = () => {
+    if (ad?.id) {
+      trackMarketingCampaignOpen(ad.id, {
+        source: 'card',
+      })
+    }
+  }
+  if (ad.type === 'house-ad-banner') {
     return (
-      <>
-        <div
-          className="carbonCoverTarget"
-          style={
-            {
-              '--ad-dynamic-bg-image': `url(${ad.largeImage})`,
-              '--ad-gradient-color': ad.backgroundColor,
-            } as React.CSSProperties
-          }>
-          <a href={ad.link} className="carbonCover">
-            <img className="carbonCoverImage" src={ad.largeImage} />
-            <div className="carbonCoverMain">
-              <img className="carbonCoverLogo" src={ad.logo} />
-              <div className="carbonCoverTagline">{ad.companyTagline}</div>
-              <div className="carbonCoverDescription">{ad.description}</div>
-              <div className="carbonCoverButton">{ad.callToAction + ' ↗'}</div>
-            </div>
-          </a>
-        </div>
-        {ad.viewUrl &&
-          ad.viewUrl
-            .split('||')
-            .map((viewUrl, i) => (
-              <img
-                key={i}
-                src={viewUrl.replace('[timestamp]', `${Math.round(Date.now() / 10000) | 0}`)}
-                className="hidden"
-                alt=""
-              />
-            ))}
-      </>
+      <div className="houseBanner">
+        <a onClick={onAdClick} href={ad.link} target="_blank" title={ad.title}>
+          <img src={ad.imageUrl} alt={ad.title} />
+        </a>
+      </div>
     )
   }
 
-  return (
-    <>
-      <div className="banneradv">
-        <a
-          href={ad.link}
-          className="img"
-          target="_blank"
-          rel="noopener sponsored noreferrer"
-          title={ad.title}>
-          <img
-            src={ad.imageUrl}
-            alt={ad.title}
-            height={!feedDisplay ? '120' : '200'}
-            width={!feedDisplay ? '156' : '260'}
-            style={{ border: 0 }}
-          />
-        </a>
-
-        <a href={ad.link} className="text" target="_blank" rel="noopener sponsored noreferrer">
-          {ad.description}
-        </a>
-
-        {!feedDisplay && (
-          <a
-            href={ad.provider.link}
-            className="poweredby"
-            target="_blank"
-            rel="noopener sponsored noreferrer">
-            {ad.provider.title}
-          </a>
-        )}
-      </div>
-      {ad.viewUrl &&
-        ad.viewUrl
-          .split('||')
-          .map((viewUrl, i) => (
-            <img
-              key={i}
-              src={viewUrl.replace('[timestamp]', `${Math.round(Date.now() / 10000) | 0}`)}
-              className="hidden"
-              alt=""
-            />
-          ))}
-    </>
-  )
+  return null
 }

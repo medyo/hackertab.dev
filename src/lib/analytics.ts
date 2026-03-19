@@ -76,7 +76,6 @@ export enum Attributes {
   MAX_VISIBLE_CARDS = 'Max Visible Cards',
   DURATION = 'Duration',
   PROVIDER = 'Provider',
-  ADV = 'ADV',
   STREAK = 'Streak',
   DISPLAY_LAYOUT = 'Display Layout',
 }
@@ -274,11 +273,14 @@ export const trackChangeLogOpen = () => {
   })
 }
 
-export const trackMarketingCampaignOpen = (campaignId: string) => {
+export const trackMarketingCampaignOpen = (
+  campaignId: string,
+  additionalParams?: { [key: string]: string }
+) => {
   trackEvent({
     object: Objects.MARKETING_CAMPAIGN,
     verb: Verbs.OPEN,
-    attributes: { [Attributes.CAMPAIGN_ID]: campaignId },
+    attributes: { [Attributes.CAMPAIGN_ID]: campaignId, ...additionalParams },
   })
 }
 
@@ -290,11 +292,14 @@ export const trackMarketingCampaignClose = (campaignId: string) => {
   })
 }
 
-export const trackMarketingCampaignView = (campaignId: string) => {
+export const trackMarketingCampaignView = (
+  campaignId: string,
+  additionalParams?: { [key: string]: string }
+) => {
   trackEvent({
     object: Objects.MARKETING_CAMPAIGN,
     verb: Verbs.VIEW,
-    attributes: { [Attributes.CAMPAIGN_ID]: campaignId },
+    attributes: { [Attributes.CAMPAIGN_ID]: campaignId, ...additionalParams },
   })
 }
 
@@ -466,9 +471,6 @@ export const identifyUserOccupation = (occupation: string) => {
 }
 export const identifyUserMaxVisibleCards = (maxVisibleCards: number) => {
   identifyUserProperty(Attributes.MAX_VISIBLE_CARDS, maxVisibleCards)
-}
-export const identifyAdvBlocked = (blocked: boolean) => {
-  identifyUserProperty(Attributes.ADV, blocked)
 }
 export const identifyUserStreak = (value: number) => {
   identifyUserProperty(Attributes.STREAK, value)

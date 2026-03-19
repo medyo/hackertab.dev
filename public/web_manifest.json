@@ -1,7 +1,7 @@
 {
   "short_name": "Hackertab.dev",
-  "name": "All developer news in one tab",
-  "description": "Hackertab helps developers stay up-to-date with the latest dev trends and tools",
+  "name": "Hackertab – Dev News & GitHub in New Tab",
+  "description": "Developer news from GitHub Trending, Hacker News, and more, all in your new tab.",
   "icons": [
     {
       "src": "/logos/logoVector.svg",
