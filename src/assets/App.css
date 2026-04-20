@@ -574,6 +574,10 @@ a {
   color: #0366d6;
 }
 
+.dark .githubTitle {
+  color: #4493f8;
+}
+
 .rowDescription {
   padding: 0;
   margin: 0;
