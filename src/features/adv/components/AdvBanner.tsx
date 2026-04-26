@@ -1,3 +1,4 @@
+import { LuArrowUpRight } from 'react-icons/lu'
 import { AdPlaceholder } from 'src/components/placeholders'
 import { trackAdvOpen } from 'src/lib/analytics'
 import { useAdStore } from '../stores/AdStore'
@@ -49,7 +50,7 @@ export const AdvBanner = () => {
           <button
             className="cta"
             style={{ background: ad.style.cta_bg_color, color: ad.style.cta_text_color }}>
-            {ad.cta_text}
+            <LuArrowUpRight className="ctaIcon" /> {ad.cta_text}
           </button>
         </div>
         {ad.sponsored_by && (
