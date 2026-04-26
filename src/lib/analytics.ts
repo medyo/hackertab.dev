@@ -24,6 +24,8 @@ enum Objects {
   DO_NOT_DISTURB = 'DND',
   DISPLAY_LAYOUT = 'Display Layout',
   FEED = 'Feed',
+  ADV = 'Adv',
+  DONATION = 'Donation',
 }
 
 enum Verbs {
@@ -127,6 +129,21 @@ export const setupIdentification = () => {
   })
 }
 
+export const trackDonationOpen = (campaignId: string, attributes: { [P: string]: string } = {}) => {
+  trackEvent({
+    object: Objects.DONATION,
+    verb: Verbs.OPEN,
+    attributes: { [Attributes.CAMPAIGN_ID]: campaignId, ...attributes },
+  })
+}
+
+export const trackDonationView = (campaignId: string, attributes: { [P: string]: string } = {}) => {
+  trackEvent({
+    object: Objects.DONATION,
+    verb: Verbs.VIEW,
+    attributes: { [Attributes.CAMPAIGN_ID]: campaignId, ...attributes },
+  })
+}
 export const trackPageView = (pageName: string, dndModeActive: boolean = false) => {
   trackEvent({
     object: Objects.PAGE,
@@ -273,31 +290,17 @@ export const trackChangeLogOpen = () => {
   })
 }
 
-export const trackMarketingCampaignOpen = (
-  campaignId: string,
-  additionalParams?: { [key: string]: string }
-) => {
+export const trackAdvOpen = (campaignId: string, additionalParams?: { [key: string]: string }) => {
   trackEvent({
-    object: Objects.MARKETING_CAMPAIGN,
+    object: Objects.ADV,
     verb: Verbs.OPEN,
     attributes: { [Attributes.CAMPAIGN_ID]: campaignId, ...additionalParams },
   })
 }
 
-export const trackMarketingCampaignClose = (campaignId: string) => {
+export const trackAdvView = (campaignId: string, additionalParams?: { [key: string]: string }) => {
   trackEvent({
-    object: Objects.MARKETING_CAMPAIGN,
-    verb: Verbs.CLOSE,
-    attributes: { [Attributes.CAMPAIGN_ID]: campaignId },
-  })
-}
-
-export const trackMarketingCampaignView = (
-  campaignId: string,
-  additionalParams?: { [key: string]: string }
-) => {
-  trackEvent({
-    object: Objects.MARKETING_CAMPAIGN,
+    object: Objects.ADV,
     verb: Verbs.VIEW,
     attributes: { [Attributes.CAMPAIGN_ID]: campaignId, ...additionalParams },
   })

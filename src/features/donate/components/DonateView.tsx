@@ -3,7 +3,7 @@ import { FaCrown } from 'react-icons/fa'
 import { TbCheck } from 'react-icons/tb'
 import { Button } from 'src/components/Elements'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
-import { trackMarketingCampaignOpen, trackMarketingCampaignView } from 'src/lib/analytics'
+import { trackDonationOpen, trackDonationView } from 'src/lib/analytics'
 
 type DonateViewProps = {
   setModalOpen: (open: boolean) => void
@@ -13,7 +13,7 @@ export const DonateView = ({ setModalOpen }: DonateViewProps) => {
 
   useEffect(() => {
     if (paywall?.id) {
-      trackMarketingCampaignView(paywall.id, {
+      trackDonationView(paywall.id, {
         source: 'modal',
       })
     }
@@ -53,7 +53,7 @@ export const DonateView = ({ setModalOpen }: DonateViewProps) => {
             startIcon={<FaCrown />}
             onClick={() => {
               window.open(ctaUrl, '_blank')
-              trackMarketingCampaignOpen(paywall.id, {
+              trackDonationOpen(paywall.id, {
                 source: 'modal',
               })
               setModalOpen(false)
