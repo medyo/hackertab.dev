@@ -3,9 +3,9 @@ import 'react-contexify/dist/ReactContexify.css'
 import { Outlet } from 'react-router-dom'
 import { BeatLoader } from 'react-spinners'
 import 'src/assets/App.css'
+import { AdInitializer, StickyBanner } from 'src/features/adv'
 import { AuthModal, useAuth } from 'src/features/auth'
 import { usePostStreak } from 'src/features/hits'
-import { MarketingBanner } from 'src/features/MarketingBanner'
 import { identifyUserStreak } from 'src/lib/analytics'
 import { AuthProvider } from 'src/providers/AuthProvider'
 import { Header } from './Header'
@@ -25,8 +25,8 @@ export const AppLayout = () => {
 
   return (
     <AuthProvider>
-      <MarketingBanner />
-
+      <StickyBanner />
+      <AdInitializer />
       <div className="App">
         <Header />
         <AuthModal showAuth={isAuthModalOpen} />
