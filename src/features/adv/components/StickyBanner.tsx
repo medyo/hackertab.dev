@@ -2,6 +2,7 @@ import jsonPath from 'jsonpath'
 import { useEffect, useMemo } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import { useAdStore } from 'src/features/adv/stores/AdStore'
+import type { StickyAd } from 'src/features/adv/types'
 import { useAuth } from 'src/features/auth'
 import { trackAdvOpen, trackAdvView } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
@@ -15,7 +16,8 @@ export const StickyBanner = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 })
   const { ads } = useAdStore()
 
-  const ad = ads.length > 0 ? ads.find((ad) => ad.type === 'sticky-ad') : null
+  const ad =
+    ads.length > 0 ? (ads.find((ad) => ad.type === 'sticky-ad') as StickyAd | undefined) : null
 
   const onAdClick = () => {
     if (ad?.id) {
