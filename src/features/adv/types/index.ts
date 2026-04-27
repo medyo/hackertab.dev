@@ -29,7 +29,7 @@ type LargeImageAd = CommonAdFields & {
   imageUrl: string
 }
 
-type StickyAd = CommonAdFields & {
+export type StickyAd = CommonAdFields & {
   type: 'sticky-ad'
   title: string
   imageUrl: string
@@ -39,4 +39,4 @@ type StickyAd = CommonAdFields & {
   dismissible?: boolean
 }
 
-type Ad = SmallImageAd | LargeImageAd | StickyAd
+export type Ad = SmallImageAd | LargeImageAd | StickyAd

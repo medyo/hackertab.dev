@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { Ad } from '../types'
 
 type AdStore = {
   ads: Ad[]
