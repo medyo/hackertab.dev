@@ -185,13 +185,13 @@ a {
   color: var(--app-name-text-color);
   flex-grow: 1;
   order: 1;
-}
 
-.logo {
-  position: relative;
-  top: 4px;
-  margin-right: 4px;
-  font-size: 24px;
+  .logo {
+    position: relative;
+    top: 4px;
+    margin-right: 4px;
+    font-size: 24px;
+  }
 }
 
 .logoText {
