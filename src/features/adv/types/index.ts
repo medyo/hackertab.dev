@@ -2,6 +2,7 @@ type CommonAdFields = {
   id: string
   link: string
   sponsored_by?: string
+  source?: 'house-ad' | 'external'
 }
 
 type AdStyle = {

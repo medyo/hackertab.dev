@@ -12,7 +12,6 @@ export const AdInitializer = () => {
     isLoading,
   } = useGetAd({
     keywords: userSelectedTags.map((tag) => tag.label.toLocaleLowerCase()),
-    feed: true,
     config: {
       cacheTime: 0,
       staleTime: 0,
@@ -28,7 +27,7 @@ export const AdInitializer = () => {
     if (isSuccess && advs) {
       setAds(advs)
     }
-  }, [advs, isSuccess])
+  }, [advs])
 
   return null
 }
