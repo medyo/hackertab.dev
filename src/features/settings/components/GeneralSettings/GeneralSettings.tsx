@@ -12,6 +12,7 @@ import {
   trackThemeSelect,
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
+import { Theme } from 'src/types'
 import { DeleteAccount } from '../UserSettings/DeleteAccount'
 import { UserInfo } from '../UserSettings/UserInfo'
 import { CardsNumberSettings } from './CardsNumberSettings'
@@ -47,8 +48,7 @@ export const GeneralSettings = () => {
     setListingMode(value)
   }
 
-  const onDarkModeChange = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark'
+  const onThemeChange = (newTheme: Theme) => {
     setTheme(newTheme)
     trackThemeSelect(newTheme)
     identifyUserTheme(newTheme)
@@ -70,9 +70,22 @@ export const GeneralSettings = () => {
         <CardsNumberSettings />
 
         <div className="settingRow">
-          <p className="settingTitle">Dark Mode</p>
+          <p className="settingTitle">Theme</p>
           <div className="settingContent">
-            <Toggle checked={theme === 'dark'} icons={false} onChange={onDarkModeChange} />
+            <div className="themeSelector">
+              {(['light', 'dark', 'system'] as Theme[]).map((option) => (
+                <label key={option} className={`themeOption${theme === option ? ' active' : ''}`}>
+                  <input
+                    type="radio"
+                    name="theme"
+                    value={option}
+                    checked={theme === option}
+                    onChange={() => onThemeChange(option)}
+                  />
+                  {option.charAt(0).toUpperCase() + option.slice(1)}
+                </label>
+              ))}
+            </div>
           </div>
         </div>
 

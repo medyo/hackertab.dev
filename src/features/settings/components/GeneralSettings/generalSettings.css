@@ -5,6 +5,7 @@
   align-self: flex-start;
   color: var(--primary-text-color);
 }
+
 .settingRow {
   padding: 10px 0;
   display: flex;
@@ -12,11 +13,13 @@
   align-items: center;
   justify-content: space-between;
 }
+
 .settingRow .optionIcon {
   display: flex;
   align-items: center;
   column-gap: 8px;
 }
+
 .settingRow:not(:last-child) {
   border-bottom: 1px solid var(--card-content-divider);
 }
@@ -34,12 +37,15 @@
   cursor: pointer;
   transition: opacity 0.2s linear;
 }
+
 .settingContent button:hover {
   opacity: 0.9;
 }
+
 .rssButton {
   background-color: #ee802f;
   color: white;
+
   &:hover {
     background-color: #f99147;
     color: white;
@@ -50,16 +56,53 @@
   width: 100%;
   flex: 1;
 }
+
 .settingHint {
   font-size: 12px;
   margin-top: 12px;
 }
+
 .settingHint a {
   text-decoration: underline;
   cursor: pointer;
   font-weight: 500;
   color: var(--primary-text-color);
 }
+
+/**
+Theme selector styles
+**/
+.themeSelector {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.themeOption {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--card-border-color);
+  background-color: transparent;
+  color: var(--secondary-text-color);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.themeOption input[type='radio'] {
+  display: none;
+}
+
+.themeOption.active {
+  background-color: var(--button-background-color);
+  border-color: var(--button-background-color);
+  color: var(--button-text-color);
+}
+
 /**
 Select styles
 **/
@@ -67,27 +110,34 @@ Select styles
   background-color: var(--card-background-color) !important;
   border-color: var(--tag-border-color) !important;
 }
+
 .hackertab__indicator-separator {
   background-color: var(--tag-secondary-color) !important;
 }
+
 .hackertab__indicator {
   color: var(--tag-secondary-color) !important;
 }
+
 .hackertab__multi-value {
   background-color: var(--tag-background-color) !important;
   border-color: var(--tag-background-color) !important;
   border-radius: 20px !important;
 }
+
 .hackertab__multi-value__label {
   color: var(--tag-text-color) !important;
 }
+
 .hackertab__menu {
   background-color: var(--card-background-color) !important;
 }
+
 .hackertab__option {
   color: var(--tag-input-background) !important;
   background-color: var(--card-background-color) !important;
 }
+
 .hackertab__single-value {
   color: var(--primary-text-color) !important;
 }
@@ -96,6 +146,7 @@ Select styles
   background: var(--tag-background-color) !important;
   color: var(--tag-text-color) !important;
 }
+
 .hackertab__multi-value__remove {
   border-radius: 20px !important;
   color: var(--tag-secondary-color) !important;
@@ -115,26 +166,32 @@ Select styles
     border-radius: 100%;
     align-self: flex-start;
   }
+
   .userDetails {
     display: flex;
     flex-direction: row;
     gap: 8px;
   }
+
   .userInfo {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
+
   .userName {
     font-weight: 600;
   }
+
   .actions {
     margin-top: 6px;
   }
+
   .description {
     font-size: 0.9em;
     opacity: 0.9;
   }
+
   .sub {
     font-size: 0.9em;
     opacity: 0.9;
@@ -156,12 +213,14 @@ Select styles
     padding: 0;
     font-size: 0.9em;
   }
+
   .icon {
     width: 1.6em;
     vertical-align: bottom;
     position: relative;
     top: 2px;
   }
+
   .highlight {
     font-weight: 900;
     color: #ff8f1f;
@@ -178,6 +237,7 @@ Select styles
   position: absolute;
   margin-top: 9px;
 }
+
 .streaks ul.streaksWeek {
   position: relative;
   margin: 0;
@@ -197,9 +257,11 @@ Select styles
   width: 48px;
   position: relative;
 }
+
 .streaks .dayWrapper:last-child {
   width: auto;
 }
+
 .streaks .dayWrapper .day {
   border: 1px solid var(--card-content-divider);
   background-color: var(--card-content-divider);
@@ -209,6 +271,7 @@ Select styles
   position: relative;
   z-index: 5;
 }
+
 .streaks .dayWrapper::before {
   content: '';
   display: block;
@@ -223,6 +286,7 @@ Select styles
   border: 2px solid #18bc2d;
   background-color: #18bc2d;
 }
+
 .streaks .checked:is(:has(+ .checked))::before {
   background-color: #18bc2d;
 }
@@ -231,10 +295,12 @@ Select styles
   .settingContent {
     margin-top: 6px;
   }
+
   .settingRow {
     flex-direction: column;
     align-items: flex-start;
   }
+
   .userContent {
     flex-direction: column;
     align-items: flex-start;

@@ -6,10 +6,21 @@ const firebaseConfig = {
   apiKey: FIREBASE_API_KEY,
 }
 
+let firebaseAuth: any
+
 if (!FIREBASE_API_KEY) {
-  console.warn('Missing Firebase api Key')
+  console.warn('Missing Firebase api Key, Auth features will not work')
+  firebaseAuth = {
+    onAuthStateChanged: (callback: any) => {
+      callback(null)
+      return () => {}
+    },
+    signOut: () => Promise.resolve(),
+  }
+} else {
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig)
+  firebaseAuth = getAuth(app)
 }
-// Initialize Firebase
-const app = initializeApp(firebaseConfig)
-const firebaseAuth = getAuth(app)
+
 export { firebaseAuth }

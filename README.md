@@ -58,14 +58,44 @@ Please do not hesitate to ask a question, report a bug or add a suggestion. or s
 
 ## Development
 
-Please use the develop branch. Create an .env file with the necessary env variables
+Please use the develop branch. Create an `.env` file in the root directory with the following variables:
 
 ```bash
-$ git clone --branch develop git@github.com:medyo/hackertab.dev.git
+VITE_API_URL=https://api.hackertab.dev/
+VITE_BUILD_TARGET=web # or extension
+VITE_BUILD_PLATFORM=chrome # optional, used for extension builds (chrome or firefox)
+VITE_FIREBASE_API_KEY= # optional for local dev, required for auth features
+VITE_AMPLITUDE_URL= # optional
+VITE_AMPLITUDE_KEY= # optional
+VITE_SENTRY_DSN= # optional
+```
+
+### Setup
+
+Make sure you are using Node.js version 18.
+
+```bash
+$ git clone https://github.com/medyo/hackertab.dev.git
 $ cd hackertab.dev
 $ yarn
 $ yarn start
-$ # Then visit http://localhost:3000
+```
+
+Then visit [http://localhost:5173](http://localhost:5173) (or the port shown in your terminal).
+
+## 🚀 Build
+
+To build the project for different targets:
+
+```bash
+# Web build
+$ yarn build:web
+
+# Chrome extension
+$ yarn build:chrome
+
+# Firefox extension
+$ yarn build:firefox
 ```
 
 ## Maintainers

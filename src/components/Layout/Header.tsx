@@ -39,22 +39,30 @@ export const Header = () => {
   const location = useLocation()
 
   useEffect(() => {
-    document.documentElement.classList.add(theme)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    const applyResolvedTheme = (resolved: 'dark' | 'light') => {
+      document.documentElement.classList.remove('dark', 'light')
+      document.documentElement.classList.add(resolved)
+    }
 
-  useEffect(() => {
-    if (theme === 'light') {
-      document.documentElement.classList.replace('dark', theme)
-      setThemeIcon(<BsMoonFill />)
-    } else if (theme === 'dark') {
-      document.documentElement.classList.replace('light', theme)
-      setThemeIcon(<IoMdSunny />)
+    if (theme === 'system') {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)')
+      const updateSystemTheme = (matches: boolean) => {
+        applyResolvedTheme(matches ? 'dark' : 'light')
+        setThemeIcon(matches ? <IoMdSunny /> : <BsMoonFill />)
+      }
+      updateSystemTheme(mq.matches)
+      const handler = (e: MediaQueryListEvent) => updateSystemTheme(e.matches)
+      mq.addEventListener('change', handler)
+      return () => mq.removeEventListener('change', handler)
+    } else {
+      applyResolvedTheme(theme)
+      setThemeIcon(theme === 'light' ? <BsMoonFill /> : <IoMdSunny />)
     }
   }, [theme])
 
   const onThemeChange = useCallback(() => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark'
+    const cycle = ['dark', 'light', 'system'] as const
+    const newTheme = cycle[(cycle.indexOf(theme as (typeof cycle)[number]) + 1) % cycle.length]
     setTheme(newTheme)
     trackThemeSelect(newTheme)
     identifyUserTheme(newTheme)
