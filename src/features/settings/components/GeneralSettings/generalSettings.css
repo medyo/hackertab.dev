@@ -81,6 +81,7 @@ Theme selector styles
 .themeOption {
   display: flex;
   align-items: center;
+  gap: 8px;
   cursor: pointer;
   padding: 6px 16px;
   border-radius: 20px;

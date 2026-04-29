@@ -1,4 +1,7 @@
 import React from 'react'
+import { BsMoonFill } from 'react-icons/bs'
+import { IoMdSunny } from 'react-icons/io'
+import { MdMonitor } from 'react-icons/md'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
 import { Footer } from 'src/components/Layout'
@@ -19,6 +22,12 @@ import { CardsNumberSettings } from './CardsNumberSettings'
 import { DNDSettings } from './DNDSettings'
 import './generalSettings.css'
 import { LayoutSettings } from './LayoutSettings'
+
+const themeIcons = {
+  light: <IoMdSunny />,
+  dark: <BsMoonFill />,
+  system: <MdMonitor />,
+}
 
 export const GeneralSettings = () => {
   const {
@@ -82,7 +91,8 @@ export const GeneralSettings = () => {
                     checked={theme === option}
                     onChange={() => onThemeChange(option)}
                   />
-                  {option.charAt(0).toUpperCase() + option.slice(1)}
+                  {themeIcons[option]}
+                  <span>{option.charAt(0).toUpperCase() + option.slice(1)}</span>
                 </label>
               ))}
             </div>

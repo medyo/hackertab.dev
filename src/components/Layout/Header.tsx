@@ -4,7 +4,7 @@ import { BsFillBookmarksFill, BsFillGearFill, BsMoonFill } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
 import { FaCrown } from 'react-icons/fa'
 import { IoMdSunny } from 'react-icons/io'
-import { MdDoDisturbOff } from 'react-icons/md'
+import { MdDoDisturbOff, MdMonitor } from 'react-icons/md'
 import { RiDashboardHorizontalFill } from 'react-icons/ri'
 import { TfiLayoutColumn4Alt } from 'react-icons/tfi'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -48,20 +48,20 @@ export const Header = () => {
       const mq = window.matchMedia('(prefers-color-scheme: dark)')
       const updateSystemTheme = (matches: boolean) => {
         applyResolvedTheme(matches ? 'dark' : 'light')
-        setThemeIcon(matches ? <IoMdSunny /> : <BsMoonFill />)
       }
+      setThemeIcon(<MdMonitor />)
       updateSystemTheme(mq.matches)
       const handler = (e: MediaQueryListEvent) => updateSystemTheme(e.matches)
       mq.addEventListener('change', handler)
       return () => mq.removeEventListener('change', handler)
     } else {
       applyResolvedTheme(theme)
-      setThemeIcon(theme === 'light' ? <BsMoonFill /> : <IoMdSunny />)
+      setThemeIcon(theme === 'light' ? <IoMdSunny /> : <BsMoonFill />)
     }
   }, [theme])
 
   const onThemeChange = useCallback(() => {
-    const cycle = ['dark', 'light', 'system'] as const
+    const cycle = ['light', 'dark', 'system'] as const
     const newTheme = cycle[(cycle.indexOf(theme as (typeof cycle)[number]) + 1) % cycle.length]
     setTheme(newTheme)
     trackThemeSelect(newTheme)
