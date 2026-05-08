@@ -85,13 +85,4 @@
       color: var(--button-hover-text-color);
     }
   }
-
-  &.dark-focus {
-    background-color: var(--dark-mode-background-color);
-    color: var(--dark-mode-text-color);
-
-    &:hover {
-      opacity: 0.9;
-    }
-  }
 }

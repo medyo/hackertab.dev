@@ -9,7 +9,6 @@ const sizes = {
 
 const variants = {
   primary: 'primary',
-  darkfocus: 'dark-focus',
 }
 
 type CircleButtonProps = {

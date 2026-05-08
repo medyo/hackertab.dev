@@ -1,10 +1,9 @@
 import { clsx } from 'clsx'
 import { useCallback, useEffect, useState } from 'react'
-import { BsFillBookmarksFill, BsFillGearFill, BsMoonFill } from 'react-icons/bs'
+import { BsFillBookmarksFill, BsFillGearFill } from 'react-icons/bs'
 import { CgTab } from 'react-icons/cg'
 import { FaCrown } from 'react-icons/fa'
-import { IoMdSunny } from 'react-icons/io'
-import { MdDoDisturbOff, MdMonitor } from 'react-icons/md'
+import { MdDoDisturbOff } from 'react-icons/md'
 import { RiDashboardHorizontalFill } from 'react-icons/ri'
 import { TfiLayoutColumn4Alt } from 'react-icons/tfi'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -15,12 +14,7 @@ import { UserTags } from 'src/components/Elements/UserTags'
 import { useAuth } from 'src/features/auth'
 import { Changelog } from 'src/features/changelog'
 import { useRemoteConfigStore } from 'src/features/remoteConfig'
-import {
-  identifyUserTheme,
-  trackDNDDisable,
-  trackDisplayTypeChange,
-  trackThemeSelect,
-} from 'src/lib/analytics'
+import { trackDNDDisable, trackDisplayTypeChange } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
 import { lazyImport } from 'src/utils/lazyImport'
 import { Button, CircleButton } from '../Elements'
@@ -30,11 +24,9 @@ const { DonateModal } = lazyImport(() => import('src/features/donate'), 'DonateM
 export const Header = () => {
   const { openAuthModal, user, isConnected, isConnecting } = useAuth()
 
-  const [themeIcon, setThemeIcon] = useState(<BsMoonFill />)
   const [openDonateModal, setOpenDonateModal] = useState(false)
   const { paywall } = useRemoteConfigStore()
-  const { theme, setTheme, setDNDDuration, isDNDModeActive, layout, setLayout } =
-    useUserPreferences()
+  const { theme, setDNDDuration, isDNDModeActive, layout, setLayout } = useUserPreferences()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -49,24 +41,14 @@ export const Header = () => {
       const updateSystemTheme = (matches: boolean) => {
         applyResolvedTheme(matches ? 'dark' : 'light')
       }
-      setThemeIcon(<MdMonitor />)
       updateSystemTheme(mq.matches)
       const handler = (e: MediaQueryListEvent) => updateSystemTheme(e.matches)
       mq.addEventListener('change', handler)
       return () => mq.removeEventListener('change', handler)
     } else {
       applyResolvedTheme(theme)
-      setThemeIcon(theme === 'light' ? <IoMdSunny /> : <BsMoonFill />)
     }
   }, [theme])
-
-  const onThemeChange = useCallback(() => {
-    const cycle = ['light', 'dark', 'system'] as const
-    const newTheme = cycle[(cycle.indexOf(theme as (typeof cycle)[number]) + 1) % cycle.length]
-    setTheme(newTheme)
-    trackThemeSelect(newTheme)
-    identifyUserTheme(newTheme)
-  }, [theme, setTheme])
 
   const onLayoutChange = useCallback(() => {
     const newLayout = layout === 'cards' ? 'grid' : 'cards'
@@ -118,9 +100,6 @@ export const Header = () => {
           </CircleButton>
           <CircleButton onClick={onLayoutChange}>
             {layout === 'cards' ? <RiDashboardHorizontalFill /> : <TfiLayoutColumn4Alt />}
-          </CircleButton>
-          <CircleButton onClick={onThemeChange} variant="darkfocus">
-            {themeIcon}
           </CircleButton>
           <CircleButton onClick={() => navigate('/settings/bookmarks')}>
             <BsFillBookmarksFill />
