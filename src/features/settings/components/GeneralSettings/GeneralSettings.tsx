@@ -1,4 +1,7 @@
 import React from 'react'
+import { BsMoonFill } from 'react-icons/bs'
+import { IoMdSunny } from 'react-icons/io'
+import { MdMonitor } from 'react-icons/md'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
 import { Footer } from 'src/components/Layout'
@@ -12,12 +15,19 @@ import {
   trackThemeSelect,
 } from 'src/lib/analytics'
 import { useUserPreferences } from 'src/stores/preferences'
+import { Theme } from 'src/types'
 import { DeleteAccount } from '../UserSettings/DeleteAccount'
 import { UserInfo } from '../UserSettings/UserInfo'
 import { CardsNumberSettings } from './CardsNumberSettings'
 import { DNDSettings } from './DNDSettings'
 import './generalSettings.css'
 import { LayoutSettings } from './LayoutSettings'
+
+const themeIcons = {
+  light: <IoMdSunny />,
+  dark: <BsMoonFill />,
+  system: <MdMonitor />,
+}
 
 export const GeneralSettings = () => {
   const {
@@ -47,8 +57,7 @@ export const GeneralSettings = () => {
     setListingMode(value)
   }
 
-  const onDarkModeChange = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark'
+  const onThemeChange = (newTheme: Theme) => {
     setTheme(newTheme)
     trackThemeSelect(newTheme)
     identifyUserTheme(newTheme)
@@ -70,9 +79,23 @@ export const GeneralSettings = () => {
         <CardsNumberSettings />
 
         <div className="settingRow">
-          <p className="settingTitle">Dark Mode</p>
+          <p className="settingTitle">Theme</p>
           <div className="settingContent">
-            <Toggle checked={theme === 'dark'} icons={false} onChange={onDarkModeChange} />
+            <div className="themeSelector">
+              {(['light', 'dark', 'system'] as Theme[]).map((option) => (
+                <label key={option} className={`themeOption${theme === option ? ' active' : ''}`}>
+                  <input
+                    type="radio"
+                    name="theme"
+                    value={option}
+                    checked={theme === option}
+                    onChange={() => onThemeChange(option)}
+                  />
+                  {themeIcons[option]}
+                  <span>{option.charAt(0).toUpperCase() + option.slice(1)}</span>
+                </label>
+              ))}
+            </div>
           </div>
         </div>
 

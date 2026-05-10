@@ -25,7 +25,7 @@ export type SearchEngine = {
 }
 
 export type Layout = 'grid' | 'cards'
-export type Theme = 'dark' | 'light'
+export type Theme = 'dark' | 'light' | 'system'
 export type ListingMode = 'normal' | 'compact'
 
 export type BaseEntry = {
@@ -133,7 +133,7 @@ export type CardPropsType = {
 export type BaseItemPropsType<
   T extends {
     id: string
-  }
+  },
 > = {
   item: T
   className?: string
