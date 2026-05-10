@@ -179,7 +179,7 @@ export const trackSearchEngineSelect = (searchEngineName: string) => {
   })
 }
 
-export const trackThemeSelect = (theme: 'dark' | 'light') => {
+export const trackThemeSelect = (theme: 'dark' | 'light' | 'system') => {
   trackEvent({
     object: Objects.THEME,
     verb: Verbs.SELECT,
@@ -459,7 +459,7 @@ export const identifyUserCards = (sources: string[]) => {
   identifyUserProperty(Attributes.SOURCES, sources)
 }
 
-export const identifyUserTheme = (theme: 'dark' | 'light') => {
+export const identifyUserTheme = (theme: 'dark' | 'light' | 'system') => {
   identifyUserProperty(Attributes.THEME, theme)
 }
 
